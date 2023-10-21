@@ -29,6 +29,7 @@ nav .navbar-toggler span{
 .nav-link{
     padding-left: 0.8rem !important;
     padding-right: 0.8rem !important;
+    font-weight: 200;
 }
 .navbar-brand{
     font-weight: 200;
