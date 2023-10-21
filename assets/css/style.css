@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Roboto+Slab&display=swap');body{
+    margin: 0 auto;
+    background: #fffff8;
+    cursor: url(../img/circle-dot-regular.svg);
+}
+main{
+    min-height: 60vh;
+}
+nav{
+    border-bottom: #333 solid 1px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+nav a{
+    color: #333 !important;
+}
+nav .navbar-toggler{
+    padding: 0.15rem 0.65rem; ;
+}
+.navbar-toggler:focus{
+    box-shadow: 0 0 0 #000 !important;
+}
+nav .navbar-toggler span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav-link{
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+}
+.navbar-brand{
+    font-weight: 200;
+    margin-left: 0 !important;
+    /* font-size: 0em !important; */
+    display: inline-block;
+}
+.navbar-brand img{
+    max-width: 180px;
+}
+
+.navbar-collapse ul{
+    padding: 0;
+    text-align: center;
+}
+div.clickEffect{
+  position:fixed;
+  box-sizing:border-box;
+  border-style:solid;
+  border-color:#333;
+  border-radius:50%;
+  animation:clickEffect 0.4s ease-out;
+  z-index:99999;
+}
+@keyframes clickEffect{
+  0%{
+  opacity:1;
+  width:0.5em; 
+  height:0.5em;
+  margin:-0.25em;
+  border-width:0.5em;
+  }
+  100%{
+  opacity:0.2;
+  width:15em; 
+  height:15em;
+  margin:-7.5em;
+  border-width:0.03em;
+  }
+}
+.welcome{
+    position: relative;
+    min-height: 70vh;
+    overflow: hidden;
+}
+.welcome .path-wrap{
+    width: 500px;
+    height: auto;
+    position: absolute;
+    left: 70px;
+    bottom: 130px;
+    z-index: 0;
+}
+.path{
+	stroke-dashoffset:1000;
+	stroke-dasharray:1000;
+	animation: draw 3s linear infinite;
+}
+@keyframes draw {
+    from{
+        stroke-dashoffset: 800;
+    }
+	to{
+        stroke-dashoffset:0; 
+    }
+}
+.welcome h2{
+    font-family: 'Merriweather', serif;
+    z-index: 10;
+}
+.welcome p{
+    z-index: 10;
+    font-weight: 200;
+}
+.welcome .portrait{
+    position: absolute;
+    height: 380px;
+    width: auto;
+    bottom: 20px;
+    right: 40px;
+    z-index: 0;
+}
+footer{
+    border-top: #333 solid 1px;
+    padding: 20px 0;
+}
+footer p{
+    margin: 0;
+}
+.work-list{
+    background: #ddd;
+}
+@media (max-width: 991px) {
+    .navbar-collapse{
+        height: calc(100vh - 56px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media (max-width: 567px) {
+    .welcome{
+        min-height: 90vh;
+    }
+    .welcome .portrait{
+        height: 250px;
+        bottom: 150px;
+        left: 150px;
+    }
+    .welcome .path{
+
+    }
+}
