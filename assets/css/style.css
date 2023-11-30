@@ -1,10 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Roboto+Slab&display=swap');body{
     margin: 0 auto;
-    background: #fffff8;
+    background: #f8f4f1;
     cursor: url(../img/circle-dot-regular.svg);
+}
+:root{
+    --light-green: #E3E08B;
+    --light-blue: #41bee4;
 }
 main{
     min-height: 60vh;
+}
+a{
+    text-decoration: none !important;
+    color: #333 !important;
+    transition: all .3s linear !important;
+}
+a:hover{
+    transition: all .3s linear !important;
+    color: #505050 !important;
 }
 nav{
     border-bottom: #333 solid 1px;
@@ -120,7 +133,33 @@ footer p{
     margin: 0;
 }
 .work-list{
-    background: #ddd;
+    /* background: var(--light-blue); */
+}
+.work-block img{
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.work-block .h6{
+    font-weight: 200;
+}
+.work-block hr{
+    background: #333;
+}
+.tag{
+    padding: 7px 11px;
+    border: 0.5px solid #333;
+    border-radius: 20px;
+    color: #333;
+    line-height: 16.8px;
+    text-transform: uppercase;
+    margin-right: 5px;
+    font-size: 0.9em;
+    font-weight: 400;
+}
+@media (min-width: 991px) {
+    .work-block .h6{
+        min-height: 60px;
+    }
 }
 @media (max-width: 991px) {
     .navbar-collapse{
