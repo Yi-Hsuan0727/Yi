@@ -138,6 +138,11 @@ footer p{
 .work-block img{
     border-radius: 10px;
     margin-bottom: 10px;
+    transition: all .3s linear;
+}
+.work-block:hover img{
+    transition: all .3s linear;
+    transform: translate(-0.25rem, -0.25rem);
 }
 .work-block .h6{
     font-weight: 200;
