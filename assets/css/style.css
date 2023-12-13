@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Roboto+Slab&display=swap');body{
     margin: 0 auto;
-    background: #f8f4f1;
+    /* background: #f8f4f1; */
+    background: #faffff;
     cursor: url(../img/circle-dot-regular.svg);
 }
 :root{
@@ -21,7 +22,7 @@ a:hover{
 }
 nav{
     border-bottom: #333 solid 1px;
-    background: rgba(248, 244, 241, 0.7);
+    background: rgba(251, 254, 255, 0.7);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
 }
@@ -161,12 +162,9 @@ footer p{
     font-size: 0.9em;
     font-weight: 400;
 }
-.navbar-toggler.collapsed .navbar-toggler-icon .fa-close{
+button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     display: none;
 }
-/* .navbar-toggler.collapsed .navbar-toggler-icon .fa-bars{
-    display: inline-block;
-} */
 @media (min-width: 991px) {
     .work-block .h6{
         min-height: 60px;
@@ -181,11 +179,10 @@ footer p{
         justify-content: center;
         transition: all .3s ease-out;
     }
-    .navbar-toggler .navbar-toggler-icon .fa-bars{
+    button[aria-expanded="true"] .navbar-toggler-icon .fa-bars{
         display: none;
     }
-    .navbar-toggler.collapsed .navbar-toggler-icon .fa-bars,
-    .navbar-toggler.navbar-toggler-icon .fa-close{
+    button[aria-expanded="true"] .navbar-toggler-icon .fa-close{
         display: inline-block;
     }
 }
