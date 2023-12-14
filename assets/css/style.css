@@ -11,7 +11,7 @@
 main{
     min-height: 60vh;
 }
-a{
+a, button{
     text-decoration: none !important;
     color: #333 !important;
     transition: all .3s linear !important;
@@ -188,7 +188,7 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
 }
 @media (max-width: 567px) {
     .welcome{
-        min-height: 90vh;
+        min-height: 80vh;
     }
     .welcome .portrait{
         height: 250px;
