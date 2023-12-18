@@ -193,7 +193,7 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     .welcome .portrait{
         height: 250px;
         bottom: 150px;
-        left: 150px;
+        /* left: 150px; */
     }
     .welcome .path{
 
