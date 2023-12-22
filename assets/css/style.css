@@ -165,6 +165,25 @@ footer p{
 button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     display: none;
 }
+.photo-scroll{
+    background: url(../img/gy-center.jpg) no-repeat center top fixed;
+    background-size: cover;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+.dummy{
+    height: 40vh;
+}
+.inner-title-wrapper{
+    background: rgba(251, 254, 255, 0.7);
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px #afafaf;
+    padding: 30px;
+    position: absolute;
+    bottom: -50px;
+}
 @media (min-width: 991px) {
     .work-block .h6{
         min-height: 60px;
@@ -185,6 +204,10 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     button[aria-expanded="true"] .navbar-toggler-icon .fa-close{
         display: inline-block;
     }
+    .inner-title{
+        padding: 10px;
+        /* width: 95vw; */
+    }
 }
 @media (max-width: 567px) {
     .welcome{
@@ -195,7 +218,5 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
         bottom: 150px;
         /* left: 150px; */
     }
-    .welcome .path{
 
-    }
 }
