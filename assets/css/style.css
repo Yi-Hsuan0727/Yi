@@ -143,9 +143,9 @@ footer p{
     transition: all .3s linear;
     border: #000 1px solid;
 }
-.work-block:hover img{
+.work-block:hover{
     transition: all .3s linear;
-    transform: translate(-0.25rem, -0.25rem);
+    transform: translatey(-1rem);
 }
 .work-block .h6{
     font-weight: 200;
@@ -205,7 +205,7 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
 }
 @media (min-width: 991px) {
     .work-block .h6{
-        min-height: 60px;
+        min-height: 50px;
     }
 }
 @media (max-width: 991px) {
@@ -227,8 +227,6 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
         padding: 10px;
         /* width: 95vw; */
     }
-}
-@media (max-width: 567px) {
     .welcome{
         min-height: 80vh;
     }
@@ -237,6 +235,8 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
         bottom: 150px;
         /* left: 150px; */
     }
+}
+@media (max-width: 567px) {
     .tag{
         padding: 5px 7px;
         font-style: 0.8em;
