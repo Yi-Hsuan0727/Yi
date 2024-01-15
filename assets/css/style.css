@@ -163,14 +163,14 @@ footer p{
     transform: translatey(-1rem);
 }
 .work-block .h6{
-    font-weight: 400;
+    font-weight: 200;
 }
 .work-block hr{
     background: #333;
 }
 .tag{
     padding: 3px 11px;
-    border: 1px solid #333;
+    border: 0.5px solid #333;
     border-radius: 8px;
     color: #333;
     line-height: 16.8px;
@@ -188,6 +188,7 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
 }
 .photo-scroll{
     background: url(../img/gy-center.jpg) no-repeat center top fixed;
+    position: fixed;
     background-size: cover;
     margin-top: 57px;
     display: flex;
