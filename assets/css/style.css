@@ -5,6 +5,7 @@ body{
     background: #faffff;
     color: #333;
     cursor: url(../img/circle-dot-regular.svg);
+    scroll-behavior: smooth;
 }
 :root{
     --light-green: #E3E08B;
@@ -327,7 +328,7 @@ h2.italic-title{
         font-size: 0.95rem;
     }
     .welcome{
-        height: calc(100vh - 20px);
+        height: calc(100vh - 45px);
     }
     .welcome .portrait{
         right: 0;
