@@ -132,6 +132,7 @@ div.clickEffect{
     width: 50px;
     font-size: 1.5em;
     text-align: center;
+    border: #333 solid 1px;
 
 }
 .show {
