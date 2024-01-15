@@ -12,6 +12,8 @@ body{
     --light-blue: #41bee4;
 }
 main{
+    position: relative;
+    display: grid;
     min-height: 60vh;
 }
 p{
@@ -99,10 +101,44 @@ div.clickEffect{
   border-width:0.03em;
   }
 }
+
+.top {
+    /* --offset: 50px;  */
+    /* display: none; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    position: fixed;
+    bottom: 90px;
+    right: 60px;
+    transition: background-color .3s, opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+
+    /* visual styling */
+    text-decoration: none;
+    /* padding: 5px 8px; */
+    font-family: sans-serif;
+    color: #fff !important;
+    background: rgba(15, 15, 15, 0.259) !important;
+    border-radius: 50%;
+    white-space: nowrap;
+    height: 50px;
+    width: 50px;
+    font-size: 1.5em;
+    text-align: center;
+
+}
+.show {
+    opacity: 1;
+    visibility: visible;
+}
 .welcome{
     position: relative;
     height: calc(100vh - 40px);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .welcome .path-wrap{
     width: 500px;
@@ -142,26 +178,43 @@ div.clickEffect{
     transition: all .3s linear;
 } */
 .welcome .scroll{
-    font-size: 0.8em;
+    font-size: 0.7em;
     font-weight: 200;
     position: absolute;
-    bottom: -80px;
+    bottom: -110px;
     width: 100%;
     display: flex;
     justify-content: start;
-    -webkit-animation: sdb05 2s infinite;
-    animation: sdb05 2.5s infinite;
+    /* -webkit-animation: sdb05 2s infinite;
+    animation: sdb05 2.5s infinite; */
     box-sizing: border-box;
     transition: all .3s linear;
 }
 .scroll a{
     /* transform: rotate(90deg); */
-    height: 100px;
+    /* height: 100px;
     background: #333;
-    width: 1px;
+    width: 1px; */
     writing-mode: vertical-lr;
 }
-
+.container .inner-intro-wrapper .scroll span{
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 200;
+    margin-left: 3px;
+}
+.container .inner-intro-wrapper .scroll a{
+    writing-mode:initial;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: sdb05 2s linear infinite;
+}
+/* .container .inner-intro-wrapper .scroll a:hover{
+    animation: sdb05 2s linear infinite;
+    transition: all .3s linear;
+} */
 @keyframes sdb05 {
     0% {
       transform: translateY(0);
@@ -171,7 +224,7 @@ div.clickEffect{
       opacity: 1;
     }
     100% {
-        transform: translateY(80px);
+        transform: translateY(20px);
         opacity: 0;
     }
   }
@@ -180,7 +233,7 @@ div.clickEffect{
     position: absolute;
     height: 430px;
     width: auto;
-    bottom: 50px;
+    bottom: 150px;
     right: 40px;
     z-index: 0;
 }
@@ -296,8 +349,9 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
 }
 .inner-intro-text{
     color: #fff;
-    margin-top: 35px;
+    margin-top: 20px;
     margin-left: 3px;
+    margin-bottom: 20px;
     max-width: 600px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
@@ -372,7 +426,7 @@ h2.italic-title{
         font-size: 0.95rem;
     }
     .welcome{
-        height: calc(100vh - 50px);
+        height: calc(100vh - 80px);
     }
     .inner-intro{
         padding: 15px;
