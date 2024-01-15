@@ -135,12 +135,52 @@ div.clickEffect{
     z-index: 10;
     font-weight: 200;
     font-size: 1.2em;
+    position: relative;
 }
+/* html:not([data-scroll='0'])  .scroll{
+    display: none;
+    transition: all .3s linear;
+} */
+.welcome .scroll{
+    font-size: 0.8em;
+    font-weight: 200;
+    position: absolute;
+    bottom: -80px;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    -webkit-animation: sdb05 2s infinite;
+    animation: sdb05 2.5s infinite;
+    box-sizing: border-box;
+    transition: all .3s linear;
+}
+.scroll a{
+    /* transform: rotate(90deg); */
+    height: 100px;
+    background: #333;
+    width: 1px;
+    writing-mode: vertical-lr;
+}
+
+@keyframes sdb05 {
+    0% {
+      transform: translateY(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+        transform: translateY(80px);
+        opacity: 0;
+    }
+  }
+  
 .welcome .portrait{
     position: absolute;
-    height: 380px;
+    height: 430px;
     width: auto;
-    bottom: 20px;
+    bottom: 50px;
     right: 40px;
     z-index: 0;
 }
@@ -322,17 +362,17 @@ h2.italic-title{
         bottom: 150px;
         /* left: 150px; */
     }
+    .welcome .portrait{
+        right: 0;
+        bottom: 200px;
+    }
 }
 @media (max-width: 567px) {
     body, p, div{
         font-size: 0.95rem;
     }
     .welcome{
-        height: calc(100vh - 45px);
-    }
-    .welcome .portrait{
-        right: 0;
-        bottom: 200px;
+        height: calc(100vh - 50px);
     }
     .inner-intro{
         padding: 15px;

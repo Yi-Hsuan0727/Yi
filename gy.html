@@ -173,6 +173,11 @@
     <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
     <script>
         AOS.init();
+
+        //html data scroll y position request
+        document.addEventListener('scroll', () => {
+        document.documentElement.dataset.scroll = window.scrollY;
+        });
         
         // clickeffect
         function clickEffect(e){
