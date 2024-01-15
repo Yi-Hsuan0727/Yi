@@ -198,8 +198,6 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     background-size: cover;
     position: fixed;
     margin-top: 57px;
-    display: flex;
-    justify-content: center;
     z-index: -1;
     min-height: calc(100vh - 57px);
     width: 100%;
