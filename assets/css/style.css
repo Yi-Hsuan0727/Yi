@@ -327,7 +327,7 @@ h2.italic-title{
         font-size: 0.95rem;
     }
     .welcome{
-        height: 100vh;
+        height: calc(100vh - 20px);
     }
     .welcome .portrait{
         right: 0;
