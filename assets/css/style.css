@@ -145,9 +145,13 @@ div.clickEffect{
 footer{
     border-top: #333 solid 1px;
     padding: 20px 0;
+    background: #faffff;
 }
 footer p{
     margin: 0;
+}
+.bg-w{
+    background: #faffff;
 }
 .work-list{
     /* background: var(--light-blue); */
@@ -187,14 +191,17 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     display: none;
 }
 .photo-scroll{
-    background: url(../img/gy-center.jpg) no-repeat center top fixed;
-    position: fixed;
+    background-repeat: no-repeat;
+    background-position: center top;
     background-size: cover;
+    background-attachment: fixed;
+    position: fixed;
     margin-top: 57px;
     display: flex;
     justify-content: center;
     z-index: -1;
     min-height: calc(100vh - 57px);
+    width: 100%;
 }
 .photo-scroll::before{
     content: "";
