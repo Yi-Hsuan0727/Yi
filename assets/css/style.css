@@ -152,6 +152,8 @@ footer p{
 }
 .bg-w{
     background: #faffff;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 .work-list{
     /* background: var(--light-blue); */
@@ -194,7 +196,6 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
-    background-attachment: fixed;
     position: fixed;
     margin-top: 57px;
     display: flex;
