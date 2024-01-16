@@ -357,9 +357,9 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     
 }
 .inner-intro{
-    background: rgba(251, 254, 255, 0.6);
+    background: rgba(255, 255, 255, 1);
     /* border-radius: 10px; */
-    border: #333 solid 1px;
+    border-top: #333 solid 1px;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     padding: 50px 0px 40px 0px;
@@ -396,6 +396,7 @@ h2.italic-title{
 }
 .bg-bg{
     background:#eee;
+    background: rgba(255, 255, 255, 0.9);
 }
 .sticky-top{
     top: 70px;
