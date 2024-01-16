@@ -3,6 +3,13 @@
 
 // Include any default variable overrides here (though functions won't be available)
 
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1042px,
+  xxl: 1042px
+);
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 // Then add additional custom code here

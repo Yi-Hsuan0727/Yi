@@ -4,7 +4,7 @@ body{
     /* background: #f8f4f1; */
     background: #faffff;
     color: #333;
-    cursor: url(../img/circle-dot-regular.svg);
+    cursor: url(../img/circle-dot-regular.svg) !important;
     scroll-behavior: smooth;
 }
 :root{
@@ -51,6 +51,14 @@ nav a{
 }
 nav .navbar-toggler{
     padding: 0.15rem 0.65rem;
+    border: 0px solid transparent;
+}
+.navbar-toggler-icon{
+    background-image: none;
+}
+.bg-body-tertiary{
+    --bs-bg-opacity: 0;
+    background-color: rgba(251, 254, 255, 0.9) !important;
 }
 .navbar-toggler:focus{
     box-shadow: 0 0 0 #000 !important;
@@ -399,12 +407,12 @@ h2.italic-title{
     margin-left: 5px;
     margin-right: 5px;
 }
-@media (min-width:1080px) {
+@media (min-width:1079px) {
     .inner-intro-text{
         max-width: 700px;
     }
 }
-@media (min-width: 991px) {
+@media (min-width: 992px) {
     .work-block .h6{
         min-height: 50px;
     }
