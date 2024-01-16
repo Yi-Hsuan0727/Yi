@@ -439,7 +439,7 @@ h2.italic-title{
         font-size: 0.95rem;
     }
     .welcome{
-        height: calc(100vh - 80px);
+        height: calc(100vh - 150px);
     }
     .inner-intro{
         padding: 15px;
@@ -459,5 +459,8 @@ h2.italic-title{
     .top{
         right: 20px;
         bottom: 20px;
+    }
+    .scroll{
+        margin-bottom: 55px;
     }
 }
