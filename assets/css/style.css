@@ -141,7 +141,7 @@ div.clickEffect{
 }
 .welcome{
     position: relative;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 50px);
     /* overflow: hidden; */
 }
 .welcome .path-wrap{
@@ -441,10 +441,7 @@ h2.italic-title{
     .welcome{
         height: calc(100vh - 150px);
     }
-    .inner-intro{
-        padding: 15px;
-        /* width: 95vw; */
-    }
+    
     .tag{
         padding: 2px 8px;
         font-size: 0.8em;
@@ -461,6 +458,6 @@ h2.italic-title{
         bottom: 20px;
     }
     .scroll{
-        margin-bottom: 55px;
+        margin-bottom: 40px;
     }
 }
