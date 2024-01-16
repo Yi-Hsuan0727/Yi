@@ -425,13 +425,9 @@ h2.italic-title{
         min-height: 80vh;
     }
     .welcome .portrait{
-        height: 250px;
-        bottom: 150px;
-        /* left: 150px; */
-    }
-    .welcome .portrait{
+        height: 350px;
+        bottom: 230px;
         right: 0;
-        bottom: 200px;
     }
 }
 @media (max-width: 567px) {
@@ -457,7 +453,9 @@ h2.italic-title{
         right: 20px;
         bottom: 20px;
     }
-    .scroll{
-        margin-bottom: 40px;
+    .welcome .portrait{
+        width: calc(68vw - 100px);
+        height: auto;
+        bottom: 180px;
     }
 }
