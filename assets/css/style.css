@@ -191,7 +191,6 @@ div.clickEffect{
     justify-content: start;
     /* -webkit-animation: sdb05 2s infinite;
     animation: sdb05 2.5s infinite; */
-    box-sizing: border-box;
     transition: all .3s linear;
 }
 .scroll a{
@@ -286,7 +285,6 @@ footer p{
     font-weight: 200;
 }
 .tags{
-    
     margin-left: -1.5px;
 }
 button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
@@ -457,5 +455,8 @@ h2.italic-title{
         width: calc(68vw - 100px);
         height: auto;
         bottom: 180px;
+    }
+    .tags{
+        margin-left: 0px;
     }
 }
