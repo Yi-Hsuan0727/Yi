@@ -430,6 +430,19 @@ h2.italic-title{
     transition: all .3s linear;
     border-radius: 10px;
 }
+.sitemap-info span {
+    padding: 0px 7px;
+    background-color: #ffffff;
+    border-right: 2px solid rgba(0,0,0,0.1);
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+}
+.lcm-line{
+    height: 20px; 
+    width: 100%;
+    background: url(../img/lcm2.png) repeat-x; 
+    background-size: contain;
+    opacity: .1;
+}
 @media (min-width:1079px) {
     .inner-intro-text{
         max-width: 700px;
