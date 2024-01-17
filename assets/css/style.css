@@ -311,7 +311,7 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     position: fixed;
     margin-top: 57px;
     z-index: -1;
-    min-height: calc(100vh - 57px);
+    min-height: calc(100dvh - 57px);
     width: 100%;
 }
 .photo-scroll::before{
@@ -472,5 +472,10 @@ h2.italic-title{
     }
     .tags{
         margin-left: 0px;
+    }
+}
+@media (max-width: 479px) {
+    .welcome .portrait{
+        width: calc(75vw - 100px);
     }
 }
