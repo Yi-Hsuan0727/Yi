@@ -1,4 +1,4 @@
-
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 var scrollToTopBtn = document.querySelector(".top")
 var rootElement = document.documentElement
 

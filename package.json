@@ -1,7 +1,4 @@
 {
-  "scripts": {
-    "watch:scss": "node-sass -w assets/css/style.scss assets/css/style1.css"
-  },
   "dependencies": {
     "bootstrap": "^5.3.2"
   },
