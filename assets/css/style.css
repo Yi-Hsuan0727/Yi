@@ -291,6 +291,10 @@ footer p{
 .work-block hr{
     background: #333;
 }
+img.animated-gif{
+    width: 180px;
+    height: auto;
+}
 .tag{
     padding: 3px 11px;
     border: 0.5px solid #333;
@@ -415,6 +419,10 @@ h2.italic-title{
     margin-left: 5px;
     margin-right: 5px;
 }
+.fp{
+    width: 150px; 
+    height: auto;
+}
 @media (min-width:1079px) {
     .inner-intro-text{
         max-width: 700px;
@@ -484,5 +492,9 @@ h2.italic-title{
 @media (max-width: 479px) {
     .welcome .portrait{
         width: calc(75vw - 100px);
+    }
+    .fp{
+        width: 100px; 
+        height: auto;
     }
 }
