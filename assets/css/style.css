@@ -311,7 +311,7 @@ button[aria-expanded="false"] .navbar-toggler-icon .fa-close{
     position: fixed;
     margin-top: 57px;
     z-index: -1;
-    min-height: calc(100dvh - 57px);
+    min-height: calc(100vh - 57px);
     width: 100%;
 }
 .photo-scroll::before{
