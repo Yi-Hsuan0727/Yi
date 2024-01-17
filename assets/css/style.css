@@ -283,7 +283,7 @@ footer p{
 }
 .work-block:hover{
     transition: all .3s linear;
-    transform: translatey(-1rem);
+    transform: translatey(-0.5rem);
 }
 .work-block .h6{
     font-weight: 200;
