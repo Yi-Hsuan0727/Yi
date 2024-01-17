@@ -423,6 +423,13 @@ h2.italic-title{
     width: 150px; 
     height: auto;
 }
+.out-link a{
+    border: #333 solid 1px;
+    font-size: large;
+    padding: 6px 40px;
+    transition: all .3s linear;
+    border-radius: 10px;
+}
 @media (min-width:1079px) {
     .inner-intro-text{
         max-width: 700px;
