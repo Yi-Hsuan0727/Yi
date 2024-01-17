@@ -395,8 +395,10 @@ h2.italic-title{
     margin-bottom: 20px;
 }
 .bg-bg{
-    background:#eee;
     background: rgba(255, 255, 255, 0.9);
+}
+.bg-d{
+    background: #eee;
 }
 .sticky-top{
     top: 70px;
