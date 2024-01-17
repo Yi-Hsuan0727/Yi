@@ -6,6 +6,7 @@ body{
     color: #333;
     cursor: url(../img/circle-dot-regular.svg) !important;
     scroll-behavior: smooth;
+    font-family: 'Open Sans', sans-serif;
 }
 :root{
     --light-green: #E3E08B;
@@ -37,8 +38,11 @@ a:hover{
     transition: all .3s linear !important;
     color: #505050 !important;
 }
-ul{
+ul, ol{
     padding-left: 20px;
+}
+li{
+    margin-bottom: 8px;
 }
 nav{
     border-bottom: #333 solid 1px;
@@ -71,7 +75,7 @@ nav .navbar-toggler span{
 .nav-link{
     padding-left: 0.8rem !important;
     padding-right: 0.8rem !important;
-    font-weight: 200;
+    font-weight: 300;
 }
 .nav-link.active{
     border-bottom: 1px solid #333;
@@ -80,7 +84,7 @@ nav .navbar-toggler span{
     text-decoration: underline !important;
 } */
 .navbar-brand{
-    font-weight: 200;
+    font-weight: 300;
     margin-left: 0 !important;
     /* font-size: 0em !important; */
     display: inline-block;
@@ -197,7 +201,7 @@ div.clickEffect{
 } */
 .welcome .scroll{
     font-size: 0.7em;
-    font-weight: 200;
+    font-weight: 300;
     position: absolute;
     bottom: -110px;
     width: 100%;
@@ -217,7 +221,7 @@ div.clickEffect{
 .container .inner-intro-wrapper .scroll span{
     color: #fff;
     font-size: 1.2em;
-    font-weight: 200;
+    font-weight: 300;
     margin-left: 3px;
 }
 .container .inner-intro-wrapper .scroll a{
@@ -296,7 +300,7 @@ footer p{
     text-transform: uppercase;
     margin-right: 5px;
     font-size: 0.9em;
-    font-weight: 200;
+    /* font-weight: 300; */
 }
 .tags{
     margin-left: -1.5px;
