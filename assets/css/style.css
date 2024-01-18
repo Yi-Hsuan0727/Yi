@@ -518,4 +518,7 @@ h2.italic-title{
         width: 100px; 
         height: auto;
     }
+    .home-intro span{
+        font-size: 0.9em;
+    }
 }
