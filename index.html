@@ -175,12 +175,7 @@
     <div class="loader-wrapper" id="loaderWrapper">
         <div id="loader" class="loader"></div>
     </div>
-    <script>
 
-        //loader
-        $("document").ready($(".loader-wrapper").fadeOut("slow"));
-        
-    </script>
 
     <script src="https://kit.fontawesome.com/71d797aa33.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -207,13 +202,11 @@
 
 
     </script>
-    <!-- <script type="module">
-        // cursor effect
-        import { followingDotCursor } from "https://unpkg.com/cursor-effects@latest/dist/esm.js";
-        new followingDotCursor();
-        new cursoreffects.followingDotCursor({
-            color: ["#ddd"],
-        });
-    </script> -->
+    <script>
+
+        //loader
+        $("document").ready($(".loader-wrapper").delay(500).fadeOut("slow"));
+        
+    </script>
 </body>
 </html>
