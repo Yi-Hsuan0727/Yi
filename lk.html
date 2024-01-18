@@ -17,6 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital@1&family=Roboto+Slab&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+    <script src="assets/js/jquery.js"></script>
 </head>
 <body class="myDiv">
     <header>
@@ -275,6 +276,15 @@
             </div>
         </div>     
     </footer>
+    <div class="loader-wrapper" id="loaderWrapper">
+        <div id="loader" class="loader"></div>
+    </div>
+    <script>
+
+        //loader
+        $("document").ready($(".loader-wrapper").fadeOut("slow"));
+        
+    </script>
     <script src="https://kit.fontawesome.com/71d797aa33.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/index.js"></script>
