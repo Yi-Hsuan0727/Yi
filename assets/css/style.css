@@ -2,7 +2,7 @@
 body{
     margin: 0 auto;
     /* background: #f8f4f1; */
-    background: #faffff;
+    background: #ffffff;
     color: #333;
     cursor: url(../img/circle-dot-regular.svg) !important;
     scroll-behavior: smooth;
@@ -261,7 +261,7 @@ div.clickEffect{
 footer{
     border-top: #333 solid 1px;
     padding: 20px 0;
-    background: #faffff;
+    background: #ffffff;
 }
 footer p{
     margin: 0;
