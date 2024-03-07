@@ -159,7 +159,7 @@ div.clickEffect{
 }
 .welcome{
     position: relative;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 120px);
     /* overflow: hidden; */
 }
 .welcome .path-wrap{
@@ -255,7 +255,7 @@ div.clickEffect{
     height: 430px;
     width: auto;
     bottom: 150px;
-    right: 40px;
+    right: 0px;
     z-index: 0;
 }
 footer{
@@ -269,6 +269,12 @@ footer p{
 .bg-w{
     background: #ffffff;
     box-shadow: -1px 0px 10px rgba(15, 15, 15, 0.1);
+}
+.bg-wave{
+    background-image: url(../img/wave.jpg);
+    background-repeat:repeat-x;
+    background-position: top left;
+    background-size: 180px auto;
 }
 .bg-bg .h2, .bg-w .h2{
     margin-bottom: 30px;
@@ -451,7 +457,48 @@ h2.italic-title{
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     animation: dash 5s linear infinite;
-    max-width: 150px;
+    max-width: 180px;
+}
+.bg-black .h2, .bg-black .h3, .bg-black .h4, .bg-black .h6, .bg-black a, .bg-black .tag{
+    color: #fff !important;
+}
+.bg-black .tag{
+    border: 0.5px solid #fff;
+}
+.work-block:hover img{
+    border: #fff 1px solid;
+}
+.bg-black{
+    background: #111111 !important;
+}
+.work-list{
+    position: relative;
+}
+.work-list::after{
+    content: "";
+    background-image: url(../img/stars.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    position: absolute;
+    right: 20%;
+    top: 80px;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+}
+.work-list::before{
+    content: "";
+    background-image: url(../img/stars2.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    position: absolute;
+    left: 20%;
+    top: 80px;
+    width: 100px;
+    height: 60px;
+    z-index: 1;
 }
 @keyframes dash {
     to {
