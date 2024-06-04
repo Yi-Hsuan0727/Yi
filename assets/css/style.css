@@ -213,6 +213,7 @@ div.clickEffect{
 }
 .scroll-1 img{
     width: 110px;
+    height: auto;
 }
 .scroll a{
     /* transform: rotate(90deg); */
@@ -578,6 +579,7 @@ h2.italic-title{
     }
     .scroll-1 img{
         width: 100px;
+        height: auto;
     }
     .tag{
         padding: 2px 8px;
@@ -634,6 +636,7 @@ h2.italic-title{
     }
     .scroll-1 img{
         width: 80px;
+        height: auto;
     }
     .work-list::after{
         right: 5%;
