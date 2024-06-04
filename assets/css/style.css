@@ -211,6 +211,9 @@ div.clickEffect{
     animation: sdb05 2.5s infinite; */
     transition: all .3s linear;
 }
+.scroll-1 img{
+    width: 110px;
+}
 .scroll a{
     /* transform: rotate(90deg); */
     /* height: 100px;
@@ -236,6 +239,7 @@ div.clickEffect{
     animation: sdb05 2s linear infinite;
     transition: all .3s linear;
 } */
+
 @keyframes sdb05 {
     0% {
       transform: translateY(0);
@@ -252,7 +256,7 @@ div.clickEffect{
   
 .welcome .portrait{
     position: absolute;
-    height: 430px;
+    height: 400px;
     width: auto;
     bottom: 150px;
     right: 0px;
@@ -271,10 +275,17 @@ footer p{
     box-shadow: -1px 0px 10px rgba(15, 15, 15, 0.1);
 }
 .bg-wave{
-    background-image: url(../img/wave.jpg);
+    /* background-image: url(../img/wave.jpg); */
     background-repeat:repeat-x;
     background-position: top left;
     background-size: 180px auto;
+}
+.wave{
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    display: block;
 }
 .bg-bg .h2, .bg-w .h2{
     margin-bottom: 30px;
@@ -538,6 +549,18 @@ h2.italic-title{
         bottom: 230px;
         right: 0;
     }
+    .work-list::after{
+        right: 10%;
+        top: 80px;
+        width: 80px;
+        height: 80px;
+    }
+    .work-list::before{
+        left: 10%;
+        top: 80px;
+        width: 80px;
+        height: 50px;
+    }
 }
 @media (max-width: 567px) {
     body, p, div{
@@ -546,7 +569,9 @@ h2.italic-title{
     .welcome{
         height: calc(100vh - 150px);
     }
-    
+    .scroll img{
+        width: 100px;
+    }
     .tag{
         padding: 2px 8px;
         font-size: 0.8em;
@@ -570,6 +595,7 @@ h2.italic-title{
     .tags{
         margin-left: 0px;
     }
+
 }
 @media (max-width: 479px) {
     .welcome .portrait{
@@ -584,6 +610,33 @@ h2.italic-title{
     }
     .signature{
         max-width: 110px;
+    }
+    .work-list::after{
+        right: 5%;
+        top: 80px;
+        width: 80px;
+        height: 80px;
+    }
+    .work-list::before{
+        left: 5%;
+        top: 80px;
+        width: 80px;
+        height: 50px;
+    }
+    .scroll img{
+        width: 80px;
+    }
+    .work-list::after{
+        right: 5%;
+        top: 80px;
+        width: 60px;
+        height: 60px;
+    }
+    .work-list::before{
+        left: 3%;
+        top: 80px;
+        width: 70px;
+        height: 40px;
     }
 }
 /* loader */
