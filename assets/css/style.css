@@ -281,7 +281,7 @@ footer p{
     background-size: 180px auto;
 }
 .wave{
-    bottom: -1px;
+    bottom: -80px;
     left: 0;
     width: 100%;
     z-index: -1;
@@ -561,6 +561,13 @@ h2.italic-title{
         width: 80px;
         height: 50px;
     }
+    .wave{
+        bottom: -50px;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+        display: block;
+    }
 }
 @media (max-width: 567px) {
     body, p, div{
@@ -569,7 +576,7 @@ h2.italic-title{
     .welcome{
         height: calc(100vh - 150px);
     }
-    .scroll img{
+    .scroll-1 img{
         width: 100px;
     }
     .tag{
@@ -595,7 +602,9 @@ h2.italic-title{
     .tags{
         margin-left: 0px;
     }
-
+    .wave{
+        bottom: -30px;
+    }
 }
 @media (max-width: 479px) {
     .welcome .portrait{
@@ -623,7 +632,7 @@ h2.italic-title{
         width: 80px;
         height: 50px;
     }
-    .scroll img{
+    .scroll-1 img{
         width: 80px;
     }
     .work-list::after{
