@@ -159,7 +159,7 @@ div.clickEffect{
 }
 .welcome{
     position: relative;
-    height: calc(100vh - 120px);
+    height: calc(70vh - 120px);
     /* overflow: hidden; */
 }
 .welcome .path-wrap{
@@ -182,6 +182,9 @@ div.clickEffect{
 	to{
         stroke-dashoffset:0; 
     }
+}
+.home-top{
+    height: calc(85vh - 120px);
 }
 .welcome h2{
     font-family: 'Merriweather', serif;
@@ -525,6 +528,14 @@ h2.italic-title{
 @media (min-width: 992px) {
     .work-block .h6{
         min-height: 50px;
+    }
+}
+@media (max-width: 1980px) {
+    .welcome{
+        height: calc(95vh - 120px);
+    }
+    .home-top{
+        height: calc(100vh - 120px);
     }
 }
 @media (max-width: 991px) {
