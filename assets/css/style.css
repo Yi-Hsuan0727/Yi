@@ -215,7 +215,7 @@ div.clickEffect{
     transition: all .3s linear;
 }
 .scroll-1 img{
-    width: 110px;
+    max-width: 110px;
     height: auto;
 }
 .scroll a{
@@ -589,7 +589,7 @@ h2.italic-title{
         height: calc(100vh - 150px);
     }
     .scroll-1 img{
-        width: 100px;
+        max-width: 100px;
         height: auto;
     }
     .tag{
@@ -646,7 +646,7 @@ h2.italic-title{
         height: 50px;
     }
     .scroll-1 img{
-        width: 80px;
+        max-width: 80px;
         height: auto;
     }
     .work-list::after{
