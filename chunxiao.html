@@ -23,13 +23,22 @@
             aspect-ratio: 842 / 1191; /* 确保比例正确 */
         }
 
-        #scratchCanvas,
+        #scratchCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* 宽度 100% */
+            height: auto; /* 高度按比例自动调整 */
+        }
+
         #resultImage {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%; /* 宽度 100% */
             height: auto; /* 高度按比例自动调整 */
+            user-select: none; /* 禁用选择 */
+            pointer-events: none; /* 禁用鼠标事件 */
         }
 
         button {
@@ -143,6 +152,11 @@
             brushSize = getBrushSize(); // 动态更新笔刷大小
             initializeCanvas(); // 重新初始化画布
         });
+
+        // 禁用图片的拖拽和右键菜单功能
+        const resultImage = document.getElementById("resultImage");
+        resultImage.addEventListener("dragstart", (e) => e.preventDefault());
+        resultImage.addEventListener("contextmenu", (e) => e.preventDefault());
     </script>
 </body>
 </html>
