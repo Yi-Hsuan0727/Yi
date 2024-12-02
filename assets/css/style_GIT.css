@@ -111,3 +111,9 @@ button.modal-close{
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+
+@media (max-width:1880px) {
+    .container{
+        max-width: 475px; /* 限制最大宽度 */
+    }
+}

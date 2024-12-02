@@ -51,6 +51,7 @@
         const infoModal = document.getElementById("infoModal");
         const closeModal = document.getElementById("closeModal");
         const overlay = document.getElementById("overlay");
+        const container = document.querySelector(".container");
 
         let isScratching = false;
         let brushSize = getBrushSize(); // 动态获取笔刷大小
@@ -121,11 +122,22 @@
             ctx.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
         }
 
+        // 动态调整 .container 最大宽度
+        function adjustContainerWidth() {
+            if (window.innerWidth < 1880) {
+                container.style.maxWidth = "475px"; // 小屏时最大宽度为 475px
+            } else {
+                container.style.maxWidth = "842px"; // 大屏时恢复默认最大宽度
+            }
+        }
+
         // 根据窗口宽度动态设置笔刷大小
         function getBrushSize() {
-            const screenWidth = window.innerWidth;
-            return screenWidth < 765 ? 15 : 30; // 小屏设备笔刷为15，大屏为30
+            if (window.innerWidth < 765) return 15; // 小屏设备
+            if (window.innerWidth < 1880) return 20; // 中屏设备
+            return 30; // 大屏设备
         }
+
 
         // 监听窗口大小变化，动态调整画布和笔刷
         window.addEventListener("resize", () => {
