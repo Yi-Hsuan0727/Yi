@@ -63,7 +63,7 @@ a{
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    padding: 20px;
+    padding: 20px 10px;
     z-index: 1000;
     text-align: center;
 }
@@ -80,20 +80,24 @@ a{
     color: #333;
 }
 
+.modal-close-wrap{
+    display: flex;
+    justify-content: center;
+}
 .modal-close {
     display: block;
     margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 14px;
-    background-color: #ff4d4f;
-    color: white;
-    border: none;
+    padding: 6px 20px;
+    font-size: 12px;
+    background-color: #fff;
+    color: #111;
+    border: solid 1px #111;
     border-radius: 5px;
     cursor: pointer;
+    
 }
-
-.modal-close:hover {
-    background-color: #d9363e;
+button.modal-close{
+    margin-bottom: 0;
 }
 
 /* 背景遮罩 */
