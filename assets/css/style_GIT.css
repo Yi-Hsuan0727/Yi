@@ -14,6 +14,7 @@ body {
     width: 100%; /* 宽度 100% */
     max-width: 842px; /* 限制最大宽度 */
     aspect-ratio: 842 / 1191; /* 确保比例正确 */
+    clip-path: inset(0.5% 0.5% 0.5% 0.5%);
 }
 
 #scratchCanvas {
