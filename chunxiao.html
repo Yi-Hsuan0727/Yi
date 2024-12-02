@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>刮刮乐效果</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff; /* 背景白色 */
+        }
+
+        .container {
+            position: relative;
+            width: 100%; /* 宽度 100% */
+            max-width: 842px; /* 限制最大宽度 */
+            aspect-ratio: 842 / 1191; /* 确保比例正确 */
+        }
+
+        #scratchCanvas,
+        #resultImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* 宽度 100% */
+            height: auto; /* 高度按比例自动调整 */
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 下层图片 -->
+        <img id="resultImage" src="assets/img_GIT/bg-05.png" alt="下层图片">
+        <!-- 上层画布 -->
+        <canvas id="scratchCanvas"></canvas>
+    </div>
+    <!-- 重置按钮 -->
+    <button id="resetButton">重置</button>
+
+    <script>
+        const canvas = document.getElementById("scratchCanvas");
+        const ctx = canvas.getContext("2d");
+        const resetButton = document.getElementById("resetButton");
+
+        let isScratching = false;
+
+        // 加载覆盖层（上层图像）并绘制到画布
+        const coverImage = new Image();
+        coverImage.src = "assets/img_GIT/bg-04.png"; // 上层图片
+        coverImage.onload = () => {
+            initializeCanvas();
+        };
+
+        coverImage.onerror = () => console.error("上层图片 (bg-04.png) 加载失败，请检查路径！");
+
+        function initializeCanvas() {
+            // 设置画布大小与容器一致
+            const container = document.querySelector(".container");
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+
+            // 绘制上层图片到画布
+            ctx.globalCompositeOperation = "source-over";
+            ctx.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
+
+            // 添加刮刮乐事件
+            canvas.addEventListener("mousedown", startScratching);
+            canvas.addEventListener("mouseup", stopScratching);
+            canvas.addEventListener("mousemove", scratch);
+
+            // 支持触控事件
+            canvas.addEventListener("touchstart", (e) => startScratching(e.touches[0]));
+            canvas.addEventListener("touchend", stopScratching);
+            canvas.addEventListener("touchmove", (e) => scratch(e.touches[0]));
+        }
+
+        function startScratching() {
+            isScratching = true;
+        }
+
+        function stopScratching() {
+            isScratching = false;
+        }
+
+        function scratch(event) {
+            if (!isScratching) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            // 设置刮除效果（透明区域）
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2); // 刮除的笔刷大小
+            ctx.fill();
+        }
+
+        // 重置功能
+        resetButton.addEventListener("click", () => {
+            resetCanvas();
+        });
+
+        function resetCanvas() {
+            // 清空画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 重新绘制上层图片
+            ctx.globalCompositeOperation = "source-over";
+            ctx.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
+        }
+
+        // 监听窗口大小变化，重新调整画布大小
+        window.addEventListener("resize", () => {
+            initializeCanvas();
+        });
+    </script>
+</body>
+</html>
