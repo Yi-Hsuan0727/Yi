@@ -3,59 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>刮刮乐效果</title>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffffff; /* 背景白色 */
-            overflow: hidden; /* 禁用滚动条 */
-        }
-
-        .container {
-            position: relative;
-            width: 100%; /* 宽度 100% */
-            max-width: 842px; /* 限制最大宽度 */
-            aspect-ratio: 842 / 1191; /* 确保比例正确 */
-        }
-
-        #scratchCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%; /* 宽度 100% */
-            height: auto; /* 高度按比例自动调整 */
-        }
-
-        #resultImage {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%; /* 宽度 100% */
-            height: auto; /* 高度按比例自动调整 */
-            user-select: none; /* 禁用选择 */
-            pointer-events: none; /* 禁用鼠标事件 */
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>chunxiao</title>
+    <link rel="stylesheet" href="assets/css/style_GIT.css">
 </head>
 <body>
     <div class="container">
@@ -65,12 +14,38 @@
         <canvas id="scratchCanvas"></canvas>
     </div>
     <!-- 重置按钮 -->
-    <button id="resetButton">重置</button>
+     <div class="d-flex">
+         <button id="resetButton"><img src="assets/img_GIT/rotate-left-solid.svg" width="20px" height="20px" alt=""></button>
+         <button id="infoButton"><img src="assets/img_GIT/bookmark-regular.svg" width="20px" height="20px" alt=""></button>
+         <a class="button" href="p2.html"><img src="assets/img_GIT/angles-right-solid.svg" width="20px" height="20px" alt=""></a>
+     </div>
+    <!-- 弹跳视窗 -->
+    <div class="modal" id="infoModal">
+        <div class="modal-header">春曉/chun xiao/</div>
+        <div class="modal-body">
+            <p>Dawn in The Spring</p>
+            <p>(Chinese Poem by Meng Haoran)</p>
+        </div>
+        <button class="modal-close" id="closeModal">Close</button>
+    </div>
+    <!-- 背景遮罩 -->
+    <div class="overlay" id="overlay"></div>
+
+
+
+
+
+
+
 
     <script>
         const canvas = document.getElementById("scratchCanvas");
         const ctx = canvas.getContext("2d");
         const resetButton = document.getElementById("resetButton");
+        const infoButton = document.getElementById("infoButton");
+        const infoModal = document.getElementById("infoModal");
+        const closeModal = document.getElementById("closeModal");
+        const overlay = document.getElementById("overlay");
 
         let isScratching = false;
         let brushSize = getBrushSize(); // 动态获取笔刷大小
@@ -157,6 +132,25 @@
         const resultImage = document.getElementById("resultImage");
         resultImage.addEventListener("dragstart", (e) => e.preventDefault());
         resultImage.addEventListener("contextmenu", (e) => e.preventDefault());
+
+
+        // 显示弹窗
+        infoButton.addEventListener("click", () => {
+        infoModal.style.display = "block";
+        overlay.style.display = "block";
+        });
+
+        // 关闭弹窗
+        closeModal.addEventListener("click", () => {
+            infoModal.style.display = "none";
+            overlay.style.display = "none";
+        });
+
+        // 点击遮罩关闭弹窗
+        overlay.addEventListener("click", () => {
+            infoModal.style.display = "none";
+            overlay.style.display = "none";
+        });
     </script>
 </body>
 </html>
