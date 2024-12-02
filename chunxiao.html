@@ -13,6 +13,7 @@
             align-items: center;
             height: 100vh;
             background-color: #ffffff; /* 背景白色 */
+            overflow: hidden; /* 禁用滚动条 */
         }
 
         .container {
@@ -63,6 +64,7 @@
         const resetButton = document.getElementById("resetButton");
 
         let isScratching = false;
+        let brushSize = getBrushSize(); // 动态获取笔刷大小
 
         // 加载覆盖层（上层图像）并绘制到画布
         const coverImage = new Image();
@@ -112,7 +114,7 @@
             // 设置刮除效果（透明区域）
             ctx.globalCompositeOperation = "destination-out";
             ctx.beginPath();
-            ctx.arc(x, y, 30, 0, Math.PI * 2); // 刮除的笔刷大小
+            ctx.arc(x, y, brushSize, 0, Math.PI * 2); // 动态笔刷大小
             ctx.fill();
         }
 
@@ -130,9 +132,16 @@
             ctx.drawImage(coverImage, 0, 0, canvas.width, canvas.height);
         }
 
-        // 监听窗口大小变化，重新调整画布大小
+        // 根据窗口宽度动态设置笔刷大小
+        function getBrushSize() {
+            const screenWidth = window.innerWidth;
+            return screenWidth < 765 ? 15 : 30; // 小屏设备笔刷为15，大屏为30
+        }
+
+        // 监听窗口大小变化，动态调整画布和笔刷
         window.addEventListener("resize", () => {
-            initializeCanvas();
+            brushSize = getBrushSize(); // 动态更新笔刷大小
+            initializeCanvas(); // 重新初始化画布
         });
     </script>
 </body>
