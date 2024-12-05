@@ -38,7 +38,17 @@
     <div class="overlay" id="overlay"></div>
 
 
-
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <h2>How to Use This Website</h2>
+            <p>Welcome to our interactive experience! Here's how to navigate:</p>
+            <p><h3 style="display: flex; align-items: center;"><img src="assets/img_GIT/hand-pointer-regular.svg" width="20px" height="20px" alt="" style="margin-right: 5px;"> Write to Reveal</h3> Use your mouse or touch to uncover hidden content.</p><hr>
+            <p style="text-align: center;"><h3 style="display: flex; align-items: center;"> <img class="intro-icon" src="assets/img_GIT/rotate-left-solid.svg" width="15px" height="15px" alt=""> Reset</h3>Click the reset button to start over.</p><hr>
+            <p style="text-align: center;"><h3 style="display: flex; align-items: center;"> <img class="intro-icon" src="assets/img_GIT/bookmark-regular.svg" width="15px" height="15px" alt=""> Learn</h3>Click the info button to explore detailed explanations and translations.</p><hr>
+            <p style="text-align: center;"><h3 style="display: flex; align-items: center;"><img class="intro-icon" src="assets/img_GIT/angles-left-solid.svg" width="15px" height="15px" alt=""><img class="intro-icon" src="assets/img_GIT/angles-right-solid.svg" width="15px" height="15px" alt=""> Navigate</h3>Use the navigation button to move between sections representing the seasons.</p><hr>
+            <p>Enjoy exploring the beauty of Chinese poetry through this interactive platform!</p>
+        </div>
+    </div>
 
 
 
@@ -168,6 +178,20 @@
         overlay.addEventListener("click", () => {
             infoModal.style.display = "none";
             overlay.style.display = "none";
+        });
+
+        // 获取弹窗元素
+        const popupOverlay = document.getElementById('popupOverlay');
+
+        // 页面加载完成后显示弹窗
+        window.addEventListener('load', () => {
+            popupOverlay.style.display = 'flex';
+        });
+
+        // 点击任意处关闭弹窗
+        popupOverlay.addEventListener('click', () => {
+            popupOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto'; // 恢复滚动条
         });
     </script>
 </body>

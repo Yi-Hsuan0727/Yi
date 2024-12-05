@@ -113,6 +113,60 @@ button.modal-close{
     z-index: 999;
 }
 
+/* 全屏弹窗样式 */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 半透明黑色背景 */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-content {
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+    position: relative;
+}
+
+.popup-content h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.popup-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+/* 鼠标点击提示 */
+.popup-overlay::after {
+    content: "Click anywhere to close";
+    position: absolute;
+    bottom: 20px;
+    font-size: 14px;
+    color: white;
+}
+.intro-icon{
+    border-radius: 50px;
+    border: #111 solid 1px;
+    padding: 5px 5px;
+    margin-right: 5px;
+}
 @media (max-width:1880px) {
     .container{
         max-width: 475px; /* 限制最大宽度 */
