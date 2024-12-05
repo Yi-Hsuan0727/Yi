@@ -21,7 +21,8 @@ body {
     border-radius: 5px;
     padding: 8px 25px;
     text-decoration: none;
-    display: inline;
+    display: flex;
+    justify-content: center;
     margin-bottom: 10px;
     font-size: 16px;
     font-weight: 700;
