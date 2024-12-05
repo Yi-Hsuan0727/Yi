@@ -59,12 +59,12 @@
 
         // 加载覆盖层（上层图像）并绘制到画布
         const coverImage = new Image();
-        coverImage.src = "assets/img_GIT/bg-04.png"; // 上层图片
+        coverImage.src = "assets/img_GIT/p-10.png"; // 上层图片
         coverImage.onload = () => {
             initializeCanvas();
         };
 
-        coverImage.onerror = () => console.error("上层图片 (bg-04.png) 加载失败，请检查路径！");
+        coverImage.onerror = () => console.error("上层图片 (p-10.png) 加载失败，请检查路径！");
 
         function initializeCanvas() {
             // 设置画布大小与容器一致
