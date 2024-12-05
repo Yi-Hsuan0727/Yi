@@ -8,7 +8,24 @@ body {
     background-color: #ffffff; /* 背景白色 */
     overflow: hidden; /* 禁用滚动条 */
 }
-
+.homepage{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+}
+.start-btn{
+    border: #111 solid 2px;
+    color: #111;
+    border-radius: 5px;
+    padding: 8px 25px;
+    text-decoration: none;
+    display: inline;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
 .container {
     position: relative;
     width: 100%; /* 宽度 100% */
