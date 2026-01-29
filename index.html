@@ -6,17 +6,16 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-FP5SFVKH61');
     </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="I'm a Website Interface Designer with 2 years of experience."/>
-    <meta name="keywords" content="web, website, design, uiux">
+    <meta name="description" content="Michelle Chen - Product Designer transforming complex requirements into responsive, user-centered interfaces."/>
+    <meta name="keywords" content="web, website, design, uiux, product designer">
     <meta name="author" content="Michelle Chen">
     <meta property="og:image" content="assets/img/lt.png">
-    <title>Michelle Chen</title>
+    <title>Michelle Chen - Product Designer</title>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -27,91 +26,115 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
     <script src="assets/js/jquery.js"></script>
     <style>
-        /* Custom styles for new layout */
-        .portfolio-container {
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --secondary-text: #666666;
+            --accent-color: #000000;
+            --pill-bg: #f4f4f4;
+            --sidebar-bg: #f8f8f8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* Container for sidebar + main content */
+        .portfolio-wrapper {
             display: flex;
             min-height: 100vh;
             margin-top: 57px;
         }
 
-        .left-column {
+        /* --- LEFT SIDEBAR (Sticky) --- */
+        .sidebar {
             width: 40%;
-            background: #f8f8f8;
             padding: 60px 40px;
             position: sticky;
             top: 57px;
             height: calc(100vh - 57px);
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background: var(--sidebar-bg);
+            border-right: 1px solid #eee;
+            overflow-y: auto;
         }
 
-        .right-column {
-            width: 60%;
-            padding: 60px 40px;
-            background: #fff;
+        .sidebar-content {
+            flex: 1;
         }
 
-        .info-item {
+        .meta-data {
+            margin-bottom: 24px;
+        }
+
+        .meta-item {
             margin-bottom: 12px;
             font-size: 0.95rem;
             line-height: 1.4;
+            color: var(--secondary-text);
         }
 
-        .info-item strong {
+        .meta-item strong {
             font-weight: 600;
-            color: #333;
+            color: var(--text-color);
         }
 
-        .availability-badge {
-            display: inline-block;
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
             background: #d4f4dd;
             color: #2d7a4a;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
             margin: 20px 0;
+            font-weight: 500;
         }
 
-        .availability-badge::before {
-            content: "●";
-            color: #2d7a4a;
-            margin-right: 6px;
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #2d7a4a;
+            border-radius: 50%;
+            margin-right: 8px;
         }
 
-        .main-heading {
+        .hero-text h1 {
             font-size: 2.5rem;
             line-height: 1.2;
-            font-weight: 700;
+            letter-spacing: -0.02em;
             margin: 30px 0 20px;
+            font-weight: 700;
         }
 
-        .description-text {
+        .hero-text p {
             font-size: 1rem;
             line-height: 1.6;
-            color: #555;
+            color: var(--secondary-text);
             margin: 20px 0 30px;
         }
 
-        .cta-button {
+        .cta-btn {
             display: inline-block;
-            background: #000;
-            color: #fff !important;
+            background: var(--accent-color);
+            color: white !important;
             padding: 14px 32px;
             border-radius: 8px;
-            text-decoration: none;
+            text-decoration: none !important;
             font-weight: 500;
             transition: all 0.3s;
         }
 
-        .cta-button:hover {
+        .cta-btn:hover {
             background: #333 !important;
-            color: #fff !important;
+            color: white !important;
             transform: translateY(-2px);
         }
 
-        .award-text {
+        .trust-badges {
             font-size: 0.85rem;
             color: #666;
             margin-top: 40px;
@@ -119,74 +142,163 @@
             border-top: 1px solid #ddd;
         }
 
-        .filter-buttons {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            border: 1px solid #333;
+        /* --- RIGHT COLUMN (Scrollable) --- */
+        .main-content {
+            width: 60%;
+            padding: 60px 40px;
             background: #fff;
-            color: #333;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: #000;
-            color: #fff !important;
+        .works-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
 
-        .select-works-header {
+        .section-title {
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 30px;
         }
 
-        .select-works-count {
+        .works-count {
             font-size: 1.5rem;
             color: #999;
             margin-left: 10px;
         }
 
-        .project-card {
-            margin-bottom: 30px;
+        /* FILTER SYSTEM */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
             transition: all 0.3s;
+            color: #333;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        /* PROJECT CARDS */
+        .project-card {
+            display: block;
+            margin-bottom: 40px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
         }
 
         .project-card.hidden {
             display: none;
         }
 
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #333;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover img {
+            border-color: #666;
+        }
+
+        .project-info h3 {
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            border: 0.5px solid #333;
+            border-radius: 8px;
+            color: #333;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .contact-section {
+            text-align: center;
+            margin: 80px 0 40px;
+        }
+
+        .contact-section h3 {
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-section a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .contact-section i {
+            font-size: 2rem;
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 991px) {
-            .portfolio-container {
+            .portfolio-wrapper {
                 flex-direction: column;
             }
 
-            .left-column,
-            .right-column {
+            .sidebar,
+            .main-content {
                 width: 100%;
                 position: relative;
                 height: auto;
             }
 
-            .left-column {
+            .sidebar {
                 top: 0;
                 padding: 40px 20px;
             }
 
-            .right-column {
+            .main-content {
                 padding: 40px 20px;
             }
 
-            .main-heading {
+            .hero-text h1 {
                 font-size: 2rem;
+            }
+
+            .works-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
             }
         }
     </style>
@@ -195,9 +307,9 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid container">
-              <a class="navbar-brand" href="index.html" >
+              <a class="navbar-brand" href="index.html">
                 Michelle Chen
-                </a>
+              </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon">
                     <i class="fa-solid fa-bars"></i>
@@ -213,7 +325,7 @@
                     <a class="nav-link" href="assets/img/resume.pdf" target="_blank">Resume</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="mailto:yihsuanchen0727@gmail.com" download=""><i class="fa-solid fa-envelope"></i></a>
+                    <a class="nav-link" href="mailto:yihsuanchen0727@gmail.com"><i class="fa-solid fa-envelope"></i></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="https://www.linkedin.com/in/yihsuanchen0727/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
@@ -221,141 +333,147 @@
                 </ul>
               </div>
             </div>
-          </nav>
+        </nav>
     </header>
 
-    <main class="portfolio-container">
-        <!-- Left Column -->
-        <div class="left-column">
-            <div>
-                <div class="info-item">
-                    <strong>Location:</strong> Tempe, AZ (Open to Relo)
-                </div>
-                <div class="info-item">
-                    <strong>Experience:</strong> 2+ Years
-                </div>
-                <div class="info-item">
-                    <strong>Education:</strong> MS in UX (ASU)
-                </div>
-                <div class="info-item">
-                    <strong>Tools:</strong> Figma, HTML/CSS, Adobe
+    <div class="portfolio-wrapper">
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="meta-data">
+                    <div class="meta-item">
+                        <strong>Location:</strong> Tempe, AZ (Open to Relo)
+                    </div>
+                    <div class="meta-item">
+                        <strong>Experience:</strong> 2+ Years
+                    </div>
+                    <div class="meta-item">
+                        <strong>Education:</strong> MS in UX (ASU)
+                    </div>
+                    <div class="meta-item">
+                        <strong>Tools:</strong> Figma, HTML/CSS, Adobe
+                    </div>
                 </div>
 
-                <div class="availability-badge">
+                <div class="status-pill">
+                    <div class="status-dot"></div>
                     Available for internship / Full-time
                 </div>
 
-                <h1 class="main-heading">
-                    Designing accessible systems. Bridging pixels and code.
-                </h1>
+                <div class="hero-text">
+                    <h1>Designing accessible systems. Bridging pixels and code.</h1>
+                    <p>Michelle is a Product Designer transforming complex requirements into responsive, user-centered interfaces. Previously visualizing history at museums, now building design systems.</p>
 
-                <p class="description-text">
-                    Michelle is a Product Designer transforming complex requirements into responsive, user-centered interfaces. Previously visualizing history at museums, now building design systems.
-                </p>
-
-                <a href="mailto:yihsuanchen0727@gmail.com" class="cta-button">
-                    Get in Touch
-                </a>
+                    <a href="mailto:yihsuanchen0727@gmail.com" class="cta-btn">Get in Touch</a>
+                </div>
             </div>
 
-            <div class="award-text">
-                AWARD WINNER: Endstar Spark Challenge '25 & RoseHack '25
+            <div class="trust-badges">
+                <p>AWARD WINNER: Endstar Spark Challenge '25 & RoseHack '25</p>
             </div>
-        </div>
+        </aside>
 
-        <!-- Right Column -->
-        <div class="right-column">
-            <div>
-                <h2 class="select-works-header">
-                    Select Works <span class="select-works-count" id="projectCount">04</span>
-                </h2>
-
-                <div class="filter-buttons">
+        <!-- RIGHT MAIN CONTENT -->
+        <main class="main-content">
+            <div class="works-header">
+                <div>
+                    <span class="section-title">Select Works <span class="works-count" id="projectCount">04</span></span>
+                </div>
+                <div class="filter-bar">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="ui-ux">UI/UX Design</button>
                     <button class="filter-btn" data-filter="code">Code & Build</button>
                     <button class="filter-btn" data-filter="b2b">B2B / SaaS</button>
                 </div>
-
-                <div id="projectsContainer">
-                    <!-- Project 1: Walk to Win -->
-                    <a href="lt.html" class="d-block work-block project-card" data-categories="ui-ux">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <img src="assets/img/lt.png" alt="" class="w-100">
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="h2 italic-title">Walk to Win: Gamifying Pedestrian Life on Longtan Road</div>
-                                <div class="d-flex flex-wrap tags mt-3">
-                                    <div class="tag">Prototyping</div>
-                                    <div class="tag">Research</div>
-                                    <div class="tag">App</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <!-- Project 2: Indigenous Cultural Museums -->
-                    <a href="lcm.html" class="d-block work-block project-card" data-categories="ui-ux code b2b">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <img src="assets/img/lcm.png" alt="" class="w-100">
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="h2 italic-title">Indigenous Cultural Museums Website</div>
-                                <div class="d-flex flex-wrap tags mt-3">
-                                    <div class="tag">Responsive Web Design</div>
-                                    <div class="tag">Accessibility</div>
-                                    <div class="tag">html / css</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <!-- Project 3: Magnate Technology -->
-                    <a href="magnate.html" class="d-block work-block project-card" data-categories="ui-ux code b2b">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <img src="assets/img/magnate.png" alt="" class="w-100">
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="h2 italic-title">Magnate Technology Official Website</div>
-                                <div class="d-flex flex-wrap tags mt-3">
-                                    <div class="tag">Responsive Web Design</div>
-                                    <div class="tag">Multilingual</div>
-                                    <div class="tag">html / css</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-                    <!-- Project 4: Great Yarmouth -->
-                    <a href="gy.html" class="d-block work-block project-card" data-categories="ui-ux">
-                        <div class="row align-items-center">
-                            <div class="col-lg-7">
-                                <img src="assets/img/gy.png" alt="" class="w-100">
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="h2 italic-title">Great Yarmouth Heritage Centre</div>
-                                <div class="d-flex flex-wrap tags mt-3">
-                                    <div class="tag">Prototyping</div>
-                                    <div class="tag">Research</div>
-                                    <div class="tag">Visual Design</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="text-center my-5 pt-5">
-                    <div class="h3 italic-title">Let's keep in touch to stay up to date.</div>
-                    <a class="h4 text-center d-inline-block mt-3" href="mailto:yihsuanchen0727@gmail.com">
-                        <i class="fa-solid fa-envelope h2"></i><br>Click to send me an email.
-                    </a>
-                </div>
             </div>
-        </div>
-    </main>
+
+            <div id="projectsContainer">
+                <!-- Project 1: Walk to Win -->
+                <a href="lt.html" class="project-card" data-categories="ui-ux">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <img src="assets/img/lt.png" alt="Walk to Win Project">
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="project-info">
+                                <h3>Walk to Win: Gamifying Pedestrian Life on Longtan Road</h3>
+                                <div class="tags">
+                                    <span class="tag">Prototyping</span>
+                                    <span class="tag">Research</span>
+                                    <span class="tag">App</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 2: Indigenous Cultural Museums -->
+                <a href="lcm.html" class="project-card" data-categories="ui-ux code b2b">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <img src="assets/img/lcm.png" alt="Indigenous Cultural Museums Website">
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="project-info">
+                                <h3>Indigenous Cultural Museums Website</h3>
+                                <div class="tags">
+                                    <span class="tag">Responsive Web Design</span>
+                                    <span class="tag">Accessibility</span>
+                                    <span class="tag">html / css</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 3: Magnate Technology -->
+                <a href="magnate.html" class="project-card" data-categories="ui-ux code b2b">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <img src="assets/img/magnate.png" alt="Magnate Technology Website">
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="project-info">
+                                <h3>Magnate Technology Official Website</h3>
+                                <div class="tags">
+                                    <span class="tag">Responsive Web Design</span>
+                                    <span class="tag">Multilingual</span>
+                                    <span class="tag">html / css</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 4: Great Yarmouth -->
+                <a href="gy.html" class="project-card" data-categories="ui-ux">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <img src="assets/img/gy.png" alt="Great Yarmouth Heritage Centre">
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="project-info">
+                                <h3>Great Yarmouth Heritage Centre</h3>
+                                <div class="tags">
+                                    <span class="tag">Prototyping</span>
+                                    <span class="tag">Research</span>
+                                    <span class="tag">Visual Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="contact-section">
+                <h3>Let's keep in touch to stay up to date.</h3>
+                <a href="mailto:yihsuanchen0727@gmail.com">
+                    <i class="fa-solid fa-envelope"></i><br>
+                    <span>Click to send me an email.</span>
+                </a>
+            </div>
+        </main>
+    </div>
 
     <footer>
         <div class="container">
@@ -363,7 +481,7 @@
                 <p class="p-0 m-0 lh-1">Michelle Chen</p>
                 <div class="d-flex align-items-center">
                     contact ｜
-                    <a class="nav-link" href="mailto:yihsuanchen0727@gmail.com" download=""><i class="fa-solid fa-envelope"></i></a>
+                    <a class="nav-link" href="mailto:yihsuanchen0727@gmail.com"><i class="fa-solid fa-envelope"></i></a>
                     <a class="nav-link" href="https://www.linkedin.com/in/yihsuanchen0727/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
