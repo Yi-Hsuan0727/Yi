@@ -67,30 +67,13 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Center content vertically */
+            justify-content: space-between; /* Space out Top content and Bottom Bio */
             border-right: 1px solid var(--border-color);
             overflow-y: auto;
             scrollbar-width: none; 
             -ms-overflow-style: none; 
         }
         .sidebar::-webkit-scrollbar { display: none; }
-
-        /* Meta Data */
-        .meta-data {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            font-size: 0.95rem;
-            color: var(--secondary-text);
-            margin-bottom: 40px;
-        }
-
-        .meta-item strong {
-            display: block;
-            color: var(--text-color);
-            margin-bottom: 4px;
-            font-weight: 700;
-        }
 
         /* Status Pill */
         .status-pill {
@@ -114,7 +97,7 @@
             margin-right: 8px;
         }
 
-        /* --- HERO TEXT & INLINE TOGGLE --- */
+        /* Hero Text & Toggle */
         .hero-text h1 {
             font-size: 3rem;
             line-height: 1.15;
@@ -122,25 +105,20 @@
             margin-bottom: 20px;
         }
 
-        /* The Integrated Switch Button */
         .theme-toggle-inline {
             display: inline-block;
             background: none;
             border: none;
             cursor: pointer;
-            color: var(--text-color); /* Inherit font color */
-            font-size: 2.5rem; /* Match H1 size visually */
+            color: var(--text-color);
+            font-size: 2.5rem;
             vertical-align: baseline;
             margin-left: 8px;
             padding: 0;
             transform-origin: center;
             transition: transform 0.4s ease, opacity 0.3s;
         }
-
-        .theme-toggle-inline:hover {
-            transform: rotate(20deg);
-            opacity: 0.7;
-        }
+        .theme-toggle-inline:hover { transform: rotate(20deg); opacity: 0.7; }
 
         .hero-text p {
             font-size: 1.15rem;
@@ -150,13 +128,8 @@
             margin-bottom: 30px;
         }
 
-        /* Contact Icons Row */
-        .contact-row {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
+        /* Contact Icons */
+        .contact-row { display: flex; gap: 15px; margin-top: 10px; }
         .icon-btn {
             width: 44px;
             height: 44px;
@@ -171,23 +144,63 @@
             font-size: 1.2rem;
             transition: all 0.2s ease;
         }
-
         .icon-btn:hover {
             background: var(--hover-bg);
             transform: scale(1.05);
             border-color: var(--text-color);
         }
 
-        /* Trust Badges */
+        /* --- BOTTOM BIO & RECOGNITION SECTION --- */
+        .sidebar-bottom {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .bio-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .doodle-img {
+            width: auto;
+            height: 100px;
+            /* border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-color);
+            background-color: #f0f0f0; */
+            flex-shrink: 0;
+        }
+
+        .bio-text h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .bio-text p {
+            font-size: 0.85rem;
+            color: var(--secondary-text);
+            line-height: 1.5;
+        }
+
         .trust-badges {
             font-size: 0.8rem;
             color: var(--secondary-text);
-            margin-top: 40px; 
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
             line-height: 1.5;
         }
-        .trust-badges strong { color: var(--text-color); display: block; margin-bottom: 5px; }
+        .trust-badges strong { 
+            color: var(--text-color); 
+            display: block; 
+            margin-bottom: 8px; 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em;
+        }
 
         /* --- MAIN CONTENT (Right Side) --- */
         .main-content {
@@ -275,10 +288,20 @@
 
         .project-info h3 { font-size: 2rem; margin-bottom: 10px; font-weight: 700; }
         .project-info p { font-size: 1.1rem; color: var(--secondary-text); margin-bottom: 16px; line-height: 1.5; max-width: 90%; }
+        
+        /* UPDATED TAGS: Matches .filter-btn style */
         .tags { display: flex; gap: 8px; flex-wrap: wrap; }
-        .tag { font-size: 0.8rem; background: var(--pill-bg); color: var(--pill-text); padding: 6px 12px; border-radius: 4px; border: 1px solid var(--border-color); }
+        .tag { 
+            font-size: 0.8rem; 
+            background: transparent; /* Changed from pill-bg */
+            color: var(--secondary-text); /* Changed from pill-text */
+            padding: 6px 14px; /* Increased padding */
+            border-radius: 30px; /* Fully rounded */
+            border: 1px solid var(--border-color); 
+            font-weight: 500;
+        }
 
-        /* --- FOOTER SECTION --- */
+        /* Footer */
         .footer-message {
             margin-top: 80px;
             margin-bottom: 60px;
@@ -287,33 +310,14 @@
             border-top: 1px solid var(--border-color);
             color: var(--secondary-text);
         }
-
-        .footer-message p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: var(--text-color);
-        }
-
+        .footer-message p { font-size: 1.2rem; margin-bottom: 20px; color: var(--text-color); }
         .back-to-top-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 10px 24px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-color);
+            padding: 10px 24px; border-radius: 30px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+            transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
         }
-
         .back-to-top-btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
-            border-color: var(--accent-color);
-            transform: translateY(-2px);
+            background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); transform: translateY(-2px);
         }
 
         @media (max-width: 900px) {
@@ -322,6 +326,7 @@
                 width: 100%; position: relative; height: auto; 
                 padding: 40px 20px; border-right: none; border-bottom: 1px solid var(--border-color); 
             }
+            .sidebar-bottom { flex-direction: column; gap: 20px; }
             .main-content { width: 100%; margin-left: 0; height: auto; padding: 40px 20px; }
             .works-header { top: 0; }
         }
@@ -330,14 +335,7 @@
 <body>
 
     <aside class="sidebar">
-        <div>
-            <div class="meta-data">
-                <div class="meta-item"><strong>Location</strong> Tempe, AZ</div>
-                <div class="meta-item"><strong>Experience</strong> 2+ Years</div>
-                <div class="meta-item"><strong>Education</strong> MS in UX (ASU)</div>
-                <div class="meta-item"><strong>Tools</strong> Figma, HTML/CSS</div>
-            </div>
-
+        <div class="sidebar-top">
             <div class="status-pill">
                 <div class="status-dot"></div>
                 Open to Opportunities
@@ -354,7 +352,6 @@
                 
                 <p>
                     Product Designer transforming complex requirements into responsive interfaces. 
-                    Currently <strong>UX/UI Designer at VisLab</strong>.
                 </p>
 
                 <div class="contact-row">
@@ -365,10 +362,26 @@
             </div>
         </div>
 
-        <div class="trust-badges">
-            <strong>RECOGNITION</strong>
-            <p>🏆 2nd Place @ RoseHack '25</p>
-            <p>🏆 People's Choice @ Spark Challenge '25</p>
+        <div class="sidebar-bottom">
+            
+            <div class="bio-container">
+                <img src="assets/img/meme.svg" alt="Michelle Chen Doodle" class="doodle-img">
+                <div class="bio-text">
+                    <h3>Michelle Chen</h3>
+                    <p>
+                        VisLab <strong>UX/UI Designer</strong> 
+                        <br>Adobe Student Ambassador
+                        <br>MS in User Experience @ Arizona State University.
+                        
+                    </p>
+                </div>
+            </div>
+
+            <!-- <div class="trust-badges">
+                <strong>Recognition</strong>
+                <p>🏆 2nd Place @ RoseHack '25</p>
+                <p>🏆 People's Choice @ Spark Challenge '25</p>
+            </div> -->
         </div>
     </aside>
 
@@ -481,13 +494,8 @@
             });
         }
 
-        // --- SCROLL TO TOP FUNCTION ---
         function scrollToTop() {
-            // Target the .main-content div because that is what scrolls
-            document.querySelector('.main-content').scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
