@@ -14,6 +14,7 @@
             --text-color: #111111;
             --secondary-text: #555555;
             --accent-color: #000000;
+            --highlight-color: #2ecc71; /* New Green Hover */
             --pill-bg: #f4f4f4;
             --pill-text: #111;
             --border-color: #e0e0e0;
@@ -36,14 +37,22 @@
             --scrollbar-thumb: #444444;
         }
 
-        html { scroll-behavior: smooth; }
+        /* Hide Default Cursor */
+        body, a, button, .project-card {
+            cursor: none !important;
+        }
+
+        html { 
+            /* Let Lenis handle scrolling */
+            scroll-behavior: auto; 
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease; /* Removed color transition to prevent conflict with hover */
         }
 
         body {
@@ -52,10 +61,60 @@
             display: flex;
             min-height: 100vh;
             font-size: 18px;
-            overflow: hidden; 
+            overflow-x: hidden; 
         }
 
         a { text-decoration: none; color: inherit; }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-color);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--text-color);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        /* Cursor Hover State */
+        body.hovering .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(46, 204, 113, 0.2); /* Green tint */
+            border-color: var(--highlight-color);
+        }
+
+        /* --- ENTRANCE ANIMATION --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-enter {
+            opacity: 0; /* Start hidden */
+            animation: fadeUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        /* Delays */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+        .delay-4 { animation-delay: 0.7s; }
 
         /* --- SIDEBAR (Sticky Left) --- */
         .sidebar {
@@ -67,13 +126,9 @@
             top: 0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Space out Top content and Bottom Bio */
+            justify-content: space-between;
             border-right: 1px solid var(--border-color);
-            overflow-y: auto;
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
         }
-        .sidebar::-webkit-scrollbar { display: none; }
 
         /* Status Pill */
         .status-pill {
@@ -99,65 +154,39 @@
 
         /* Hero Text & Toggle */
         .hero-text h1 {
-            font-size: 3rem;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 20px;
+            font-size: 100px; /* UPDATED SIZE */
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            margin-bottom: 30px;
+            font-weight: 800;
         }
 
         .theme-toggle-inline {
             display: inline-block;
             background: none;
             border: none;
-            cursor: pointer;
             color: var(--text-color);
             font-size: 2.5rem;
-            vertical-align: baseline;
+            vertical-align: middle;
             margin-left: 8px;
             padding: 0;
-            transform-origin: center;
-            transition: transform 0.4s ease, opacity 0.3s;
+            cursor: none;
         }
-        .theme-toggle-inline:hover { transform: rotate(20deg); opacity: 0.7; }
+        .theme-toggle-inline:hover { color: var(--highlight-color); transform: rotate(20deg); }
 
         .hero-text p {
             font-size: 1.15rem;
             line-height: 1.5;
             color: var(--secondary-text);
-            max-width: 100%;
+            max-width: 90%;
             margin-bottom: 30px;
         }
 
-        /* Contact Icons */
-        .contact-row { display: flex; gap: 15px; margin-top: 10px; }
-        .icon-btn {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-            background: transparent;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.2s ease;
-        }
-        .icon-btn:hover {
-            background: var(--hover-bg);
-            transform: scale(1.05);
-            border-color: var(--text-color);
-        }
-
-        /* --- BOTTOM BIO & RECOGNITION SECTION --- */
+        /* --- BOTTOM BIO --- */
         .sidebar-bottom {
-            margin-top: 60px;
+            margin-top: auto;
             padding-top: 30px;
             border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
         }
 
         .bio-container {
@@ -169,10 +198,6 @@
         .doodle-img {
             width: auto;
             height: 100px;
-            /* border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--border-color);
-            background-color: #f0f0f0; */
             flex-shrink: 0;
         }
 
@@ -188,37 +213,13 @@
             line-height: 1.5;
         }
 
-        .trust-badges {
-            font-size: 0.8rem;
-            color: var(--secondary-text);
-            line-height: 1.5;
-        }
-        .trust-badges strong { 
-            color: var(--text-color); 
-            display: block; 
-            margin-bottom: 8px; 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            letter-spacing: 0.05em;
-        }
-
         /* --- MAIN CONTENT (Right Side) --- */
         .main-content {
             width: 60%;
             margin-left: 40%;
-            height: 100vh;
-            overflow-y: auto;
+            /* Removed native overflow to allow Lenis to control body scroll */
+            min-height: 100vh;
             padding: 80px 60px;
-            scroll-behavior: smooth;
-        }
-        
-        /* Custom Scrollbar */
-        .main-content::-webkit-scrollbar { width: 8px; }
-        .main-content::-webkit-scrollbar-track { background: var(--scrollbar-track); }
-        .main-content::-webkit-scrollbar-thumb { 
-            background-color: var(--scrollbar-thumb); 
-            border-radius: 4px; 
-            border: 2px solid var(--scrollbar-track);
         }
 
         .works-header {
@@ -228,8 +229,8 @@
             margin-bottom: 60px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
-            position: sticky;
-            top: -80px; 
+            /* position: sticky; */ /* Removed sticky to work better with smooth scrolling flow */
+            /* top: 0; */
             background-color: var(--bg-color);
             z-index: 10;
             padding-top: 10px;
@@ -250,26 +251,38 @@
             color: var(--secondary-text);
             padding: 6px 16px;
             border-radius: 30px;
-            cursor: pointer;
             font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.2s;
+            cursor: none;
         }
         .filter-btn.active, .filter-btn:hover {
-            background: var(--accent-color);
-            color: var(--bg-color);
-            border-color: var(--accent-color);
+            background: transparent;
+            color: var(--highlight-color); /* GREEN */
+            border-color: var(--highlight-color);
         }
 
-        /* Projects */
-        .project-grid { display: flex; flex-direction: column; gap: 100px; padding-bottom: 40px; }
-        .project-card { cursor: pointer; transition: opacity 0.4s ease; }
+        /* Projects - 2 COLUMN GRID */
+        .project-grid { 
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two Columns */
+            gap: 40px;
+            padding-bottom: 40px; 
+        }
+        
+        .project-card { 
+            display: flex;
+            flex-direction: column;
+            cursor: none; 
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover { transform: translateY(-5px); }
 
         .image-container {
             width: 100%;
-            aspect-ratio: 16/9;
+            aspect-ratio: 4/3; /* Taller aspect ratio for 2-col */
             background-color: #f0f0f0;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             border-radius: 8px;
             overflow: hidden;
             position: relative;
@@ -282,60 +295,129 @@
             background-position: center;
             transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 1.5rem; color: #666;
+            font-weight: bold; font-size: 1.2rem; color: #666;
+            text-align: center; padding: 10px;
         }
-        .project-card:hover .image-placeholder { transform: scale(1.03); }
+        .project-card:hover .image-placeholder { transform: scale(1.05); }
 
-        .project-info h3 { font-size: 2rem; margin-bottom: 10px; font-weight: 700; }
-        .project-info p { font-size: 1.1rem; color: var(--secondary-text); margin-bottom: 16px; line-height: 1.5; max-width: 90%; }
+        .project-info h3 { font-size: 1.5rem; margin-bottom: 10px; font-weight: 700; }
+        .project-info p { font-size: 1rem; color: var(--secondary-text); margin-bottom: 16px; line-height: 1.4; }
         
-        /* UPDATED TAGS: Matches .filter-btn style */
-        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        /* Tags */
+        .tags { display: flex; gap: 6px; flex-wrap: wrap; }
         .tag { 
-            font-size: 0.8rem; 
-            background: transparent; /* Changed from pill-bg */
-            color: var(--secondary-text); /* Changed from pill-text */
-            padding: 6px 14px; /* Increased padding */
-            border-radius: 30px; /* Fully rounded */
+            font-size: 0.75rem; 
+            background: transparent;
+            color: var(--secondary-text);
+            padding: 5px 12px;
+            border-radius: 30px;
             border: 1px solid var(--border-color); 
             font-weight: 500;
+            transition: 0.2s;
+        }
+        /* Tag Hover */
+        .project-card:hover .tag {
+            border-color: var(--highlight-color);
+            color: var(--highlight-color);
         }
 
-        /* Footer */
+        /* --- NEW FOOTER STYLE --- */
         .footer-message {
             margin-top: 80px;
             margin-bottom: 60px;
-            text-align: center;
-            padding-top: 40px;
+            padding-top: 60px;
             border-top: 1px solid var(--border-color);
-            color: var(--secondary-text);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 30px;
         }
-        .footer-message p { font-size: 1.2rem; margin-bottom: 20px; color: var(--text-color); }
+        
+        /* Larger, Bold Footer Text */
+        .footer-message p { 
+            font-size: 2.5rem; 
+            font-weight: 800; 
+            line-height: 1.1;
+            color: var(--text-color); 
+            max-width: 80%;
+        }
+
+        .footer-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-row { display: flex; gap: 15px; }
+        
+        .icon-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.2s ease;
+            cursor: none;
+        }
+        .icon-btn:hover {
+            color: var(--highlight-color); /* GREEN */
+            border-color: var(--highlight-color);
+            transform: scale(1.1);
+        }
+
         .back-to-top-btn {
-            background: transparent; border: 1px solid var(--border-color); color: var(--text-color);
-            padding: 10px 24px; border-radius: 30px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
-            transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+            background: transparent; 
+            border: 1px solid var(--border-color); 
+            color: var(--text-color);
+            padding: 12px 30px; 
+            border-radius: 30px; 
+            font-size: 1rem; 
+            font-weight: 600;
+            transition: all 0.2s; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            cursor: none;
         }
         .back-to-top-btn:hover {
-            background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); transform: translateY(-2px);
+            color: var(--highlight-color); /* GREEN */
+            border-color: var(--highlight-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-text h1 { font-size: 4rem; }
+            .project-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 900px) {
-            body { flex-direction: column; overflow: auto; }
+            body { flex-direction: column; overflow: auto; cursor: auto !important; }
             .sidebar { 
                 width: 100%; position: relative; height: auto; 
                 padding: 40px 20px; border-right: none; border-bottom: 1px solid var(--border-color); 
             }
-            .sidebar-bottom { flex-direction: column; gap: 20px; }
-            .main-content { width: 100%; margin-left: 0; height: auto; padding: 40px 20px; }
-            .works-header { top: 0; }
+            .main-content { width: 100%; margin-left: 0; padding: 40px 20px; }
+            .cursor-dot, .cursor-outline { display: none; } /* Hide custom cursor on touch */
+            button, a, .project-card { cursor: pointer !important; }
+            .hero-text h1 { font-size: 3.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
     <aside class="sidebar">
-        <div class="sidebar-top">
+        <div class="sidebar-top animate-enter delay-1">
             <div class="status-pill">
                 <div class="status-dot"></div>
                 Open to Opportunities
@@ -343,51 +425,38 @@
 
             <div class="hero-text">
                 <h1>
-                    Designing accessible systems
-                    <button class="theme-toggle-inline" id="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Theme">
+                    Design.<br>
+                    Code.<br>
+                    Systems.
+                    <button class="theme-toggle-inline" id="theme-toggle" aria-label="Toggle Dark Mode">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <br>Bridging pixels and code.
                 </h1>
                 
                 <p>
                     Product Designer transforming complex requirements into responsive interfaces. 
                 </p>
-
-                <div class="contact-row">
-                    <a href="mailto:yche1356@asu.edu" class="icon-btn" title="Email Me"><i class="fas fa-envelope"></i></a>
-                    <a href="https://linkedin.com/in/mchen0727" target="_blank" class="icon-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="resume.pdf" target="_blank" class="icon-btn" title="Download Resume"><i class="fas fa-file-pdf"></i></a>
                 </div>
-            </div>
         </div>
 
-        <div class="sidebar-bottom">
-            
+        <div class="sidebar-bottom animate-enter delay-2">
             <div class="bio-container">
                 <img src="assets/img/meme.svg" alt="Michelle Chen Doodle" class="doodle-img">
                 <div class="bio-text">
                     <h3>Michelle Chen</h3>
                     <p>
-                        VisLab <strong>UX/UI Designer</strong> 
+                        VisLab <strong>Product Designer</strong> 
                         <br>Adobe Student Ambassador
-                        <br>MS in User Experience @ Arizona State University.
-                        
+                        <br>MS in User Experience @ ASU.
                     </p>
                 </div>
             </div>
-
-            <!-- <div class="trust-badges">
-                <strong>Recognition</strong>
-                <p>🏆 2nd Place @ RoseHack '25</p>
-                <p>🏆 People's Choice @ Spark Challenge '25</p>
-            </div> -->
         </div>
     </aside>
 
     <main class="main-content">
         
-        <div class="works-header">
+        <div class="works-header animate-enter delay-3">
             <span class="section-title">Select Works 04</span>
             <div class="filter-bar">
                 <button class="filter-btn active" onclick="filterProjects('all')">All</button>
@@ -397,25 +466,25 @@
             </div>
         </div>
 
-        <div class="project-grid">
+        <div class="project-grid animate-enter delay-4">
             <div class="project-card" data-category="uiux code b2b">
                 <div class="image-container">
                     <div class="image-placeholder" style="background-color: #e3e8ef; color:#555;">VisLab System</div>
                 </div>
                 <div class="project-info">
                     <h3>VisLab Design System</h3>
-                    <p>Building accessible components and branding for Arizona State University's digital ecosystem.</p>
+                    <p>Building accessible components for ASU's digital ecosystem.</p>
                     <div class="tags"><span class="tag">Design System</span><span class="tag">Accessibility</span><span class="tag">Code</span></div>
                 </div>
             </div>
 
             <div class="project-card" data-category="b2b uiux">
                 <div class="image-container">
-                    <div class="image-placeholder" style="background-color: #2c3e50; color:#aab7c4;">M-Think Dashboard</div>
+                    <div class="image-placeholder" style="background-color: #2c3e50; color:#aab7c4;">M-Think Platform</div>
                 </div>
                 <div class="project-info">
-                    <h3>M-Think SaaS Platform</h3>
-                    <p>Designing complex data visualizations and optimizing cross-platform compatibility.</p>
+                    <h3>M-Think SaaS</h3>
+                    <p>Complex data visualizations and cross-platform compatibility.</p>
                     <div class="tags"><span class="tag">B2B / SaaS</span><span class="tag">UI Design</span><span class="tag">Data Viz</span></div>
                 </div>
             </div>
@@ -425,34 +494,46 @@
                     <div class="image-placeholder" style="background-color: #d6cfc7; color:#5e554d;">Inclusive Heritage</div>
                 </div>
                 <div class="project-info">
-                    <h3>Inclusive Heritage Platform</h3>
-                    <p>End-to-end web design focusing on WCAG 2.1 accessibility compliance.</p>
+                    <h3>Inclusive Heritage</h3>
+                    <p>End-to-end web design focusing on WCAG 2.1 compliance.</p>
                     <div class="tags"><span class="tag">Accessibility</span><span class="tag">Web Design</span><span class="tag">CMS</span></div>
                 </div>
             </div>
 
             <div class="project-card" data-category="code uiux">
                 <div class="image-container">
-                    <div class="image-placeholder" style="background-color: #f9f9f9; border:1px solid #ddd; color:#777;">Toastmasters Redesign</div>
+                    <div class="image-placeholder" style="background-color: #f9f9f9; border:1px solid #ddd; color:#777;">Toastmasters</div>
                 </div>
                 <div class="project-info">
                     <h3>Toastmasters Redesign</h3>
-                    <p>Reducing bounce rates by 20% through strategic layout restructuring and coding.</p>
-                    <div class="tags"><span class="tag">Frontend Impl.</span><span class="tag">Redesign</span><span class="tag">Metrics</span></div>
+                    <p>Reducing bounce rates by 20% through strategic restructuring.</p>
+                    <div class="tags"><span class="tag">Frontend</span><span class="tag">Redesign</span><span class="tag">Metrics</span></div>
                 </div>
             </div>
         </div>
 
-        <div class="footer-message">
+        <div class="footer-message animate-enter delay-4">
             <p>Thanks for stopping by! I'd love to connect with you.</p>
-            <button onclick="scrollToTop()" class="back-to-top-btn">
-                <i class="fas fa-arrow-up"></i> Back to Top
-            </button>
+            
+            <div class="footer-actions">
+                <div class="contact-row">
+                    <a href="mailto:yche1356@asu.edu" class="icon-btn" title="Email Me"><i class="fas fa-envelope"></i></a>
+                    <a href="https://linkedin.com/in/mchen0727" target="_blank" class="icon-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="resume.pdf" target="_blank" class="icon-btn" title="Download Resume"><i class="fas fa-file-pdf"></i></a>
+                </div>
+
+                <button onclick="scrollToTop()" class="back-to-top-btn">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </button>
+            </div>
         </div>
 
     </main>
 
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
     <script>
+        // --- 1. THEME TOGGLE ---
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = themeBtn.querySelector('i');
         const html = document.documentElement;
@@ -470,6 +551,70 @@
             }
         });
 
+        // --- 2. SMOOTH SCROLL (LENIS) ---
+        // This makes scrolling feel heavier and smoother
+        const lenis = new Lenis({
+            duration: 2.0, // Slower speed (default is usually 1.0)
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 0.8, // Reduces scroll sensitivity
+            smoothTouch: false,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        function scrollToTop() {
+            lenis.scrollTo(0);
+        }
+
+        // --- 3. CUSTOM CURSOR ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let outlineX = 0;
+        let outlineY = 0;
+
+        // Capture mouse position
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Dot moves instantly
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        // Animate outline with delay (Linear Interpolation)
+        function animateCursor() {
+            // Speed of the delay (0.1 = slow, 0.9 = fast)
+            const speed = 0.15;
+            
+            outlineX += (mouseX - outlineX) * speed;
+            outlineY += (mouseY - outlineY) * speed;
+            
+            cursorOutline.style.left = `${outlineX}px`;
+            cursorOutline.style.top = `${outlineY}px`;
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Add hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .project-card, .filter-btn');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // --- 4. FILTERING ---
         function filterProjects(category) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
@@ -485,17 +630,16 @@
             cards.forEach(card => {
                 const categories = card.getAttribute('data-category');
                 if (category === 'all' || categories.includes(category)) {
-                    card.style.display = 'block';
+                    card.style.display = 'flex'; // Changed to flex for alignment
                     setTimeout(() => card.style.opacity = '1', 50);
                 } else {
                     card.style.opacity = '0';
                     setTimeout(() => card.style.display = 'none', 300);
                 }
             });
-        }
-
-        function scrollToTop() {
-            document.querySelector('.main-content').scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Re-calculate smooth scroll layout after filtering
+            setTimeout(() => lenis.resize(), 350);
         }
     </script>
 </body>
