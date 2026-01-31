@@ -10,14 +10,12 @@
     <style>
         /* --- CSS VARIABLES --- */
         :root {
-            /* Light Mode */
             --bg-color: #ffffff;
             --text-color: #111111;
             --secondary-text: #555555;
             --accent-color: #2ecc71; 
             --border-color: #e0e0e0;
-            --frame-height: 50px;
-            --edge-spacing: 20px;
+            --frame-padding: 30px; /* The white space around the layout */
         }
 
         /* Dark Mode */
@@ -46,44 +44,38 @@
             color: var(--text-color);
             height: 100vh;
             overflow: hidden; 
-            padding: var(--frame-height) 0; 
-            position: relative;
+            /* THE OUTER FRAME (MATTE) */
+            padding: var(--frame-padding);
         }
 
-        /* --- SITE BORDER FRAMES --- */
-        .site-frame {
-            position: fixed;
-            background: var(--bg-color);
-            z-index: 1000;
-            left: 0;
+        /* --- MAIN LAYOUT CONTAINER (THE INNER BORDER) --- */
+        .layout-container {
             width: 100%;
-            height: var(--frame-height);
-            padding: 0 var(--edge-spacing); 
+            height: 100%;
+            border: 1px solid var(--border-color); /* The Inner Border */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: var(--bg-color);
+        }
+
+        /* --- HEADER --- */
+        .site-header {
+            height: 60px;
+            flex-shrink: 0;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
+            /* Header Padding: 30px Left/Right */
+            padding: 0 30px;
+            gap: 60px;
         }
 
-        .frame-top { 
-            top: 0; 
-            border-bottom: 1px solid var(--border-color); 
-            justify-content: flex-start; 
-            gap: 60px; 
-        }
+        .brand-logo { font-weight: 900; font-size: 1.2rem; }
 
-        .frame-bottom { 
-            bottom: 0; 
-            border-top: 1px solid var(--border-color); 
-            font-size: 0.75rem; color: var(--secondary-text);
-            justify-content: space-between;
-        }
-
-        /* --- NAVIGATION --- */
         .nav-menu { 
             display: flex; 
             gap: 30px; 
-            position: relative; 
-            transform: none;
-            left: auto;
         } 
         
         .nav-link { 
@@ -92,7 +84,6 @@
             text-decoration: none;
             padding: 4px 0; 
             border-bottom: 2px solid transparent; 
-            background: transparent;
         }
 
         .nav-link.active, .nav-link:hover { 
@@ -100,52 +91,18 @@
             border-bottom-color: var(--accent-color);
         }
 
-        .brand-logo { font-weight: 900; font-size: 1.2rem; }
-
-        /* --- BOTTOM ACTIONS --- */
-        .bottom-actions { display: flex; gap: 15px; align-items: center; }
-        .connect-text { font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--text-color); margin-right: 5px; }
-
-        .action-icon {
-            font-size: 1.1rem; color: var(--text-color); text-decoration: none;
-            display: flex; align-items: center; justify-content: center;
-            width: 30px; height: 30px; border-radius: 50%; transition: transform 0.2s;
-        }
-        .action-icon:hover { color: var(--accent-color); transform: scale(1.2); }
-
-        .resume-pill {
-            padding: 4px 14px; border: 1px solid var(--border-color); border-radius: 20px;
-            font-size: 0.75rem; font-weight: 700; color: var(--text-color); text-decoration: none; text-transform: uppercase;
-        }
-        .resume-pill:hover { border-color: var(--accent-color); color: var(--accent-color); }
-
-        /* --- CUSTOM CURSOR --- */
-        .cursor-dot {
-            width: 8px; height: 8px; background-color: var(--text-color);
-            position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%);
-        }
-        .cursor-outline {
-            width: 40px; height: 40px; border: 1px solid var(--text-color);
-            position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        body.hovering .cursor-outline {
-            width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color);
-        }
-
-        /* --- LAYOUT CONTAINER --- */
+        /* --- CONTENT AREA --- */
         .content-wrapper {
+            flex-grow: 1;
             display: flex;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+            overflow: hidden; /* Ensures scroll is contained */
         }
 
-        /* --- SIDEBAR (30% WIDTH) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 30%; 
             height: 100%;
-            padding: 40px var(--edge-spacing) 0px; 
+            padding: 40px 30px 0; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -168,25 +125,24 @@
             font-size: 0.9rem;
             line-height: 1.5; 
             color: var(--secondary-text); 
-            max-width: 100%;
+            max-width: 280px; 
             margin-bottom: 20px;
         }
 
         .doodle-img { width: auto; height: 90px; transition: filter 0.3s ease; }
         [data-theme="dark"] .doodle-img { filter: invert(1); }
 
-        .bio-container { display: flex; gap: 15px; align-items: center; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); background: var(--bg-color); z-index: 2; padding-bottom: 20px; }
+        .bio-container { display: flex; gap: 15px; align-items: center; margin-top: auto; padding-top: 20px; padding-bottom: 20px; border-top: 1px solid var(--border-color); }
         
         .bio-text h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
         .bio-text p { font-size: 0.85rem; color: var(--secondary-text); }
 
-        /* --- RIGHT PANEL (70% WIDTH) --- */
+        /* --- RIGHT PANEL --- */
         .right-panel {
             width: 70%; 
             height: 100%;
             display: flex;
             flex-direction: column; 
-            position: relative;
             background: var(--bg-color); 
             overflow: hidden;
         }
@@ -195,7 +151,8 @@
             flex-shrink: 0; 
             background-color: var(--bg-color);
             z-index: 50;
-            padding: 15px var(--edge-spacing); 
+            /* Works Header Padding: 30px Left/Right */
+            padding: 15px 30px; 
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
@@ -209,7 +166,6 @@
             overflow-x: hidden;
             position: relative;
             padding-bottom: 20px;
-            z-index: 10; 
         }
 
         .scroll-area::-webkit-scrollbar { width: 8px; }
@@ -229,12 +185,43 @@
             color: var(--text-color); border-color: var(--accent-color); background-color: transparent;
         }
 
-        /* Project Grid */
+        /* --- FOOTER --- */
+        .site-footer {
+            height: 50px;
+            flex-shrink: 0;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Footer Padding: 30px Left/Right */
+            padding: 0 30px;
+            font-size: 0.75rem; 
+            color: var(--secondary-text);
+        }
+
+        .bottom-actions { display: flex; gap: 15px; align-items: center; }
+        .connect-text { font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--text-color); margin-right: 5px; }
+
+        .action-icon {
+            font-size: 1.1rem; color: var(--text-color); text-decoration: none;
+            display: flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px; border-radius: 50%; transition: transform 0.2s;
+        }
+        .action-icon:hover { color: var(--accent-color); transform: scale(1.2); }
+
+        .resume-pill {
+            padding: 4px 14px; border: 1px solid var(--border-color); border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700; color: var(--text-color); text-decoration: none; text-transform: uppercase;
+        }
+        .resume-pill:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+        /* --- PROJECT GRID --- */
         .project-grid { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 30px; 
-            padding: 20px var(--edge-spacing) 40px; 
+            /* UPDATED: Symmetrical padding (30px) on Left and Right */
+            padding: 30px 30px 60px 30px; 
             width: 100%;
         }
         
@@ -264,72 +251,62 @@
         .project-info p { font-size: 1rem; color: var(--secondary-text); margin-bottom: 12px; line-height: 1.4; }
         
         .tags { display: flex; gap: 6px; flex-wrap: wrap; }
-        
         .tag { 
-            font-size: 0.7rem; 
-            color: var(--secondary-text); 
-            padding: 4px 10px; 
-            border-radius: 30px; 
+            font-size: 0.7rem; color: var(--secondary-text); 
+            padding: 4px 10px; border-radius: 30px; 
             border: 1px solid var(--border-color); 
-            background: rgba(255,255,255,0.5); 
-            backdrop-filter: blur(4px); 
+            background: rgba(255,255,255,0.5); backdrop-filter: blur(4px); 
         }
-        
-        /* DARK MODE TAG FIX */
-        [data-theme="dark"] .tag {
-            background: rgba(255, 255, 255, 0.1); 
-        }
-
+        [data-theme="dark"] .tag { background: rgba(255, 255, 255, 0.1); }
         .project-card:hover .tag { border-color: var(--accent-color); color: var(--text-color); }
 
-        /* Footer Message & Back to Top */
         .footer-message { 
-            padding: 60px var(--edge-spacing); 
+            padding: 60px 30px; 
             border-top: 1px solid var(--border-color); 
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
+            display: flex; flex-direction: column; align-items: center; gap: 30px;
         }
         .footer-message p { font-size: 1.5rem; font-weight: 700; color: var(--text-color); line-height: 1.5; }
 
         .back-to-top {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--secondary-text);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-transform: uppercase;
+            background: transparent; border: 1px solid var(--border-color); color: var(--secondary-text);
+            padding: 10px 20px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; cursor: none;
+            display: flex; align-items: center; gap: 8px; text-transform: uppercase;
         }
-        .back-to-top:hover {
-            color: var(--text-color);
-            border-color: var(--accent-color);
-            background-color: transparent;
-        }
+        .back-to-top:hover { color: var(--text-color); border-color: var(--accent-color); background-color: transparent; }
         
         .theme-toggle-inline { border: none; background: none; color: var(--text-color); font-size: 2rem; cursor: none; margin-left: 10px; }
         .theme-toggle-inline:hover { color: var(--accent-color); transform: rotate(15deg); }
 
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot {
+            width: 8px; height: 8px; background-color: var(--text-color);
+            position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%);
+        }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 1px solid var(--text-color);
+            position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        body.hovering .cursor-outline {
+            width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color);
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             body { padding: 0; overflow: auto; height: auto; }
-            .site-frame { display: none; } 
-            .content-wrapper { flex-direction: column; border: none; margin-top: 0; }
+            .layout-container { border: none; }
+            .content-wrapper { flex-direction: column; }
             .sidebar { width: 100%; height: auto; padding: 30px 20px; border-right: none; border-bottom: 1px solid var(--border-color); }
             .right-panel { width: 100%; height: auto; display: block; }
             .hero-text h1 { font-size: 3.5rem; }
             .project-grid { grid-template-columns: 1fr; padding: 20px; gap: 40px; }
             .works-header { flex-direction: column-reverse; align-items: flex-start; gap: 15px; padding: 20px; position: sticky; top: 0; height: auto; }
+            .site-header { padding: 0 20px; }
+            .site-footer { padding: 0 20px; }
+            .nav-menu { display: none; }
             .cursor-dot, .cursor-outline { display: none; }
             body, a, button, .project-card, .nav-link, .scroll-area, .back-to-top { cursor: auto !important; }
-            .nav-menu { display: none; }
         }
     </style>
 </head>
@@ -338,124 +315,128 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <div class="site-frame frame-top">
-        <div class="brand-logo">MC.</div>
-        <nav class="nav-menu">
-            <a href="#" class="nav-link active">Work</a>
-            <a href="#" class="nav-link">About Me</a>
-            <a href="#" class="nav-link">Playground</a>
-        </nav>
-    </div>
+    <div class="layout-container">
+        
+        <header class="site-header">
+            <div class="brand-logo">MC.</div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active">Work</a>
+                <a href="#" class="nav-link">About Me</a>
+                <a href="#" class="nav-link">Playground</a>
+            </nav>
+        </header>
 
-    <div class="site-frame frame-bottom">
-        <div class="bottom-actions">
-            <span class="connect-text">Connect with me</span>
-            <a href="mailto:yche1356@asu.edu" class="action-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            <a href="#" class="action-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="resume-pill">Resume</a>
-        </div>
-        <span>© 2025 Michelle Chen. All Rights Reserved.</span>
-    </div>
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <div class="sidebar-top">
+                    <div style="margin-bottom:20px;">
+                        <span style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:600;">
+                            <span style="color:#2ecc71;">●</span> Open to New Projects
+                        </span>
+                    </div>
 
-    <div class="content-wrapper">
-        <aside class="sidebar">
-            <div class="sidebar-top">
-                <div style="margin-bottom:20px;">
-                    <span style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:600;">
-                        <span style="color:#2ecc71;">●</span> Open to New Projects
-                    </span>
+                    <div class="hero-text" id="hero-title">
+                        <h1>
+                            Design.<br>Code.<br>Systems.
+                            <button class="theme-toggle-inline" id="theme-toggle">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </h1>
+                        
+                        <p>
+                            <strong>UX/UI Designer</strong> specializing in B2B SaaS and complex data visualization.
+                            Currently transforming requirements into scalable design systems at VisLab (ASU).
+                        </p>
+                    </div>
                 </div>
 
-                <div class="hero-text" id="hero-title">
-                    <h1>
-                        Design.<br>Code.<br>Systems.
-                        <button class="theme-toggle-inline" id="theme-toggle">
-                            <i class="fas fa-moon"></i>
+                <div class="bio-container">
+                    <img src="assets/img/meme.svg" alt="Michelle Doodle" class="doodle-img">
+                    <div class="bio-text">
+                        <h3>Michelle Chen</h3>
+                        <p>MS in User Experience<br>Arizona State University</p>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="right-panel" id="right-panel">
+                <div class="works-header">
+                    <span class="section-title" id="works-count">Selected Works 04</span>
+                    <div class="filter-bar">
+                        <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                        <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
+                        <button class="filter-btn" onclick="filterProjects('code')">Code</button>
+                        <button class="filter-btn" onclick="filterProjects('b2b')">SaaS</button>
+                    </div>
+                </div>
+
+                <div class="scroll-area" id="scroll-container">
+                    <div class="project-grid">
+                        <div class="project-card slide-in-right" style="animation-delay: 0.1s;" data-category="uiux code b2b">
+                            <div class="image-container">
+                                <div class="image-placeholder" style="background:#e3e8ef; color:#555;">VisLab System</div>
+                            </div>
+                            <div class="project-info">
+                                <h3>VisLab Design System</h3>
+                                <p>Building accessible components for ASU's digital ecosystem.</p>
+                                <div class="tags"><span class="tag">Design System</span><span class="tag">B2B</span></div>
+                            </div>
+                        </div>
+
+                        <div class="project-card slide-in-right" style="animation-delay: 0.2s;" data-category="b2b uiux">
+                            <div class="image-container">
+                                <div class="image-placeholder" style="background:#2c3e50; color:#fff;">M-Think SaaS</div>
+                            </div>
+                            <div class="project-info">
+                                <h3>M-Think Analytics</h3>
+                                <p>Data visualization dashboard for complex logistics management.</p>
+                                <div class="tags"><span class="tag">SaaS</span><span class="tag">Data Viz</span></div>
+                            </div>
+                        </div>
+
+                        <div class="project-card slide-in-right" style="animation-delay: 0.3s;" data-category="uiux code">
+                            <div class="image-container">
+                                <div class="image-placeholder" style="background:#d6cfc7; color:#5e554d;">Inclusive Heritage</div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Inclusive Heritage</h3>
+                                <p>WCAG 2.1 compliant web platform for cultural storytelling.</p>
+                                <div class="tags"><span class="tag">Accessibility</span><span class="tag">Web Design</span></div>
+                            </div>
+                        </div>
+
+                        <div class="project-card slide-in-right" style="animation-delay: 0.4s;" data-category="code uiux">
+                            <div class="image-container">
+                                <div class="image-placeholder" style="background:#f9f9f9; border:1px solid #ddd; color:#777;">Toastmasters</div>
+                            </div>
+                            <div class="project-info">
+                                <h3>Toastmasters Refresh</h3>
+                                <p>Frontend implementation reducing bounce rates by 20%.</p>
+                                <div class="tags"><span class="tag">Frontend</span><span class="tag">Redesign</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-message">
+                        <p>Thank you for stopping by! <br>There will be more projects in the future. Stay tuned.</p>
+                        <button class="back-to-top" onclick="scrollToTop()">
+                            <i class="fas fa-arrow-up"></i> Back to Top
                         </button>
-                    </h1>
-                    
-                    <p>
-                        <strong>UX/UI Designer</strong> specializing in B2B SaaS and complex data visualization.
-                        Currently transforming requirements into scalable design systems at VisLab (ASU).
-                    </p>
-                </div>
-            </div>
-
-            <div class="bio-container">
-                <img src="assets/img/meme.svg" alt="Michelle Doodle" class="doodle-img">
-                <div class="bio-text">
-                    <h3>Michelle Chen</h3>
-                    <p>MS in User Experience<br>Arizona State University</p>
-                </div>
-            </div>
-        </aside>
-
-        <div class="right-panel" id="right-panel">
-            <div class="works-header">
-                <span class="section-title" id="works-count">Selected Works 04</span>
-                <div class="filter-bar">
-                    <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-                    <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
-                    <button class="filter-btn" onclick="filterProjects('code')">Code</button>
-                    <button class="filter-btn" onclick="filterProjects('b2b')">SaaS</button>
-                </div>
-            </div>
-
-            <div class="scroll-area" id="scroll-container">
-                <div class="project-grid">
-                    <div class="project-card slide-in-right" style="animation-delay: 0.1s;" data-category="uiux code b2b">
-                        <div class="image-container">
-                            <div class="image-placeholder" style="background:#e3e8ef; color:#555;">VisLab System</div>
-                        </div>
-                        <div class="project-info">
-                            <h3>VisLab Design System</h3>
-                            <p>Building accessible components for ASU's digital ecosystem.</p>
-                            <div class="tags"><span class="tag">Design System</span><span class="tag">B2B</span></div>
-                        </div>
                     </div>
-
-                    <div class="project-card slide-in-right" style="animation-delay: 0.2s;" data-category="b2b uiux">
-                        <div class="image-container">
-                            <div class="image-placeholder" style="background:#2c3e50; color:#fff;">M-Think SaaS</div>
-                        </div>
-                        <div class="project-info">
-                            <h3>M-Think Analytics</h3>
-                            <p>Data visualization dashboard for complex logistics management.</p>
-                            <div class="tags"><span class="tag">SaaS</span><span class="tag">Data Viz</span></div>
-                        </div>
-                    </div>
-
-                    <div class="project-card slide-in-right" style="animation-delay: 0.3s;" data-category="uiux code">
-                        <div class="image-container">
-                            <div class="image-placeholder" style="background:#d6cfc7; color:#5e554d;">Inclusive Heritage</div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Inclusive Heritage</h3>
-                            <p>WCAG 2.1 compliant web platform for cultural storytelling.</p>
-                            <div class="tags"><span class="tag">Accessibility</span><span class="tag">Web Design</span></div>
-                        </div>
-                    </div>
-
-                    <div class="project-card slide-in-right" style="animation-delay: 0.4s;" data-category="code uiux">
-                        <div class="image-container">
-                            <div class="image-placeholder" style="background:#f9f9f9; border:1px solid #ddd; color:#777;">Toastmasters</div>
-                        </div>
-                        <div class="project-info">
-                            <h3>Toastmasters Refresh</h3>
-                            <p>Frontend implementation reducing bounce rates by 20%.</p>
-                            <div class="tags"><span class="tag">Frontend</span><span class="tag">Redesign</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-message">
-                    <p>Thank you for stopping by! <br>There will be more projects in the future. Stay tuned.</p>
-                    <button class="back-to-top" onclick="scrollToTop()">
-                        <i class="fas fa-arrow-up"></i> Back to Top
-                    </button>
                 </div>
             </div>
         </div>
+
+        <footer class="site-footer">
+            <div class="bottom-actions">
+                <span class="connect-text">Connect with me</span>
+                <a href="mailto:yche1356@asu.edu" class="action-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="#" class="action-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="resume-pill">Resume</a>
+            </div>
+            <span>© 2025 Michelle Chen. All Rights Reserved.</span>
+        </footer>
+    
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
@@ -478,7 +459,6 @@
             }
         });
 
-        // Initialize Lenis
         const scrollContainer = document.getElementById('scroll-container');
         const lenis = new Lenis({
             wrapper: scrollContainer,
@@ -499,7 +479,6 @@
 
         function filterProjects(category) {
             const buttons = document.querySelectorAll('.filter-btn');
-            // Update Active Button
             buttons.forEach(btn => {
                 if (btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText === 'All')) {
                     btn.classList.add('active');
@@ -514,7 +493,6 @@
 
             const cards = document.querySelectorAll('.project-card');
             let visibleCount = 0; 
-
             cards.forEach(card => {
                 const categories = card.getAttribute('data-category');
                 if (category === 'all' || categories.includes(category)) {
@@ -528,29 +506,22 @@
                 }
             });
 
-            // Update the counter text
             const countLabel = document.getElementById('works-count');
             const formattedCount = visibleCount < 10 ? '0' + visibleCount : visibleCount;
             countLabel.innerText = 'Selected Works ' + formattedCount;
-
             setTimeout(() => lenis.resize(), 100);
         }
 
-        // --- CUSTOM CURSOR ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
         document.addEventListener('mousemove', (e) => { 
-            mouseX = e.clientX; 
-            mouseY = e.clientY; 
-            cursorDot.style.left = mouseX + 'px'; 
-            cursorDot.style.top = mouseY + 'px'; 
+            mouseX = e.clientX; mouseY = e.clientY; 
+            cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px'; 
         });
         function animateCursor() { 
-            outlineX += (mouseX - outlineX) * 0.15; 
-            outlineY += (mouseY - outlineY) * 0.15; 
-            cursorOutline.style.left = outlineX + 'px'; 
-            cursorOutline.style.top = outlineY + 'px'; 
+            outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15; 
+            cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px'; 
             requestAnimationFrame(animateCursor); 
         }
         animateCursor();
