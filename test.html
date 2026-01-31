@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michelle Chen - UX/UI Designer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-weight=%22900%22 font-family=%22Arial%22>M</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -13,9 +14,10 @@
             --bg-color: #ffffff;
             --text-color: #111111;
             --secondary-text: #555555;
-            --accent-color: #2ecc71; /* Green */
+            --accent-color: #2ecc71; 
             --border-color: #e0e0e0;
-            --frame-size: 50px; /* Size of the border edge */
+            --frame-height: 50px;
+            --edge-spacing: 20px;
         }
 
         /* Dark Mode */
@@ -26,8 +28,8 @@
             --border-color: #333333;
         }
 
-        /* HIDE CURSOR (Custom Cursor Active) */
-        body, a, button, .project-card, .nav-link {
+        /* HIDE DEFAULT CURSOR */
+        body, a, button, .project-card, .nav-link, .scroll-area {
             cursor: none !important;
         }
 
@@ -36,40 +38,86 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             height: 100vh;
-            overflow: hidden; /* Prevent body scroll, handled by internal divs */
-            padding: var(--frame-size); /* This creates the space for the border */
+            overflow: hidden; 
+            padding: var(--frame-height) 0; 
             position: relative;
         }
 
-        /* --- SITE BORDER & NAV --- */
+        /* --- SITE BORDER FRAMES --- */
         .site-frame {
             position: fixed;
             background: var(--bg-color);
             z-index: 1000;
-            border: 1px solid var(--border-color);
+            left: 0;
+            width: 100%;
+            height: var(--frame-height);
+            padding: 0 var(--edge-spacing); 
+            display: flex;
+            align-items: center;
         }
-        /* Top Navigation Bar */
-        .frame-top { top: 0; left: 0; width: 100%; height: var(--frame-size); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; border-bottom: 1px solid var(--border-color); }
-        .frame-bottom { bottom: 0; left: 0; width: 100%; height: var(--frame-size); border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--secondary-text); }
-        .frame-left { top: 0; left: 0; width: var(--frame-size); height: 100%; border-right: 1px solid var(--border-color); }
-        .frame-right { top: 0; right: 0; width: var(--frame-size); height: 100%; border-left: 1px solid var(--border-color); }
 
-        .nav-menu { display: flex; gap: 30px; }
+        .frame-top { 
+            top: 0; 
+            border-bottom: 1px solid var(--border-color); 
+            justify-content: flex-start; 
+            gap: 60px; 
+        }
+
+        .frame-bottom { 
+            bottom: 0; 
+            border-top: 1px solid var(--border-color); 
+            font-size: 0.75rem; color: var(--secondary-text);
+            justify-content: space-between;
+        }
+
+        /* --- NAVIGATION --- */
+        .nav-menu { 
+            display: flex; 
+            gap: 30px; 
+            position: relative; 
+            transform: none;
+            left: auto;
+        } 
+        
         .nav-link { 
-            text-transform: uppercase; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; 
-            color: var(--secondary-text); position: relative; 
+            text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; 
+            color: var(--secondary-text); 
+            text-decoration: none;
+            padding: 4px 0; 
+            border-bottom: 2px solid transparent; 
+            background: transparent;
         }
-        .nav-link.active, .nav-link:hover { color: var(--text-color); }
-        .nav-link.active::after {
-            content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: var(--accent-color);
+
+        .nav-link.active, .nav-link:hover { 
+            color: var(--text-color); 
+            border-bottom-color: var(--accent-color);
         }
+
+        .brand-logo { font-weight: 900; font-size: 1.2rem; }
+
+        /* --- BOTTOM ACTIONS --- */
+        .bottom-actions { display: flex; gap: 15px; align-items: center; }
+        .connect-text { font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--text-color); margin-right: 5px; }
+
+        .action-icon {
+            font-size: 1.1rem; color: var(--text-color); text-decoration: none;
+            display: flex; align-items: center; justify-content: center;
+            width: 30px; height: 30px; border-radius: 50%; transition: transform 0.2s;
+        }
+        .action-icon:hover { color: var(--accent-color); transform: scale(1.2); }
+
+        .resume-pill {
+            padding: 4px 14px; border: 1px solid var(--border-color); border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700; color: var(--text-color); text-decoration: none; text-transform: uppercase;
+        }
+        .resume-pill:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
         /* --- CUSTOM CURSOR --- */
         .cursor-dot {
@@ -91,90 +139,94 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            border: 1px solid var(--border-color); /* Inner Border */
         }
 
-        /* --- SIDEBAR --- */
+        /* --- SIDEBAR (30% WIDTH) --- */
         .sidebar {
-            width: 40%;
+            width: 30%; 
             height: 100%;
-            padding: 40px;
+            padding: 40px var(--edge-spacing) 0px; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             border-right: 1px solid var(--border-color);
             overflow-y: auto;
+            position: relative; 
+            z-index: 1;
         }
 
-        /* Hero Text */
+        .hero-text { position: relative; z-index: 2; }
         .hero-text h1 {
-            font-size: 80px;
-            line-height: 0.95;
+            font-size: 5rem; 
+            line-height: 0.9;
             letter-spacing: -0.04em;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 800;
         }
-
+        
         .hero-text p {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: var(--secondary-text);
-            max-width: 95%;
+            font-size: 0.9rem;
+            line-height: 1.5; 
+            color: var(--secondary-text); 
+            max-width: 100%;
             margin-bottom: 20px;
         }
 
-        /* Dark Mode Image Fix */
-        .doodle-img {
-            width: auto; height: 90px;
-            /* Invert colors in dark mode so black lines become white */
-            transition: filter 0.3s ease;
-        }
+        .doodle-img { width: auto; height: 90px; transition: filter 0.3s ease; }
         [data-theme="dark"] .doodle-img { filter: invert(1); }
 
-        .bio-container { display: flex; gap: 15px; align-items: center; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); }
-        .bio-text h3 { font-size: 1rem; font-weight: 700; }
+        .bio-container { display: flex; gap: 15px; align-items: center; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color); background: var(--bg-color); z-index: 2; padding-bottom: 20px; }
+        
+        .bio-text h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
         .bio-text p { font-size: 0.85rem; color: var(--secondary-text); }
 
-        /* --- RIGHT CONTENT (PROJECTS) --- */
-        .main-content {
-            width: 60%;
+        /* --- RIGHT PANEL (70% WIDTH) --- */
+        .right-panel {
+            width: 70%; 
             height: 100%;
-            overflow-y: auto; /* Scrollable area */
+            display: flex;
+            flex-direction: column; 
             position: relative;
+            background: var(--bg-color); 
+            overflow: hidden;
         }
 
-        /* Fixed Header inside Main Content */
         .works-header {
-            position: sticky;
-            top: 0;
-            background-color: var(--bg-color); /* Opaque background to hide scroll */
+            flex-shrink: 0; 
+            background-color: var(--bg-color);
             z-index: 50;
-            padding: 30px 40px 20px 40px;
+            padding: 15px var(--edge-spacing); 
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 60px; 
+        }
+
+        .scroll-area {
+            flex-grow: 1;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 20px;
+            z-index: 10; 
+        }
+
+        .scroll-area::-webkit-scrollbar { width: 8px; }
+        .scroll-area::-webkit-scrollbar-track { background: transparent; margin: 5px 0; }
+        .scroll-area::-webkit-scrollbar-thumb {
+            background-color: var(--accent-color); border-radius: 10px; border: 2px solid var(--bg-color);
         }
 
         .section-title { font-size: 0.9rem; text-transform: uppercase; font-weight: 800; }
 
         .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
         .filter-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--secondary-text);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            cursor: none;
+            background: transparent; border: 1px solid var(--border-color); color: var(--secondary-text);
+            padding: 6px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 500; cursor: none;
         }
-        
-        /* HOVER: Black Text + Green Border */
         .filter-btn:hover, .filter-btn.active {
-            color: var(--text-color); /* Black/White text */
-            border-color: var(--accent-color); /* Green Border */
-            background-color: transparent;
+            color: var(--text-color); border-color: var(--accent-color); background-color: transparent;
         }
 
         /* Project Grid */
@@ -182,93 +234,102 @@
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 30px; 
-            padding: 40px; 
+            padding: 20px var(--edge-spacing) 40px; 
+            width: 100%;
         }
-
+        
         .project-card { 
             display: flex; flex-direction: column; cursor: none; 
-            /* Initial state for right-side entrance animation */
             opacity: 0; transform: translateX(50px);
             transition: transform 0.3s ease, opacity 0.3s ease;
+            position: relative;
         }
-        
-        /* Entrance Animation Class */
-        .slide-in-right {
-            animation: slideInRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+        .slide-in-right { animation: slideInRight 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        @keyframes slideInRight { to { opacity: 1; transform: translateX(0); } }
 
-        @keyframes slideInRight {
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Hover Effect for Cards */
-        .project-card:hover { transform: translateY(-5px) !important; }
+        .project-card:hover { transform: translateY(-10px) scale(1.02) !important; }
 
         .image-container {
-            width: 100%; aspect-ratio: 4/3; background-color: #f0f0f0;
-            margin-bottom: 15px; border-radius: 4px; overflow: hidden;
+            width: 100%; aspect-ratio: 16/9; 
+            background-color: #f0f0f0;
+            margin-bottom: 15px; border-radius: 8px; overflow: hidden;
         }
-        
         .image-placeholder {
-            width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold; color: #666; font-size: 1.1rem;
-            transition: transform 0.6s ease;
+            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: #666; font-size: 1.1rem; transition: transform 0.6s ease;
         }
         .project-card:hover .image-placeholder { transform: scale(1.05); }
 
-        .project-info h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; }
-        .project-info p { font-size: 0.95rem; color: var(--secondary-text); margin-bottom: 12px; line-height: 1.4; }
+        .project-info h3 { font-size: 1.5rem; margin-bottom: 8px; font-weight: 700; }
+        .project-info p { font-size: 1rem; color: var(--secondary-text); margin-bottom: 12px; line-height: 1.4; }
         
         .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        
         .tag { 
-            font-size: 0.7rem; color: var(--secondary-text); padding: 4px 10px;
-            border-radius: 30px; border: 1px solid var(--border-color); 
+            font-size: 0.7rem; 
+            color: var(--secondary-text); 
+            padding: 4px 10px; 
+            border-radius: 30px; 
+            border: 1px solid var(--border-color); 
+            background: rgba(255,255,255,0.5); 
+            backdrop-filter: blur(4px); 
         }
-        /* Hover: Green Border + Black Text */
+        
+        /* DARK MODE TAG FIX */
+        [data-theme="dark"] .tag {
+            background: rgba(255, 255, 255, 0.1); 
+        }
+
         .project-card:hover .tag { border-color: var(--accent-color); color: var(--text-color); }
 
-        /* Footer */
-        .footer-message {
-            padding: 60px 40px;
-            border-top: 1px solid var(--border-color);
+        /* Footer Message & Back to Top */
+        .footer-message { 
+            padding: 60px var(--edge-spacing); 
+            border-top: 1px solid var(--border-color); 
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
         }
-        .footer-message p { font-size: 2rem; font-weight: 800; margin-bottom: 30px; color: var(--text-color); }
-        
-        .footer-actions { display: flex; justify-content: center; gap: 20px; align-items: center; }
-        .icon-btn {
-            width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: center; color: var(--text-color);
-        }
-        .icon-btn:hover { border-color: var(--accent-color); color: var(--accent-color); transform: scale(1.1); }
+        .footer-message p { font-size: 1.5rem; font-weight: 700; color: var(--text-color); line-height: 1.5; }
 
-        /* Theme Toggle */
+        .back-to-top {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--secondary-text);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+        }
+        .back-to-top:hover {
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            background-color: transparent;
+        }
+        
         .theme-toggle-inline { border: none; background: none; color: var(--text-color); font-size: 2rem; cursor: none; margin-left: 10px; }
         .theme-toggle-inline:hover { color: var(--accent-color); transform: rotate(15deg); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             body { padding: 0; overflow: auto; height: auto; }
-            .site-frame { display: none; } /* Hide border frame on mobile */
-            .content-wrapper { flex-direction: column; border: none; }
+            .site-frame { display: none; } 
+            .content-wrapper { flex-direction: column; border: none; margin-top: 0; }
             .sidebar { width: 100%; height: auto; padding: 30px 20px; border-right: none; border-bottom: 1px solid var(--border-color); }
-            .main-content { width: 100%; height: auto; overflow: visible; }
+            .right-panel { width: 100%; height: auto; display: block; }
             .hero-text h1 { font-size: 3.5rem; }
             .project-grid { grid-template-columns: 1fr; padding: 20px; gap: 40px; }
-            
-            /* Mobile: Header Wrap Logic */
-            .works-header { 
-                flex-direction: column-reverse; /* Filters TOP, Text BOTTOM */
-                align-items: flex-start; 
-                gap: 15px; 
-                padding: 20px;
-            }
-            .section-title { width: 100%; } /* Text wraps under */
-            
-            /* Enable default cursor on mobile */
+            .works-header { flex-direction: column-reverse; align-items: flex-start; gap: 15px; padding: 20px; position: sticky; top: 0; height: auto; }
             .cursor-dot, .cursor-outline { display: none; }
-            body, a, button, .project-card, .nav-link { cursor: auto !important; }
+            body, a, button, .project-card, .nav-link, .scroll-area, .back-to-top { cursor: auto !important; }
+            .nav-menu { display: none; }
         }
     </style>
 </head>
@@ -278,27 +339,34 @@
     <div class="cursor-outline"></div>
 
     <div class="site-frame frame-top">
-        <div style="font-weight:900;">MC.</div>
+        <div class="brand-logo">MC.</div>
         <nav class="nav-menu">
             <a href="#" class="nav-link active">Work</a>
             <a href="#" class="nav-link">About Me</a>
             <a href="#" class="nav-link">Playground</a>
         </nav>
     </div>
-    <div class="site-frame frame-bottom">© 2025 Michelle Chen. All Rights Reserved.</div>
-    <div class="site-frame frame-left"></div>
-    <div class="site-frame frame-right"></div>
+
+    <div class="site-frame frame-bottom">
+        <div class="bottom-actions">
+            <span class="connect-text">Connect with me</span>
+            <a href="mailto:yche1356@asu.edu" class="action-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
+            <a href="#" class="action-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="resume-pill">Resume</a>
+        </div>
+        <span>© 2025 Michelle Chen. All Rights Reserved.</span>
+    </div>
 
     <div class="content-wrapper">
         <aside class="sidebar">
             <div class="sidebar-top">
                 <div style="margin-bottom:20px;">
                     <span style="background:var(--bg-color); border:1px solid var(--border-color); padding:6px 12px; border-radius:20px; font-size:0.75rem; font-weight:600;">
-                        <span style="color:#2ecc71;">●</span> Open to Work
+                        <span style="color:#2ecc71;">●</span> Open to New Projects
                     </span>
                 </div>
 
-                <div class="hero-text">
+                <div class="hero-text" id="hero-title">
                     <h1>
                         Design.<br>Code.<br>Systems.
                         <button class="theme-toggle-inline" id="theme-toggle">
@@ -322,10 +390,9 @@
             </div>
         </aside>
 
-        <main class="main-content" id="scroll-container">
-            
+        <div class="right-panel" id="right-panel">
             <div class="works-header">
-                <span class="section-title">Selected Works 04</span>
+                <span class="section-title" id="works-count">Selected Works 04</span>
                 <div class="filter-bar">
                     <button class="filter-btn active" onclick="filterProjects('all')">All</button>
                     <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
@@ -334,68 +401,66 @@
                 </div>
             </div>
 
-            <div class="project-grid">
-                <div class="project-card slide-in-right" style="animation-delay: 0.1s;" data-category="uiux code b2b">
-                    <div class="image-container">
-                        <div class="image-placeholder" style="background:#e3e8ef; color:#555;">VisLab System</div>
+            <div class="scroll-area" id="scroll-container">
+                <div class="project-grid">
+                    <div class="project-card slide-in-right" style="animation-delay: 0.1s;" data-category="uiux code b2b">
+                        <div class="image-container">
+                            <div class="image-placeholder" style="background:#e3e8ef; color:#555;">VisLab System</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>VisLab Design System</h3>
+                            <p>Building accessible components for ASU's digital ecosystem.</p>
+                            <div class="tags"><span class="tag">Design System</span><span class="tag">B2B</span></div>
+                        </div>
                     </div>
-                    <div class="project-info">
-                        <h3>VisLab Design System</h3>
-                        <p>Building accessible components for ASU's digital ecosystem.</p>
-                        <div class="tags"><span class="tag">Design System</span><span class="tag">B2B</span></div>
+
+                    <div class="project-card slide-in-right" style="animation-delay: 0.2s;" data-category="b2b uiux">
+                        <div class="image-container">
+                            <div class="image-placeholder" style="background:#2c3e50; color:#fff;">M-Think SaaS</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>M-Think Analytics</h3>
+                            <p>Data visualization dashboard for complex logistics management.</p>
+                            <div class="tags"><span class="tag">SaaS</span><span class="tag">Data Viz</span></div>
+                        </div>
+                    </div>
+
+                    <div class="project-card slide-in-right" style="animation-delay: 0.3s;" data-category="uiux code">
+                        <div class="image-container">
+                            <div class="image-placeholder" style="background:#d6cfc7; color:#5e554d;">Inclusive Heritage</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Inclusive Heritage</h3>
+                            <p>WCAG 2.1 compliant web platform for cultural storytelling.</p>
+                            <div class="tags"><span class="tag">Accessibility</span><span class="tag">Web Design</span></div>
+                        </div>
+                    </div>
+
+                    <div class="project-card slide-in-right" style="animation-delay: 0.4s;" data-category="code uiux">
+                        <div class="image-container">
+                            <div class="image-placeholder" style="background:#f9f9f9; border:1px solid #ddd; color:#777;">Toastmasters</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>Toastmasters Refresh</h3>
+                            <p>Frontend implementation reducing bounce rates by 20%.</p>
+                            <div class="tags"><span class="tag">Frontend</span><span class="tag">Redesign</span></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="project-card slide-in-right" style="animation-delay: 0.2s;" data-category="b2b uiux">
-                    <div class="image-container">
-                        <div class="image-placeholder" style="background:#2c3e50; color:#fff;">M-Think SaaS</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>M-Think Analytics</h3>
-                        <p>Data visualization dashboard for complex logistics management.</p>
-                        <div class="tags"><span class="tag">SaaS</span><span class="tag">Data Viz</span></div>
-                    </div>
-                </div>
-
-                <div class="project-card slide-in-right" style="animation-delay: 0.3s;" data-category="uiux code">
-                    <div class="image-container">
-                        <div class="image-placeholder" style="background:#d6cfc7; color:#5e554d;">Inclusive Heritage</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Inclusive Heritage</h3>
-                        <p>WCAG 2.1 compliant web platform for cultural storytelling.</p>
-                        <div class="tags"><span class="tag">Accessibility</span><span class="tag">Web Design</span></div>
-                    </div>
-                </div>
-
-                <div class="project-card slide-in-right" style="animation-delay: 0.4s;" data-category="code uiux">
-                    <div class="image-container">
-                        <div class="image-placeholder" style="background:#f9f9f9; border:1px solid #ddd; color:#777;">Toastmasters</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Toastmasters Refresh</h3>
-                        <p>Frontend implementation reducing bounce rates by 20%.</p>
-                        <div class="tags"><span class="tag">Frontend</span><span class="tag">Redesign</span></div>
-                    </div>
+                <div class="footer-message">
+                    <p>Thank you for stopping by! <br>There will be more projects in the future. Stay tuned.</p>
+                    <button class="back-to-top" onclick="scrollToTop()">
+                        <i class="fas fa-arrow-up"></i> Back to Top
+                    </button>
                 </div>
             </div>
-
-            <div class="footer-message">
-                <p>Thanks for stopping by! <br>Let's build something.</p>
-                <div class="footer-actions">
-                    <a href="mailto:yche1356@asu.edu" class="icon-btn"><i class="fas fa-envelope"></i></a>
-                    <a href="#" class="icon-btn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="icon-btn"><i class="fas fa-file-pdf"></i></a>
-                </div>
-            </div>
-
-        </main>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        // --- THEME TOGGLE ---
         const themeBtn = document.getElementById('theme-toggle');
         const themeIcon = themeBtn.querySelector('i');
         const html = document.documentElement;
@@ -413,12 +478,11 @@
             }
         });
 
-        // --- LENIS SMOOTH SCROLL ---
-        // We attach Lenis to the .main-content div instead of window
+        // Initialize Lenis
         const scrollContainer = document.getElementById('scroll-container');
         const lenis = new Lenis({
             wrapper: scrollContainer,
-            content: scrollContainer,
+            content: scrollContainer.querySelector('.project-grid').parentNode,
             duration: 1.5,
             smooth: true
         });
@@ -429,11 +493,14 @@
         }
         requestAnimationFrame(raf);
 
-        // --- FILTERING ---
+        function scrollToTop() {
+            lenis.scrollTo(0, { duration: 1.5 });
+        }
+
         function filterProjects(category) {
             const buttons = document.querySelectorAll('.filter-btn');
+            // Update Active Button
             buttons.forEach(btn => {
-                // Simple check for active class logic
                 if (btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText === 'All')) {
                     btn.classList.add('active');
                 } else if(category === 'uiux' && btn.innerText.includes('UI')) {
@@ -446,49 +513,49 @@
             });
 
             const cards = document.querySelectorAll('.project-card');
+            let visibleCount = 0; 
+
             cards.forEach(card => {
                 const categories = card.getAttribute('data-category');
                 if (category === 'all' || categories.includes(category)) {
                     card.style.display = 'flex';
-                    // Re-trigger animation
                     card.classList.remove('slide-in-right');
-                    void card.offsetWidth; // trigger reflow
+                    void card.offsetWidth; 
                     card.classList.add('slide-in-right');
+                    visibleCount++; 
                 } else {
                     card.style.display = 'none';
                 }
             });
+
+            // Update the counter text
+            const countLabel = document.getElementById('works-count');
+            const formattedCount = visibleCount < 10 ? '0' + visibleCount : visibleCount;
+            countLabel.innerText = 'Selected Works ' + formattedCount;
+
             setTimeout(() => lenis.resize(), 100);
         }
 
         // --- CUSTOM CURSOR ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        
         let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
+        document.addEventListener('mousemove', (e) => { 
+            mouseX = e.clientX; 
+            mouseY = e.clientY; 
+            cursorDot.style.left = mouseX + 'px'; 
+            cursorDot.style.top = mouseY + 'px'; 
         });
-
-        function animateCursor() {
-            outlineX += (mouseX - outlineX) * 0.15;
-            outlineY += (mouseY - outlineY) * 0.15;
-            cursorOutline.style.left = outlineX + 'px';
-            cursorOutline.style.top = outlineY + 'px';
-            requestAnimationFrame(animateCursor);
+        function animateCursor() { 
+            outlineX += (mouseX - outlineX) * 0.15; 
+            outlineY += (mouseY - outlineY) * 0.15; 
+            cursorOutline.style.left = outlineX + 'px'; 
+            cursorOutline.style.top = outlineY + 'px'; 
+            requestAnimationFrame(animateCursor); 
         }
         animateCursor();
-
-        // Hover Detection
-        const hoverTargets = document.querySelectorAll('a, button, .project-card, .filter-btn, .nav-link');
-        hoverTargets.forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
-        });
+        const hoverTargets = document.querySelectorAll('a, button, .project-card, .filter-btn, .nav-link, .scroll-area, .action-icon, .resume-pill, .back-to-top');
+        hoverTargets.forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); });
     </script>
 </body>
 </html>
