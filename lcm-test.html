@@ -40,6 +40,37 @@
         .nav-link { text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; color: var(--secondary-text); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
         .nav-link.active, .nav-link:hover { color: var(--text-color); border-bottom-color: var(--accent-color); }
 
+        /* --- PROGRESS BAR --- */
+        .progress-container { width: 100%; height: 4px; background: transparent; position: fixed; top: 0; left: 0; z-index: 10001; }
+        .progress-bar { height: 4px; background: var(--accent-color); width: 0%; transition: width 0.1s ease; }
+
+        /* --- MOBILE TOP BAR (Hidden by default) --- */
+        .mobile-works-bar { display: none; }
+
+        /* --- BACK TO TOP BUTTON --- */
+        .back-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .back-to-top-btn.visible { opacity: 1; pointer-events: auto; }
+        .back-to-top-btn:hover { background-color: var(--accent-color); transform: translateY(-5px); }
+
         /* --- CONTENT WRAPPER --- */
         .content-wrapper { flex-grow: 1; display: flex; overflow: hidden; }
 
@@ -69,7 +100,6 @@
         .hero-img { width: 100%; height: auto; display: block; }
         
         .content-block { padding: 60px 80px; border-bottom: 1px solid var(--border-color); }
-        /* Add the pattern background logic specifically for the background section */
         .pattern-bg { background: url('assets/img/pattern-bg-lg.png') repeat-x; height: 50px; width: 100%; margin: 20px 0; opacity: 0.5; }
 
         .content-block h2 { font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; color: var(--text-color); }
@@ -91,36 +121,99 @@
         .theme-toggle-inline { border: none; background: none; color: var(--text-color); font-size: 2rem; cursor: none; margin-left: 10px; }
         .theme-toggle-inline:hover { color: var(--accent-color); transform: rotate(15deg); }
 
+        /* CURSOR */
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--text-color); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--text-color); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
+        body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color); }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            body { padding: 0; overflow: auto; height: auto; }
+            /* Reset cursor to default on mobile */
+            body, a, button, .nav-link, .scroll-area, .back-btn { cursor: auto !important; }
+            .cursor-dot, .cursor-outline { display: none; }
+
+            /* Mobile Layout overrides */
+            body { padding: 0; overflow: auto; height: auto; padding-top: 50px; /* Space for fixed mobile bar */ }
             .layout-container { border: none; }
             .content-wrapper { flex-direction: column; }
             .sidebar { width: 100%; height: auto; padding: 30px 20px; border-right: none; border-bottom: 1px solid var(--border-color); }
             .right-panel { width: 100%; height: auto; display: block; }
             .content-block { padding: 40px 20px; }
-            .site-header, .site-footer { padding: 0 20px; }
+            .site-header { display: none; /* Hide default header */ }
             .nav-menu { display: none; }
             .two-col-grid { grid-template-columns: 1fr; }
+            
+            /* Mobile Fixed Top Bar */
+            .mobile-works-bar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: fixed;
+                top: 4px; /* Just below progress bar */
+                left: 0;
+                width: 100%;
+                height: 50px;
+                background-color: var(--bg-color);
+                border-bottom: 1px solid var(--border-color);
+                padding: 0 20px;
+                z-index: 10000;
+            }
+            .mobile-back-link {
+                text-decoration: none;
+                color: var(--text-color);
+                font-weight: 700;
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                text-transform: uppercase;
+            }
+            
+            /* Responsive Footer */
+            .site-footer { 
+                height: auto; 
+                flex-direction: column; 
+                padding: 20px; 
+                gap: 15px; 
+                text-align: center;
+            }
+            .bottom-actions { 
+                flex-direction: row; 
+                justify-content: center; 
+            }
+            
+            /* Adjust Back to Top for mobile padding */
+            .back-to-top-btn { bottom: 20px; right: 20px; width: 45px; height: 45px; }
         }
-        
-        /* CURSOR */
-        .cursor-dot { width: 8px; height: 8px; background-color: var(--text-color); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; }
-        .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--text-color); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
-        body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color); }
     </style>
 </head>
 <body>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div>
+
+    <div class="mobile-works-bar">
+        <a href="index.html" class="mobile-back-link">
+            <i class="fas fa-arrow-left"></i> Back to Works
+        </a>
+        <button class="theme-toggle-inline" id="mobile-theme-toggle"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <button class="back-to-top-btn" id="backToTopBtn" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <div class="layout-container">
         
         <header class="site-header">
             <div class="brand-logo">MC.</div>
             <nav class="nav-menu">
-                <a href="index.html" class="nav-link">Work Samples</a>
-                <a href="assets/img/resume.pdf" class="nav-link" target="_blank">Resume</a>
+                <a href="#" class="nav-link">Work</a>
+                <a href="#" class="nav-link">About Me</a>
+                <a href="#" class="nav-link">Playground</a>
             </nav>
             <div style="margin-left:auto;">
                 <button class="theme-toggle-inline" id="theme-toggle"><i class="fas fa-moon"></i></button>
@@ -272,29 +365,58 @@
 
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script>
-        const themeBtn = document.getElementById('theme-toggle');
-        const themeIcon = themeBtn.querySelector('i');
+        // --- THEME TOGGLE LOGIC ---
         const html = document.documentElement;
-        themeBtn.addEventListener('click', () => {
+        
+        function toggleTheme() {
             const currentTheme = html.getAttribute('data-theme');
-            if (currentTheme === 'light') { html.setAttribute('data-theme', 'dark'); themeIcon.classList.replace('fa-moon', 'fa-sun'); } 
-            else { html.setAttribute('data-theme', 'light'); themeIcon.classList.replace('fa-sun', 'fa-moon'); }
-        });
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            
+            // Update both icons (Desktop & Mobile)
+            const icons = document.querySelectorAll('.theme-toggle-inline i');
+            icons.forEach(icon => {
+                icon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            });
+        }
 
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        document.getElementById('mobile-theme-toggle').addEventListener('click', toggleTheme);
+
+
+        // --- SMOOTH SCROLL (LENIS) ---
         const scrollContainer = document.getElementById('scroll-container');
         const lenis = new Lenis({ wrapper: scrollContainer, content: scrollContainer, duration: 1.5, smooth: true });
-        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        
+        function raf(time) { 
+            lenis.raf(time); 
+            requestAnimationFrame(raf); 
+        }
         requestAnimationFrame(raf);
 
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
-        document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px'; });
-        function animateCursor() { outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15; cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px'; requestAnimationFrame(animateCursor); }
-        animateCursor();
 
-        const hoverTargets = document.querySelectorAll('a, button');
-        hoverTargets.forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); });
-    </script>
-</body>
-</html>
+        // --- SCROLL PROGRESS & BACK TO TOP VISIBILITY ---
+        const myBar = document.getElementById("myBar");
+        const backToTopBtn = document.getElementById("backToTopBtn");
+
+        function handleScroll() {
+            let winScroll, height, scrolled;
+            
+            // Check if Mobile (Window Scroll) or Desktop (Container Scroll)
+            if (window.innerWidth <= 900) {
+                winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            } else {
+                winScroll = scrollContainer.scrollTop;
+                height = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+            }
+
+            // Update Progress Bar
+            scrolled = (winScroll / height) * 100;
+            myBar.style.width = scrolled + "%";
+
+            // Update Back to Top Button Visibility
+            if (winScroll > 300) {
+                backToTopBtn.classList.add("visible");
+            } else {
+                back
