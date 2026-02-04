@@ -16,6 +16,7 @@
             --accent-color: #2ecc71; 
             --border-color: #e0e0e0;
             --frame-padding: 30px; 
+            --mobile-header-height: 50px;
         }
 
         [data-theme="dark"] {
@@ -26,7 +27,9 @@
         }
 
         /* RESET & BASE */
+        /* Hide system cursor on desktop elements */
         body, a, button, .nav-link, .scroll-area, .back-btn { cursor: none !important; }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
         body { background-color: var(--bg-color); color: var(--text-color); height: 100vh; overflow: hidden; padding: var(--frame-padding); }
 
@@ -50,8 +53,9 @@
         /* --- BACK TO TOP BUTTON --- */
         .back-to-top-btn {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            /* Updated Position: Higher and more left */
+            bottom: 90px; 
+            right: 40px;
             width: 50px;
             height: 50px;
             background-color: var(--text-color);
@@ -61,7 +65,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            z-index: 9999;
+            z-index: 9000;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
@@ -121,25 +125,56 @@
         .theme-toggle-inline { border: none; background: none; color: var(--text-color); font-size: 2rem; cursor: none; margin-left: 10px; }
         .theme-toggle-inline:hover { color: var(--accent-color); transform: rotate(15deg); }
 
-        /* CURSOR */
-        .cursor-dot { width: 8px; height: 8px; background-color: var(--text-color); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; }
-        .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--text-color); position: fixed; border-radius: 50%; z-index: 9999; pointer-events: none; transition: width 0.2s, height 0.2s, background-color 0.2s; }
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot { 
+            width: 8px; 
+            height: 8px; 
+            background-color: var(--text-color); 
+            position: fixed; 
+            top: 50%; left: 50%; 
+            transform: translate(-50%, -50%);
+            border-radius: 50%; 
+            z-index: 999999; 
+            pointer-events: none; 
+        }
+        .cursor-outline { 
+            width: 40px; 
+            height: 40px; 
+            border: 1px solid var(--text-color); 
+            position: fixed; 
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%; 
+            z-index: 999999; 
+            pointer-events: none; 
+            transition: width 0.2s, height 0.2s, background-color 0.2s; 
+        }
         body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             /* Reset cursor to default on mobile */
             body, a, button, .nav-link, .scroll-area, .back-btn { cursor: auto !important; }
-            .cursor-dot, .cursor-outline { display: none; }
+            .cursor-dot, .cursor-outline { display: none !important; }
 
             /* Mobile Layout overrides */
-            body { padding: 0; overflow: auto; height: auto; padding-top: 50px; /* Space for fixed mobile bar */ }
+            body { 
+                padding: 0; 
+                overflow: auto; 
+                height: auto; 
+                padding-top: var(--mobile-header-height); /* Push content down by header height */
+            }
             .layout-container { border: none; }
             .content-wrapper { flex-direction: column; }
+            
+            /* Sidebar Changes */
             .sidebar { width: 100%; height: auto; padding: 30px 20px; border-right: none; border-bottom: 1px solid var(--border-color); }
+            /* Hide the duplicate 'Back to Works' in sidebar on mobile */
+            .sidebar .back-btn { display: none; }
+
             .right-panel { width: 100%; height: auto; display: block; }
             .content-block { padding: 40px 20px; }
-            .site-header { display: none; /* Hide default header */ }
+            .site-header { display: none; }
             .nav-menu { display: none; }
             .two-col-grid { grid-template-columns: 1fr; }
             
@@ -149,14 +184,14 @@
                 align-items: center;
                 justify-content: space-between;
                 position: fixed;
-                top: 4px; /* Just below progress bar */
+                top: 0;
                 left: 0;
                 width: 100%;
-                height: 50px;
+                height: var(--mobile-header-height);
                 background-color: var(--bg-color);
                 border-bottom: 1px solid var(--border-color);
                 padding: 0 20px;
-                z-index: 10000;
+                z-index: 10002; /* Higher than progress bar */
             }
             .mobile-back-link {
                 text-decoration: none;
@@ -168,6 +203,11 @@
                 gap: 8px;
                 text-transform: uppercase;
             }
+
+            /* Move Progress Bar visually BELOW the header on mobile */
+            .progress-container {
+                top: var(--mobile-header-height);
+            }
             
             /* Responsive Footer */
             .site-footer { 
@@ -177,13 +217,10 @@
                 gap: 15px; 
                 text-align: center;
             }
-            .bottom-actions { 
-                flex-direction: row; 
-                justify-content: center; 
-            }
+            .bottom-actions { flex-direction: row; justify-content: center; }
             
             /* Adjust Back to Top for mobile padding */
-            .back-to-top-btn { bottom: 20px; right: 20px; width: 45px; height: 45px; }
+            .back-to-top-btn { bottom: 80px; right: 20px; width: 45px; height: 45px; }
         }
     </style>
 </head>
@@ -191,15 +228,15 @@
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
 
-    <div class="progress-container">
-        <div class="progress-bar" id="myBar"></div>
-    </div>
-
     <div class="mobile-works-bar">
         <a href="index.html" class="mobile-back-link">
             <i class="fas fa-arrow-left"></i> Back to Works
         </a>
         <button class="theme-toggle-inline" id="mobile-theme-toggle"><i class="fas fa-moon"></i></button>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
     </div>
 
     <button class="back-to-top-btn" id="backToTopBtn" onclick="scrollToTop()">
@@ -373,7 +410,6 @@
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             html.setAttribute('data-theme', newTheme);
             
-            // Update both icons (Desktop & Mobile)
             const icons = document.querySelectorAll('.theme-toggle-inline i');
             icons.forEach(icon => {
                 icon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
@@ -402,7 +438,6 @@
         function handleScroll() {
             let winScroll, height, scrolled;
             
-            // Check if Mobile (Window Scroll) or Desktop (Container Scroll)
             if (window.innerWidth <= 900) {
                 winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -411,12 +446,63 @@
                 height = scrollContainer.scrollHeight - scrollContainer.clientHeight;
             }
 
-            // Update Progress Bar
+            // Update Progress
             scrolled = (winScroll / height) * 100;
             myBar.style.width = scrolled + "%";
 
-            // Update Back to Top Button Visibility
+            // Update Button Visibility
             if (winScroll > 300) {
                 backToTopBtn.classList.add("visible");
             } else {
-                back
+                backToTopBtn.classList.remove("visible");
+            }
+        }
+
+        // --- BACK TO TOP FUNCTION ---
+        function scrollToTop() {
+            if (window.innerWidth <= 900) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                lenis.scrollTo(0);
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        lenis.on('scroll', handleScroll);
+
+
+        // --- CUSTOM CURSOR ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let outlineX = mouseX;
+        let outlineY = mouseY;
+        
+        document.addEventListener('mousemove', (e) => { 
+            mouseX = e.clientX; 
+            mouseY = e.clientY; 
+            cursorDot.style.left = mouseX + 'px'; 
+            cursorDot.style.top = mouseY + 'px'; 
+            cursorDot.style.transform = 'translate(-50%, -50%)'; 
+        });
+        
+        function animateCursor() { 
+            outlineX += (mouseX - outlineX) * 0.15; 
+            outlineY += (mouseY - outlineY) * 0.15; 
+            cursorOutline.style.left = outlineX + 'px'; 
+            cursorOutline.style.top = outlineY + 'px'; 
+            cursorOutline.style.transform = 'translate(-50%, -50%)';
+            requestAnimationFrame(animateCursor); 
+        }
+        animateCursor();
+
+        const hoverTargets = document.querySelectorAll('a, button');
+        hoverTargets.forEach(el => { 
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); 
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); 
+        });
+    </script>
+</body>
+</html>
