@@ -15,7 +15,8 @@
             --secondary-text: #555555;
             --accent-color: #2ecc71; 
             --border-color: #e0e0e0;
-            --frame-padding: 30px; /* The white space around the layout */
+            --frame-padding: 30px; 
+            --mobile-header-height: 50px;
         }
 
         /* Dark Mode */
@@ -26,7 +27,7 @@
             --border-color: #333333;
         }
 
-        /* HIDE DEFAULT CURSOR */
+        /* HIDE DEFAULT CURSOR (Desktop Only) */
         body, a, button, .project-card, .nav-link, .scroll-area {
             cursor: none !important;
         }
@@ -44,39 +45,34 @@
             color: var(--text-color);
             height: 100vh;
             overflow: hidden; 
-            /* THE OUTER FRAME (MATTE) */
             padding: var(--frame-padding);
         }
 
-        /* --- MAIN LAYOUT CONTAINER (THE INNER BORDER) --- */
+        /* --- MAIN LAYOUT CONTAINER --- */
         .layout-container {
             width: 100%;
             height: 100%;
-            border: 1px solid var(--border-color); /* The Inner Border */
+            border: 1px solid var(--border-color); 
             display: flex;
             flex-direction: column;
             position: relative;
             background: var(--bg-color);
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (Desktop) --- */
         .site-header {
             height: 60px;
             flex-shrink: 0;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            /* Header Padding: 30px Left/Right */
             padding: 0 30px;
             gap: 60px;
         }
 
         .brand-logo { font-weight: 900; font-size: 1.2rem; }
 
-        .nav-menu { 
-            display: flex; 
-            gap: 30px; 
-        } 
+        .nav-menu { display: flex; gap: 30px; } 
         
         .nav-link { 
             text-transform: uppercase; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; 
@@ -91,11 +87,27 @@
             border-bottom-color: var(--accent-color);
         }
 
+        /* --- MOBILE TOP BAR (New) --- */
+        .mobile-top-bar {
+            display: none; /* Hidden on Desktop */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--mobile-header-height);
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10001;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
         /* --- CONTENT AREA --- */
         .content-wrapper {
             flex-grow: 1;
             display: flex;
-            overflow: hidden; /* Ensures scroll is contained */
+            overflow: hidden; 
         }
 
         /* --- SIDEBAR --- */
@@ -151,7 +163,6 @@
             flex-shrink: 0; 
             background-color: var(--bg-color);
             z-index: 50;
-            /* Works Header Padding: 30px Left/Right */
             padding: 15px 30px; 
             border-bottom: 1px solid var(--border-color);
             display: flex;
@@ -186,33 +197,22 @@
         }
 
         /* --- FOOTER --- */
-        .site-footer {
-            height: 50px;
-            flex-shrink: 0;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            /* Footer Padding: 30px Left/Right */
-            padding: 0 30px;
+        .site-footer { 
+            height: 50px; 
+            flex-shrink: 0; 
+            border-top: 1px solid var(--border-color); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 0 30px; 
             font-size: 0.75rem; 
-            color: var(--secondary-text);
+            color: var(--secondary-text); 
         }
-
         .bottom-actions { display: flex; gap: 15px; align-items: center; }
         .connect-text { font-weight: 600; text-transform: uppercase; font-size: 0.75rem; color: var(--text-color); margin-right: 5px; }
-
-        .action-icon {
-            font-size: 1.1rem; color: var(--text-color); text-decoration: none;
-            display: flex; align-items: center; justify-content: center;
-            width: 30px; height: 30px; border-radius: 50%; transition: transform 0.2s;
-        }
+        .action-icon { font-size: 1.1rem; color: var(--text-color); text-decoration: none; display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; transition: transform 0.2s; }
         .action-icon:hover { color: var(--accent-color); transform: scale(1.2); }
-
-        .resume-pill {
-            padding: 4px 14px; border: 1px solid var(--border-color); border-radius: 20px;
-            font-size: 0.75rem; font-weight: 700; color: var(--text-color); text-decoration: none; text-transform: uppercase;
-        }
+        .resume-pill { padding: 4px 14px; border: 1px solid var(--border-color); border-radius: 20px; font-size: 0.75rem; font-weight: 700; color: var(--text-color); text-decoration: none; text-transform: uppercase; }
         .resume-pill:hover { border-color: var(--accent-color); color: var(--accent-color); }
 
         /* --- PROJECT GRID --- */
@@ -220,7 +220,6 @@
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: 30px; 
-            /* UPDATED: Symmetrical padding (30px) on Left and Right */
             padding: 30px 30px 60px 30px; 
             width: 100%;
         }
@@ -275,38 +274,90 @@
         }
         .back-to-top:hover { color: var(--text-color); border-color: var(--accent-color); background-color: transparent; }
         
-        .theme-toggle-inline { border: none; background: none; color: var(--text-color); font-size: 2rem; cursor: none; margin-left: 10px; }
+        .theme-toggle-inline { border: none; background: none; color: var(--text-color); font-size: 1.5rem; cursor: none; margin-left: 10px; }
         .theme-toggle-inline:hover { color: var(--accent-color); transform: rotate(15deg); }
+
+        /* --- MOBILE FLOATING BACK TO TOP --- */
+        .mobile-back-to-top-btn {
+            position: fixed;
+            bottom: 90px; 
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 9000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+        .mobile-back-to-top-btn.visible { opacity: 1; pointer-events: auto; }
 
         /* --- CUSTOM CURSOR --- */
         .cursor-dot {
             width: 8px; height: 8px; background-color: var(--text-color);
             position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease, transform 0.1s;
         }
         .cursor-outline {
             width: 40px; height: 40px; border: 1px solid var(--text-color);
             position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none; transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            transition: width 0.2s, height 0.2s, background-color 0.2s, opacity 0.3s ease;
         }
-        body.hovering .cursor-outline {
-            width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color);
-        }
+        .cursor-hidden { opacity: 0; }
+        body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            body { padding: 0; overflow: auto; height: auto; }
-            .layout-container { border: none; }
-            .content-wrapper { flex-direction: column; }
+            /* Fix overflow handling for mobile stickiness */
+            body { padding: 0; overflow: auto; height: auto; padding-top: var(--mobile-header-height); }
+            .layout-container { border: none; overflow: visible; height: auto; display: block; }
+            .content-wrapper { flex-direction: column; overflow: visible; }
             .sidebar { width: 100%; height: auto; padding: 30px 20px; border-right: none; border-bottom: 1px solid var(--border-color); }
-            .right-panel { width: 100%; height: auto; display: block; }
+            .right-panel { width: 100%; height: auto; display: block; overflow: visible; }
+            .scroll-area { overflow: visible; } /* Critical for sticky to work on window scroll */
+
             .hero-text h1 { font-size: 3.5rem; }
-            .project-grid { grid-template-columns: 1fr; padding: 20px; gap: 40px; }
-            .works-header { flex-direction: column-reverse; align-items: flex-start; gap: 15px; padding: 20px; position: sticky; top: 0; height: auto; }
-            .site-header { padding: 0 20px; }
-            .site-footer { padding: 0 20px; }
+            /* Hide the desktop inline toggle in the H1 */
+            .hero-text .theme-toggle-inline { display: none; }
+            
+            /* SHOW FIXED TOP BAR */
+            .mobile-top-bar { display: flex; }
+
+            .project-grid { grid-template-columns: 1fr; padding: 20px 20px 60px 20px; gap: 40px; }
+            
+            /* STICKY FILTER BAR */
+            .works-header { 
+                flex-direction: column-reverse; 
+                align-items: flex-start; 
+                gap: 15px; 
+                padding: 15px 20px; 
+                /* Sticky logic */
+                position: sticky; 
+                top: var(--mobile-header-height); 
+                height: auto; 
+                z-index: 100;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .site-header { display: none; } /* Hide desktop header */
+            .site-footer { height: auto; flex-direction: column; padding: 20px; gap: 15px; text-align: center; }
+            .bottom-actions { flex-direction: row; justify-content: center; }
             .nav-menu { display: none; }
-            .cursor-dot, .cursor-outline { display: none; }
-            body, a, button, .project-card, .nav-link, .scroll-area, .back-to-top { cursor: auto !important; }
+            
+            .cursor-dot, .cursor-outline { display: none !important; }
+            body, a, button, .project-card, .nav-link, .scroll-area, .back-to-top, .filter-btn { cursor: auto !important; }
+
+            .mobile-back-to-top-btn { display: flex; bottom: 80px; right: 20px; width: 45px; height: 45px; }
+            .footer-message .back-to-top { display: none; }
         }
     </style>
 </head>
@@ -314,6 +365,17 @@
 
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
+
+    <div class="mobile-top-bar">
+        <div class="brand-logo">MC.</div>
+        <button class="theme-toggle-inline" id="mobile-theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <button class="mobile-back-to-top-btn" id="mobileBackToTopBtn" onclick="scrollToTopMobile()">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <div class="layout-container">
         
@@ -419,7 +481,7 @@
 
                     <div class="footer-message">
                         <p>Thank you for stopping by! <br>There will be more projects in the future. Stay tuned.</p>
-                        <button class="back-to-top" onclick="scrollToTop()">
+                        <button class="back-to-top" onclick="scrollToTopDesktop()">
                             <i class="fas fa-arrow-up"></i> Back to Top
                         </button>
                     </div>
@@ -430,8 +492,8 @@
         <footer class="site-footer">
             <div class="bottom-actions">
                 <span class="connect-text">Connect with me</span>
-                <a href="mailto:yche1356@asu.edu" class="action-icon" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                <a href="#" class="action-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:yche1356@asu.edu" class="action-icon"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/yihsuanchen0727/" target="_blank" class="action-icon"><i class="fab fa-linkedin-in"></i></a>
                 <a href="#" class="resume-pill">Resume</a>
             </div>
             <span>© 2025 Michelle Chen. All Rights Reserved.</span>
@@ -442,23 +504,23 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        const themeBtn = document.getElementById('theme-toggle');
-        const themeIcon = themeBtn.querySelector('i');
-        const html = document.documentElement;
+        // --- THEME TOGGLE (Handles both Desktop & Mobile buttons) ---
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            
+            // Update all toggle icons (desktop & mobile)
+            const icons = document.querySelectorAll('.theme-toggle-inline i');
+            icons.forEach(icon => {
+                icon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            });
+        }
 
-        themeBtn.addEventListener('click', () => {
-            const currentTheme = html.getAttribute('data-theme');
-            if (currentTheme === 'light') {
-                html.setAttribute('data-theme', 'dark');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                html.setAttribute('data-theme', 'light');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            }
-        });
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        document.getElementById('mobile-theme-toggle').addEventListener('click', toggleTheme);
 
+        // --- LENIS SCROLL (Desktop Only) ---
         const scrollContainer = document.getElementById('scroll-container');
         const lenis = new Lenis({
             wrapper: scrollContainer,
@@ -473,10 +535,28 @@
         }
         requestAnimationFrame(raf);
 
-        function scrollToTop() {
+        function scrollToTopDesktop() {
             lenis.scrollTo(0, { duration: 1.5 });
         }
 
+        function scrollToTopMobile() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- MOBILE BACK TO TOP VISIBILITY ---
+        const mobileBackToTopBtn = document.getElementById('mobileBackToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.innerWidth <= 900) {
+                const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                if (winScroll > 300) {
+                    mobileBackToTopBtn.classList.add("visible");
+                } else {
+                    mobileBackToTopBtn.classList.remove("visible");
+                }
+            }
+        });
+
+        // --- FILTER FUNCTIONALITY ---
         function filterProjects(category) {
             const buttons = document.querySelectorAll('.filter-btn');
             buttons.forEach(btn => {
@@ -509,22 +589,44 @@
             const countLabel = document.getElementById('works-count');
             const formattedCount = visibleCount < 10 ? '0' + visibleCount : visibleCount;
             countLabel.innerText = 'Selected Works ' + formattedCount;
+            
+            // Re-calculate layout for Lenis smooth scroll
             setTimeout(() => lenis.resize(), 100);
         }
 
+        // --- CURSOR LOGIC ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         let mouseX = 0, mouseY = 0, outlineX = 0, outlineY = 0;
+
         document.addEventListener('mousemove', (e) => { 
-            mouseX = e.clientX; mouseY = e.clientY; 
-            cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px'; 
+            cursorDot.classList.remove('cursor-hidden');
+            cursorOutline.classList.remove('cursor-hidden');
+            mouseX = e.clientX; 
+            mouseY = e.clientY; 
+            cursorDot.style.left = mouseX + 'px'; 
+            cursorDot.style.top = mouseY + 'px'; 
         });
+
+        document.addEventListener('mouseleave', () => {
+            cursorDot.classList.add('cursor-hidden');
+            cursorOutline.classList.add('cursor-hidden');
+        });
+
+        document.addEventListener('mouseenter', () => {
+            cursorDot.classList.remove('cursor-hidden');
+            cursorOutline.classList.remove('cursor-hidden');
+        });
+
         function animateCursor() { 
-            outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15; 
-            cursorOutline.style.left = outlineX + 'px'; cursorOutline.style.top = outlineY + 'px'; 
+            outlineX += (mouseX - outlineX) * 0.15; 
+            outlineY += (mouseY - outlineY) * 0.15; 
+            cursorOutline.style.left = outlineX + 'px'; 
+            cursorOutline.style.top = outlineY + 'px'; 
             requestAnimationFrame(animateCursor); 
         }
         animateCursor();
+
         const hoverTargets = document.querySelectorAll('a, button, .project-card, .filter-btn, .nav-link, .scroll-area, .action-icon, .resume-pill, .back-to-top');
         hoverTargets.forEach(el => { el.addEventListener('mouseenter', () => document.body.classList.add('hovering')); el.addEventListener('mouseleave', () => document.body.classList.remove('hovering')); });
     </script>

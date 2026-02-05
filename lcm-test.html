@@ -53,7 +53,6 @@
         /* --- BACK TO TOP BUTTON --- */
         .back-to-top-btn {
             position: fixed;
-            /* Updated Position: Higher and more left */
             bottom: 90px; 
             right: 40px;
             width: 50px;
@@ -85,7 +84,7 @@
         .project-meta h1 { font-size: 2.2rem; line-height: 1.1; font-weight: 800; margin-bottom: 30px; letter-spacing: -0.02em; }
         .meta-group { margin-bottom: 30px; }
         .meta-label { font-size: 0.75rem; text-transform: uppercase; color: var(--secondary-text); font-weight: 700; margin-bottom: 8px; display: block; }
-        .meta-value { font-size: 1rem; color: var(--text-color); line-height: 1.5; list-style: none; }
+        .meta-value { font-size: 0.8rem; color: var(--text-color); line-height: 1.5; list-style: none; }
         .meta-value li { margin-bottom: 4px; }
         .sidebar-bottom { margin-top: auto; }
         .visit-btn { display: inline-block; padding: 12px 24px; background: var(--text-color); color: var(--bg-color); font-size: 0.9rem; font-weight: 700; text-decoration: none; border-radius: 4px; transition: transform 0.2s; }
@@ -99,7 +98,21 @@
         .scroll-area::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 4px; border: 2px solid var(--bg-color); }
 
         /* --- IMAGES & SECTIONS --- */
-        .project-img { width: 100%; height: auto; display: block; border-radius: 4px; margin-top: 30px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .project-img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            border-radius: 4px; 
+            margin-top: 30px; 
+            margin-bottom: 30px; 
+            box-shadow: none; 
+        }
+        
+        [data-theme="dark"] .project-img {
+            background-color: #ffffff;
+            padding: 10px; 
+        }
+
         .hero-section { width: 100%; border-bottom: 1px solid var(--border-color); }
         .hero-img { width: 100%; height: auto; display: block; }
         
@@ -136,6 +149,8 @@
             border-radius: 50%; 
             z-index: 999999; 
             pointer-events: none; 
+            /* Smooth fade transition */
+            transition: opacity 0.3s ease, transform 0.1s;
         }
         .cursor-outline { 
             width: 40px; 
@@ -147,38 +162,33 @@
             border-radius: 50%; 
             z-index: 999999; 
             pointer-events: none; 
-            transition: width 0.2s, height 0.2s, background-color 0.2s; 
+            /* Smooth fade transition added here */
+            transition: width 0.2s, height 0.2s, background-color 0.2s, opacity 0.3s ease; 
         }
+        
+        /* New class to hide cursor when mouse leaves window */
+        .cursor-hidden {
+            opacity: 0;
+        }
+
         body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color); }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            /* Reset cursor to default on mobile */
             body, a, button, .nav-link, .scroll-area, .back-btn { cursor: auto !important; }
             .cursor-dot, .cursor-outline { display: none !important; }
 
-            /* Mobile Layout overrides */
-            body { 
-                padding: 0; 
-                overflow: auto; 
-                height: auto; 
-                padding-top: var(--mobile-header-height); /* Push content down by header height */
-            }
+            body { padding: 0; overflow: auto; height: auto; padding-top: var(--mobile-header-height); }
             .layout-container { border: none; }
             .content-wrapper { flex-direction: column; }
-            
-            /* Sidebar Changes */
             .sidebar { width: 100%; height: auto; padding: 30px 20px; border-right: none; border-bottom: 1px solid var(--border-color); }
-            /* Hide the duplicate 'Back to Works' in sidebar on mobile */
             .sidebar .back-btn { display: none; }
-
             .right-panel { width: 100%; height: auto; display: block; }
             .content-block { padding: 40px 20px; }
             .site-header { display: none; }
             .nav-menu { display: none; }
             .two-col-grid { grid-template-columns: 1fr; }
             
-            /* Mobile Fixed Top Bar */
             .mobile-works-bar {
                 display: flex;
                 align-items: center;
@@ -191,7 +201,7 @@
                 background-color: var(--bg-color);
                 border-bottom: 1px solid var(--border-color);
                 padding: 0 20px;
-                z-index: 10002; /* Higher than progress bar */
+                z-index: 10002;
             }
             .mobile-back-link {
                 text-decoration: none;
@@ -203,23 +213,9 @@
                 gap: 8px;
                 text-transform: uppercase;
             }
-
-            /* Move Progress Bar visually BELOW the header on mobile */
-            .progress-container {
-                top: var(--mobile-header-height);
-            }
-            
-            /* Responsive Footer */
-            .site-footer { 
-                height: auto; 
-                flex-direction: column; 
-                padding: 20px; 
-                gap: 15px; 
-                text-align: center;
-            }
+            .progress-container { top: var(--mobile-header-height); }
+            .site-footer { height: auto; flex-direction: column; padding: 20px; gap: 15px; text-align: center; }
             .bottom-actions { flex-direction: row; justify-content: center; }
-            
-            /* Adjust Back to Top for mobile padding */
             .back-to-top-btn { bottom: 80px; right: 20px; width: 45px; height: 45px; }
         }
     </style>
@@ -481,11 +477,27 @@
         let outlineY = mouseY;
         
         document.addEventListener('mousemove', (e) => { 
+            // When mouse moves, ensure cursor is visible
+            cursorDot.classList.remove('cursor-hidden');
+            cursorOutline.classList.remove('cursor-hidden');
+            
             mouseX = e.clientX; 
             mouseY = e.clientY; 
             cursorDot.style.left = mouseX + 'px'; 
             cursorDot.style.top = mouseY + 'px'; 
             cursorDot.style.transform = 'translate(-50%, -50%)'; 
+        });
+        
+        // Hide cursor when leaving the window
+        document.addEventListener('mouseleave', () => {
+            cursorDot.classList.add('cursor-hidden');
+            cursorOutline.classList.add('cursor-hidden');
+        });
+
+        // Show cursor when entering the window
+        document.addEventListener('mouseenter', () => {
+            cursorDot.classList.remove('cursor-hidden');
+            cursorOutline.classList.remove('cursor-hidden');
         });
         
         function animateCursor() { 
