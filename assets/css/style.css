@@ -103,9 +103,27 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .mobile-top-bar { display: none; }
 .theme-toggle { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-color); }
 .visit-btn { display: inline-block; padding: 15px 25px; background: var(--text-color); color: var(--bg-color); text-decoration: none; font-weight: bold; border-radius: 8px; text-align: center; width: 100%; }
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed; bottom: 70px; left: 30px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--text-color); color: var(--bg-color);
+    border: none; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 999;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s, background-color 0.3s, color 0.3s;
+}
+.back-to-top.show { opacity: 1; visibility: visible; }
 .back-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 700; color: var(--text-color); text-decoration: none; margin-bottom: 30px; text-transform: uppercase; }
 .case-hero-img { width: 100%; height: 350px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 1.5rem; margin-bottom: 30px; }
 .case-content { padding: 40px 60px; max-width: 900px; margin: 0 auto; }
+.case-content h2 { margin-bottom: 16px; }
+.case-content p { line-height: 1.8; }
+
+/* Restore sidebar bottom padding on project pages (no monster) */
+.sidebar:has(.bio-container) { padding-bottom: 30px; }
 
 /* --- RESPONSIVE MOBILE (Max-Width: 900px) --- */
 @media (max-width: 900px) {
@@ -179,6 +197,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     
     body.nav-hidden .works-header { padding-top: 10px; padding-bottom: 10px; }
     .project-grid { grid-template-columns: 1fr; padding: 20px; }
+
+    /* Back to top above fixed mobile footer */
+    .back-to-top { bottom: 100px; left: 20px; }
 
     /* Hide custom cursor on mobile */
     .cursor-dot, .cursor-outline { display: none !important; }
@@ -330,16 +351,19 @@ body.hovering .cursor-outline {
 
 /* --- MOBILE MONSTER VISIBILITY --- */
 @media (max-width: 900px) {
+    /* Re-assert mobile sidebar styles (overridden by SIDEBAR & MONSTER block below first media query) */
     .sidebar {
-        padding-bottom: 0; /* Flush bottom on mobile too */
-        min-height: auto; /* Allow height to fit content */
+        height: auto !important;
+        overflow: visible !important;
+        padding-bottom: 0;
+        min-height: auto;
     }
     .monster-container {
         height: 120px; /* Slightly smaller on mobile */
         display: flex !important; /* Force show */
     }
     .monster-body { padding-bottom: 25px; } /* Adjust eye position for mobile height */
-    
+
     /* Ensure footer doesn't cover monster on mobile */
     .sidebar-footer-container {
         margin-bottom: -1px; /* fix sub-pixel rendering gaps */

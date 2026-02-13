@@ -58,6 +58,7 @@ const PortfolioApp = {
 
         const layoutHTML = `
             ${LayoutComponents.buildProgressBar()}
+            ${LayoutComponents.buildBackToTop()}
             ${LayoutComponents.buildMobileHeader(logoSVG)}
             <div id="app-root">
                 ${LayoutComponents.buildSiteHeader(logoSVG, pageType)}

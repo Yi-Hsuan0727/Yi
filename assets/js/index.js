@@ -15,15 +15,26 @@ const AppLogic = {
     },
 
     // --- 1. THEME LOGIC ---
+    updateThemeIcons: function(theme) {
+        const icons = document.querySelectorAll('.theme-toggle i');
+        icons.forEach(icon => {
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    },
+
     initTheme: function() {
+        const self = this;
         window.toggleTheme = function() {
             const current = document.documentElement.getAttribute('data-theme');
             const next = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
+            self.updateThemeIcons(next);
         };
         const saved = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', saved);
+        // Delay icon update to ensure DOM is built
+        setTimeout(() => self.updateThemeIcons(saved), 0);
     },
 
     // --- 2. SMOOTH SCROLL (LENIS) ---
@@ -67,6 +78,16 @@ const AppLogic = {
             
             if (progressBar) progressBar.style.width = ((currentScroll / maxScroll) * 100) + "%";
 
+            // Back to Top visibility
+            const backToTop = document.querySelector('.back-to-top');
+            if (backToTop) {
+                if (maxScroll > 0 && (currentScroll / maxScroll) > 0.15) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            }
+
             // Mobile Sticky Header Logic
             if (isMobile) {
                 const scrollThreshold = 50; 
@@ -84,6 +105,18 @@ const AppLogic = {
         };
 
         scroller.addEventListener('scroll', onScroll, { passive: true });
+
+        // Back to Top Button
+        const backToTopBtn = document.querySelector('.back-to-top');
+        if (backToTopBtn) {
+            backToTopBtn.addEventListener('click', () => {
+                if (isMobile) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (desktopContainer) {
+                    desktopContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+        }
     }
 };
 
