@@ -179,18 +179,23 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     
     body.nav-hidden .works-header { padding-top: 10px; padding-bottom: 10px; }
     .project-grid { grid-template-columns: 1fr; padding: 20px; }
+
+    /* Hide custom cursor on mobile */
+    .cursor-dot, .cursor-outline { display: none !important; }
 }
 
 /* --- CURSOR --- */
 /* --- CURSOR (Updated for Visibility) --- */
-.cursor-dot, .cursor-outline { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    transform: translate(-50%, -50%); 
-    border-radius: 50%; 
+.cursor-dot, .cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
     z-index: 99999; /* Max Z-Index */
     pointer-events: none; /* Crucial: Allows clicking through */
+    opacity: 1; /* Explicit default */
+    transition: none !important; /* Override * transition rule */
 }
 
 .cursor-dot { 
@@ -199,11 +204,11 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     background-color: var(--text-color); 
 }
 
-.cursor-outline { 
-    width: 40px; 
-    height: 40px; 
-    border: 1px solid var(--text-color); 
-    transition: width 0.2s, height 0.2s, background-color 0.2s; /* Removed top/left transition for performance */
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--text-color);
+    transition: width 0.2s, height 0.2s, border-color 0.2s !important; /* Only hover-resize transitions */
 }
 
 /* Hover State */
