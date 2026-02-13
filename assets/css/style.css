@@ -265,7 +265,7 @@ body.hovering .cursor-outline {
 .monster-body {
     width: 120%; /* Slightly wider than container to ensure full coverage */
     height: 100%;
-    background-color: #5DBC75; 
+    background-color: rgb(46, 204, 113);
     border-radius: 50% 50% 0 0; /* Semi-circle */
     position: absolute;
     bottom: 0;
@@ -308,8 +308,8 @@ body.hovering .cursor-outline {
     margin-left: 6px;
     margin-bottom: 6px;
 }
-.shape-circle { width: 22px; height: 22px; } /* Smaller size */
-.shape-square { width: 22px; height: 22px; }
+.shape-circle { width: 22px; height: 22px; background-color: rgb(46, 204, 113); border-radius: 50%; }
+.shape-square { width: 22px; height: 22px; background-color: #4A55E0; }
 .shape-triangle {
     border-left: 12px solid transparent;
     border-right: 12px solid transparent;
@@ -325,7 +325,7 @@ body.hovering .cursor-outline {
 }
 .site-footer .socials a:hover {
     transform: scale(1.2);
-    color: #27ae60; /* Darker green on hover */
+    color: rgb(46, 204, 113);
 }
 
 /* --- MOBILE MONSTER VISIBILITY --- */
