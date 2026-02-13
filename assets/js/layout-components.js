@@ -76,7 +76,7 @@ const LayoutComponents = {
             <footer class="site-footer">
                 <span>© 2025 Michelle Chen. All Rights Reserved.</span>
                 <div class="socials">
-                    <span style="margin-right:10px;">Connect:</span>
+                    <span style="margin-right:10px; font-weight:700;">Connect with me:</span>
                     <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="mailto:email@example.com"><i class="fas fa-envelope"></i></a>
                 </div>
@@ -85,5 +85,9 @@ const LayoutComponents = {
 
     buildProgressBar: function() {
         return `<div id="progress-bar"></div>`;
+    },
+
+    buildBackToTop: function() {
+        return `<button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>`;
     }
 };
