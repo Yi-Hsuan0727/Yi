@@ -182,13 +182,161 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 
 /* --- CURSOR --- */
+/* --- CURSOR (Updated for Visibility) --- */
 .cursor-dot, .cursor-outline { 
-    position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; z-index: 2147483647; pointer-events: none; 
-    opacity: 0; transition: opacity 0.2s ease;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    transform: translate(-50%, -50%); 
+    border-radius: 50%; 
+    z-index: 99999; /* Max Z-Index */
+    pointer-events: none; /* Crucial: Allows clicking through */
 }
-.cursor-dot { width: 8px; height: 8px; background-color: var(--text-color); }
-.cursor-outline { width: 40px; height: 40px; border: 1px solid var(--text-color); transition: width 0.2s, height 0.2s, top 0.1s, left 0.1s; }
-body.hovering .cursor-outline { width: 60px; height: 60px; background-color: rgba(46, 204, 113, 0.1); border-color: var(--accent-color); }
+
+.cursor-dot { 
+    width: 8px; 
+    height: 8px; 
+    background-color: var(--text-color); 
+}
+
+.cursor-outline { 
+    width: 40px; 
+    height: 40px; 
+    border: 1px solid var(--text-color); 
+    transition: width 0.2s, height 0.2s, background-color 0.2s; /* Removed top/left transition for performance */
+}
+
+/* Hover State */
+body.hovering .cursor-outline { 
+    width: 60px; 
+    height: 60px; 
+    background-color: rgba(46, 204, 113, 0.1); 
+    border-color: var(--accent-color); 
+}
+
+/* Hide Default Cursor only on Desktop */
 @media (min-width: 901px) {
-    body, a, button, .project-card { cursor: none !important; }
+    body, a, button, .project-card, input, textarea { 
+        cursor: none !important; 
+    }
+}
+
+/* --- SIDEBAR & MONSTER (Updated) --- */
+.sidebar {
+    width: 30%; 
+    height: 100%; 
+    /* Remove bottom padding so monster sits flush */
+    padding: 40px 30px 0 30px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+    border-right: 1px solid var(--border-color); 
+    background: var(--bg-color); 
+    z-index: 5;
+    overflow: hidden; /* Ensures monster doesn't spill out */
+    position: relative;
+}
+
+.sidebar-footer-container {
+    margin-top: auto; 
+    width: calc(100% + 60px); /* Counteract parent padding (30px left + 30px right) */
+    margin-left: -30px;       /* Pull left to edge */
+    margin-bottom: 0;         /* Flush with bottom */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.monster-container {
+    width: 100%;
+    height: 160px; /* Adjust height as needed */
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Ensures SVG/Div sits correctly */
+    align-items: flex-end; /* Align to bottom */
+}
+
+.monster-body {
+    width: 120%; /* Slightly wider than container to ensure full coverage */
+    height: 100%;
+    background-color: #5DBC75; 
+    border-radius: 50% 50% 0 0; /* Semi-circle */
+    position: absolute;
+    bottom: 0;
+    left: -10%; /* Center the 120% width */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align eyes */
+    padding-bottom: 40px;  /* Push eyes up from bottom edge */
+}
+
+/* --- MONSTER EYES --- */
+.monster-eyes-wrapper {
+    display: flex;
+    gap: 15px;
+    z-index: 2;
+}
+
+.monster-eye {
+    width: 45px; height: 45px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Keeps pupil inside */
+}
+
+.monster-pupil {
+    width: 18px; height: 18px;
+    background: #000000;
+    border-radius: 50%;
+    /* Transformation handled by JS */
+}
+
+/* --- TITLE SHAPES (Smaller) --- */
+.shape {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 6px;
+    margin-bottom: 6px;
+}
+.shape-circle { width: 22px; height: 22px; } /* Smaller size */
+.shape-square { width: 22px; height: 22px; }
+.shape-triangle {
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 22px solid #E8E258;
+}
+
+/* --- FOOTER SOCIAL ICONS (Green) --- */
+.site-footer .socials a {
+    color: var(--accent-color); /* Green */
+    font-size: 1.1rem;
+    margin-left: 10px;
+    transition: transform 0.2s;
+}
+.site-footer .socials a:hover {
+    transform: scale(1.2);
+    color: #27ae60; /* Darker green on hover */
+}
+
+/* --- MOBILE MONSTER VISIBILITY --- */
+@media (max-width: 900px) {
+    .sidebar {
+        padding-bottom: 0; /* Flush bottom on mobile too */
+        min-height: auto; /* Allow height to fit content */
+    }
+    .monster-container {
+        height: 120px; /* Slightly smaller on mobile */
+        display: flex !important; /* Force show */
+    }
+    .monster-body { padding-bottom: 25px; } /* Adjust eye position for mobile height */
+    
+    /* Ensure footer doesn't cover monster on mobile */
+    .sidebar-footer-container {
+        margin-bottom: -1px; /* fix sub-pixel rendering gaps */
+    }
 }
