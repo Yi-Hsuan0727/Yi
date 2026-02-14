@@ -40,7 +40,7 @@ const PortfolioApp = {
         if(document.getElementById('app-styles')) return;
         const headHTML = `
             <meta charset="UTF-8">
-            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 font-weight=%22900%22 font-family=%22Arial%22 fill=%22%232ecc71%22>M</text></svg>">
+            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 80 100%22><text y=%22.9em%22 font-size=%2290%22 font-weight=%22900%22 font-family=%22Arial%22 fill=%22%232ecc71%22>M</text></svg>">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
             <style id="app-styles">html.lenis { height: auto; } .lenis.lenis-smooth { scroll-behavior: auto; } .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; } .lenis.lenis-stopped { overflow: hidden; } </style>
         `;

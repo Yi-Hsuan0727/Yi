@@ -4,7 +4,7 @@
 const LayoutComponents = {
 
     logoSVG: function() {
-        return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><text y=".9em" font-size="90" font-weight="900" font-family="Arial" fill="#2ecc71">M</text></svg>`;
+        return `<svg viewBox="10 0 80 100" xmlns="http://www.w3.org/2000/svg"><text y=".9em" font-size="90" font-weight="900" font-family="Arial" fill="#2ecc71">M</text></svg>`;
     },
 
     buildMobileHeader: function(logoSVG) {

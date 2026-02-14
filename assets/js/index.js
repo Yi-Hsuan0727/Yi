@@ -90,7 +90,7 @@ const AppLogic = {
 
             // Mobile Sticky Header Logic
             if (isMobile) {
-                const scrollThreshold = 50; 
+                const scrollThreshold = 50;
                 if (currentScroll > scrollThreshold) {
                     if (currentScroll > lastScroll) {
                         document.body.classList.add('nav-hidden'); // Scroll Down
@@ -99,6 +99,20 @@ const AppLogic = {
                     }
                 } else if (currentScroll < 10) {
                     document.body.classList.remove('nav-hidden'); // At Top
+                }
+            }
+
+            // Desktop header & works-header hide/show
+            if (!isMobile && desktopContainer) {
+                const scrollThreshold = 50;
+                if (currentScroll > scrollThreshold) {
+                    if (currentScroll > lastScroll) {
+                        document.body.classList.add('scroll-down');
+                    } else {
+                        document.body.classList.remove('scroll-down');
+                    }
+                } else if (currentScroll < 10) {
+                    document.body.classList.remove('scroll-down');
                 }
             }
             lastScroll = currentScroll <= 0 ? 0 : currentScroll;
