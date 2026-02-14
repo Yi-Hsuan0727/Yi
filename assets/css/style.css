@@ -161,23 +161,20 @@ body.scroll-down .works-header .section-title {
     /* Hide top bar when scrolling down */
     body.nav-hidden .mobile-top-bar { transform: translateY(-100%); }
 
-    .content-wrapper { flex-direction: column; flex-grow: 1; height: auto; }
+    .content-wrapper { flex-direction: column; flex-grow: 1; height: auto; overflow: visible; }
     .sidebar, .right-panel { width: 100%; height: auto; border: none; overflow: visible; }
-    .sidebar { padding: 30px 20px; border-bottom: 1px solid var(--border-color); }
+    .sidebar { padding: 30px 0; border-bottom: 1px solid var(--border-color); }
     
     .scroll-area { overflow: visible; height: auto; padding-bottom: 0; }
     
-    /* Fixed Footer Mobile */
+    /* Footer Mobile (not fixed, flows with content) */
     .site-footer {
-        position: fixed; bottom: 0; left: 0; width: 100%;
+        position: static;
+        width: 100%;
         background: var(--bg-color); border-top: 1px solid var(--border-color);
-        z-index: 2000; /* High z-index to stay on top */
         flex-direction: column; gap: 10px; text-align: center;
         padding-bottom: 20px; /* Safe area for phones */
     }
-    
-    /* Add padding to body so content isn't hidden behind fixed footer */
-    body { padding-bottom: 80px; }
 
     /* --- STICKY FILTER LOGIC --- */
     .works-header {
@@ -215,8 +212,8 @@ body.scroll-down .works-header .section-title {
     body.nav-hidden .works-header { padding-top: 10px; padding-bottom: 10px; }
     .project-grid { grid-template-columns: 1fr; padding: 20px; }
 
-    /* Back to top above fixed mobile footer */
-    .back-to-top { bottom: 100px; right: 20px; }
+    /* Back to top button on mobile */
+    .back-to-top { bottom: 30px; right: 20px; }
 
     /* Hide custom cursor on mobile */
     .cursor-dot, .cursor-outline { display: none !important; }
@@ -373,9 +370,11 @@ body.hovering .cursor-outline {
 @media (max-width: 900px) {
     /* Re-assert mobile sidebar styles (overridden by SIDEBAR & MONSTER block below first media query) */
     .sidebar {
+        width: 100% !important;
         height: auto !important;
         overflow: visible !important;
-        padding-bottom: 0;
+        border-right: none !important;
+        padding: 30px 0 0 0;
         min-height: auto;
     }
     .monster-container {
@@ -386,6 +385,8 @@ body.hovering .cursor-outline {
 
     /* Ensure footer doesn't cover monster on mobile */
     .sidebar-footer-container {
+        width: 100%;
+        margin-left: 0;
         margin-bottom: -1px; /* fix sub-pixel rendering gaps */
     }
 }
