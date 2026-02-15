@@ -19,6 +19,7 @@
 
 /* --- RESET & BASE --- */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; transition: background-color 0.3s, color 0.3s; }
+html, body { overflow-x: hidden; max-width: 100vw; }
 body { background-color: var(--bg-color); color: var(--text-color); height: 100vh; overflow: hidden; }
 
 /* Hide Scrollbar */
@@ -163,7 +164,12 @@ body.scroll-down .works-header .section-title {
 
     .content-wrapper { flex-direction: column; flex-grow: 1; height: auto; overflow: visible; }
     .sidebar, .right-panel { width: 100%; height: auto; border: none; overflow: visible; }
-    .sidebar { padding: 30px 0; border-bottom: 1px solid var(--border-color); }
+    .sidebar {
+        padding: 30px 20px; /* 20px sides to align with mobile header padding */
+        border-bottom: 1px solid var(--border-color);
+        min-height: 100vh;
+        justify-content: center;
+    }
     
     .scroll-area { overflow: visible; height: auto; padding-bottom: 0; }
     
@@ -333,7 +339,39 @@ body.hovering .cursor-outline {
     width: 22px; height: 22px;
     background: #000000;
     border-radius: 50%;
-    /* Transformation handled by JS */
+    transition: transform 0.1s ease-out;
+}
+
+/* --- MONSTER BLINK ANIMATION --- */
+@keyframes blink {
+    0%, 42%, 58%, 100% { transform: scaleY(1); }
+    45%, 55% { transform: scaleY(0.05); }
+}
+.monster-eye.blinking {
+    animation: blink 0.3s ease-in-out;
+}
+
+/* --- MONSTER WIGGLE ANIMATION --- */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    15% { transform: rotate(-5deg) scale(1.03); }
+    30% { transform: rotate(4deg) scale(1.05); }
+    45% { transform: rotate(-3deg) scale(1.03); }
+    60% { transform: rotate(2deg); }
+    75% { transform: rotate(-1deg); }
+}
+.monster-body.wiggling {
+    animation: wiggle 0.6s ease-in-out;
+}
+
+/* --- MONSTER HOVER POINTER (Half Circle) --- */
+.monster-body {
+    transition: border-radius 0.4s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+.monster-body.pointed {
+    border-radius: 50% 50% 0 0;
+    transform: scaleY(1.15);
 }
 
 /* --- TITLE SHAPES --- */
@@ -353,18 +391,25 @@ body.hovering .cursor-outline {
     border-bottom: 0.65em solid #E8E258;
 }
 
-/* --- FOOTER SOCIAL ICONS (Green) --- */
-.site-footer .socials a {
-    color: var(--accent-color); /* Green */
-    font-size: 1.1rem;
-    margin-left: 10px;
-    transition: transform 0.2s;
-}
-.site-footer .socials a:hover {
-    transform: scale(1.2);
-    color: rgb(46, 204, 113);
-}
+/* --- FOOTER CONTACT BUTTONS --- */
+.site-footer .socials { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .site-footer .socials > span { font-size: 0.85rem; }
+.site-footer .socials .contact-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px;
+    background: var(--accent-color);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 24px;
+    text-decoration: none;
+    transition: transform 0.2s, background-color 0.2s;
+}
+.site-footer .socials .contact-btn:hover {
+    transform: scale(1.05);
+    background-color: #27ae60;
+}
+.site-footer .socials .contact-btn i { font-size: 1rem; }
 
 /* --- MOBILE MONSTER VISIBILITY --- */
 @media (max-width: 900px) {
@@ -372,10 +417,11 @@ body.hovering .cursor-outline {
     .sidebar {
         width: 100% !important;
         height: auto !important;
+        min-height: 100vh !important;
         overflow: visible !important;
         border-right: none !important;
-        padding: 30px 0 0 0;
-        min-height: auto;
+        padding: 30px 20px 0 20px;
+        justify-content: center;
     }
     .monster-container {
         height: 120px; /* Slightly smaller on mobile */
