@@ -74,11 +74,12 @@ const LayoutComponents = {
     buildFooter: function() {
         return `
             <footer class="site-footer">
-                <span>© 2025 Michelle Chen. All Rights Reserved.</span>
+                <span class="footer-copyright">© 2025 Michelle Chen. All Rights Reserved.</span>
                 <div class="socials">
-                    <span style="margin-right:10px; font-weight:700;">Connect with me:</span>
-                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:email@example.com"><i class="fas fa-envelope"></i></a>
+                    <span class="connect-label" style="margin-right:10px; font-weight:700;">Connect with me:</span>
+                    <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:email@example.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="social-link resume-link">Resume</a>
                 </div>
             </footer>`;
     },
