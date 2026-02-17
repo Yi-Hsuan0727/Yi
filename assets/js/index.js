@@ -102,19 +102,6 @@ const AppLogic = {
                 }
             }
 
-            // Desktop header & works-header hide/show
-            if (!isMobile && desktopContainer) {
-                const scrollThreshold = 50;
-                if (currentScroll > scrollThreshold) {
-                    if (currentScroll > lastScroll) {
-                        document.body.classList.add('scroll-down');
-                    } else {
-                        document.body.classList.remove('scroll-down');
-                    }
-                } else if (currentScroll < 10) {
-                    document.body.classList.remove('scroll-down');
-                }
-            }
             lastScroll = currentScroll <= 0 ? 0 : currentScroll;
         };
 
