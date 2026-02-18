@@ -223,6 +223,11 @@ const PortfolioApp = {
             desc: "<strong>UX/UI Designer</strong> specializing in B2B SaaS...",
             meta: ``
         },
+        playground: {
+            title: `Playground`,
+            desc: "Side projects, hackathons, game jams, and creative experiments.",
+            meta: ``
+        },
         plc2split: {
             title: "Plc2Split",
             desc: "Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.",
@@ -332,7 +337,8 @@ const PortfolioApp = {
         const logoSVG = LayoutComponents.logoSVG();
 
         const worksHeaderHTML = LayoutComponents.buildWorksHeader(pageType);
-        const nextProjectHTML = (pageType !== 'home') ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
+        const isGridPage = (pageType === 'home' || pageType === 'playground');
+        const nextProjectHTML = !isGridPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
         const coverHTML = pageData.cover ? '<div class="case-hero-img"><img src="assets/img/website mockup_lcm.png" alt="LCM Project Cover" style="width:100%;height:100%;object-fit:cover;"></div>' : '';
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${nextProjectHTML}`;
 

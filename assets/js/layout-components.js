@@ -22,7 +22,7 @@ const LayoutComponents = {
                 <nav class="nav-menu">
                     <a href="index.html" class="nav-link ${pageType === 'home' ? 'active' : ''}">Work</a>
                     <a href="#" class="nav-link">About</a>
-                    <a href="#" class="nav-link">Playground</a>
+                    <a href="playground.html" class="nav-link ${pageType === 'playground' ? 'active' : ''}">Playground</a>
                     <button class="theme-toggle" onclick="toggleTheme()" style="margin-left:20px;"><i class="fas fa-moon"></i></button>
                 </nav>
             </header>`;
@@ -57,7 +57,7 @@ const LayoutComponents = {
     },
 
     buildSidebarBottom: function(pageType, pageData) {
-        if (pageType === 'home') {
+        if (pageType === 'home' || pageType === 'playground') {
             return `
                 <div class="sidebar-footer-container">
                     <div class="monster-container">
@@ -78,17 +78,24 @@ const LayoutComponents = {
     },
 
     buildWorksHeader: function(pageType) {
-        if (pageType !== 'home') return '';
-        return `
-            <div class="works-header" id="sticky-filter-bar">
-                <span class="section-title">Selected Works</span>
-                <div class="filter-bar">
-                    <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-                    <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
-                    <button class="filter-btn" onclick="filterProjects('code')">Code</button>
-                    <button class="filter-btn" onclick="filterProjects('playground')">Playground</button>
-                </div>
-            </div>`;
+        if (pageType === 'home') {
+            return `
+                <div class="works-header" id="sticky-filter-bar">
+                    <span class="section-title">Selected Works</span>
+                    <div class="filter-bar">
+                        <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                        <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
+                        <button class="filter-btn" onclick="filterProjects('code')">Code</button>
+                    </div>
+                </div>`;
+        }
+        if (pageType === 'playground') {
+            return `
+                <div class="works-header" id="sticky-filter-bar">
+                    <span class="section-title">Playground</span>
+                </div>`;
+        }
+        return '';
     },
 
     /* --- Next Projects section (project pages only) --- */
