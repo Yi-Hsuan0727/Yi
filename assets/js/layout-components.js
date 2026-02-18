@@ -20,8 +20,8 @@ const LayoutComponents = {
             <header class="site-header">
                 <a class="brand-logo" href="index.html" aria-label="Back to home">${logoSVG}</a>
                 <nav class="nav-menu">
-                    <a href="index.html" class="nav-link ${pageType === 'home' ? 'active' : ''}">Work</a>
-                    <a href="#" class="nav-link">About</a>
+                    <a href="index.html" class="nav-link home-btn ${pageType === 'home' ? 'active' : ''}">Home</a>
+                    <a href="about.html" class="nav-link ${pageType === 'about' ? 'active' : ''}">About</a>
                     <a href="playground.html" class="nav-link ${pageType === 'playground' ? 'active' : ''}">Playground</a>
                     <button class="theme-toggle" onclick="toggleTheme()" style="margin-left:20px;"><i class="fas fa-moon"></i></button>
                 </nav>
@@ -87,12 +87,6 @@ const LayoutComponents = {
                         <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
                         <button class="filter-btn" onclick="filterProjects('code')">Code</button>
                     </div>
-                </div>`;
-        }
-        if (pageType === 'playground') {
-            return `
-                <div class="works-header" id="sticky-filter-bar">
-                    <span class="section-title">Playground</span>
                 </div>`;
         }
         return '';

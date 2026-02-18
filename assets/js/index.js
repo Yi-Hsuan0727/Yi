@@ -143,16 +143,29 @@ const AppLogic = {
             this.entryAnimationTimers = [];
         }
 
+        document.body.classList.add('entry-loading');
+
+        if (window.innerWidth <= 900) {
+            const worksHeader = document.getElementById('sticky-filter-bar');
+            if (worksHeader) {
+                const top = worksHeader.getBoundingClientRect().top;
+                const anchorBottom = Math.max(0, window.innerHeight - top);
+                loader.style.setProperty('--entry-anchor-bottom', `${anchorBottom}px`);
+            }
+        } else {
+            loader.style.setProperty('--entry-anchor-bottom', '0px');
+        }
+
         const moveEyes = () => {
+            const maxDist = eyes[0] ? eyes[0].clientWidth * 0.22 : 10;
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * maxDist;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+
             eyes.forEach(eye => {
                 const pupil = eye.querySelector('.entry-monster-pupil');
                 if (!pupil) return;
-
-                const maxDist = eye.clientWidth * 0.22;
-                const angle = Math.random() * Math.PI * 2;
-                const distance = Math.random() * maxDist;
-                const x = Math.cos(angle) * distance;
-                const y = Math.sin(angle) * distance;
                 pupil.style.transform = `translate(${x}px, ${y}px)`;
             });
         };
@@ -165,16 +178,17 @@ const AppLogic = {
         moveEyes();
         this.entryAnimationInterval = setInterval(moveEyes, 420);
 
-        addTimer(1800, () => loader.classList.add('curve-phase'));
-        addTimer(3400, () => loader.classList.add('dock-phase'));
-        addTimer(5100, () => {
+        addTimer(1700, () => loader.classList.add('curve-phase'));
+        addTimer(3100, () => loader.classList.add('dock-phase'));
+        addTimer(4900, () => {
             loader.classList.add('hide');
             if (this.entryAnimationInterval) {
                 clearInterval(this.entryAnimationInterval);
                 this.entryAnimationInterval = null;
             }
+            document.body.classList.remove('entry-loading');
         });
-        addTimer(5700, () => {
+        addTimer(5500, () => {
             loader.remove();
             this.entryAnimationTimers = [];
         });

@@ -29,6 +29,7 @@
     position: relative;
     display: flex;
     align-items: flex-end;
+    overflow: visible;
 }
 
 /* --- Monster Body --- */
@@ -46,6 +47,7 @@
     padding-bottom: 40px;
     transition: border-radius 0.4s ease, transform 0.3s ease;
     cursor: pointer;
+    z-index: 3;
 }
 
 /* Monster hover: flatten the arc */
@@ -137,18 +139,26 @@
     animation: blinkQuickBottom 0.3s ease-in-out;
 }
 
+/* --- Sparkle layer (behind monster body) --- */
+.monster-spark-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+}
+
 /* --- Click sparkles --- */
 .monster-spark {
-    position: fixed;
-    left: 0;
-    top: 0;
+    position: absolute;
     width: 9px;
     height: 9px;
     pointer-events: none;
-    z-index: 1800;
+    z-index: 1;
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.6);
-    animation: monsterSpark var(--dur, 700ms) ease-out forwards;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.35));
+    animation: monsterSpark var(--dur, 680ms) ease-out forwards;
 }
 .monster-spark.spark-circle {
     border-radius: 50%;
@@ -167,15 +177,15 @@
 }
 @keyframes monsterSpark {
     0% {
-        opacity: 1;
+        opacity: 0.95;
         transform: translate(-50%, -50%) translate(0, 0) rotate(0deg) scale(0.7);
     }
-    80% {
-        opacity: 1;
+    60% {
+        opacity: 0.85;
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1.15);
+        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1.05);
     }
 }
 
