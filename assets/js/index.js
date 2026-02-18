@@ -2,6 +2,8 @@
  * (Cursor logic has been moved to cursor.js)
  */
 const AppLogic = {
+    entryAnimationInterval: null,
+    entryAnimationTimeout: null,
 
     init: function() {
         this.initTheme();
@@ -10,6 +12,7 @@ const AppLogic = {
         setTimeout(() => {
             this.initLenis();
             this.initScrollLogic();
+            this.initEntryAnimation();
             // Cursor init is now handled by CursorLogic or Components.js
         }, 50);
     },
@@ -118,6 +121,49 @@ const AppLogic = {
                 }
             });
         }
+    },
+
+    // --- 4. ENTRY LOADER (30s shape cycle + progress text) ---
+    initEntryAnimation: function() {
+        const loader = document.getElementById('entry-loader');
+        const shape = document.getElementById('entry-loader-shape');
+        const text = document.getElementById('entry-loader-text');
+        if (!loader || !shape || !text) return;
+
+        if (this.entryAnimationInterval) clearInterval(this.entryAnimationInterval);
+        if (this.entryAnimationTimeout) clearTimeout(this.entryAnimationTimeout);
+
+        const shapeClasses = ['is-triangle', 'is-circle', 'is-square'];
+        const totalDuration = 30000;
+        const startedAt = performance.now();
+        let currentShapeIdx = 0;
+
+        const applyShape = () => {
+            shape.classList.remove('is-triangle', 'is-circle', 'is-square');
+            shape.classList.add(shapeClasses[currentShapeIdx]);
+            currentShapeIdx = (currentShapeIdx + 1) % shapeClasses.length;
+        };
+
+        const updateText = () => {
+            const elapsed = performance.now() - startedAt;
+            const progress = Math.min(100, Math.round((elapsed / totalDuration) * 100));
+            text.textContent = `Loading... ${progress}%`;
+        };
+
+        applyShape();
+        updateText();
+
+        this.entryAnimationInterval = setInterval(() => {
+            applyShape();
+            updateText();
+        }, 1000);
+
+        this.entryAnimationTimeout = setTimeout(() => {
+            clearInterval(this.entryAnimationInterval);
+            this.entryAnimationInterval = null;
+            text.textContent = 'Loading... 100%';
+            loader.classList.add('hide');
+        }, totalDuration);
     }
 };
 

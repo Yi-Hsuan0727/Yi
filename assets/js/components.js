@@ -8,7 +8,7 @@ const PortfolioApp = {
         /* ===== WORK PROJECTS ===== */
         {
             id: 'plc2split',
-            title: 'Plc2Split',
+            title: 'Pic2Split',
             subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
             desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
             demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
@@ -229,7 +229,7 @@ const PortfolioApp = {
             meta: ``
         },
         plc2split: {
-            title: "Plc2Split",
+            title: "Pic2Split",
             desc: "Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.",
             meta: ``, backLink: true, liveLink: "https://plc2split.design/", cover: false
         },
@@ -343,6 +343,7 @@ const PortfolioApp = {
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${nextProjectHTML}`;
 
         const layoutHTML = `
+            ${LayoutComponents.buildEntryLoader()}
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             ${LayoutComponents.buildMobileHeader(logoSVG)}

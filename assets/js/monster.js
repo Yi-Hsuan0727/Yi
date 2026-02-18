@@ -1,13 +1,17 @@
 /*
- * MonsterLogic: Handles eye-rolling, blinking, wiggle, and hover interactions.
+ * MonsterLogic: Handles eye movement, blinking, hover shape, and click sparkles.
  */
 const MonsterLogic = {
     blinkInterval: null,
+    pointedTimeout: null,
+    isInitialized: false,
 
     init: function() {
+        if (this.isInitialized) return;
         const eyes = document.querySelectorAll('.monster-eye');
         const monsterBody = document.querySelector('.monster-body');
         if (!eyes.length || !monsterBody) return;
+        this.isInitialized = true;
 
         // --- 1. EYES FOLLOW CURSOR ---
         document.addEventListener('mousemove', (e) => {
@@ -50,7 +54,7 @@ const MonsterLogic = {
         // --- 3. OCCASIONAL BLINKING ---
         this.startBlinking(eyes);
 
-        // --- 4. HOVER: Pointed shape + wiggle ---
+        // --- 4. HOVER: Pointed shape ---
         monsterBody.addEventListener('mouseenter', () => {
             monsterBody.classList.add('pointed');
         });
@@ -58,16 +62,13 @@ const MonsterLogic = {
             monsterBody.classList.remove('pointed');
         });
 
-        // --- 5. CLICK/TAP: Wiggle ---
+        // --- 5. CLICK/TAP: Hover-like shape + sparkles ---
         monsterBody.addEventListener('click', () => {
-            this.triggerWiggle(monsterBody, eyes);
+            this.triggerClickEffect(monsterBody);
         });
         monsterBody.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.triggerWiggle(monsterBody, eyes);
-            // Also trigger pointed briefly on tap
-            monsterBody.classList.add('pointed');
-            setTimeout(() => monsterBody.classList.remove('pointed'), 600);
+            this.triggerClickEffect(monsterBody);
         }, { passive: false });
     },
 
@@ -90,19 +91,48 @@ const MonsterLogic = {
         scheduleNext();
     },
 
-    triggerWiggle: function(monsterBody, eyes) {
-        // Remove then re-add to restart animation
-        monsterBody.classList.remove('wiggling');
-        void monsterBody.offsetWidth; // force reflow
-        monsterBody.classList.add('wiggling');
+    triggerClickEffect: function(monsterBody) {
+        this.applyPointedPulse(monsterBody);
+        this.emitSparkles(monsterBody);
+    },
 
-        // Quick double-blink on wiggle
-        eyes.forEach(eye => {
-            eye.classList.add('blinking');
-            setTimeout(() => eye.classList.remove('blinking'), 300);
-        });
+    applyPointedPulse: function(monsterBody) {
+        monsterBody.classList.add('pointed');
+        if (this.pointedTimeout) clearTimeout(this.pointedTimeout);
 
-        setTimeout(() => monsterBody.classList.remove('wiggling'), 600);
+        this.pointedTimeout = setTimeout(() => {
+            if (!monsterBody.matches(':hover')) {
+                monsterBody.classList.remove('pointed');
+            }
+        }, 420);
+    },
+
+    emitSparkles: function(monsterBody) {
+        const rect = monsterBody.getBoundingClientRect();
+        const originX = rect.left + (rect.width * 0.5);
+        const originY = rect.top + (rect.height * 0.3);
+        const sparkleCount = 18;
+        const shapeClasses = ['spark-triangle', 'spark-circle', 'spark-square'];
+
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('span');
+            const shapeClass = shapeClasses[Math.floor(Math.random() * shapeClasses.length)];
+            sparkle.className = `monster-spark ${shapeClass}`;
+            sparkle.style.left = `${originX}px`;
+            sparkle.style.top = `${originY}px`;
+
+            const angle = ((Math.PI * 2) / sparkleCount) * i + (Math.random() * 0.7 - 0.35);
+            const distance = 35 + Math.random() * 65;
+            const dx = Math.cos(angle) * distance;
+            const dy = Math.sin(angle) * distance - 15;
+            sparkle.style.setProperty('--dx', `${dx}px`);
+            sparkle.style.setProperty('--dy', `${dy}px`);
+            sparkle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
+            sparkle.style.setProperty('--dur', `${500 + Math.random() * 350}ms`);
+
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 950);
+        }
     }
 };
 
