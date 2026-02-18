@@ -10,7 +10,7 @@ const LayoutComponents = {
     buildMobileHeader: function(logoSVG) {
         return `
             <div class="mobile-top-bar" id="mobile-header">
-                <div class="brand-logo">${logoSVG}</div>
+                <a class="brand-logo" href="index.html" aria-label="Back to home">${logoSVG}</a>
                 <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
             </div>`;
     },
@@ -18,7 +18,7 @@ const LayoutComponents = {
     buildSiteHeader: function(logoSVG, pageType) {
         return `
             <header class="site-header">
-                <div class="brand-logo">${logoSVG}</div>
+                <a class="brand-logo" href="index.html" aria-label="Back to home">${logoSVG}</a>
                 <nav class="nav-menu">
                     <a href="index.html" class="nav-link ${pageType === 'home' ? 'active' : ''}">Work</a>
                     <a href="#" class="nav-link">About</a>
@@ -141,6 +141,16 @@ const LayoutComponents = {
 
     buildProgressBar: function() {
         return `<div id="progress-bar"></div>`;
+    },
+
+    buildEntryLoader: function() {
+        return `
+            <div class="entry-loader" id="entry-loader" aria-live="polite">
+                <div class="entry-loader-inner">
+                    <div class="entry-loader-shape is-triangle" id="entry-loader-shape" aria-hidden="true"></div>
+                    <p class="entry-loader-text" id="entry-loader-text">Loading... 0%</p>
+                </div>
+            </div>`;
     },
 
     buildBackToTop: function() {
