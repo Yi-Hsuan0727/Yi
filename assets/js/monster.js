@@ -63,12 +63,23 @@ const MonsterLogic = {
         });
 
         // --- 5. CLICK/TAP: Hover-like shape + sparkles ---
-        monsterBody.addEventListener('click', () => {
-            this.triggerClickEffect(monsterBody);
+        monsterBody.addEventListener('click', (e) => {
+            this.triggerClickEffect(monsterBody, {
+                clientX: e.clientX,
+                clientY: e.clientY
+            });
         });
         monsterBody.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.triggerClickEffect(monsterBody);
+            const touch = e.touches && e.touches[0];
+            if (touch) {
+                this.triggerClickEffect(monsterBody, {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+            } else {
+                this.triggerClickEffect(monsterBody, null);
+            }
         }, { passive: false });
     },
 
@@ -91,9 +102,9 @@ const MonsterLogic = {
         scheduleNext();
     },
 
-    triggerClickEffect: function(monsterBody) {
+    triggerClickEffect: function(monsterBody, clickPoint) {
         this.applyPointedPulse(monsterBody);
-        this.emitSparkles(monsterBody);
+        this.emitSparkles(monsterBody, clickPoint);
     },
 
     applyPointedPulse: function(monsterBody) {
@@ -107,31 +118,49 @@ const MonsterLogic = {
         }, 420);
     },
 
-    emitSparkles: function(monsterBody) {
+    ensureSparkLayer: function(monsterBody) {
+        const container = monsterBody.closest('.monster-container');
+        if (!container) return null;
+        let layer = container.querySelector('.monster-spark-layer');
+        if (!layer) {
+            layer = document.createElement('div');
+            layer.className = 'monster-spark-layer';
+            container.insertBefore(layer, monsterBody);
+        }
+        return layer;
+    },
+
+    emitSparkles: function(monsterBody, clickPoint) {
+        const layer = this.ensureSparkLayer(monsterBody);
+        if (!layer) return;
+
         const rect = monsterBody.getBoundingClientRect();
-        const originX = rect.left + (rect.width * 0.5);
-        const originY = rect.top + (rect.height * 0.3);
-        const sparkleCount = 18;
+        const layerRect = layer.getBoundingClientRect();
+        const clickedX = clickPoint ? clickPoint.clientX : (rect.left + (rect.width * 0.5));
+        const clickedY = clickPoint ? clickPoint.clientY : (rect.top + (rect.height * 0.38));
+        const originX = clickedX + (Math.random() * 8 - 4);
+        const originY = clickedY - 10;
+        const sparkleCount = 16;
         const shapeClasses = ['spark-triangle', 'spark-circle', 'spark-square'];
 
         for (let i = 0; i < sparkleCount; i++) {
             const sparkle = document.createElement('span');
             const shapeClass = shapeClasses[Math.floor(Math.random() * shapeClasses.length)];
             sparkle.className = `monster-spark ${shapeClass}`;
-            sparkle.style.left = `${originX}px`;
-            sparkle.style.top = `${originY}px`;
+            sparkle.style.left = `${originX - layerRect.left}px`;
+            sparkle.style.top = `${originY - layerRect.top}px`;
 
-            const angle = ((Math.PI * 2) / sparkleCount) * i + (Math.random() * 0.7 - 0.35);
-            const distance = 35 + Math.random() * 65;
-            const dx = Math.cos(angle) * distance;
-            const dy = Math.sin(angle) * distance - 15;
+            const angle = (-Math.PI / 2) + (Math.random() * 0.8 - 0.4);
+            const distance = 40 + Math.random() * 75;
+            const dx = Math.cos(angle) * distance * (0.4 + Math.random() * 0.6);
+            const dy = -Math.abs(Math.sin(angle) * distance) - 20 - Math.random() * 25;
             sparkle.style.setProperty('--dx', `${dx}px`);
             sparkle.style.setProperty('--dy', `${dy}px`);
             sparkle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
-            sparkle.style.setProperty('--dur', `${500 + Math.random() * 350}ms`);
+            sparkle.style.setProperty('--dur', `${520 + Math.random() * 280}ms`);
 
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 950);
+            layer.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 900);
         }
     }
 };

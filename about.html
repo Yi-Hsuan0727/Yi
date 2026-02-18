@@ -1,121 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FP5SFVKH61"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-FP5SFVKH61');
-  </script>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Yi-Hsuan Chen</title>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+    <title>About - Michelle Chen</title>
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/monster.css">
+    <link rel="stylesheet" href="assets/css/cursor.css">
 </head>
-<body class="myDiv">
-    <header>
-        <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid container">
-              <a class="navbar-brand" href="index.html" >
-                <!-- <img src="assets/img/logo.png" alt="Yi-Hsuan Chen">-->Yi-Hsuan Chen 
-                </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                    <i class="fa-solid fa-bars"></i>
-                    <i class="fa-solid fa-close"></i>
-                </span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-lg-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Work Samples</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="assets/img/resume.pdf" target="_blank">Resume</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="mailto:yihsuanchen0727@gmail.com" download=""><i class="fa-solid fa-envelope"></i></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="https://www.linkedin.com/in/yihsuanchen0727/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-    </header>
-    <main id="following">
+<body class="about-page">
+    <main class="about-main">
+        <section class="about-intro">
+            <a href="index.html" class="about-home-link">Home</a>
+            <h1>hi my name is michelle chen</h1>
+            <p>
+                I am a UX/UI designer focused on product thinking, interface craft, and practical systems.
+                I enjoy turning complex problems into clear, useful digital experiences.
+            </p>
+        </section>
 
-        
-    </main>
-    <footer>
-        <div class="container">
-            <div class="d-sm-flex justify-content-between align-items-center">
-                <p class="p-0 m-0 lh-1">Yi-Hsuan Chen</p>
-                <div class="d-flex align-items-center">
-                    contact ｜
-                    <a class="nav-link" href="mailto:yihsuanchen0727@gmail.com" download=""><i class="fa-solid fa-envelope"></i></a>
-                    <a class="nav-link" href="https://www.linkedin.com/in/yihsuanchen0727/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <section class="about-monster-band">
+            <div class="monster-container">
+                <div class="monster-body">
+                    <div class="monster-eyes-wrapper">
+                        <div class="monster-eye"><div class="monster-pupil"></div></div>
+                        <div class="monster-eye"><div class="monster-pupil"></div></div>
+                    </div>
                 </div>
             </div>
-        </div>     
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/71d797aa33.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
+        </section>
+    </main>
+
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/monster.js"></script>
     <script>
-        AOS.init();
-        
-        // clickeffect
-        function clickEffect(e){
-        var d=document.createElement("div");
-        d.className="clickEffect";
-        d.style.top=e.clientY+"px";d.style.left=e.clientX+"px";
-        document.body.appendChild(d);
-        d.addEventListener('animationend',function(){d.parentElement.removeChild(d);}.bind(this));
-        }
-        document.addEventListener('click',clickEffect);
-
-        // scroll speed
-        function wheel(event) {
-        var delta = 0;
-        if (event.wheelDelta) {(delta = event.wheelDelta / 120);}
-        else if (event.detail) {(delta = -event.detail / 3);}
-
-        handle(delta);
-        if (event.preventDefault) {(event.preventDefault());}
-        event.returnValue = false;
-            }
-
-            function handle(delta) {
-                var time = 1000;
-                var distance = 300;
-
-                $('html, body').stop().animate({
-                    scrollTop: $(window).scrollTop() - (distance * delta)
-                }, time );
-            }
-
-            if (window.addEventListener) {window.addEventListener('DOMMouseScroll', wheel, false);}
-                window.onmousewheel = document.onmousewheel = wheel;
+        if (typeof CursorLogic !== 'undefined') CursorLogic.init();
     </script>
-    <!-- <script type="module">
-        // cursor effect
-        import { followingDotCursor } from "https://unpkg.com/cursor-effects@latest/dist/esm.js";
-        new followingDotCursor();
-        new cursoreffects.followingDotCursor({
-            color: ["#ddd"],
-        });
-    </script> -->
 </body>
 </html>

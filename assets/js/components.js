@@ -15,6 +15,7 @@ const PortfolioApp = {
             category: 'uiux',
             tags: ['Product Design', 'UX Research', 'UI Design', 'Web App'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'plc2split.html',
             timeline: 'Nov 2025 – Present',
             team: '2 Engineers, 1 Designer, 1 PM',
@@ -31,6 +32,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['UI Design', 'Front-End Development', 'Web Design'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'lawfare.html',
             timeline: 'Jan 2026 – Feb 2026',
             team: '1 Engineer, 1 Designer, 1 PM',
@@ -47,6 +49,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['UI Design', 'Front-End Development', 'Web Design'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'agsec.html',
             timeline: 'Aug 2025 – Oct 2025',
             team: '1 Engineer, 1 Designer, 1 PM',
@@ -63,6 +66,7 @@ const PortfolioApp = {
             category: 'uiux',
             tags: ['UX Research', 'UX/UI Design', 'Web Redesign'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'unesco.html',
             timeline: 'Jan 2025 – May 2025',
             team: 'Solo',
@@ -79,6 +83,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['UI Design', 'Front-End Development', 'Accessibility', 'Web Design'],
             image: 'assets/img/lcm.png',
+            heroImage: 'assets/img/website mockup_lcm.png',
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
             team: '2 Engineers, 1 Designer, 1 PM',
@@ -95,6 +100,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['Web Design', 'UI Design', 'Front-End Development', 'Branding'],
             image: 'assets/img/magnate.png',
+            heroImage: 'assets/img/website mockup_magnate.png',
             link: 'magnate.html',
             timeline: 'Jun 2023 – Sep 2023',
             team: '2 UI Designers, 3 Engineers, 1 PM, 1 Planner',
@@ -111,6 +117,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['Web Design', 'UI Design', 'Front-End Development'],
             image: 'assets/img/tnaf.png',
+            heroImage: 'assets/img/website mockup_tnaf.png',
             link: 'tnaf.html',
             timeline: 'Feb 2022 – Apr 2023',
             team: '2 UI Designers, 3 Engineers, 1 PM, 1 Planner',
@@ -127,6 +134,7 @@ const PortfolioApp = {
             category: 'uiux',
             tags: ['UX Research', 'Product Design', 'Mobile App', 'Prototyping'],
             image: 'assets/img/lt.png',
+            heroImage: 'assets/img/longtan-mockup-2.png',
             link: 'lt.html',
             timeline: 'Jan 2020 – May 2020',
             team: '2 Designers',
@@ -144,6 +152,7 @@ const PortfolioApp = {
             category: 'playground',
             tags: ['Hackathon', 'Web App'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'dailymoo.html',
             timeline: 'Jan 2025',
             team: '1 Engineer, 1 Designer, 1 PM',
@@ -160,6 +169,7 @@ const PortfolioApp = {
             category: 'playground',
             tags: ['AI', 'Web App'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'quickbite.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: 'Solo',
@@ -176,6 +186,7 @@ const PortfolioApp = {
             category: 'playground',
             tags: ['Game Design', '3D'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'enchanter.html',
             timeline: 'Feb 2025',
             team: '3 Designers, 1 PM',
@@ -192,6 +203,7 @@ const PortfolioApp = {
             category: 'playground',
             tags: ['Game Design', 'Mobile App'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'stiffy.html',
             timeline: 'Sep 2024',
             team: '1 Engineer, 2 Designers, 1 PM',
@@ -208,6 +220,7 @@ const PortfolioApp = {
             category: 'playground',
             tags: ['UI Design', 'Prototyping'],
             image: '',
+            heroImage: 'assets/img/welcome.jpg',
             link: 'uav.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: '4 Designers',
@@ -340,7 +353,10 @@ const PortfolioApp = {
         const isGridPage = (pageType === 'home' || pageType === 'playground');
         const nextProjectHTML = !isGridPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
         const loaderHTML = pageType === 'home' ? LayoutComponents.buildEntryLoader() : '';
-        const coverHTML = pageData.cover ? '<div class="case-hero-img"><img src="assets/img/website mockup_lcm.png" alt="LCM Project Cover" style="width:100%;height:100%;object-fit:cover;"></div>' : '';
+        const heroImage = projectMeta ? (projectMeta.heroImage || projectMeta.image || 'assets/img/welcome.jpg') : '';
+        const coverHTML = (!isGridPage && projectMeta)
+            ? `<div class="case-hero-img"><img src="${heroImage}" alt="${projectMeta.title} main hero image" style="width:100%;height:100%;object-fit:cover;"></div>`
+            : '';
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${nextProjectHTML}`;
 
         const layoutHTML = `
