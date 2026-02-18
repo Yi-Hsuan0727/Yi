@@ -86,6 +86,7 @@ const LayoutComponents = {
                     <button class="filter-btn active" onclick="filterProjects('all')">All</button>
                     <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
                     <button class="filter-btn" onclick="filterProjects('code')">Code</button>
+                    <button class="filter-btn" onclick="filterProjects('playground')">Playground</button>
                 </div>
             </div>`;
     },
@@ -97,11 +98,12 @@ const LayoutComponents = {
             let tagsHTML = p.tags.map(function(t) {
                 return `<span class="tag">${t}</span>`;
             }).join('');
+            let imgContent = p.image
+                ? `<img src="${p.image}" alt="${p.title}">`
+                : `<span style="color:#777;font-weight:bold;">${p.title}</span>`;
             return `
                 <div class="next-project-card" onclick="window.location.href='${p.link}'">
-                    <div class="next-project-img">
-                        <img src="${p.image}" alt="${p.title}">
-                    </div>
+                    <div class="next-project-img">${imgContent}</div>
                     <div class="next-project-info">
                         <h3>${p.title}</h3>
                         <span class="project-subtitle">${p.subtitle}</span>
