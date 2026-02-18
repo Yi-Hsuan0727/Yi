@@ -4,7 +4,7 @@
 const LayoutComponents = {
 
     logoSVG: function() {
-        return `<svg viewBox="10 0 80 100" xmlns="http://www.w3.org/2000/svg"><text y=".9em" font-size="90" font-weight="900" font-family="Arial" fill="#2ecc71">M</text></svg>`;
+        return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><text x="32" y="54" font-size="72" font-weight="900" font-family="Arial" fill="#2ecc71" text-anchor="middle">M</text></svg>`;
     },
 
     buildMobileHeader: function(logoSVG) {
@@ -35,6 +35,25 @@ const LayoutComponents = {
         }
         html += `<div class="hero-text"><h1>${pageData.title}</h1><p>${pageData.desc}</p>${pageData.meta}</div>`;
         return html;
+    },
+
+    /* --- Sidebar metadata: subtitle, timeline, team, tags (project pages only) --- */
+    buildSidebarMeta: function(pageType, projectMeta) {
+        if (pageType === 'home' || !projectMeta) return '';
+        let tagsHTML = '';
+        if (projectMeta.tags && projectMeta.tags.length) {
+            tagsHTML = projectMeta.tags.map(function(t) {
+                return `<span class="sidebar-tag">${t}</span>`;
+            }).join('');
+        }
+        return `
+            <div class="sidebar-meta">
+                ${projectMeta.subtitle ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Subtitle</span><span class="sidebar-meta-value">${projectMeta.subtitle}</span></div>` : ''}
+                ${projectMeta.timeline ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Timeline</span><span class="sidebar-meta-value">${projectMeta.timeline}</span></div>` : ''}
+                ${projectMeta.team ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Team</span><span class="sidebar-meta-value">${projectMeta.team}</span></div>` : ''}
+                ${projectMeta.role ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">My Role</span><span class="sidebar-meta-value">${projectMeta.role}</span></div>` : ''}
+                ${tagsHTML ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Tags</span><div class="sidebar-tags">${tagsHTML}</div></div>` : ''}
+            </div>`;
     },
 
     buildSidebarBottom: function(pageType, pageData) {
@@ -71,10 +90,37 @@ const LayoutComponents = {
             </div>`;
     },
 
+    /* --- Next Projects section (project pages only) --- */
+    buildNextProjects: function(projects) {
+        if (!projects || !projects.length) return '';
+        let cardsHTML = projects.map(function(p) {
+            let tagsHTML = p.tags.map(function(t) {
+                return `<span class="tag">${t}</span>`;
+            }).join('');
+            return `
+                <div class="next-project-card" onclick="window.location.href='${p.link}'">
+                    <div class="next-project-img">
+                        <img src="${p.image}" alt="${p.title}">
+                    </div>
+                    <div class="next-project-info">
+                        <h3>${p.title}</h3>
+                        <span class="project-subtitle">${p.subtitle}</span>
+                        <div class="tags">${tagsHTML}</div>
+                    </div>
+                </div>`;
+        }).join('');
+
+        return `
+            <div class="next-projects-section">
+                <h2 class="next-projects-title">Next Projects</h2>
+                <div class="next-projects-grid">${cardsHTML}</div>
+            </div>`;
+    },
+
     buildFooter: function() {
         return `
             <footer class="site-footer">
-                <span class="footer-copyright">© 2025 Michelle Chen. All Rights Reserved.</span>
+                <span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved.</span>
                 <div class="socials">
                     <span class="connect-label" style="margin-right:10px; font-weight:700;">Connect with me:</span>
                     <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
