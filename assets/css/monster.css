@@ -1,0 +1,159 @@
+/* ============================================
+ * Monster CSS Module
+ * Styles for the sidebar monster (home page)
+ * ============================================ */
+
+/* --- Sidebar override for monster pages --- */
+.sidebar:has(.sidebar-footer-container) {
+    padding: 40px 30px 0 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- Monster Wrapper --- */
+.sidebar-footer-container {
+    flex: 1;
+    width: calc(100% + 60px);
+    margin-left: -30px;
+    margin-bottom: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/* --- Monster Container --- */
+.monster-container {
+    width: 100%;
+    height: 20vh;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+/* --- Monster Body --- */
+.monster-body {
+    width: 120%;
+    height: 100%;
+    background-color: rgb(46, 204, 113);
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    bottom: 0;
+    left: -10%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 40px;
+    transition: border-radius 0.4s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Monster hover: flatten the arc */
+.monster-container:hover .monster-body {
+    border-radius: 40% 40% 0 0;
+}
+
+/* Monster pointed hover state (JS-driven) */
+.monster-body.pointed {
+    border-radius: 50% 50% 0 0;
+    transform: scaleY(1.15);
+}
+
+/* --- Monster Eyes --- */
+.monster-eyes-wrapper {
+    display: flex;
+    gap: 15px;
+    z-index: 2;
+}
+
+.monster-eye {
+    width: 55px;
+    height: 45px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.monster-pupil {
+    width: 22px;
+    height: 22px;
+    background: #000000;
+    border-radius: 50%;
+    transition: transform 0.1s ease-out;
+}
+
+/* --- Slow Blink (CSS-driven, eyelid via ::after) --- */
+.monster-eye::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgb(46, 204, 113);
+    border-radius: 50%;
+    transform: scaleY(0);
+    transform-origin: center;
+    animation: blink 5s ease-in-out infinite;
+    z-index: 3;
+}
+
+@keyframes blink {
+    0%, 92%, 100% { transform: scaleY(0); }
+    96% { transform: scaleY(1); }
+}
+
+/* --- Quick Blink (JS-driven class) --- */
+@keyframes blinkQuick {
+    0%, 42%, 58%, 100% { transform: scaleY(1); }
+    45%, 55% { transform: scaleY(0.05); }
+}
+.monster-eye.blinking {
+    animation: blinkQuick 0.3s ease-in-out;
+}
+
+/* --- Wiggle Animation --- */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    15% { transform: rotate(-5deg) scale(1.03); }
+    30% { transform: rotate(4deg) scale(1.05); }
+    45% { transform: rotate(-3deg) scale(1.03); }
+    60% { transform: rotate(2deg); }
+    75% { transform: rotate(-1deg); }
+}
+.monster-body.wiggling {
+    animation: wiggle 0.6s ease-in-out;
+}
+
+/* --- Mobile Monster Overrides --- */
+@media (max-width: 900px) {
+    /* Home sidebar: fill viewport minus header */
+    .sidebar:has(.sidebar-footer-container) {
+        min-height: calc(100vh - var(--mobile-header-height)) !important;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Monster edge-to-edge (counteract 20px sidebar padding) */
+    .sidebar-footer-container {
+        width: calc(100% + 40px) !important;
+        margin-left: -20px !important;
+        margin-bottom: -1px;
+    }
+
+    .monster-container {
+        height: 120px;
+        display: flex !important;
+    }
+
+    .monster-body {
+        padding-bottom: 25px;
+    }
+
+    /* Touch hover effect on mobile */
+    .monster-container:active .monster-body {
+        border-radius: 40% 40% 0 0;
+    }
+}

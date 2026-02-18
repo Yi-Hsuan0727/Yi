@@ -7,7 +7,7 @@
     --border-color: #e0e0e0;
     --header-height: 60px;
     --mobile-header-height: 50px;
-    --footer-height: 50px; /* Fixed Footer Height */
+    --footer-height: 50px;
 }
 
 [data-theme="dark"] {
@@ -46,7 +46,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 
 /* Sidebar */
 .sidebar {
-    width: 30%; height: 100%; padding: 40px 30px; 
+    width: 30%; height: 100%; padding: 40px 30px;
     display: flex; flex-direction: column; justify-content: space-between;
     border-right: 1px solid var(--border-color); background: var(--bg-color); z-index: 5;
     overflow-y: auto;
@@ -58,12 +58,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* Right Panel */
 .right-panel { width: 70%; height: 100%; display: flex; flex-direction: column; position: relative; }
 
-/* Scroll Area (Holds Content) */
-.scroll-area { flex-grow: 1; overflow-y: auto; position: relative; scroll-behavior: smooth; padding-bottom: 60px; /* Space for content above footer if needed */ }
+/* Scroll Area — no padding-bottom or scroll-behavior (Lenis handles smooth scroll) */
+.scroll-area { flex-grow: 1; overflow-y: auto; position: relative; }
 
-/* FIXED FOOTER (Common) */
+/* FOOTER */
 .site-footer {
-    flex-shrink: 0; /* Prevents shrinking */
+    flex-shrink: 0;
     height: auto;
     padding: 15px 30px;
     border-top: 1px solid var(--border-color);
@@ -73,19 +73,18 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     z-index: 100;
 }
 
-/* WORKS HEADER (Filters) */
+/* WORKS HEADER — Desktop: side-by-side row */
 .works-header {
     position: sticky;
     top: 0;
     padding: 10px 30px;
     background: var(--bg-color);
     border-bottom: 1px solid var(--border-color);
-    display: flex; flex-direction: column; gap: 8px;
+    display: flex; flex-direction: row; align-items: center; gap: 15px;
     z-index: 90;
-    transition: top 0.3s ease, padding 0.3s ease;
 }
 
-.section-title { font-weight: 700; font-size: 1rem; display: block; max-height: 50px; opacity: 1; overflow: hidden; transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease; }
+.section-title { font-weight: 700; font-size: 1rem; white-space: nowrap; }
 .filter-bar { display: flex; gap: 10px; }
 .filter-btn { background: none; border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; cursor: pointer; color: var(--secondary-text); font-size: 0.8rem; }
 .filter-btn.active, .filter-btn:hover { border-color: var(--accent-color); color: var(--text-color); }
@@ -128,276 +127,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* Restore sidebar bottom padding on project pages (no monster) */
 .sidebar:has(.bio-container) { padding-bottom: 30px; }
 
-/* --- RESPONSIVE MOBILE (Max-Width: 900px) --- */
-@media (max-width: 900px) {
-    body { height: auto; overflow-x: hidden; overflow-y: auto; padding-top: var(--mobile-header-height); }
-    #app-root { display: flex; flex-direction: column; height: auto; }
-    
-    .site-header { display: none; }
-
-    /* Mobile Top Bar (Nav) */
-    .mobile-top-bar { 
-        position: fixed; top: 0; left: 0; width: 100%; height: var(--mobile-header-height); 
-        background: var(--bg-color); border-bottom: 1px solid var(--border-color); 
-        z-index: 1000; display: flex; justify-content: space-between; 
-        align-items: center; padding: 0 20px; 
-        transition: transform 0.3s ease;
-    }
-    
-    /* Hide top bar when scrolling down */
-    body.nav-hidden .mobile-top-bar { transform: translateY(-100%); }
-
-    .content-wrapper { flex-direction: column; flex-grow: 1; height: auto; overflow: visible; }
-    .sidebar, .right-panel { width: 100%; height: auto; border: none; overflow: visible; }
-    .sidebar { padding: 30px 20px; border-bottom: 1px solid var(--border-color); }
-
-    .scroll-area { overflow: visible; height: auto; padding-bottom: 0; }
-
-    /* Footer flows normally on mobile */
-    .site-footer {
-        position: static;
-        flex-direction: column-reverse; gap: 8px; text-align: center;
-        padding: 12px 20px 16px;
-        font-size: 0.65rem;
-    }
-    .site-footer .footer-copyright {
-        font-size: 0.6rem;
-        opacity: 0.7;
-    }
-    .site-footer .socials {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
-    /* Hide "Connect with me:" label on mobile */
-    .site-footer .connect-label { display: none; }
-    /* Icon-only social links on mobile */
-    .site-footer .social-link { font-size: 1rem; margin-left: 0; }
-    /* Resume button styling on mobile */
-    .site-footer .resume-link {
-        font-size: 0.65rem;
-        padding: 3px 10px;
-    }
-
-    body { padding-bottom: 0; }
-
-    /* --- STICKY FILTER LOGIC --- */
-    .works-header {
-        position: sticky;
-        top: var(--mobile-header-height); /* Default: Below Nav */
-        z-index: 900;
-        background: var(--bg-color);
-        border-bottom: 1px solid var(--border-color);
-        padding: 15px 20px;
-        display: flex; flex-direction: column; gap: 10px;
-        transition: top 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* When Nav is Hidden (Scroll Down), Filter sticks to 0 */
-    body.nav-hidden .works-header {
-        top: 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    /* TEXT HIDING ANIMATION */
-    .section-title {
-        overflow: hidden;
-        max-height: 50px;
-        opacity: 1;
-        transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
-    }
-
-    /* Mini Mode: Collapse text */
-    body.nav-hidden .works-header .section-title {
-        max-height: 0;
-        opacity: 0;
-        margin: 0;
-    }
-    
-    body.nav-hidden .works-header { padding-top: 10px; padding-bottom: 10px; }
-    .project-grid { grid-template-columns: 1fr; padding: 20px; }
-
-    /* Back to top on mobile */
-    .back-to-top { bottom: 30px; right: 20px; }
-
-    /* Hide custom cursor on mobile */
-    .cursor-dot, .cursor-outline { display: none !important; }
-}
-
-/* --- CURSOR --- */
-/* --- CURSOR (Updated for Visibility) --- */
-.cursor-dot, .cursor-outline {
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    z-index: 99999; /* Max Z-Index */
-    pointer-events: none; /* Crucial: Allows clicking through */
-    opacity: 1; /* Explicit default */
-    transition: none !important; /* Override * transition rule */
-}
-
-.cursor-dot { 
-    width: 8px; 
-    height: 8px; 
-    background-color: var(--text-color); 
-}
-
-.cursor-outline {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--text-color);
-    transition: width 0.2s, height 0.2s, border-color 0.2s !important; /* Only hover-resize transitions */
-}
-
-/* Hover State */
-body.hovering .cursor-outline { 
-    width: 60px; 
-    height: 60px; 
-    background-color: rgba(46, 204, 113, 0.1); 
-    border-color: var(--accent-color); 
-}
-
-/* Hide Default Cursor only on Desktop */
-@media (min-width: 901px) {
-    body, a, button, .project-card, input, textarea { 
-        cursor: none !important; 
-    }
-}
-
-/* --- SIDEBAR & MONSTER (Updated) --- */
-.sidebar {
-    width: 30%; 
-    height: 100%; 
-    /* Remove bottom padding so monster sits flush */
-    padding: 40px 30px 0 30px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: space-between;
-    border-right: 1px solid var(--border-color); 
-    background: var(--bg-color); 
-    z-index: 5;
-    overflow: hidden; /* Ensures monster doesn't spill out */
-    position: relative;
-}
-
-.sidebar-footer-container {
-    flex: 1;
-    width: calc(100% + 60px); /* Counteract parent padding (30px left + 30px right) */
-    margin-left: -30px;       /* Pull left to edge */
-    margin-bottom: 0;         /* Flush with bottom */
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-.monster-container {
-    width: 100%;
-    flex: 1;
-    min-height: 120px;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-}
-
-.monster-body {
-    width: 120%;
-    height: 100%;
-    background-color: rgb(46, 204, 113);
-    border-radius: 50% 50% 0 0;
-    position: absolute;
-    bottom: 0;
-    left: -10%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 40px;
-    transition: border-radius 0.4s ease;
-}
-
-/* Monster hover: flatten the arc */
-.monster-container:hover .monster-body {
-    border-radius: 40% 40% 0 0;
-}
-
-/* --- MONSTER EYES --- */
-.monster-eyes-wrapper {
-    display: flex;
-    gap: 15px;
-    z-index: 2;
-}
-
-.monster-eye {
-    width: 55px; height: 45px;
-    background: #ffffff;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Keeps pupil inside */
-}
-
-.monster-pupil {
-    width: 22px; height: 22px;
-    background: #000000;
-    border-radius: 50%;
-    transition: transform 0.1s ease-out;
-}
-
-/* --- MONSTER BLINK ANIMATION --- */
-@keyframes blink {
-    0%, 42%, 58%, 100% { transform: scaleY(1); }
-    45%, 55% { transform: scaleY(0.05); }
-}
-.monster-eye.blinking {
-    animation: blink 0.3s ease-in-out;
-}
-
-/* --- MONSTER WIGGLE ANIMATION --- */
-@keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    15% { transform: rotate(-5deg) scale(1.03); }
-    30% { transform: rotate(4deg) scale(1.05); }
-    45% { transform: rotate(-3deg) scale(1.03); }
-    60% { transform: rotate(2deg); }
-    75% { transform: rotate(-1deg); }
-}
-.monster-body.wiggling {
-    animation: wiggle 0.6s ease-in-out;
-}
-
-/* --- MONSTER HOVER POINTER (Half Circle) --- */
-.monster-body {
-    transition: border-radius 0.4s ease, transform 0.3s ease;
-    cursor: pointer;
-}
-.monster-body.pointed {
-    border-radius: 50% 50% 0 0;
-    transform: scaleY(1.15);
-}
-
-/* Monster Blink Animation */
-.monster-eye::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgb(46, 204, 113);
-    border-radius: 50%;
-    transform: scaleY(0);
-    transform-origin: center;
-    animation: blink 5s ease-in-out infinite;
-    z-index: 3;
-}
-@keyframes blink {
-    0%, 92%, 100% { transform: scaleY(0); }
-    96% { transform: scaleY(1); }
-}
-
 /* --- TITLE SHAPES --- */
 .shape {
     display: inline-block;
@@ -415,9 +144,21 @@ body.hovering .cursor-outline {
     border-bottom: 0.65em solid #E8E258;
 }
 
-/* --- FOOTER CONTACT BUTTONS --- */
+/* --- FOOTER SOCIAL ICONS --- */
 .site-footer .socials { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .site-footer .socials > span { font-size: 0.85rem; }
+.site-footer .socials a {
+    color: var(--accent-color);
+    font-size: 1.3rem;
+    margin-left: 10px;
+    transition: transform 0.2s;
+}
+.site-footer .socials a:hover {
+    transform: scale(1.2);
+    color: rgb(46, 204, 113);
+}
+
+/* Footer Contact Buttons */
 .site-footer .socials .contact-btn {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 8px 18px;
@@ -452,41 +193,109 @@ body.hovering .cursor-outline {
     color: #fff;
 }
 
-/* --- MOBILE MONSTER VISIBILITY --- */
+/* --- RESPONSIVE MOBILE (Max-Width: 900px) --- */
 @media (max-width: 900px) {
-    /* Re-assert mobile sidebar styles (overridden by SIDEBAR & MONSTER block above) */
+    body { height: auto; overflow-x: hidden; overflow-y: auto; padding-top: var(--mobile-header-height); }
+    #app-root { display: flex; flex-direction: column; height: auto; }
+
+    .site-header { display: none; }
+
+    /* Mobile Top Bar (Nav) */
+    .mobile-top-bar {
+        position: fixed; top: 0; left: 0; width: 100%; height: var(--mobile-header-height);
+        background: var(--bg-color); border-bottom: 1px solid var(--border-color);
+        z-index: 1000; display: flex; justify-content: space-between;
+        align-items: center; padding: 0 20px;
+        transition: transform 0.3s ease;
+    }
+
+    /* Hide top bar when scrolling down */
+    body.nav-hidden .mobile-top-bar { transform: translateY(-100%); }
+
+    .content-wrapper { flex-direction: column; flex-grow: 1; height: auto; overflow: visible; }
+    .sidebar, .right-panel { width: 100%; height: auto; border: none; overflow: visible; }
+    .right-panel { display: block; }
+    .sidebar { padding: 30px 20px; border-bottom: 1px solid var(--border-color); }
+
+    .scroll-area { overflow: visible; height: auto; }
+
+    /* Footer flows normally on mobile */
+    .site-footer {
+        position: static;
+        flex-direction: column-reverse; gap: 8px; text-align: center;
+        padding: 12px 20px 16px;
+        font-size: 0.65rem;
+    }
+    .site-footer .footer-copyright {
+        font-size: 0.6rem;
+        opacity: 0.7;
+    }
+    .site-footer .socials {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+    /* Hide "Connect with me:" label on mobile */
+    .site-footer .connect-label { display: none; }
+    /* Icon-only social links on mobile */
+    .site-footer .social-link { font-size: 1rem; margin-left: 0; }
+    /* Resume button styling on mobile */
+    .site-footer .resume-link {
+        font-size: 0.65rem;
+        padding: 3px 10px;
+    }
+
+    body { padding-bottom: 0; }
+
+    /* --- STICKY FILTER LOGIC (Mobile: stacked column layout) --- */
+    .works-header {
+        position: sticky;
+        top: var(--mobile-header-height);
+        z-index: 900;
+        background: var(--bg-color);
+        border-bottom: 1px solid var(--border-color);
+        padding: 15px 20px;
+        display: flex; flex-direction: column; gap: 10px;
+        transition: top 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* When Nav is Hidden, Filter sticks to top */
+    body.nav-hidden .works-header {
+        top: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* TEXT HIDING ANIMATION */
+    .section-title {
+        overflow: hidden;
+        max-height: 50px;
+        opacity: 1;
+        transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+    }
+
+    /* Mini Mode: Collapse text */
+    body.nav-hidden .works-header .section-title {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+    }
+
+    body.nav-hidden .works-header { padding-top: 10px; padding-bottom: 10px; }
+    .project-grid { grid-template-columns: 1fr; padding: 20px; }
+
+    /* Back to top on mobile */
+    .back-to-top { bottom: 30px; right: 20px; }
+}
+
+/* --- MOBILE SIDEBAR RE-ASSERTION --- */
+@media (max-width: 900px) {
     .sidebar {
         width: 100% !important;
         height: auto !important;
-        min-height: 100vh !important;
         overflow: visible !important;
         padding: 30px 20px 0 20px !important;
         min-height: auto;
         border-right: none !important;
-    }
-
-    /* Mobile sidebar on home: fill viewport minus header */
-    .sidebar:has(.sidebar-footer-container) {
-        min-height: calc(100vh - var(--mobile-header-height)) !important;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Monster edge-to-edge on mobile (counteract 20px sidebar padding) */
-    .sidebar-footer-container {
-        width: calc(100% + 40px) !important; /* 20px left + 20px right */
-        margin-left: -20px !important;
-        margin-bottom: -1px; /* fix sub-pixel rendering gaps */
-    }
-
-    .monster-container {
-        height: 120px; /* Slightly smaller on mobile */
-        display: flex !important; /* Force show */
-    }
-    .monster-body { padding-bottom: 25px; } /* Adjust eye position for mobile height */
-
-    /* Monster hover effect on mobile too */
-    .monster-container:active .monster-body {
-        border-radius: 40% 40% 0 0;
     }
 }
