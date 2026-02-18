@@ -339,11 +339,12 @@ const PortfolioApp = {
         const worksHeaderHTML = LayoutComponents.buildWorksHeader(pageType);
         const isGridPage = (pageType === 'home' || pageType === 'playground');
         const nextProjectHTML = !isGridPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
+        const loaderHTML = pageType === 'home' ? LayoutComponents.buildEntryLoader() : '';
         const coverHTML = pageData.cover ? '<div class="case-hero-img"><img src="assets/img/website mockup_lcm.png" alt="LCM Project Cover" style="width:100%;height:100%;object-fit:cover;"></div>' : '';
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${nextProjectHTML}`;
 
         const layoutHTML = `
-            ${LayoutComponents.buildEntryLoader()}
+            ${loaderHTML}
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             ${LayoutComponents.buildMobileHeader(logoSVG)}

@@ -145,10 +145,14 @@ const LayoutComponents = {
 
     buildEntryLoader: function() {
         return `
-            <div class="entry-loader" id="entry-loader" aria-live="polite">
-                <div class="entry-loader-inner">
-                    <div class="entry-loader-shape is-triangle" id="entry-loader-shape" aria-hidden="true"></div>
-                    <p class="entry-loader-text" id="entry-loader-text">Loading... 0%</p>
+            <div class="entry-loader" id="entry-loader" aria-hidden="true">
+                <div class="entry-monster-stage">
+                    <div class="entry-monster-body">
+                        <div class="entry-monster-eyes">
+                            <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
+                            <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
+                        </div>
+                    </div>
                 </div>
             </div>`;
     },
