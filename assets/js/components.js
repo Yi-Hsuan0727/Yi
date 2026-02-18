@@ -5,83 +5,215 @@ const PortfolioApp = {
 
     /* --- Ordered project list for navigation & home grid --- */
     projectList: [
+        /* ===== WORK PROJECTS ===== */
+        {
+            id: 'plc2split',
+            title: 'Plc2Split',
+            subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
+            desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
+            demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
+            category: 'uiux',
+            tags: ['Product Design', 'UX Research', 'UI Design', 'Web App'],
+            image: '',
+            link: 'plc2split.html',
+            timeline: 'Nov 2025 – Present',
+            team: '2 Engineers, 1 Designer, 1 PM',
+            role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',
+            tools: 'Figma',
+            liveLink: 'https://plc2split.design/'
+        },
+        {
+            id: 'lawfare',
+            title: 'International Lawfare Website',
+            subtitle: 'Drupal-Based Legal Scholarship Hub',
+            desc: 'The program page for International Lawfare — introducing and sharing course details.',
+            demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
+            category: 'uiux code',
+            tags: ['UI Design', 'Front-End Development', 'Web Design'],
+            image: '',
+            link: 'lawfare.html',
+            timeline: 'Jan 2026 – Feb 2026',
+            team: '1 Engineer, 1 Designer, 1 PM',
+            role: 'UI Design (Web layout, components), Building site on CMS under ASU Design System (Drupal)',
+            tools: 'Figma, Drupal, Illustrator, Photoshop, HTML/CSS',
+            liveLink: 'https://lawfare-asufactory1.acquia.asu.edu/'
+        },
+        {
+            id: 'agsec',
+            title: 'Agriculture and National Security Website',
+            subtitle: 'Research Portal for Food Security & Defense',
+            desc: 'The program page for Agriculture and National Security — introducing and sharing course details.',
+            demoIntro: 'A specialized CMS interface designed to bridge the gap between agricultural science and national defense policy.',
+            category: 'uiux code',
+            tags: ['UI Design', 'Front-End Development', 'Web Design'],
+            image: '',
+            link: 'agsec.html',
+            timeline: 'Aug 2025 – Oct 2025',
+            team: '1 Engineer, 1 Designer, 1 PM',
+            role: 'UI Design (Web layout, components), Building site on CMS under ASU Design System (Drupal)',
+            tools: 'Figma, Drupal, Illustrator, HTML/CSS',
+            liveLink: 'https://agsec-asufactory1.acquia.asu.edu/'
+        },
+        {
+            id: 'unesco',
+            title: 'UNESCO Volunteer Recruitment',
+            subtitle: 'UX Redesign for Clarity & Conversion',
+            desc: 'A redesign + case study of the volunteer recruiting page for UNESCO. (Class project)',
+            demoIntro: 'Conducted research and redesigned the volunteer recruitment experience to improve information hierarchy and usability.',
+            category: 'uiux',
+            tags: ['UX Research', 'UX/UI Design', 'Web Redesign'],
+            image: '',
+            link: 'unesco.html',
+            timeline: 'Jan 2025 – May 2025',
+            team: 'Solo',
+            role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design',
+            tools: 'Figma',
+            liveLink: '#'
+        },
         {
             id: 'lcm',
             title: 'Indigenous Cultural Museums',
-            subtitle: 'UX Research & Design',
-            desc: 'Demonstrate the information of 30 Taiwan indigenous museums, qualified for Web Content Accessibility Guidelines (WCAG) level AA.',
-            category: 'uiux',
-            tags: ['UI/UX', 'Webflow'],
+            subtitle: 'WCAG AA Compliant Website for 30 Museums',
+            desc: 'Demonstrate the information of 30 Taiwan indigenous museums, qualified for WCAG level AA. (It is online now!)',
+            demoIntro: 'Designed and developed an accessibility-focused website system showcasing Taiwan\'s indigenous cultural institutions.',
+            category: 'uiux code',
+            tags: ['UI Design', 'Front-End Development', 'Accessibility', 'Web Design'],
             image: 'assets/img/lcm.png',
             link: 'lcm.html',
-            timeline: 'Sep 2022 – Jan 2023',
-            team: 'Solo Project (Self-directed)',
-            role: 'UX Research, UI Design, Webflow Development'
-        },
-        {
-            id: 'gy',
-            title: 'Great Yarmouth Heritage Centre',
-            subtitle: 'Heritage Centre Design Concept',
-            desc: 'The concept for an immersive and interactive visitor experience, showcasing Great Yarmouth\'s rich history and culture.',
-            category: 'uiux',
-            tags: ['Prototyping', 'Research', 'Visual Design'],
-            image: 'assets/img/gy.png',
-            link: 'gy.html',
-            timeline: 'Mar 2021 – Jun 2021',
-            team: '2 Professors, 2 Students',
-            role: 'Visual Design, Research and Synthesis, Experience Design'
-        },
-        {
-            id: 'lt',
-            title: 'Longtan Walker Pace Counter APP',
-            subtitle: 'Gamifying Pedestrian Life',
-            desc: 'A mobile solution to gamify pedestrian movement, encouraging students and residents to choose walking over driving.',
-            category: 'uiux',
-            tags: ['Prototyping', 'Research'],
-            image: 'assets/img/lt.png',
-            link: 'lt.html',
-            timeline: 'Sep 2020 – Jan 2021',
-            team: '3 Students',
-            role: 'UX/UI Design, Research and Synthesis, Prototype'
-        },
-        {
-            id: 'lk',
-            title: 'Rickshaw Puller on Lukang Old Street',
-            subtitle: 'Documentary & Visual Design',
-            desc: 'Promote the century-old rickshaw industry in Lukang Old Street and document the beauty of rickshaw puller culture.',
-            category: 'uiux',
-            tags: ['Research', 'Visual Design'],
-            image: 'assets/img/lk.png',
-            link: 'lk.html',
-            timeline: 'Feb 2020 – Jun 2020',
-            team: '4 Students',
-            role: 'Visual Design, Research and Synthesis'
+            timeline: 'Oct 2022 – Feb 2023',
+            team: '2 Engineers, 1 Designer, 1 PM',
+            role: 'UI Design (logo, color/components), Front-end interaction and userflow design',
+            tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
+            liveLink: 'http://lcm.tacp.gov.tw/'
         },
         {
             id: 'magnate',
             title: 'Magnate Technology Official Website',
-            subtitle: 'Multilingual Corporate Website',
-            desc: 'Multilingual corporate website for an aerospace components manufacturer with 30+ years of history.',
-            category: 'code',
-            tags: ['RWD', 'Multilingual', 'HTML / CSS'],
+            subtitle: 'Corporate Website & Digital Brand System',
+            desc: 'Commissioned by Magnate Technology Co., Ltd. to create a website and establish an online presence. (It is online now!)',
+            demoIntro: 'Designed and built a scalable website and UI component system to establish a professional digital presence.',
+            category: 'uiux code',
+            tags: ['Web Design', 'UI Design', 'Front-End Development', 'Branding'],
             image: 'assets/img/magnate.png',
             link: 'magnate.html',
-            timeline: 'Mar 2023 – Jul 2023',
+            timeline: 'Jun 2023 – Sep 2023',
             team: '2 UI Designers, 3 Engineers, 1 PM, 1 Planner',
-            role: 'UX/UI Design, Visual Design, Prototype, RWD Layout'
+            role: 'UI Design (components, color), Front-end interaction and userflow design',
+            tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
+            liveLink: 'https://www.maicl.com/'
         },
         {
             id: 'tnaf',
             title: 'Tainan Art Festival 2023 Website',
-            subtitle: 'Government Event Website',
+            subtitle: 'Large-Scale Event Website Design',
             desc: 'Commissioned by the Tainan City Government to create a website for the Tainan Arts Festival.',
-            category: 'code',
-            tags: ['RWD', 'Bilingual', 'HTML / CSS'],
+            demoIntro: 'Designed and developed the official government event website to enhance public engagement and information clarity.',
+            category: 'uiux code',
+            tags: ['Web Design', 'UI Design', 'Front-End Development'],
             image: 'assets/img/tnaf.png',
             link: 'tnaf.html',
-            timeline: 'Jan 2023 – May 2023',
+            timeline: 'Feb 2022 – Apr 2023',
             team: '2 UI Designers, 3 Engineers, 1 PM, 1 Planner',
-            role: 'UX/UI Design, Prototype, RWD Layout (HTML / CSS)'
+            role: 'UI Design (components, color), Front-end interaction and userflow design',
+            tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
+            liveLink: 'https://tnaf.tainan.gov.tw/index.php?lang=en'
+        },
+        {
+            id: 'lt',
+            title: 'Longtan Walker Pace Counter APP',
+            subtitle: 'Behavior-Driven Mobility App Concept',
+            desc: 'By accumulating steps, people are encouraged to walk to reduce the traffic of cars and motorcycles on Longtan Road. (Class project)',
+            demoIntro: 'Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.',
+            category: 'uiux',
+            tags: ['UX Research', 'Product Design', 'Mobile App', 'Prototyping'],
+            image: 'assets/img/lt.png',
+            link: 'lt.html',
+            timeline: 'Jan 2020 – May 2020',
+            team: '2 Designers',
+            role: 'UX Research (survey, interview), Product Design (prototype), UI Design (components)',
+            tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
+            liveLink: 'https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan'
+        },
+        /* ===== PLAYGROUND PROJECTS ===== */
+        {
+            id: 'dailymoo',
+            title: 'Daily Moo Mood',
+            subtitle: 'Mood Tracking Web App',
+            desc: 'A fun and interactive website that helps users track daily moods with adorable cow-themed visuals. (2nd Place @ RoseHack 2025)',
+            demoIntro: 'A fun website helping users track daily moods with cow-themed visuals (2nd Place @ RoseHack 2025).',
+            category: 'playground',
+            tags: ['Hackathon', 'Web App'],
+            image: '',
+            link: 'dailymoo.html',
+            timeline: 'Jan 2025',
+            team: '1 Engineer, 1 Designer, 1 PM',
+            role: 'UI Design (logo, color/components), Front-end interaction and userflow design',
+            tools: 'HTML/CSS, Figma',
+            liveLink: 'https://devpost.com/software/daily-moo-mood'
+        },
+        {
+            id: 'quickbite',
+            title: 'QuickBite',
+            subtitle: 'AI Meal Planning Assistant',
+            desc: 'A smart meal planning assistant born from the frustration of "What should I eat today?" combined with a busy schedule and limited budget.',
+            demoIntro: 'A smart assistant using Claude AI & USDA data to plan meals and recipes based on user needs.',
+            category: 'playground',
+            tags: ['AI', 'Web App'],
+            image: '',
+            link: 'quickbite.html',
+            timeline: 'Aug 2025 – Dec 2025',
+            team: 'Solo',
+            role: 'UI Design (logo, color/components), Front-end interaction and userflow design',
+            tools: 'Python, Streamlit, Anthropic Claude, USDA FoodData Central',
+            liveLink: '#'
+        },
+        {
+            id: 'enchanter',
+            title: 'Enchanter',
+            subtitle: '3D Adventure Game',
+            desc: 'A game on the Endstar platform — fix a mysterious painting to break the curse over an abandoned kingdom. (People\'s Choice Award, Meta VR headsets)',
+            demoIntro: 'A game built on the Endstar platform where players fix a painting to break a kingdom\'s curse.',
+            category: 'playground',
+            tags: ['Game Design', '3D'],
+            image: '',
+            link: 'enchanter.html',
+            timeline: 'Feb 2025',
+            team: '3 Designers, 1 PM',
+            role: 'Design + Build 3D Game scenes and gameplay',
+            tools: 'Endstar',
+            liveLink: 'https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game'
+        },
+        {
+            id: 'stiffy',
+            title: 'Stiffy Wanderers',
+            subtitle: 'Interactive Mobile Game',
+            desc: 'An interactive mobile game where players guide a cute rock with googly eyes through environmental conditions using real-time location.',
+            demoIntro: 'A mobile game guiding a rock character through environmental missions based on real-time location.',
+            category: 'playground',
+            tags: ['Game Design', 'Mobile App'],
+            image: '',
+            link: 'stiffy.html',
+            timeline: 'Sep 2024',
+            team: '1 Engineer, 2 Designers, 1 PM',
+            role: 'Part of front-end coding and UI design',
+            tools: 'HTML/CSS, Figma',
+            liveLink: 'https://devpost.com/software/stiffy-wanderers'
+        },
+        {
+            id: 'uav',
+            title: 'UAV Control System',
+            subtitle: 'Agricultural UAV Interface Design',
+            desc: 'Designing a UAV control system to help the agriculture industry improve operational efficiency and optimize workflows. (Class project)',
+            demoIntro: 'A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.',
+            category: 'playground',
+            tags: ['UI Design', 'Prototyping'],
+            image: '',
+            link: 'uav.html',
+            timeline: 'Aug 2025 – Dec 2025',
+            team: '4 Designers',
+            role: 'Pilot interface design',
+            tools: 'Figma',
+            liveLink: '#'
         }
     ],
 
@@ -91,62 +223,77 @@ const PortfolioApp = {
             desc: "<strong>UX/UI Designer</strong> specializing in B2B SaaS...",
             meta: ``
         },
+        plc2split: {
+            title: "Plc2Split",
+            desc: "Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.",
+            meta: ``, backLink: true, liveLink: "https://plc2split.design/", cover: false
+        },
+        lawfare: {
+            title: "International Lawfare Website",
+            desc: "A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.",
+            meta: ``, backLink: true, liveLink: "https://lawfare-asufactory1.acquia.asu.edu/", cover: false
+        },
+        agsec: {
+            title: "Agriculture and National Security Website",
+            desc: "A specialized CMS interface designed to bridge the gap between agricultural science and national defense policy.",
+            meta: ``, backLink: true, liveLink: "https://agsec-asufactory1.acquia.asu.edu/", cover: false
+        },
+        unesco: {
+            title: "UNESCO Volunteer Recruitment",
+            desc: "Conducted research and redesigned the volunteer recruitment experience to improve information hierarchy and usability.",
+            meta: ``, backLink: true, liveLink: "#", cover: false
+        },
         lcm: {
             title: "Indigenous Cultural Museums",
-            desc: "Redesigning the digital presence of 30 Taiwan indigenous museums with WCAG AA compliance.",
-            meta: ``,
-            backLink: true,
-            liveLink: "https://webflow.com",
-            cover: true
-        },
-        gy: {
-            title: "Great Yarmouth Heritage Centre",
-            desc: "Design concept for an immersive visitor experience showcasing Great Yarmouth's heritage.",
-            meta: ``,
-            backLink: true,
-            liveLink: "#",
-            cover: false
-        },
-        lt: {
-            title: "Longtan Walker Pace Counter APP",
-            desc: "Gamifying pedestrian movement to reduce traffic on Longtan Road.",
-            meta: ``,
-            backLink: true,
-            liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan",
-            cover: false
-        },
-        lk: {
-            title: "Rickshaw Puller on Lukang Old Street",
-            desc: "Documentary project preserving the century-old rickshaw puller culture.",
-            meta: ``,
-            backLink: true,
-            liveLink: "https://youtu.be/CdNF3fMakOE",
-            cover: false
+            desc: "Designed and developed an accessibility-focused website system showcasing Taiwan's indigenous cultural institutions.",
+            meta: ``, backLink: true, liveLink: "http://lcm.tacp.gov.tw/", cover: true
         },
         magnate: {
             title: "Magnate Technology Official Website",
-            desc: "Multilingual corporate website for an aerospace manufacturer.",
-            meta: ``,
-            backLink: true,
-            liveLink: "https://www.maicl.com/index.php?lang=en",
-            cover: false
+            desc: "Designed and built a scalable website and UI component system to establish a professional digital presence.",
+            meta: ``, backLink: true, liveLink: "https://www.maicl.com/", cover: false
         },
         tnaf: {
             title: "Tainan Art Festival 2023 Website",
-            desc: "Official website for the Tainan Arts Festival, themed 'Young Dreams'.",
-            meta: ``,
-            backLink: true,
-            liveLink: "https://tnaf.tainan.gov.tw/index.php?lang=en",
-            cover: false
+            desc: "Designed and developed the official government event website to enhance public engagement and information clarity.",
+            meta: ``, backLink: true, liveLink: "https://tnaf.tainan.gov.tw/index.php?lang=en", cover: false
+        },
+        lt: {
+            title: "Longtan Walker Pace Counter APP",
+            desc: "Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.",
+            meta: ``, backLink: true, liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan", cover: false
+        },
+        dailymoo: {
+            title: "Daily Moo Mood",
+            desc: "A fun website helping users track daily moods with cow-themed visuals (2nd Place @ RoseHack 2025).",
+            meta: ``, backLink: true, liveLink: "https://devpost.com/software/daily-moo-mood", cover: false
+        },
+        quickbite: {
+            title: "QuickBite",
+            desc: "A smart assistant using Claude AI & USDA data to plan meals and recipes based on user needs.",
+            meta: ``, backLink: true, liveLink: "#", cover: false
+        },
+        enchanter: {
+            title: "Enchanter",
+            desc: "A game built on the Endstar platform where players fix a painting to break a kingdom's curse.",
+            meta: ``, backLink: true, liveLink: "https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game", cover: false
+        },
+        stiffy: {
+            title: "Stiffy Wanderers",
+            desc: "A mobile game guiding a rock character through environmental missions based on real-time location.",
+            meta: ``, backLink: true, liveLink: "https://devpost.com/software/stiffy-wanderers", cover: false
+        },
+        uav: {
+            title: "UAV Control System",
+            desc: "A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.",
+            meta: ``, backLink: true, liveLink: "#", cover: false
         }
     },
 
-    /* --- Get project metadata by id --- */
     getProject: function(id) {
         return this.projectList.find(function(p) { return p.id === id; });
     },
 
-    /* --- Get next N projects (wraps around) --- */
     getNextProjects: function(currentId, count) {
         var idx = this.projectList.findIndex(function(p) { return p.id === currentId; });
         if (idx === -1) return [];
@@ -161,16 +308,9 @@ const PortfolioApp = {
         this.injectHead();
         this.buildLayout(pageType);
 
-        // 1. Init General App Logic
         if (typeof AppLogic !== 'undefined') AppLogic.init();
-
-        // 2. Init Monster Logic (Home only)
         if (pageType === 'home' && typeof MonsterLogic !== 'undefined') MonsterLogic.init();
-
-        // 3. Init Cursor Logic
-        if (typeof CursorLogic !== 'undefined') {
-            CursorLogic.init();
-        }
+        if (typeof CursorLogic !== 'undefined') CursorLogic.init();
     },
 
     injectHead: function() {
