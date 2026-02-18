@@ -3,7 +3,7 @@
  */
 const AppLogic = {
     entryAnimationInterval: null,
-    entryAnimationTimeout: null,
+    entryAnimationTimers: [],
 
     init: function() {
         this.initTheme();
@@ -123,47 +123,61 @@ const AppLogic = {
         }
     },
 
-    // --- 4. ENTRY LOADER (30s shape cycle + progress text) ---
+    // --- 4. ENTRY LOADER (monster transition on home) ---
     initEntryAnimation: function() {
         const loader = document.getElementById('entry-loader');
-        const shape = document.getElementById('entry-loader-shape');
-        const text = document.getElementById('entry-loader-text');
-        if (!loader || !shape || !text) return;
+        if (!loader) return;
 
-        if (this.entryAnimationInterval) clearInterval(this.entryAnimationInterval);
-        if (this.entryAnimationTimeout) clearTimeout(this.entryAnimationTimeout);
+        const eyes = loader.querySelectorAll('.entry-monster-eye');
+        if (!eyes.length) {
+            loader.classList.add('hide');
+            return;
+        }
 
-        const shapeClasses = ['is-triangle', 'is-circle', 'is-square'];
-        const totalDuration = 30000;
-        const startedAt = performance.now();
-        let currentShapeIdx = 0;
-
-        const applyShape = () => {
-            shape.classList.remove('is-triangle', 'is-circle', 'is-square');
-            shape.classList.add(shapeClasses[currentShapeIdx]);
-            currentShapeIdx = (currentShapeIdx + 1) % shapeClasses.length;
-        };
-
-        const updateText = () => {
-            const elapsed = performance.now() - startedAt;
-            const progress = Math.min(100, Math.round((elapsed / totalDuration) * 100));
-            text.textContent = `Loading... ${progress}%`;
-        };
-
-        applyShape();
-        updateText();
-
-        this.entryAnimationInterval = setInterval(() => {
-            applyShape();
-            updateText();
-        }, 1000);
-
-        this.entryAnimationTimeout = setTimeout(() => {
+        if (this.entryAnimationInterval) {
             clearInterval(this.entryAnimationInterval);
             this.entryAnimationInterval = null;
-            text.textContent = 'Loading... 100%';
+        }
+        if (this.entryAnimationTimers.length) {
+            this.entryAnimationTimers.forEach(timer => clearTimeout(timer));
+            this.entryAnimationTimers = [];
+        }
+
+        const moveEyes = () => {
+            eyes.forEach(eye => {
+                const pupil = eye.querySelector('.entry-monster-pupil');
+                if (!pupil) return;
+
+                const maxDist = eye.clientWidth * 0.22;
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * maxDist;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+                pupil.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        };
+
+        const addTimer = (delay, callback) => {
+            const timer = setTimeout(callback, delay);
+            this.entryAnimationTimers.push(timer);
+        };
+
+        moveEyes();
+        this.entryAnimationInterval = setInterval(moveEyes, 420);
+
+        addTimer(1800, () => loader.classList.add('curve-phase'));
+        addTimer(3400, () => loader.classList.add('dock-phase'));
+        addTimer(5100, () => {
             loader.classList.add('hide');
-        }, totalDuration);
+            if (this.entryAnimationInterval) {
+                clearInterval(this.entryAnimationInterval);
+                this.entryAnimationInterval = null;
+            }
+        });
+        addTimer(5700, () => {
+            loader.remove();
+            this.entryAnimationTimers = [];
+        });
     }
 };
 
