@@ -50,7 +50,7 @@ const MonsterLogic = {
         // --- 3. OCCASIONAL BLINKING ---
         this.startBlinking(eyes);
 
-        // --- 4. HOVER: Pointed shape + wiggle ---
+        // --- 4. HOVER: Pointed shape ---
         monsterBody.addEventListener('mouseenter', () => {
             monsterBody.classList.add('pointed');
         });
@@ -58,16 +58,15 @@ const MonsterLogic = {
             monsterBody.classList.remove('pointed');
         });
 
-        // --- 5. CLICK/TAP: Wiggle ---
-        monsterBody.addEventListener('click', () => {
-            this.triggerWiggle(monsterBody, eyes);
+        // --- 5. CLICK/TAP: Pointed + sparkles ---
+        monsterBody.addEventListener('click', (e) => {
+            this.triggerClickEffect(monsterBody, eyes, e);
         });
         monsterBody.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.triggerWiggle(monsterBody, eyes);
-            // Also trigger pointed briefly on tap
             monsterBody.classList.add('pointed');
             setTimeout(() => monsterBody.classList.remove('pointed'), 600);
+            this.triggerClickEffect(monsterBody, eyes, e.touches[0]);
         }, { passive: false });
     },
 
@@ -90,19 +89,43 @@ const MonsterLogic = {
         scheduleNext();
     },
 
-    triggerWiggle: function(monsterBody, eyes) {
-        // Remove then re-add to restart animation
-        monsterBody.classList.remove('wiggling');
-        void monsterBody.offsetWidth; // force reflow
-        monsterBody.classList.add('wiggling');
+    triggerClickEffect: function(monsterBody, eyes, event) {
+        // Pointed effect (same as hover)
+        monsterBody.classList.add('pointed');
+        setTimeout(() => monsterBody.classList.remove('pointed'), 600);
 
-        // Quick double-blink on wiggle
+        // Quick blink
         eyes.forEach(eye => {
             eye.classList.add('blinking');
             setTimeout(() => eye.classList.remove('blinking'), 300);
         });
 
-        setTimeout(() => monsterBody.classList.remove('wiggling'), 600);
+        // Sparkle particles
+        const container = monsterBody.closest('.monster-container');
+        const rect = container.getBoundingClientRect();
+        const shapes = ['circle', 'triangle', 'square'];
+        const count = 14;
+
+        for (let i = 0; i < count; i++) {
+            const el = document.createElement('div');
+            const shape = shapes[i % shapes.length];
+            el.className = 'sparkle sparkle-' + shape;
+
+            // Start from center-top of the monster
+            const startX = rect.width / 2;
+            const startY = 10;
+            el.style.left = startX + 'px';
+            el.style.top = startY + 'px';
+
+            // Random direction and distance
+            const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+            const dist = 60 + Math.random() * 80;
+            el.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+            el.style.setProperty('--dy', Math.sin(angle) * dist - 40 + 'px');
+
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 700);
+        }
     }
 };
 

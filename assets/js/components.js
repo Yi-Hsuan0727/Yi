@@ -7,20 +7,20 @@ const PortfolioApp = {
     projectList: [
         /* ===== WORK PROJECTS ===== */
         {
-            id: 'plc2split',
-            title: 'Plc2Split',
+            id: 'pic2split',
+            title: 'Pic2Split',
             subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
             desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
             demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
             category: 'uiux',
             tags: ['Product Design', 'UX Research', 'UI Design', 'Web App'],
             image: '',
-            link: 'plc2split.html',
+            link: 'pic2split.html',
             timeline: 'Nov 2025 – Present',
             team: '2 Engineers, 1 Designer, 1 PM',
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',
             tools: 'Figma',
-            liveLink: 'https://plc2split.design/'
+            liveLink: 'https://pic2split.design/'
         },
         {
             id: 'lawfare',
@@ -228,10 +228,10 @@ const PortfolioApp = {
             desc: "Side projects, hackathons, game jams, and creative experiments.",
             meta: ``
         },
-        plc2split: {
-            title: "Plc2Split",
+        pic2split: {
+            title: "Pic2Split",
             desc: "Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.",
-            meta: ``, backLink: true, liveLink: "https://plc2split.design/", cover: false
+            meta: ``, backLink: true, liveLink: "https://pic2split.design/", cover: false
         },
         lawfare: {
             title: "International Lawfare Website",
@@ -314,7 +314,7 @@ const PortfolioApp = {
         this.buildLayout(pageType);
 
         if (typeof AppLogic !== 'undefined') AppLogic.init();
-        if (pageType === 'home' && typeof MonsterLogic !== 'undefined') MonsterLogic.init();
+        if ((pageType === 'home' || pageType === 'playground') && typeof MonsterLogic !== 'undefined') MonsterLogic.init();
         if (typeof CursorLogic !== 'undefined') CursorLogic.init();
     },
 
@@ -343,6 +343,7 @@ const PortfolioApp = {
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${nextProjectHTML}`;
 
         const layoutHTML = `
+            ${LayoutComponents.buildLoadingOverlay()}
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             ${LayoutComponents.buildMobileHeader(logoSVG)}
@@ -364,5 +365,24 @@ const PortfolioApp = {
             </div>
         `;
         document.body.innerHTML = layoutHTML;
+
+        // Loading animation: update progress text over 3 seconds, then fade out
+        const overlay = document.getElementById('loading-overlay');
+        const loadingText = document.getElementById('loading-text');
+        if (overlay && loadingText) {
+            const duration = 3000;
+            const start = performance.now();
+            const tick = function(now) {
+                var progress = Math.min(Math.round(((now - start) / duration) * 100), 100);
+                loadingText.textContent = 'Loading... ' + progress + '%';
+                if (progress < 100) {
+                    requestAnimationFrame(tick);
+                } else {
+                    overlay.classList.add('fade-out');
+                    setTimeout(function() { overlay.remove(); }, 500);
+                }
+            };
+            requestAnimationFrame(tick);
+        }
     }
 };
