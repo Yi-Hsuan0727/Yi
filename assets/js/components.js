@@ -368,8 +368,8 @@ const PortfolioApp = {
                 ${LayoutComponents.buildSiteHeader(logoSVG, pageType)}
                 <div class="content-wrapper">
                     <aside class="sidebar">
-                        <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData)}</div>
-                        ${LayoutComponents.buildSidebarMeta(pageType, projectMeta)}
+                        <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta)}</div>
+                        ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
                     </aside>
                     <div class="right-panel">

@@ -64,8 +64,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border-right: 1px solid var(--border-color); background: var(--bg-color); z-index: 5;
     overflow-y: auto;
 }
-.hero-text h1 { font-size: 3.5rem; line-height: 0.95; margin-bottom: 25px; font-weight: 800; }
-.hero-text p { font-size: 0.9rem; line-height: 1.5; color: var(--secondary-text); max-width: 300px; margin-bottom: 20px; }
+.hero-text h1 { font-size: 3.5rem; line-height: 0.95; margin-bottom: 13px; font-weight: 800; }
+.hero-text .sidebar-meta-value { margin-top: 8px; margin-bottom: 8px; font-size: 24px; }
 .bio-container { display: flex; gap: 15px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: auto;}
 
 /* Right Panel */
@@ -310,6 +310,7 @@ body.entry-loading .cursor-outline {
 .case-content { padding: 40px 60px; max-width: 900px; margin: 0 auto; }
 .case-content h2 { margin-bottom: 16px; }
 .case-content p { line-height: 1.8; }
+.case-content ul { margin-left: 16px; }
 
 /* Restore sidebar bottom padding on project pages (no monster) */
 .sidebar:has(.bio-container) { padding-bottom: 30px; }
@@ -332,12 +333,15 @@ body.entry-loading .cursor-outline {
 }
 
 /* --- FOOTER SOCIAL ICONS --- */
-.site-footer .socials { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.site-footer .socials { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 .site-footer .socials > span { font-size: 0.85rem; }
+.site-footer .socials .connect-label { margin-right: 6px; }
 .site-footer .socials a {
     color: var(--accent-color);
-    font-size: 0.8rem;
-    margin-left: 10px;
+    font-size: 12px;
+    margin-left: 0px;
+    text-decoration: none;
+    background: none;
     transition: transform 0.2s, color 0.2s, background-color 0.2s, border-color 0.2s;
 }
 .site-footer .socials .social-link:not(.resume-link) {
@@ -348,20 +352,23 @@ body.entry-loading .cursor-outline {
     height: 26px;
     border-radius: 50%;
     border: 1px solid transparent;
+    background: none;
 }
 .site-footer .socials .social-link:not(.resume-link):hover {
     transform: scale(1.08);
 }
 [data-theme="light"] .site-footer .socials .social-link:not(.resume-link):hover {
     color: #111111;
-    background-color: var(--accent-color);
+    background-color: transparent;
     border-color: var(--accent-color);
 }
 [data-theme="dark"] .site-footer .socials .social-link:not(.resume-link):hover {
     color: #ffffff;
-    background-color: var(--accent-color);
+    background-color: transparent;
     border-color: var(--accent-color);
 }
+.site-footer .socials i.fas { font-size: 16px; }
+.site-footer .socials i.fab { font-size: 16px; }
 
 /* Footer Contact Buttons */
 .site-footer .socials .contact-btn {
@@ -401,10 +408,11 @@ body.entry-loading .cursor-outline {
 /* --- SIDEBAR METADATA (Project pages) --- */
 .sidebar-meta {
     border-top: 1px solid var(--border-color);
-    padding-top: 20px;
+    padding-top: 0;
     margin-top: 20px;
 }
 .sidebar-meta-item {
+    margin-top: 16px;
     margin-bottom: 16px;
 }
 .sidebar-meta-label {

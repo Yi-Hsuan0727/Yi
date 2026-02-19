@@ -28,31 +28,30 @@ const LayoutComponents = {
             </header>`;
     },
 
-    buildSidebarTop: function(pageData) {
+    buildSidebarTop: function(pageData, projectMeta) {
         let html = '';
         if (pageData.backLink) {
             html += `<a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
         }
-        html += `<div class="hero-text"><h1>${pageData.title}</h1><p>${pageData.desc}</p>${pageData.meta}</div>`;
-        return html;
-    },
-
-    /* --- Sidebar metadata: subtitle, timeline, team, tags (project pages only) --- */
-    buildSidebarMeta: function(pageType, projectMeta) {
-        if (pageType === 'home' || !projectMeta) return '';
         let tagsHTML = '';
-        if (projectMeta.tags && projectMeta.tags.length) {
+        if (projectMeta && projectMeta.tags && projectMeta.tags.length) {
             tagsHTML = projectMeta.tags.map(function(t) {
                 return `<span class="sidebar-tag">${t}</span>`;
             }).join('');
         }
+        html += `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}</div>`;
+        return html;
+    },
+
+    /* --- Sidebar metadata: timeline, team, role (project pages only); subtitle & tags live in hero-text --- */
+    buildSidebarMeta: function(pageType, projectMeta, pageData) {
+        if (pageType === 'home') return '';
+        if (!projectMeta) return '';
         return `
             <div class="sidebar-meta">
-                ${projectMeta.subtitle ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Subtitle</span><span class="sidebar-meta-value">${projectMeta.subtitle}</span></div>` : ''}
                 ${projectMeta.timeline ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Timeline</span><span class="sidebar-meta-value">${projectMeta.timeline}</span></div>` : ''}
                 ${projectMeta.team ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Team</span><span class="sidebar-meta-value">${projectMeta.team}</span></div>` : ''}
                 ${projectMeta.role ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">My Role</span><span class="sidebar-meta-value">${projectMeta.role}</span></div>` : ''}
-                ${tagsHTML ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Tags</span><div class="sidebar-tags">${tagsHTML}</div></div>` : ''}
             </div>`;
     },
 
@@ -125,7 +124,7 @@ const LayoutComponents = {
             <footer class="site-footer">
                 <span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved.</span>
                 <div class="socials">
-                    <span class="connect-label" style="margin-right:10px; font-weight:700;">Connect with me:</span>
+                    <span class="connect-label" style="font-weight:700;">Connect with me:</span>
                     <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
                     <a href="mailto:email@example.com" class="social-link"><i class="fas fa-envelope"></i></a>
                     <a href="#" class="social-link resume-link">Resume</a>
