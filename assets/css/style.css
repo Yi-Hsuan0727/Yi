@@ -156,12 +156,11 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .entry-loader {
     position: fixed;
     inset: 0;
-    z-index: 120000;
+    z-index: 130000;
     overflow: hidden;
     pointer-events: none;
     opacity: 1;
     visibility: visible;
-    --entry-anchor-bottom: 0px;
     transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 .entry-loader.hide {
@@ -171,35 +170,39 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .entry-monster-stage {
     position: absolute;
     inset: 0;
-    z-index: 120001;
+    z-index: 130001;
+}
+.entry-loader-spark-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 130003;
+    overflow: visible;
 }
 .entry-monster-body {
     position: absolute;
-    left: -10vw;
-    bottom: var(--entry-anchor-bottom);
-    width: 120vw;
-    height: calc(100vh + var(--entry-anchor-bottom));
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgb(46, 204, 113);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 120002;
+    z-index: 130002;
     transition:
+        left 1s ease,
+        top 1s ease,
         width 1.1s ease,
         height 1.1s ease,
-        border-top-left-radius 1.1s ease,
-        border-top-right-radius 1.1s ease,
-        padding-bottom 1.1s ease;
+        border-radius 1.1s ease,
+        transform 1.1s ease;
 }
 .entry-monster-eyes {
     display: flex;
     gap: 22px;
-    z-index: 120003;
-    transition: transform 0.8s ease;
+    z-index: 130004;
 }
 .entry-monster-eye {
     width: 74px;
@@ -219,16 +222,59 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border-radius: 50%;
     transition: transform 0.35s ease-out;
 }
-.entry-loader.curve-phase .entry-monster-body {
-    width: 118vw;
-    height: 20vh;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    align-items: flex-end;
-    padding-bottom: 40px;
+.entry-loader.bubble-phase .entry-monster-body {
+    width: clamp(220px, 40vmin, 380px);
+    height: clamp(220px, 40vmin, 380px);
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
 }
-.entry-loader.dock-phase .entry-monster-eyes {
-    transform: scale(0.85);
+.entry-loader.pop-phase .entry-monster-body {
+    animation: entryBubblePop 560ms cubic-bezier(0.22, 0.8, 0.2, 1) forwards;
+}
+@keyframes entryBubblePop {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    38% { transform: translate(-50%, -57%) scale(1.1); }
+    60% { transform: translate(-50%, -49%) scale(0.94); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+.entry-loader-spark {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.65);
+    animation: entryLoaderSpark var(--dur, 700ms) ease-out forwards;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.45));
+}
+.entry-loader-spark.spark-circle {
+    border-radius: 50%;
+    background: #2ecc71;
+}
+.entry-loader-spark.spark-square {
+    background: #4A55E0;
+}
+.entry-loader-spark.spark-triangle {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 10px solid #E8E258;
+    background: transparent;
+}
+@keyframes entryLoaderSpark {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translate(0, 0) rotate(0deg) scale(0.65);
+    }
+    55% {
+        opacity: 0.95;
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1.05);
+    }
 }
 body.entry-loading,
 body.entry-loading * {
@@ -612,12 +658,6 @@ body.entry-loading .cursor-outline {
     /* Next projects section on mobile */
     .next-projects-grid { grid-template-columns: 1fr; }
     .next-projects-section { padding: 30px 20px; }
-
-    /* Loader final shape on mobile */
-    .entry-loader.curve-phase .entry-monster-body {
-        height: 120px;
-        padding-bottom: 25px;
-    }
 
     .about-intro {
         padding: 28px 20px 16px;

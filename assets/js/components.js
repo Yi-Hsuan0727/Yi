@@ -16,7 +16,7 @@ const PortfolioApp = {
             tags: ['Product Design', 'UX Research', 'UI Design', 'Web App'],
             image: '',
             heroImage: 'assets/img/welcome.jpg',
-            link: 'plc2split.html',
+            link: 'Pic2Split.html',
             timeline: 'Nov 2025 – Present',
             team: '2 Engineers, 1 Designer, 1 PM',
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',

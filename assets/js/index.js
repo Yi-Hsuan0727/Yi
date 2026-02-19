@@ -129,6 +129,7 @@ const AppLogic = {
         if (!loader) return;
 
         const eyes = loader.querySelectorAll('.entry-monster-eye');
+        const sparkLayer = document.getElementById('entry-loader-spark-layer');
         if (!eyes.length) {
             loader.classList.add('hide');
             return;
@@ -144,17 +145,6 @@ const AppLogic = {
         }
 
         document.body.classList.add('entry-loading');
-
-        if (window.innerWidth <= 900) {
-            const worksHeader = document.getElementById('sticky-filter-bar');
-            if (worksHeader) {
-                const top = worksHeader.getBoundingClientRect().top;
-                const anchorBottom = Math.max(0, window.innerHeight - top);
-                loader.style.setProperty('--entry-anchor-bottom', `${anchorBottom}px`);
-            }
-        } else {
-            loader.style.setProperty('--entry-anchor-bottom', '0px');
-        }
 
         const moveEyes = () => {
             const maxDist = eyes[0] ? eyes[0].clientWidth * 0.22 : 10;
@@ -178,9 +168,13 @@ const AppLogic = {
         moveEyes();
         this.entryAnimationInterval = setInterval(moveEyes, 420);
 
-        addTimer(1700, () => loader.classList.add('curve-phase'));
-        addTimer(3100, () => loader.classList.add('dock-phase'));
-        addTimer(4900, () => {
+        addTimer(1600, () => loader.classList.add('bubble-phase'));
+        addTimer(2450, () => {
+            loader.classList.add('pop-phase');
+            this.emitLoaderSparkles(sparkLayer);
+        });
+        addTimer(3150, () => this.emitLoaderSparkles(sparkLayer));
+        addTimer(4250, () => {
             loader.classList.add('hide');
             if (this.entryAnimationInterval) {
                 clearInterval(this.entryAnimationInterval);
@@ -188,10 +182,40 @@ const AppLogic = {
             }
             document.body.classList.remove('entry-loading');
         });
-        addTimer(5500, () => {
+        addTimer(4800, () => {
             loader.remove();
             this.entryAnimationTimers = [];
         });
+    },
+
+    emitLoaderSparkles: function(sparkLayer) {
+        if (!sparkLayer) return;
+
+        const layerRect = sparkLayer.getBoundingClientRect();
+        const originX = layerRect.width / 2;
+        const originY = layerRect.height / 2;
+        const shapeClasses = ['spark-triangle', 'spark-circle', 'spark-square'];
+        const sparkleCount = 22;
+
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('span');
+            const shapeClass = shapeClasses[Math.floor(Math.random() * shapeClasses.length)];
+            sparkle.className = `entry-loader-spark ${shapeClass}`;
+            sparkle.style.left = `${originX}px`;
+            sparkle.style.top = `${originY}px`;
+
+            const angle = ((Math.PI * 2) / sparkleCount) * i + (Math.random() * 0.6 - 0.3);
+            const distance = 45 + Math.random() * 90;
+            const dx = Math.cos(angle) * distance;
+            const dy = Math.sin(angle) * distance;
+            sparkle.style.setProperty('--dx', `${dx}px`);
+            sparkle.style.setProperty('--dy', `${dy}px`);
+            sparkle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
+            sparkle.style.setProperty('--dur', `${560 + Math.random() * 260}ms`);
+
+            sparkLayer.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 950);
+        }
     }
 };
 
