@@ -141,6 +141,7 @@ const LayoutComponents = {
         return `
             <div class="entry-loader" id="entry-loader" aria-hidden="true">
                 <div class="entry-monster-stage">
+                    <div class="entry-loader-spark-layer" id="entry-loader-spark-layer"></div>
                     <div class="entry-monster-body">
                         <div class="entry-monster-eyes">
                             <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
