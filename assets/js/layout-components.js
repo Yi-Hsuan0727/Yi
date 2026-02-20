@@ -39,7 +39,10 @@ const LayoutComponents = {
                 return `<span class="sidebar-tag">${t}</span>`;
             }).join('');
         }
-        html += `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}</div>`;
+        const introHTML = (!projectMeta && pageData.desc)
+            ? `<p class="sidebar-intro">${pageData.desc}</p>`
+            : '';
+        html += `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
         return html;
     },
 
@@ -68,12 +71,14 @@ const LayoutComponents = {
                         </div>
                     </div>
                 </div>`;
-        } else {
-            return `
-                <div class="bio-container" style="border:none; padding-top:0; margin-top: auto;">
-                    <a href="${pageData.liveLink || '#'}" target="_blank" class="visit-btn">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:5px;"></i></a>
-                </div>`;
         }
+        if (pageType === 'about') {
+            return '';
+        }
+        return `
+            <div class="bio-container" style="border:none; padding-top:0; margin-top: auto;">
+                <a href="${pageData.liveLink || '#'}" target="_blank" class="visit-btn">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:5px;"></i></a>
+            </div>`;
     },
 
     buildWorksHeader: function(pageType) {
@@ -142,9 +147,11 @@ const LayoutComponents = {
                 <div class="entry-monster-stage">
                     <div class="entry-loader-spark-layer" id="entry-loader-spark-layer"></div>
                     <div class="entry-monster-body">
-                        <div class="entry-monster-eyes">
-                            <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
-                            <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
+                        <div class="entry-monster-orb">
+                            <div class="entry-monster-eyes">
+                                <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
+                                <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
+                            </div>
                         </div>
                     </div>
                 </div>

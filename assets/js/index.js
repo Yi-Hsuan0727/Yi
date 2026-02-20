@@ -169,12 +169,16 @@ const AppLogic = {
         this.entryAnimationInterval = setInterval(moveEyes, 420);
 
         addTimer(1600, () => loader.classList.add('bubble-phase'));
-        addTimer(2450, () => {
+        // After 0.5s as a perfect circle, trigger the pop
+        addTimer(2100, () => {
             loader.classList.add('pop-phase');
             this.emitLoaderSparkles(sparkLayer);
         });
-        addTimer(3150, () => this.emitLoaderSparkles(sparkLayer));
-        addTimer(4250, () => {
+        // Extra sprinkle burst slightly after the main pop
+        addTimer(2700, () => this.emitLoaderSparkles(sparkLayer));
+        // Circle grows from the center to reveal the page
+        addTimer(2600, () => loader.classList.add('reveal-phase'));
+        addTimer(3800, () => {
             loader.classList.add('hide');
             if (this.entryAnimationInterval) {
                 clearInterval(this.entryAnimationInterval);
@@ -182,7 +186,7 @@ const AppLogic = {
             }
             document.body.classList.remove('entry-loading');
         });
-        addTimer(4800, () => {
+        addTimer(4400, () => {
             loader.remove();
             this.entryAnimationTimers = [];
         });

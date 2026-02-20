@@ -7,34 +7,42 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/monster.css">
     <link rel="stylesheet" href="assets/css/cursor.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/monster.css">
+    <link rel="stylesheet" href="assets/css/cursor.css">
 </head>
-<body class="about-page">
-    <main class="about-main">
-        <section class="about-intro">
-            <a href="index.html" class="about-home-link">Home</a>
-            <h1>hi my name is michelle chen</h1>
-            <p>
-                I am a UX/UI designer focused on product thinking, interface craft, and practical systems.
-                I enjoy turning complex problems into clear, useful digital experiences.
-            </p>
-        </section>
+<body>
+    <div id="page-specific-content" style="display: none;">
+        <main class="about-main">
+            <section class="about-intro">
+                <h1>hi my name is michelle chen</h1>
+                <p>
+                    I am a UX/UI designer focused on product thinking, interface craft, and practical systems.
+                    I enjoy turning complex problems into clear, useful digital experiences rooted in real user stories.
+                </p>
+            </section>
 
-        <section class="about-monster-band">
-            <div class="monster-container">
-                <div class="monster-body">
-                    <div class="monster-eyes-wrapper">
-                        <div class="monster-eye"><div class="monster-pupil"></div></div>
-                        <div class="monster-eye"><div class="monster-pupil"></div></div>
+            <section class="about-monster-band">
+                <div class="monster-container">
+                    <div class="monster-body">
+                        <div class="monster-eyes-wrapper">
+                            <div class="monster-eye"><div class="monster-pupil"></div></div>
+                            <div class="monster-eye"><div class="monster-pupil"></div></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
 
-    <script src="assets/js/cursor.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script src="assets/js/monster.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/layout-components.js"></script>
+    <script src="assets/js/components.js"></script>
     <script>
-        if (typeof CursorLogic !== 'undefined') CursorLogic.init();
+        PortfolioApp.init('about');
     </script>
 </body>
 </html>

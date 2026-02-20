@@ -233,12 +233,17 @@ const PortfolioApp = {
     data: {
         home: {
             title: `Design<span class="shape shape-circle"></span><br>Code<span class="shape shape-triangle"></span><br>Systems<span class="shape shape-square"></span>`,
-            desc: "<strong>UX/UI Designer</strong> specializing in B2B SaaS...",
+            desc: "Michelle Chen is a UX/UI designer who blends product thinking, interaction craft, and front-end collaboration to turn complex problems into clear, useful digital experiences.",
+            meta: ``
+        },
+        about: {
+            title: `About`,
+            desc: "From cultural institutions and civic programs to SaaS tools and hackathon projects, Michelle has spent the last several years designing interfaces and systems that respect both user needs and implementation realities.",
             meta: ``
         },
         playground: {
             title: `Playground`,
-            desc: "Side projects, hackathons, game jams, and creative experiments.",
+            desc: "Side projects, hackathons, game jams, and creative experiments that explore ideas beyond client work.",
             meta: ``
         },
         plc2split: {

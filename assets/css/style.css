@@ -110,15 +110,16 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .image-container img,
 .next-project-img img {
     transition: transform 0.35s ease;
-    transform: scale(1.02);
+    transform: scale(1);
 }
 .project-card:hover .image-container { border-color: var(--accent-color); }
 .project-card:hover .image-container {
-    transform: scale(0.98);
+    transform: translateY(-3px);
 }
 .project-card:hover .image-container img,
 .next-project-card:hover .next-project-img img {
-    transform: scale(0.95);
+    transform: scale(1.06);
+    animation: projectWindHover 2.4s ease-in-out infinite;
 }
 .project-card:active .image-container {
     transform: scale(0.96);
@@ -127,11 +128,101 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .next-project-card:active .next-project-img img {
     transform: scale(0.9);
 }
+@keyframes projectWindHover {
+    0% {
+        transform: scale(1.06) translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.08) translateY(-4px) rotate(-0.6deg);
+    }
+    100% {
+        transform: scale(1.06) translateY(0) rotate(0deg);
+    }
+}
+.project-shapes {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+}
+.project-shapes .shape-circle,
+.project-shapes .shape-square,
+.project-shapes .shape-triangle {
+    transform: scale(0.8);
+}
+.project-shapes .shape-circle {
+    background-color: rgba(46, 204, 113, 0.85);
+}
+.project-shapes .shape-square {
+    background-color: rgba(74, 85, 224, 0.9);
+}
+.project-shapes .shape-triangle {
+    border-bottom-color: rgba(232, 226, 88, 0.95);
+}
+@keyframes projectWindHover {
+    0% {
+        transform: scale(1.06) translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.08) translateY(-4px) rotate(-0.6deg);
+    }
+    100% {
+        transform: scale(1.06) translateY(0) rotate(0deg);
+    }
+}
 .project-info h3 { font-size: 1.1rem; margin-bottom: 2px; }
 .project-subtitle { font-size: 0.85rem; color: var(--secondary-text); margin-bottom: 8px; display: block; }
 .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
 .tag { font-size: 0.65rem; padding: 3px 10px; border: 1px solid var(--border-color); border-radius: 20px; color: var(--secondary-text); text-transform: uppercase; }
 .project-card:hover .tag { border-color: var(--accent-color); color: var(--accent-color); }
+
+/* Home projects footer CTA */
+.projects-cta {
+    padding: 0 30px 40px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
+}
+.projects-cta-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.projects-cta-body {
+    font-size: 0.9rem;
+    color: var(--secondary-text);
+    margin-bottom: 14px;
+    max-width: 420px;
+}
+.projects-cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.projects-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--accent-color);
+    background: var(--accent-color);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.projects-cta-btn:hover {
+    transform: translateY(-1px);
+    background-color: #27ae60;
+}
+.projects-cta-btn-secondary {
+    background: transparent;
+    color: var(--accent-color);
+}
+.projects-cta-btn-secondary:hover {
+    background: rgba(46, 204, 113, 0.08);
+}
 
 /* Components */
 #progress-bar { position: fixed; bottom: 0; left: 0; height: 4px; background: var(--accent-color); width: 0%; z-index: 9999; }
@@ -181,23 +272,23 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .entry-monster-body {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgb(46, 204, 113);
-    border-radius: 0;
+    inset: 0;
+    z-index: 130002;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 130002;
-    transition:
-        left 1s ease,
-        top 1s ease,
-        width 1.1s ease,
-        height 1.1s ease,
-        border-radius 1.1s ease,
-        transform 1.1s ease;
+    background: var(--bg-color);
+}
+.entry-monster-orb {
+    width: clamp(220px, 40vmin, 380px);
+    height: clamp(220px, 40vmin, 380px);
+    border-radius: 50%;
+    background: rgb(46, 204, 113);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.9);
+    transition: transform 0.6s ease, box-shadow 0.6s ease;
 }
 .entry-monster-eyes {
     display: flex;
@@ -222,22 +313,29 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border-radius: 50%;
     transition: transform 0.35s ease-out;
 }
-.entry-loader.bubble-phase .entry-monster-body {
-    width: clamp(220px, 40vmin, 380px);
-    height: clamp(220px, 40vmin, 380px);
-    left: 50%;
-    top: 50%;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+.entry-loader.bubble-phase .entry-monster-orb {
+    transform: scale(1.05);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
 }
-.entry-loader.pop-phase .entry-monster-body {
+.entry-loader.pop-phase .entry-monster-orb {
     animation: entryBubblePop 560ms cubic-bezier(0.22, 0.8, 0.2, 1) forwards;
 }
 @keyframes entryBubblePop {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    38% { transform: translate(-50%, -57%) scale(1.1); }
-    60% { transform: translate(-50%, -49%) scale(0.94); }
-    100% { transform: translate(-50%, -50%) scale(1); }
+    0% { transform: scale(1.05); }
+    38% { transform: scale(1.15) translateY(-6px); }
+    60% { transform: scale(0.95) translateY(2px); }
+    100% { transform: scale(1); }
+}
+.entry-loader.reveal-phase .entry-monster-orb {
+    animation: entryCircleReveal 1.1s ease-out forwards;
+}
+@keyframes entryCircleReveal {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(6);
+    }
 }
 .entry-loader-spark {
     position: absolute;
