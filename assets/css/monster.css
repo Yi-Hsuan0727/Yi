@@ -139,26 +139,24 @@
     animation: blinkQuickBottom 0.3s ease-in-out;
 }
 
-/* --- Sparkle layer (behind monster body) --- */
+/* --- Sparkle layer (above monster body) --- */
 .monster-spark-layer {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 1;
+    z-index: 10;
     overflow: visible;
 }
 
-/* --- Click sparkles --- */
+/* --- Click sparkles (physics driven by JS — no CSS animation) --- */
 .monster-spark {
     position: absolute;
     width: 9px;
     height: 9px;
     pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.35));
-    animation: monsterSpark var(--dur, 680ms) ease-out forwards;
+    z-index: 10;
+    opacity: 1;
+    transform: translate(-50%, -50%);
 }
 .monster-spark.spark-circle {
     border-radius: 50%;
