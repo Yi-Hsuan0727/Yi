@@ -198,13 +198,14 @@ const AppLogic = {
         moveEyes();
         this.entryAnimationInterval = setInterval(moveEyes, 420);
 
-        addTimer(1600, () => loader.classList.add('bubble-phase'));
-        // After 0.5s as a perfect circle, trigger the pop
-        addTimer(2100, () => {
+        /* Sequence: square (start) → oval → large circle → small circle → explode (left to right) */
+        addTimer(500, () => loader.classList.add('shape-oval'));
+        addTimer(1000, () => loader.classList.add('shape-circle'));
+        addTimer(1500, () => loader.classList.add('shape-small'));
+        addTimer(2000, () => {
             loader.classList.add('pop-phase');
             this.emitLoaderSparkles(sparkLayer);
         });
-        // Circle grows from the center to reveal the page
         addTimer(2600, () => loader.classList.add('reveal-phase'));
         addTimer(3800, () => {
             loader.classList.add('hide');
