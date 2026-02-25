@@ -172,10 +172,7 @@ const AppLogic = {
         // After 0.5s as a perfect circle, trigger the pop
         addTimer(2100, () => {
             loader.classList.add('pop-phase');
-            this.emitLoaderSparkles(sparkLayer);
         });
-        // Extra sprinkle burst slightly after the main pop
-        addTimer(2700, () => this.emitLoaderSparkles(sparkLayer));
         // Circle grows from the center to reveal the page
         addTimer(2600, () => loader.classList.add('reveal-phase'));
         addTimer(3800, () => {
