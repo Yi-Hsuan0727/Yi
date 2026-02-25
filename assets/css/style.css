@@ -1,3 +1,6 @@
+/* --- GOOGLE FONTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
+
 /* --- CSS VARIABLES --- */
 :root {
     --bg-color: #ffffff;
@@ -18,7 +21,7 @@
 }
 
 /* --- RESET & BASE --- */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; transition: background-color 0.3s, color 0.3s; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; transition: background-color 0.3s, color 0.3s; }
 html, body { overflow-x: hidden; max-width: 100vw; }
 body { background-color: var(--bg-color); color: var(--text-color); height: 100vh; overflow: hidden; }
 
@@ -253,6 +256,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     opacity: 1;
     visibility: visible;
     transition: opacity 0.5s ease, visibility 0.5s ease;
+    background: transparent;
 }
 .entry-loader.hide {
     opacity: 0;
@@ -272,12 +276,16 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .entry-monster-body {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 130002;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-color);
+    background: transparent;
+    width: auto;
+    height: auto;
 }
 .entry-monster-orb {
     width: clamp(220px, 40vmin, 380px);
@@ -337,43 +345,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         transform: scale(6);
     }
 }
-.entry-loader-spark {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.65);
-    animation: entryLoaderSpark var(--dur, 700ms) ease-out forwards;
-    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.45));
-}
-.entry-loader-spark.spark-circle {
-    border-radius: 50%;
-    background: #2ecc71;
-}
-.entry-loader-spark.spark-square {
-    background: #4A55E0;
-}
-.entry-loader-spark.spark-triangle {
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 10px solid #E8E258;
-    background: transparent;
-}
-@keyframes entryLoaderSpark {
-    0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) translate(0, 0) rotate(0deg) scale(0.65);
-    }
-    55% {
-        opacity: 0.95;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1.05);
-    }
-}
+/* Sparkle styles removed */
 body.entry-loading,
 body.entry-loading * {
     cursor: none !important;
@@ -652,6 +624,42 @@ body.entry-loading .cursor-outline {
     line-height: 1.6;
     color: var(--secondary-text);
 }
+/* --- ABOUT PAGE SCROLL CAROUSEL --- */
+.about-carousel {
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 0 30px 30px;
+    border-top: 1px solid var(--border-color);
+    /* Prevent any horizontal scrollbar leaking out */
+    position: relative;
+}
+.about-carousel-track {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    will-change: transform;
+    /* Fast snap for scroll-driven movement */
+    transition: transform 0.08s linear;
+}
+.about-carousel-item {
+    flex-shrink: 0;
+    width: clamp(240px, 28vw, 360px);
+    height: clamp(160px, 18vw, 240px);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--border-color);
+}
+.about-carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.about-carousel-item:hover img {
+    transform: scale(1.04);
+}
+
 .about-monster-band {
     margin-top: auto;
     width: 100%;
