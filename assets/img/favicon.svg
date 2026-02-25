@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Green rounded monster body -->
+  <circle cx="32" cy="32" r="30" fill="#2ecc71"/>
+  <!-- Left eye (white) -->
+  <ellipse cx="21" cy="29" rx="9" ry="9" fill="white"/>
+  <!-- Right eye (white) -->
+  <ellipse cx="43" cy="29" rx="9" ry="9" fill="white"/>
+  <!-- Left pupil (black) -->
+  <circle cx="22" cy="30" r="5" fill="#111111"/>
+  <!-- Right pupil (black) -->
+  <circle cx="44" cy="30" r="5" fill="#111111"/>
+  <!-- Left highlight -->
+  <circle cx="24" cy="27" r="2" fill="white"/>
+  <!-- Right highlight -->
+  <circle cx="46" cy="27" r="2" fill="white"/>
+</svg>
