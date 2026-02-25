@@ -136,31 +136,60 @@ const MonsterLogic = {
 
         const rect = monsterBody.getBoundingClientRect();
         const layerRect = layer.getBoundingClientRect();
-        const clickedX = clickPoint ? clickPoint.clientX : (rect.left + (rect.width * 0.5));
-        const clickedY = clickPoint ? clickPoint.clientY : (rect.top + (rect.height * 0.38));
-        const originX = clickedX + (Math.random() * 8 - 4);
-        const originY = clickedY - 10;
+        const clickedX = clickPoint ? clickPoint.clientX : (rect.left + rect.width * 0.5);
+        const clickedY = clickPoint ? clickPoint.clientY : (rect.top + rect.height * 0.38);
+
+        // Origin relative to spark layer
+        const originX = clickedX - layerRect.left;
+        const originY = clickedY - layerRect.top;
+
         const sparkleCount = 16;
         const shapeClasses = ['spark-triangle', 'spark-circle', 'spark-square'];
+
+        // Physics constants
+        const GRAVITY = 0.0004;  // px/ms²  (≈ 400 px/s² — gentle gravity)
 
         for (let i = 0; i < sparkleCount; i++) {
             const sparkle = document.createElement('span');
             const shapeClass = shapeClasses[Math.floor(Math.random() * shapeClasses.length)];
             sparkle.className = `monster-spark ${shapeClass}`;
-            sparkle.style.left = `${originX - layerRect.left}px`;
-            sparkle.style.top = `${originY - layerRect.top}px`;
-
-            const angle = (-Math.PI / 2) + (Math.random() * 0.8 - 0.4);
-            const distance = 40 + Math.random() * 75;
-            const dx = Math.cos(angle) * distance * (0.4 + Math.random() * 0.6);
-            const dy = -Math.abs(Math.sin(angle) * distance) - 20 - Math.random() * 25;
-            sparkle.style.setProperty('--dx', `${dx}px`);
-            sparkle.style.setProperty('--dy', `${dy}px`);
-            sparkle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
-            sparkle.style.setProperty('--dur', `${520 + Math.random() * 280}ms`);
+            sparkle.style.left = `${originX}px`;
+            sparkle.style.top = `${originY}px`;
+            sparkle.style.transform = 'translate(-50%, -50%)';
 
             layer.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 900);
+
+            // Initial velocity — shoot outward/upward in a spread fan
+            const angle = (-Math.PI / 2) + (Math.random() * 1.4 - 0.7);
+            const speed = 0.10 + Math.random() * 0.15; // px/ms  (100–250 px/s)
+            const vx = Math.cos(angle) * speed;
+            const vy = Math.sin(angle) * speed; // negative = upward
+            const initRot = Math.random() * 360;
+            const rotSpeed = (Math.random() - 0.5) * 0.5; // deg/ms
+            const maxDuration = 1000 + Math.random() * 500; // ms
+
+            const startTime = performance.now();
+
+            const animate = (time) => {
+                if (!sparkle.isConnected) return;
+                const t = time - startTime;
+                if (t >= maxDuration) {
+                    sparkle.remove();
+                    return;
+                }
+                // Parabolic trajectory: x = x0 + vx·t,  y = y0 + vy·t + ½·g·t²
+                const px = originX + vx * t;
+                const py = originY + vy * t + 0.5 * GRAVITY * t * t;
+                const rot = initRot + rotSpeed * t;
+
+                sparkle.style.left = `${px}px`;
+                sparkle.style.top = `${py}px`;
+                sparkle.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
+
+                requestAnimationFrame(animate);
+            };
+
+            requestAnimationFrame(animate);
         }
     }
 };

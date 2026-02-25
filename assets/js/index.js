@@ -13,6 +13,7 @@ const AppLogic = {
             this.initLenis();
             this.initScrollLogic();
             this.initEntryAnimation();
+            this.initProjectCardTransitions();
             // Cursor init is now handled by CursorLogic or Components.js
         }, 50);
     },
@@ -123,7 +124,36 @@ const AppLogic = {
         }
     },
 
-    // --- 4. ENTRY LOADER (monster transition on home) ---
+    // --- 4. PROJECT CARD SMOOTH LEAVE TRANSITION ---
+    initProjectCardTransitions: function() {
+        document.querySelectorAll('.project-card, .next-project-card').forEach(card => {
+            const isNextCard = card.classList.contains('next-project-card');
+            const img = card.querySelector(isNextCard ? '.next-project-img img' : '.image-container img');
+            if (!img) return;
+
+            card.addEventListener('mouseleave', () => {
+                img.style.animation = 'none';
+                img.style.transform = 'scale(1)';
+                img.style.transition = 'transform 0.4s ease';
+
+                setTimeout(() => {
+                    if (!card.matches(':hover')) {
+                        img.style.animation = '';
+                        img.style.transform = '';
+                        img.style.transition = '';
+                    }
+                }, 450);
+            });
+
+            card.addEventListener('mouseenter', () => {
+                img.style.animation = '';
+                img.style.transform = '';
+                img.style.transition = '';
+            });
+        });
+    },
+
+    // --- 5. ENTRY LOADER (monster transition on home) ---
     initEntryAnimation: function() {
         const loader = document.getElementById('entry-loader');
         if (!loader) return;
@@ -172,6 +202,7 @@ const AppLogic = {
         // After 0.5s as a perfect circle, trigger the pop
         addTimer(2100, () => {
             loader.classList.add('pop-phase');
+            this.emitLoaderSparkles(sparkLayer);
         });
         // Circle grows from the center to reveal the page
         addTimer(2600, () => loader.classList.add('reveal-phase'));
