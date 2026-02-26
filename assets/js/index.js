@@ -198,16 +198,17 @@ const AppLogic = {
         moveEyes();
         this.entryAnimationInterval = setInterval(moveEyes, 420);
 
-        /* Sequence: square (start) → oval → large circle → small circle → explode (left to right) */
-        addTimer(500, () => loader.classList.add('shape-oval'));
-        addTimer(1000, () => loader.classList.add('shape-circle'));
-        addTimer(1500, () => loader.classList.add('shape-small'));
-        addTimer(2000, () => {
+        /* Sequence: square (start) → oval → large circle → small circle → explode → hold sparkles → fade out */
+        addTimer(900, () => loader.classList.add('shape-oval'));
+        addTimer(2100, () => loader.classList.add('shape-circle'));
+        addTimer(3300, () => loader.classList.add('shape-small'));
+        addTimer(4400, () => {
             loader.classList.add('pop-phase');
             this.emitLoaderSparkles(sparkLayer);
         });
-        addTimer(2600, () => loader.classList.add('reveal-phase'));
-        addTimer(3800, () => {
+        /* Hold final sparkle frame visible (like the image), then fade out */
+        addTimer(6400, () => loader.classList.add('reveal-phase'));
+        addTimer(7200, () => {
             loader.classList.add('hide');
             if (this.entryAnimationInterval) {
                 clearInterval(this.entryAnimationInterval);
@@ -215,7 +216,7 @@ const AppLogic = {
             }
             document.body.classList.remove('entry-loading');
         });
-        addTimer(4400, () => {
+        addTimer(7800, () => {
             loader.remove();
             this.entryAnimationTimers = [];
         });
@@ -244,10 +245,9 @@ const AppLogic = {
             sparkle.style.setProperty('--dx', `${dx}px`);
             sparkle.style.setProperty('--dy', `${dy}px`);
             sparkle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
-            sparkle.style.setProperty('--dur', `${560 + Math.random() * 260}ms`);
+            sparkle.style.setProperty('--dur', `${800 + Math.random() * 400}ms`);
 
             sparkLayer.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 950);
         }
     }
 };
