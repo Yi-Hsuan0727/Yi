@@ -1,0 +1,8 @@
+{
+  "name": "Michelle Chen Portfolio - HTML to Figma",
+  "id": "michelle-portfolio-html-to-figma",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"]
+}
