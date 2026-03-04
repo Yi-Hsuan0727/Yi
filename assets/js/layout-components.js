@@ -131,8 +131,8 @@ const LayoutComponents = {
                 <div class="socials">
                     <span class="connect-label" style="font-weight:700;">Connect with me:</span>
                     <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:email@example.com" class="social-link"><i class="fas fa-envelope"></i></a>
-                    <a href="#" class="social-link resume-link">Resume</a>
+                    <a href="mailto:yche1356@asu.edu" class="social-link"><i class="fas fa-envelope"></i></a>
+                    <a href="assets/img/resume.pdf" class="social-link resume-link">Resume</a>
                 </div>
             </footer>`;
     },
