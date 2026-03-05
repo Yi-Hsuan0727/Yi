@@ -45,9 +45,26 @@
     justify-content: center;
     align-items: flex-end;
     padding-bottom: 40px;
-    transition: border-radius 0.4s ease, transform 0.3s ease;
+    transition: border-radius 0.4s ease, transform 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
     z-index: 3;
+    opacity: 0;
+}
+
+/* Monster enter animation from bottom */
+.monster-body.monster-enter {
+    animation: monsterRise 0.7s ease-out forwards;
+}
+
+@keyframes monsterRise {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Monster hover: flatten the arc */

@@ -107,8 +107,26 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 
 /* Project Grid */
 .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 30px; }
-.project-card { display: flex; flex-direction: column; opacity: 0; animation: slideIn 0.6s forwards; cursor: pointer; }
-@keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.project-card {
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(40px);
+    cursor: pointer;
+}
+.project-card.project-enter {
+    animation: projectRise 0.6s ease-out forwards;
+}
+@keyframes projectRise {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .image-container { width: 100%; aspect-ratio: 16/9; background: #eee; border-radius: 8px; overflow: hidden; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; color: #777; font-weight: bold; border: 2px solid transparent; transition: border-color 0.3s ease, transform 0.35s ease; }
 .image-container img,
 .next-project-img img {
@@ -248,149 +266,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .back-to-top.show { opacity: 1; visibility: visible; }
 
-/* Entry loading animation (monster transition) */
-/* Frame 1: full-screen green. Frames 2–5: oval → circle → small circle → sparkles on white */
-.entry-loader {
-    position: fixed;
-    inset: 0;
-    z-index: 130000;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-    background: #ffffff;
-}
-.entry-loader.hide {
-    opacity: 0;
-    visibility: hidden;
-}
-.entry-monster-stage {
-    position: absolute;
-    inset: 0;
-    z-index: 130001;
-}
-.entry-loader-spark-layer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 130003;
-    overflow: visible;
-}
-.entry-monster-body {
-    position: absolute;
-    inset: 0;
-    z-index: 130002;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-}
-.entry-monster-orb {
-    width: 100%;
-    height: 100%;
-    border-radius: 0;
-    background: rgb(46, 204, 113);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: width 0.85s ease, height 0.85s ease, border-radius 0.85s ease, opacity 0.5s ease, transform 0.5s ease;
-}
-/* Frame 2: horizontal oval (green no longer full screen, white shows) */
-.entry-loader.shape-oval .entry-monster-orb {
-    width: 120vmin;
-    height: 100vmin;
-    max-width: 100vw;
-    max-height: 100vh;
-    border-radius: 50%;
-}
-/* Frame 3: large circle */
-.entry-loader.shape-circle .entry-monster-orb {
-    width: 90vmin;
-    height: 90vmin;
-    border-radius: 50%;
-}
-/* Frame 4: small circle */
-.entry-loader.shape-small .entry-monster-orb {
-    width: 38vmin;
-    height: 38vmin;
-    border-radius: 50%;
-}
-/* Frame 5: orb disappears, sparkles appear */
-.entry-loader.pop-phase .entry-monster-orb {
-    opacity: 0;
-    transform: scale(0);
-    pointer-events: none;
-}
-.entry-monster-eyes {
-    display: flex;
-    gap: 22px;
-    z-index: 130004;
-    transition: transform 0.85s ease;
-}
-.entry-loader.shape-small .entry-monster-eyes {
-    transform: scale(0.5);
-}
-.entry-monster-eye {
-    width: 74px;
-    height: 58px;
-    background: #ffffff;
-    border-radius: 50%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-.entry-monster-pupil {
-    width: 27px;
-    height: 27px;
-    background: #000000;
-    border-radius: 50%;
-    transition: transform 0.35s ease-out;
-}
-.entry-loader.reveal-phase .entry-monster-body {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-/* Entry loader sparkle styles */
-.entry-loader-spark {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    pointer-events: none;
-    z-index: 130004;
-    opacity: 1;
-    animation: entrySparkFly var(--dur, 680ms) ease-out forwards;
-}
-.entry-loader-spark.spark-circle {
-    border-radius: 50%;
-    background: #2ecc71;
-}
-.entry-loader-spark.spark-square {
-    background: #4A55E0;
-}
-.entry-loader-spark.spark-triangle {
-    width: 0;
-    height: 0;
-    background: transparent;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-bottom: 10px solid #E8E258;
-}
-@keyframes entrySparkFly {
-    0%   { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) rotate(0deg) scale(1); }
-    100% { opacity: 1; transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1); }
-}
-body.entry-loading,
-body.entry-loading * {
-    cursor: none !important;
-}
-body.entry-loading .cursor-dot,
-body.entry-loading .cursor-outline {
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
 .back-btn {
     display: inline-flex;
     align-items: center;

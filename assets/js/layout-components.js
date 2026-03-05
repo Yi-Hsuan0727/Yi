@@ -141,23 +141,6 @@ const LayoutComponents = {
         return `<div id="progress-bar"></div>`;
     },
 
-    buildEntryLoader: function() {
-        return `
-            <div class="entry-loader" id="entry-loader" aria-hidden="true">
-                <div class="entry-monster-stage">
-                    <div class="entry-loader-spark-layer" id="entry-loader-spark-layer"></div>
-                    <div class="entry-monster-body">
-                        <div class="entry-monster-orb">
-                            <div class="entry-monster-eyes">
-                                <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
-                                <div class="entry-monster-eye"><div class="entry-monster-pupil"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    },
-
     buildBackToTop: function() {
         return `<button class="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>`;
     }

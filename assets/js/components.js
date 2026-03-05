@@ -331,8 +331,12 @@ const PortfolioApp = {
         this.injectHead();
         this.buildLayout(pageType);
 
+        this.initEntryEffects(pageType);
+
         if (typeof AppLogic !== 'undefined') AppLogic.init();
-        if (pageType === 'home' && typeof MonsterLogic !== 'undefined') MonsterLogic.init();
+        if ((pageType === 'home' || pageType === 'playground') && typeof MonsterLogic !== 'undefined') {
+            MonsterLogic.init();
+        }
         if (typeof CursorLogic !== 'undefined') CursorLogic.init();
     },
 
@@ -357,7 +361,6 @@ const PortfolioApp = {
         const worksHeaderHTML = LayoutComponents.buildWorksHeader(pageType);
         const isGridPage = (pageType === 'home' || pageType === 'playground');
         const nextProjectHTML = !isGridPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
-        const loaderHTML = pageType === 'home' ? LayoutComponents.buildEntryLoader() : '';
         const heroImage = projectMeta ? (projectMeta.heroImage || projectMeta.image || 'assets/img/welcome.jpg') : '';
         const coverHTML = (!isGridPage && projectMeta)
             ? `<div class="case-hero-img"><img src="${heroImage}" alt="${projectMeta.title} main hero image" style="width:100%;height:100%;object-fit:cover;"></div>`
@@ -365,7 +368,6 @@ const PortfolioApp = {
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${nextProjectHTML}`;
 
         const layoutHTML = `
-            ${loaderHTML}
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             ${LayoutComponents.buildMobileHeader(logoSVG)}
@@ -387,5 +389,35 @@ const PortfolioApp = {
             </div>
         `;
         document.body.innerHTML = layoutHTML;
+    },
+
+    initEntryEffects: function(pageType) {
+        const isGridPage = (pageType === 'home' || pageType === 'playground');
+
+        // Monster: enter from very bottom on home & playground
+        if (isGridPage) {
+            const monsterBody = document.querySelector('.monster-body');
+            if (monsterBody) {
+                // Ensure starting state then trigger animation
+                monsterBody.classList.remove('monster-enter');
+                setTimeout(() => {
+                    monsterBody.classList.add('monster-enter');
+                }, 80);
+            }
+        }
+
+        // Project cards: enter from bottom on grid pages
+        if (isGridPage) {
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach((card, index) => {
+                card.classList.remove('project-enter');
+                const delay = 0.15 + index * 0.06;
+                card.style.animationDelay = `${delay}s`;
+                // Allow browser to apply delay before starting animation
+                requestAnimationFrame(() => {
+                    card.classList.add('project-enter');
+                });
+            });
+        }
     }
 };

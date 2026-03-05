@@ -2,9 +2,6 @@
  * (Cursor logic has been moved to cursor.js)
  */
 const AppLogic = {
-    entryAnimationInterval: null,
-    entryAnimationTimers: [],
-
     init: function() {
         this.initTheme();
         
@@ -12,7 +9,6 @@ const AppLogic = {
         setTimeout(() => {
             this.initLenis();
             this.initScrollLogic();
-            this.initEntryAnimation();
             this.initProjectCardTransitions();
             // Cursor init is now handled by CursorLogic or Components.js
         }, 50);
@@ -153,103 +149,7 @@ const AppLogic = {
         });
     },
 
-    // --- 5. ENTRY LOADER (monster transition on home) ---
-    initEntryAnimation: function() {
-        const loader = document.getElementById('entry-loader');
-        if (!loader) return;
-
-        const eyes = loader.querySelectorAll('.entry-monster-eye');
-        const sparkLayer = document.getElementById('entry-loader-spark-layer');
-        if (!eyes.length) {
-            loader.classList.add('hide');
-            return;
-        }
-
-        if (this.entryAnimationInterval) {
-            clearInterval(this.entryAnimationInterval);
-            this.entryAnimationInterval = null;
-        }
-        if (this.entryAnimationTimers.length) {
-            this.entryAnimationTimers.forEach(timer => clearTimeout(timer));
-            this.entryAnimationTimers = [];
-        }
-
-        document.body.classList.add('entry-loading');
-
-        const moveEyes = () => {
-            const maxDist = eyes[0] ? eyes[0].clientWidth * 0.22 : 10;
-            const angle = Math.random() * Math.PI * 2;
-            const distance = Math.random() * maxDist;
-            const x = Math.cos(angle) * distance;
-            const y = Math.sin(angle) * distance;
-
-            eyes.forEach(eye => {
-                const pupil = eye.querySelector('.entry-monster-pupil');
-                if (!pupil) return;
-                pupil.style.transform = `translate(${x}px, ${y}px)`;
-            });
-        };
-
-        const addTimer = (delay, callback) => {
-            const timer = setTimeout(callback, delay);
-            this.entryAnimationTimers.push(timer);
-        };
-
-        moveEyes();
-        this.entryAnimationInterval = setInterval(moveEyes, 420);
-
-        /* Sequence: square (start) → oval → large circle → small circle → explode → hold sparkles → fade out */
-        addTimer(900, () => loader.classList.add('shape-oval'));
-        addTimer(2100, () => loader.classList.add('shape-circle'));
-        addTimer(3300, () => loader.classList.add('shape-small'));
-        addTimer(4400, () => {
-            loader.classList.add('pop-phase');
-            this.emitLoaderSparkles(sparkLayer);
-        });
-        /* Hold final sparkle frame visible (like the image), then fade out */
-        addTimer(6400, () => loader.classList.add('reveal-phase'));
-        addTimer(7200, () => {
-            loader.classList.add('hide');
-            if (this.entryAnimationInterval) {
-                clearInterval(this.entryAnimationInterval);
-                this.entryAnimationInterval = null;
-            }
-            document.body.classList.remove('entry-loading');
-        });
-        addTimer(7800, () => {
-            loader.remove();
-            this.entryAnimationTimers = [];
-        });
-    },
-
-    emitLoaderSparkles: function(sparkLayer) {
-        if (!sparkLayer) return;
-
-        const layerRect = sparkLayer.getBoundingClientRect();
-        const originX = layerRect.width / 2;
-        const originY = layerRect.height / 2;
-        const shapeClasses = ['spark-triangle', 'spark-circle', 'spark-square'];
-        const sparkleCount = 22;
-
-        for (let i = 0; i < sparkleCount; i++) {
-            const sparkle = document.createElement('span');
-            const shapeClass = shapeClasses[Math.floor(Math.random() * shapeClasses.length)];
-            sparkle.className = `entry-loader-spark ${shapeClass}`;
-            sparkle.style.left = `${originX}px`;
-            sparkle.style.top = `${originY}px`;
-
-            const angle = ((Math.PI * 2) / sparkleCount) * i + (Math.random() * 0.6 - 0.3);
-            const distance = 45 + Math.random() * 90;
-            const dx = Math.cos(angle) * distance;
-            const dy = Math.sin(angle) * distance;
-            sparkle.style.setProperty('--dx', `${dx}px`);
-            sparkle.style.setProperty('--dy', `${dy}px`);
-            sparkle.style.setProperty('--rot', `${Math.floor(Math.random() * 360)}deg`);
-            sparkle.style.setProperty('--dur', `${800 + Math.random() * 400}ms`);
-
-            sparkLayer.appendChild(sparkle);
-        }
-    }
+    // (former 5. Entry loader logic removed)
 };
 
 /* --- Global Filter Function --- */
