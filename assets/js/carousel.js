@@ -16,7 +16,7 @@ const CarouselLogic = {
         const track = carousel.querySelector('.about-carousel-track');
         if (!track) return;
 
-        const isMobile = window.innerWidth <= 900;
+        const isMobile = window.innerWidth <= 1200;
         const scrollEl = isMobile ? window : (document.getElementById('scroll-container') || window);
 
         this.lastScroll = isMobile ? window.scrollY : (scrollEl.scrollTop || 0);

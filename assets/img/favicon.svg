@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Green rounded monster body -->
-  <circle cx="32" cy="32" r="30" fill="#2ecc71"/>
+  <!-- Green square/rect background (fills all space) -->
+  <rect width="64" height="64" fill="#2ecc71"/>
   <!-- Left eye (white) -->
-  <ellipse cx="21" cy="29" rx="9" ry="9" fill="white"/>
+  <ellipse cx="20" cy="24" rx="8" ry="7" fill="white"/>
   <!-- Right eye (white) -->
-  <ellipse cx="43" cy="29" rx="9" ry="9" fill="white"/>
+  <ellipse cx="44" cy="24" rx="8" ry="7" fill="white"/>
   <!-- Left pupil (black) -->
-  <circle cx="22" cy="30" r="5" fill="#111111"/>
+  <circle cx="20" cy="25" r="4" fill="#111111"/>
   <!-- Right pupil (black) -->
-  <circle cx="44" cy="30" r="5" fill="#111111"/>
+  <circle cx="44" cy="25" r="4" fill="#111111"/>
 </svg>

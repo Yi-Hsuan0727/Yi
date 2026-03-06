@@ -45,6 +45,6 @@ body.hovering .cursor-outline {
 }
 
 /* --- Hide Custom Cursor on Mobile --- */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .cursor-dot, .cursor-outline { display: none !important; }
 }

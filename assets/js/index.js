@@ -39,7 +39,7 @@ const AppLogic = {
 
     // --- 2. SMOOTH SCROLL (LENIS) ---
     initLenis: function() {
-        if (window.innerWidth > 900 && typeof Lenis !== 'undefined') {
+        if (window.innerWidth > 1200 && typeof Lenis !== 'undefined') {
             const lenis = new Lenis({ 
                 wrapper: document.getElementById('scroll-container'), 
                 content: document.querySelector('.single-page-wrapper'),
@@ -57,7 +57,7 @@ const AppLogic = {
         const progressBar = document.getElementById('progress-bar');
         
         let lastScroll = 0;
-        const isMobile = window.innerWidth <= 900;
+        const isMobile = window.innerWidth <= 1200;
         const scroller = isMobile ? window : desktopContainer;
 
         if (!scroller && !isMobile) return;

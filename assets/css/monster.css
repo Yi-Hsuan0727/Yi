@@ -37,7 +37,8 @@
     width: 120%;
     height: 100%;
     background-color: rgb(46, 204, 113);
-    border-radius: 50% 50% 0 0;
+    /* Perfect curved arc: elliptical radius for deeper curve (not flat) */
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     position: absolute;
     bottom: 0;
     left: -10%;
@@ -45,7 +46,7 @@
     justify-content: center;
     align-items: flex-end;
     padding-bottom: 40px;
-    transition: border-radius 0.4s ease, transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
     z-index: 3;
     opacity: 0;
@@ -67,14 +68,14 @@
     }
 }
 
-/* Monster hover: flatten the arc */
+/* Monster hover: maintain perfect curved arc */
 .monster-container:hover .monster-body {
-    border-radius: 40% 40% 0 0;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 
 /* Monster pointed hover state (JS-driven) */
 .monster-body.pointed {
-    border-radius: 50% 50% 0 0;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     transform: scaleY(1.15);
 }
 
@@ -205,7 +206,7 @@
 }
 
 /* --- Mobile Monster Overrides --- */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     /* Home sidebar: fill viewport minus header */
     .sidebar:has(.sidebar-footer-container) {
         min-height: calc(100vh - var(--mobile-header-height)) !important;
@@ -229,8 +230,8 @@
         padding-bottom: 25px;
     }
 
-    /* Touch hover effect on mobile */
+    /* Touch: maintain perfect curved arc */
     .monster-container:active .monster-body {
-        border-radius: 40% 40% 0 0;
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     }
 }

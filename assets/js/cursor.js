@@ -23,7 +23,7 @@ const CursorLogic = {
         this.destroy();
 
         // Only init on desktop
-        if (window.innerWidth < 900) return;
+        if (window.innerWidth < 1200) return;
 
         // Create Elements
         const dot = document.createElement("div");
