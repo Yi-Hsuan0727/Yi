@@ -28,10 +28,13 @@ const LayoutComponents = {
             </header>`;
     },
 
-    buildSidebarTop: function(pageData, projectMeta) {
+    buildSidebarTop: function(pageData, projectMeta, pageType) {
         let html = '';
         if (pageData.backLink) {
             html += `<a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
+        }
+        if (pageType === 'playground') {
+            html += `<a href="index.html" class="back-btn back-btn-mobile-only"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
         }
         let tagsHTML = '';
         if (projectMeta && projectMeta.tags && projectMeta.tags.length) {
@@ -87,13 +90,22 @@ const LayoutComponents = {
                 <div class="works-header" id="sticky-filter-bar">
                     <span class="section-title">Selected Works</span>
                     <div class="filter-bar">
-                        <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-                        <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
+                        <button class="filter-btn active" onclick="filterProjects('uiux')">UI/UX</button>
                         <button class="filter-btn" onclick="filterProjects('code')">Code</button>
                     </div>
                 </div>`;
         }
         return '';
+    },
+
+    /* Mobile-only: back to home + visit live site above next projects (project pages) */
+    buildMobileProjectActions: function(projectMeta) {
+        if (!projectMeta) return '';
+        return `
+            <div class="mobile-project-actions">
+                <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
+                <a href="${projectMeta.liveLink || '#'}" target="_blank" class="projects-cta-btn projects-cta-btn-secondary">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:6px;"></i></a>
+            </div>`;
     },
 
     /* --- Next Projects section (project pages only) --- */

@@ -334,8 +334,11 @@ const PortfolioApp = {
         this.initEntryEffects(pageType);
 
         if (typeof AppLogic !== 'undefined') AppLogic.init();
-        if ((pageType === 'home' || pageType === 'playground') && typeof MonsterLogic !== 'undefined') {
+        if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
             MonsterLogic.init();
+        }
+        if (pageType === 'about' && typeof CarouselLogic !== 'undefined') {
+            CarouselLogic.init();
         }
         if (typeof CursorLogic !== 'undefined') CursorLogic.init();
     },
@@ -344,7 +347,7 @@ const PortfolioApp = {
         if(document.getElementById('app-styles')) return;
         const headHTML = `
             <meta charset="UTF-8">
-            <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2264%22 viewBox=%220 0 64 64%22><text x=%2232%22 y=%2254%22 font-size=%2272%22 font-weight=%22900%22 font-family=%22Arial%22 fill=%22%232ecc71%22 text-anchor=%22middle%22>M</text></svg>">
+            <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
             <style id="app-styles">html.lenis { height: auto; } .lenis.lenis-smooth { scroll-behavior: auto; } .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; } .lenis.lenis-stopped { overflow: hidden; } </style>
         `;
@@ -361,11 +364,38 @@ const PortfolioApp = {
         const worksHeaderHTML = LayoutComponents.buildWorksHeader(pageType);
         const isGridPage = (pageType === 'home' || pageType === 'playground');
         const nextProjectHTML = !isGridPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
+        const mobileProjectActionsHTML = !isGridPage && projectMeta ? LayoutComponents.buildMobileProjectActions(projectMeta) : '';
         const heroImage = projectMeta ? (projectMeta.heroImage || projectMeta.image || 'assets/img/welcome.jpg') : '';
         const coverHTML = (!isGridPage && projectMeta)
             ? `<div class="case-hero-img"><img src="${heroImage}" alt="${projectMeta.title} main hero image" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
-        const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${nextProjectHTML}`;
+        const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML}`;
+
+        const aboutBackLinkHTML = pageType === 'about'
+            ? `<a href="index.html" class="about-home-link about-home-link-mobile-only"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>`
+            : '';
+
+        if (pageType === 'about') {
+            const aboutContent = `${aboutBackLinkHTML}<div class="about-page">${uniqueContent}</div>`;
+            const layoutHTML = `
+                ${LayoutComponents.buildProgressBar()}
+                ${LayoutComponents.buildBackToTop()}
+                ${LayoutComponents.buildMobileHeader(logoSVG)}
+                <div id="app-root" class="app-root-about">
+                    ${LayoutComponents.buildSiteHeader(logoSVG, pageType)}
+                    <div class="content-wrapper content-wrapper-fullwidth">
+                        <div class="right-panel right-panel-fullwidth">
+                            <div class="scroll-area" id="scroll-container">
+                                <div class="single-page-wrapper">${aboutContent}</div>
+                            </div>
+                            ${LayoutComponents.buildFooter()}
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.innerHTML = layoutHTML;
+            return;
+        }
 
         const layoutHTML = `
             ${LayoutComponents.buildProgressBar()}
@@ -375,7 +405,7 @@ const PortfolioApp = {
                 ${LayoutComponents.buildSiteHeader(logoSVG, pageType)}
                 <div class="content-wrapper">
                     <aside class="sidebar">
-                        <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta)}</div>
+                        <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
                         ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
                     </aside>
@@ -394,11 +424,10 @@ const PortfolioApp = {
     initEntryEffects: function(pageType) {
         const isGridPage = (pageType === 'home' || pageType === 'playground');
 
-        // Monster: enter from very bottom on home & playground
-        if (isGridPage) {
+        // Monster: enter from very bottom on home, playground & about
+        if (isGridPage || pageType === 'about') {
             const monsterBody = document.querySelector('.monster-body');
             if (monsterBody) {
-                // Ensure starting state then trigger animation
                 monsterBody.classList.remove('monster-enter');
                 setTimeout(() => {
                     monsterBody.classList.add('monster-enter');
