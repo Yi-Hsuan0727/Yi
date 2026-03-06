@@ -69,6 +69,32 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .hero-text h1 { font-size: 3.5rem; line-height: 0.95; margin-bottom: 13px; font-weight: 800; font-family: 'Montserrat', sans-serif; }
 .hero-text .sidebar-meta-value { margin-top: 8px; margin-bottom: 8px; font-size: 24px; }
+.sidebar-intro-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+}
+.sidebar-intro-row .hero-text { flex: 1; min-width: 0; }
+.sidebar-about-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    color: var(--secondary-text);
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+.sidebar-about-icon:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background-color: rgba(46, 204, 113, 0.08);
+}
+.visit-btn-sidebar-top { margin-bottom: 16px; display: block; text-align: center; }
 .bio-container { display: flex; gap: 15px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: auto;}
 
 /* Right Panel */
@@ -199,7 +225,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* Home projects footer CTA */
 .projects-cta {
     position: relative;
-    padding: 40px 30px 40px;
+    padding: 60px 30px 60px;
+    min-height: 320px;
     border-top: 1px solid var(--border-color);
     margin-top: 10px;
     overflow: hidden;
@@ -268,10 +295,10 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 @keyframes fallingGravity {
     0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 0.9;
+        transform: translateY(-280px) rotate(0deg);
+        opacity: 0;
     }
-    5% {
+    8% {
         opacity: 0.9;
     }
     100% {

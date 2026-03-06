@@ -30,7 +30,8 @@ const LayoutComponents = {
 
     buildSidebarTop: function(pageData, projectMeta, pageType) {
         let html = '';
-        if (pageData.backLink) {
+        if (pageData.backLink && projectMeta) {
+            html += `<a href="${projectMeta.liveLink || '#'}" target="_blank" class="visit-btn visit-btn-sidebar-top">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:5px;"></i></a>`;
             html += `<a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
         }
         if (pageType === 'playground') {
@@ -45,7 +46,12 @@ const LayoutComponents = {
         const introHTML = (!projectMeta && pageData.desc)
             ? `<p class="sidebar-intro">${pageData.desc}</p>`
             : '';
-        html += `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
+        const heroContent = `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
+        if (pageType === 'home' || pageType === 'playground') {
+            html += `<div class="sidebar-intro-row">${heroContent}<a href="about.html" class="sidebar-about-icon" aria-label="About Michelle"><i class="fas fa-user"></i></a></div>`;
+        } else {
+            html += heroContent;
+        }
         return html;
     },
 
@@ -78,10 +84,7 @@ const LayoutComponents = {
         if (pageType === 'about') {
             return '';
         }
-        return `
-            <div class="bio-container" style="border:none; padding-top:0; margin-top: auto;">
-                <a href="${pageData.liveLink || '#'}" target="_blank" class="visit-btn">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:5px;"></i></a>
-            </div>`;
+        return '';
     },
 
     buildWorksHeader: function(pageType) {
