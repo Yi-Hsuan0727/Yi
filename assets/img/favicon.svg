@@ -9,8 +9,4 @@
   <circle cx="22" cy="30" r="5" fill="#111111"/>
   <!-- Right pupil (black) -->
   <circle cx="44" cy="30" r="5" fill="#111111"/>
-  <!-- Left highlight -->
-  <circle cx="24" cy="27" r="2" fill="white"/>
-  <!-- Right highlight -->
-  <circle cx="46" cy="27" r="2" fill="white"/>
 </svg>

@@ -594,7 +594,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 
 .about-monster-band {
-    margin-top: auto;
+    margin-top: 40px;
     width: 100%;
     position: relative;
 }
@@ -732,6 +732,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 
     /* Mobile: show back + visit live site above next projects */
     .mobile-project-actions { display: flex; }
+
+    /* Mobile: hide sidebar back + visit buttons at top */
+    .sidebar .back-btn,
+    .sidebar .visit-btn {
+        display: none;
+    }
 
     /* Mobile: case content padding */
     .case-content { padding: 20px; }
