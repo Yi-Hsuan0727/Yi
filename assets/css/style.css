@@ -230,6 +230,10 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border-top: 1px solid var(--border-color);
     margin-top: 10px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 /* Falling shapes (gravity animation) */
@@ -248,7 +252,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .falling-shape {
     position: absolute;
+    top: -400px;
     animation: fallingGravity 8s ease-in infinite;
+    will-change: transform;
 }
 .falling-shape-circle {
     width: 60px;
@@ -295,14 +301,14 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 @keyframes fallingGravity {
     0% {
-        transform: translateY(-280px) rotate(0deg);
+        transform: translateY(0) rotate(0deg);
         opacity: 0;
     }
-    8% {
+    12% {
         opacity: 0.9;
     }
     100% {
-        transform: translateY(calc(100vh + 150px)) rotate(360deg);
+        transform: translateY(calc(100vh + 550px)) rotate(360deg);
         opacity: 0.7;
     }
 }
@@ -317,11 +323,14 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     color: var(--secondary-text);
     margin-bottom: 14px;
     max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .projects-cta-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
 }
 .projects-cta-btn {
     display: inline-flex;

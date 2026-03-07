@@ -31,7 +31,6 @@ const LayoutComponents = {
     buildSidebarTop: function(pageData, projectMeta, pageType) {
         let html = '';
         if (pageData.backLink && projectMeta) {
-            html += `<a href="${projectMeta.liveLink || '#'}" target="_blank" class="visit-btn visit-btn-sidebar-top">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:5px;"></i></a>`;
             html += `<a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
         }
         if (pageType === 'playground') {
@@ -84,7 +83,10 @@ const LayoutComponents = {
         if (pageType === 'about') {
             return '';
         }
-        return '';
+        return `
+            <div class="bio-container" style="border:none; padding-top:0; margin-top: auto;">
+                <a href="${pageData.liveLink || '#'}" target="_blank" class="visit-btn">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:5px;"></i></a>
+            </div>`;
     },
 
     buildWorksHeader: function(pageType) {
@@ -101,13 +103,13 @@ const LayoutComponents = {
         return '';
     },
 
-    /* Mobile-only: back to home + visit live site above next projects (project pages) */
+    /* Mobile-only: visit live site + back to home above next projects (project pages) */
     buildMobileProjectActions: function(projectMeta) {
         if (!projectMeta) return '';
         return `
             <div class="mobile-project-actions">
-                <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
                 <a href="${projectMeta.liveLink || '#'}" target="_blank" class="projects-cta-btn projects-cta-btn-secondary">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:6px;"></i></a>
+                <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
             </div>`;
     },
 
