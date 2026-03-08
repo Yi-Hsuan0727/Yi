@@ -232,6 +232,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     text-align: center;
 }
