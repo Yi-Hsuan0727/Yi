@@ -7,7 +7,7 @@ const PortfolioApp = {
     projectList: [
         /* ===== WORK PROJECTS ===== */
         {
-            id: 'plc2split',
+            id: 'pic2split',
             title: 'Pic2Split',
             subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
             desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
@@ -65,8 +65,8 @@ const PortfolioApp = {
             demoIntro: 'Conducted research and redesigned the volunteer recruitment experience to improve information hierarchy and usability.',
             category: 'uiux',
             tags: ['UX Research', 'UX/UI Design', 'Web Redesign'],
-            image: 'assets/img/bk/main_image.png',
-            heroImage: 'assets/img/bk/main_image.png',
+            image: 'assets/img/unesco/main_image.png',
+            heroImage: 'assets/img/unesco/main_image.png',
             link: 'unesco.html',
             timeline: 'Jan 2025 – May 2025',
             team: 'Solo',
@@ -246,10 +246,10 @@ const PortfolioApp = {
             desc: "Side projects, hackathons, game jams, and creative experiments that explore ideas beyond client work.",
             meta: ``
         },
-        plc2split: {
+        pic2split: {
             title: "Pic2Split",
             desc: "Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.",
-            meta: ``, backLink: true, liveLink: "https://plc2split.design/", cover: false
+            meta: ``, backLink: true, liveLink: "https://pic2split.design/", cover: false
         },
         lawfare: {
             title: "International Lawfare Website",

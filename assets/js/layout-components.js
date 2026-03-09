@@ -46,11 +46,7 @@ const LayoutComponents = {
             ? `<p class="sidebar-intro">${pageData.desc}</p>`
             : '';
         const heroContent = `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
-        if (pageType === 'home' || pageType === 'playground') {
-            html += `<div class="sidebar-intro-row">${heroContent}<a href="about.html" class="sidebar-about-icon" aria-label="About Michelle"><i class="fas fa-user"></i></a></div>`;
-        } else {
-            html += heroContent;
-        }
+        html += heroContent;
         return html;
     },
 
@@ -106,9 +102,16 @@ const LayoutComponents = {
     /* Mobile-only: visit live site + back to home above next projects (project pages) */
     buildMobileProjectActions: function(projectMeta) {
         if (!projectMeta) return '';
+        const liveLink = projectMeta.liveLink || '#';
+        let liveLabel = 'Visit Live Site';
+        if (liveLink && liveLink.indexOf('figma.com') !== -1) {
+            liveLabel = 'View the Prototype';
+        } else if (liveLink && liveLink.indexOf('devpost.com') !== -1) {
+            liveLabel = 'More Development Details';
+        }
         return `
             <div class="mobile-project-actions">
-                <a href="${projectMeta.liveLink || '#'}" target="_blank" class="projects-cta-btn projects-cta-btn-secondary">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:6px;"></i></a>
+                <a href="${liveLink}" target="_blank" class="projects-cta-btn projects-cta-btn-secondary">${liveLabel} <i class="fas fa-external-link-alt" style="margin-left:6px;"></i></a>
                 <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
             </div>`;
     },
