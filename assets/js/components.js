@@ -376,7 +376,12 @@ const PortfolioApp = {
             : '';
 
         if (pageType === 'about') {
-            const aboutContent = `${aboutBackLinkHTML}<div class="about-page">${uniqueContent}</div>`;
+            // Place back link right above the green monster section
+            const contentWithBackLink = uniqueContent.replace(
+                /(<section class="about-monster-band">)/,
+                aboutBackLinkHTML + '$1'
+            );
+            const aboutContent = `<div class="about-page">${contentWithBackLink}</div>`;
             const layoutHTML = `
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
