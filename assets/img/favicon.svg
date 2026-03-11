@@ -18,11 +18,13 @@
   <!-- Generator: Adobe Illustrator 28.6.0, SVG Export Plug-In . SVG Version: 1.2.0 Build 709)  -->
   <g>
     <g id="Layer_1">
-      <rect class="cls-2" width="64" height="64"/>
-      <ellipse class="cls-3" cx="15.5" cy="40.4" rx="12.8" ry="11.6"/>
-      <ellipse class="cls-3" cx="48.6" cy="40.4" rx="12.8" ry="11.6"/>
-      <circle class="cls-1" cx="15.5" cy="40.4" r="4"/>
-      <circle class="cls-1" cx="48.6" cy="40.4" r="4"/>
+      <g id="Layer_1-2" data-name="Layer_1">
+        <rect class="cls-2" width="64" height="64"/>
+        <ellipse class="cls-3" cx="15.5" cy="40.4" rx="12.8" ry="11.6"/>
+        <ellipse class="cls-3" cx="48.6" cy="40.4" rx="12.8" ry="11.6"/>
+        <circle class="cls-1" cx="15.9" cy="40.4" r="5.1"/>
+        <circle class="cls-1" cx="48.6" cy="40.4" r="5.1"/>
+      </g>
     </g>
   </g>
 </svg>
