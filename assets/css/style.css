@@ -403,9 +403,31 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .case-hero-img { width: 100%; height: 350px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 1.5rem; margin-bottom: 30px; }
 .case-content { padding: 40px 60px; max-width: 900px; margin: 0 auto; }
-.case-content h2 { margin-bottom: 16px; }
-.case-content p { line-height: 1.8; }
-.case-content ul { margin-left: 16px; }
+.case-content h2 { margin-top: 48px; margin-bottom: 16px; }
+.case-content h2:first-child { margin-top: 0; }
+.case-content h3 { margin-bottom: 12px; }
+.case-content p { line-height: 1.8; margin-bottom: 16px; }
+.case-content ul, .case-content ol { margin-left: 16px; margin-bottom: 16px; line-height: 2; }
+.case-content ul li::marker { color: var(--accent-color); }
+.case-content ol li::marker { color: var(--accent-color); font-weight: 700; }
+
+/* Case study sections with alternating backgrounds & dividers */
+.case-section { padding: 56px 60px; max-width: 100%; border-bottom: 1px solid var(--border-color); }
+.case-section-inner { max-width: 900px; margin: 0 auto; }
+.case-section h2 { margin-bottom: 20px; font-size: 1.6rem; }
+.case-section h3 { margin-bottom: 12px; margin-top: 32px; }
+.case-section p { line-height: 1.8; margin-bottom: 16px; }
+.case-section ul, .case-section ol { margin-left: 16px; margin-bottom: 16px; line-height: 2.2; }
+.case-section ul li { margin-bottom: 6px; }
+.case-section ol li { margin-bottom: 6px; }
+.case-section ul li::marker { color: var(--accent-color); }
+.case-section ol li::marker { color: var(--accent-color); font-weight: 700; }
+.case-section-alt { background: var(--bg-color); }
+[data-theme="light"] .case-section-alt { background: #f8f9fa; }
+[data-theme="dark"] .case-section-alt { background: #1a1a1a; }
+@media (max-width: 1200px) {
+    .case-section { padding: 36px 20px; }
+}
 
 /* Mobile-only: back to home + visit live site above next projects (project pages) */
 .mobile-project-actions {
