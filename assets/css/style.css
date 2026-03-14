@@ -408,7 +408,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-content h3 { margin-bottom: 12px; }
 .case-content p { line-height: 1.8; margin-bottom: 16px; }
 .case-content ul, .case-content ol { margin-left: 16px; margin-bottom: 16px; line-height: 2; }
-.case-content ul li::marker { color: var(--accent-color); }
+.case-content ul li::marker { color: var(--accent-color); font-size: 1.4em; }
 .case-content ol li::marker { color: var(--accent-color); font-weight: 700; }
 
 /* Case study sections with alternating backgrounds & dividers */
@@ -420,7 +420,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-section ul, .case-section ol { margin-left: 16px; margin-bottom: 16px; line-height: 2.2; }
 .case-section ul li { margin-bottom: 6px; }
 .case-section ol li { margin-bottom: 6px; }
-.case-section ul li::marker { color: var(--accent-color); }
+.case-section ul li::marker { color: var(--accent-color); font-size: 1.4em; }
 .case-section ol li::marker { color: var(--accent-color); font-weight: 700; }
 .case-section-alt { background: var(--bg-color); }
 [data-theme="light"] .case-section-alt { background: #f8f9fa; }

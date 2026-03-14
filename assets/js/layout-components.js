@@ -79,9 +79,20 @@ const LayoutComponents = {
         if (pageType === 'about') {
             return '';
         }
+        const sidebarLink = pageData.liveLink || '#';
+        let sidebarLabel = 'Visit Live Site';
+        let sidebarIcon = 'fa-external-link-alt';
+        if (sidebarLink.indexOf('figma.com') !== -1) {
+            sidebarLabel = 'View Prototype';
+        } else if (sidebarLink.indexOf('devpost.com') !== -1) {
+            sidebarLabel = 'View on Devpost';
+        } else if (sidebarLink.indexOf('endlessstudios.com') !== -1 || sidebarLink.indexOf('endstar') !== -1) {
+            sidebarLabel = 'Play the Game';
+            sidebarIcon = 'fa-gamepad';
+        }
         return `
             <div class="bio-container" style="border:none; padding-top:0; margin-top: auto;">
-                <a href="${pageData.liveLink || '#'}" target="_blank" class="visit-btn">Visit Live Site <i class="fas fa-external-link-alt" style="margin-left:5px;"></i></a>
+                <a href="${sidebarLink}" target="_blank" class="visit-btn">${sidebarLabel} <i class="fas ${sidebarIcon}" style="margin-left:5px;"></i></a>
             </div>`;
     },
 
@@ -104,14 +115,18 @@ const LayoutComponents = {
         if (!projectMeta) return '';
         const liveLink = projectMeta.liveLink || '#';
         let liveLabel = 'Visit Live Site';
+        let liveIcon = 'fa-external-link-alt';
         if (liveLink && liveLink.indexOf('figma.com') !== -1) {
-            liveLabel = 'View the Prototype';
+            liveLabel = 'View Prototype';
         } else if (liveLink && liveLink.indexOf('devpost.com') !== -1) {
-            liveLabel = 'More Development Details';
+            liveLabel = 'View on Devpost';
+        } else if (liveLink && (liveLink.indexOf('endlessstudios.com') !== -1 || liveLink.indexOf('endstar') !== -1)) {
+            liveLabel = 'Play the Game';
+            liveIcon = 'fa-gamepad';
         }
         return `
             <div class="mobile-project-actions">
-                <a href="${liveLink}" target="_blank" class="projects-cta-btn projects-cta-btn-secondary">${liveLabel} <i class="fas fa-external-link-alt" style="margin-left:6px;"></i></a>
+                <a href="${liveLink}" target="_blank" class="projects-cta-btn projects-cta-btn-secondary">${liveLabel} <i class="fas ${liveIcon}" style="margin-left:6px;"></i></a>
                 <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
             </div>`;
     },
