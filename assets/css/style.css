@@ -441,11 +441,19 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-section ol li { margin-bottom: 2px; }
 .case-section ul li::marker { color: var(--accent-color); font-size: 1.4em; }
 .case-section ol li::marker { color: var(--accent-color); font-weight: 700; }
+.case-highlight-list li::marker { color: var(--accent-color); }
 .case-section-alt { background: var(--bg-color); }
 [data-theme="light"] .case-section-alt { background: #f8f9fa; }
 [data-theme="dark"] .case-section-alt { background: #1a1a1a; }
 @media (max-width: 1200px) {
     .case-section { padding: 36px 20px; }
+    .case-section-grid-2col { grid-template-columns: 1fr !important; }
+    .case-section-mobile-row { grid-template-columns: 1fr !important; }
+    .case-section-cols-4 { grid-template-columns: repeat(2, 1fr) !important; }
+    .case-section-cols-3 { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 600px) {
+    .case-section-cols-4 { grid-template-columns: 1fr !important; }
 }
 
 /* Mobile-only: back to home + visit live site above next projects (project pages) */
