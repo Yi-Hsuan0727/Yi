@@ -858,22 +858,21 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
-    /* TEXT HIDING ANIMATION */
+    /* Keep "Selected Works" visible on mobile while scrolling */
     .section-title {
-        overflow: hidden;
-        max-height: 50px;
+        overflow: visible;
+        max-height: none;
         opacity: 1;
-        transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+        transition: none;
     }
-
-    /* Mini Mode: Collapse text */
     body.nav-hidden .works-header .section-title {
-        max-height: 0;
-        opacity: 0;
-        margin: 0;
+        max-height: none;
+        opacity: 1;
+        margin: initial;
     }
 
-    body.nav-hidden .works-header { padding-top: 10px; padding-bottom: 10px; }
+    /* Keep filter bar spacing consistent */
+    body.nav-hidden .works-header { padding-top: 15px; padding-bottom: 15px; }
     .project-grid { grid-template-columns: 1fr; padding: 20px; }
 
     /* Back to top on mobile */
