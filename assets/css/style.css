@@ -442,6 +442,122 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-section ul li::marker { color: var(--accent-color); font-size: 1.4em; }
 .case-section ol li::marker { color: var(--accent-color); font-weight: 700; }
 .case-highlight-list li::marker { color: var(--accent-color); }
+
+
+/* UAV case study extras */
+.uav-hero {
+    position: relative;
+    height: min(58vh, 520px);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: #111;
+}
+.uav-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--uav-hero-img);
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.04);
+    will-change: transform;
+}
+.uav-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.18) 45%, rgba(0,0,0,0.65) 100%);
+}
+@media (min-width: 900px) {
+    .uav-hero::before { background-attachment: fixed; }
+}
+.uav-hero-content {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 28px 26px;
+    color: #fff;
+}
+.uav-hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.95;
+}
+.uav-hero-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.05;
+    font-weight: 900;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+.uav-hero-sub {
+    max-width: 680px;
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.92;
+    margin: 0;
+}
+.uav-stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.22);
+    width: fit-content;
+    margin-bottom: 14px;
+    backdrop-filter: blur(6px);
+}
+
+.case-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-color);
+}
+.case-table th,
+.case-table td {
+    padding: 14px 14px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+.case-table th {
+    text-align: left;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--secondary-text);
+    background: rgba(46, 204, 113, 0.06);
+}
+.case-table tr:last-child td { border-bottom: 0; }
+
+.callout-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: rgba(46, 204, 113, 0.06);
+    color: var(--text-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
 .case-section-alt { background: var(--bg-color); }
 [data-theme="light"] .case-section-alt { background: #f8f9fa; }
 [data-theme="dark"] .case-section-alt { background: #1a1a1a; }

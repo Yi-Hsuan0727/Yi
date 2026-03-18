@@ -31,8 +31,8 @@ const PortfolioApp = {
             demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
             category: 'uiux code',
             tags: ['UI Design', 'Front-End Development', 'Web Design'],
-            image: 'assets/img/bk/welcome.jpg',
-            heroImage: 'assets/img/bk/welcome.jpg',
+            image: 'assets/img/UAV/hero.png',
+            heroImage: 'assets/img/UAV/hero.png',
             link: 'lawfare.html',
             timeline: 'Jan 2026 – Feb 2026',
             team: '1 Engineer, 1 Designer, 1 PM',
@@ -48,8 +48,8 @@ const PortfolioApp = {
             demoIntro: 'A specialized CMS interface designed to bridge the gap between agricultural science and national defense policy.',
             category: 'uiux code',
             tags: ['UI Design', 'Front-End Development', 'Web Design'],
-            image: 'assets/img/bk/welcome.jpg',
-            heroImage: 'assets/img/bk/welcome.jpg',
+            image: 'assets/img/UAV/hero.png',
+            heroImage: 'assets/img/UAV/hero.png',
             link: 'agsec.html',
             timeline: 'Aug 2025 – Oct 2025',
             team: '1 Engineer, 1 Designer, 1 PM',
@@ -140,7 +140,7 @@ const PortfolioApp = {
             team: '2 Designers',
             role: 'UX Research (survey, interview), Product Design (prototype), UI Design (components)',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
-            liveLink: 'https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan'
+            liveLink: 'https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=90-2589&t=BYgK6Kby6bZWu9TF-1'
         },
         /* ===== PLAYGROUND PROJECTS ===== */
         {
@@ -168,8 +168,8 @@ const PortfolioApp = {
             demoIntro: 'A smart assistant using Claude AI & USDA data to plan meals and recipes based on user needs.',
             category: 'uiux',
             tags: ['AI', 'Web App'],
-            image: 'assets/img/QuickBite/main_image.jpg',
-            heroImage: 'assets/img/QuickBite/main_image.jpg',
+            image: 'assets/img/QuickBite/hero.png',
+            heroImage: 'assets/img/QuickBite/hero.png',
             link: 'quickbite.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: 'Solo',
@@ -219,8 +219,8 @@ const PortfolioApp = {
             demoIntro: 'A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.',
             category: 'uiux',
             tags: ['UI Design', 'Prototyping'],
-            image: 'assets/img/bk/welcome.jpg',
-            heroImage: 'assets/img/bk/welcome.jpg',
+            image: 'assets/img/UAV/hero.png',
+            heroImage: 'assets/img/UAV/hero.png',
             link: 'uav.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: '4 Designers',
@@ -284,7 +284,7 @@ const PortfolioApp = {
         lt: {
             title: "Longtan Walker Pace Counter APP",
             desc: "Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.",
-            meta: ``, backLink: true, liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan", cover: false
+            meta: ``, backLink: true, liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=90-2589&t=BYgK6Kby6bZWu9TF-1", cover: false
         },
         dailymoo: {
             title: "Daily Moo Mood",
