@@ -3,6 +3,40 @@
  */
 const PortfolioApp = {
 
+    // #region agent log
+    // Global runtime error capture (blank screen often caused by JS errors before layout builds)
+    // Note: keep during debug verification runs.
+    __debugInit: (function() {
+        if (typeof window === 'undefined') return true;
+        if (window.__portfolio_debug_attached) return true;
+        window.__portfolio_debug_attached = true;
+
+        window.addEventListener('error', function(e) {
+            fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H1',location:'assets/js/components.js:GLOBAL',message:'window.error',data:{msg:String(e.message||''),src:String(e.filename||''),line:e.lineno,col:e.colno},timestamp:Date.now()})}).catch(()=>{});
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+            fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H1',location:'assets/js/components.js:GLOBAL',message:'window.unhandledrejection',data:{reason:String((e && e.reason) ? e.reason : '')},timestamp:Date.now()})}).catch(()=>{});
+        });
+
+        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H2',location:'assets/js/components.js:GLOBAL',message:'components.js loaded',data:{readyState:document.readyState,href:String(location.href)},timestamp:Date.now()})}).catch(()=>{});
+        return true;
+    })(),
+    // #endregion agent log
+
+    // #region agent log
+    // Secondary logger using no-cors (some environments block CORS preflight to localhost).
+    __dbgPost: function(payload) {
+        try {
+            fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{
+                method:'POST',
+                mode:'no-cors',
+                headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},
+                body:JSON.stringify(payload)
+            }).catch(()=>{});
+        } catch (_) {}
+    },
+    // #endregion agent log
+
     /* --- Ordered project list for navigation & home grid --- */
     projectList: [
         /* ===== WORK PROJECTS ===== */
@@ -140,27 +174,9 @@ const PortfolioApp = {
             team: '2 Designers',
             role: 'UX Research (survey, interview), Product Design (prototype), UI Design (components)',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
-            liveLink: 'https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=90-2589&t=BYgK6Kby6bZWu9TF-1'
+            liveLink: 'https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=5712-1476&t=BYgK6Kby6bZWu9TF-1'
         },
-        /* ===== PLAYGROUND PROJECTS ===== */
-        {
-            id: 'dailymoo',
-            title: 'Daily Moo Mood',
-            subtitle: 'Mood Tracking Web App',
-            desc: 'A fun and interactive website that helps users track daily moods with adorable cow-themed visuals. (2nd Place @ RoseHack 2025)',
-            demoIntro: 'A fun website helping users track daily moods with cow-themed visuals (2nd Place @ RoseHack 2025).',
-            category: 'playground',
-            tags: ['Hackathon', 'Web App'],
-            image: 'assets/img/DailyMooMood/IMG_7355.JPG',
-            heroImage: 'assets/img/DailyMooMood/IMG_7355.JPG',
-            link: 'dailymoo.html',
-            timeline: 'Jan 2025',
-            team: '1 Engineer, 1 Designer, 1 PM',
-            role: 'UI Design (logo, color/components), Front-end interaction and userflow design',
-            tools: 'HTML/CSS, Figma',
-            liveLink: 'https://devpost.com/software/daily-moo-mood'
-        },
-        {
+{
             id: 'quickbite',
             title: 'QuickBite',
             subtitle: 'AI Meal Planning Assistant',
@@ -177,41 +193,7 @@ const PortfolioApp = {
             tools: 'Python, Streamlit, Anthropic Claude, USDA FoodData Central',
             liveLink: '#'
         },
-        {
-            id: 'enchanter',
-            title: 'Enchanter',
-            subtitle: '3D Adventure Game',
-            desc: 'A game on the Endstar platform — fix a mysterious painting to break the curse over an abandoned kingdom. (People\'s Choice Award, Meta VR headsets)',
-            demoIntro: 'A game built on the Endstar platform where players fix a painting to break a kingdom\'s curse.',
-            category: 'playground',
-            tags: ['Game Design', '3D'],
-            image: 'assets/img/Enchanter/hWPJgwKj6ao.png',
-            heroImage: 'assets/img/Enchanter/hWPJgwKj6ao.png',
-            link: 'enchanter.html',
-            timeline: 'Feb 2025',
-            team: '3 Designers, 1 PM',
-            role: 'Design + Build 3D Game scenes and gameplay',
-            tools: 'Endstar',
-            liveLink: 'https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game'
-        },
-        {
-            id: 'stiffy',
-            title: 'Stiffy Wanderers',
-            subtitle: 'Interactive Mobile Game',
-            desc: 'An interactive mobile game where players guide a cute rock with googly eyes through environmental conditions using real-time location.',
-            demoIntro: 'A mobile game guiding a rock character through environmental missions based on real-time location.',
-            category: 'playground',
-            tags: ['Game Design', 'Mobile App'],
-            image: 'assets/img/Stiffy/IMG_7681.jpg',
-            heroImage: 'assets/img/Stiffy/IMG_7681.jpg',
-            link: 'stiffy.html',
-            timeline: 'Sep 2024',
-            team: '1 Engineer, 2 Designers, 1 PM',
-            role: 'Part of front-end coding and UI design',
-            tools: 'HTML/CSS, Figma',
-            liveLink: 'https://devpost.com/software/stiffy-wanderers'
-        },
-        {
+{
             id: 'uav',
             title: 'UAV Control System',
             subtitle: 'Agricultural UAV Interface Design',
@@ -284,7 +266,7 @@ const PortfolioApp = {
         lt: {
             title: "Longtan Walker Pace Counter APP",
             desc: "Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.",
-            meta: ``, backLink: true, liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=90-2589&t=BYgK6Kby6bZWu9TF-1", cover: false
+            meta: ``, backLink: true, liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=5712-1476&t=BYgK6Kby6bZWu9TF-1", cover: false
         },
         dailymoo: {
             title: "Daily Moo Mood",
@@ -328,8 +310,22 @@ const PortfolioApp = {
     },
 
     init: function(pageType) {
+        // #region agent log
+        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H2',location:'assets/js/components.js:PortfolioApp.init',message:'init start',data:{pageType:String(pageType||''),hasContentDiv:!!document.getElementById('page-specific-content')},timestamp:Date.now()})}).catch(()=>{});
+        // #endregion agent log
+        // #region agent log
+        this.__dbgPost({sessionId:'d5725b',runId:'pre-fix-2',hypothesisId:'H4',location:'assets/js/components.js:PortfolioApp.init',message:'init start (no-cors)',data:{pageType:String(pageType||''),hasContentDiv:!!document.getElementById('page-specific-content')},timestamp:Date.now()});
+        // #endregion agent log
+
         this.injectHead();
         this.buildLayout(pageType);
+
+        // #region agent log
+        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H3',location:'assets/js/components.js:PortfolioApp.init',message:'buildLayout complete',data:{pageType:String(pageType||''),hasAppRoot:!!document.getElementById('app-root'),bodyLen:(document.body && document.body.innerHTML ? document.body.innerHTML.length : 0)},timestamp:Date.now()})}).catch(()=>{});
+        // #endregion agent log
+        // #region agent log
+        this.__dbgPost({sessionId:'d5725b',runId:'pre-fix-2',hypothesisId:'H4',location:'assets/js/components.js:PortfolioApp.init',message:'buildLayout complete (no-cors)',data:{pageType:String(pageType||''),hasAppRoot:!!document.getElementById('app-root'),bodyLen:(document.body && document.body.innerHTML ? document.body.innerHTML.length : 0)},timestamp:Date.now()});
+        // #endregion agent log
 
         this.initEntryEffects(pageType);
 
@@ -355,6 +351,12 @@ const PortfolioApp = {
     },
 
     buildLayout: function(pageType) {
+        // #region agent log
+        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H3',location:'assets/js/components.js:PortfolioApp.buildLayout',message:'buildLayout enter',data:{pageType:String(pageType||''),hasLayoutComponents:(typeof LayoutComponents !== 'undefined')},timestamp:Date.now()})}).catch(()=>{});
+        // #endregion agent log
+        // #region agent log
+        this.__dbgPost({sessionId:'d5725b',runId:'pre-fix-2',hypothesisId:'H4',location:'assets/js/components.js:PortfolioApp.buildLayout',message:'buildLayout enter (no-cors)',data:{pageType:String(pageType||''),hasLayoutComponents:(typeof LayoutComponents !== 'undefined')},timestamp:Date.now()});
+        // #endregion agent log
         const contentDiv = document.getElementById('page-specific-content');
         const uniqueContent = contentDiv ? contentDiv.innerHTML : "";
         const pageData = this.data[pageType] || this.data.home;
