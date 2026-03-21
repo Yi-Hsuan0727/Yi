@@ -82,7 +82,7 @@ const LayoutComponents = {
         const sidebarLink = pageData.liveLink || '#';
         let sidebarLabel = 'Visit Live Site';
         let sidebarIcon = 'fa-external-link-alt';
-        if (pageType === 'unesco' || sidebarLink.indexOf('figma.com') !== -1) {
+        if (pageType === 'unesco' || pageType === 'spring' || sidebarLink.indexOf('figma.com') !== -1) {
             sidebarLabel = 'View Prototype';
         } else if (sidebarLink.indexOf('devpost.com') !== -1) {
             sidebarLabel = 'View on Devpost';
@@ -116,7 +116,7 @@ const LayoutComponents = {
         const liveLink = projectMeta.liveLink || '#';
         let liveLabel = 'Visit Live Site';
         let liveIcon = 'fa-external-link-alt';
-        if (projectMeta.id === 'unesco' || (liveLink && liveLink.indexOf('figma.com') !== -1)) {
+        if (projectMeta.id === 'unesco' || projectMeta.id === 'spring' || (liveLink && liveLink.indexOf('figma.com') !== -1)) {
             liveLabel = 'View Prototype';
         } else if (liveLink && liveLink.indexOf('devpost.com') !== -1) {
             liveLabel = 'View on Devpost';

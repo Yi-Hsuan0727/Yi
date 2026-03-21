@@ -3,40 +3,6 @@
  */
 const PortfolioApp = {
 
-    // #region agent log
-    // Global runtime error capture (blank screen often caused by JS errors before layout builds)
-    // Note: keep during debug verification runs.
-    __debugInit: (function() {
-        if (typeof window === 'undefined') return true;
-        if (window.__portfolio_debug_attached) return true;
-        window.__portfolio_debug_attached = true;
-
-        window.addEventListener('error', function(e) {
-            fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H1',location:'assets/js/components.js:GLOBAL',message:'window.error',data:{msg:String(e.message||''),src:String(e.filename||''),line:e.lineno,col:e.colno},timestamp:Date.now()})}).catch(()=>{});
-        }, true);
-        window.addEventListener('unhandledrejection', function(e) {
-            fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H1',location:'assets/js/components.js:GLOBAL',message:'window.unhandledrejection',data:{reason:String((e && e.reason) ? e.reason : '')},timestamp:Date.now()})}).catch(()=>{});
-        });
-
-        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H2',location:'assets/js/components.js:GLOBAL',message:'components.js loaded',data:{readyState:document.readyState,href:String(location.href)},timestamp:Date.now()})}).catch(()=>{});
-        return true;
-    })(),
-    // #endregion agent log
-
-    // #region agent log
-    // Secondary logger using no-cors (some environments block CORS preflight to localhost).
-    __dbgPost: function(payload) {
-        try {
-            fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{
-                method:'POST',
-                mode:'no-cors',
-                headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},
-                body:JSON.stringify(payload)
-            }).catch(()=>{});
-        } catch (_) {}
-    },
-    // #endregion agent log
-
     /* --- Ordered project list for navigation & home grid --- */
     projectList: [
         /* ===== WORK PROJECTS ===== */
@@ -176,6 +142,21 @@ const PortfolioApp = {
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
             liveLink: 'https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=5712-1476&t=BYgK6Kby6bZWu9TF-1'
         },
+        {
+            id: 'spring',
+            title: 'Echoes of the Four Seasons',
+            subtitle: 'Bridging Cultures Through Interactive Typography',
+            desc: 'An interactive web experience that reconstructs Chinese seasonal characters with English letters so non-Chinese speakers can explore poetry through tracing.',
+            demoIntro: 'Designed a cross-cultural typography experience that turns Chinese poetry into a participatory tracing system built from English letterforms.',
+            category: 'uiux',
+            tags: ['UI/UX Design', 'Typography', 'Interactive Web', 'Cultural Design'],
+            image: 'assets/img/lcm/website mockup_lcm.png',
+            heroImage: 'assets/img/lcm/website mockup_lcm.png',
+            heroAlt: 'Temporary placeholder hero image for Echoes of the Four Seasons showing desktop, tablet, and mobile screens with the Spring character composed of English letter strokes on a soft beige background.',
+            link: 'spring.html',
+            role: 'UI/UX Designer, Visual Designer, Typographer',
+            liveLink: 'spring/phome.html'
+        },
 {
             id: 'quickbite',
             title: 'QuickBite',
@@ -268,6 +249,11 @@ const PortfolioApp = {
             desc: "Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.",
             meta: ``, backLink: true, liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=5712-1476&t=BYgK6Kby6bZWu9TF-1", cover: false
         },
+        spring: {
+            title: "Echoes of the Four Seasons",
+            desc: "An interactive typography experience that bridges English letterforms and Chinese poetry through guided tracing.",
+            meta: ``, backLink: true, liveLink: "spring/phome.html", cover: false
+        },
         dailymoo: {
             title: "Daily Moo Mood",
             desc: "A fun website helping users track daily moods with cow-themed visuals (2nd Place @ RoseHack 2025).",
@@ -310,22 +296,8 @@ const PortfolioApp = {
     },
 
     init: function(pageType) {
-        // #region agent log
-        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H2',location:'assets/js/components.js:PortfolioApp.init',message:'init start',data:{pageType:String(pageType||''),hasContentDiv:!!document.getElementById('page-specific-content')},timestamp:Date.now()})}).catch(()=>{});
-        // #endregion agent log
-        // #region agent log
-        this.__dbgPost({sessionId:'d5725b',runId:'pre-fix-2',hypothesisId:'H4',location:'assets/js/components.js:PortfolioApp.init',message:'init start (no-cors)',data:{pageType:String(pageType||''),hasContentDiv:!!document.getElementById('page-specific-content')},timestamp:Date.now()});
-        // #endregion agent log
-
         this.injectHead();
         this.buildLayout(pageType);
-
-        // #region agent log
-        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H3',location:'assets/js/components.js:PortfolioApp.init',message:'buildLayout complete',data:{pageType:String(pageType||''),hasAppRoot:!!document.getElementById('app-root'),bodyLen:(document.body && document.body.innerHTML ? document.body.innerHTML.length : 0)},timestamp:Date.now()})}).catch(()=>{});
-        // #endregion agent log
-        // #region agent log
-        this.__dbgPost({sessionId:'d5725b',runId:'pre-fix-2',hypothesisId:'H4',location:'assets/js/components.js:PortfolioApp.init',message:'buildLayout complete (no-cors)',data:{pageType:String(pageType||''),hasAppRoot:!!document.getElementById('app-root'),bodyLen:(document.body && document.body.innerHTML ? document.body.innerHTML.length : 0)},timestamp:Date.now()});
-        // #endregion agent log
 
         this.initEntryEffects(pageType);
 
@@ -351,12 +323,6 @@ const PortfolioApp = {
     },
 
     buildLayout: function(pageType) {
-        // #region agent log
-        fetch('http://127.0.0.1:7759/ingest/4b42860a-ea4e-458d-a6bc-8e219da85209',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d5725b'},body:JSON.stringify({sessionId:'d5725b',runId:'pre-fix',hypothesisId:'H3',location:'assets/js/components.js:PortfolioApp.buildLayout',message:'buildLayout enter',data:{pageType:String(pageType||''),hasLayoutComponents:(typeof LayoutComponents !== 'undefined')},timestamp:Date.now()})}).catch(()=>{});
-        // #endregion agent log
-        // #region agent log
-        this.__dbgPost({sessionId:'d5725b',runId:'pre-fix-2',hypothesisId:'H4',location:'assets/js/components.js:PortfolioApp.buildLayout',message:'buildLayout enter (no-cors)',data:{pageType:String(pageType||''),hasLayoutComponents:(typeof LayoutComponents !== 'undefined')},timestamp:Date.now()});
-        // #endregion agent log
         const contentDiv = document.getElementById('page-specific-content');
         const uniqueContent = contentDiv ? contentDiv.innerHTML : "";
         const pageData = this.data[pageType] || this.data.home;
@@ -368,8 +334,9 @@ const PortfolioApp = {
         const nextProjectHTML = !isGridPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
         const mobileProjectActionsHTML = !isGridPage && projectMeta ? LayoutComponents.buildMobileProjectActions(projectMeta) : '';
         const heroImage = projectMeta ? (projectMeta.heroImage || projectMeta.image || 'assets/img/bk/welcome.jpg') : '';
+        const heroAlt = projectMeta ? (projectMeta.heroAlt || (projectMeta.title + ' main hero image')) : '';
         const coverHTML = (!isGridPage && projectMeta)
-            ? `<div class="case-hero-img"><img src="${heroImage}" alt="${projectMeta.title} main hero image" style="width:100%;height:100%;object-fit:cover;"></div>`
+            ? `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML}`;
 
