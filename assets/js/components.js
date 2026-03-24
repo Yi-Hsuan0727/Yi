@@ -157,6 +157,24 @@ const PortfolioApp = {
             role: 'UI/UX Designer, Visual Designer, Typographer',
             liveLink: 'spring/phome.html'
         },
+        {
+            id: 'dailymoo',
+            title: 'Daily Moo Mood',
+            subtitle: 'Cow-Themed Emotional Wellness Tracker',
+            desc: 'An emotional wellness tracker built during RoseHack 2025 that turns daily reflection into a low-friction, playful habit. (2nd Place winner)',
+            demoIntro: 'Designed a chill, approachable mood-tracking experience that uses playful visuals and actionable care prompts to support emotional self-reflection.',
+            category: 'uiux',
+            tags: ['Hackathon', 'UI/UX Design', 'Wellness', 'Web App'],
+            image: 'assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How\'s%20going%20Arizona!_DailyMooMood_landingPage.html.png',
+            heroImage: 'assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How\'s%20going%20Arizona!_DailyMooMood_landingPage.html.png',
+            heroAlt: 'Daily Moo Mood interface showing the MooYourMood selector, comment field, and calendar in a calm blue and green visual style.',
+            link: 'dailymoo.html',
+            timeline: 'RoseHack 2025',
+            team: 'Cathy Chen, Michelle Chen, Jerry Chen',
+            role: 'UI/Front-end Lead',
+            tools: 'React, Alpine.js, Tailwind CSS, ASP.NET Core MVC, SQLite, JavaScript, HTML5, CSS',
+            liveLink: 'https://devpost.com/software/daily-moo-mood'
+        },
 {
             id: 'quickbite',
             title: 'QuickBite',
@@ -256,7 +274,7 @@ const PortfolioApp = {
         },
         dailymoo: {
             title: "Daily Moo Mood",
-            desc: "A fun website helping users track daily moods with cow-themed visuals (2nd Place @ RoseHack 2025).",
+            desc: "A cow-themed emotional wellness tracker that turns daily reflection into a low-friction habit through playful visuals and actionable care prompts.",
             meta: ``, backLink: true, liveLink: "https://devpost.com/software/daily-moo-mood", cover: false
         },
         quickbite: {

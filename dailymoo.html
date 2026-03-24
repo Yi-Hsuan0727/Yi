@@ -10,9 +10,300 @@
 </head>
 <body>
     <div id="page-specific-content" style="display: none;">
-        <div class="case-content">
-            <h2>Overview</h2>
-            <p>Daily Moo Mood is a fun, interactive website that helps users track their daily moods through charming cow-themed visuals. Users log how they feel each day and watch their mood history come to life with playful illustrations and animations. Built during RoseHack 2025, the project earned 2nd Place for its creative approach to mental wellness and its delightful user experience that makes emotional check-ins something to look forward to.</p>
+
+        <div class="case-section">
+            <div class="case-section-inner">
+                <div class="case-section-header">
+                    <span class="case-section-label">Executive Overview</span>
+                    <h2 class="case-section-title">A Chill Space for Your Emotions</h2>
+                </div>
+                <p>Developed during <strong>RoseHack 2025</strong>, Daily Moo Mood is a bovine-themed emotional wellness tracker designed to make self-reflection feel approachable instead of clinical. The project secured <strong>2nd Place</strong> by transforming emotional maintenance from a daunting task into a low-friction, high-engagement daily habit.</p>
+
+                <div class="case-section-grid-2col" style="display:grid; grid-template-columns: 1.25fr 1fr; gap:24px; align-items:start; margin-top:24px;">
+                    <div>
+                        <img src="assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How's%20going%20Arizona!_DailyMooMood_landingPage.html.png" alt="Daily Moo Mood interface showing the MooYourMood selector, comment box, and calendar in a calm blue and green visual style" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 8px 24px rgba(0,0,0,0.08);">
+                        <p style="font-size:0.85rem; color:var(--secondary-text); margin-top:10px;">Core interface snapshot: mood selection, contextual comment input, and calendar-based longitudinal tracking.</p>
+                    </div>
+                    <div>
+                        <div class="callout-badge"><i class="fas fa-cow" aria-hidden="true"></i> Strategist's Note</div>
+                        <p style="margin-top:12px;"><strong>The cow is not just branding.</strong> It is a neutral, non-judgmental mascot that lowers the psychological barrier to reporting negative emotions.</p>
+                        <p>In a wellness market that often feels medicalized, the bovine aesthetic creates <strong>psychological safety</strong>. Users can acknowledge “Awful” or “Bad” days without the weight of clinical stigma.</p>
+                        <div style="padding:18px 16px; border-radius:12px; border:1px solid var(--border-color); background:rgba(46, 204, 113, 0.05); margin-top:18px;">
+                            <strong style="display:block; margin-bottom:6px;">Core value proposition</strong>
+                            <p style="margin:0; color:var(--secondary-text);">Reduce emotional check-ins to a simple, friendly ritual that users can actually sustain under stress.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-section case-section-alt">
+            <div class="case-section-inner">
+                <div class="case-section-header">
+                    <span class="case-section-label">Problem Statement</span>
+                    <h2 class="case-section-title">Navigating a Fast-Paced World</h2>
+                </div>
+                <p>Modern life demands high-velocity performance, yet offers few intuitive tools for emotional maintenance. Journaling can feel high-effort, while many wellness apps introduce too much complexity at the exact moment a user has the least emotional bandwidth.</p>
+
+                <div class="case-section-grid-2col" style="display:grid; grid-template-columns: 1fr auto 1fr; gap:20px; align-items:center; margin:28px 0;">
+                    <div style="padding:22px 20px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <div class="callout-badge"><i class="fas fa-bolt" aria-hidden="true"></i> Stress / Clutter</div>
+                        <ul style="margin-top:14px;">
+                            <li>Journaling fatigue</li>
+                            <li>Overly clinical wellness flows</li>
+                            <li>Too much cognitive effort for daily use</li>
+                            <li>No quick path from emotion to action</li>
+                        </ul>
+                    </div>
+                    <div style="font-size:1.5rem; color:var(--accent-color); font-weight:800; text-align:center;">→</div>
+                    <div style="padding:22px 20px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <div class="callout-badge"><i class="fas fa-cloud-sun" aria-hidden="true"></i> Daily Moo Mood</div>
+                        <ul style="margin-top:14px;">
+                            <li>5-stage visual Likert scale</li>
+                            <li>Low-pressure comment field</li>
+                            <li>Actionable “Clues to Fix” support</li>
+                            <li>Calendar view for pattern recognition</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="padding:22px 20px; border-radius:14px; border:1px solid var(--border-color); background:rgba(46, 204, 113, 0.05);">
+                    <div class="callout-badge"><i class="fas fa-brain" aria-hidden="true"></i> Strategist's Note: Reducing Cognitive Load</div>
+                    <p style="margin-top:12px;">We identified a gap between <strong>high-effort journaling apps</strong> and <strong>passive health trackers</strong>. By using a <strong>5-stage Likert scale</strong> represented by cow icons, the product minimizes the paradox of choice and makes emotional logging fast enough for stressed users to actually complete.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-section">
+            <div class="case-section-inner">
+                <div class="case-section-header">
+                    <span class="case-section-label">Project Goals</span>
+                    <h2 class="case-section-title">Intentionality and Positivity</h2>
+                </div>
+                <p>The goal was to design more than a logger. The product needed to create a complete pathway from reflection to recovery.</p>
+
+                <div class="case-section-cols case-section-cols-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:24px 0;">
+                    <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <div class="callout-badge"><i class="fas fa-pause" aria-hidden="true"></i> Reflection</div>
+                        <p style="margin-top:12px;"><strong>Provide an immediate guided pause</strong> in the user's day so self-check-ins feel lightweight and emotionally safe.</p>
+                    </div>
+                    <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <div class="callout-badge"><i class="fas fa-chart-line" aria-hidden="true"></i> Resilience</div>
+                        <p style="margin-top:12px;"><strong>Map long-term patterns</strong> so users can recognize emotional dips, anticipate them, and respond earlier.</p>
+                    </div>
+                    <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <div class="callout-badge"><i class="fas fa-seedling" aria-hidden="true"></i> Action</div>
+                        <p style="margin-top:12px;"><strong>Move from passive tracking to intervention</strong> through “Clues to Fix” and other actionable wellness prompts.</p>
+                    </div>
+                </div>
+
+                <div style="padding:22px 20px; border-radius:14px; border:1px solid var(--border-color); background:rgba(46, 204, 113, 0.05);">
+                    <div class="callout-badge"><i class="fas fa-route" aria-hidden="true"></i> Strategist's Note: Moving from Passive to Active</div>
+                    <p style="margin-top:12px;">These goals shaped the hierarchy of the <strong>MooYourMood selector</strong> and the <strong>Clues to Fix</strong> feature. The product was designed so it does not simply record how users feel. It attempts to help them <strong>feel better next</strong>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-section case-section-alt">
+            <div class="case-section-inner">
+                <div class="case-section-header">
+                    <span class="case-section-label">Design Process</span>
+                    <h2 class="case-section-title">From Concept to Competition</h2>
+                </div>
+                <p>The team worked through a disciplined <strong>User-Centered Design process</strong> inside a <strong>24-hour hackathon sprint</strong>, balancing design quality, technical feasibility, and competition pressure.</p>
+
+                <div class="case-section-cols case-section-cols-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:26px 0;">
+                    <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <strong>4.1 Research &amp; Ideation</strong>
+                        <p style="margin-top:10px;">The team replaced clinical mood labels with a more relatable spectrum: <strong>Awful, Bad, Meh, Good, and Rad</strong>.</p>
+                    </div>
+                    <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <strong>4.2 Prototyping</strong>
+                        <p style="margin-top:10px;">Figma helped translate a soft, rounded, pastel-heavy interface into production-ready frontend components with high fidelity.</p>
+                    </div>
+                    <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                        <strong>4.3 Testing &amp; Iteration</strong>
+                        <p style="margin-top:10px;">Sprint feedback showed users needed qualitative context, which led to the rapid addition of the <strong>Post comment</strong> feature.</p>
+                    </div>
+                </div>
+
+                <div class="case-section-grid-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;">
+                    <div>
+                        <img src="assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How's%20going%20Arizona!_DailyMooMood_index.html.png" alt="Daily Moo Mood landing page with playful branding, blue sky background, and a welcoming sign-in prompt" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                        <p style="font-size:0.85rem; color:var(--secondary-text); margin-top:10px;">Early branded entry point: approachable, playful, and low-pressure.</p>
+                    </div>
+                    <div>
+                        <img src="assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How's%20going%20Arizona!_DailyMooMood_landingPage.html.png" alt="High-fidelity Daily Moo Mood product screen showing mood icons, a comment field, and calendar for long-term tracking" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                        <p style="font-size:0.85rem; color:var(--secondary-text); margin-top:10px;">High-fidelity product state: the final mood selector and tracking view used in the hackathon prototype.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top:24px;">
+                    <img src="assets/img/DailyMooMood/IMG_1683.HEIC" alt="Additional Daily Moo Mood project photo from the RoseHack 2025 asset folder. Temporary alt text because the HEIC preview could not be inspected in the editor tooling." style="width:100%; max-width:720px; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                    <p style="font-size:0.85rem; color:var(--secondary-text); margin-top:10px;">Additional project image from the Daily Moo Mood asset folder.</p>
+                </div>
+
+                <div style="margin-top:24px; padding:22px 20px; border-radius:14px; border:1px solid var(--border-color); background:rgba(46, 204, 113, 0.05);">
+                    <div class="callout-badge"><i class="fas fa-repeat" aria-hidden="true"></i> Strategist's Note: Iterative Validation</div>
+                    <p style="margin-top:12px;">The move from raw concept to <strong>2nd Place</strong> was driven by iteration. Each round of testing helped eliminate UI friction and technical rough edges, making the solution feel closer to a production-ready product than a one-off demo.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-section">
+            <div class="case-section-inner">
+                <div class="case-section-header">
+                    <span class="case-section-label">Key Solutions</span>
+                    <h2 class="case-section-title">From Mood Logging to Actionable Care</h2>
+                </div>
+                <p>Daily Moo Mood guides users through a complete emotional check-in loop: select a mood, add context, receive support, and track patterns over time.</p>
+
+                <div style="margin-top:10px;">
+                    <h3>5.1 The MooYourMood Interface</h3>
+                    <div class="case-section-grid-2col" style="display:grid; grid-template-columns: 1.2fr 1fr; gap:24px; align-items:start; margin-top:12px;">
+                        <div>
+                            <img src="assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How's%20going%20Arizona!_DailyMooMood_landingPage.html.png" alt="MooYourMood interface with five color-coded cow icons and a post comment field below" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                        </div>
+                        <div>
+                            <ul>
+                                <li><strong>5-stage mood selector:</strong> vibrant visual states make emotional check-in instant and intuitive.</li>
+                                <li><strong>Post comment:</strong> a low-pressure journaling field helps users attach context without committing to a full diary entry.</li>
+                                <li><strong>Personalized session state:</strong> UI copy like “Welcome! Cathy Chen.” builds a sense of ownership and continuity.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:40px; border-top:1px solid var(--border-color); padding-top:32px;">
+                    <h3>5.2 “Clues to Fix”: Actionable Care</h3>
+                    <div class="case-section-grid-2col" style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start; margin-top:12px;">
+                        <div>
+                            <img src="assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How's%20going%20Arizona!_DailyMooMood_clues.html.png" alt="Clues to Fix screen featuring a floral plate used as a calming visual frame for a deep breathing meditation prompt" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                            <p style="font-size:0.85rem; color:var(--secondary-text); margin-top:10px;">The “Clues to Fix” screen reframes support as a gentle, daily-serving ritual rather than a clinical intervention.</p>
+                        </div>
+                        <div>
+                            <p>A prominent feature is the <strong>Deep Breathing Meditation</strong>, presented on a decorative floral plate.</p>
+                            <div class="callout-badge"><i class="fas fa-utensils" aria-hidden="true"></i> Strategist's Note: Normalizing Self-Care</div>
+                            <p style="margin-top:12px;">The plate is a deliberate domestic metaphor. It frames mental health support as a <strong>daily serving of care</strong>, something familiar, routine, and accessible.</p>
+                            <ul>
+                                <li>Makes meditation feel less intimidating</li>
+                                <li>Turns support into a clear next step</li>
+                                <li>Connects reflection to recovery in the same flow</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:40px; border-top:1px solid var(--border-color); padding-top:32px;">
+                    <h3>5.3 Longitudinal Emotional Tracking</h3>
+                    <div class="case-section-grid-2col" style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start; margin-top:12px;">
+                        <div>
+                            <p>The calendar view gives users a clean, high-level way to visualize emotional trends over time.</p>
+                            <ul>
+                                <li>Supports pattern recognition</li>
+                                <li>Helps identify environmental triggers</li>
+                                <li>Makes “Rad” streaks visible and motivating</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <img src="assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How's%20going%20Arizona!_DailyMooMood_landingPage.html.png" alt="Calendar view within Daily Moo Mood showing a monthly layout used for long-term emotional tracking" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-section case-section-alt">
+            <div class="case-section-inner">
+                <div class="case-section-header">
+                    <span class="case-section-label">Technical Implementation</span>
+                    <h2 class="case-section-title">Fast Collaboration, High Fidelity</h2>
+                </div>
+                <p>Efficiency was critical. The project succeeded because design and engineering moved in sync, allowing the team to ship a polished experience within hours.</p>
+
+                <table class="case-table" aria-label="Daily Moo Mood tech stack">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Tools Used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frontend Framework</strong></td>
+                            <td>React, Alpine.js</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Styling</strong></td>
+                            <td>Tailwind CSS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backend / API</strong></td>
+                            <td>ASP.NET Core MVC</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database</strong></td>
+                            <td>SQLite</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Languages</strong></td>
+                            <td>JavaScript, HTML5, CSS</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top:24px; padding:22px 20px; border-radius:14px; border:1px solid var(--border-color); background:rgba(46, 204, 113, 0.05);">
+                    <div class="callout-badge"><i class="fas fa-code" aria-hidden="true"></i> Strategist's Note: Rapid Style Deployment</div>
+                    <p style="margin-top:12px;">Tailwind CSS enabled the team to implement the app’s <strong>soft shadows</strong> and <strong>custom “chill” palette</strong> directly in markup, reducing styling overhead and helping the React frontend stay visually faithful to the Figma vision.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-section">
+            <div class="case-section-inner">
+                <div class="case-section-header">
+                    <span class="case-section-label">Impact &amp; Reflection</span>
+                    <h2 class="case-section-title">Beyond the Hackathon</h2>
+                </div>
+                <div class="case-section-grid-2col" style="display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:start;">
+                    <div>
+                        <img src="assets/img/DailyMooMood/IMG_7355.JPG" alt="RoseHack 2025 presentation photo showing the Daily Moo Mood team and the project displayed on a laptop during judging" style="width:100%; height:auto; border-radius:14px; border:1px solid var(--border-color); box-shadow:0 6px 18px rgba(0,0,0,0.08);">
+                        <p style="font-size:0.85rem; color:var(--secondary-text); margin-top:10px;">RoseHack 2025 presentation moment: Daily Moo Mood was recognized with <strong>2nd Place</strong>.</p>
+                    </div>
+                    <div>
+                        <p>Winning <strong>2nd Place at RoseHack 2025</strong> validated the team’s belief that mental health tools can be both whimsical and effective.</p>
+                        <p>For Cathy Chen, Jerry Chen, and Michelle Chen, the project became a compact but intense exercise in collaborative growth, rapid prototyping, and emotionally aware product strategy.</p>
+                        <div class="callout-badge"><i class="fas fa-heart" aria-hidden="true"></i> Strategist's Note: A Template for Sustainable Habit-Building</div>
+                        <p style="margin-top:12px;">Daily Moo Mood demonstrates that when emotional tracking is designed with empathy and whimsy, it stops feeling like a chore and starts feeling like a sustainable habit.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top:34px; border-top:1px solid var(--border-color); padding-top:30px;">
+                    <div class="case-section-header">
+                        <span class="case-section-label">Future Vision</span>
+                        <h2 class="case-section-title">Opportunities to Scale</h2>
+                    </div>
+                    <div class="case-section-cols case-section-cols-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+                        <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                            <strong>AI-Driven Mood Analysis</strong>
+                            <p style="margin-top:10px; color:var(--secondary-text);">Use NLP to extract deeper sentiment trends from user comments.</p>
+                        </div>
+                        <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                            <strong>Advanced Data Insights</strong>
+                            <p style="margin-top:10px; color:var(--secondary-text);">Explore correlations between mood data and factors like sleep or weather.</p>
+                        </div>
+                        <div style="padding:20px 18px; border-radius:14px; border:1px solid var(--border-color); background:var(--bg-color);">
+                            <strong>Personalized Interventions</strong>
+                            <p style="margin-top:10px; color:var(--secondary-text);">Tailor “Clues to Fix” suggestions based on each user’s historical success patterns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:30px; padding:22px 20px; border-radius:14px; border:1px solid var(--border-color); background:rgba(46, 204, 113, 0.05);">
+                    <strong style="display:block; margin-bottom:8px;">Project Vision Achieved</strong>
+                    <p style="margin:0;">Daily Moo Mood successfully created a <strong>chill space for emotions</strong>. By combining a playful bovine aesthetic, actionable wellness interventions, and a robust technical foundation, the product lowered the barrier to emotional resilience in a way that felt approachable, memorable, and award-worthy.</p>
+                </div>
+            </div>
         </div>
     </div>
 
