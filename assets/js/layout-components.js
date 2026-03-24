@@ -136,10 +136,15 @@ const LayoutComponents = {
         if (!projects || !projects.length) return '';
         let cardsHTML = projects.map(function(p) {
             let tagsHTML = p.tags.map(function(t) {
-                return `<span class="tag">${t}</span>`;
+                return `<span class="project-overlay-tag">${t}</span>`;
             }).join('');
             let imgContent = p.image
-                ? `<img src="${p.image}" alt="${p.title}">`
+                ? `<img src="${p.image}" alt="${p.title}">
+                    <div class="project-overlay">
+                        <div class="project-overlay-title">${p.title}</div>
+                        <div class="project-overlay-subtitle">${p.subtitle}</div>
+                        <div class="project-overlay-tags">${tagsHTML}</div>
+                    </div>`
                 : `<span style="color:#777;font-weight:bold;">${p.title}</span>`;
             return `
                 <div class="next-project-card" onclick="window.location.href='${p.link}'">
