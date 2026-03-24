@@ -648,6 +648,32 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .case-section-cols-4 { grid-template-columns: 1fr !important; }
 }
 
+@media (max-width: 900px) {
+    .image-container::before,
+    .next-project-img::before,
+    .project-overlay {
+        opacity: 1;
+    }
+
+    .project-overlay {
+        transform: translateY(0);
+    }
+
+    .project-overlay-title {
+        font-size: 1.3rem;
+    }
+
+    .project-overlay-subtitle {
+        font-size: 0.82rem;
+        line-height: 1.35;
+    }
+
+    .project-overlay-tag {
+        font-size: 0.58rem;
+        padding: 4px 8px;
+    }
+}
+
 /* Mobile-only: back to home + visit live site above next projects (project pages) */
 .mobile-project-actions {
     display: none;
