@@ -201,7 +201,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .project-overlay-title {
     font-size: 1.55rem;
-    line-height: 1.02;
+    line-height: 1.16;
     font-weight: 800;
     letter-spacing: -0.03em;
     text-wrap: balance;
@@ -240,8 +240,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .project-card:hover .image-container img,
 .next-project-card:hover .next-project-img img {
-    transform: scale(1.06);
-    animation: projectWindHover 2.4s ease-in-out infinite;
+    transform: scale(1);
+    animation: none;
 }
 .project-card:active .image-container {
     transform: scale(0.96);
