@@ -173,7 +173,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.78) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.96) 100%);
     opacity: 0;
     transition: opacity 0.25s ease;
     pointer-events: none;
@@ -229,7 +229,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .project-card:hover .image-container { border-color: var(--accent-color); }
 .project-card:hover .image-container {
-    transform: translateY(-3px);
+    transform: none;
 }
 .project-card:hover .image-container::before,
 .project-card:hover .project-overlay {
@@ -244,7 +244,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     animation: none;
 }
 .project-card:active .image-container {
-    transform: scale(0.96);
+    transform: none;
 }
 .project-card:active .image-container img,
 .next-project-card:active .next-project-img img {
@@ -856,7 +856,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.78) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.96) 100%);
     opacity: 0;
     transition: opacity 0.25s ease;
     pointer-events: none;
@@ -869,10 +869,10 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .next-project-card:hover .next-project-img {
     border-color: var(--accent-color);
-    transform: translateY(-3px);
+    transform: none;
 }
 .next-project-card:active .next-project-img {
-    transform: scale(0.96);
+    transform: none;
 }
 .next-project-card:hover .next-project-img::before,
 .next-project-card:hover .next-project-img .project-overlay {
