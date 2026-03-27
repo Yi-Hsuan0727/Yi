@@ -54,15 +54,7 @@ const MonsterLogic = {
         // --- 3. OCCASIONAL BLINKING ---
         this.startBlinking(eyes);
 
-        // --- 4. HOVER: Pointed shape ---
-        monsterBody.addEventListener('mouseenter', () => {
-            monsterBody.classList.add('pointed');
-        });
-        monsterBody.addEventListener('mouseleave', () => {
-            monsterBody.classList.remove('pointed');
-        });
-
-        // --- 5. CLICK/TAP: Hover-like shape + sparkles ---
+        // --- 4. CLICK/TAP: Brief pulse + sparkles ---
         monsterBody.addEventListener('click', (e) => {
             this.triggerClickEffect(monsterBody, {
                 clientX: e.clientX,
@@ -112,9 +104,7 @@ const MonsterLogic = {
         if (this.pointedTimeout) clearTimeout(this.pointedTimeout);
 
         this.pointedTimeout = setTimeout(() => {
-            if (!monsterBody.matches(':hover')) {
-                monsterBody.classList.remove('pointed');
-            }
+            monsterBody.classList.remove('pointed');
         }, 420);
     },
 

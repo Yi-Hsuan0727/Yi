@@ -104,6 +104,18 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .scroll-area { flex-grow: 1; overflow-y: auto; position: relative; }
 
 /* FOOTER */
+.site-footer-shell {
+    flex-shrink: 0;
+}
+.site-footer-shell-green {
+    background: transparent;
+}
+.site-footer-monster {
+    position: static;
+    height: 132px;
+    overflow: hidden;
+    background: transparent;
+}
 .site-footer {
     flex-shrink: 0;
     height: auto;
@@ -113,6 +125,36 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     font-size: 0.75rem; color: var(--secondary-text);
     background: var(--bg-color);
     z-index: 100;
+}
+.site-footer-green {
+    background: var(--accent-color);
+    color: #000000;
+    border-top: 0;
+}
+.site-footer-green .footer-copyright,
+.site-footer-green .connect-label,
+.site-footer-green .socials > span {
+    color: #000000;
+}
+.site-footer.site-footer-green .socials a,
+.site-footer.site-footer-green .socials a:visited,
+.site-footer.site-footer-green .socials .social-link,
+.site-footer.site-footer-green .socials .resume-link {
+    color: #000000;
+}
+.site-footer-green .resume-link {
+    border-color: rgba(0, 0, 0, 0.55);
+}
+.site-footer-green .social-link:not(.resume-link) {
+    border-color: rgba(0, 0, 0, 0.35);
+}
+.site-footer.site-footer-green .socials .social-link:not(.resume-link):hover,
+.site-footer.site-footer-green .socials .social-link:not(.resume-link):focus-visible,
+.site-footer.site-footer-green .socials .resume-link:hover,
+.site-footer.site-footer-green .socials .resume-link:focus-visible {
+    color: #000000;
+    border-color: #000000;
+    background: rgba(255, 255, 255, 0.18);
 }
 
 /* WORKS HEADER — Desktop: side-by-side row */

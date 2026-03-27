@@ -322,7 +322,8 @@ const PortfolioApp = {
         const coverHTML = (!isGridPage && projectMeta)
             ? `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
-        const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML}`;
+        const footerHTML = LayoutComponents.buildFooter(pageType);
+        const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
 
         const aboutBackLinkHTML = pageType === 'about'
             ? `<a href="index.html" class="about-home-link about-home-link-mobile-only"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>`
@@ -346,7 +347,7 @@ const PortfolioApp = {
                             <div class="scroll-area" id="scroll-container">
                                 <div class="single-page-wrapper">${aboutContent}</div>
                             </div>
-                            ${LayoutComponents.buildFooter()}
+                            ${LayoutComponents.buildFooter(pageType)}
                         </div>
                     </div>
                 </div>
@@ -367,11 +368,11 @@ const PortfolioApp = {
                         ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
                     </aside>
-                    <div class="right-panel">
+                        <div class="right-panel">
                         <div class="scroll-area" id="scroll-container">
                             <div class="single-page-wrapper">${finalContent}</div>
                         </div>
-                        ${LayoutComponents.buildFooter()}
+                        ${isGridPage ? '' : footerHTML}
                     </div>
                 </div>
             </div>

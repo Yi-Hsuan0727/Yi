@@ -64,17 +64,7 @@ const LayoutComponents = {
 
     buildSidebarBottom: function(pageType, pageData) {
         if (pageType === 'home' || pageType === 'playground') {
-            return `
-                <div class="sidebar-footer-container">
-                    <div class="monster-container">
-                        <div class="monster-body">
-                            <div class="monster-eyes-wrapper">
-                                <div class="monster-eye"><div class="monster-pupil"></div></div>
-                                <div class="monster-eye"><div class="monster-pupil"></div></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+            return '';
         }
         if (pageType === 'about') {
             return '';
@@ -164,17 +154,33 @@ const LayoutComponents = {
             </div>`;
     },
 
-    buildFooter: function() {
+    buildFooter: function(pageType) {
+        const monsterHTML = (pageType === 'home' || pageType === 'playground')
+            ? `
+                <div class="site-footer-monster" aria-hidden="true">
+                    <div class="monster-container">
+                        <div class="monster-body">
+                            <div class="monster-eyes-wrapper">
+                                <div class="monster-eye"><div class="monster-pupil"></div></div>
+                                <div class="monster-eye"><div class="monster-pupil"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            : '';
         return `
-            <footer class="site-footer">
-                <span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved.</span>
-                <div class="socials">
-                    <span class="connect-label" style="font-weight:700;">Connect with me:</span>
-                    <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="mailto:yche1356@asu.edu" class="social-link"><i class="fas fa-envelope"></i></a>
-                    <a href="assets/img/resume.pdf" class="social-link resume-link">Resume</a>
-                </div>
-            </footer>`;
+            <div class="site-footer-shell ${monsterHTML ? 'site-footer-shell-green' : ''}">
+                ${monsterHTML}
+                <footer class="site-footer ${monsterHTML ? 'site-footer-green' : ''}">
+                    <span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved.</span>
+                    <div class="socials">
+                        <span class="connect-label" style="font-weight:700;">Connect with me:</span>
+                        <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:yche1356@asu.edu" class="social-link"><i class="fas fa-envelope"></i></a>
+                        <a href="assets/img/resume.pdf" class="social-link resume-link">Resume</a>
+                    </div>
+                </footer>
+            </div>`;
     },
 
     buildProgressBar: function() {

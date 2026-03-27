@@ -22,6 +22,29 @@
     justify-content: flex-end;
 }
 
+.site-footer-monster .monster-container {
+    width: 100%;
+    height: 152px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.site-footer-monster .monster-body {
+    --monster-curve: 50% 50% 0 0 / 100% 100% 0 0;
+    width: 132%;
+    height: 100%;
+    position: absolute;
+    left: -16%;
+    bottom: 0;
+    opacity: 1;
+    padding-bottom: 38px;
+    border-radius: var(--monster-curve);
+    transform: none;
+}
+
 /* --- Monster Container --- */
 .monster-container {
     width: 100%;
@@ -34,11 +57,12 @@
 
 /* --- Monster Body --- */
 .monster-body {
+    --monster-curve: 50% 50% 0 0 / 100% 100% 0 0;
     width: 120%;
     height: 100%;
     background-color: rgb(46, 204, 113);
     /* Perfect curved arc: elliptical radius for deeper curve (not flat) */
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border-radius: var(--monster-curve);
     position: absolute;
     bottom: 0;
     left: -10%;
@@ -68,14 +92,14 @@
     }
 }
 
-/* Monster hover: maintain perfect curved arc */
+/* Monster hover: same curve as static (uses --monster-curve per context) */
 .monster-container:hover .monster-body {
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border-radius: var(--monster-curve);
 }
 
 /* Monster pointed hover state (JS-driven) */
 .monster-body.pointed {
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border-radius: var(--monster-curve);
     transform: scaleY(1.15);
 }
 
@@ -162,7 +186,7 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 10;
+    z-index: 1;
     overflow: visible;
 }
 
@@ -172,7 +196,7 @@
     width: 9px;
     height: 9px;
     pointer-events: none;
-    z-index: 10;
+    z-index: 1;
     opacity: 1;
     transform: translate(-50%, -50%);
 }
@@ -230,8 +254,8 @@
         padding-bottom: 25px;
     }
 
-    /* Touch: maintain perfect curved arc */
+    /* Touch: same curve as static */
     .monster-container:active .monster-body {
-        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        border-radius: var(--monster-curve);
     }
 }
