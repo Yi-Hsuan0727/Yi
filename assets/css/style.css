@@ -98,14 +98,49 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .bio-container { display: flex; gap: 15px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: auto;}
 
 /* Right Panel */
-.right-panel { width: 70%; height: 100%; display: flex; flex-direction: column; position: relative; }
+.right-panel { width: 70%; height: 100%; min-height: 0; display: flex; flex-direction: column; position: relative; overflow: hidden; background: var(--bg-color); }
 
 /* Scroll Area — no padding-bottom or scroll-behavior (Lenis handles smooth scroll) */
-.scroll-area { flex-grow: 1; overflow-y: auto; position: relative; }
+.scroll-area {
+    flex-grow: 1;
+    min-height: 0;
+    height: auto;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color);
+    padding-bottom: 0 !important;
+}
+
+/* Hard reset: remove any bottom padding on scroll container */
+#scroll-container {
+    padding-bottom: 0 !important;
+}
+
+.single-page-wrapper {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+/* When footer is inside scroll content (home/playground), keep it at bottom and avoid white gap */
+.single-page-wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.single-page-wrapper .site-footer-shell {
+    margin-top: auto;
+}
 
 /* FOOTER */
 .site-footer-shell {
     flex-shrink: 0;
+    position: relative;
+    z-index: 5;
+    margin-top: auto;
+    margin-bottom: 0;
 }
 .site-footer-shell-green {
     background: transparent;
@@ -347,18 +382,19 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     min-height: 320px;
     border-top: 1px solid var(--border-color);
     margin-top: 10px;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 0;
 }
 
 /* Falling shapes (gravity animation) */
 .projects-cta-falling-shapes {
     position: absolute;
-    inset: 0;
+    inset: 0 0 -260px 0;
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
