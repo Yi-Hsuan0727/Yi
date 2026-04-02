@@ -124,13 +124,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 
 /* When footer is inside scroll content (home/playground), keep it at bottom and avoid white gap */
-.single-page-wrapper {
+.single-page-wrapper:has(.site-footer-shell) {
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    flex: 1;
 }
-.single-page-wrapper .site-footer-shell {
+.single-page-wrapper:has(.site-footer-shell) .site-footer-shell {
     margin-top: auto;
 }
 

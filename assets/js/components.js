@@ -270,11 +270,21 @@ const PortfolioApp = {
     },
 
     getNextProjects: function(currentId, count) {
-        var idx = this.projectList.findIndex(function(p) { return p.id === currentId; });
+        var currentProject = this.getProject(currentId);
+        if (!currentProject) return [];
+
+        var isPlaygroundGroup = currentProject.category === 'playground';
+        var filtered = this.projectList.filter(function(p) {
+            return (p.category === 'playground') === isPlaygroundGroup;
+        });
+        if (!filtered.length) return [];
+
+        var idx = filtered.findIndex(function(p) { return p.id === currentId; });
         if (idx === -1) return [];
+
         var result = [];
         for (var i = 1; i <= count; i++) {
-            result.push(this.projectList[(idx + i) % this.projectList.length]);
+            result.push(filtered[(idx + i) % filtered.length]);
         }
         return result;
     },
