@@ -375,21 +375,22 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .tag { font-size: 0.65rem; padding: 3px 10px; border: 1px solid var(--border-color); border-radius: 20px; color: var(--secondary-text); text-transform: uppercase; }
 .project-card:hover .tag { border-color: var(--accent-color); color: var(--accent-color); }
 
-/* Home projects footer CTA */
+/* Home projects footer CTA — taller block; bottom extends behind monster (footer shell stacks above) */
 .projects-cta {
     position: relative;
-    padding: 60px 30px 60px;
-    min-height: 320px;
+    padding: 72px 30px 120px;
+    min-height: 480px;
     border-top: 1px solid var(--border-color);
     margin-top: 10px;
-    /* Clip falling-shape overflow so it does not extend #scroll-container scroll height past the footer */
-    overflow: hidden;
+    margin-bottom: -120px;
+    background: var(--bg-color);
+    overflow: visible;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    z-index: 0;
+    z-index: 1;
 }
 
 /* Falling shapes (gravity animation) */
@@ -1140,6 +1141,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .site-footer .resume-link {
         font-size: 0.7rem;
         padding: 3px 10px;
+    }
+
+    .projects-cta {
+        min-height: 380px;
+        padding: 56px 20px 72px;
+        margin-bottom: 0;
     }
 
     body { padding-bottom: 0; }
