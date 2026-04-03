@@ -152,6 +152,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .site-footer {
     flex-shrink: 0;
+    margin: 0;
     height: auto;
     padding: 15px 30px;
     border-top: 1px solid var(--border-color);
@@ -381,7 +382,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     min-height: 320px;
     border-top: 1px solid var(--border-color);
     margin-top: 10px;
-    overflow: visible;
+    /* Clip falling-shape overflow so it does not extend #scroll-container scroll height past the footer */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -393,7 +395,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* Falling shapes (gravity animation) */
 .projects-cta-falling-shapes {
     position: absolute;
-    inset: 0 0 -260px 0;
+    inset: 0;
     pointer-events: none;
     overflow: hidden;
     z-index: 0;
