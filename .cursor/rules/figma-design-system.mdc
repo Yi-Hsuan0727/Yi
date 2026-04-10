@@ -1,0 +1,138 @@
+---
+description: Rules for implementing Figma designs and keeping parity with this static portfolio. Maps design tokens to CSS variables, documents layout/components built in JS, and defines the Figma MCP workflow (plugin-figma-figma).
+globs: "**/*.html,assets/css/**/*.css,assets/js/**/*.js"
+alwaysApply: false
+---
+
+# Portfolio — Figma ↔ Code design system
+
+This site is a **static HTML / CSS / JavaScript** portfolio. There is **no React, Vue, or Tailwind build**. Layout chrome is injected by `PortfolioApp` in `assets/js/components.js` using string templates from `assets/js/layout-components.js`. Case study bodies live in `#page-specific-content` inside each `*.html` file.
+
+## Design tokens (source of truth: CSS variables)
+
+Tokens are defined in `assets/css/style.css` on `:root` and overridden under `[data-theme="dark"]`.
+
+| Figma variable (suggested name) | Light | Dark | CSS variable |
+|----------------------------------|-------|------|--------------|
+| `color/bg/default` | `#ffffff` | `#121212` | `--bg-color` |
+| `color/text/primary` | `#111111` | `#ffffff` | `--text-color` |
+| `color/text/secondary` | `#555555` | `#aaaaaa` | `--secondary-text` |
+| `color/border/default` | `#e0e0e0` | `#333333` | `--border-color` |
+| `color/accent/primary` | `#2ecc71` | *(unchanged)* | `--accent-color` |
+| `color/accent/hover` | `#27ae60` | *(use for filled button hover)* | *(see `.projects-cta-btn:hover`)* |
+
+**Semantic / decorative (not all are variables — mirror in Figma as needed):**
+
+- Image placeholder surface: `#eee` / `#e0e0e0`; placeholder text: `#777` / `#888`
+- Overlay gradient on project tiles: `linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.96) 100%)`
+- Accent wash (cards, callouts): `rgba(46, 204, 113, 0.06)` … `0.12` (grep `rgba(46, 204, 113` in `style.css`)
+- Case-study alt section (light theme): `#f8f9fa` (see `.case-section-alt`)
+- Playful shapes (home CTA / cards): green `#2ecc71`, blue `#4A55E0`, yellow `#E8E258`
+- Brand mark (logo SVG text): `#2ecc71` (`LayoutComponents.logoSVG` in `layout-components.js`)
+- Footer “green” variant: background `--accent-color`, text `#000000` with black-tinted borders (see `.site-footer-green`)
+
+**Layout tokens (CSS):**
+
+- `--header-height`: `60px` (mobile header `50px` in media queries)
+- `--footer-height`: `50px`
+- Content max width for case studies: `900px` (`.case-section-inner`, `.case-content`)
+
+**Border radius (Figma corner styles):**
+
+- `4px` — scrollbar thumb
+- `8px` — primary cards / images (`.image-container`, `.visit-btn`, `.next-project-img`)
+- `12px` — tables, pills in some case pages (`.case-table`; case pages may add `12px` in scoped CSS)
+- `20px` — filter buttons, some tags
+- `999` (full pill) — nav home button, back button, CTA pills, overlay tags
+
+**Spacing (common values to mirror as Figma spacing variables):** `4, 6, 8, 10, 12, 14, 15, 16, 18, 20, 24, 25, 28, 30, 40, 56, 60, 72` (px). Grid gaps: project grid `30px`; next projects `24px`.
+
+## Typography
+
+- **Font:** Montserrat (Google Fonts import in `style.css`).
+- **Weights in use:** 400, 500, 600, 700, 800, 900 (see `.case-section-title`, `.hero-text h1`, `.nav-link`, etc.).
+- **Representative text styles (create Figma styles with these names):**
+
+| Style name | Approx size | Weight | Notes |
+|------------|-------------|--------|--------|
+| `Display / Hero` | `3.5rem` (~56px) | 800 | Sidebar project title `.hero-text h1` |
+| `Heading / Section` | `1.75rem`–`1.8rem` | 800 | Case section title, CTA title |
+| `Heading / Next project` | `1.5rem` | 800 | `.next-projects-title` |
+| `Title / Card overlay` | `1.55rem` | 800 | `.project-overlay-title` |
+| `Label / Uppercase` | `0.65rem`–`0.8rem` | 700 | Nav, meta labels, tags, uppercase buttons |
+| `Body / Default` | `1rem` | 400–500 | Paragraphs; line-height ~1.65–1.8 |
+| `Body / Small` | `0.85rem`–`0.92rem` | 400 | Subtitles, secondary |
+
+## Component inventory (implement in HTML/CSS, not a component framework)
+
+| UI pattern | Primary selectors / builders | Notes |
+|------------|------------------------------|--------|
+| Site header + nav | `.site-header`, `.nav-link`, `.nav-link.home-btn` | Built in `LayoutComponents.buildSiteHeader` |
+| Mobile top bar | `.mobile-top-bar` | `buildMobileHeader` |
+| Theme toggle | `.theme-toggle` | Toggles `[data-theme="dark"]` on `<html>` |
+| Sidebar (project) | `.sidebar`, `.hero-text`, `.sidebar-meta` | Title, tags, timeline/team/role |
+| Tag (sidebar) | `.sidebar-tag` | Accent border, uppercase |
+| Primary CTA (sidebar) | `.visit-btn` | Filled: bg `--text-color`, fg `--bg-color`, `8px` radius |
+| Back link | `.back-btn` | Pill outline |
+| Works filter bar | `.works-header`, `.filter-btn` | Home only |
+| Project card | `.project-card`, `.image-container`, `.project-overlay`, `.project-overlay-tag` | 1:1 image, hover gradient + overlay |
+| Home CTA block | `.projects-cta`, `.projects-cta-btn`, `.projects-cta-btn-secondary` | Pill; secondary = outline accent |
+| Case study section | `.case-section`, `.case-section-alt`, `.case-section-inner`, `.case-section-header`, `.case-section-label`, `.case-section-title` | Alternating bg via `.case-section-alt` |
+| Case table | `.case-table` | Bordered, rounded `12px` |
+| Callout pill | `.callout-badge` | Accent-tinted background |
+| Next projects | `.next-projects-section`, `.next-project-card`, `.next-project-img` | Same hover language as project grid |
+| Footer | `.site-footer`, `.site-footer-green` | Default vs accent strip |
+
+**Case-study-only or page-specific styles:** Some pages link extra CSS (`assets/css/spring.css`, etc.) or use a scoped `<style>` block (e.g. `quickbite.html`). When extending the system in Figma, add a **“Case study / module”** page for optional blocks (tabs, icon grids, galleries) that are not global.
+
+## Asset handling
+
+- **Images:** `assets/img/` (project heroes, thumbnails under `assets/img/main images/`, per-project folders).
+- **Favicon:** `assets/img/favicon.svg`.
+- **No bundler:** reference paths relative to site root in HTML/CSS.
+- When Figma MCP provides **localhost asset URLs**, use them directly per MCP guidance; then save exports under the appropriate `assets/img/<Project>/` folder and update HTML `src`.
+
+## Icon system
+
+- **Font Awesome 6.4** is injected in `PortfolioApp.injectHead()` in `components.js` (CDN). Markup uses `<i class="fas fa-*">` (and variants).
+- IMPORTANT: Prefer **FA classes already used on the site** for consistency. Do not add new icon packs unless the design explicitly requires it.
+
+## Styling approach
+
+- **Global:** `assets/css/style.css` (+ `assets/css/cursor.css` for cursor).
+- **Methodology:** plain CSS, semantic layout classes, CSS variables for theming.
+- **Responsive:** media queries in `style.css` (e.g. `.case-section` padding, grids collapsing to one column, mobile header visibility).
+- IMPORTANT: **Never hardcode theme colors in new CSS** — use `var(--bg-color)`, `var(--text-color)`, `var(--accent-color)`, `var(--border-color)`, `var(--secondary-text)` so dark mode stays correct.
+
+## Figma MCP integration (Cursor + plugin-figma-figma)
+
+Use these steps for every Figma-driven change (adapt names to your MCP tool list):
+
+1. Fetch structured context for the **exact node(s)** to implement (e.g. `get_design_context`).
+2. If the payload is too large, fetch metadata for the file/frame, then request only the needed nodes.
+3. Take a **screenshot** of the target node for visual reference (e.g. `get_screenshot`).
+4. Download assets from the MCP asset endpoint when needed; place under `assets/img/` and wire in HTML.
+5. **Translate** MCP output: default generations are often React + Tailwind. For this repo, output **semantic HTML** and **CSS** using the tokens above; reuse existing class names where they match.
+6. Validate layout and spacing against the screenshot at desktop and mobile widths.
+
+## Implementation rules
+
+- IMPORTANT: Treat MCP-generated React/Tailwind as **design reference**, not final code style.
+- Prefer **extending `style.css`** for shared patterns; use **page-specific CSS files** or scoped `<style>` only when the pattern is unique to one case study.
+- Reuse **layout builders** in `layout-components.js` when changing chrome (header, sidebar, footer, next projects); content stays in each HTML file’s `#page-specific-content`.
+- Project metadata (title, tags, links) for project pages: `PortfolioApp.projectList` and `pageData` in `components.js` must stay in sync with visible content when applicable.
+- Respect **accessibility:** preserve meaningful image `alt` text, heading order, and focus styles; interactive elements need keyboard support if you add new controls.
+
+---
+
+## Building a matching Figma library (manual — no `.fig` export from the agent)
+
+Use this checklist to **create** the design system inside Figma (variables + components). The code above is the source of truth; update Figma when CSS changes.
+
+1. **Variables (collections):** Create `Theme / Light` and `Theme / Dark` modes with the color table above; add `accent/hover` and semantic fills (placeholder grays, accent tints).
+2. **Typography styles:** Montserrat; create the text styles listed under Typography.
+3. **Effect styles:** Card hover — optional shadow or rely on border `2px` accent on `.image-container` / `.next-project-img`.
+4. **Components:** Frame components for `Nav link`, `Nav home pill`, `Filter chip`, `Sidebar tag`, `Visit CTA`, `Back pill`, `Project tile (default/hover)`, `Case section header`, `Case table cell row`, `CTA pill primary/secondary`, `Footer default/green`.
+5. **Layouts:** Desktop: sidebar ~30% / main ~70% (see `.sidebar` / `.right-panel`). Mobile: follow breakpoints in `style.css` (~1200px, ~900px, ~600px).
+
+This gives you a **Figma design system that mirrors the live site**; the Cursor rules above keep future implementations aligned.
