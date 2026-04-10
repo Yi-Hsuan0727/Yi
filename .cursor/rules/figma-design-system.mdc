@@ -129,6 +129,8 @@ Use these steps for every Figma-driven change (adapt names to your MCP tool list
 
 Use this checklist to **create** the design system inside Figma (variables + components). The code above is the source of truth; update Figma when CSS changes.
 
+**`FIGMA_TOKENS.json`** is formatted for **Tokens Studio** (`global` → `colors`, `sizing`, `spacing`, `borderRadius`, `fontSizes`; each leaf is `{ "value": "…", "type": "…" }`). Import through the plugin’s JSON / sync. Other importers may expect W3C DTCG (`$type` / `$value`) or a different schema.
+
 1. **Variables (collections):** Create `Theme / Light` and `Theme / Dark` modes with the color table above; add `accent/hover` and semantic fills (placeholder grays, accent tints).
 2. **Typography styles:** Montserrat; create the text styles listed under Typography.
 3. **Effect styles:** Card hover — optional shadow or rely on border `2px` accent on `.image-container` / `.next-project-img`.

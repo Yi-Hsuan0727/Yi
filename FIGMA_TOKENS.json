@@ -1,0 +1,80 @@
+{
+  "global": {
+    "colors": {
+      "bg": {
+        "light": { "value": "#ffffff", "type": "color" },
+        "dark": { "value": "#121212", "type": "color" }
+      },
+      "text": {
+        "primaryLight": { "value": "#111111", "type": "color" },
+        "primaryDark": { "value": "#ffffff", "type": "color" },
+        "secondaryLight": { "value": "#555555", "type": "color" },
+        "secondaryDark": { "value": "#aaaaaa", "type": "color" }
+      },
+      "border": {
+        "light": { "value": "#e0e0e0", "type": "color" },
+        "dark": { "value": "#333333", "type": "color" }
+      },
+      "accent": {
+        "primary": { "value": "#2ecc71", "type": "color" },
+        "hover": { "value": "#27ae60", "type": "color" }
+      },
+      "surface": {
+        "sectionAltLight": { "value": "#f8f9fa", "type": "color" },
+        "imagePlaceholder": { "value": "#eeeeee", "type": "color" }
+      },
+      "decorative": {
+        "shapeBlue": { "value": "#4A55E0", "type": "color" },
+        "shapeYellow": { "value": "#E8E258", "type": "color" },
+        "footerOnAccent": { "value": "#000000", "type": "color" },
+        "accentWash": { "value": "#2ecc71", "type": "color" }
+      }
+    },
+    "sizing": {
+      "layout": {
+        "headerHeight": { "value": "60px", "type": "sizing" },
+        "headerHeightMobile": { "value": "50px", "type": "sizing" },
+        "footerHeight": { "value": "50px", "type": "sizing" },
+        "contentMaxWidth": { "value": "900px", "type": "sizing" },
+        "projectGridGap": { "value": "30px", "type": "sizing" },
+        "nextProjectsGap": { "value": "24px", "type": "sizing" }
+      }
+    },
+    "borderRadius": {
+      "xs": { "value": "4px", "type": "borderRadius" },
+      "sm": { "value": "8px", "type": "borderRadius" },
+      "md": { "value": "12px", "type": "borderRadius" },
+      "lg": { "value": "20px", "type": "borderRadius" },
+      "pill": { "value": "9999px", "type": "borderRadius" }
+    },
+    "spacing": {
+      "space1": { "value": "4px", "type": "spacing" },
+      "space2": { "value": "6px", "type": "spacing" },
+      "space3": { "value": "8px", "type": "spacing" },
+      "space4": { "value": "10px", "type": "spacing" },
+      "space5": { "value": "12px", "type": "spacing" },
+      "space6": { "value": "14px", "type": "spacing" },
+      "space7": { "value": "15px", "type": "spacing" },
+      "space8": { "value": "16px", "type": "spacing" },
+      "space9": { "value": "18px", "type": "spacing" },
+      "space10": { "value": "20px", "type": "spacing" },
+      "space11": { "value": "24px", "type": "spacing" },
+      "space12": { "value": "25px", "type": "spacing" },
+      "space13": { "value": "28px", "type": "spacing" },
+      "space14": { "value": "30px", "type": "spacing" },
+      "space15": { "value": "40px", "type": "spacing" },
+      "space16": { "value": "56px", "type": "spacing" },
+      "space17": { "value": "60px", "type": "spacing" },
+      "space18": { "value": "72px", "type": "spacing" }
+    },
+    "fontSizes": {
+      "displayHero": { "value": "56px", "type": "fontSizes" },
+      "headingSection": { "value": "28px", "type": "fontSizes" },
+      "headingNextProject": { "value": "24px", "type": "fontSizes" },
+      "titleCardOverlay": { "value": "25px", "type": "fontSizes" },
+      "labelUppercase": { "value": "13px", "type": "fontSizes" },
+      "bodyDefault": { "value": "16px", "type": "fontSizes" },
+      "bodySmall": { "value": "14px", "type": "fontSizes" }
+    }
+  }
+}
