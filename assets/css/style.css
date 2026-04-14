@@ -258,6 +258,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .image-container img,
 .next-project-img img {
+    position: relative;
+    z-index: 0;
     transition: transform 0.35s ease;
     transform: scale(1);
 }
@@ -728,7 +730,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .case-section-cols-4 { grid-template-columns: 1fr !important; }
 }
 
-@media (max-width: 900px) {
+/* Touch / stacked layout: same breakpoint as mobile shell (1200px), not 900px — was missing gradient on next projects between 901–1200px */
+@media (max-width: 1200px) {
     .image-container::before,
     .next-project-img::before,
     .project-overlay {

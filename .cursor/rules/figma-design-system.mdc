@@ -1,12 +1,38 @@
 ---
 description: Rules for implementing Figma designs and keeping parity with this static portfolio. Maps design tokens to CSS variables, documents layout/components built in JS, and defines the Figma MCP workflow (plugin-figma-figma).
-globs: "**/*.html,assets/css/**/*.css,assets/js/**/*.js"
+globs: "**/*.html,assets/css/**/*.css,assets/js/**/*.js,figma-plugin/**"
 alwaysApply: false
 ---
 
 # Portfolio — Figma ↔ Code design system
 
 This site is a **static HTML / CSS / JavaScript** portfolio. There is **no React, Vue, or Tailwind build**. Layout chrome is injected by `PortfolioApp` in `assets/js/components.js` using string templates from `assets/js/layout-components.js`. Case study bodies live in `#page-specific-content` inside each `*.html` file.
+
+## Primary Figma file (reference)
+
+- **URL:** [Untitled — Figma](https://www.figma.com/design/smIJhEp4Ypws1Gm6gfytGj/Untitled?node-id=0-1)
+- **`file_key`:** `smIJhEp4Ypws1Gm6gfytGj`
+- **`node-id` (URL):** `0-1` → for MCP tools use **`nodeId`:** `0:1` (hyphens → colons)
+
+Use this file for design-system work, Tokens Studio, and component libraries. Update this section if the canonical file moves (e.g. rename to “Portfolio Design System”).
+
+## Design system structure (agent checklist)
+
+Answers the Figma MCP `create_design_system_rules` template for this repo.
+
+1. **Token definitions:** `:root` and `[data-theme="dark"]` in `assets/css/style.css`. Machine-readable mirror: repo-root **`FIGMA_TOKENS.json`** (Tokens Studio shape). No Style Dictionary / CI transform pipeline—tokens are edited in CSS and kept in sync with Figma manually or via Tokens Studio.
+
+2. **Component library:** No React/Vue component tree. **Layout chrome** = string builders in `assets/js/layout-components.js` (`LayoutComponents.*`). **Page chrome** = `PortfolioApp` + `pageData` in `assets/js/components.js`. **Visible UI** = HTML in `*.html` (`#page-specific-content`) + shared classes in `style.css`. **Local plugin:** `figma-plugin/code.js` can generate a reference frame (uses **Inter** in code; live site uses **Montserrat**—align fonts when comparing).
+
+3. **Frameworks & libraries:** Vanilla JS, no bundler. **Font Awesome 6.4** via CDN from `injectHead()` in `components.js`. Optional **Lenis** smooth scroll. **Cursor:** `assets/js/cursor.js`, `assets/css/cursor.css`.
+
+4. **Asset management:** Static files under `assets/img/` (including `assets/img/main images/` for grid thumbnails). Paths are **relative to site root**. No CDN for images except Google Fonts and Font Awesome.
+
+5. **Icon system:** Font Awesome classes in HTML (`fas`, `far`, etc.). No local SVG sprite for UI chrome; project/case imagery is raster/SVG under `assets/img/`.
+
+6. **Styling approach:** Global CSS + variables; page-specific `assets/css/<page>.css` or scoped `<style>` in HTML for one-off case studies. Responsive behavior via **`@media` in `style.css`** (not container queries by default).
+
+7. **Project structure:** Multi-page static site: `index.html`, `about.html`, `playground.html`, per-project `*.html`. Shared behavior: `assets/js/index.js`, `layout-components.js`, `components.js`. **Code Connect:** this stack does not map 1:1 to published React components; prefer documenting class names / builders or Markdown links unless the team adds a component framework.
 
 ## Design tokens (source of truth: CSS variables)
 
@@ -106,17 +132,19 @@ Tokens are defined in `assets/css/style.css` on `:root` and overridden under `[d
 
 ## Figma MCP integration (Cursor + plugin-figma-figma)
 
-Use these steps for every Figma-driven change (adapt names to your MCP tool list):
+### Required flow (do not skip)
 
-1. Fetch structured context for the **exact node(s)** to implement (e.g. `get_design_context`).
-2. If the payload is too large, fetch metadata for the file/frame, then request only the needed nodes.
-3. Take a **screenshot** of the target node for visual reference (e.g. `get_screenshot`).
-4. Download assets from the MCP asset endpoint when needed; place under `assets/img/` and wire in HTML.
-5. **Translate** MCP output: default generations are often React + Tailwind. For this repo, output **semantic HTML** and **CSS** using the tokens above; reuse existing class names where they match.
-6. Validate layout and spacing against the screenshot at desktop and mobile widths.
+1. Run **`get_design_context`** (or equivalent) for the **exact** `file_key` + `nodeId` (e.g. `smIJhEp4Ypws1Gm6gfytGj`, `0:1` or deeper node).
+2. If the response is truncated or too large, run **`get_metadata`** to map the file, then re-fetch only the needed nodes with `get_design_context`.
+3. Run **`get_screenshot`** on the same node for a visual ground truth.
+4. After context + screenshot exist, **download assets** from the MCP assets endpoint; save under `assets/img/<project-or-page>/` and reference in HTML.
+5. **Translate** tool output: MCP often returns **React + Tailwind** as an intermediate representation. Rewrite to **semantic HTML**, existing **BEM-like / portfolio class names**, and **`var(--*)` tokens**—do not ship Tailwind in this repo.
+6. **Validate** against the screenshot (desktop + mobile breakpoints from `style.css`).
 
 ## Implementation rules
 
+- Reuse selectors from the **component inventory** table before inventing new class names; do not add new icon packs beyond existing Font Awesome usage.
+- Treat localhost asset URLs from MCP as **authoritative** when provided; avoid placeholder images if a real asset URL exists.
 - IMPORTANT: Treat MCP-generated React/Tailwind as **design reference**, not final code style.
 - Prefer **extending `style.css`** for shared patterns; use **page-specific CSS files** or scoped `<style>` only when the pattern is unique to one case study.
 - Reuse **layout builders** in `layout-components.js` when changing chrome (header, sidebar, footer, next projects); content stays in each HTML file’s `#page-specific-content`.
@@ -129,7 +157,7 @@ Use these steps for every Figma-driven change (adapt names to your MCP tool list
 
 Use this checklist to **create** the design system inside Figma (variables + components). The code above is the source of truth; update Figma when CSS changes.
 
-**`FIGMA_TOKENS.json`** is formatted for **Tokens Studio** (`global` → `colors`, `sizing`, `spacing`, `borderRadius`, `fontSizes`; each leaf is `{ "value": "…", "type": "…" }`). Import through the plugin’s JSON / sync. Other importers may expect W3C DTCG (`$type` / `$value`) or a different schema.
+**`FIGMA_TOKENS.json`** is formatted for **Tokens Studio** (one token set: top-level groups `colors`, `sizing`, `borderRadius`, `spacing`, `fontSizes`; each leaf is `{ "value": "…", "type": "…" }`). **Do not wrap this object in a `"global"` key**—that wrapper is for multi-file repos only (`global.json` *is* the set; its root is these groups). In the plugin: create or select a token set (e.g. `global`) → open **JSON view** → paste the full file → save. For Git sync, store the same object as `tokens/global.json` beside `$metadata.json`. Other tools may expect W3C DTCG (`$type` / `$value`) instead.
 
 1. **Variables (collections):** Create `Theme / Light` and `Theme / Dark` modes with the color table above; add `accent/hover` and semantic fills (placeholder grays, accent tints).
 2. **Typography styles:** Montserrat; create the text styles listed under Typography.
