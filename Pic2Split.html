@@ -12,12 +12,10 @@
 <body>
     <div id="page-specific-content" style="display: none;">
         <style>
+            /* === SECTION LAYOUT === */
             .case-section {
                 padding-top: 72px;
                 padding-bottom: 72px;
-            }
-            .case-section:first-of-type {
-                padding-top: 44px;
             }
             .case-section-inner {
                 max-width: 920px;
@@ -29,15 +27,100 @@
             .case-section li {
                 line-height: 1.9;
             }
+
+            /* === HERO === */
+            .p2s-hero {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+                background: #111;
+                aspect-ratio: 16 / 6;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .p2s-hero img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+            .p2s-hero-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.08) 55%, transparent 100%);
+            }
+            .p2s-hero-content {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 28px 32px;
+                color: #fff;
+            }
+            .p2s-hero-kicker {
+                font-size: 0.68rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                opacity: 0.75;
+                margin-bottom: 8px;
+            }
+            .p2s-hero-title {
+                font-size: 2.2rem;
+                font-weight: 900;
+                line-height: 1.05;
+                margin-bottom: 12px;
+            }
+            .p2s-hero-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            .p2s-hero-tag {
+                font-size: 0.62rem;
+                padding: 4px 10px;
+                border-radius: 999px;
+                border: 1px solid rgba(255,255,255,0.4);
+                background: rgba(255,255,255,0.12);
+                color: #fff;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                backdrop-filter: blur(4px);
+            }
+
+            /* === STATS ROW === */
+            .p2s-stats-row {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                border-bottom: 1px solid var(--border-color);
+            }
+            .p2s-stat-cell {
+                padding: 20px 24px;
+                border-right: 1px solid var(--border-color);
+            }
+            .p2s-stat-cell:last-child { border-right: none; }
+            .p2s-stat-cell-label {
+                font-size: 0.65rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: var(--secondary-text);
+                margin-bottom: 6px;
+            }
+            .p2s-stat-cell-value {
+                font-size: 0.85rem;
+                font-weight: 700;
+                line-height: 1.5;
+                color: var(--text-color);
+            }
+
+            /* === GRIDS === */
             .p2s-grid-2 {
                 display: grid;
                 grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
                 gap: 24px;
                 align-items: start;
             }
-            .p2s-grid-2 > * {
-                min-width: 0;
-            }
+            .p2s-grid-2 > * { min-width: 0; }
             .p2s-grid-3 {
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -53,10 +136,9 @@
                 grid-template-columns: repeat(4, minmax(0, 1fr));
                 gap: 16px;
             }
-            .p2s-stack {
-                display: grid;
-                gap: 18px;
-            }
+            .p2s-stack { display: grid; gap: 18px; }
+
+            /* === CARDS === */
             .p2s-card,
             .p2s-phone-frame,
             .p2s-quote-card,
@@ -84,18 +166,23 @@
                 font-weight: 800;
                 margin-bottom: 8px;
             }
-            .p2s-muted {
-                color: var(--secondary-text);
-            }
+            .p2s-card-title i,
+            .p2s-mini-title i { color: var(--accent-color); font-size: 0.9em; }
+
+            .p2s-muted { color: var(--secondary-text); }
+
+            /* Eyebrow — green accent to match home page highlight color */
             .p2s-eyebrow {
                 font-size: 0.7rem;
                 text-transform: uppercase;
-                letter-spacing: 0.06em;
+                letter-spacing: 0.08em;
                 font-weight: 700;
-                color: var(--secondary-text);
+                color: var(--accent-color);
                 margin-bottom: 8px;
                 display: inline-block;
             }
+
+            /* Research stat cards */
             .p2s-stat-grid {
                 display: grid;
                 grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -115,19 +202,24 @@
                 min-width: 0;
                 overflow-wrap: anywhere;
             }
+
+            /* Goal cards — green top accent to match portfolio accent */
             .p2s-goal-card {
                 border: 1px solid var(--border-color);
+                border-top: 3px solid var(--accent-color);
                 border-radius: 8px;
-                padding: 18px;
-                background: linear-gradient(180deg, rgba(74, 85, 224, 0.07), rgba(74, 85, 224, 0.02));
-                box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+                padding: 24px;
+                background: var(--bg-color);
                 min-width: 0;
                 overflow-wrap: anywhere;
+                transition: box-shadow 0.2s ease, transform 0.2s ease;
             }
-            .p2s-goal-card h3 {
-                margin-top: 0;
-                margin-bottom: 8px;
+            .p2s-goal-card:hover {
+                box-shadow: 0 6px 24px rgba(46, 204, 113, 0.1);
+                transform: translateY(-2px);
             }
+            .p2s-goal-card h3 { margin-top: 0; margin-bottom: 8px; }
+
             .p2s-stat-label {
                 font-size: 0.68rem;
                 font-weight: 700;
@@ -136,23 +228,11 @@
                 color: var(--secondary-text);
                 margin-bottom: 6px;
             }
-            .p2s-stat-value {
-                font-size: 1.12rem;
-                font-weight: 900;
-                margin-bottom: 4px;
-            }
-            .p2s-stat-note {
-                font-size: 0.88rem;
-                line-height: 1.55;
-                color: var(--secondary-text);
-                margin: 0;
-            }
-            .p2s-figure {
-                margin: 0;
-                overflow: visible;
-                border: 0;
-                background: transparent;
-            }
+            .p2s-stat-value { font-size: 1.12rem; font-weight: 900; margin-bottom: 4px; }
+            .p2s-stat-note { font-size: 0.88rem; line-height: 1.55; color: var(--secondary-text); margin: 0; }
+
+            /* Figures */
+            .p2s-figure { margin: 0; overflow: visible; border: 0; background: transparent; }
             .p2s-figure img,
             .p2s-figure video {
                 width: 100%;
@@ -174,12 +254,13 @@
                 object-fit: cover;
                 object-position: center center;
             }
+
+            /* Caption */
             .p2s-caption {
                 display: flex;
                 align-items: flex-start;
                 gap: 10px;
                 padding: 12px 2px 0;
-                border-top: 0;
                 font-size: 0.82rem;
                 color: var(--secondary-text);
                 background: transparent;
@@ -194,21 +275,18 @@
                 flex: 0 0 8px;
                 margin-top: 0.42rem;
             }
-            .p2s-scroll-card {
-                padding: 0;
-                overflow: hidden;
-            }
-            .p2s-scroll-x {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            .p2s-scroll-x-inner {
-                min-width: 860px;
-            }
+
+            /* Scroll card */
+            .p2s-scroll-card { padding: 0; overflow: hidden; }
+            .p2s-scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .p2s-scroll-x-inner { min-width: 860px; }
+
             .p2s-problem-section .p2s-grid-2 {
                 grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
                 align-items: start;
             }
+
+            /* Issue cards — neutral with green accent top bar */
             .p2s-issue-grid {
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -216,8 +294,9 @@
             }
             .p2s-issue-card {
                 border: 1px solid var(--border-color);
+                border-top: 3px solid var(--accent-color);
                 border-radius: 8px;
-                background: rgba(74, 85, 224, 0.08);
+                background: var(--bg-color);
                 padding: 18px;
                 min-width: 0;
                 overflow-wrap: anywhere;
@@ -229,14 +308,14 @@
                 font-weight: 800;
                 margin-bottom: 10px;
             }
-            .p2s-issue-head i {
-                color: #4A55E0;
-            }
+            .p2s-issue-head i { color: var(--accent-color); }
             .p2s-issue-block + .p2s-issue-block {
                 margin-top: 10px;
                 padding-top: 10px;
-                border-top: 1px solid rgba(74, 85, 224, 0.2);
+                border-top: 1px solid var(--border-color);
             }
+
+            /* Phone frame */
             .p2s-phone-frame {
                 width: min(320px, 100%);
                 margin-inline: auto;
@@ -244,18 +323,11 @@
                 box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
             }
             .p2s-phone-frame img,
-            .p2s-phone-frame video {
-                width: 100%;
-                border-radius: 8px;
-                display: block;
-            }
-            .p2s-quote-card {
-                background: rgba(46, 204, 113, 0.05);
-                border-left: 3px solid var(--accent-color);
-            }
-            .p2s-quote-card p {
-                margin: 0;
-            }
+            .p2s-phone-frame video { width: 100%; border-radius: 8px; display: block; }
+
+            /* Quote card */
+            .p2s-quote-card { background: rgba(46, 204, 113, 0.05); border-left: 3px solid var(--accent-color); }
+            .p2s-quote-card p { margin: 0; }
             .p2s-quote-source {
                 margin-top: 8px;
                 font-size: 0.78rem;
@@ -264,9 +336,9 @@
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
             }
-            .p2s-process-step {
-                min-height: 100%;
-            }
+
+            /* Process steps */
+            .p2s-process-step { min-height: 100%; }
             .p2s-process-number {
                 width: 34px;
                 height: 34px;
@@ -274,38 +346,36 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                border: 1px solid var(--border-color);
+                border: 1px solid var(--accent-color);
                 color: var(--accent-color);
                 font-weight: 900;
-                background: rgba(46, 204, 113, 0.06);
+                background: rgba(46, 204, 113, 0.08);
                 margin-bottom: 12px;
             }
-            .p2s-divider {
-                height: 1px;
-                background: var(--border-color);
-                margin: 36px 0;
-            }
-            .p2s-list-tight {
-                margin-bottom: 0;
-            }
+
+            .p2s-divider { height: 1px; background: var(--border-color); margin: 36px 0; }
+            .p2s-list-tight { margin-bottom: 0; }
+
+            /* Flow chips — styled like home page overlay tags */
             .p2s-flow {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 10px;
+                gap: 8px;
                 align-items: center;
+                margin-top: 14px;
             }
             .p2s-flow-chip {
-                border: 1px solid var(--border-color);
+                border: 1px solid var(--accent-color);
                 border-radius: 999px;
-                padding: 8px 12px;
-                font-size: 0.82rem;
+                padding: 5px 14px;
+                font-size: 0.78rem;
                 font-weight: 700;
-                background: var(--bg-color);
+                background: rgba(46, 204, 113, 0.06);
+                color: var(--text-color);
             }
-            .p2s-flow-arrow {
-                color: var(--secondary-text);
-                font-weight: 700;
-            }
+            .p2s-flow-arrow { color: var(--secondary-text); font-weight: 700; }
+
+            /* Wireframe note */
             .p2s-wireframe-note {
                 border: 1px dashed var(--border-color);
                 border-radius: 8px;
@@ -315,9 +385,9 @@
                 min-width: 0;
                 overflow-wrap: anywhere;
             }
-            .p2s-screen-carousel {
-                display: none;
-            }
+
+            /* Screen grid */
+            .p2s-screen-carousel { display: none; }
             .p2s-screen-grid {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -343,17 +413,16 @@
                 background: var(--bg-color);
                 box-shadow: 0 4px 18px rgba(0,0,0,0.06);
             }
-            .p2s-screen-card .p2s-caption {
-                border-top: 0;
-            }
-            .p2s-solution-copy h3 {
-                margin-top: 0;
-            }
+            .p2s-screen-card .p2s-caption { border-top: 0; }
+            .p2s-solution-copy h3 { margin-top: 0; }
+
             .p2s-highlight-row {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 16px;
             }
+
+            /* Share items */
             .p2s-share-list {
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -368,15 +437,10 @@
                 min-width: 0;
                 overflow-wrap: anywhere;
             }
-            .p2s-tagline {
-                font-size: 0.95rem;
-                color: var(--secondary-text);
-            }
-            .p2s-section-intro {
-                max-width: 720px;
-                color: var(--secondary-text);
-                margin-bottom: 28px;
-            }
+
+            .p2s-tagline { font-size: 0.95rem; color: var(--secondary-text); }
+            .p2s-section-intro { max-width: 720px; color: var(--secondary-text); margin-bottom: 28px; }
+
             @media (max-width: 1200px) {
                 .p2s-grid-2,
                 .p2s-grid-3,
@@ -386,14 +450,51 @@
                 .p2s-issue-grid,
                 .p2s-highlight-row,
                 .p2s-screen-grid,
-                .p2s-share-list {
+                .p2s-share-list,
+                .p2s-stats-row {
                     grid-template-columns: 1fr;
                 }
-                .p2s-scroll-x-inner {
-                    min-width: 740px;
-                }
+                .p2s-stat-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
+                .p2s-stat-cell:last-child { border-bottom: none; }
+                .p2s-scroll-x-inner { min-width: 740px; }
             }
         </style>
+
+        <!-- PROJECT HERO -->
+        <div class="p2s-hero">
+            <img src="assets/img/Pic2Split/cover.png" alt="Pic2Split project cover">
+            <div class="p2s-hero-overlay"></div>
+            <div class="p2s-hero-content">
+                <div class="p2s-hero-kicker">Case Study</div>
+                <div class="p2s-hero-title">Pic2Split</div>
+                <div class="p2s-hero-tags">
+                    <span class="p2s-hero-tag">Product Design</span>
+                    <span class="p2s-hero-tag">UX Research</span>
+                    <span class="p2s-hero-tag">UI Design</span>
+                    <span class="p2s-hero-tag">Web App</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROJECT STATS ROW -->
+        <div class="p2s-stats-row">
+            <div class="p2s-stat-cell">
+                <div class="p2s-stat-cell-label">Timeline</div>
+                <div class="p2s-stat-cell-value">Nov 2025 – Present</div>
+            </div>
+            <div class="p2s-stat-cell">
+                <div class="p2s-stat-cell-label">Team</div>
+                <div class="p2s-stat-cell-value">2 Engineers · 1 Designer · 1 PM</div>
+            </div>
+            <div class="p2s-stat-cell">
+                <div class="p2s-stat-cell-label">My Role</div>
+                <div class="p2s-stat-cell-value">UX Research · Product Design · UI Design</div>
+            </div>
+            <div class="p2s-stat-cell">
+                <div class="p2s-stat-cell-label">Tools</div>
+                <div class="p2s-stat-cell-value">Figma</div>
+            </div>
+        </div>
 
         <section class="case-section">
             <div class="case-section-inner p2s-problem-section">
