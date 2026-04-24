@@ -12,16 +12,13 @@
 <body>
     <div id="page-specific-content" style="display: none;">
         <style>
-            /* === SECTION LAYOUT === */
+            /* === BASE SECTION === */
             .case-section {
                 padding-top: 72px;
                 padding-bottom: 72px;
             }
             .case-section-inner {
                 max-width: 920px;
-            }
-            .case-section-header {
-                margin-bottom: 34px;
             }
             .case-section p,
             .case-section li {
@@ -87,33 +84,241 @@
                 backdrop-filter: blur(4px);
             }
 
-            /* === STATS ROW === */
-            .p2s-stats-row {
+            /* === TWO-COLUMN SECTION HEADER (project_2 pattern) === */
+            .p2s-2col-header {
                 display: grid;
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                border-bottom: 1px solid var(--border-color);
+                grid-template-columns: 1fr 2fr;
+                gap: 56px;
+                margin-bottom: 40px;
             }
-            .p2s-stat-cell {
-                padding: 20px 24px;
+            .p2s-section-number {
+                font-size: 0.68rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                color: var(--secondary-text);
+                margin-bottom: 10px;
+            }
+            .p2s-section-title-main {
+                font-size: 1.35rem;
+                font-weight: 800;
+                line-height: 1.25;
+                letter-spacing: -0.2px;
+            }
+
+            /* === CALLOUT ROW (problem / goal) === */
+            .p2s-callout-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                overflow: hidden;
+                margin-top: 28px;
+            }
+            .p2s-callout-cell {
+                padding: 24px 28px;
                 border-right: 1px solid var(--border-color);
             }
-            .p2s-stat-cell:last-child { border-right: none; }
-            .p2s-stat-cell-label {
+            .p2s-callout-cell:last-child { border-right: none; }
+            .p2s-callout-cell.dark { background: var(--text-color); }
+            .p2s-callout-cell-label {
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--secondary-text);
+                margin-bottom: 10px;
+            }
+            .p2s-callout-cell.dark .p2s-callout-cell-label { color: rgba(200,200,200,0.55); }
+            .p2s-callout-cell-text {
+                font-size: 0.92rem;
+                font-weight: 600;
+                line-height: 1.65;
+                color: var(--text-color);
+                margin: 0;
+            }
+            .p2s-callout-cell.dark .p2s-callout-cell-text { color: var(--bg-color); }
+
+            /* === 4-STEP PROCESS GRID (project_2 pattern) === */
+            .p2s-step-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .p2s-step-cell {
+                padding: 28px 22px;
+                border-right: 1px solid var(--border-color);
+                transition: background 0.15s;
+            }
+            .p2s-step-cell:last-child { border-right: none; }
+            .p2s-step-cell:hover { background: rgba(46, 204, 113, 0.04); }
+            .p2s-step-num {
+                font-size: 2.6rem;
+                font-weight: 900;
+                color: var(--border-color);
+                line-height: 1;
+                margin-bottom: 12px;
+            }
+            .p2s-step-name {
+                font-size: 0.92rem;
+                font-weight: 800;
+                margin-bottom: 8px;
+                color: var(--text-color);
+            }
+            .p2s-step-desc {
+                font-size: 0.78rem;
+                color: var(--secondary-text);
+                line-height: 1.65;
+                margin: 0;
+            }
+
+            /* === FINDINGS LIST (project_2 pattern) === */
+            .p2s-findings-list {
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .p2s-finding-item {
+                display: grid;
+                grid-template-columns: 48px 1fr auto;
+                gap: 20px;
+                align-items: start;
+                padding: 22px 24px;
+                border-bottom: 1px solid var(--border-color);
+                transition: background 0.15s;
+            }
+            .p2s-finding-item:last-child { border-bottom: none; }
+            .p2s-finding-item:hover { background: rgba(46, 204, 113, 0.04); }
+            .p2s-finding-num {
+                font-size: 0.68rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                color: var(--secondary-text);
+                padding-top: 2px;
+            }
+            .p2s-finding-title {
+                font-size: 0.9rem;
+                font-weight: 800;
+                margin-bottom: 5px;
+                color: var(--text-color);
+            }
+            .p2s-finding-desc {
+                font-size: 0.78rem;
+                color: var(--secondary-text);
+                line-height: 1.65;
+                margin: 0;
+            }
+            .p2s-finding-badge {
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--secondary-text);
+                padding: 4px 10px;
+                border: 1px solid var(--border-color);
+                border-radius: 4px;
+                white-space: nowrap;
+                align-self: flex-start;
+                margin-top: 2px;
+            }
+            .p2s-finding-badge.critical {
+                color: var(--text-color);
+                border-color: var(--accent-color);
+                background: rgba(46, 204, 113, 0.1);
+            }
+            .p2s-finding-badge.high { border-color: #f59e0b; color: #f59e0b; }
+
+            /* === MOCKUP 3-COL GRID (project_2 pattern) === */
+            .p2s-mockup-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                overflow: hidden;
+                margin-bottom: 40px;
+            }
+            .p2s-mockup-cell {
+                border-right: 1px solid var(--border-color);
+                transition: background 0.15s;
+                display: flex;
+                flex-direction: column;
+            }
+            .p2s-mockup-cell:last-child { border-right: none; }
+            .p2s-mockup-cell:hover { background: rgba(46, 204, 113, 0.04); }
+            .p2s-mockup-cell-img {
+                padding: 20px 20px 0;
+                flex: 1;
+                display: flex;
+                align-items: flex-start;
+                justify-content: center;
+            }
+            .p2s-mockup-cell-img img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 6px;
+                border: 1px solid var(--border-color);
+                box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+            }
+            .p2s-mockup-cell-footer {
+                padding: 14px 20px 18px;
+            }
+            .p2s-mockup-sub {
                 font-size: 0.65rem;
                 font-weight: 700;
                 text-transform: uppercase;
-                letter-spacing: 0.07em;
+                letter-spacing: 0.1em;
                 color: var(--secondary-text);
-                margin-bottom: 6px;
+                margin-bottom: 3px;
             }
-            .p2s-stat-cell-value {
-                font-size: 0.85rem;
-                font-weight: 700;
-                line-height: 1.5;
+            .p2s-mockup-title {
+                font-size: 0.88rem;
+                font-weight: 800;
                 color: var(--text-color);
             }
 
-            /* === GRIDS === */
+            /* === OUTCOMES GRID (project_2 pattern) === */
+            .p2s-outcomes-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                overflow: hidden;
+                margin-bottom: 36px;
+            }
+            .p2s-outcome-cell {
+                padding: 40px 28px;
+                border-right: 1px solid var(--border-color);
+                text-align: center;
+                transition: background 0.15s;
+            }
+            .p2s-outcome-cell:last-child { border-right: none; }
+            .p2s-outcome-cell:hover { background: rgba(46, 204, 113, 0.04); }
+            .p2s-outcome-num {
+                font-size: 3.2rem;
+                font-weight: 900;
+                line-height: 1;
+                letter-spacing: -1px;
+                color: var(--text-color);
+            }
+            .p2s-outcome-unit {
+                font-size: 1.3rem;
+                font-weight: 300;
+                vertical-align: super;
+            }
+            .p2s-outcome-label {
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--secondary-text);
+                margin-top: 10px;
+                line-height: 1.5;
+            }
+
+            /* === EXISTING COMPONENT STYLES === */
             .p2s-grid-2 {
                 display: grid;
                 grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
@@ -138,7 +343,7 @@
             }
             .p2s-stack { display: grid; gap: 18px; }
 
-            /* === CARDS === */
+            /* Cards */
             .p2s-card,
             .p2s-phone-frame,
             .p2s-quote-card,
@@ -171,7 +376,6 @@
 
             .p2s-muted { color: var(--secondary-text); }
 
-            /* Eyebrow — green accent to match home page highlight color */
             .p2s-eyebrow {
                 font-size: 0.7rem;
                 text-transform: uppercase;
@@ -182,28 +386,11 @@
                 display: inline-block;
             }
 
-            /* Research stat cards */
-            .p2s-stat-grid {
-                display: grid;
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                gap: 16px;
-                margin-top: 18px;
-            }
             .p2s-goal-grid {
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 16px;
             }
-            .p2s-stat {
-                border: 1px solid var(--border-color);
-                border-radius: 8px;
-                padding: 16px;
-                background: linear-gradient(180deg, rgba(46, 204, 113, 0.06), transparent);
-                min-width: 0;
-                overflow-wrap: anywhere;
-            }
-
-            /* Goal cards — green top accent to match portfolio accent */
             .p2s-goal-card {
                 border: 1px solid var(--border-color);
                 border-top: 3px solid var(--accent-color);
@@ -219,17 +406,6 @@
                 transform: translateY(-2px);
             }
             .p2s-goal-card h3 { margin-top: 0; margin-bottom: 8px; }
-
-            .p2s-stat-label {
-                font-size: 0.68rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.05em;
-                color: var(--secondary-text);
-                margin-bottom: 6px;
-            }
-            .p2s-stat-value { font-size: 1.12rem; font-weight: 900; margin-bottom: 4px; }
-            .p2s-stat-note { font-size: 0.88rem; line-height: 1.55; color: var(--secondary-text); margin: 0; }
 
             /* Figures */
             .p2s-figure { margin: 0; overflow: visible; border: 0; background: transparent; }
@@ -255,7 +431,6 @@
                 object-position: center center;
             }
 
-            /* Caption */
             .p2s-caption {
                 display: flex;
                 align-items: flex-start;
@@ -276,22 +451,10 @@
                 margin-top: 0.42rem;
             }
 
-            /* Scroll card */
             .p2s-scroll-card { padding: 0; overflow: hidden; }
             .p2s-scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
             .p2s-scroll-x-inner { min-width: 860px; }
 
-            .p2s-problem-section .p2s-grid-2 {
-                grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
-                align-items: start;
-            }
-
-            /* Issue cards — neutral with green accent top bar */
-            .p2s-issue-grid {
-                display: grid;
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 16px;
-            }
             .p2s-issue-card {
                 border: 1px solid var(--border-color);
                 border-top: 3px solid var(--accent-color);
@@ -315,7 +478,6 @@
                 border-top: 1px solid var(--border-color);
             }
 
-            /* Phone frame */
             .p2s-phone-frame {
                 width: min(320px, 100%);
                 margin-inline: auto;
@@ -325,7 +487,6 @@
             .p2s-phone-frame img,
             .p2s-phone-frame video { width: 100%; border-radius: 8px; display: block; }
 
-            /* Quote card */
             .p2s-quote-card { background: rgba(46, 204, 113, 0.05); border-left: 3px solid var(--accent-color); }
             .p2s-quote-card p { margin: 0; }
             .p2s-quote-source {
@@ -337,7 +498,6 @@
                 letter-spacing: 0.05em;
             }
 
-            /* Process steps */
             .p2s-process-step { min-height: 100%; }
             .p2s-process-number {
                 width: 34px;
@@ -356,7 +516,6 @@
             .p2s-divider { height: 1px; background: var(--border-color); margin: 36px 0; }
             .p2s-list-tight { margin-bottom: 0; }
 
-            /* Flow chips — styled like home page overlay tags */
             .p2s-flow {
                 display: flex;
                 flex-wrap: wrap;
@@ -375,7 +534,6 @@
             }
             .p2s-flow-arrow { color: var(--secondary-text); font-weight: 700; }
 
-            /* Wireframe note */
             .p2s-wireframe-note {
                 border: 1px dashed var(--border-color);
                 border-radius: 8px;
@@ -386,8 +544,6 @@
                 overflow-wrap: anywhere;
             }
 
-            /* Screen grid */
-            .p2s-screen-carousel { display: none; }
             .p2s-screen-grid {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -422,7 +578,6 @@
                 gap: 16px;
             }
 
-            /* Share items */
             .p2s-share-list {
                 display: grid;
                 grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -442,20 +597,31 @@
             .p2s-section-intro { max-width: 720px; color: var(--secondary-text); margin-bottom: 28px; }
 
             @media (max-width: 1200px) {
+                .p2s-2col-header { grid-template-columns: 1fr; gap: 16px; }
+                .p2s-step-grid { grid-template-columns: repeat(2, 1fr); }
+                .p2s-step-cell:nth-child(2) { border-right: none; }
+                .p2s-step-cell:nth-child(3) { border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
+                .p2s-step-cell:nth-child(4) { border-top: 1px solid var(--border-color); }
+                .p2s-finding-item { grid-template-columns: auto 1fr; }
+                .p2s-finding-badge { grid-column: 2; }
+                .p2s-callout-row { grid-template-columns: 1fr; }
+                .p2s-callout-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
+                .p2s-callout-cell:last-child { border-bottom: none; }
+                .p2s-mockup-row { grid-template-columns: 1fr; }
+                .p2s-mockup-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
+                .p2s-mockup-cell:last-child { border-bottom: none; }
+                .p2s-outcomes-row { grid-template-columns: 1fr; }
+                .p2s-outcome-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
+                .p2s-outcome-cell:last-child { border-bottom: none; }
                 .p2s-grid-2,
                 .p2s-grid-3,
                 .p2s-grid-4,
-                .p2s-stat-grid,
                 .p2s-goal-grid,
-                .p2s-issue-grid,
                 .p2s-highlight-row,
                 .p2s-screen-grid,
-                .p2s-share-list,
-                .p2s-stats-row {
+                .p2s-share-list {
                     grid-template-columns: 1fr;
                 }
-                .p2s-stat-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
-                .p2s-stat-cell:last-child { border-bottom: none; }
                 .p2s-scroll-x-inner { min-width: 740px; }
             }
         </style>
@@ -476,50 +642,34 @@
             </div>
         </div>
 
-        <!-- PROJECT STATS ROW -->
-        <div class="p2s-stats-row">
-            <div class="p2s-stat-cell">
-                <div class="p2s-stat-cell-label">Timeline</div>
-                <div class="p2s-stat-cell-value">Nov 2025 – Present</div>
-            </div>
-            <div class="p2s-stat-cell">
-                <div class="p2s-stat-cell-label">Team</div>
-                <div class="p2s-stat-cell-value">2 Engineers · 1 Designer · 1 PM</div>
-            </div>
-            <div class="p2s-stat-cell">
-                <div class="p2s-stat-cell-label">My Role</div>
-                <div class="p2s-stat-cell-value">UX Research · Product Design · UI Design</div>
-            </div>
-            <div class="p2s-stat-cell">
-                <div class="p2s-stat-cell-label">Tools</div>
-                <div class="p2s-stat-cell-value">Figma</div>
-            </div>
-        </div>
-
+        <!-- 01 — PROBLEM STATEMENT -->
         <section class="case-section">
-            <div class="case-section-inner p2s-problem-section">
-                <div class="case-section-header">
-                    <span class="case-section-label">Problem Statement</span>
-                    <h2 class="case-section-title">Existing tools created friction exactly where users needed speed and trust</h2>
-                </div>
-                <p class="p2s-section-intro">
-                    Through user interviews, heuristic evaluations of competitors, and market research, we identified three critical gaps in existing bill-splitting solutions: tedious manual entry, error-prone tax and tip calculations, and high adoption friction for one-time group use.
-                </p>
-                <div class="p2s-grid-2">
+            <div class="case-section-inner">
+                <div class="p2s-2col-header">
                     <div>
-                        <div class="p2s-problem-grid">
-                            <div class="p2s-card">
-                                <div class="p2s-card-title"><i class="fas fa-keyboard" aria-hidden="true"></i> Manual entry is tedious</div>
-                                <p class="p2s-muted" style="margin-bottom:0;">Apps like Splitwise require users to type every item and price by hand, turning one dinner into 5-10 minutes of cleanup work.</p>
-                            </div>
-                            <div class="p2s-card">
-                                <div class="p2s-card-title"><i class="fas fa-calculator" aria-hidden="true"></i> Tax and tip are confusing</div>
-                                <p class="p2s-muted" style="margin-bottom:0;">Proportional tax and tip calculations across multiple people are error-prone and stressful to verify.</p>
-                            </div>
-                            <div class="p2s-card">
-                                <div class="p2s-card-title"><i class="fas fa-mobile-screen-button" aria-hidden="true"></i> Adoption is too high-friction</div>
-                                <p class="p2s-muted" style="margin-bottom:0;">Requiring a group to download an app and create accounts for one meal creates immediate drop-off.</p>
-                            </div>
+                        <div class="p2s-section-number">01 — Problem Statement</div>
+                        <h2 class="p2s-section-title-main">Existing tools created friction exactly where users needed speed and trust</h2>
+                    </div>
+                    <div>
+                        <p class="p2s-section-intro">
+                            Through user interviews, heuristic evaluations of competitors, and market research, we identified three critical gaps in existing bill-splitting solutions: tedious manual entry, error-prone tax and tip calculations, and high adoption friction for one-time group use.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p2s-grid-2">
+                    <div class="p2s-problem-grid">
+                        <div class="p2s-card">
+                            <div class="p2s-card-title"><i class="fas fa-keyboard" aria-hidden="true"></i> Manual entry is tedious</div>
+                            <p class="p2s-muted" style="margin-bottom:0;">Apps like Splitwise require users to type every item and price by hand, turning one dinner into 5–10 minutes of cleanup work.</p>
+                        </div>
+                        <div class="p2s-card">
+                            <div class="p2s-card-title"><i class="fas fa-calculator" aria-hidden="true"></i> Tax and tip are confusing</div>
+                            <p class="p2s-muted" style="margin-bottom:0;">Proportional tax and tip calculations across multiple people are error-prone and stressful to verify.</p>
+                        </div>
+                        <div class="p2s-card">
+                            <div class="p2s-card-title"><i class="fas fa-mobile-screen-button" aria-hidden="true"></i> Adoption is too high-friction</div>
+                            <p class="p2s-muted" style="margin-bottom:0;">Requiring a group to download an app and create accounts for one meal creates immediate drop-off.</p>
                         </div>
                     </div>
                     <figure class="p2s-figure">
@@ -533,14 +683,33 @@
                         <figcaption class="p2s-caption">Competitive issues table comparing Pic2Split with existing bill-splitting tools.</figcaption>
                     </figure>
                 </div>
+
+                <div class="p2s-callout-row">
+                    <div class="p2s-callout-cell">
+                        <div class="p2s-callout-cell-label">The Problem</div>
+                        <p class="p2s-callout-cell-text">"Manual bill splitting breaks social flow and creates financial awkwardness at the worst moment."</p>
+                    </div>
+                    <div class="p2s-callout-cell dark">
+                        <div class="p2s-callout-cell-label">The Goal</div>
+                        <p class="p2s-callout-cell-text">"Design a scan-to-split experience so fast and intuitive it disappears into the background."</p>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- 02 — PROJECT GOALS -->
         <section class="case-section case-section-alt">
             <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Project Goals</span>
-                    <h2 class="case-section-title">Three goals guided the MVP scope and the design decisions</h2>
+                <div class="p2s-2col-header">
+                    <div>
+                        <div class="p2s-section-number">02 — Project Goals</div>
+                        <h2 class="p2s-section-title-main">Three goals guided the MVP scope and every design decision</h2>
+                    </div>
+                    <div>
+                        <p class="p2s-section-intro">
+                            The research findings shaped a focused set of design goals that defined what success looked like — not just for the final product, but for each sprint and screen decision along the way.
+                        </p>
+                    </div>
                 </div>
                 <div class="p2s-goal-grid">
                     <div class="p2s-goal-card">
@@ -551,7 +720,7 @@
                     <div class="p2s-goal-card">
                         <span class="p2s-eyebrow">Goal 02</span>
                         <h3>Speed</h3>
-                        <p class="p2s-muted" style="margin-bottom:0;">Reduce a 5-10 minute manual splitting task to seconds by using OCR as the starting point instead of typing.</p>
+                        <p class="p2s-muted" style="margin-bottom:0;">Reduce a 5–10 minute manual splitting task to seconds by using OCR as the starting point instead of typing.</p>
                     </div>
                     <div class="p2s-goal-card">
                         <span class="p2s-eyebrow">Goal 03</span>
@@ -562,35 +731,41 @@
             </div>
         </section>
 
+        <!-- 03 — DESIGN PROCESS -->
         <section class="case-section">
             <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Design Process</span>
-                    <h2 class="case-section-title">From research to a polished, trust-building AI utility</h2>
+                <div class="p2s-2col-header">
+                    <div>
+                        <div class="p2s-section-number">03 — Design Process</div>
+                        <h2 class="p2s-section-title-main">From research to a polished, trust-building AI utility</h2>
+                    </div>
+                    <div>
+                        <p class="p2s-section-intro">
+                            The core challenge was turning a technical backend process — from upload to AI parsing to shared math — into a user journey that felt effortless and transparent. The work moved through four phases: research, user-flow mapping, wireframing edge cases, and usability-driven iteration.
+                        </p>
+                    </div>
                 </div>
-                <p class="p2s-section-intro">
-                    The core challenge was turning a technical backend process, from upload to AI parsing to shared math, into a user journey that felt effortless and transparent. The work moved through four phases: research, user-flow mapping, wireframing edge cases, and usability-driven iteration.
-                </p>
-                <div class="p2s-grid-4">
-                    <div class="p2s-process-step">
-                        <div class="p2s-process-number">1</div>
-                        <div class="p2s-process-title">Research and heuristic evaluation</div>
-                        <p class="p2s-muted" style="margin-bottom:0;">Evaluated competitors to document where tax, tip, shared items, and navigation created confusion and drop-off.</p>
+
+                <div class="p2s-step-grid">
+                    <div class="p2s-step-cell">
+                        <div class="p2s-step-num">01</div>
+                        <div class="p2s-step-name">Research</div>
+                        <p class="p2s-step-desc">Evaluated competitors to document where tax, tip, shared items, and navigation created confusion and drop-off.</p>
                     </div>
-                    <div class="p2s-process-step">
-                        <div class="p2s-process-number">2</div>
-                        <div class="p2s-process-title">User flow mapping</div>
-                        <p class="p2s-muted" style="margin-bottom:0;">Designed an 18-screen flow that made upload, AI extraction, assignment, math, and sharing feel like a clear progression.</p>
+                    <div class="p2s-step-cell">
+                        <div class="p2s-step-num">02</div>
+                        <div class="p2s-step-name">User Flow</div>
+                        <p class="p2s-step-desc">Designed an 18-screen flow that made upload, AI extraction, assignment, math, and sharing feel like a clear progression.</p>
                     </div>
-                    <div class="p2s-process-step">
-                        <div class="p2s-process-number">3</div>
-                        <div class="p2s-process-title">Wireframing edge cases</div>
-                        <p class="p2s-muted" style="margin-bottom:0;">Specified labels, empty states, and rounding logic so ambiguous moments were handled before visual polish.</p>
+                    <div class="p2s-step-cell">
+                        <div class="p2s-step-num">03</div>
+                        <div class="p2s-step-name">Wireframing</div>
+                        <p class="p2s-step-desc">Specified labels, empty states, and rounding logic so ambiguous moments were handled before visual polish.</p>
                     </div>
-                    <div class="p2s-process-step">
-                        <div class="p2s-process-number">4</div>
-                        <div class="p2s-process-title">Testing and iteration</div>
-                        <p class="p2s-muted" style="margin-bottom:0;">Used participant feedback to redesign correction, tax/tip input, and overall visual quality.</p>
+                    <div class="p2s-step-cell">
+                        <div class="p2s-step-num">04</div>
+                        <div class="p2s-step-name">Testing</div>
+                        <p class="p2s-step-desc">Used participant feedback to redesign correction, tax/tip input, and overall visual quality.</p>
                     </div>
                 </div>
 
@@ -601,7 +776,7 @@
                         <span class="p2s-eyebrow">1. Research and heuristic evaluation</span>
                         <h3 style="margin-top:0;">Most competitors hid the hardest part of the experience</h3>
                         <p>
-                            I began by evaluating existing apps on the market and documenting navigation blockers and confusing architectures in a heuristic evaluation matrix. The review showed that shared items, proportional adjustments, and late-stage corrections were either buried or manually intensive, exactly where users needed the most confidence.
+                            I began by evaluating existing apps on the market and documenting navigation blockers and confusing architectures in a heuristic evaluation matrix. The review showed that shared items, proportional adjustments, and late-stage corrections were either buried or manually intensive — exactly where users needed the most confidence.
                         </p>
                         <div class="p2s-callout">
                             <div class="p2s-mini-title"><i class="fas fa-chart-line" aria-hidden="true"></i> Core design takeaway</div>
@@ -652,7 +827,7 @@
                             <ul class="p2s-list-tight">
                                 <li><strong>Clear labels:</strong> Distinguish between "Group Name" and "Member Name."</li>
                                 <li><strong>Friendly empty states:</strong> Help new users understand how to begin.</li>
-                                <li><strong>Rounding logic:</strong> Automatically assign the 1-2 cent difference to the largest spender.</li>
+                                <li><strong>Rounding logic:</strong> Automatically assign the 1–2 cent difference to the largest spender.</li>
                             </ul>
                         </div>
                     </div>
@@ -664,67 +839,99 @@
             </div>
         </section>
 
-        <section class="case-section">
+        <!-- 04 — USABILITY TESTING -->
+        <section class="case-section case-section-alt">
             <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Usability Testing</span>
-                    <h2 class="case-section-title">Usability testing revealed the three biggest trust gaps</h2>
-                </div>
-                <div class="p2s-stack">
-                    <div class="p2s-card">
-                        <span class="p2s-eyebrow">4. Usability testing and iteration</span>
-                        <h3 style="margin-top:0;">October 2025 testing with 6 participants</h3>
-                        <p style="margin-bottom:0;">The initial prototype produced an average completion time of <strong>4:30 - 5:38 minutes</strong>. The feedback made it clear that speed alone was not enough. Users also needed stronger trust signals, clearer inputs, and a more polished interface before they would rely on the output.</p>
+                <div class="p2s-2col-header">
+                    <div>
+                        <div class="p2s-section-number">04 — Research</div>
+                        <h2 class="p2s-section-title-main">Usability testing revealed the three biggest trust gaps</h2>
                     </div>
-                    <figure class="p2s-figure p2s-figure-readable">
-                        <img src="assets/img/Pic2Split/user rearch issue and feedback.png" alt="Usability testing summary showing key user issues and feedback from the Pic2Split prototype">
-                        <figcaption class="p2s-caption">Testing summary artifact used to consolidate the main issues and design responses.</figcaption>
-                    </figure>
+                    <div>
+                        <p class="p2s-section-intro">
+                            October 2025 testing with 6 participants produced an average completion time of <strong>4:30–5:38 minutes</strong>. The feedback made it clear that speed alone was not enough — users also needed stronger trust signals, clearer inputs, and a more polished interface before they would rely on the output.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="p2s-divider"></div>
+                <figure class="p2s-figure p2s-figure-readable" style="margin-bottom:28px;">
+                    <img src="assets/img/Pic2Split/user rearch issue and feedback.png" alt="Usability testing summary showing key user issues and feedback from the Pic2Split prototype">
+                    <figcaption class="p2s-caption">Testing summary artifact used to consolidate the main issues and design responses.</figcaption>
+                </figure>
 
-                <div class="p2s-issue-grid">
-                    <div class="p2s-issue-card">
-                        <div class="p2s-issue-head"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Unpredictable AI</div>
-                        <div class="p2s-issue-block">
-                            <p style="margin:0;"><strong>Feedback:</strong> "The accuracy - it's terrible. The entries often show up incorrectly." <span class="p2s-muted">(P5)</span></p>
+                <div class="p2s-findings-list">
+                    <div class="p2s-finding-item">
+                        <div class="p2s-finding-num">F01</div>
+                        <div>
+                            <div class="p2s-finding-title">Unpredictable AI extraction</div>
+                            <p class="p2s-finding-desc">"The accuracy — it's terrible. The entries often show up incorrectly." (P5) — Added a tap-to-edit correction flow so users could fix OCR mistakes without losing progress or confidence.</p>
                         </div>
-                        <div class="p2s-issue-block">
-                            <p style="margin:0;"><strong>Iteration:</strong> Added a tap-to-edit correction flow so users could fix OCR mistakes without losing progress or confidence.</p>
-                        </div>
+                        <div class="p2s-finding-badge critical">Critical</div>
                     </div>
-                    <div class="p2s-issue-card">
-                        <div class="p2s-issue-head"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Tax and tip ambiguity</div>
-                        <div class="p2s-issue-block">
-                            <p style="margin:0;"><strong>Feedback:</strong> Users were unsure whether they were entering a flat dollar amount or a percentage.</p>
+                    <div class="p2s-finding-item">
+                        <div class="p2s-finding-num">F02</div>
+                        <div>
+                            <div class="p2s-finding-title">Tax and tip ambiguity</div>
+                            <p class="p2s-finding-desc">Users were unsure whether they were entering a flat dollar amount or a percentage. — Introduced a clear <strong>$ / %</strong> toggle with a real-time preview before the split was finalized.</p>
                         </div>
-                        <div class="p2s-issue-block">
-                            <p style="margin:0;"><strong>Iteration:</strong> Introduced a clear <strong>$ / %</strong> toggle with a real-time preview before the split was finalized.</p>
-                        </div>
+                        <div class="p2s-finding-badge high">High</div>
                     </div>
-                    <div class="p2s-issue-card">
-                        <div class="p2s-issue-head"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Visual polish gap</div>
-                        <div class="p2s-issue-block">
-                            <p style="margin:0;"><strong>Feedback:</strong> "Looks like something made by college students - it's very rough and feels unfinished." <span class="p2s-muted">(P5)</span></p>
+                    <div class="p2s-finding-item">
+                        <div class="p2s-finding-num">F03</div>
+                        <div>
+                            <div class="p2s-finding-title">Visual polish gap</div>
+                            <p class="p2s-finding-desc">"Looks like something made by college students — it's very rough and feels unfinished." (P5) — Reworked the visual identity with stronger contrast, clearer hierarchy, a trusted blue-and-white palette, and more polished UI details.</p>
                         </div>
-                        <div class="p2s-issue-block">
-                            <p style="margin:0;"><strong>Iteration:</strong> Reworked the visual identity with stronger contrast, clearer hierarchy, a trusted blue-and-white palette, and more polished UI details.</p>
-                        </div>
+                        <div class="p2s-finding-badge high">High</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="case-section case-section-alt">
+        <!-- 05 — KEY SOLUTIONS -->
+        <section class="case-section">
             <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Key Solutions</span>
-                    <h2 class="case-section-title">The final experience focused on assignment clarity, transparent math, and shareability</h2>
+                <div class="p2s-2col-header">
+                    <div>
+                        <div class="p2s-section-number">05 — Design</div>
+                        <h2 class="p2s-section-title-main">The final experience focused on assignment clarity, transparent math, and shareability</h2>
+                    </div>
+                    <div>
+                        <p class="p2s-section-intro">
+                            The solution work centered on reducing user effort while increasing trust. Each major interaction was designed to make the system feel more legible: assignment became tactile, math became transparent, and sharing became effortless.
+                        </p>
+                    </div>
                 </div>
-                <p class="p2s-section-intro">
-                    The solution work centered on reducing user effort while increasing trust. Each major interaction was designed to make the system feel more legible: assignment became tactile, math became transparent, and sharing became effortless.
-                </p>
+
+                <div class="p2s-mockup-row">
+                    <div class="p2s-mockup-cell">
+                        <div class="p2s-mockup-cell-img">
+                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="Pic2Split item assignment screen">
+                        </div>
+                        <div class="p2s-mockup-cell-footer">
+                            <div class="p2s-mockup-sub">Screen 01</div>
+                            <div class="p2s-mockup-title">Assign Flow</div>
+                        </div>
+                    </div>
+                    <div class="p2s-mockup-cell">
+                        <div class="p2s-mockup-cell-img">
+                            <img src="assets/img/Pic2Split/Split details.png" alt="Pic2Split split details screen">
+                        </div>
+                        <div class="p2s-mockup-cell-footer">
+                            <div class="p2s-mockup-sub">Screen 02</div>
+                            <div class="p2s-mockup-title">Split Details</div>
+                        </div>
+                    </div>
+                    <div class="p2s-mockup-cell">
+                        <div class="p2s-mockup-cell-img">
+                            <img src="assets/img/Pic2Split/Home.png" alt="Pic2Split home screen">
+                        </div>
+                        <div class="p2s-mockup-cell-footer">
+                            <div class="p2s-mockup-sub">Screen 03</div>
+                            <div class="p2s-mockup-title">Home Screen</div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="p2s-grid-2" style="align-items:center;">
                     <div class="p2s-solution-copy">
@@ -808,15 +1015,20 @@
             </div>
         </section>
 
-        <section class="case-section">
+        <!-- 06 — DESIGN SYSTEM -->
+        <section class="case-section case-section-alt">
             <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Design System</span>
-                    <h2 class="case-section-title">The visual system that made the product feel trustworthy and polished</h2>
+                <div class="p2s-2col-header">
+                    <div>
+                        <div class="p2s-section-number">06 — Design System</div>
+                        <h2 class="p2s-section-title-main">The visual system that made the product feel trustworthy and polished</h2>
+                    </div>
+                    <div>
+                        <p class="p2s-section-intro">
+                            After usability testing, part of the iteration work focused on visual polish. These artifacts show how the product language was refined into a more consistent, recruiter-ready system with clearer hierarchy, stronger contrast, and a cleaner blue-and-white UI direction.
+                        </p>
+                    </div>
                 </div>
-                <p class="p2s-section-intro">
-                    After usability testing, part of the iteration work focused on visual polish. These artifacts show how the product language was refined into a more consistent, recruiter-ready system with clearer hierarchy, stronger contrast, and a cleaner blue-and-white UI direction.
-                </p>
                 <div class="p2s-grid-2" style="align-items:start;">
                     <figure class="p2s-figure p2s-figure-readable">
                         <img src="assets/img/Pic2Split/Main Visual.png" alt="Pic2Split main visual showing the project's overall design direction and branding">
@@ -830,47 +1042,41 @@
             </div>
         </section>
 
-        <section class="case-section case-section-alt">
+        <!-- 07 — REFLECTION & IMPACT -->
+        <section class="case-section">
             <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Visual Demonstration</span>
-                    <h2 class="case-section-title">Key screens and supporting artifacts at a glance</h2>
-                </div>
-                <p class="p2s-section-intro">
-                    This gallery collects a few of the most important product screens from the case study, focusing on the landing experience, the home flow, and the split-details interface.
-                </p>
-                <div class="p2s-screen-grid" aria-label="Pic2Split screens gallery">
-                    <div class="p2s-screen-card">
-                        <img src="assets/img/Pic2Split/landing.png" alt="Pic2Split landing screen">
-                        <div class="p2s-caption">Landing screen</div>
+                <div class="p2s-2col-header">
+                    <div>
+                        <div class="p2s-section-number">07 — Reflection</div>
+                        <h2 class="p2s-section-title-main">Designing for AI unpredictability became the core UX lesson</h2>
                     </div>
-                    <div class="p2s-screen-card">
-                        <img src="assets/img/Pic2Split/Home.png" alt="Pic2Split home screen">
-                        <div class="p2s-caption">Home screen</div>
-                    </div>
-                    <div class="p2s-screen-card">
-                        <img src="assets/img/Pic2Split/Split details.png" alt="Pic2Split split details screen">
-                        <div class="p2s-caption">Split details</div>
-                    </div>
-                    <div class="p2s-screen-card">
-                        <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="Pic2Split item assignment screen">
-                        <div class="p2s-caption">Item assignment screen</div>
+                    <div>
+                        <p class="p2s-section-intro">
+                            Designing Pic2Split was a lesson in accepting that AI systems will never be perfectly predictable. The strongest UX decision was not pretending errors would disappear, but giving users an intuitive way to correct them without friction.
+                        </p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section class="case-section case-section-alt">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Reflection</span>
-                    <h2 class="case-section-title">Designing for AI unpredictability became the core UX lesson</h2>
+                <div class="p2s-outcomes-row">
+                    <div class="p2s-outcome-cell">
+                        <div class="p2s-outcome-num">18<span class="p2s-outcome-unit"></span></div>
+                        <div class="p2s-outcome-label">Screens<br>Designed</div>
+                    </div>
+                    <div class="p2s-outcome-cell">
+                        <div class="p2s-outcome-num">6<span class="p2s-outcome-unit"></span></div>
+                        <div class="p2s-outcome-label">Usability Test<br>Participants</div>
+                    </div>
+                    <div class="p2s-outcome-cell">
+                        <div class="p2s-outcome-num">4<span class="p2s-outcome-unit">mo</span></div>
+                        <div class="p2s-outcome-label">Sep–Dec 2025<br>Launch Timeline</div>
+                    </div>
                 </div>
+
                 <div class="p2s-stack">
                     <div class="p2s-card">
                         <div class="p2s-card-title"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Reflection</div>
                         <p>
-                            Designing Pic2Split was a lesson in accepting that AI systems will never be perfectly predictable. A receipt can be crumpled, the print can be poor, and OCR can still misread. The strongest UX decision was not pretending those errors would disappear, but giving users an intuitive way to correct them without friction.
+                            A receipt can be crumpled, the print can be poor, and OCR can still misread. The strongest UX decision was not pretending those errors would disappear, but giving users an intuitive way to correct them without friction.
                         </p>
                         <p style="margin-bottom:0;">
                             Close collaboration with React and Spring Boot engineers also sharpened how I balanced ideal flows against latency, technical constraints, and loading-state expectations.
@@ -887,39 +1093,13 @@
                 <div class="p2s-grid-3">
                     <div class="p2s-card">
                         <span class="p2s-eyebrow">Problems solved</span>
-                        <h3 style="margin-top:0;">A tedious task became a lightweight web flow</h3>
-                        <p class="p2s-muted" style="margin-bottom:0;">The product replaced manual item entry and awkward group math with an automated flow that required zero app downloads.</p>
-                    </div>
-                    <div class="p2s-card">
-                        <span class="p2s-eyebrow">Goals achieved</span>
-                        <h3 style="margin-top:0;">A functioning MVP launched fast</h3>
-                        <p class="p2s-muted" style="margin-bottom:0;">The team designed, developed, and launched the V1 within a four-month Sep-Dec 2025 timeline.</p>
-                    </div>
-                    <div class="p2s-card">
-                        <span class="p2s-eyebrow">Vision</span>
-                        <h3 style="margin-top:0;">Built to scale beyond dining</h3>
-                        <p class="p2s-muted" style="margin-bottom:0;">The long-term direction is a broader cost-sharing platform for group travel, co-living, and corporate events.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="case-section">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Summary &amp; Impact</span>
-                    <h2 class="case-section-title">The MVP turned a frustrating chore into a streamlined, scalable product direction</h2>
-                </div>
-                <div class="p2s-grid-3">
-                    <div class="p2s-card">
-                        <span class="p2s-eyebrow">Problems solved</span>
                         <h3 style="margin-top:0;">Manual bill splitting became a lightweight web flow</h3>
                         <p class="p2s-muted" style="margin-bottom:0;">Pic2Split transformed a tedious manual chore into a streamlined, automated process with zero app downloads and clear tax/tip math.</p>
                     </div>
                     <div class="p2s-card">
                         <span class="p2s-eyebrow">Goals achieved</span>
                         <h3 style="margin-top:0;">A functioning MVP launched within four months</h3>
-                        <p class="p2s-muted" style="margin-bottom:0;">The team designed, developed, and successfully launched the product in a fast-paced Sep-Dec 2025 timeline.</p>
+                        <p class="p2s-muted" style="margin-bottom:0;">The team designed, developed, and successfully launched the product in a fast-paced Sep–Dec 2025 timeline.</p>
                     </div>
                     <div class="p2s-card">
                         <span class="p2s-eyebrow">Vision</span>
