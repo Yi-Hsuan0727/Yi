@@ -537,6 +537,74 @@
             .p2s-tagline { font-size: 0.95rem; color: var(--secondary-text); }
             .p2s-section-intro { max-width: 720px; color: var(--secondary-text); margin-bottom: 28px; }
 
+            /* === RESEARCH ARTIFACT STRIP === */
+            .p2s-artifact-heading {
+                font-size: 0.65rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                color: var(--secondary-text);
+                margin: 40px 0 12px;
+            }
+            .p2s-artifact-strip {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .p2s-artifact-cell {
+                border-right: 1px solid var(--border-color);
+                display: flex;
+                flex-direction: column;
+            }
+            .p2s-artifact-cell:last-child { border-right: none; }
+            .p2s-artifact-cell:hover .p2s-artifact-img { opacity: 1; }
+            .p2s-artifact-img {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+                object-position: top left;
+                display: block;
+                border-bottom: 1px solid var(--border-color);
+                opacity: 0.82;
+                transition: opacity 0.2s;
+            }
+            .p2s-artifact-footer {
+                padding: 10px 14px 14px;
+            }
+            .p2s-artifact-step {
+                font-size: 0.6rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: var(--secondary-text);
+                margin-bottom: 3px;
+            }
+            .p2s-artifact-name {
+                font-size: 0.82rem;
+                font-weight: 700;
+                color: var(--text-color);
+            }
+
+            /* === INLINE RESEARCH THUMBNAIL === */
+            .p2s-inline-artifact {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                align-items: start;
+                margin-bottom: 28px;
+            }
+            .p2s-inline-artifact-img {
+                width: 100%;
+                height: 260px;
+                object-fit: cover;
+                object-position: top;
+                display: block;
+                border-radius: 8px;
+                border: 1px solid var(--border-color);
+            }
+
             /* === SUMMARY & IMPACT GRID === */
             .p2s-impact-section { }
             .p2s-impact-grid {
@@ -563,6 +631,10 @@
             .p2s-impact-card p { margin: 0; font-size: 0.9rem; line-height: 1.75; }
 
             @media (max-width: 1200px) {
+                .p2s-artifact-strip { grid-template-columns: 1fr; }
+                .p2s-artifact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
+                .p2s-artifact-cell:last-child { border-bottom: none; }
+                .p2s-inline-artifact { grid-template-columns: 1fr; }
                 .p2s-impact-grid { grid-template-columns: 1fr; }
                 .p2s-2col-header { grid-template-columns: 1fr; gap: 16px; }
                 .p2s-step-grid { grid-template-columns: repeat(2, 1fr); }
@@ -722,34 +794,20 @@
 
                 <div class="p2s-divider"></div>
 
-                <div class="p2s-stack">
+                <div class="p2s-finding-item" style="border:none; padding:0; grid-template-columns: 2.5rem 1fr; gap:20px;">
+                    <div class="p2s-finding-num">01</div>
                     <div>
-                        <span class="p2s-eyebrow">1. Research and heuristic evaluation</span>
-                        <h3 style="margin-top:0;">Most competitors hid the hardest part of the experience</h3>
-                        <p>
-                            I began by evaluating existing apps on the market and documenting navigation blockers and confusing architectures in a heuristic evaluation matrix. The review showed that shared items, proportional adjustments, and late-stage corrections were either buried or manually intensive — exactly where users needed the most confidence.
-                        </p>
-                        <div class="p2s-callout">
-                            <div class="p2s-mini-title"><i class="fas fa-chart-line" aria-hidden="true"></i> Core design takeaway</div>
-                            <p class="p2s-muted" style="margin-bottom:0;">Pic2Split had to make the "hard math" visible and understandable rather than hiding it behind a generic final total.</p>
-                        </div>
+                        <div class="p2s-finding-title">Most competitors hid the hardest part of the experience</div>
+                        <p class="p2s-finding-desc">Heuristic evaluation of competing apps revealed that shared items, proportional adjustments, and late-stage corrections were either buried or manually intensive — exactly where users needed the most confidence. Pic2Split had to make the "hard math" visible rather than hiding it behind a generic total.</p>
                     </div>
-                    <figure class="p2s-figure p2s-figure-readable">
-                        <img src="assets/img/Pic2Split/Heuristic evalution.jpg" alt="Heuristic evaluation matrix identifying competitor friction points around tax and tip workflows">
-                        <figcaption class="p2s-caption">Heuristic evaluation matrix highlighting navigation blockers and tax/tip friction in competing solutions.</figcaption>
-                    </figure>
                 </div>
 
-                <div class="p2s-divider"></div>
-
-                <div class="p2s-stack">
+                <div class="p2s-finding-item" style="border:none; padding:8px 0 0; grid-template-columns: 2.5rem 1fr; gap:20px;">
+                    <div class="p2s-finding-num">02</div>
                     <div>
-                        <span class="p2s-eyebrow">2. Mapping the user flow</span>
-                        <h3 style="margin-top:0;">A technical backend process reframed as a guided sequence</h3>
-                        <p>
-                            The backend flow was complex: Upload, AI processing, data extraction, user assignment, tax/tip math, and sharing. The UX goal was to make those steps feel linear, lightweight, and legible to first-time users while keeping progress clear at every stage.
-                        </p>
-                        <div class="p2s-flow" aria-label="High-level user flow">
+                        <div class="p2s-finding-title">A technical backend process reframed as a guided sequence</div>
+                        <p class="p2s-finding-desc">Upload → AI processing → Data extraction → Assign items → Math → Share. The UX goal was to make those steps feel linear and legible to first-time users.</p>
+                        <div class="p2s-flow" aria-label="High-level user flow" style="margin-top:10px;">
                             <span class="p2s-flow-chip">Upload</span>
                             <span class="p2s-flow-chip">AI processing</span>
                             <span class="p2s-flow-chip">Data extraction</span>
@@ -758,34 +816,39 @@
                             <span class="p2s-flow-chip">Share</span>
                         </div>
                     </div>
-                    <figure class="p2s-figure p2s-figure-readable">
-                        <img src="assets/img/Pic2Split/pic2split-userflow.jpg" alt="High-level Pic2Split user flow diagram showing the main stages from upload through sharing">
-                        <figcaption class="p2s-caption">High-level user flow showing the main stages from upload through sharing.</figcaption>
-                    </figure>
                 </div>
 
-                <div class="p2s-divider"></div>
-
-                <div class="p2s-stack">
+                <div class="p2s-finding-item" style="border:none; padding:8px 0 0; grid-template-columns: 2.5rem 1fr; gap:20px;">
+                    <div class="p2s-finding-num">03</div>
                     <div>
-                        <span class="p2s-eyebrow">3. Wireframing and edge cases</span>
-                        <h3 style="margin-top:0;">Edge cases were part of the product, not just the polish phase</h3>
-                        <p>
-                            Low-fidelity wireframes clarified the product requirements early, including naming, onboarding, and rounding logic. This helped keep later UI work grounded in concrete product behavior instead of only visual polish.
-                        </p>
-                        <div class="p2s-wireframe-note">
-                            <strong style="display:block; margin-bottom:8px;">Key UI requirements</strong>
-                            <ul class="p2s-list-tight">
-                                <li><strong>Clear labels:</strong> Distinguish between "Group Name" and "Member Name."</li>
-                                <li><strong>Friendly empty states:</strong> Help new users understand how to begin.</li>
-                                <li><strong>Rounding logic:</strong> Automatically assign the 1–2 cent difference to the largest spender.</li>
-                            </ul>
+                        <div class="p2s-finding-title">Edge cases were part of the product, not just the polish phase</div>
+                        <p class="p2s-finding-desc">Low-fidelity wireframes resolved naming ("Group Name" vs. "Member Name"), empty states, and rounding logic before any UI work began — keeping later decisions grounded in concrete product behavior.</p>
+                    </div>
+                </div>
+
+                <p class="p2s-artifact-heading">Research artifacts</p>
+                <div class="p2s-artifact-strip">
+                    <div class="p2s-artifact-cell">
+                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/Heuristic evalution.jpg" alt="Heuristic evaluation matrix">
+                        <div class="p2s-artifact-footer">
+                            <div class="p2s-artifact-step">Step 01 — Research</div>
+                            <div class="p2s-artifact-name">Heuristic evaluation matrix</div>
                         </div>
                     </div>
-                    <figure class="p2s-figure p2s-figure-readable p2s-figure-cropped">
-                        <img src="assets/img/Pic2Split/wireframe.png" alt="Three key wireframe screens covering setup, assignment, and split calculation">
-                        <figcaption class="p2s-caption">Wireframes for key screens covering setup, assignment, and split calculation.</figcaption>
-                    </figure>
+                    <div class="p2s-artifact-cell">
+                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/pic2split-userflow.jpg" alt="User flow diagram">
+                        <div class="p2s-artifact-footer">
+                            <div class="p2s-artifact-step">Step 02 — User Flow</div>
+                            <div class="p2s-artifact-name">18-screen user flow diagram</div>
+                        </div>
+                    </div>
+                    <div class="p2s-artifact-cell">
+                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/wireframe.png" alt="Key wireframe screens">
+                        <div class="p2s-artifact-footer">
+                            <div class="p2s-artifact-step">Step 03 — Wireframing</div>
+                            <div class="p2s-artifact-name">Low-fidelity wireframes</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -805,12 +868,8 @@
                     </div>
                 </div>
 
-                <figure class="p2s-figure p2s-figure-readable" style="margin-bottom:28px;">
-                    <img src="assets/img/Pic2Split/user rearch issue and feedback.png" alt="Usability testing summary showing key user issues and feedback from the Pic2Split prototype">
-                    <figcaption class="p2s-caption">Testing summary artifact used to consolidate the main issues and design responses.</figcaption>
-                </figure>
-
-                <div class="p2s-findings-list">
+                <div class="p2s-inline-artifact" style="margin-bottom:28px;">
+                    <div class="p2s-findings-list">
                     <div class="p2s-finding-item">
                         <div class="p2s-finding-num">F01</div>
                         <div>
@@ -835,6 +894,11 @@
                         </div>
                         <div class="p2s-finding-badge high">High</div>
                     </div>
+                </div>
+                    <figure style="margin:0;">
+                        <img class="p2s-inline-artifact-img" src="assets/img/Pic2Split/user rearch issue and feedback.png" alt="Usability testing summary showing key user issues and feedback from the Pic2Split prototype">
+                        <figcaption class="p2s-caption">Synthesis artifact from October 2025 testing.</figcaption>
+                    </figure>
                 </div>
             </div>
         </section>
@@ -1023,7 +1087,7 @@
                     </div>
                 </div>
 
-                <div class="p2s-stack">
+                <div class="p2s-inline-artifact">
                     <div class="p2s-card">
                         <div class="p2s-card-title"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Reflection</div>
                         <p>
@@ -1033,9 +1097,9 @@
                             Close collaboration with React and Spring Boot engineers also sharpened how I balanced ideal flows against latency, technical constraints, and loading-state expectations.
                         </p>
                     </div>
-                    <figure class="p2s-figure p2s-figure-readable">
-                        <img src="assets/img/Pic2Split/user research summary.png" alt="Pic2Split research summary artifact highlighting the main learnings and product direction">
-                        <figcaption class="p2s-caption">Research summary artifact tying the product strategy back to user pain points and iteration priorities.</figcaption>
+                    <figure style="margin:0;">
+                        <img class="p2s-inline-artifact-img" src="assets/img/Pic2Split/user research summary.png" alt="Pic2Split research summary artifact">
+                        <figcaption class="p2s-caption">Research summary tying product strategy back to user pain points.</figcaption>
                     </figure>
                 </div>
 
