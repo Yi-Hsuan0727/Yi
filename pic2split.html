@@ -18,7 +18,7 @@
                 padding-bottom: 72px;
             }
             .case-section-inner {
-                max-width: 920px;
+                max-width: none;
             }
             .case-section p,
             .case-section li {
@@ -537,8 +537,8 @@
             .p2s-tagline { font-size: 0.95rem; color: var(--secondary-text); }
             .p2s-section-intro { max-width: 720px; color: var(--secondary-text); margin-bottom: 28px; }
 
-            /* === FULL-WIDTH IMPACT SECTION === */
-            .p2s-impact-section { padding-left: 60px; padding-right: 60px; }
+            /* === SUMMARY & IMPACT GRID === */
+            .p2s-impact-section { }
             .p2s-impact-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -564,7 +564,6 @@
 
             @media (max-width: 1200px) {
                 .p2s-impact-grid { grid-template-columns: 1fr; }
-                .p2s-impact-section { padding-left: 20px; padding-right: 20px; }
                 .p2s-2col-header { grid-template-columns: 1fr; gap: 16px; }
                 .p2s-step-grid { grid-template-columns: repeat(2, 1fr); }
                 .p2s-step-cell:nth-child(2) { border-right: none; }
@@ -1045,7 +1044,7 @@
 
         <!-- 08 — SUMMARY & IMPACT (full-width) -->
         <section class="case-section p2s-impact-section">
-            <div class="p2s-2col-header" style="max-width:920px;">
+            <div class="p2s-2col-header">
                 <div>
                     <div class="p2s-section-number">08 — Summary &amp; Impact</div>
                     <h2 class="p2s-section-title-main">The MVP turned a frustrating chore into a streamlined, scalable product direction</h2>
