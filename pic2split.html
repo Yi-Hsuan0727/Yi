@@ -553,6 +553,62 @@
             .p2s-tagline { font-size: 0.95rem; color: var(--secondary-text); }
             .p2s-section-intro { max-width: 720px; color: var(--secondary-text); margin-bottom: 28px; }
 
+            /* === ANALYSIS TABLE === */
+            .p2s-analysis-table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                overflow: hidden;
+                font-size: 0.85rem;
+                margin-top: 32px;
+            }
+            .p2s-analysis-table th,
+            .p2s-analysis-table td {
+                padding: 14px 18px;
+                text-align: left;
+                vertical-align: top;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .p2s-analysis-table tr:last-child td { border-bottom: none; }
+            .p2s-analysis-table thead th {
+                background: var(--bg-color);
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--secondary-text);
+                border-bottom: 1px solid var(--border-color);
+            }
+            .p2s-analysis-table thead th:first-child { width: 18%; }
+            .p2s-analysis-table thead th:not(:last-child) {
+                border-right: 1px solid var(--border-color);
+            }
+            .p2s-analysis-table tbody td:not(:last-child) {
+                border-right: 1px solid var(--border-color);
+            }
+            .p2s-analysis-table tbody tr:hover { background: rgba(46,204,113,0.03); }
+            .p2s-analysis-cat {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .p2s-analysis-cat i {
+                color: var(--accent-color);
+                font-size: 1rem;
+                margin-top: 2px;
+                flex-shrink: 0;
+            }
+            .p2s-analysis-cat-name {
+                font-weight: 700;
+                color: var(--text-color);
+                line-height: 1.4;
+            }
+            .p2s-analysis-table .col-before { color: var(--secondary-text); line-height: 1.7; }
+            .p2s-analysis-table .col-after { color: var(--text-color); line-height: 1.7; }
+            .p2s-analysis-table .col-after strong { font-weight: 700; }
+            .p2s-th-icon { color: var(--accent-color); margin-right: 6px; }
+
             /* === RESEARCH ARTIFACT STRIP === */
             .p2s-artifact-heading {
                 font-size: 0.65rem;
@@ -732,6 +788,58 @@
                         <p class="p2s-muted" style="margin-bottom:0;">Requiring a group to download an app and create accounts for one meal creates immediate drop-off.</p>
                     </div>
                 </div>
+
+                <table class="p2s-analysis-table" aria-label="Usability analysis: findings and improvements">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-list-ul p2s-th-icon" aria-hidden="true"></i>Category</th>
+                            <th><i class="fas fa-circle-info p2s-th-icon" aria-hidden="true"></i>Before (Findings)</th>
+                            <th><i class="fas fa-circle-check p2s-th-icon" style="color:var(--accent-color);" aria-hidden="true"></i>After (Improvements)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-crop-simple" aria-hidden="true"></i><span class="p2s-analysis-cat-name">OCR Accuracy</span></div></td>
+                            <td class="col-before">OCR results were often inaccurate or misclassified (avg. 2.2/5). Users needed to manually correct totals.</td>
+                            <td class="col-after">Optimized OCR algorithm and added a receipt review step, allowing users to compare scanned text with the original image.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-table-cells-large" aria-hidden="true"></i><span class="p2s-analysis-cat-name">Layout &amp; Interface</span></div></td>
+                            <td class="col-before">Layout satisfaction was low (2.0/5). Users described the interface as cluttered and visually confusing.</td>
+                            <td class="col-after">Redesigned UI layout for clarity — simplified structure, improved spacing, and clearer icons to create a smoother experience.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-shield-halved" aria-hidden="true"></i><span class="p2s-analysis-cat-name">AI Trust &amp; Transparency</span></div></td>
+                            <td class="col-before">Users questioned AI fairness and wanted to understand how totals were calculated (trust score 2.6/5).</td>
+                            <td class="col-after">Added side-by-side receipt review and transparent calculation display to increase user confidence in results.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-arrows-spin" aria-hidden="true"></i><span class="p2s-analysis-cat-name">Guidance After Scanning</span></div></td>
+                            <td class="col-before">Users felt lost after OCR processing and didn't know the next step.</td>
+                            <td class="col-after">Introduced progress indicators and confirmation screens that show where the user is in the process and what to do next.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-comment-dots" aria-hidden="true"></i><span class="p2s-analysis-cat-name">Feedback &amp; Completion State</span></div></td>
+                            <td class="col-before">The app didn't confirm task completion; users were uncertain if actions succeeded.</td>
+                            <td class="col-after">Added a completion page after group or split creation, giving clear confirmation and next-step options.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-right-left" aria-hidden="true"></i><span class="p2s-analysis-cat-name">Workflow Flexibility</span></div></td>
+                            <td class="col-before">Creating groups and splits were separate, linear steps that confused users.</td>
+                            <td class="col-after">Users can now add a split immediately after creating a group or create a group after completing a bill, ensuring smoother task flow.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-user" aria-hidden="true"></i><span class="p2s-analysis-cat-name">User Account &amp; Data Saving</span></div></td>
+                            <td class="col-before">No account system; users couldn't save or revisit past bills.</td>
+                            <td class="col-after">Implemented account creation to save data, enabling future access to previous receipts and groups.</td>
+                        </tr>
+                        <tr>
+                            <td><div class="p2s-analysis-cat"><i class="fas fa-star" aria-hidden="true"></i><span class="p2s-analysis-cat-name">Overall User Experience</span></div></td>
+                            <td class="col-before">Process felt disjointed and lacked visual polish. Users struggled to stay oriented.</td>
+                            <td class="col-after"><strong>Delivered a more guided, transparent, and responsive experience focused on clarity, trust, and ease of use.</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
         </section>
