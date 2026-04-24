@@ -25,65 +25,6 @@
                 line-height: 1.9;
             }
 
-            /* === HERO === */
-            .p2s-hero {
-                position: relative;
-                width: 100%;
-                overflow: hidden;
-                background: #111;
-                aspect-ratio: 16 / 6;
-                border-bottom: 1px solid var(--border-color);
-            }
-            .p2s-hero img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                display: block;
-            }
-            .p2s-hero-overlay {
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.08) 55%, transparent 100%);
-            }
-            .p2s-hero-content {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                padding: 28px 32px;
-                color: #fff;
-            }
-            .p2s-hero-kicker {
-                font-size: 0.68rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                opacity: 0.75;
-                margin-bottom: 8px;
-            }
-            .p2s-hero-title {
-                font-size: 2.2rem;
-                font-weight: 900;
-                line-height: 1.05;
-                margin-bottom: 12px;
-            }
-            .p2s-hero-tags {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
-            }
-            .p2s-hero-tag {
-                font-size: 0.62rem;
-                padding: 4px 10px;
-                border-radius: 999px;
-                border: 1px solid rgba(255,255,255,0.4);
-                background: rgba(255,255,255,0.12);
-                color: #fff;
-                text-transform: uppercase;
-                letter-spacing: 0.04em;
-                backdrop-filter: blur(4px);
-            }
-
             /* === TWO-COLUMN SECTION HEADER (project_2 pattern) === */
             .p2s-2col-header {
                 display: grid;
@@ -625,22 +566,6 @@
                 .p2s-scroll-x-inner { min-width: 740px; }
             }
         </style>
-
-        <!-- PROJECT HERO -->
-        <div class="p2s-hero">
-            <img src="assets/img/Pic2Split/cover.png" alt="Pic2Split project cover">
-            <div class="p2s-hero-overlay"></div>
-            <div class="p2s-hero-content">
-                <div class="p2s-hero-kicker">Case Study</div>
-                <div class="p2s-hero-title">Pic2Split</div>
-                <div class="p2s-hero-tags">
-                    <span class="p2s-hero-tag">Product Design</span>
-                    <span class="p2s-hero-tag">UX Research</span>
-                    <span class="p2s-hero-tag">UI Design</span>
-                    <span class="p2s-hero-tag">Web App</span>
-                </div>
-            </div>
-        </div>
 
         <!-- 01 — PROBLEM STATEMENT -->
         <section class="case-section">
