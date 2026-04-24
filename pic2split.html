@@ -17,8 +17,22 @@
                 padding-top: 96px;
                 padding-bottom: 96px;
             }
+            /* Editorial column layout: title stays left, all body content
+               flows in the right column aligned with the intro text */
             .case-section-inner {
                 max-width: none;
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                column-gap: 56px;
+                align-items: start;
+            }
+            .case-section-inner > .p2s-2col-header {
+                grid-column: 1 / -1;
+                margin-bottom: 0;
+                padding-bottom: 64px;
+            }
+            .case-section-inner > *:not(.p2s-2col-header) {
+                grid-column: 2;
             }
             .case-section p,
             .case-section li {
@@ -608,7 +622,20 @@
             }
 
             /* === SUMMARY & IMPACT GRID === */
-            .p2s-impact-section { }
+            .p2s-impact-section {
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                column-gap: 56px;
+                align-items: start;
+            }
+            .p2s-impact-section > .p2s-2col-header {
+                grid-column: 1 / -1;
+                margin-bottom: 0;
+                padding-bottom: 64px;
+            }
+            .p2s-impact-section > *:not(.p2s-2col-header) {
+                grid-column: 2;
+            }
             .p2s-impact-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -633,6 +660,15 @@
             .p2s-impact-card p { margin: 0; font-size: 0.9rem; line-height: 1.75; }
 
             @media (max-width: 1200px) {
+                .case-section-inner,
+                .p2s-impact-section {
+                    display: block;
+                }
+                .case-section-inner > .p2s-2col-header,
+                .p2s-impact-section > .p2s-2col-header {
+                    padding-bottom: 0;
+                    margin-bottom: 40px;
+                }
                 .p2s-artifact-strip { grid-template-columns: 1fr; }
                 .p2s-artifact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
                 .p2s-artifact-cell:last-child { border-bottom: none; }
