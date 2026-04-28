@@ -34,6 +34,11 @@
             .case-section-inner > *:not(.p2s-2col-header) {
                 grid-column: 2;
             }
+            /* Let wide multi-column blocks span the full section width */
+            .case-section-inner > .p2s-grid-3,
+            .case-section-inner > .p2s-goal-grid {
+                grid-column: 1 / -1;
+            }
             .case-section p,
             .case-section li {
                 line-height: 1.9;
