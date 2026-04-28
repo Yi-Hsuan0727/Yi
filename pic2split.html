@@ -759,6 +759,30 @@
             }
         </style>
 
+        <!-- OVERVIEW CALLOUT -->
+        <section class="case-section case-section-alt">
+            <div class="case-section-inner">
+                <div class="p2s-2col-header">
+                    <div>
+                        <div class="p2s-section-number">Overview</div>
+                        <h2 class="p2s-section-title-main">An AI-powered receipt splitter that makes group dining effortless</h2>
+                    </div>
+                    <div>
+                        <p class="p2s-section-intro">
+                            Dining out with friends is fun, but splitting the bill — especially in the U.S. with complex tax and tip calculations — often ends in awkward math, frustration, and someone overpaying.
+                        </p>
+                        <p>
+                            Pic2Split is an intelligent, AI-powered web application that eliminates this friction. By utilizing PaddleOCR and Gemini-2.5, users can snap a photo of their receipt, assign items to friends, and instantly share the final split. Best of all, it's web-based — no app downloads required. I led the end-to-end UX research and product design, collaborating closely with engineering to bring this complex AI utility to a polished, user-friendly reality.
+                        </p>
+                    </div>
+                </div>
+                <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
+                    <img src="assets/img/Pic2Split/main visual.png" alt="Pic2Split product overview showing the web-based receipt splitting interface">
+                    <figcaption class="p2s-caption">Pic2Split — scan a receipt, assign items, share the split. No downloads required.</figcaption>
+                </figure>
+            </div>
+        </section>
+
         <!-- 01 — PROBLEM STATEMENT -->
         <section class="case-section">
             <div class="case-section-inner">
@@ -884,11 +908,11 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">03 — Design Process</div>
-                        <h2 class="p2s-section-title-main">From research to a polished, trust-building AI utility</h2>
+                        <h2 class="p2s-section-title-main">From heuristic research to a polished, trust-building AI utility</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            The core challenge was turning a technical backend process — from upload to AI parsing to shared math — into a user journey that felt effortless and transparent. The work moved through four phases: research, user-flow mapping, wireframing edge cases, and usability-driven iteration.
+                            The core challenge was taking a complex technical backend process — Upload → AI Processing → Data Extraction → User Assignment → Math → Share — and making it feel effortless. The work moved through four phases.
                         </p>
                     </div>
                 </div>
@@ -896,23 +920,23 @@
                 <div class="p2s-step-grid">
                     <div class="p2s-step-cell">
                         <div class="p2s-step-num">01</div>
-                        <div class="p2s-step-name">Research</div>
-                        <p class="p2s-step-desc">Evaluated competitors to document where tax, tip, shared items, and navigation created confusion and drop-off.</p>
+                        <div class="p2s-step-name">Research &amp; Heuristic Eval</div>
+                        <p class="p2s-step-desc">Evaluated existing apps to document navigation blockers, tax/tip friction, and shared-item confusion in a heuristic evaluation matrix.</p>
                     </div>
                     <div class="p2s-step-cell">
                         <div class="p2s-step-num">02</div>
-                        <div class="p2s-step-name">User Flow</div>
-                        <p class="p2s-step-desc">Designed an 18-screen flow that made upload, AI extraction, assignment, math, and sharing feel like a clear progression.</p>
+                        <div class="p2s-step-name">Mapping the User Flow</div>
+                        <p class="p2s-step-desc">Designed an 18-screen core user flow, prioritizing clear progress indicators so each step in the AI pipeline felt intentional.</p>
                     </div>
                     <div class="p2s-step-cell">
                         <div class="p2s-step-num">03</div>
-                        <div class="p2s-step-name">Wireframing</div>
-                        <p class="p2s-step-desc">Specified labels, empty states, and rounding logic so ambiguous moments were handled before visual polish.</p>
+                        <div class="p2s-step-name">Wireframing &amp; Edge Cases</div>
+                        <p class="p2s-step-desc">Low-fidelity wireframes specified labels, empty states, and rounding logic — resolving ambiguous edge cases before any visual polish.</p>
                     </div>
                     <div class="p2s-step-cell">
                         <div class="p2s-step-num">04</div>
-                        <div class="p2s-step-name">Testing</div>
-                        <p class="p2s-step-desc">Used participant feedback to redesign correction, tax/tip input, and overall visual quality.</p>
+                        <div class="p2s-step-name">Usability Testing</div>
+                        <p class="p2s-step-desc">Tested with 6 participants in October 2025. Average completion time: 4:30–5:38 min. Feedback drove three major redesign iterations.</p>
                     </div>
                 </div>
 
@@ -921,45 +945,45 @@
                 <div class="p2s-finding-item" style="border:none; padding:0; grid-template-columns: 2.5rem 1fr; gap:20px;">
                     <div class="p2s-finding-num">01</div>
                     <div>
-                        <div class="p2s-finding-title">Most competitors hid the hardest part of the experience</div>
-                        <p class="p2s-finding-desc">Heuristic evaluation of competing apps revealed that shared items, proportional adjustments, and late-stage corrections were either buried or manually intensive — exactly where users needed the most confidence. Pic2Split had to make the "hard math" visible rather than hiding it behind a generic total.</p>
+                        <div class="p2s-finding-title">Research &amp; Heuristic Evaluation — competitors hid the hardest part</div>
+                        <p class="p2s-finding-desc">Most apps buried shared-item handling, proportional tax/tip adjustments, and late-stage corrections — exactly where users needed the most confidence. I documented these blockers in a heuristic matrix, which became the foundation for Pic2Split's core design mandate: make the hard math visible.</p>
                     </div>
                 </div>
 
                 <div class="p2s-finding-item" style="border:none; padding:8px 0 0; grid-template-columns: 2.5rem 1fr; gap:20px;">
                     <div class="p2s-finding-num">02</div>
                     <div>
-                        <div class="p2s-finding-title">A technical backend process reframed as a guided sequence</div>
-                        <p class="p2s-finding-desc">Upload → AI processing → Data extraction → Assign items → Math → Share. The UX goal was to make those steps feel linear and legible to first-time users.</p>
+                        <div class="p2s-finding-title">Mapping the User Flow — a technical pipeline reframed as a guided sequence</div>
+                        <p class="p2s-finding-desc">The backend was complex: upload, AI processing, data extraction, item assignment, tax/tip math, and sharing. I designed an 18-screen core flow prioritising clear progress indicators so first-time users always knew where they were and what to do next.</p>
                     </div>
                 </div>
 
                 <div class="p2s-finding-item" style="border:none; padding:8px 0 0; grid-template-columns: 2.5rem 1fr; gap:20px;">
                     <div class="p2s-finding-num">03</div>
                     <div>
-                        <div class="p2s-finding-title">Edge cases were part of the product, not just the polish phase</div>
-                        <p class="p2s-finding-desc">Low-fidelity wireframes resolved naming ("Group Name" vs. "Member Name"), empty states, and rounding logic before any UI work began — keeping later decisions grounded in concrete product behavior.</p>
+                        <div class="p2s-finding-title">Wireframing &amp; Edge Cases — edge cases are part of the product, not an afterthought</div>
+                        <p class="p2s-finding-desc">Low-fidelity wireframes resolved three critical requirements: clear labels distinguishing "Group Name" from "Member Name," friendly empty states for new users, and automatic rounding logic that assigns 1–2 cent differences to the largest spender — all before any UI work began.</p>
                     </div>
                 </div>
 
                 <p class="p2s-artifact-heading">Research artifacts</p>
                 <div class="p2s-artifact-strip">
                     <div class="p2s-artifact-cell">
-                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/Heuristic evalution.jpg" alt="Heuristic evaluation matrix">
+                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/Heuristic evalution.jpg" alt="Heuristic evaluation matrix identifying competitor friction points">
                         <div class="p2s-artifact-footer">
                             <div class="p2s-artifact-step">Step 01 — Research</div>
                             <div class="p2s-artifact-name">Heuristic evaluation matrix</div>
                         </div>
                     </div>
                     <div class="p2s-artifact-cell">
-                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/pic2split-userflow.jpg" alt="User flow diagram">
+                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/Userflow of scan and split bill.jpg" alt="18-screen user flow diagram">
                         <div class="p2s-artifact-footer">
                             <div class="p2s-artifact-step">Step 02 — User Flow</div>
                             <div class="p2s-artifact-name">18-screen user flow diagram</div>
                         </div>
                     </div>
                     <div class="p2s-artifact-cell">
-                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/wireframe.png" alt="Key wireframe screens">
+                        <img class="p2s-artifact-img" src="assets/img/Pic2Split/wireframe.png" alt="Low-fidelity wireframe screens">
                         <div class="p2s-artifact-footer">
                             <div class="p2s-artifact-step">Step 03 — Wireframing</div>
                             <div class="p2s-artifact-name">Low-fidelity wireframes</div>
@@ -974,46 +998,49 @@
             <div class="case-section-inner">
                 <div class="p2s-2col-header">
                     <div>
-                        <div class="p2s-section-number">04 — Research</div>
-                        <h2 class="p2s-section-title-main">Usability testing revealed the three biggest trust gaps</h2>
+                        <div class="p2s-section-number">04 — Usability Testing</div>
+                        <h2 class="p2s-section-title-main">Testing revealed three critical gaps in AI trust, input clarity, and visual polish</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            October 2025 testing with 6 participants produced an average completion time of <strong>4:30–5:38 minutes</strong>. The feedback made it clear that speed alone was not enough — users also needed stronger trust signals, clearer inputs, and a more polished interface before they would rely on the output.
+                            In October 2025, I conducted usability testing with 6 participants using our initial prototype. Average completion time was <strong>4:30–5:38 minutes</strong>. The feedback was eye-opening — speed alone was not enough. Users needed trust, clarity, and polish before they would rely on the output.
                         </p>
                     </div>
                 </div>
 
-                <div class="p2s-inline-artifact" style="margin-bottom:28px;">
+                <div class="p2s-inline-artifact" style="margin-bottom:0;">
                     <div class="p2s-findings-list">
-                    <div class="p2s-finding-item">
-                        <div class="p2s-finding-num">F01</div>
-                        <div>
-                            <div class="p2s-finding-title">Unpredictable AI extraction</div>
-                            <p class="p2s-finding-desc">"The accuracy — it's terrible. The entries often show up incorrectly." (P5) — Added a tap-to-edit correction flow so users could fix OCR mistakes without losing progress or confidence.</p>
+                        <div class="p2s-finding-item">
+                            <div class="p2s-finding-num">F01</div>
+                            <div>
+                                <div class="p2s-finding-title">Unpredictable AI (OCR Errors)</div>
+                                <p class="p2s-finding-desc" style="margin-bottom:8px;">"The accuracy — it's terrible. The entries often show up incorrectly." — P5</p>
+                                <p class="p2s-finding-desc"><strong>Iteration:</strong> Designed an intuitive Correction Flow — users can tap and edit any misread price or item name seamlessly, restoring trust without restarting the process.</p>
+                            </div>
+                            <div class="p2s-finding-badge critical">Critical</div>
                         </div>
-                        <div class="p2s-finding-badge critical">Critical</div>
-                    </div>
-                    <div class="p2s-finding-item">
-                        <div class="p2s-finding-num">F02</div>
-                        <div>
-                            <div class="p2s-finding-title">Tax and tip ambiguity</div>
-                            <p class="p2s-finding-desc">Users were unsure whether they were entering a flat dollar amount or a percentage. — Introduced a clear <strong>$ / %</strong> toggle with a real-time preview before the split was finalized.</p>
+                        <div class="p2s-finding-item">
+                            <div class="p2s-finding-num">F02</div>
+                            <div>
+                                <div class="p2s-finding-title">Tax &amp; Tip Input Confusion</div>
+                                <p class="p2s-finding-desc" style="margin-bottom:8px;">Users didn't know if they were inputting a flat dollar amount ($) or a percentage (%).</p>
+                                <p class="p2s-finding-desc"><strong>Iteration:</strong> Introduced a clear <strong>$ / %</strong> toggle switch with a real-time preview of the calculation so users felt confident before hitting "Split."</p>
+                            </div>
+                            <div class="p2s-finding-badge high">High</div>
                         </div>
-                        <div class="p2s-finding-badge high">High</div>
-                    </div>
-                    <div class="p2s-finding-item">
-                        <div class="p2s-finding-num">F03</div>
-                        <div>
-                            <div class="p2s-finding-title">Visual polish gap</div>
-                            <p class="p2s-finding-desc">"Looks like something made by college students — it's very rough and feels unfinished." (P5) — Reworked the visual identity with stronger contrast, clearer hierarchy, a trusted blue-and-white palette, and more polished UI details.</p>
+                        <div class="p2s-finding-item">
+                            <div class="p2s-finding-num">F03</div>
+                            <div>
+                                <div class="p2s-finding-title">Visual Polish Gap</div>
+                                <p class="p2s-finding-desc" style="margin-bottom:8px;">"Looks like something made by college students — it's very rough and feels unfinished." — P5</p>
+                                <p class="p2s-finding-desc"><strong>Iteration:</strong> Completely overhauled the visual identity with high-contrast typography, engaging emojis, and a trusted blue/white color palette.</p>
+                            </div>
+                            <div class="p2s-finding-badge high">High</div>
                         </div>
-                        <div class="p2s-finding-badge high">High</div>
                     </div>
-                </div>
                     <figure style="margin:0;">
-                        <img class="p2s-inline-artifact-img" src="assets/img/Pic2Split/user rearch issue and feedback.png" alt="Usability testing summary showing key user issues and feedback from the Pic2Split prototype">
-                        <figcaption class="p2s-caption">Synthesis artifact from October 2025 testing.</figcaption>
+                        <img class="p2s-inline-artifact-img" src="assets/img/Pic2Split/issues and feedback.png" alt="Usability testing issues and feedback synthesis from Pic2Split prototype">
+                        <figcaption class="p2s-caption">Issues and feedback synthesis from October 2025 testing sessions.</figcaption>
                     </figure>
                 </div>
             </div>
@@ -1024,12 +1051,12 @@
             <div class="case-section-inner">
                 <div class="p2s-2col-header">
                     <div>
-                        <div class="p2s-section-number">05 — Design</div>
-                        <h2 class="p2s-section-title-main">The final experience focused on assignment clarity, transparent math, and shareability</h2>
+                        <div class="p2s-section-number">05 — Key Solutions</div>
+                        <h2 class="p2s-section-title-main">Smart assignment, transparent math, and instant web sharing</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            The solution work centered on reducing user effort while increasing trust. Each major interaction was designed to make the system feel more legible: assignment became tactile, math became transparent, and sharing became effortless.
+                            Each solution directly addresses a pain point identified in research. Assignment became tactile, math became visible, and sharing became zero-friction.
                         </p>
                     </div>
                 </div>
@@ -1037,11 +1064,20 @@
                 <div class="p2s-mockup-row">
                     <div class="p2s-mockup-cell">
                         <div class="p2s-mockup-cell-img">
-                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="Pic2Split item assignment screen">
+                            <img src="assets/img/Pic2Split/Home.png" alt="Pic2Split home screen">
                         </div>
                         <div class="p2s-mockup-cell-footer">
                             <div class="p2s-mockup-sub">Screen 01</div>
-                            <div class="p2s-mockup-title">Assign Flow</div>
+                            <div class="p2s-mockup-title">Home Screen</div>
+                        </div>
+                    </div>
+                    <div class="p2s-mockup-cell">
+                        <div class="p2s-mockup-cell-img">
+                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="Pic2Split item assignment screen">
+                        </div>
+                        <div class="p2s-mockup-cell-footer">
+                            <div class="p2s-mockup-sub">Screen 02</div>
+                            <div class="p2s-mockup-title">Assign by Item</div>
                         </div>
                     </div>
                     <div class="p2s-mockup-cell">
@@ -1049,36 +1085,29 @@
                             <img src="assets/img/Pic2Split/Split details.png" alt="Pic2Split split details screen">
                         </div>
                         <div class="p2s-mockup-cell-footer">
-                            <div class="p2s-mockup-sub">Screen 02</div>
-                            <div class="p2s-mockup-title">Split Details</div>
-                        </div>
-                    </div>
-                    <div class="p2s-mockup-cell">
-                        <div class="p2s-mockup-cell-img">
-                            <img src="assets/img/Pic2Split/Home.png" alt="Pic2Split home screen">
-                        </div>
-                        <div class="p2s-mockup-cell-footer">
                             <div class="p2s-mockup-sub">Screen 03</div>
-                            <div class="p2s-mockup-title">Home Screen</div>
+                            <div class="p2s-mockup-title">Split Details</div>
                         </div>
                     </div>
                 </div>
 
+                <div class="p2s-divider"></div>
+
                 <div class="p2s-grid-2" style="align-items:center;">
                     <div class="p2s-solution-copy">
-                        <span class="p2s-eyebrow">01</span>
+                        <span class="p2s-eyebrow">Solution 01</span>
                         <h3>Smart assign by item</h3>
                         <p>
-                            Users loved the item-assignment interaction. Instead of manually splitting totals at the end, they could tap a food item and then tap a friend's avatar, linking the cost proportionally while keeping the mental model simple.
+                            Users loved our item-assignment feature. By simply tapping a food item and then tapping a friend's avatar, the cost is proportionally linked — no manual math, no awkward rounding.
                         </p>
                         <div class="p2s-quote-card">
                             <p>"I really like the assign people by items feature."</p>
-                            <div class="p2s-quote-source">Test participant P2</div>
+                            <div class="p2s-quote-source">Test Participant P2</div>
                         </div>
                     </div>
                     <div>
                         <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="Pic2Split item assignment screen showing a receipt item being assigned to a friend's avatar">
+                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="Receipt item being tapped and assigned to a friend's avatar">
                         </div>
                     </div>
                 </div>
@@ -1088,23 +1117,23 @@
                 <div class="p2s-grid-2" style="align-items:center;">
                     <div>
                         <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/Split details.png" alt="Pic2Split split details screen showing per-person totals with tax and tip included">
+                            <img src="assets/img/Pic2Split/Split details.png" alt="Final split details screen showing per-person totals including tax and tip">
                         </div>
                     </div>
                     <div class="p2s-solution-copy">
-                        <span class="p2s-eyebrow">02</span>
+                        <span class="p2s-eyebrow">Solution 02</span>
                         <h3>Transparent split details</h3>
                         <p>
-                            The dashboard breaks down exactly who owes what, including each person's share of tax and tip. By exposing the math instead of hiding it, the design makes the split feel fair, checkable, and socially easier to accept.
+                            The final dashboard breaks down exactly who owes what, including their specific share of tax and tip. No hidden math — building immediate trust among friends.
                         </p>
                         <div class="p2s-grid-2" style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap:10px;">
                             <div class="p2s-card">
                                 <div class="p2s-mini-title"><i class="fas fa-list-ul" aria-hidden="true"></i> Fairness</div>
-                                <p class="p2s-muted" style="margin-bottom:0;">Per-person totals feel verifiable because users can see the breakdown, not just the outcome.</p>
+                                <p class="p2s-muted" style="margin-bottom:0;">Per-person totals are fully verifiable — users see the breakdown, not just the final number.</p>
                             </div>
                             <div class="p2s-card">
                                 <div class="p2s-mini-title"><i class="fas fa-percent" aria-hidden="true"></i> Clarity</div>
-                                <p class="p2s-muted" style="margin-bottom:0;">The $ / % distinction and live preview reduce tax and tip uncertainty before users commit.</p>
+                                <p class="p2s-muted" style="margin-bottom:0;">The $ / % toggle and live preview let users verify tax and tip before committing.</p>
                             </div>
                         </div>
                     </div>
@@ -1114,22 +1143,22 @@
 
                 <div class="p2s-grid-2" style="align-items:center;">
                     <div class="p2s-solution-copy">
-                        <span class="p2s-eyebrow">03</span>
+                        <span class="p2s-eyebrow">Solution 03</span>
                         <h3>Instant web sharing</h3>
                         <p>
-                            Because Pic2Split is web-based, the host can send a static link, a QR code, or an exported image directly into a group chat. The split result is immediately accessible to everyone else without app installs, passwords, or extra setup.
+                            Because Pic2Split is web-based, the host simply generates a static link, a QR code, or an exported image to drop into a group chat. Payers click the link and see exactly what they owe — instantly, with zero app installs.
                         </p>
                         <div class="p2s-share-list">
                             <div class="p2s-share-item">
-                                <strong style="display:block; margin-bottom:6px;">Static link</strong>
+                                <strong style="display:block; margin-bottom:6px;"><i class="fas fa-link" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>Static link</strong>
                                 <p class="p2s-muted" style="margin:0;">Fastest way to send the final split remotely.</p>
                             </div>
                             <div class="p2s-share-item">
-                                <strong style="display:block; margin-bottom:6px;">QR code</strong>
+                                <strong style="display:block; margin-bottom:6px;"><i class="fas fa-qrcode" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>QR code</strong>
                                 <p class="p2s-muted" style="margin:0;">Easy for in-person groups at the table.</p>
                             </div>
                             <div class="p2s-share-item">
-                                <strong style="display:block; margin-bottom:6px;">Exported image</strong>
+                                <strong style="display:block; margin-bottom:6px;"><i class="fas fa-image" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>Exported image</strong>
                                 <p class="p2s-muted" style="margin:0;">Chat-friendly fallback for simple sharing.</p>
                             </div>
                         </div>
@@ -1171,11 +1200,11 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">07 — Reflection</div>
-                        <h2 class="p2s-section-title-main">Designing for AI unpredictability became the core UX lesson</h2>
+                        <h2 class="p2s-section-title-main">Designing for AI unpredictability was the core UX lesson</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            Designing Pic2Split was a lesson in accepting that AI systems will never be perfectly predictable. The strongest UX decision was not pretending errors would disappear, but giving users an intuitive way to correct them without friction.
+                            Designing Pic2Split was a masterclass in accepting that perfection is impossible when you rely on LLMs and OCR. A receipt will inevitably be crumpled, or a font will be weird. The strongest design decision was not hiding AI errors — it was giving users a frictionless, empowering way to correct them.
                         </p>
                     </div>
                 </div>
@@ -1197,17 +1226,17 @@
 
                 <div class="p2s-inline-artifact">
                     <div class="p2s-card">
-                        <div class="p2s-card-title"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Reflection</div>
+                        <div class="p2s-card-title"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Key Takeaway</div>
                         <p>
-                            A receipt can be crumpled, the print can be poor, and OCR can still misread. The strongest UX decision was not pretending those errors would disappear, but giving users an intuitive way to correct them without friction.
+                            A great UX doesn't hide AI errors — it provides users with a frictionless, empowering way to manually correct them. Pic2Split's Correction Flow became the most trust-building feature in the entire product.
                         </p>
                         <p style="margin-bottom:0;">
-                            Close collaboration with React and Spring Boot engineers also sharpened how I balanced ideal flows against latency, technical constraints, and loading-state expectations.
+                            Collaborating closely with React and Spring Boot engineers also taught me how to balance ideal user flows against strict technical constraints and latency issues — for example, designing engaging loading states while the AI parses the image kept the experience feeling responsive even when the backend took several seconds.
                         </p>
                     </div>
                     <figure style="margin:0;">
-                        <img class="p2s-inline-artifact-img" src="assets/img/Pic2Split/user research summary.png" alt="Pic2Split research summary artifact">
-                        <figcaption class="p2s-caption">Research summary tying product strategy back to user pain points.</figcaption>
+                        <img class="p2s-inline-artifact-img" src="assets/img/Pic2Split/user research summary.png" alt="Research summary tying Pic2Split product strategy back to user pain points">
+                        <figcaption class="p2s-caption">Research summary connecting product goals to the pain points uncovered in testing.</figcaption>
                     </figure>
                 </div>
 
@@ -1219,19 +1248,19 @@
             <div class="p2s-2col-header">
                 <div>
                     <div class="p2s-section-number">08 — Summary &amp; Impact</div>
-                    <h2 class="p2s-section-title-main">The MVP turned a frustrating chore into a streamlined, scalable product direction</h2>
+                    <h2 class="p2s-section-title-main">A working MVP launched, a scalable product direction established</h2>
                 </div>
                 <div>
                     <p class="p2s-section-intro">
-                        Pic2Split launched as a functioning web app, proving that an AI-powered bill-splitting experience can replace tedious manual work. The foundation is built to grow well beyond dining.
+                        Pic2Split successfully transformed a tedious manual chore into a streamlined, automated process — proving the concept works and laying the foundation for a much bigger vision.
                     </p>
                 </div>
             </div>
             <div class="p2s-impact-grid">
                 <div class="p2s-impact-card">
                     <span class="p2s-eyebrow">Problems solved</span>
-                    <h3>Manual bill splitting became a lightweight web flow</h3>
-                    <p class="p2s-muted">Pic2Split transformed a tedious manual chore into a streamlined, automated process with zero app downloads and clear tax/tip math.</p>
+                    <h3>Manual bill splitting became a frictionless web flow</h3>
+                    <p class="p2s-muted">We eliminated tedious manual entry with zero app downloads required, and solved the complex proportional tax/tip math that plagues North American dining.</p>
                 </div>
                 <div class="p2s-impact-card">
                     <span class="p2s-eyebrow">Goals achieved</span>
