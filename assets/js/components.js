@@ -15,13 +15,13 @@ const PortfolioApp = {
             category: 'uiux',
             tags: ['Product Design', 'UX Research', 'UI Design', 'Web App'],
             image: 'assets/img/main images/pic2split.png',
-            heroImage: 'assets/img/Pic2Split/landing image.png',
+            heroImage: 'assets/img/Pic2Split/hero.png',
             link: 'pic2split.html',
             timeline: 'Nov 2025 – Present',
             team: '2 Engineers, 1 Designer, 1 PM',
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',
             tools: 'Figma',
-            liveLink: 'https://pic2split.design/'
+            liveLink: null
         },
         {
             id: 'lcm',
@@ -196,7 +196,7 @@ const PortfolioApp = {
         pic2split: {
             title: "Pic2Split",
             desc: "Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.",
-            meta: ``, backLink: true, liveLink: "https://pic2split.design/", cover: false
+            meta: ``, backLink: true, liveLink: null, cover: false
         },
         lawfare: {
             title: "International Lawfare Website",

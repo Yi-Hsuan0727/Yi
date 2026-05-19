@@ -69,7 +69,8 @@ const LayoutComponents = {
         if (pageType === 'about') {
             return '';
         }
-        const sidebarLink = pageData.liveLink || '#';
+        const sidebarLink = pageData.liveLink;
+        if (!sidebarLink) return '';
         let sidebarLabel = 'Visit Live Site';
         let sidebarIcon = 'fa-external-link-alt';
         if (pageType === 'unesco' || pageType === 'spring' || sidebarLink.indexOf('figma.com') !== -1) {
@@ -103,7 +104,11 @@ const LayoutComponents = {
     /* Mobile-only: visit live site + back to home above next projects (project pages) */
     buildMobileProjectActions: function(projectMeta) {
         if (!projectMeta) return '';
-        const liveLink = projectMeta.liveLink || '#';
+        const liveLink = projectMeta.liveLink;
+        if (!liveLink) return `
+            <div class="mobile-project-actions">
+                <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
+            </div>`;
         let liveLabel = 'Visit Live Site';
         let liveIcon = 'fa-external-link-alt';
         if (projectMeta.id === 'unesco' || projectMeta.id === 'spring' || (liveLink && liveLink.indexOf('figma.com') !== -1)) {

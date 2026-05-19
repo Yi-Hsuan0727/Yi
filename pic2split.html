@@ -1038,6 +1038,18 @@
                     <figcaption class="p2s-caption">23-screen user flow — the complete path from login through receipt scan, item assignment, and share.</figcaption>
                 </figure>
 
+                <!-- Design system + wireframe -->
+                <div class="p2s-grid-2" style="align-items:start; gap:20px;">
+                    <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
+                        <img src="assets/img/Pic2Split/design system.png" alt="Pic2Split design system — visual language, components, and interface consistency">
+                        <figcaption class="p2s-caption">Design system — visual language and component library behind the final experience.</figcaption>
+                    </figure>
+                    <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
+                        <img src="assets/img/Pic2Split/wireframe.png" alt="Pic2Split low-fidelity wireframes showing the 23-screen specification">
+                        <figcaption class="p2s-caption">Low-fidelity wireframes — the 23-screen specification before visual polish.</figcaption>
+                    </figure>
+                </div>
+
             </div>
         </section>
 
@@ -1051,121 +1063,83 @@
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            Each solution directly addresses a pain point identified in research. Assignment became tactile, math became visible, and sharing became zero-friction — across all four core features of the final design.
+                            Five core features work together to eliminate every friction point — from login to the final shared link.
                         </p>
                     </div>
                 </div>
 
-                <!-- Mockup animation -->
-                <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
-                    <video
-                        src="assets/img/Pic2Split/mockup-video-landing-animation.mov"
-                        data-autoplay-on-view
-                        muted
-                        playsinline
-                        loop
-                        preload="none"
-                        poster="assets/img/Pic2Split/landing.png"
-                        aria-label="Pic2Split product mockup animation showing the full app flow"
-                        style="width:100%; border-radius:8px; border:1px solid var(--border-color); display:block;">
-                        <img src="assets/img/Pic2Split/landing.png" alt="Pic2Split product mockup" style="width:100%;border-radius:8px;">
-                    </video>
-                    <figcaption class="p2s-caption">Product walkthrough — from receipt upload to shareable split results.</figcaption>
-                </figure>
-
-                <div class="p2s-divider"></div>
-
-                <!-- Solution 01 -->
+                <!-- Solution 01 — Google Auth -->
                 <div class="p2s-grid-2" style="align-items:center;">
                     <div class="p2s-solution-copy">
                         <span class="p2s-eyebrow">Solution 01</span>
-                        <h3>Instant OCR scanning &amp; parsing</h3>
-                        <p>Users snap a photo, and the AI extracts item names, quantities, and totals. A side-by-side view allows users to verify accuracy instantly — making the AI's work transparent and correctable rather than a black box.</p>
+                        <h3>Frictionless Google Authentication</h3>
+                        <p>One-tap login stores your splitting history safely without tedious onboarding forms.</p>
                     </div>
                     <div>
                         <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/Home.png" alt="Home screen showing receipt upload and OCR scanning interface">
+                            <img src="assets/img/Pic2Split/landing.png" alt="Pic2Split home screen with Google one-tap login">
                         </div>
                     </div>
                 </div>
 
                 <div class="p2s-divider"></div>
 
-                <!-- Solution 02 -->
+                <!-- Solution 02 + 03 — shared image -->
                 <div class="p2s-grid-2" style="align-items:center;">
-                    <div>
-                        <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="Receipt item being tapped and assigned to a friend's avatar">
+                    <div class="p2s-stack">
+                        <div class="p2s-solution-copy">
+                            <span class="p2s-eyebrow">Solution 02</span>
+                            <h3>Instant OCR Side-by-Side Review</h3>
+                            <p>Users snap or upload a photo, and the AI extracts items, prices, tax, and tip instantly. The UI places this data alongside the receipt photo for quick confirmation.</p>
+                        </div>
+                        <div class="p2s-divider" style="margin:0;"></div>
+                        <div class="p2s-solution-copy">
+                            <span class="p2s-eyebrow">Solution 03</span>
+                            <h3>Tap-to-Split Multi-Selection</h3>
+                            <p>No more typing decimal weights. Tap an item, select the faces of the friends who shared it, and watch the app divide the cost dynamically.</p>
                         </div>
                     </div>
-                    <div class="p2s-solution-copy">
-                        <span class="p2s-eyebrow">Solution 02</span>
-                        <h3>Frictionless item assignment</h3>
-                        <p>An intuitive interface lets users easily select dishes and assign weights (e.g., 0.5, 1) to specific people.</p>
+                    <div>
+                        <div class="p2s-phone-frame">
+                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="OCR side-by-side review and tap-to-split item assignment interface">
+                        </div>
                     </div>
                 </div>
 
                 <div class="p2s-divider"></div>
 
-                <!-- Solution 03 -->
+                <!-- Solution 04 + 05 — shared image -->
                 <div class="p2s-grid-2" style="align-items:center;">
-                    <div class="p2s-solution-copy">
-                        <span class="p2s-eyebrow">Solution 03</span>
-                        <h3>Transparent tax &amp; tip calculation</h3>
-                        <p>The system automatically calculates proportional tax and tip based on the selected items.</p>
-                    </div>
-                    <div>
-                        <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/Split details.png" alt="Final split details screen showing per-person totals including proportional tax and tip">
+                    <div class="p2s-stack">
+                        <div class="p2s-solution-copy">
+                            <span class="p2s-eyebrow">Solution 04</span>
+                            <h3>Proportional Tax &amp; Tip Engine</h3>
+                            <p>The backend accurately distributes tax and tip proportionally based only on what each individual actually consumed.</p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="p2s-divider"></div>
-
-                <!-- Solution 04 -->
-                <div class="p2s-grid-2" style="align-items:start;">
-                    <div class="p2s-solution-copy">
-                        <span class="p2s-eyebrow">Solution 04</span>
-                        <h3>Real-time sharing</h3>
-                        <p>Results generate a clean, web-based summary that can be exported as an image or table and shared via static links or QR codes — no app download required.</p>
-                        <div class="p2s-share-list" style="grid-template-columns: repeat(2, minmax(0,1fr)); margin-top:16px;">
-                            <div class="p2s-share-item">
-                                <strong style="display:block; margin-bottom:6px;"><i class="fas fa-link" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>Static link</strong>
-                                <p class="p2s-muted" style="margin:0;">Fastest way to send the final split remotely.</p>
-                            </div>
-                            <div class="p2s-share-item">
-                                <strong style="display:block; margin-bottom:6px;"><i class="fas fa-qrcode" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>QR code</strong>
-                                <p class="p2s-muted" style="margin:0;">Easy for in-person groups at the table.</p>
-                            </div>
-                            <div class="p2s-share-item">
-                                <strong style="display:block; margin-bottom:6px;"><i class="fas fa-image" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>Exported image</strong>
-                                <p class="p2s-muted" style="margin:0;">Chat-friendly screenshot for group chats.</p>
-                            </div>
-                            <div class="p2s-share-item">
-                                <strong style="display:block; margin-bottom:6px;"><i class="fas fa-table" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>Exported table</strong>
-                                <p class="p2s-muted" style="margin:0;">Structured breakdown for detailed record-keeping.</p>
+                        <div class="p2s-divider" style="margin:0;"></div>
+                        <div class="p2s-solution-copy">
+                            <span class="p2s-eyebrow">Solution 05</span>
+                            <h3>Web-First Real-Time Sharing</h3>
+                            <p>Generates a clean, transparent web summary link or a QR code. Friends can view exactly what they owe in a browser without downloading an app.</p>
+                            <div class="p2s-share-list" style="grid-template-columns: repeat(2, minmax(0,1fr)); margin-top:16px;">
+                                <div class="p2s-share-item">
+                                    <strong style="display:block; margin-bottom:6px;"><i class="fas fa-globe" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>Web link</strong>
+                                    <p class="p2s-muted" style="margin:0;">A clean browser page showing each person's total.</p>
+                                </div>
+                                <div class="p2s-share-item">
+                                    <strong style="display:block; margin-bottom:6px;"><i class="fas fa-qrcode" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>QR code</strong>
+                                    <p class="p2s-muted" style="margin:0;">Scan at the table — no typing a URL.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/landing.png" alt="Pic2Split shareable results landing page">
+                            <img src="assets/img/Pic2Split/Split details.png" alt="Split details screen showing proportional tax and tip distribution and shareable summary">
                         </div>
                     </div>
                 </div>
 
-                <!-- Design system + wireframe — side by side -->
-                <div class="p2s-grid-2" style="align-items:start; gap:20px;">
-                    <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
-                        <img src="assets/img/Pic2Split/design system.png" alt="Pic2Split design system — visual language, components, and interface consistency">
-                        <figcaption class="p2s-caption">Design system — visual language and component library behind the final experience.</figcaption>
-                    </figure>
-                    <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
-                        <img src="assets/img/Pic2Split/wireframe.png" alt="Pic2Split low-fidelity wireframes showing the 23-screen specification">
-                        <figcaption class="p2s-caption">Low-fidelity wireframes — the 23-screen specification before visual polish.</figcaption>
-                    </figure>
-                </div>
             </div>
         </section>
 
@@ -1197,6 +1171,10 @@
                         <h2 class="p2s-section-title-main">Summary &amp; Impact</h2>
                     </div>
                 </div>
+                <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
+                    <img src="assets/img/Pic2Split/landing image.png" alt="Pic2Split product landing — the final shareable split result view">
+                </figure>
+
                 <div class="p2s-impact-grid">
                     <div class="p2s-impact-card">
                         <div class="p2s-phase-icon" style="margin-bottom:12px;"><i class="fas fa-circle-check" aria-hidden="true"></i></div>
