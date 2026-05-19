@@ -264,6 +264,41 @@
                 line-height: 1.5;
             }
 
+            /* === OVERVIEW HERO === */
+            .p2s-overview-hero {
+                padding: 0 !important;
+                overflow: hidden;
+            }
+            .p2s-overview-hero-inner {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                width: 100%;
+            }
+            .p2s-overview-hero-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 64px 48px;
+            }
+            .p2s-overview-hero-video {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                background: #fff;
+                padding: 0;
+                margin: 0;
+            }
+            .p2s-overview-hero-video video {
+                width: 100%;
+                height: auto;
+                display: block;
+                border: none !important;
+                outline: none;
+                box-shadow: none;
+                clip-path: inset(2px 0);
+            }
+
             /* === GRID LAYOUTS === */
             .p2s-grid-2 {
                 display: grid;
@@ -855,6 +890,8 @@
                 .p2s-outcome-cell:nth-child(2) { border-right: none; }
                 .p2s-outcome-cell:nth-child(3) { border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
                 .p2s-outcome-cell:nth-child(4) { border-top: 1px solid var(--border-color); }
+                .p2s-overview-hero-inner { grid-template-columns: 1fr; min-height: auto; }
+                .p2s-overview-hero-video { min-height: 60vw; position: relative; }
                 .p2s-grid-2,
                 .p2s-grid-3,
                 .p2s-grid-4,
@@ -875,23 +912,30 @@
         </style>
 
         <!-- ===================== OVERVIEW ===================== -->
-        <section class="case-section case-section-alt">
-            <div class="case-section-inner">
-                <div class="p2s-2col-header">
-                    <div>
-                        <div class="p2s-section-number">Overview</div>
-                        <h2 class="p2s-section-title-main">An AI-powered, web-first receipt splitter that makes group dining effortless</h2>
-                    </div>
-                    <div>
-                        <p class="p2s-section-intro">
-                            Pic2Split is an AI-powered web service designed to eliminate the friction of group dining and shared expenses. Using a <strong>"Web-First"</strong> approach, we created a tool that requires no app download, allowing users to scan a receipt and split complex bills fairly in seconds.
-                        </p>
-                        <p>
-                            As the Product Designer, I led the end-to-end design process, from identifying critical failures in existing market solutions to delivering a <strong>high-fidelity, 23-screen design system</strong> that prioritizes speed and calculation accuracy.
-                        </p>
-                    </div>
+        <section class="case-section case-section-alt p2s-overview-hero">
+            <div class="p2s-overview-hero-inner">
+                <div class="p2s-overview-hero-text">
+                    <div class="p2s-section-number">Overview</div>
+                    <h2 class="p2s-section-title-main" style="margin-top:10px; margin-bottom:20px;">An AI-powered, web-first receipt splitter that makes group dining effortless</h2>
+                    <p class="p2s-section-intro">
+                        Pic2Split is an AI-powered web service designed to eliminate the friction of group dining and shared expenses. Using a <strong>"Web-First"</strong> approach, we created a tool that requires no app download, allowing users to scan a receipt and split complex bills fairly in seconds.
+                    </p>
+                    <p>
+                        As the Product Designer, I led the end-to-end design process, from identifying critical failures in existing market solutions to delivering a <strong>high-fidelity, 23-screen design system</strong> that prioritizes speed and calculation accuracy.
+                    </p>
                 </div>
-
+                <div class="p2s-overview-hero-video">
+                    <video
+                        src="assets/img/Pic2Split/mockup-video-landing-animation.mp4"
+                        autoplay
+                        muted
+                        playsinline
+                        loop
+                        preload="auto"
+                        poster="assets/img/Pic2Split/landing.png"
+                        aria-label="Pic2Split product mockup animation">
+                    </video>
+                </div>
             </div>
         </section>
 
@@ -1168,13 +1212,9 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">06 — Summary &amp; Impact</div>
-                        <h2 class="p2s-section-title-main">Summary &amp; Impact</h2>
+                        <h2 class="p2s-section-title-main">From messy check to fair split — in seconds</h2>
                     </div>
                 </div>
-                <figure class="p2s-figure p2s-figure-readable" style="margin:0;">
-                    <img src="assets/img/Pic2Split/landing image.png" alt="Pic2Split product landing — the final shareable split result view">
-                </figure>
-
                 <div class="p2s-impact-grid">
                     <div class="p2s-impact-card">
                         <div class="p2s-phase-icon" style="margin-bottom:12px;"><i class="fas fa-circle-check" aria-hidden="true"></i></div>
@@ -1198,10 +1238,34 @@
             </div>
         </section>
 
+        <!-- ===================== PARALLAX BANNER ===================== -->
+        <div class="p2s-parallax-wrap" aria-hidden="true">
+            <img id="p2s-parallax-img" src="assets/img/Pic2Split/landing image.png" alt="">
+        </div>
+
         <script>
             (function () {
                 const root = document.querySelector('#page-specific-content');
                 if (!root) return;
+
+                /* --- Parallax (rAF loop — works with Lenis) --- */
+                const wrap = root.querySelector('.p2s-parallax-wrap');
+                const img  = root.querySelector('#p2s-parallax-img');
+                if (wrap && img) {
+                    const scroller = document.querySelector('#scroll-container');
+                    const SPEED = 0.3;
+                    let rafId;
+                    function updateParallax() {
+                        const scrollTop = scroller ? scroller.scrollTop : window.scrollY;
+                        const wrapRect  = wrap.getBoundingClientRect();
+                        const containerTop = scroller ? scroller.getBoundingClientRect().top : 0;
+                        const relativeTop  = wrapRect.top - containerTop;
+                        const offset = -relativeTop * SPEED;
+                        img.style.transform = `translateY(${offset}px)`;
+                        rafId = requestAnimationFrame(updateParallax);
+                    }
+                    updateParallax();
+                }
 
                 const videos = Array.from(root.querySelectorAll('video[data-autoplay-on-view]'));
                 if (!videos.length || typeof IntersectionObserver === 'undefined') return;

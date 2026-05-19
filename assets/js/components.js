@@ -329,8 +329,11 @@ const PortfolioApp = {
         const mobileProjectActionsHTML = !isGridPage && projectMeta ? LayoutComponents.buildMobileProjectActions(projectMeta) : '';
         const heroImage = projectMeta ? (projectMeta.heroImage || projectMeta.image || 'assets/img/bk/welcome.jpg') : '';
         const heroAlt = projectMeta ? (projectMeta.heroAlt || (projectMeta.title + ' main hero image')) : '';
+        const heroVideo = projectMeta ? (projectMeta.heroVideo || '') : '';
         const coverHTML = (!isGridPage && projectMeta)
-            ? `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
+            ? heroVideo
+                ? `<div class="case-hero-img case-hero-video"><video src="${heroVideo}" autoplay muted playsinline loop preload="auto" poster="${heroImage}" style="width:100%;height:100%;object-fit:cover;"></video></div>`
+                : `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
         const footerHTML = LayoutComponents.buildFooter(pageType);
         const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;

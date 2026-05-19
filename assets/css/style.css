@@ -559,7 +559,31 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border-color: var(--accent-color);
     background-color: rgba(46, 204, 113, 0.08);
 }
-.case-hero-img { width: 100%; height: 350px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 1.5rem; margin-bottom: 30px; }
+.case-hero-img { width: 100%; height: 350px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 1.5rem; margin-bottom: 0; }
+
+/* --- Hero video variant --- */
+.case-hero-img.case-hero-video { background: #fff; padding: 0 20%; box-sizing: border-box; border: none !important; box-shadow: none !important; outline: none; }
+.case-hero-img.case-hero-video video { display: block; object-position: center 20%; border: none !important; box-shadow: none !important; outline: none; }
+
+/* --- Parallax banner --- */
+.p2s-parallax-wrap {
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    position: relative;
+}
+.p2s-parallax-wrap img {
+    width: 100%;
+    height: 150%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    will-change: transform;
+    transform: translateY(0);
+}
+@media (max-width: 900px) {
+    .p2s-parallax-wrap { height: 260px; }
+}
 .case-content { padding: 40px 60px; max-width: 900px; margin: 0 auto; }
 .case-content h2 { margin-top: 48px; margin-bottom: 16px; }
 .case-content h2:first-child { margin-top: 0; }
