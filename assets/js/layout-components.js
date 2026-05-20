@@ -129,7 +129,7 @@ const LayoutComponents = {
         return `
             <div class="sidebar-tools-marquee" aria-label="Skills and tools used across projects">
                 <div class="sidebar-skills-block">
-                    <p class="sidebar-tools-label">Design &amp; UX</p>
+                    <p class="sidebar-tools-label">Skill Set</p>
                     <ul class="sidebar-skills-track sidebar-skills-static">${skillItems}</ul>
                 </div>
                 <div class="sidebar-tools-block">
