@@ -343,12 +343,7 @@ const PortfolioApp = {
             : '';
 
         if (pageType === 'about') {
-            // Place back link right above the green monster section
-            const contentWithBackLink = uniqueContent.replace(
-                /(<section class="about-monster-band">)/,
-                aboutBackLinkHTML + '$1'
-            );
-            const aboutContent = `<div class="about-page">${contentWithBackLink}</div>`;
+            const aboutContent = `<div class="about-page">${uniqueContent}${LayoutComponents.buildFooter(pageType)}</div>`;
             const layoutHTML = `
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
@@ -358,9 +353,10 @@ const PortfolioApp = {
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
                             <div class="scroll-area" id="scroll-container">
-                                <div class="single-page-wrapper">${aboutContent}</div>
+                                <div class="single-page-wrapper">
+                                    ${aboutContent}
+                                </div>
                             </div>
-                            ${LayoutComponents.buildFooter(pageType)}
                         </div>
                     </div>
                 </div>
@@ -404,6 +400,30 @@ const PortfolioApp = {
                 setTimeout(() => {
                     monsterBody.classList.add('monster-enter');
                 }, 80);
+            }
+        }
+
+        // Footer scroll-reveal on about page: hide until user scrolls to it
+        if (pageType === 'about') {
+            const shell = document.querySelector('.site-footer-shell');
+            const scrollEl = document.getElementById('scroll-container');
+            if (shell) {
+                shell.style.opacity = '0';
+                shell.style.transform = 'translateY(40px)';
+                shell.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+                const obs = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            shell.style.opacity = '1';
+                            shell.style.transform = 'translateY(0)';
+                            obs.disconnect();
+                        }
+                    });
+                }, {
+                    root: scrollEl || null,
+                    threshold: 0.05
+                });
+                obs.observe(shell);
             }
         }
 

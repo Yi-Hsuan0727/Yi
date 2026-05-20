@@ -335,7 +335,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .project-card:active .image-container img,
 .next-project-card:active .next-project-img img {
-    transform: scale(0.9);
+    transform: scale(1);
 }
 @keyframes projectWindHover {
     0% {
@@ -1040,9 +1040,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 
 /* --- About Page --- */
 .about-page {
-    min-height: 100vh;
     overflow-x: hidden;
-    overflow-y: auto;
     background: var(--bg-color);
     color: var(--text-color);
 }
@@ -1153,9 +1151,29 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 
 /* About page: full-width layout (no sidebar) */
 .app-root-about .sidebar { display: none !important; }
-.app-root-about .content-wrapper-fullwidth { width: 100%; flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
-.app-root-about .right-panel-fullwidth { width: 100%; flex: 1; display: flex; flex-direction: column; }
-.app-root-about .right-panel-fullwidth .scroll-area { flex: 1; }
+.app-root-about .content-wrapper-fullwidth {
+    width: 100%;
+    height: calc(100vh - var(--header-height));
+    flex-grow: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.app-root-about .right-panel-fullwidth {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.app-root-about .right-panel-fullwidth .scroll-area {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
 
 /* Back to home on about: visible only on mobile */
 .about-home-link-mobile-only { display: none; }

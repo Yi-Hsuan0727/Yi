@@ -40,14 +40,22 @@ const AppLogic = {
     // --- 2. SMOOTH SCROLL (LENIS) ---
     initLenis: function() {
         if (window.innerWidth > 1200 && typeof Lenis !== 'undefined') {
-            const lenis = new Lenis({ 
-                wrapper: document.getElementById('scroll-container'), 
-                content: document.querySelector('.single-page-wrapper'),
+            const wrapper  = document.getElementById('scroll-container');
+            const content  = document.querySelector('.single-page-wrapper');
+            if (!wrapper || !content) return;
+
+            const lenis = new Lenis({
+                wrapper,
+                content,
                 duration: 1.2,
                 smooth: true
             });
+
             function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
             requestAnimationFrame(raf);
+
+            // Re-read dimensions after layout + transitions have fully settled
+            setTimeout(() => lenis.resize(), 300);
         }
     },
 
