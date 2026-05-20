@@ -158,10 +158,10 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .sidebar-skill-chip {
     display: inline-block;
-    font-size: 0.68rem;
+    font-size: 0.58rem;
     font-weight: 600;
     letter-spacing: 0.02em;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border: 1px solid var(--border-color);
     border-radius: 999px;
     color: var(--text-color);
@@ -915,12 +915,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .section-title { font-size: 0.82rem; }
     .filter-btn { font-size: 0.68rem; padding: 5px 11px; }
 
-    /* Project card overlay text */
-    .tag { font-size: 0.48rem; padding: 2px 7px; }
-    .project-overlay-title { font-size: 0.85rem; }
-    .project-overlay-subtitle { font-size: 0.72rem; line-height: 1.3; }
-    .project-overlay-tag { font-size: 0.5rem; padding: 3px 7px; }
-
     /* Projects CTA */
     .projects-cta-title { font-size: 1.15rem; }
     .projects-cta-body { font-size: 0.8rem; }
@@ -935,22 +929,53 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         opacity: 1;
     }
 
+    /* Lighter gradient above; bottom stop unchanged for text legibility */
+    .image-container::before,
+    .next-project-img::before {
+        background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0.12) 32%,
+            rgba(0, 0, 0, 0.55) 74%,
+            rgba(0, 0, 0, 0.96) 100%
+        );
+    }
+
     .project-overlay {
         transform: translateY(0);
+        padding: 12px;
+        gap: 6px;
     }
 
     .project-overlay-title {
-        font-size: 1.3rem;
+        font-size: 1rem;
+        line-height: 1.15;
     }
 
     .project-overlay-subtitle {
-        font-size: 0.82rem;
-        line-height: 1.35;
+        font-size: 0.72rem;
+        line-height: 1.3;
     }
 
     .project-overlay-tag {
-        font-size: 0.58rem;
-        padding: 4px 8px;
+        font-size: 0.52rem;
+        padding: 3px 7px;
+    }
+}
+
+@media (max-width: 600px) {
+    .project-overlay-title {
+        font-size: 0.88rem;
+    }
+
+    .project-overlay-subtitle {
+        font-size: 0.65rem;
+        line-height: 1.25;
+    }
+
+    .project-overlay-tag {
+        font-size: 0.48rem;
+        padding: 2px 6px;
     }
 }
 
@@ -1452,6 +1477,14 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .sidebar, .right-panel { width: 100%; height: auto; border: none; overflow: visible; }
     .right-panel { display: block; overflow: visible; }
     .sidebar { padding: 30px 20px 56px; }
+
+    .sidebar-skills-static {
+        gap: 6px;
+    }
+    .sidebar-skill-chip {
+        font-size: 0.5rem;
+        padding: 4px 8px;
+    }
 
     .scroll-area { overflow: visible; height: auto; }
 
