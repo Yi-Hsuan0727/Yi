@@ -461,10 +461,12 @@
         .lcm-phase-card:nth-child(n+3) { border-top: 1px solid var(--border-color); }
         .lcm-2col-header,
         .lcm-goal-grid,
-        .lcm-grid-2,
         .lcm-grid-4-8,
         .lcm-callout-row,
         .lcm-impact-grid { grid-template-columns: 1fr; }
+        .lcm-grid-2 { display: block; }
+        .lcm-grid-2 > * { margin-bottom: 20px; }
+        .lcm-grid-2 > *:last-child { margin-bottom: 0; }
         .lcm-callout-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
         .lcm-callout-cell:last-child { border-bottom: none; }
         .lcm-impact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
@@ -646,25 +648,6 @@
             <div class="lcm-label">Phase 03 — Design</div>
             <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Wireframing, Prototyping &amp; Visual Language</h3>
             <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0 0 20px;">Moving from structure to form, I sketched out wireframes to test how components stacked across viewports. The visual language was centered on two guiding principles — <strong style="color:var(--text-color);">cultural heritage</strong> and <strong style="color:var(--text-color);">natural coexistence</strong> — expressed through a deliberately restrained palette. Fonts with a humanistic feel were chosen to reinforce the platform's tone of contemplative, community-rooted discovery.</p>
-            <!-- Colour palette swatches -->
-            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div style="width:28px; height:28px; border-radius:4px; background:#F5EDD6; border:1px solid var(--border-color); flex-shrink:0;"></div>
-                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Warm Rice<br><span style="font-size:0.65rem;">#F5EDD6</span></span>
-                </div>
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div style="width:28px; height:28px; border-radius:4px; background:#9B2335; border:1px solid var(--border-color); flex-shrink:0;"></div>
-                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Traditional Red<br><span style="font-size:0.65rem;">#9B2335</span></span>
-                </div>
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <div style="width:28px; height:28px; border-radius:4px; background:#4A2E1A; border:1px solid var(--border-color); flex-shrink:0;"></div>
-                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Deep Woven Brown<br><span style="font-size:0.65rem;">#4A2E1A</span></span>
-                </div>
-                <div style="display:flex; align-items:center; gap:8px; margin-left:8px; padding-left:12px; border-left:1px solid var(--border-color);">
-                    <div style="width:28px; height:28px; border-radius:4px; background:linear-gradient(135deg,#F5EDD6,#4A2E1A); border:1px solid var(--border-color); flex-shrink:0;"></div>
-                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Humanistic typography<br><span style="font-size:0.65rem;">Serif / Humanist Sans</span></span>
-                </div>
-            </div>
         </div>
 
         <!-- Colour system image + wireframe/prototype side-by-side -->
