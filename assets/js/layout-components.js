@@ -82,8 +82,62 @@ const LayoutComponents = {
             sidebarIcon = 'fa-gamepad';
         }
         return `
-            <div class="bio-container" style="border:none; padding-top:0; margin-top: auto;">
+            <div class="bio-container sidebar-visit-wrap">
                 <a href="${sidebarLink}" target="_blank" class="visit-btn">${sidebarLabel} <i class="fas ${sidebarIcon}" style="margin-left:5px;"></i></a>
+            </div>`;
+    },
+
+    toolIconSrc: function(slug) {
+        return `https://cdn.jsdelivr.net/npm/simple-icons@11.14.0/icons/${slug}.svg`;
+    },
+
+    /* Skills list (static) + auto-scrolling tool logos (all pages with sidebar) */
+    buildSidebarToolsMarquee: function() {
+        const designUxSkills = [
+            'UX/UI Design',
+            'User Research',
+            'Product Design',
+            'Wireframing',
+            'Prototyping',
+            'Usability Testing'
+        ];
+        const skillItems = designUxSkills.map(function(skill) {
+            return `<li class="sidebar-skill-item"><span class="sidebar-skill-chip">${skill}</span></li>`;
+        }).join('');
+
+        const tools = [
+            { name: 'Figma', slug: 'figma' },
+            { name: 'Adobe Illustrator', slug: 'adobeillustrator' },
+            { name: 'Adobe Photoshop', slug: 'adobephotoshop' },
+            { name: 'Adobe XD', slug: 'adobexd' },
+            { name: 'Visual Studio Code', slug: 'visualstudiocode' },
+            { name: 'WordPress', slug: 'wordpress' },
+            { name: 'Drupal', slug: 'drupal' },
+            { name: 'HTML5', slug: 'html5' },
+            { name: 'CSS3', slug: 'css3' },
+            { name: 'Python', slug: 'python' },
+            { name: 'Anthropic', slug: 'anthropic' }
+        ];
+        const iconSrc = this.toolIconSrc.bind(this);
+        const toolItems = tools.map(function(t) {
+            return `<li class="sidebar-tool-item">
+                <img class="sidebar-tool-logo" src="${iconSrc(t.slug)}" alt="${t.name}" width="36" height="36" loading="lazy" decoding="async" />
+            </li>`;
+        }).join('');
+        const toolRow = toolItems + toolItems;
+
+        return `
+            <div class="sidebar-tools-marquee" aria-label="Skills and tools used across projects">
+                <div class="sidebar-skills-block">
+                    <p class="sidebar-tools-label">Design &amp; UX</p>
+                    <ul class="sidebar-skills-track sidebar-skills-static">${skillItems}</ul>
+                </div>
+                <div class="sidebar-tools-block">
+                    <p class="sidebar-tools-label">Tools</p>
+                    <div class="sidebar-tools-viewport">
+                        <ul class="sidebar-tools-track">${toolRow}</ul>
+                    </div>
+                </div>
             </div>`;
     },
 

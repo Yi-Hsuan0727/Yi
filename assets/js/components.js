@@ -383,6 +383,7 @@ const PortfolioApp = {
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
                         ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
+                        ${LayoutComponents.buildSidebarToolsMarquee()}
                     </aside>
                         <div class="right-panel">
                         <div class="scroll-area" id="scroll-container">
