@@ -262,7 +262,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 /* When a projects-cta is present: fill remaining space and pull monster up inside CTA */
 .single-page-wrapper:has(.projects-cta) .site-footer-shell {
-    margin-top: -160px;
+    margin-top: -192px;
     position: relative;
     z-index: 2;
 }
@@ -515,7 +515,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* Home projects footer CTA — fills remaining vertical space above footer */
 .projects-cta {
     position: relative;
-    padding: 72px 30px 200px;
+    padding: 72px 30px 192px;
     flex: 1;
     border-top: 1px solid var(--border-color);
     margin-top: 10px;
@@ -659,7 +659,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .projects-cta-hint {
     margin-top: auto;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    z-index: 3;
     font-size: 0.72rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -1506,7 +1507,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     }
 
     .projects-cta {
-        padding: 56px 20px 200px;
+        padding: 56px 20px 192px;
         margin-bottom: 0;
     }
 
