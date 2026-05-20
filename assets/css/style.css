@@ -1212,13 +1212,67 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .about-intro h1 {
     font-size: clamp(2rem, 6vw, 4rem);
     line-height: 0.95;
-    margin-bottom: 14px;
+    margin-bottom: 32px;
 }
 .about-intro p {
     max-width: 600px;
     font-size: 1rem;
     line-height: 1.6;
     color: var(--secondary-text);
+}
+.about-section-heading {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--secondary-text);
+    margin: 0 0 18px;
+}
+.about-experience {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border-color);
+    max-width: 100%;
+}
+.about-experience-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.about-exp-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+.about-exp-item:last-child {
+    border-bottom: none;
+}
+.about-exp-period {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--secondary-text);
+    line-height: 1.5;
+}
+.about-exp-title {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin: 0 0 4px;
+    line-height: 1.35;
+}
+.about-exp-org {
+    font-size: 0.82rem;
+    color: var(--secondary-text);
+    margin: 0;
+    line-height: 1.6;
 }
 .about-interests {
     margin-top: 36px;
@@ -1227,14 +1281,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     padding-bottom: 8px;
     border-top: 1px solid var(--border-color);
     max-width: 100%;
-}
-.about-interests-heading {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--secondary-text);
-    margin: 0 0 18px;
 }
 .about-interests-list {
     list-style: none;
@@ -1489,6 +1535,11 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .about-intro {
         padding: 28px 20px 16px;
     }
+    .about-exp-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .about-experience,
     .about-interests {
         margin-bottom: 32px;
     }
