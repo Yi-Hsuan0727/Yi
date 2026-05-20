@@ -245,7 +245,7 @@ const PortfolioApp = {
         },
         quickbite: {
             title: "QuickBite",
-            desc: "A smart assistant using Claude AI & USDA data to plan meals and recipes based on user needs.",
+            desc: "An AI-powered meal planning system that turns fridge inventory into tailored menus and tracks real nutritional data.",
             meta: ``, backLink: true, liveLink: "#", cover: false
         },
         enchanter: {
