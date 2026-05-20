@@ -1043,14 +1043,13 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     overflow-x: hidden;
     background: var(--bg-color);
     color: var(--text-color);
+    flex: 1 0 auto;
 }
-/* Prevent horizontal scrollbar on about (carousel stays scroll-driven, no scrollbar) */
 .app-root-about .about-page,
 .app-root-about .scroll-area {
     overflow-x: hidden;
 }
 .about-main {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -1096,7 +1095,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     width: 100%;
     overflow: hidden;
     padding: 30px 0 30px 30px;
-    border-top: 1px solid var(--border-color);
     position: relative;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -1170,8 +1168,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     overflow: hidden;
 }
 .app-root-about .right-panel-fullwidth .scroll-area {
-    flex: 1;
+    flex: 1 1 0;
     min-height: 0;
+    height: 0;
     overflow: hidden;
 }
 
@@ -1206,6 +1205,30 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .sidebar { padding: 30px 20px 56px; border-bottom: 1px solid var(--border-color); }
 
     .scroll-area { overflow: visible; height: auto; }
+
+    /* About page: body scroll on mobile — reset desktop flex collapse */
+    .app-root-about .content-wrapper-fullwidth,
+    .app-root-about .right-panel-fullwidth {
+        height: auto;
+        min-height: 0;
+        flex: none;
+        overflow: visible;
+        display: block;
+    }
+    .app-root-about .right-panel-fullwidth .scroll-area {
+        height: auto;
+        min-height: auto;
+        flex: none;
+        overflow: visible;
+        display: block;
+    }
+    .app-root-about .single-page-wrapper {
+        min-height: auto;
+        display: block;
+    }
+    .app-root-about .about-page {
+        flex: none;
+    }
 
     /* Footer flows normally on mobile */
     .site-footer {

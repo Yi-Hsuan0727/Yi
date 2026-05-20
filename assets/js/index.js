@@ -39,23 +39,26 @@ const AppLogic = {
 
     // --- 2. SMOOTH SCROLL (LENIS) ---
     initLenis: function() {
+        if (window.__lenis) {
+            window.__lenis.destroy();
+            window.__lenis = null;
+        }
         if (window.innerWidth > 1200 && typeof Lenis !== 'undefined') {
-            const wrapper  = document.getElementById('scroll-container');
-            const content  = document.querySelector('.single-page-wrapper');
+            const wrapper = document.getElementById('scroll-container');
+            const content = document.querySelector('.single-page-wrapper');
             if (!wrapper || !content) return;
 
-            const lenis = new Lenis({
-                wrapper,
-                content,
-                duration: 1.2,
-                smooth: true
-            });
+            const lenis = new Lenis({ wrapper, content, duration: 1.2, smooth: true });
+            window.__lenis = lenis;
 
             function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
             requestAnimationFrame(raf);
 
-            // Re-read dimensions after layout + transitions have fully settled
-            setTimeout(() => lenis.resize(), 300);
+            const refreshLenis = () => lenis.resize();
+            setTimeout(refreshLenis, 100);
+            setTimeout(refreshLenis, 400);
+            window.addEventListener('load', refreshLenis);
+            window.addEventListener('resize', refreshLenis);
         }
     },
 
@@ -71,18 +74,17 @@ const AppLogic = {
         if (!scroller && !isMobile) return;
 
         const onScroll = () => {
-            const currentScroll = isMobile ? window.scrollY : desktopContainer.scrollTop;
-            
-            // Progress Bar
-            let maxScroll, scrollHeight, clientHeight;
-            if (isMobile) {
-                scrollHeight = document.documentElement.scrollHeight;
-                clientHeight = window.innerHeight;
+            let currentScroll, maxScroll;
+            if (!isMobile && window.__lenis) {
+                currentScroll = window.__lenis.scroll;
+                maxScroll = window.__lenis.limit;
+            } else if (isMobile) {
+                currentScroll = window.scrollY;
+                maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             } else {
-                scrollHeight = desktopContainer.scrollHeight;
-                clientHeight = desktopContainer.clientHeight;
+                currentScroll = desktopContainer.scrollTop;
+                maxScroll = desktopContainer.scrollHeight - desktopContainer.clientHeight;
             }
-            maxScroll = scrollHeight - clientHeight;
             
             if (progressBar) progressBar.style.width = ((currentScroll / maxScroll) * 100) + "%";
 
@@ -113,7 +115,11 @@ const AppLogic = {
             lastScroll = currentScroll <= 0 ? 0 : currentScroll;
         };
 
-        scroller.addEventListener('scroll', onScroll, { passive: true });
+        if (!isMobile && window.__lenis) {
+            window.__lenis.on('scroll', onScroll);
+        } else {
+            scroller.addEventListener('scroll', onScroll, { passive: true });
+        }
 
         // Back to Top Button
         const backToTopBtn = document.querySelector('.back-to-top');
@@ -121,6 +127,8 @@ const AppLogic = {
             backToTopBtn.addEventListener('click', () => {
                 if (isMobile) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (window.__lenis) {
+                    window.__lenis.scrollTo(0);
                 } else if (desktopContainer) {
                     desktopContainer.scrollTo({ top: 0, behavior: 'smooth' });
                 }

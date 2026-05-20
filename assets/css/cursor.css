@@ -12,8 +12,13 @@
     border-radius: 50%;
     z-index: 99999;
     pointer-events: none;
-    opacity: 1;
+    opacity: 0;
+    visibility: hidden;
     transition: none !important;
+}
+.cursor-dot.is-active,
+.cursor-outline.is-active {
+    visibility: visible;
 }
 
 .cursor-dot {

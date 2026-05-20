@@ -39,6 +39,30 @@ const CursorLogic = {
         let my = window.innerHeight / 2;
         let ox = mx;
         let oy = my;
+        let hasMoved = false;
+
+        const positionCursor = (x, y) => {
+            dot.style.left = x + 'px';
+            dot.style.top = y + 'px';
+            outline.style.left = ox + 'px';
+            outline.style.top = oy + 'px';
+        };
+
+        positionCursor(mx, my);
+
+        const showCursor = () => {
+            dot.classList.add('is-active');
+            outline.classList.add('is-active');
+            dot.style.opacity = '1';
+            outline.style.opacity = '1';
+        };
+
+        const hideCursor = () => {
+            dot.style.opacity = '0';
+            outline.style.opacity = '0';
+            dot.classList.remove('is-active');
+            outline.classList.remove('is-active');
+        };
 
         // Define named listener functions for cleanup
         const onMouseMove = (e) => {
@@ -46,18 +70,22 @@ const CursorLogic = {
             my = e.clientY;
             dot.style.left = mx + 'px';
             dot.style.top = my + 'px';
-            dot.style.opacity = 1;
-            outline.style.opacity = 1;
+            if (!hasMoved) {
+                hasMoved = true;
+                ox = mx;
+                oy = my;
+                outline.style.left = ox + 'px';
+                outline.style.top = oy + 'px';
+            }
+            showCursor();
         };
 
         const onMouseLeave = () => {
-            dot.style.opacity = 0;
-            outline.style.opacity = 0;
+            hideCursor();
         };
 
         const onMouseEnter = () => {
-            dot.style.opacity = 1;
-            outline.style.opacity = 1;
+            if (hasMoved) showCursor();
         };
 
         // Store references for cleanup

@@ -269,22 +269,28 @@ const PortfolioApp = {
         return this.projectList.find(function(p) { return p.id === id; });
     },
 
+    /* Playground-only projects — never shown in "Next Projects" on case study pages */
+    playgroundProjectIds: ['dailymoo', 'enchanter', 'stiffy', 'spring'],
+
+    isPlaygroundProject: function(id) {
+        return this.playgroundProjectIds.indexOf(id) !== -1;
+    },
+
     getNextProjects: function(currentId, count) {
         var currentProject = this.getProject(currentId);
         if (!currentProject) return [];
 
-        var isPlaygroundGroup = currentProject.category === 'playground';
         var filtered = this.projectList.filter(function(p) {
-            return (p.category === 'playground') === isPlaygroundGroup;
+            return !PortfolioApp.isPlaygroundProject(p.id);
         });
         if (!filtered.length) return [];
 
         var idx = filtered.findIndex(function(p) { return p.id === currentId; });
-        if (idx === -1) return [];
+        var startIdx = idx === -1 ? 0 : idx;
 
         var result = [];
         for (var i = 1; i <= count; i++) {
-            result.push(filtered[(idx + i) % filtered.length]);
+            result.push(filtered[(startIdx + i) % filtered.length]);
         }
         return result;
     },
@@ -343,7 +349,7 @@ const PortfolioApp = {
             : '';
 
         if (pageType === 'about') {
-            const aboutContent = `<div class="about-page">${uniqueContent}${LayoutComponents.buildFooter(pageType)}</div>`;
+            const aboutContent = `<div class="about-page">${uniqueContent}</div>`;
             const layoutHTML = `
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
@@ -355,6 +361,7 @@ const PortfolioApp = {
                             <div class="scroll-area" id="scroll-container">
                                 <div class="single-page-wrapper">
                                     ${aboutContent}
+                                    ${LayoutComponents.buildFooter(pageType)}
                                 </div>
                             </div>
                         </div>
@@ -400,30 +407,6 @@ const PortfolioApp = {
                 setTimeout(() => {
                     monsterBody.classList.add('monster-enter');
                 }, 80);
-            }
-        }
-
-        // Footer scroll-reveal on about page: hide until user scrolls to it
-        if (pageType === 'about') {
-            const shell = document.querySelector('.site-footer-shell');
-            const scrollEl = document.getElementById('scroll-container');
-            if (shell) {
-                shell.style.opacity = '0';
-                shell.style.transform = 'translateY(40px)';
-                shell.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-                const obs = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            shell.style.opacity = '1';
-                            shell.style.transform = 'translateY(0)';
-                            obs.disconnect();
-                        }
-                    });
-                }, {
-                    root: scrollEl || null,
-                    threshold: 0.05
-                });
-                obs.observe(shell);
             }
         }
 
