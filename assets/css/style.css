@@ -1247,6 +1247,13 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .next-projects-grid { grid-template-columns: 1fr; }
     .next-projects-section { padding: 30px 20px; }
 
+    /* Always show overlay + gradient on next-project cards in mobile */
+    .next-project-img::before { opacity: 1; }
+    .next-project-img .project-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     .about-intro {
         padding: 28px 20px 16px;
     }
