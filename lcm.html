@@ -3,35 +3,864 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LCM Project - Michelle Chen</title>
+    <title>Indigenous Cultural Museums – Michelle Chen</title>
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/cursor.css">
     <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
-    <div id="page-specific-content" style="display: none;">
-        <div class="case-content">
-            <h2>The Challenge</h2>
-            <p>Indigenous cultural heritage is often misrepresented or inaccessible in digital spaces. This project aimed to create a WCAG 2.1 AA compliant platform that respects cultural protocols while making archives accessible to a global audience.</p>
-            
-            <h2 style="margin-top: 40px;">The Solution</h2>
-            <p>We designed a "slow technology" interface that encourages contemplation over consumption. The navigation mirrors traditional storytelling structures rather than linear western hierarchies.</p>
-            
-            <div style="width:100%; height:300px; background:#f0f0f0; margin: 30px 0; display:flex; align-items:center; justify-content:center;">
-                [Project Image / Wireframe Placeholder]
-            </div>
+<div id="page-specific-content" style="display:none;">
+<style>
+    /* ─── BASE ─────────────────────────────────── */
+    .lcm-section { padding-top: 96px; padding-bottom: 96px; }
+    .lcm-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+    .lcm-section p, .lcm-section li { line-height: 1.9; }
+
+    /* ─── SECTION LABEL + TITLE ─────────────────── */
+    .lcm-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--secondary-text);
+        margin-bottom: 10px;
+    }
+    .lcm-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.2px;
+        margin: 0 0 8px;
+    }
+    .lcm-intro {
+        font-size: 1rem;
+        color: var(--secondary-text);
+        line-height: 1.8;
+        margin: 0;
+    }
+    .lcm-2col-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+
+    /* ─── OVERVIEW HERO ─────────────────────────── */
+    .lcm-overview-hero { padding: 0 !important; overflow: hidden; }
+    .lcm-overview-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+    .lcm-overview-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 64px 48px;
+    }
+    .lcm-overview-img {
+        background: var(--border-color);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .lcm-overview-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+    }
+
+    /* ─── CALLOUT PAIR ──────────────────────────── */
+    .lcm-callout-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .lcm-callout-cell {
+        padding: 32px 36px;
+        border-right: 1px solid var(--border-color);
+    }
+    .lcm-callout-cell:last-child { border-right: none; }
+    .lcm-callout-cell.dark { background: var(--text-color); }
+    .lcm-callout-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--secondary-text);
+        margin-bottom: 10px;
+    }
+    .lcm-callout-cell.dark .lcm-callout-label { color: rgba(200,200,200,0.55); }
+    [data-theme="dark"] .lcm-callout-cell.dark .lcm-callout-label { color: rgba(0,0,0,0.55); }
+    .lcm-callout-text {
+        font-size: 0.95rem;
+        font-weight: 600;
+        line-height: 1.65;
+        color: var(--text-color);
+        margin: 0;
+    }
+    .lcm-callout-cell.dark .lcm-callout-text { color: var(--bg-color); }
+
+    /* ─── FINDINGS ──────────────────────────────── */
+    .lcm-findings {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .lcm-finding-item {
+        display: grid;
+        grid-template-columns: 48px 1fr auto;
+        gap: 20px;
+        align-items: start;
+        padding: 24px 28px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .lcm-finding-item:last-child { border-bottom: none; }
+    .lcm-finding-num {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: var(--secondary-text);
+        padding-top: 3px;
+    }
+    .lcm-finding-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        color: var(--text-color);
+    }
+    .lcm-finding-desc {
+        font-size: 0.8rem;
+        color: var(--secondary-text);
+        line-height: 1.7;
+        margin: 0;
+    }
+    .lcm-badge {
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        white-space: nowrap;
+        align-self: flex-start;
+        margin-top: 2px;
+    }
+    .lcm-badge.critical { border-color: var(--accent-color); color: var(--text-color); background: rgba(46,204,113,0.1); }
+    .lcm-badge.high { border-color: #f59e0b; color: #f59e0b; }
+
+    /* ─── 3-GOAL CARDS ──────────────────────────── */
+    .lcm-goal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .lcm-goal-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 28px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: background 0.15s;
+    }
+    .lcm-goal-card:hover { background: rgba(46,204,113,0.04); }
+    .lcm-goal-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46,204,113,0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    .lcm-goal-num {
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--secondary-text);
+    }
+    .lcm-goal-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+        margin: 0;
+    }
+    .lcm-goal-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    /* ─── 5-PHASE PROCESS ───────────────────────── */
+    .lcm-phase-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    /* Row 1: cards 1-3 each span 2 of 6 cols → equal thirds */
+    .lcm-phase-card:nth-child(-n+3) { grid-column: span 2; }
+    /* Row 2: cards 4-5 each span 3 of 6 cols → equal halves */
+    .lcm-phase-card:nth-child(n+4) { grid-column: span 3; }
+    .lcm-phase-card {
+        padding: 28px 24px;
+        border-right: 1px solid var(--border-color);
+        transition: background 0.15s;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .lcm-phase-card:nth-child(3) { border-right: none; }
+    .lcm-phase-card:nth-child(4),
+    .lcm-phase-card:nth-child(5) { border-top: 1px solid var(--border-color); }
+    .lcm-phase-card:nth-child(5) { border-right: none; }
+    .lcm-phase-card:hover { background: rgba(46,204,113,0.04); }
+
+    /* White-background figure variant — white box wraps the image only, caption stays transparent below */
+    .lcm-figure.lcm-figure-white {
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+    .lcm-figure.lcm-figure-white img {
+        background: #fff;
+        padding: 16px;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+    .lcm-phase-num {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--secondary-text);
+    }
+    .lcm-phase-title {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+    }
+    .lcm-phase-body {
+        font-size: 0.75rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    /* ─── PIVOT BOX ─────────────────────────────── */
+    .lcm-pivot {
+        background: rgba(46,204,113,0.07);
+        border: 1px solid rgba(46,204,113,0.25);
+        border-radius: 6px;
+        padding: 18px 20px;
+    }
+    .lcm-pivot-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+    }
+    .lcm-pivot p { font-size: 0.82rem; line-height: 1.7; margin: 0; color: var(--text-color); }
+
+    /* ─── 2-COL IMAGE + TEXT ────────────────────── */
+    .lcm-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+    .lcm-grid-2.center { align-items: center; }
+    /* col-4 / col-8 split (1/3 + 2/3) */
+    .lcm-grid-4-8 {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 24px;
+        align-items: start;
+    }
+    .lcm-grid-4-8.center { align-items: center; }
+
+    /* ─── FIGURE / IMAGE ────────────────────────── */
+    .lcm-figure { margin: 0; }
+    .lcm-figure img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+    }
+    .lcm-caption {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 2px 0;
+        font-size: 0.72rem;
+        color: var(--secondary-text);
+        margin-top: 0;
+        line-height: 1.65;
+        background: transparent;
+    }
+    .lcm-caption::before {
+        content: "";
+        flex-shrink: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent-color);
+        margin-top: 5px;
+    }
+
+    /* ─── SOLUTION ROW ──────────────────────────── */
+    .lcm-solution-eyebrow {
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+    }
+    .lcm-solution-copy h3 {
+        font-size: 1.05rem;
+        font-weight: 800;
+        margin: 0 0 10px;
+        line-height: 1.3;
+    }
+    .lcm-solution-copy p {
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .lcm-divider {
+        border: none;
+        border-top: 1px solid var(--border-color);
+        margin: 0;
+    }
+
+    /* ─── IMPACT CARDS ──────────────────────────── */
+    .lcm-impact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .lcm-impact-cell {
+        padding: 36px 28px;
+        border-right: 1px solid var(--border-color);
+        transition: background 0.15s;
+    }
+    .lcm-impact-cell:last-child { border-right: none; }
+    .lcm-impact-cell:hover { background: rgba(46,204,113,0.04); }
+    .lcm-impact-icon {
+        font-size: 1.4rem;
+        color: var(--accent-color);
+        margin-bottom: 14px;
+    }
+    .lcm-impact-title {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+    .lcm-impact-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    /* ─── QUOTE BLOCK ───────────────────────────── */
+    .lcm-quote {
+        border-left: 3px solid var(--accent-color);
+        padding: 16px 24px;
+        margin: 0;
+    }
+    .lcm-quote p {
+        font-size: 1rem;
+        font-style: italic;
+        line-height: 1.75;
+        color: var(--text-color);
+        margin: 0;
+    }
+
+    /* ─── ACCESSIBILITY CONTRAST TABLE ─────────── */
+    .lcm-contrast-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.8rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .lcm-contrast-table th {
+        padding: 12px 16px;
+        text-align: left;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--secondary-text);
+        border-bottom: 1px solid var(--border-color);
+        background: rgba(0,0,0,0.02);
+    }
+    .lcm-contrast-table td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-color);
+        line-height: 1.5;
+    }
+    .lcm-contrast-table tr:last-child td { border-bottom: none; }
+    .lcm-pass {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: var(--accent-color);
+    }
+    .lcm-fail {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #ef4444;
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 1200px) {
+        .lcm-phase-grid { grid-template-columns: repeat(2, 1fr); }
+        .lcm-phase-card:nth-child(-n+3),
+        .lcm-phase-card:nth-child(n+4) { grid-column: span 1; }
+        .lcm-phase-card:nth-child(even) { border-right: none; }
+        .lcm-phase-card:nth-child(n+3) { border-top: 1px solid var(--border-color); }
+        .lcm-2col-header,
+        .lcm-goal-grid,
+        .lcm-grid-2,
+        .lcm-grid-4-8,
+        .lcm-callout-row,
+        .lcm-impact-grid { grid-template-columns: 1fr; }
+        .lcm-callout-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
+        .lcm-callout-cell:last-child { border-bottom: none; }
+        .lcm-impact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
+        .lcm-impact-cell:last-child { border-bottom: none; }
+        .lcm-overview-inner { grid-template-columns: 1fr; }
+        .lcm-overview-img { min-height: 55vw; }
+        .lcm-section { padding-top: 60px; padding-bottom: 60px; }
+    }
+    @media (max-width: 600px) {
+        .lcm-phase-grid { grid-template-columns: 1fr; }
+        .lcm-phase-card { border-right: none; border-bottom: 1px solid var(--border-color); }
+        .lcm-phase-card:last-child { border-bottom: none; }
+        .lcm-goal-grid { grid-template-columns: 1fr; }
+        .lcm-finding-item { grid-template-columns: 40px 1fr; }
+        .lcm-badge { display: none; }
+        .lcm-overview-text { padding: 36px 24px; }
+        .lcm-section { padding-top: 48px; padding-bottom: 48px; }
+    }
+</style>
+
+<!-- ══════════════ OVERVIEW ══════════════ -->
+<section class="case-section case-section-alt lcm-section">
+    <div class="lcm-inner">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="lcm-label">Overview</div>
+            <h2 class="lcm-title">A culturally responsive, fully accessible platform for 30 indigenous museums across Taiwan</h2>
+            <p class="lcm-intro">
+                Commissioned by the Indigenous Peoples Cultural Development Center, our team rebuilt the unified web platform from the ground up — balancing strict WCAG 2.1 AA legal requirements with a design ecosystem that feels authentic to the communities it represents.
+            </p>
+            <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0;">
+                As a designer with a background in cultural heritage management, I led UX research, information architecture, front-end implementation, and accessibility compliance across the full project lifecycle.
+            </p>
         </div>
     </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="assets/js/cursor.js"></script>
-    <script src="assets/js/index.js"></script>
-    <script src="assets/js/layout-components.js"></script>
-    <script src="assets/js/components.js"></script>
+<!-- ══════════════ 01 — PROBLEM STATEMENT ══════════════ -->
+<section class="case-section lcm-section">
+    <div class="lcm-inner">
 
-    <script>
-        PortfolioApp.init('lcm');
-    </script>
+        <div class="lcm-2col-header">
+            <div>
+                <div class="lcm-label">01 — Problem Statement</div>
+                <h2 class="lcm-title">Two critical failures were actively excluding entire user groups</h2>
+            </div>
+            <div>
+                <p class="lcm-intro">
+                    Indigenous cultural heritage is frequently misrepresented, over-commercialized, or digitally inaccessible within standard web ecosystems. The legacy platform had two structural failures that had to be addressed before any design work could begin.
+                </p>
+            </div>
+        </div>
+
+        <!-- Old site screenshot (col-4) + findings (col-8) -->
+        <div class="lcm-grid-4-8" style="align-items:start; gap:24px;">
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/old site home page.png" alt="Legacy Indigenous Cultural Museums website homepage showing cluttered navigation, low-contrast text, and rigid category-based structure" style="object-fit:cover; object-position:center top;">
+                <p class="lcm-caption">The legacy platform — linear administrative categories, no accessibility controls, and a visual hierarchy that buried collections content.</p>
+            </figure>
+
+            <!-- Two findings -->
+            <div class="lcm-findings">
+            <div class="lcm-finding-item">
+                <div class="lcm-finding-num">F—01</div>
+                <div>
+                    <div class="lcm-finding-title">Technical Exclusion</div>
+                    <p class="lcm-finding-desc">The platform did not comply with basic web accessibility requirements, effectively locking out low-vision users, elderly community elders, and anyone relying on assistive technology such as screen readers. Government legal mandates required full WCAG 2.1 AA compliance.</p>
+                </div>
+                <span class="lcm-badge critical">Critical</span>
+            </div>
+            <div class="lcm-finding-item">
+                <div class="lcm-finding-num">F—02</div>
+                <div>
+                    <div class="lcm-finding-title">Fragmented Information Architecture</div>
+                    <p class="lcm-finding-desc">Navigation relied on rigid, linear administrative categories that failed to capture the organic, narrative-driven relationships linking the collections and histories of 30 distinct museums. Users could not discover meaningful connections between tribal regions, seasonal festivals, or shared cultural lineages.</p>
+                </div>
+                <span class="lcm-badge high">High</span>
+            </div>
+            </div><!-- /.lcm-findings -->
+        </div><!-- /.lcm-grid-2 -->
+
+
+    </div>
+</section>
+
+<!-- ══════════════ 02 — PROJECT GOALS ══════════════ -->
+<section class="case-section case-section-alt lcm-section">
+    <div class="lcm-inner">
+
+        <div class="lcm-2col-header">
+            <div>
+                <div class="lcm-label">02 — Project Goals</div>
+                <h2 class="lcm-title">Three core objectives guided every design decision</h2>
+            </div>
+            <div>
+                <p class="lcm-intro">
+                    Our mission was to design a unified digital environment that respects cultural protocols while making ancestral archives seamlessly accessible to a global audience.
+                </p>
+            </div>
+        </div>
+
+        <div class="lcm-goal-grid">
+            <div class="lcm-goal-card">
+                <div class="lcm-goal-icon"><i class="fas fa-universal-access" aria-hidden="true"></i></div>
+                <div class="lcm-goal-num">Goal 01</div>
+                <p class="lcm-goal-title">Full Accessibility Compliance</p>
+                <p class="lcm-goal-desc">Elevate the entire platform to fully meet WCAG 2.1 Level AA — covering contrast ratios, keyboard navigation, semantic HTML, ARIA landmarks, and screen-reader compatibility.</p>
+            </div>
+            <div class="lcm-goal-card">
+                <div class="lcm-goal-icon"><i class="fas fa-leaf" aria-hidden="true"></i></div>
+                <div class="lcm-goal-num">Goal 02</div>
+                <p class="lcm-goal-title">Culturally Responsive Architecture</p>
+                <p class="lcm-goal-desc">Implement a "slow technology" interface that trades high-intensity modern consumption for thoughtful cultural contemplation — organising content through storytelling paths rather than bureaucratic hierarchies.</p>
+            </div>
+            <div class="lcm-goal-card">
+                <div class="lcm-goal-icon"><i class="fas fa-mobile-screen" aria-hidden="true"></i></div>
+                <div class="lcm-goal-num">Goal 03</div>
+                <p class="lcm-goal-title">Universal Responsiveness</p>
+                <p class="lcm-goal-desc">Deliver a flawless, lightweight responsive experience (RWD) optimised for mobile — the primary browsing device for many rural community members with lower network speeds.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════ 03 — DESIGN PROCESS ══════════════ -->
+<section class="case-section lcm-section">
+    <div class="lcm-inner">
+
+        <div class="lcm-2col-header">
+            <div>
+                <div class="lcm-label">03 — Design Process</div>
+                <h2 class="lcm-title">Five intentional stages from audit to front-end delivery</h2>
+            </div>
+            <div>
+                <p class="lcm-intro">
+                    The design process was guided by a deliberate five-stage loop: <strong>Investigate → Ideate → Design → Test → Implement</strong> — each stage feeding directly into the next.
+                </p>
+            </div>
+        </div>
+
+        <!-- Phase 01 deep-dive: Audit + Competitive -->
+        <div class="lcm-grid-2 center">
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/competitive.png" alt="Competitive analysis matrix comparing four global heritage portal websites across navigation, accessibility, and cultural representation dimensions">
+                <p class="lcm-caption">Competitive analysis — benchmarked 4 global heritage portals to identify navigation patterns and accessibility gaps.</p>
+            </figure>
+            <div>
+                <div class="lcm-label">Phase 01 — Investigate</div>
+                <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Audit & Competitive Benchmarking</h3>
+                <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0 0 16px;">We began by performing an extensive UX audit of the legacy site to isolate exact friction points.</p>
+                <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0;">I conducted competitive analysis across global heritage portals and digital museum hubs to study how large archives balance high-density data with visual clarity.</p>
+            </div>
+        </div>
+
+        <hr class="lcm-divider">
+
+        <!-- Phase 02 deep-dive: IA (text left, image right via grid order) -->
+        <div class="lcm-grid-2 center" style="grid-template-columns:1fr 1fr;">
+            <figure class="lcm-figure lcm-figure-white" style="order:2;">
+                <img src="assets/img/lcm/home page structure.png" alt="Information architecture diagram showing the new narrative-driven navigation structure for 30 indigenous museums organised by region, tribal affinity, and cultural timelines">
+                <p class="lcm-caption">New IA — museums organised by geographic clusters, tribal affinities, and seasonal festival relationships instead of alphabetical lists.</p>
+            </figure>
+            <div style="order:1;">
+                <div class="lcm-label">Phase 02 — Ideate</div>
+                <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Storytelling Information Architecture</h3>
+                <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0 0 16px;">Rather than mapping 30 museums into alphabetical lists or administrative categories, we rebuilt the IA around how indigenous communities actually narrate their own histories: through spatial relationships, seasonal cycles, and tribal lineage.</p>
+                <div class="lcm-pivot">
+                    <div class="lcm-pivot-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Decision</div>
+                    <p>Navigation paths are derived from cultural storytelling logic — regional clusters, tribal affinities, and festival calendars — making connections between museums feel discovered rather than searched.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="lcm-divider">
+
+        <!-- Phase 03: label then wireframe (col-4) + prototype (col-8) -->
+        <div>
+            <div class="lcm-label">Phase 03 — Design</div>
+            <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Wireframing &amp; Prototyping</h3>
+            <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0 0 20px;">Moving from structure to form, I sketched out mobile-first wireframes to test how components stacked dynamically across small viewports. The visual language of the system was centered on two guiding principles — <strong style="color:var(--text-color);">cultural heritage</strong> and <strong style="color:var(--text-color);">natural coexistence</strong> — expressed through a deliberately restrained palette of warm rice, traditional red, and deep woven brown. Fonts with a humanistic feel were recommended throughout to reinforce the platform's tone of contemplative, community-rooted discovery.</p>
+            <!-- Colour palette swatches -->
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:20px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:28px; height:28px; border-radius:4px; background:#F5EDD6; border:1px solid var(--border-color); flex-shrink:0;"></div>
+                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Warm Rice<br><span style="font-size:0.65rem;">#F5EDD6</span></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:28px; height:28px; border-radius:4px; background:#9B2335; border:1px solid var(--border-color); flex-shrink:0;"></div>
+                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Traditional Red<br><span style="font-size:0.65rem;">#9B2335</span></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:28px; height:28px; border-radius:4px; background:#4A2E1A; border:1px solid var(--border-color); flex-shrink:0;"></div>
+                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Deep Woven Brown<br><span style="font-size:0.65rem;">#4A2E1A</span></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px; margin-left:8px; padding-left:12px; border-left:1px solid var(--border-color);">
+                    <div style="width:28px; height:28px; border-radius:4px; background:linear-gradient(135deg,#F5EDD6,#4A2E1A); border:1px solid var(--border-color); flex-shrink:0;"></div>
+                    <span style="font-size:0.72rem; color:var(--secondary-text); line-height:1.4;">Humanistic typography<br><span style="font-size:0.65rem;">Serif / Humanist Sans</span></span>
+                </div>
+            </div>
+        </div>
+        <div class="lcm-grid-4-8" style="align-items:start; gap:20px;">
+            <figure class="lcm-figure lcm-figure-white">
+                <img src="assets/img/lcm/wireframe.png" alt="Low-fidelity mobile-first wireframes showing component stacking and layout structure for the Indigenous Cultural Museums platform">
+                <p class="lcm-caption">Mobile-first wireframes — tested component stacking across small viewports before committing to layout code.</p>
+            </figure>
+            <figure class="lcm-figure lcm-figure-white">
+                <img src="assets/img/lcm/prototype2.png" alt="High-fidelity interactive prototype showing homepage design with cultural imagery, accessibility toolbar, and responsive navigation">
+                <p class="lcm-caption">High-fidelity prototype — established structural rhythm and validated interactive flows prior to front-end delivery.</p>
+            </figure>
+        </div>
+
+        <hr class="lcm-divider">
+
+        <!-- Phase 04: label/text (col-4) + two images (col-8) -->
+        <div class="lcm-grid-4-8" style="align-items:start; gap:24px;">
+            <div>
+                <div class="lcm-label">Phase 04 — Test</div>
+                <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Accessibility &amp; WCAG Verification</h3>
+                <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0;">Because WCAG AA compliance was mandatory, accessibility testing was embedded in the design phase — not treated as a post-launch checklist. Every UI element was evaluated before any code was written.</p>
+            </div>
+            <div class="lcm-grid-2" style="align-items:start; gap:16px;">
+                <figure class="lcm-figure lcm-figure-white">
+                    <img src="assets/img/lcm/color contract.png" alt="Colour contrast testing results showing WCAG AA pass/fail evaluation for typography and interactive element colour combinations" style="max-height:240px; object-fit:contain;">
+                    <p class="lcm-caption">Colour contrast audit — every typography stack, card, and button state evaluated against WCAG AA minimum ratios.</p>
+                </figure>
+                <figure class="lcm-figure lcm-figure-white">
+                    <img src="assets/img/lcm/text and background.png" alt="Typography readability study showing text rendering across varying screen sizes and high-contrast mode for low-vision users" style="max-height:240px; object-fit:contain;">
+                    <p class="lcm-caption">Readability testing across screen sizes — ensuring page structure remained intact under 200% zoom for low-vision users.</p>
+                </figure>
+            </div>
+        </div>
+
+
+        <hr class="lcm-divider">
+
+        <!-- Phase 05: Implement -->
+        <div class="lcm-grid-2 center">
+            <div>
+                <div class="lcm-label">Phase 05 — Implement</div>
+                <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Front-End Delivery</h3>
+                <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0;">To ensure the design translated perfectly to code without losing performance or semantic accessibility cues, I owned the front-end layout implementation (HTML/CSS). I wrote semantic HTML structures, set keyboard-navigable ARIA landmarks, and embedded responsive cultural patterns into the structural layout.</p>
+            </div>
+            <figure class="lcm-figure lcm-figure-white">
+                <img src="assets/img/lcm/lcm5.png" alt="Semantic HTML implementation showing ARIA landmarks and keyboard-navigable structure" style="width:100%; height:auto;">
+                <p class="lcm-caption">Front-end delivery — semantic HTML structures, ARIA landmarks, and responsive cultural patterns implemented directly by the designer.</p>
+            </figure>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════ 04 — KEY SOLUTIONS ══════════════ -->
+<section class="case-section case-section-alt lcm-section">
+    <div class="lcm-inner">
+
+        <div class="lcm-2col-header">
+            <div>
+                <div class="lcm-label">04 — Key Solutions</div>
+                <h2 class="lcm-title">Three core features deliver cultural depth and universal access</h2>
+            </div>
+            <div>
+                <p class="lcm-intro">
+                    The final product is an accessible ecosystem that celebrates indigenous community identity through a highly refined layout — each feature directly resolves a documented failure in the legacy platform.
+                </p>
+            </div>
+        </div>
+
+        <!-- Solution 01: image col-4, text col-8 -->
+        <div class="lcm-grid-4-8" style="align-items:center; gap:24px;">
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/home.png" alt="Indigenous Cultural Museums homepage showing the unified platform with cultural imagery, regional navigation filters, and museum discovery interface">
+                <p class="lcm-caption">Live homepage — regional filters, cultural imagery, and storytelling navigation in the production-deployed platform.</p>
+            </figure>
+            <div class="lcm-solution-copy">
+                <div class="lcm-solution-eyebrow">Solution 01</div>
+                <h3>Fluid Storytelling Discovery</h3>
+                <p>Users explore museums via dynamic maps, regional filters, and cultural timelines — making the archive feel connected rather than isolated. Navigation paths follow indigenous storytelling logic, not western alphabetical indexing.</p>
+            </div>
+        </div>
+
+        <hr class="lcm-divider">
+
+        <!-- Solution 02 -->
+        <div class="lcm-grid-2 center">
+            <figure class="lcm-figure lcm-figure-white">
+                <img src="assets/img/lcm/lcm4.png" alt="Built-in global accessibility toolbar showing font size controls (Small/Medium/Large) and high-contrast mode toggle integrated natively into the platform header">
+                <p class="lcm-caption">Native accessibility toolbar — font resizing and high-contrast mode available on every page, meeting WCAG AA requirements without third-party plugins.</p>
+            </figure>
+            <div class="lcm-solution-copy">
+                <div class="lcm-solution-eyebrow">Solution 02</div>
+                <h3>Built-In Visual Accessibility Control</h3>
+                <p>A prominent native global toolbar lets users resize typography (Small / Medium / Large) and immediately transition to a friendly, high-contrast reading environment.</p>
+            </div>
+        </div>
+
+        <hr class="lcm-divider">
+
+        <!-- Solution 03 -->
+        <div>
+            <div class="lcm-solution-copy">
+                <div class="lcm-solution-eyebrow">Solution 03</div>
+                <h3>Semantic Screen Navigation</h3>
+                <p>Keyboards can navigate the platform flawlessly using skip-links and strict layout regions, ensuring complete independence for assistive screen-reader software users.</p>
+            </div>
+        </div>
+
+        <!-- Cross-device live screenshots -->
+        <div class="lcm-grid-2" style="align-items:start; gap:16px;">
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/museum.png" alt="Indigenous Cultural Museums — individual museum profile page showing collection highlights, cultural heritage information, and navigation">
+                <p class="lcm-caption">Museum profile page — cultural collection highlights and heritage context, desktop view.</p>
+            </figure>
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/activity.png" alt="Indigenous Cultural Museums — activity and event listings page showing cultural programmes and upcoming events">
+                <p class="lcm-caption">Activity page — cultural programmes and upcoming events, desktop view.</p>
+            </figure>
+        </div>
+
+        <!-- Live site: 3-device responsive proof -->
+        <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; align-items:start;">
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/lcm.tacp.gov.tw_.png" alt="Live Indigenous Cultural Museums website — full desktop viewport showing homepage with cultural imagery, navigation, and content layout">
+                <p class="lcm-caption">Desktop — live production site at lcm.tacp.gov.tw.</p>
+            </figure>
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/lcm.tacp.gov.tw_(iPad Pro).png" alt="Live Indigenous Cultural Museums website on iPad Pro — tablet-responsive layout">
+                <p class="lcm-caption">Tablet — iPad Pro responsive layout.</p>
+            </figure>
+            <figure class="lcm-figure">
+                <img src="assets/img/lcm/lcm.tacp.gov.tw_(iPhone 14 Pro Max).png" alt="Live Indigenous Cultural Museums website on iPhone 14 Pro Max — mobile-optimised layout">
+                <p class="lcm-caption">Mobile — iPhone 14 Pro Max responsive layout.</p>
+            </figure>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════ 05 — SUMMARY / IMPACT ══════════════ -->
+<section class="case-section lcm-section">
+    <div class="lcm-inner">
+
+        <div>
+            <div class="lcm-label">05 — Summary / Impact</div>
+            <h2 class="lcm-title">30 museums. One accessible gateway. Three goals met.</h2>
+            <p class="lcm-intro" style="margin-top:12px;">By treating web accessibility not as a checklist but as a core design principle, this project successfully unified 30 indigenous museums into a single accessible digital ecosystem.</p>
+        </div>
+
+        <div class="lcm-impact-grid">
+            <div class="lcm-impact-cell">
+                <div class="lcm-impact-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></div>
+                <div class="lcm-impact-title">WCAG 2.1 AA Verified</div>
+                <p class="lcm-impact-desc">Passed all mandatory government accessibility audits across every single museum profile and collection index — zero failures across the full platform.</p>
+            </div>
+            <div class="lcm-impact-cell">
+                <div class="lcm-impact-icon"><i class="fas fa-mobile-screen" aria-hidden="true"></i></div>
+                <div class="lcm-impact-title">Fully Responsive Launch</div>
+                <p class="lcm-impact-desc">Successfully launched a lightweight, cross-platform mobile experience that functions flawlessly even in remote regions with lower network speeds.</p>
+            </div>
+            <div class="lcm-impact-cell">
+                <div class="lcm-impact-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
+                <div class="lcm-impact-title">Cultural Preservation</div>
+                <p class="lcm-impact-desc">Created a scalable digital brand system that treats indigenous artifacts with historical dignity and accurate representation, opening ancestral archives safely to a global audience.</p>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<!-- ══════════════ 06 — REFLECTION ══════════════ -->
+<section class="case-section case-section-alt lcm-section">
+    <div class="lcm-inner">
+
+        <div>
+            <div class="lcm-label">06 — Reflection</div>
+            <h2 class="lcm-title">Good design is intrinsically inclusive</h2>
+        </div>
+
+        <blockquote class="lcm-quote">
+            <p>"Designing for accessibility forced our team to strip away unnecessary visual noise and flashiness, leading directly to the implementation of our 'slow technology' philosophy. When you design to accommodate and respect the margins — whether those margins are users with physical challenges or underrepresented cultural communities — the final experience becomes profoundly better for everyone."</p>
+        </blockquote>
+
+
+    </div>
+</section>
+
+</div><!-- /#page-specific-content -->
+
+<script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+<script src="assets/js/cursor.js"></script>
+<script src="assets/js/index.js"></script>
+<script src="assets/js/layout-components.js"></script>
+<script src="assets/js/components.js"></script>
+
+<script>
+    PortfolioApp.init('lcm');
+</script>
 </body>
 </html>

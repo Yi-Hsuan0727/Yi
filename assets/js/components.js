@@ -32,7 +32,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['UI Design', 'Front-End Development', 'Accessibility', 'Web Design'],
             image: 'assets/img/main images/indigenous Cultural Museums.png',
-            heroImage: 'assets/img/lcm/website mockup_lcm.png',
+            heroImage: 'assets/img/lcm/hero.png',
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
             team: '2 Engineers, 1 Designer, 1 PM',
