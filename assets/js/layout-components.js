@@ -160,7 +160,7 @@ const LayoutComponents = {
     },
 
     buildFooter: function(pageType) {
-        const monsterHTML = (pageType === 'home' || pageType === 'playground')
+        const monsterHTML = (pageType === 'home' || pageType === 'playground' || pageType === 'about')
             ? `
                 <div class="site-footer-monster" aria-hidden="true">
                     <div class="monster-container">

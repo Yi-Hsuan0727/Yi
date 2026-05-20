@@ -17,7 +17,7 @@ const PortfolioApp = {
             image: 'assets/img/main images/pic2split.png',
             heroImage: 'assets/img/Pic2Split/hero.png',
             link: 'pic2split.html',
-            timeline: 'Nov 2025 – Present',
+            timeline: 'Nov 2025 – Jan 2026',
             team: '2 Engineers, 1 Designer, 1 PM',
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',
             tools: 'Figma',
