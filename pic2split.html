@@ -1011,11 +1011,11 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">03 — Design Process</div>
-                        <h2 class="p2s-section-title-main">Four phases: from competitor research to a 23-screen production-ready system</h2>
+                        <h2 class="p2s-section-title-main">Four phases: from competitor benchmarking to a 23-screen production-ready system</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            The core challenge was taking a complex technical pipeline — Upload → AI Processing → Data Extraction → User Assignment → Tax/Tip Math → Share — and making it feel effortless. The work moved through four distinct phases, each revealing a critical decision that shaped the final product.
+                            The core challenge was taking a complex technical pipeline — Upload → AI Processing → Data Extraction → User Assignment → Tax/Tip Math → Share — and making it feel effortless. The work moved through four distinct phases, each driven by real data and critical design decisions.
                         </p>
                     </div>
                 </div>
@@ -1025,35 +1025,49 @@
                     <div class="p2s-phase-card">
                         <div class="p2s-phase-icon"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></div>
                         <div class="p2s-phase-num">Phase 01 — Research</div>
-                        <div class="p2s-phase-title">Research &amp; Competitive Benchmarking</div>
-                        <p class="p2s-phase-body">Heuristic evaluation of <em>Scan &amp; Split Bill - OCR Check</em>. Users felt "lost" after OCR processing, apps lacked AI transparency, and layouts were cluttered.</p>
+                        <div class="p2s-phase-title">Strategic Benchmarking &amp; Competitive Analysis</div>
+                        <p class="p2s-phase-body">I conducted scenario-based testing and heuristic evaluations on <em>Scan &amp; Split Bill - OCR Check</em>, the leading market competitor. Three critical gaps emerged:</p>
+                        <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
+                            <li><strong style="color:var(--text-color);">The "Lost" State:</strong> Users felt confused after OCR with no clear next step.</li>
+                            <li><strong style="color:var(--text-color);">The Trust Gap:</strong> No AI transparency lowered user confidence in totals.</li>
+                            <li><strong style="color:var(--text-color);">UI Clutter:</strong> Overly busy interface and messy summary exports.</li>
+                        </ul>
                         <div class="p2s-pivot-box" style="margin-top:14px;">
-                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Decision</div>
-                            <p style="font-size:0.82rem;">Clear progress indicators, side-by-side receipt reviews, and step-by-step confirmation screens to build trust.</p>
+                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Strategy</div>
+                            <p style="font-size:0.82rem;">Prioritized step-by-step progress indicators, a clean UI layout, and a side-by-side receipt review screen to build trust through direct data verification.</p>
                         </div>
                     </div>
 
                     <!-- Phase 2 Card -->
                     <div class="p2s-phase-card">
                         <div class="p2s-phase-icon"><i class="fas fa-clipboard-list" aria-hidden="true"></i></div>
-                        <div class="p2s-phase-num">Phase 02 — Testing</div>
-                        <div class="p2s-phase-title">User Research &amp; Usability Testing</div>
-                        <p class="p2s-phase-body">Tested early prototypes for a "Quick Split" task. Average completion: <strong>4:30–5:38 min</strong>. Pain points: OCR errors, unclear tax/tip fields, interface felt "unfinished."</p>
+                        <div class="p2s-phase-num">Phase 02 — User Testing</div>
+                        <div class="p2s-phase-title">User Testing &amp; Early Pain Points</div>
+                        <p class="p2s-phase-body">We ran scenario-based usability tests with participants splitting a standard dinner bill on the competitor app. The data set a clear performance baseline:</p>
+                        <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
+                            <li><strong style="color:var(--text-color);">High Session Times:</strong> Completion averaged <strong style="color:var(--text-color);">4:30–5:38 min</strong>.</li>
+                            <li><strong style="color:var(--text-color);">System Ambiguity:</strong> Tax/tip layout felt "unfinished and rough."</li>
+                            <li><strong style="color:var(--text-color);">OCR Friction:</strong> Misread entries were tedious; summary too messy to read.</li>
+                        </ul>
                         <div class="p2s-pivot-box" style="margin-top:14px;">
-                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Decision</div>
-                            <p style="font-size:0.82rem;">Explicit $ / % toggle, clearer labels, and a clean sharing preview to replace the cluttered format.</p>
+                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Target</div>
+                            <p style="font-size:0.82rem;">Pic2Split needed to completely eliminate layout confusion and dramatically lower session time — our target was under 2 minutes.</p>
                         </div>
                     </div>
 
                     <!-- Phase 3 Card -->
                     <div class="p2s-phase-card">
                         <div class="p2s-phase-icon"><i class="fas fa-route" aria-hidden="true"></i></div>
-                        <div class="p2s-phase-num">Phase 03 — Flow Refinement</div>
-                        <div class="p2s-phase-title">Refining the User Flow: Groups &amp; Authentication</div>
-                        <p class="p2s-phase-body">Explored Group Creation (Create Group → Invite Members → Scan Receipt) and "Guest Mode." Both were too long or created data gaps. Google SSO is faster and preserves split history.</p>
+                        <div class="p2s-phase-num">Phase 03 — Interaction Design</div>
+                        <div class="p2s-phase-title">Iterating the Core Interactions</div>
+                        <p class="p2s-phase-body">Driven by competitor data, I collaborated with our product lead and engineers to build a single-page flow optimized around two critical structures:</p>
+                        <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
+                            <li><strong style="color:var(--text-color);">Google SSO:</strong> One-tap login removes onboarding friction and securely saves split history.</li>
+                            <li><strong style="color:var(--text-color);">Name-Tag Selection:</strong> Users tap a dish, select member name tags, and the app divides cost equally — no manual math.</li>
+                        </ul>
                         <div class="p2s-pivot-box" style="margin-top:14px;">
-                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Decision</div>
-                            <p style="font-size:0.82rem;">Removed upfront Group Creation. All scans and splits run on one page. Exclusive Google SSO login.</p>
+                            <div class="p2s-pivot-box-label"><i class="fas fa-arrow-right-arrow-left" style="margin-right:5px;" aria-hidden="true"></i>Before vs. After</div>
+                            <p style="font-size:0.82rem;"><strong style="color:var(--text-color);">Competitor:</strong> Scan → Complex Tax Inputs → Cluttered Summary (4–5 min)<br><strong style="color:var(--text-color);">Pic2Split:</strong> Google SSO → Side-by-Side OCR → Tap Name Tags (&lt;2 min)</p>
                         </div>
                     </div>
 
@@ -1062,18 +1076,16 @@
                         <div class="p2s-phase-icon"><i class="fas fa-pen-ruler" aria-hidden="true"></i></div>
                         <div class="p2s-phase-num">Phase 04 — Wireframing</div>
                         <div class="p2s-phase-title">Wireframing &amp; UI Architecture</div>
-                        <p class="p2s-phase-body">Delivered a comprehensive 23-screen spec. Key additions:</p>
+                        <p class="p2s-phase-body">I mapped a comprehensive 23-screen wireframe spec covering every state — AI loading, validation errors, and empty states. Key layout implementations:</p>
                         <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
-                            <li><strong style="color:var(--text-color);">"Pay by same person"</strong> batch-assignment button</li>
-                            <li><strong style="color:var(--text-color);">Step indicators (dots)</strong> &amp; 3-step onboarding</li>
-                            <li><strong style="color:var(--text-color);">Side-by-side view</strong> for AI vs. receipt verification</li>
+                            <li><strong style="color:var(--text-color);">"Pay by Same Person" Shortcut:</strong> Quick-action to claim multiple items consecutively.</li>
+                            <li><strong style="color:var(--text-color);">Side-by-Side Verification:</strong> AI-extracted text displayed alongside the receipt image, directly addressing the competitor trust gap.</li>
                         </ul>
+                        <div class="p2s-pivot-box" style="margin-top:14px;">
+                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Decision</div>
+                            <p style="font-size:0.82rem;">Every structural decision — from Google SSO to name-tag splitting to side-by-side verification — was traced directly back to a specific pain point observed in competitor testing, ensuring each choice had measurable justification.</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="p2s-pivot-box" style="margin-top: 0;">
-                    <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Decision</div>
-                    <p>I advocated to remove upfront "Group" creation, running all scans and splits on a single page. We also decided to rely exclusively on Google SSO rather than a Guest Mode — ensuring user data and split history are securely saved, and laying the groundwork for future collaborative sharing.</p>
                 </div>
 
                 <!-- User flow diagram -->
@@ -1140,7 +1152,7 @@
                         <div class="p2s-solution-copy">
                             <span class="p2s-eyebrow">Solution 03</span>
                             <h3>Tap-to-Split Multi-Selection</h3>
-                            <p>No more typing decimal weights. Tap an item, select the faces of the friends who shared it, and watch the app divide the cost dynamically.</p>
+                            <p>Tap an item, select the clean text tags showing the names of the members who shared it, and watch the app divide the cost dynamically and equally.</p>
                         </div>
                     </div>
                     <div>
@@ -1202,7 +1214,6 @@
                     </div>
                 </div>
 
-                <p>Furthermore, advocating to remove the "Group Creation" feature and "Guest Mode" were tough but necessary decisions. They significantly reduced our session time, improved data retention via Google SSO, and aligned perfectly with our core product vision: getting users from a messy check to a fair split in seconds.</p>
             </div>
         </section>
 
