@@ -147,7 +147,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     z-index: 5;
     margin-top: auto;
     margin-bottom: 0;
-    overflow-x: hidden; /* prevent horizontal scroll from sparkles */
+    overflow: visible;
 }
 .site-footer-shell-green {
     background: transparent;
@@ -413,7 +413,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .projects-cta .projects-cta-title,
 .projects-cta .projects-cta-body,
-.projects-cta .projects-cta-buttons {
+.projects-cta .projects-cta-buttons,
+.projects-cta .projects-cta-hint {
     position: relative;
     z-index: 1;
 }
@@ -525,6 +526,23 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .projects-cta-btn-secondary:hover {
     background: rgba(46, 204, 113, 0.08);
+}
+.projects-cta-buttons {
+    margin-bottom: 48px;
+}
+.projects-cta-hint {
+    margin-top: auto;
+    margin-bottom: 12px;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--secondary-text);
+    opacity: 0.6;
+    animation: hintBob 2s ease-in-out infinite;
+}
+@keyframes hintBob {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(4px); }
 }
 
 /* Components */

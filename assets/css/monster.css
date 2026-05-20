@@ -210,16 +210,13 @@
     animation: blinkQuickBottom 0.3s ease-in-out;
 }
 
-/* --- Sparkle layer — lives in .site-footer-shell so it is never clipped by the monster container --- */
+/* --- Sparkle layer — fixed to body so it never contributes to scroll dimensions --- */
 .monster-spark-layer {
-    position: absolute;
-    top: -320px;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: fixed;
+    inset: 0;
     pointer-events: none;
-    z-index: 10;
-    overflow: hidden; /* block horizontal scroll */
+    z-index: 9999;
+    overflow: hidden;
 }
 
 /* --- Click sparkles (physics driven by JS — no CSS animation) --- */
