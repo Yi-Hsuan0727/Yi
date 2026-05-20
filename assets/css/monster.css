@@ -29,13 +29,13 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .site-footer-monster {
     position: relative;
     height: 152px;
-    overflow: visible;
+    overflow: hidden;
     background: transparent;
 }
 
@@ -210,16 +210,16 @@
     animation: blinkQuickBottom 0.3s ease-in-out;
 }
 
-/* --- Sparkle layer (above monster body) --- */
+/* --- Sparkle layer — lives in .site-footer-shell so it is never clipped by the monster container --- */
 .monster-spark-layer {
     position: absolute;
-    top: -300px;
+    top: -320px;
     left: 0;
     right: 0;
     bottom: 0;
     pointer-events: none;
     z-index: 10;
-    overflow: visible;
+    overflow: hidden; /* block horizontal scroll */
 }
 
 /* --- Click sparkles (physics driven by JS — no CSS animation) --- */

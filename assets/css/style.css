@@ -147,6 +147,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     z-index: 5;
     margin-top: auto;
     margin-bottom: 0;
+    overflow-x: hidden; /* prevent horizontal scroll from sparkles */
 }
 .site-footer-shell-green {
     background: transparent;

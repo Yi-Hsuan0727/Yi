@@ -109,13 +109,14 @@ const MonsterLogic = {
     },
 
     ensureSparkLayer: function(monsterBody) {
-        const container = monsterBody.closest('.monster-container');
-        if (!container) return null;
-        let layer = container.querySelector('.monster-spark-layer');
+        // Attach to site-footer-shell so the layer is never clipped by the monster container
+        const host = monsterBody.closest('.site-footer-shell') || monsterBody.closest('.monster-container');
+        if (!host) return null;
+        let layer = host.querySelector('.monster-spark-layer');
         if (!layer) {
             layer = document.createElement('div');
             layer.className = 'monster-spark-layer';
-            container.insertBefore(layer, monsterBody);
+            host.appendChild(layer);
         }
         return layer;
     },
