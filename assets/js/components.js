@@ -100,7 +100,7 @@ const PortfolioApp = {
             category: 'uiux',
             tags: ['UX Research', 'Product Design', 'Mobile App', 'Prototyping'],
             image: 'assets/img/main images/Longtan Walker.png',
-            heroImage: 'assets/img/lt/longtan-mockup-2.png',
+            heroImage: 'assets/img/lt/hero.png',
             link: 'lt.html',
             timeline: 'Jan 2020 – May 2020',
             team: '2 Designers',

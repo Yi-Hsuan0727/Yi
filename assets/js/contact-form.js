@@ -4,6 +4,7 @@
 const ContactFormLogic = {
     recipientEmail: 'yche1356@asu.edu',
     endpoint: 'https://formsubmit.co/ajax/yche1356@asu.edu',
+    maxWords: 250,
     isInitialized: false,
 
     init: function() {
@@ -18,8 +19,47 @@ const ContactFormLogic = {
         this.successPanel = form.querySelector('.site-contact-success');
         this.errorPanel = form.querySelector('.site-contact-error');
         this.fieldsWrap = form.querySelector('.site-contact-fields');
+        this.messageField = form.querySelector('#contact-message');
+        this.wordCountEl = form.querySelector('#contact-message-count');
 
         form.addEventListener('submit', this.handleSubmit.bind(this));
+
+        if (this.messageField) {
+            this.messageField.addEventListener('input', this.handleMessageInput.bind(this));
+            this.updateWordCount(this.messageField.value);
+        }
+    },
+
+    countWords: function(text) {
+        const trimmed = (text || '').trim();
+        if (!trimmed) return 0;
+        return trimmed.split(/\s+/).length;
+    },
+
+    trimToWordLimit: function(text) {
+        const trimmed = (text || '').trim();
+        if (!trimmed) return '';
+        const words = trimmed.split(/\s+/);
+        if (words.length <= this.maxWords) return text;
+        return words.slice(0, this.maxWords).join(' ');
+    },
+
+    handleMessageInput: function() {
+        if (!this.messageField) return;
+
+        const limited = this.trimToWordLimit(this.messageField.value);
+        if (limited !== this.messageField.value) {
+            this.messageField.value = limited;
+        }
+        this.updateWordCount(this.messageField.value);
+    },
+
+    updateWordCount: function(text) {
+        if (!this.wordCountEl) return;
+
+        const count = this.countWords(text);
+        this.wordCountEl.textContent = count + ' / ' + this.maxWords + ' words';
+        this.wordCountEl.classList.toggle('is-over-limit', count > this.maxWords);
     },
 
     handleSubmit: async function(event) {
@@ -27,6 +67,17 @@ const ContactFormLogic = {
         if (!this.form || this.form.dataset.state === 'submitting') return;
 
         this.clearFeedback();
+        if (this.messageField) {
+            this.messageField.value = this.trimToWordLimit(this.messageField.value);
+            this.updateWordCount(this.messageField.value);
+        }
+
+        const wordCount = this.countWords(this.messageField ? this.messageField.value : '');
+        if (wordCount > this.maxWords) {
+            this.showError('Please keep your message to ' + this.maxWords + ' words or fewer.');
+            return;
+        }
+
         if (!this.form.checkValidity()) {
             this.form.reportValidity();
             return;
@@ -70,6 +121,7 @@ const ContactFormLogic = {
 
             this.showSuccess();
             this.form.reset();
+            this.updateWordCount('');
         } catch (error) {
             this.showError(error.message || 'Something went wrong. Please try again or email me directly.');
         } finally {

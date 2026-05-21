@@ -270,11 +270,18 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .single-page-wrapper:has(.site-footer-shell) .site-footer-shell {
     margin-top: auto;
 }
-/* When a projects-cta is present: fill remaining space and pull monster up inside CTA */
+/* When a projects-cta is present: pull only the monster up into the CTA padding */
 .single-page-wrapper:has(.projects-cta) .site-footer-shell {
-    margin-top: -192px;
+    margin-top: 0;
     position: relative;
     z-index: 2;
+}
+.single-page-wrapper:has(.projects-cta) .site-footer-monster {
+    margin-top: -192px;
+}
+.single-page-wrapper:has(.projects-cta) .site-contact-band {
+    position: relative;
+    z-index: 3;
 }
 
 /* FOOTER */
@@ -415,6 +422,16 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .site-contact-textarea {
     resize: vertical;
     min-height: 108px;
+}
+.site-contact-word-count {
+    margin: 8px 0 0;
+    font-size: 0.72rem;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: right;
+}
+.site-contact-word-count.is-over-limit {
+    color: #7b241c;
+    font-weight: 700;
 }
 .site-contact-honey {
     position: absolute;

@@ -233,7 +233,8 @@ const LayoutComponents = {
                             </div>
                             <div class="site-contact-row">
                                 <label class="site-contact-label" for="contact-message">Message <span class="site-contact-required" aria-hidden="true">*</span></label>
-                                <textarea class="site-contact-input site-contact-textarea" id="contact-message" name="message" rows="4" required aria-required="true" minlength="1" placeholder="What would you like to share?"></textarea>
+                                <textarea class="site-contact-input site-contact-textarea" id="contact-message" name="message" rows="4" required aria-required="true" minlength="1" maxlength="2000" placeholder="What would you like to share?" aria-describedby="contact-message-count"></textarea>
+                                <p class="site-contact-word-count" id="contact-message-count" aria-live="polite">0 / 250 words</p>
                             </div>
                             <input type="text" name="_honey" class="site-contact-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
                             <button type="submit" class="site-contact-submit">Send message</button>

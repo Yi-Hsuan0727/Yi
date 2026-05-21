@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Longtan Walker Pace Counter APP - Michelle Chen</title>
+    <title>Long-tang Walker - Michelle Chen</title>
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/cursor.css">
@@ -11,153 +11,767 @@
 </head>
 <body>
     <div id="page-specific-content" style="display: none;">
+<style>
+    .lt-section { padding-top: 72px; padding-bottom: 72px; }
+    .lt-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .lt-section p, .lt-section li { line-height: 1.75; }
+    .lt-header {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .lt-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--secondary-text);
+        margin: 0;
+    }
+    .lt-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.2px;
+        margin: 0;
+    }
+    .lt-intro {
+        font-size: 1rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .lt-body {
+        font-size: 0.88rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .lt-2col-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+    .lt-subsection-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0;
+        color: var(--text-color);
+    }
+    .lt-process-block {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+    .lt-process-unified {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .lt-process-step {
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--bg-color);
+    }
+    .lt-process-step .lt-phase-card {
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0;
+        border-right: none;
+        padding: 18px 22px;
+        background: rgba(46, 204, 113, 0.05);
+    }
+    .lt-process-step-body {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .lt-process-step-body .lt-body { margin: 0; }
+    .lt-process-split {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 28px;
+        align-items: start;
+    }
+    .lt-process-split > * { min-width: 0; }
+    .lt-process-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .lt-process-split .lt-figure { margin: 0; }
+    .lt-process-split .lt-figure img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+    .lt-problem-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .lt-problem-card.case-problem-card {
+        padding: 22px 20px;
+        border-radius: 12px;
+        border: 1px solid var(--problem-border);
+        background: #ffffff !important;
+    }
+    [data-theme="dark"] .lt-problem-card.case-problem-card {
+        background: var(--bg-color) !important;
+    }
+    .lt-problem-card .lt-problem-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        background: var(--problem-bg-strong);
+        color: var(--problem-color);
+    }
+    .lt-problem-card strong {
+        display: block;
+        font-size: 0.92rem;
+        margin-bottom: 8px;
+        color: var(--text-color);
+    }
+    .lt-problem-card p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: var(--secondary-text);
+        margin: 0;
+    }
+    .lt-goal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .lt-goal-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 28px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: background 0.15s;
+    }
+    .lt-goal-card:hover { background: rgba(46, 204, 113, 0.04); }
+    .lt-goal-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46, 204, 113, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    .lt-goal-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+        margin: 0;
+    }
+    .lt-goal-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .lt-phase-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .lt-phase-card {
+        padding: 22px 18px;
+        border-right: 1px solid var(--border-color);
+    }
+    .lt-phase-card:last-child { border-right: none; }
+    .lt-phase-num {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--secondary-text);
+        margin-bottom: 8px;
+    }
+    .lt-phase-title {
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+        margin-bottom: 8px;
+    }
+    .lt-phase-desc {
+        font-size: 0.72rem;
+        color: var(--secondary-text);
+        line-height: 1.6;
+        margin: 0;
+    }
+    .lt-callout {
+        border-left: 3px solid var(--accent-color);
+        padding: 16px 20px;
+        background: rgba(46, 204, 113, 0.06);
+        border-radius: 0 8px 8px 0;
+    }
+    .lt-callout-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--secondary-text);
+        margin-bottom: 8px;
+    }
+    .lt-callout p {
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--text-color);
+    }
+    .lt-pillar-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .lt-pillar-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 22px 18px;
+        background: var(--bg-color);
+    }
+    .lt-pillar-card strong {
+        display: block;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+        color: var(--text-color);
+    }
+    .lt-pillar-card p {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .lt-divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 36px 0;
+    }
+    .lt-eyebrow {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+    .lt-solution-copy h3 {
+        margin-top: 0;
+        font-size: 1rem;
+        font-weight: 800;
+        line-height: 1.3;
+        color: var(--text-color);
+    }
+    .lt-solution-copy p {
+        font-size: 0.82rem;
+        color: var(--secondary-text);
+        line-height: 1.7;
+        margin: 0;
+    }
+    .lt-phone-frame {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--bg-color);
+        width: min(320px, 100%);
+        margin-inline: auto;
+        padding: 6px;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+    }
+    .lt-phone-frame img,
+    .lt-phone-frame video {
+        width: 100%;
+        border-radius: 4px;
+        display: block;
+        border: none;
+        object-fit: contain;
+    }
+    .lt-figma-embed {
+        width: 100%;
+        max-width: 800px;
+        margin-inline: auto;
+    }
+    .lt-figma-embed iframe {
+        width: 100%;
+        height: 450px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        display: block;
+    }
+    [data-theme="dark"] .lt-figma-embed iframe {
+        border-color: var(--border-color);
+    }
+    .lt-media-narrow {
+        max-width: min(50%, 380px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .lt-media-narrow video,
+    .lt-media-narrow img {
+        width: 100%;
+        max-height: 420px;
+        object-fit: contain;
+    }
+    .lt-overview-hero {
+        padding: 0 !important;
+        overflow: hidden;
+    }
+    .lt-overview-hero.lt-section {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .lt-overview-hero-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        min-height: 360px;
+    }
+    .lt-overview-hero-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        padding: 48px 60px;
+    }
+    .lt-overview-hero-video {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #ffffff;
+    }
+    [data-theme="dark"] .lt-overview-hero-video {
+        background: var(--bg-color);
+    }
+    .lt-overview-hero-video video {
+        width: 100%;
+        max-height: 620px;
+        object-fit: contain;
+        display: block;
+    }
+    .lt-impact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .lt-impact-cell {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 28px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .lt-impact-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46, 204, 113, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    .lt-impact-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin: 0;
+    }
+    .lt-impact-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .lt-figure { margin: 0; }
+    .lt-video-wrap video,
+    .lt-demo-video {
+        display: block;
+        width: 100%;
+        object-fit: contain;
+        vertical-align: middle;
+    }
 
-        <!-- Section 1: Overview -->
-        <div class="case-section">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Longtan Walker</span>
-                    <h2 class="case-section-title">Overview</h2>
+    @media (max-width: 1200px) {
+        .lt-2col-header,
+        .lt-problem-grid,
+        .lt-goal-grid,
+        .lt-pillar-grid,
+        .lt-impact-grid,
+        .lt-process-split,
+        .case-fig-grid-3 { grid-template-columns: 1fr; }
+        .lt-media-narrow {
+            max-width: 100%;
+        }
+        .lt-overview-hero-inner {
+            grid-template-columns: 1fr;
+            min-height: auto;
+        }
+        .lt-overview-hero-text {
+            padding: 40px 24px 24px;
+        }
+        .lt-overview-hero-video {
+            min-height: 60vw;
+        }
+        .lt-phase-grid { grid-template-columns: 1fr; }
+        .lt-phase-card {
+            border-right: none;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .lt-phase-card:last-child { border-bottom: none; }
+        .lt-section { padding-top: 60px; padding-bottom: 60px; }
+    }
+    @media (max-width: 600px) {
+        .lt-section { padding-top: 48px; padding-bottom: 48px; }
+    }
+</style>
+
+<!-- Overview -->
+<section class="case-section case-section-alt lt-section lt-overview-hero">
+    <div class="lt-overview-hero-inner">
+        <div class="lt-overview-hero-text">
+            <div class="lt-header">
+                <div class="lt-label">Introduction</div>
+                <h2 class="lt-title">Overview</h2>
+            </div>
+            <p class="lt-intro">
+                Long-tang Walker is a mobility concept that encourages people in the Longtan area to walk instead of relying on motorcycles for short trips. The experience combines step tracking with local discounts, creating a practical incentive for healthier daily behavior and safer streets.
+            </p>
+        </div>
+        <div class="lt-overview-hero-video">
+            <video
+                class="lt-demo-video lt-autoplay-video"
+                src="assets/img/lt/mockup-video.mov"
+                autoplay
+                muted
+                playsinline
+                loop
+                preload="auto"
+                aria-label="Long-tang Walker product mockup showing local commerce map and reward redemption">
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- Problem Statement -->
+<section class="case-section case-section--problem lt-section">
+    <div class="lt-inner">
+        <div class="lt-2col-header">
+            <div>
+                <div class="lt-header">
+                    <div class="lt-label case-problem-label">01 — Problem Statement</div>
+                    <h2 class="lt-title">Challenges on Longtan Road</h2>
                 </div>
-                <p>Walk to Win is a behavior-driven mobility concept that encourages residents and students in Longtan to <strong>walk short trips</strong> instead of relying on motorcycles. By combining step tracking with local discounts, the app turns everyday walking into a practical, rewarding habit.</p>
+            </div>
+            <div>
+                <p class="lt-intro">
+                    Through field observations and interviews conducted around Longtan Road, we identified several core challenges impacting both the community and the environment:
+                </p>
             </div>
         </div>
 
-        <!-- Section 2: The Problem -->
-        <div class="case-section case-section-alt case-section--problem">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label case-problem-label">The Problem</span>
-                    <h2 class="case-section-title">A Habit of Riding Short Distances</h2>
-                </div>
-                <p>Field observations around Longtan Road during peak meal hours showed that many students and residents defaulted to motorcycles, even for walkable distances.</p>
-
-                <div class="case-section-cols case-section-cols-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin:24px 0;">
-                    <div class="case-problem-card" style="padding:18px 16px; border-radius:12px; text-align:center;">
-                        <strong style="display:block; margin-bottom:4px;">🛵 Heavy Traffic</strong>
-                        <p style="font-size:0.9rem; color:var(--secondary-text); margin:0;">High concentration of motorcycles during school and meal rushes.</p>
-                    </div>
-                    <div class="case-problem-card" style="padding:18px 16px; border-radius:12px; text-align:center;">
-                        <strong style="display:block; margin-bottom:4px;">🅿️ Limited Space</strong>
-                        <p style="font-size:0.9rem; color:var(--secondary-text); margin:0;">Tight parking and crowded sidewalks at key stretches.</p>
-                    </div>
-                    <div class="case-problem-card" style="padding:18px 16px; border-radius:12px; text-align:center;">
-                        <strong style="display:block; margin-bottom:4px;">🫁 Air &amp; Safety</strong>
-                        <p style="font-size:0.9rem; color:var(--secondary-text); margin:0;">Poor air quality and lower pedestrian safety at crossings.</p>
-                    </div>
-                </div>
+        <div class="lt-problem-grid">
+            <div class="lt-problem-card case-problem-card">
+                <div class="lt-problem-icon case-problem-icon-wrap"><i class="fas fa-road" aria-hidden="true"></i></div>
+                <strong>Traffic &amp; Infrastructure</strong>
+                <p>Interviews and field observations showed heavy traffic during peak meal hours, limited parking, and air-quality concerns.</p>
+            </div>
+            <div class="lt-problem-card case-problem-card">
+                <div class="lt-problem-icon case-problem-icon-wrap"><i class="fas fa-motorcycle" aria-hidden="true"></i></div>
+                <strong>Behavioral Habits</strong>
+                <p>Students and residents reported that short-distance driving had become a default habit even where walkability is possible.</p>
+            </div>
+            <div class="lt-problem-card case-problem-card">
+                <div class="lt-problem-icon case-problem-icon-wrap"><i class="fas fa-person-walking" aria-hidden="true"></i></div>
+                <strong>Pedestrian Safety</strong>
+                <p>There is a high concentration of motorcycle traffic during school and meal rushes, causing pedestrians to face safety and comfort challenges along key crossings.</p>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Section 3: The Solution -->
-        <div class="case-section">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">The Solution</span>
-                    <h2 class="case-section-title">Make Walking Rewarding</h2>
-                </div>
-                <p>Longtan Walker turns steps into redeemable value. Users walk, earn a virtual currency, and redeem rewards at local stores—aligning personal health with neighborhood impact.</p>
-                <figure class="case-figure case-figure-readable" style="margin-top:16px; max-width:760px;">
-                    <img src="assets/img/lt/longtan-mockup-2.png" alt="Flowchart: walk → earn virtual currency → redeem at local stores">
-                    <figcaption class="case-caption">Core loop — walk, earn virtual currency, and redeem rewards at local stores.</figcaption>
-                </figure>
+<!-- Project Goals -->
+<section class="case-section case-section-alt lt-section">
+    <div class="lt-inner">
+        <div class="lt-header">
+            <div class="lt-label">02 — Project Goals</div>
+            <h2 class="lt-title">Motivational, innovative, and health-focused</h2>
+        </div>
+        <p class="lt-body">
+            The vision for this project was to create a motivational, innovative, and health-focused solution. The primary goals were to:
+        </p>
+
+        <div class="lt-goal-grid">
+            <div class="lt-goal-card">
+                <div class="lt-goal-icon"><i class="fas fa-shoe-prints" aria-hidden="true"></i></div>
+                <p class="lt-goal-title">Increase Physical Activity</p>
+                <p class="lt-goal-desc">Motivate users to increase physical activity by converting their daily step count into monetary values.</p>
+            </div>
+            <div class="lt-goal-card">
+                <div class="lt-goal-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+                <p class="lt-goal-title">Boost Engagement</p>
+                <p class="lt-goal-desc">Use competition modes to encourage active participation.</p>
+            </div>
+            <div class="lt-goal-card">
+                <div class="lt-goal-icon"><i class="fas fa-store" aria-hidden="true"></i></div>
+                <p class="lt-goal-title">Support Local Commerce</p>
+                <p class="lt-goal-desc">Drive increased foot traffic and street activity, which directly benefits local businesses.</p>
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Section 4: Design Process & Insights -->
-        <div class="case-section case-section-alt">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Design Process</span>
-                    <h2 class="case-section-title">Why People Didn’t Walk</h2>
-                </div>
-                <p>Surveys and interviews revealed that <strong>distance wasn’t the barrier</strong>. The real issue was a lack of immediate incentive, while local businesses clearly wanted more foot traffic.</p>
-                <p>This insight shaped three core features that connect walking behavior with social motivation and local rewards.</p>
-            </div>
+<!-- Design Process -->
+<section class="case-section lt-section">
+    <div class="lt-inner">
+        <div class="lt-header">
+            <div class="lt-label">03 — Design Process</div>
+            <h2 class="lt-title">From research to core experience</h2>
         </div>
 
-        <!-- Section 5: Visual Demonstration & Core Features -->
-        <div class="case-section">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Core Features</span>
-                    <h2 class="case-section-title">Walk → Earn → Spend Locally</h2>
+        <div class="lt-process-unified">
+            <article class="lt-process-step">
+                <div class="lt-phase-card">
+                    <div class="lt-phase-num">01</div>
+                    <div class="lt-phase-title">UX Research &amp; Discovery</div>
+                    <p class="lt-phase-desc">Surveys, interviews, and on-site field observations.</p>
                 </div>
-
-                <!-- 1. Step to Wealth -->
-                <div style="margin-top:10px;">
-                    <h3>1. Step to Wealth (Pedometer &amp; Tracking)</h3>
-                    <div class="case-fig-grid-2 case-section-grid-2col" style="grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items:center; margin-top:12px;">
-                        <figure class="case-figure case-figure-readable" style="max-width:320px; margin:0 auto;">
-                            <img src="assets/img/lt/homepage.gif" alt="Animated Longtan Walker homepage pedometer showing steps converting to value">
-                            <figcaption class="case-caption">Step to Wealth — daily steps visualized as redeemable value on the homepage.</figcaption>
+                <div class="lt-process-step-body">
+                    <div class="lt-process-split">
+                        <div class="lt-process-copy">
+                            <p class="lt-body">
+                                I began the process with primary research, utilizing surveys, interviews, and on-site field observations.
+                            </p>
+                            <div class="lt-callout">
+                                <div class="lt-callout-label">The Insight</div>
+                                <p>We discovered that driving had become a deeply ingrained default habit for students and residents, even when walking was a viable option.</p>
+                            </div>
+                        </div>
+                        <figure class="case-figure case-figure-readable lt-figure">
+                            <img src="assets/img/lt/problem%20elvuation.png" alt="Field evaluation documentation from observations and interviews around Longtan Road">
+                            <figcaption class="case-caption">Field research — observations and interviews documenting traffic, habits, and pedestrian safety around Longtan Road.</figcaption>
                         </figure>
-                        <div>
-                            <ul>
-                                <li><strong>Real-time conversion:</strong> Daily step counts are visualized as a monetary-like value.</li>
-                                <li><strong>Data visualization:</strong> The main page shows daily steps, accumulated amount, and a simple trend chart for weekly comparison.</li>
-                            </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="lt-process-step">
+                <div class="lt-phase-card">
+                    <div class="lt-phase-num">02</div>
+                    <div class="lt-phase-title">Ideation &amp; Concept Strategy</div>
+                    <p class="lt-phase-desc">Bridging personal health with community economics.</p>
+                </div>
+                <div class="lt-process-step-body">
+                    <p class="lt-body">
+                        Knowing that local businesses thrive on street activity, we hypothesized that we could bridge personal health with community economics.
+                    </p>
+                    <div class="lt-callout">
+                        <div class="lt-callout-label">The Decision</div>
+                        <p>We decided to design an app that turns daily walking into redeemable value, balancing personal motivation with neighborhood impact by connecting healthier routines to local commerce.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="lt-process-step">
+                <div class="lt-phase-card">
+                    <div class="lt-phase-num">03</div>
+                    <div class="lt-phase-title">Core Experience</div>
+                    <p class="lt-phase-desc">Tracking, competition, and reward redemption pillars.</p>
+                </div>
+                <div class="lt-process-step-body">
+                    <p class="lt-body">
+                        To ensure the app was engaging and intuitive, we focused the product design on three main pillars: tracking physical activity, fostering competition, and facilitating reward redemption.
+                    </p>
+                    <div class="lt-pillar-grid">
+                        <div class="lt-pillar-card">
+                            <strong>Track Activity</strong>
+                            <p>Daily step tracking converted into monetary value.</p>
+                        </div>
+                        <div class="lt-pillar-card">
+                            <strong>Foster Competition</strong>
+                            <p>Weekly and monthly rankings to boost participation.</p>
+                        </div>
+                        <div class="lt-pillar-card">
+                            <strong>Redeem Rewards</strong>
+                            <p>Local discounts along Longtan Road tied to accumulated value.</p>
                         </div>
                     </div>
+                    <figure class="case-figure case-figure-readable lt-figure lt-media-narrow">
+                        <img src="assets/img/lt/app%20structure.png" alt="App structure diagram showing tracking, competition, and reward redemption flows">
+                        <figcaption class="case-caption">App structure — three core experience pillars mapped across the product.</figcaption>
+                    </figure>
                 </div>
+            </article>
 
-                <!-- 2. Gamified Competition Mode -->
-                <div style="margin-top:40px; border-top:1px solid var(--border-color); padding-top:32px;">
-                    <h3>2. Gamified Competition Mode</h3>
-                    <div class="case-fig-grid-2 case-section-grid-2col" style="grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); align-items:center; margin-top:12px;">
-                        <div>
-                            <ul>
-                                <li><strong>Leaderboards:</strong> Weekly and monthly rankings encourage friendly competition.</li>
-                                <li><strong>Social proof:</strong> Seeing peers succeed nudges users to increase their daily steps.</li>
-                            </ul>
+            <article class="lt-process-step">
+                <div class="lt-phase-card">
+                    <div class="lt-phase-num">04</div>
+                    <div class="lt-phase-title">Visual Design &amp; UI Kit</div>
+                    <p class="lt-phase-desc">Components, typography, and color for a cohesive product language.</p>
+                </div>
+                <div class="lt-process-step-body">
+                    <div class="lt-process-split">
+                        <div class="lt-process-copy">
+                            <p class="lt-body">
+                                With the core flows defined, I built a UI kit to keep screens consistent across tracking, competition, and reward redemption — shared buttons, cards, navigation, and type scales that scale from onboarding through redemption.
+                            </p>
                         </div>
-                        <figure class="case-figure case-figure-readable" style="max-width:320px; margin:0 auto;">
-                            <img src="assets/img/lt/record.gif" alt="Animated leaderboard and record screen for Longtan Walker">
-                            <figcaption class="case-caption">Gamified competition — weekly and monthly leaderboards for social motivation.</figcaption>
+                        <figure class="case-figure case-figure-readable lt-figure">
+                            <img src="assets/img/lt/ui%20kit.png" alt="Long-tang Walker UI kit showing components, typography, and color system">
+                            <figcaption class="case-caption">UI kit — shared components and visual language applied across the Long-tang Walker experience.</figcaption>
                         </figure>
                     </div>
                 </div>
+            </article>
+        </div>
+    </div>
+</section>
 
-                <!-- 3. Local Reward Redemption -->
-                <div style="margin-top:40px; border-top:1px solid var(--border-color); padding-top:32px;">
-                    <h3>3. Local Reward Redemption</h3>
-                    <div class="case-fig-grid-2 case-section-grid-2col" style="align-items:center; margin-top:12px;">
-                        <div>
-                            <p><strong>The incentive:</strong> Stores along Longtan Road offer exclusive discounts on food and beverages.</p>
-                            <p><strong>The payoff:</strong> Users redeem products using accumulated step value, directly driving foot traffic to local storefronts.</p>
-                        </div>
-                        <figure class="case-figure case-figure-readable">
-                            <img src="assets/img/lt/lt3.png" alt="Reward and store screen showing food and beverage discounts with a Redeem button">
-                            <figcaption class="case-caption">Local reward redemption — discounts at neighborhood stores paid with step value.</figcaption>
-                        </figure>
-                    </div>
+<!-- Key Solutions -->
+<section class="case-section case-section-alt lt-section">
+    <div class="lt-inner">
+        <div class="lt-header">
+            <div class="lt-label">04 — Key Solutions</div>
+            <h2 class="lt-title">Tracking, competition, and local rewards</h2>
+        </div>
+        <p class="lt-body">
+            Three core features work together to turn daily walking into measurable value and community motivation along Longtan Road.
+        </p>
+
+        <div class="case-fig-grid-2" style="align-items:center;">
+            <div class="lt-solution-copy">
+                <span class="lt-eyebrow">Solution 01</span>
+                <h3>Pedometer &amp; Value Conversion</h3>
+                <p>Through a pedometer, users can track their daily step count, converting these steps into monetary values. The main page intuitively displays daily steps, accumulated amounts, and a trend chart.</p>
+            </div>
+            <div>
+                <div class="lt-phone-frame">
+                    <video
+                        class="lt-demo-video lt-autoplay-video"
+                        src="assets/img/lt/home-page-prototype.mov"
+                        autoplay
+                        muted
+                        playsinline
+                        loop
+                        preload="auto"
+                        aria-label="Long-tang Walker home dashboard prototype with pedometer, daily steps, accumulated amounts, and trend chart">
+                    </video>
                 </div>
             </div>
         </div>
 
-        <!-- Section 6: Summary & Reflection -->
-        <div class="case-section case-section-alt">
-            <div class="case-section-inner">
-                <div class="case-section-header">
-                    <span class="case-section-label">Summary</span>
-                    <h2 class="case-section-title">What I Learned</h2>
-                </div>
-                <div class="case-section-cols case-section-cols-3" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin: 20px 0;">
-                    <div style="padding:18px 16px; border-radius:12px; border:1px solid var(--border-color); background: var(--bg-color);">
-                        <strong>Problems solved</strong>
-                        <p style="margin-top:8px; color:var(--secondary-text);">Reduced short-distance vehicle trips on Longtan Road by offering a clear alternative: walk instead of ride.</p>
-                    </div>
-                    <div style="padding:18px 16px; border-radius:12px; border:1px solid var(--border-color); background: var(--bg-color);">
-                        <strong>Goal achieved</strong>
-                        <p style="margin-top:8px; color:var(--secondary-text);">Translated abstract issues—parking, air quality, congestion—into a concrete loop: Walk → Earn → Spend Locally.</p>
-                    </div>
-                    <div style="padding:18px 16px; border-radius:12px; border:1px solid var(--border-color); background: var(--bg-color);">
-                        <strong>The vision</strong>
-                        <p style="margin-top:8px; color:var(--secondary-text);">A city where health and local economy reinforce each other: better mobility habits that are good for both people and the neighborhood.</p>
-                    </div>
+        <div class="lt-divider"></div>
+
+        <div class="case-fig-grid-2" style="align-items:center;">
+            <div class="lt-solution-copy">
+                <span class="lt-eyebrow">Solution 02</span>
+                <h3>Competition Mode</h3>
+                <p>We introduced weekly and monthly step count rankings to encourage users to actively participate, boosting their motivation for physical activity.</p>
+            </div>
+            <div>
+                <div class="lt-phone-frame">
+                    <video
+                        class="lt-demo-video lt-autoplay-video"
+                        src="assets/img/lt/ranking-page-prototype.mov"
+                        autoplay
+                        muted
+                        playsinline
+                        loop
+                        preload="auto"
+                        aria-label="Weekly and monthly step count competition rankings prototype">
+                    </video>
                 </div>
             </div>
         </div>
+
+        <div class="lt-divider"></div>
+
+        <div class="case-fig-grid-2" style="align-items:center;">
+            <div class="lt-solution-copy">
+                <span class="lt-eyebrow">Solution 03</span>
+                <h3>Reward Redemption</h3>
+                <p>Establishments along Longtan Road offer discounts on food and beverages, and users can easily redeem these products using the accumulated monetary values from their step counts.</p>
+            </div>
+            <div>
+                <div class="lt-phone-frame">
+                    <img src="assets/img/lt/coupon%20page.png" alt="Reward redemption screen showing discounts at establishments along Longtan Road">
+                </div>
+            </div>
+        </div>
+
+        <div class="lt-divider"></div>
+
+        <div class="lt-figma-embed">
+            <iframe
+                src="https://embed.figma.com/design/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=5712-1989&embed-host=share"
+                width="800"
+                height="450"
+                allowfullscreen
+                title="Long-tang Walker Figma prototype">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Reflection & Impact -->
+<section class="case-section lt-section">
+    <div class="lt-inner">
+        <div class="lt-header">
+            <div class="lt-label">05 — Reflection &amp; Impact</div>
+            <h2 class="lt-title">Behavior, incentives, and neighborhood impact</h2>
+        </div>
+        <p class="lt-body" style="color:var(--text-color);">
+            Designing the Long-tang Walker app was an exercise in understanding human behavior and community ecosystems. By identifying that a purely health-focused app might not break the habit of driving short distances, we successfully pivoted to an economic incentive.
+        </p>
+
+        <div class="lt-impact-grid">
+            <div class="lt-impact-cell">
+                <div class="lt-impact-icon"><i class="fas fa-wrench" aria-hidden="true"></i></div>
+                <p class="lt-impact-title">Problems Solved</p>
+                <p class="lt-impact-desc">Addressed the over-reliance on motorcycles for short trips and pedestrian safety concerns at crossings.</p>
+            </div>
+            <div class="lt-impact-cell">
+                <div class="lt-impact-icon"><i class="fas fa-check-double" aria-hidden="true"></i></div>
+                <p class="lt-impact-title">Goals Achieved</p>
+                <p class="lt-impact-desc">Created a seamless system where users can accumulate steps, track progress, and exchange rewards at nearby stores.</p>
+            </div>
+            <div class="lt-impact-cell">
+                <div class="lt-impact-icon"><i class="fas fa-seedling" aria-hidden="true"></i></div>
+                <p class="lt-impact-title">Project Vision</p>
+                <p class="lt-impact-desc">The final product successfully balances personal motivation with neighborhood impact by connecting healthier routines to local commerce.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
     </div>
 
@@ -169,6 +783,37 @@
 
     <script>
         PortfolioApp.init('lt');
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var videos = document.querySelectorAll('.lt-autoplay-video');
+        if (!videos.length) return;
+
+        videos.forEach(function(video) {
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+
+            var tryPlay = function() {
+                video.play().catch(function() {});
+            };
+
+            tryPlay();
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            tryPlay();
+                        } else {
+                            video.pause();
+                        }
+                    });
+                }, { threshold: 0.35 });
+                observer.observe(video);
+            }
+        });
+    });
     </script>
 </body>
 </html>
