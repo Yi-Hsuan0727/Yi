@@ -174,8 +174,10 @@ function filterProjects(category) {
     const buttons = document.querySelectorAll('.filter-btn');
 
     buttons.forEach(btn => {
-        const text = btn.textContent.toLowerCase();
-        const isMatch = (category === 'all' && text === 'all') || text.includes(category === 'uiux' ? 'ui/ux' : category);
+        const filter = btn.getAttribute('data-filter');
+        const isMatch = filter
+            ? filter === category
+            : (category === 'all' && btn.textContent.toLowerCase() === 'all');
         btn.classList.toggle('active', isMatch);
     });
 

@@ -70,7 +70,7 @@ const LayoutComponents = {
             return '';
         }
         const sidebarLink = pageData.liveLink;
-        if (!sidebarLink) return '';
+        if (!sidebarLink || sidebarLink === '#') return '';
         let sidebarLabel = 'Visit Live Site';
         let sidebarIcon = 'fa-external-link-alt';
         if (pageType === 'unesco' || pageType === 'spring' || sidebarLink.indexOf('figma.com') !== -1) {
@@ -147,8 +147,8 @@ const LayoutComponents = {
                 <div class="works-header" id="sticky-filter-bar">
                     <span class="section-title">Selected Works</span>
                     <div class="filter-bar">
-                        <button class="filter-btn active" onclick="filterProjects('uiux')">UI/UX</button>
-                        <button class="filter-btn" onclick="filterProjects('code')">Code</button>
+                        <button class="filter-btn active" data-filter="uiux" onclick="filterProjects('uiux')">UI/UX</button>
+                        <button class="filter-btn" data-filter="code" onclick="filterProjects('code')">Currently Live</button>
                     </div>
                 </div>`;
         }
@@ -159,7 +159,7 @@ const LayoutComponents = {
     buildMobileProjectActions: function(projectMeta) {
         if (!projectMeta) return '';
         const liveLink = projectMeta.liveLink;
-        if (!liveLink) return `
+        if (!liveLink || liveLink === '#') return `
             <div class="mobile-project-actions">
                 <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
             </div>`;

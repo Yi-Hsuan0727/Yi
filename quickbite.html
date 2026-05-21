@@ -233,6 +233,24 @@
         margin: 0;
         color: var(--text-color);
     }
+    .qb-pivot--yellow {
+        background: var(--accent-yellow-soft);
+        border-color: var(--accent-yellow-border);
+    }
+    .qb-pivot--yellow .qb-pivot-label {
+        color: #9a8f00;
+    }
+    .qb-pivot--yellow p {
+        color: #7a7200;
+    }
+    [data-theme="dark"] .qb-pivot--yellow {
+        background: rgba(232, 226, 88, 0.12);
+        border-color: rgba(232, 226, 88, 0.35);
+    }
+    [data-theme="dark"] .qb-pivot--yellow .qb-pivot-label,
+    [data-theme="dark"] .qb-pivot--yellow p {
+        color: var(--accent-yellow);
+    }
 
     /* ─── GRIDS & FIGURES ─── */
     .qb-grid-2 {
@@ -559,7 +577,7 @@
                 <div class="qb-pivot-label"><i class="fas fa-code" style="margin-right:5px;" aria-hidden="true"></i>Resolution</div>
                 <p>I refactored the internal state logic (data/state.json), using Anthropic Claude as the core reasoning engine to read and generate structured JSON outputs. This securely locked all features together so that changes in inventory parameters immediately updated recipe outputs and statistical calculations simultaneously.</p>
             </div>
-            <div class="qb-pivot">
+            <div class="qb-pivot qb-pivot--yellow">
                 <div class="qb-pivot-label">Data Continuity</div>
                 <p>Incorporating feedback regarding temporary storage, I added explicit workflows enabling the browser session to clear or save tracked meal records seamlessly.</p>
             </div>

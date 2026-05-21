@@ -7,6 +7,12 @@
     --text-color: #111111;
     --secondary-text: #555555;
     --accent-color: #2ecc71;
+    --accent-blue: #4A55E0;
+    --accent-yellow: #E8E258;
+    --accent-blue-soft: rgba(74, 85, 224, 0.08);
+    --accent-yellow-soft: rgba(232, 226, 88, 0.14);
+    --accent-blue-border: rgba(74, 85, 224, 0.28);
+    --accent-yellow-border: rgba(232, 226, 88, 0.42);
     --problem-color: #e74c3c;
     --problem-bg: rgba(231, 76, 60, 0.1);
     --problem-bg-strong: rgba(231, 76, 60, 0.14);
@@ -1319,18 +1325,61 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     margin: 0 0 18px;
 }
 .about-experience {
-    margin-top: 36px;
-    padding-top: 28px;
-    border-top: 1px solid var(--border-color);
+    margin-top: 40px;
     max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.about-exp-group {
+    margin: 0;
+    padding: 28px 0 32px;
+    background: transparent;
+    border-bottom: none;
+}
+.about-exp-group .about-section-heading {
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.about-exp-group .about-section-heading::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--accent-color);
+}
+.about-exp-group--work .about-section-heading {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+.about-exp-group--work .about-section-heading::before {
+    background: var(--accent-color);
+}
+.about-exp-group--education .about-section-heading {
+    color: var(--text-color);
+    border-bottom-color: var(--accent-blue);
+}
+.about-exp-group--education .about-section-heading::before {
+    background: var(--accent-blue);
+}
+.about-exp-group--highlights .about-section-heading {
+    color: var(--text-color);
+    border-bottom-color: var(--accent-yellow);
+}
+.about-exp-group--highlights .about-section-heading::before {
+    background: var(--accent-yellow);
 }
 .about-experience-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
+    background: transparent;
+    border: none;
 }
 .about-exp-item {
     display: grid;
@@ -1339,16 +1388,38 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     align-items: start;
     padding: 20px 24px;
     border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s ease;
+}
+.about-exp-group--work .about-exp-item {
+    border-bottom-color: rgba(46, 204, 113, 0.22);
+}
+.about-exp-group--education .about-exp-item {
+    border-bottom-color: var(--accent-blue-border);
+}
+.about-exp-group--highlights .about-exp-item {
+    border-bottom-color: var(--accent-yellow-border);
 }
 .about-exp-item:last-child {
     border-bottom: none;
+}
+.about-exp-item:hover {
+    background: transparent;
+}
+.about-exp-group--work .about-exp-item:hover {
+    background: rgba(46, 204, 113, 0.05);
+}
+.about-exp-group--education .about-exp-item:hover {
+    background: var(--accent-blue-soft);
+}
+.about-exp-group--highlights .about-exp-item:hover {
+    background: var(--accent-yellow-soft);
 }
 .about-exp-period {
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--secondary-text);
+    color: var(--text-color);
     line-height: 1.5;
 }
 .about-exp-title {
@@ -1637,7 +1708,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         grid-template-columns: 1fr;
         gap: 8px;
     }
-    .about-experience,
+    .about-experience {
+        margin-bottom: 32px;
+    }
+    .about-exp-group {
+        padding: 22px 0 26px;
+    }
     .about-interests {
         margin-bottom: 32px;
     }
