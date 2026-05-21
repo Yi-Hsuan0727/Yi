@@ -134,7 +134,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['Web Design', 'UI Design', 'Front-End Development', 'Branding'],
             image: 'assets/img/main images/Magnate.png',
-            heroImage: 'assets/img/Magnate/website mockup_magnate.png',
+            heroImage: 'assets/img/Magnate/hero.png',
             link: 'magnate.html',
             timeline: 'Jun 2023 – Sep 2023',
             team: '2 UI Designers, 3 Engineers, 1 PM, 1 Planner',

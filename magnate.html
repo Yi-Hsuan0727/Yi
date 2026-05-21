@@ -11,31 +11,765 @@
 </head>
 <body>
     <div id="page-specific-content" style="display: none;">
-        <div class="case-content">
-            <h2>Overview</h2>
-            <p>
-                Magnate Technology commissioned our team to redesign and build its official website to establish a stronger digital presence. The project focused on presenting aerospace manufacturing capabilities with a clear information hierarchy and a consistent visual identity.
-            </p>
+<style>
+    .mag-section { padding-top: 72px; padding-bottom: 72px; }
+    .mag-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .mag-section p, .mag-section li { line-height: 1.75; }
+    .mag-header {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .mag-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--secondary-text);
+        margin: 0;
+    }
+    .mag-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.2px;
+        margin: 0;
+    }
+    .mag-intro {
+        font-size: 1rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .mag-body {
+        font-size: 0.88rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .mag-2col-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+    .mag-problem-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .mag-problem-card.case-problem-card {
+        padding: 22px 20px;
+        border-radius: 12px;
+        border: 1px solid var(--problem-border);
+        background: #ffffff !important;
+    }
+    [data-theme="dark"] .mag-problem-card.case-problem-card {
+        background: var(--bg-color) !important;
+    }
+    .mag-problem-card .mag-problem-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        background: var(--problem-bg-strong);
+        color: var(--problem-color);
+    }
+    .mag-problem-card strong {
+        display: block;
+        font-size: 0.92rem;
+        margin-bottom: 8px;
+        color: var(--text-color);
+    }
+    .mag-problem-card p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: var(--secondary-text);
+        margin: 0;
+    }
+    .mag-goal-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .mag-goal-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 28px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: background 0.15s;
+    }
+    .mag-goal-card:hover { background: rgba(46, 204, 113, 0.04); }
+    .mag-goal-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46, 204, 113, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    .mag-goal-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+        margin: 0;
+    }
+    .mag-goal-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .mag-phase-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .mag-phase-card {
+        padding: 22px 18px;
+        border-right: 1px solid var(--border-color);
+    }
+    .mag-phase-card:last-child { border-right: none; }
+    .mag-phase-num {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--secondary-text);
+        margin-bottom: 8px;
+    }
+    .mag-phase-title {
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+        margin-bottom: 8px;
+    }
+    .mag-phase-desc {
+        font-size: 0.72rem;
+        color: var(--secondary-text);
+        line-height: 1.6;
+        margin: 0;
+    }
+    .mag-process-block {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+    .mag-process-block > .mag-subsection-title {
+        padding-top: 36px;
+        border-top: 1px solid var(--border-color);
+        margin-bottom: 0;
+    }
+    .mag-process-block > .mag-subsection-title:first-child {
+        padding-top: 0;
+        border-top: none;
+    }
+    .mag-subsection-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0;
+        color: var(--text-color);
+    }
+    .mag-nav-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .mag-nav-chip {
+        border: 1px solid var(--accent-color);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: rgba(46, 204, 113, 0.06);
+        color: var(--text-color);
+    }
+    .mag-split {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 28px;
+        align-items: start;
+    }
+    .mag-split > * { min-width: 0; }
+    .mag-split-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .mag-compare-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+    }
+    .mag-compare-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        min-width: 0;
+    }
+    .mag-compare-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 999px;
+        width: fit-content;
+    }
+    .mag-compare-panel--before .mag-compare-badge {
+        color: var(--secondary-text);
+        border: 1px dashed var(--border-color);
+        background: rgba(0, 0, 0, 0.03);
+    }
+    .mag-compare-panel--before .mag-screen-frame {
+        border: 1px dashed var(--border-color);
+        box-shadow: none;
+        opacity: 0.92;
+    }
+    .mag-compare-panel--after .mag-compare-badge {
+        color: var(--accent-color);
+        border: 1px solid var(--accent-color);
+        background: rgba(46, 204, 113, 0.1);
+    }
+    .mag-compare-panel--after .mag-screen-frame {
+        border: 2px solid var(--accent-color);
+        box-shadow: 0 10px 28px rgba(46, 204, 113, 0.16);
+    }
+    .mag-compare-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid var(--accent-color);
+        background: rgba(46, 204, 113, 0.08);
+        color: var(--accent-color);
+        font-size: 0.72rem;
+        flex-shrink: 0;
+        margin-top: 24px;
+    }
+    .mag-split .mag-figure { margin: 0; }
+    .mag-divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 36px 0;
+    }
+    .mag-eyebrow {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+    .mag-solution-copy h3 {
+        margin-top: 0;
+        font-size: 1rem;
+        font-weight: 800;
+        line-height: 1.3;
+        color: var(--text-color);
+    }
+    .mag-solution-block {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .mag-solution-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 4px;
+    }
+    .mag-solution-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46, 204, 113, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+    .mag-solution-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+    }
+    .mag-solution-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border-color);
+        background: rgba(46, 204, 113, 0.06);
+        color: var(--text-color);
+    }
+    .mag-solution-tag i {
+        color: var(--accent-color);
+        font-size: 0.78rem;
+    }
+    .mag-solution-copy p {
+        font-size: 0.82rem;
+        color: var(--secondary-text);
+        line-height: 1.7;
+        margin: 0;
+    }
+    .mag-screen-frame {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--bg-color);
+        padding: 8px;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+    }
+    .mag-screen-frame img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px;
+        border: none;
+        object-fit: contain;
+    }
+    .mag-callout {
+        border-left: 3px solid var(--accent-color);
+        padding: 16px 20px;
+        background: rgba(46, 204, 113, 0.06);
+        border-radius: 0 8px 8px 0;
+    }
+    .mag-callout p {
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--text-color);
+    }
+    .mag-impact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .mag-impact-cell {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 28px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .mag-impact-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46, 204, 113, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    .mag-impact-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin: 0;
+    }
+    .mag-impact-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .mag-figure { margin: 0; }
+    .mag-figure.mag-figure-padded img {
+        padding: 20px;
+        box-sizing: border-box;
+        background: #ffffff;
+    }
+    [data-theme="dark"] .mag-figure.mag-figure-padded img {
+        background: var(--bg-color);
+    }
+    .mag-demo-block {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    @media (max-width: 1200px) {
+        .mag-2col-header,
+        .mag-problem-grid,
+        .mag-goal-grid,
+        .mag-split,
+        .mag-compare-row,
+        .mag-impact-grid,
+        .case-fig-grid-2,
+        .case-fig-grid-3 { grid-template-columns: 1fr; }
+        .mag-phase-grid { grid-template-columns: repeat(2, 1fr); }
+        .mag-phase-card { border-bottom: 1px solid var(--border-color); }
+        .mag-phase-card:nth-child(2n) { border-right: none; }
+        .mag-section { padding-top: 60px; padding-bottom: 60px; }
+        .mag-compare-row {
+            grid-template-columns: 1fr;
+        }
+        .mag-compare-arrow {
+            margin: 0 auto;
+            transform: rotate(90deg);
+        }
+    }
+    @media (max-width: 600px) {
+        .mag-phase-grid { grid-template-columns: 1fr; }
+        .mag-phase-card { border-right: none; }
+        .mag-section { padding-top: 48px; padding-bottom: 48px; }
+    }
+</style>
 
-            <h2 style="margin-top: 40px;">Design Focus</h2>
-            <p>
-                The site needed to support multilingual content and remain visually stable across Traditional Chinese, Japanese, and English layouts. We designed flexible content modules and responsive behavior to keep readability strong under different text lengths.
-            </p>
-            <ul style="margin-top: 12px; line-height: 1.8;">
-                <li>Multilingual-ready interface structure.</li>
-                <li>Responsive web layout with reusable UI sections.</li>
-                <li>Clear communication of company capabilities and services.</li>
-            </ul>
+<!-- Overview -->
+<section class="case-section case-section-alt mag-section">
+    <div class="mag-inner">
+        <div class="mag-header">
+            <div class="mag-label">Introduction</div>
+            <h2 class="mag-title">Overview</h2>
+        </div>
+        <p class="mag-intro">
+            Magnate Technology, a company with 30 years of expertise in aerospace and precision instrument manufacturing, commissioned our team to redesign and build its official website.
+        </p>
+        <p class="mag-body">
+            Collaborating with M-Think Technology, my role was to establish a stronger digital presence for the brand through comprehensive UI design and front-end interaction planning.
+        </p>
+    </div>
+</section>
 
-            <h2 style="margin-top: 40px;">Outcome</h2>
-            <p>
-                The delivered website improved brand consistency, clarified technical content for visitors, and provided a scalable foundation for future updates.
-            </p>
-
-            <div style="margin-top: 28px;">
-                <img src="assets/img/Magnate/magnate2.png" alt="Magnate website preview" style="width: 100%; border-radius: 8px; border: 1px solid #e0e0e0;">
+<!-- Problem Statement -->
+<section class="case-section case-section--problem mag-section">
+    <div class="mag-inner">
+        <div class="mag-2col-header">
+            <div>
+                <div class="mag-header">
+                    <div class="mag-label case-problem-label">01 — Problem Statement</div>
+                    <h2 class="mag-title">Technical depth, unclear hierarchy</h2>
+                </div>
+            </div>
+            <div>
+                <p class="mag-intro">
+                    The primary challenge of this project was presenting highly technical aerospace manufacturing capabilities to a global audience.
+                </p>
             </div>
         </div>
+
+        <div class="mag-problem-grid">
+            <div class="mag-problem-card case-problem-card">
+                <div class="mag-problem-icon"><i class="fas fa-industry" aria-hidden="true"></i></div>
+                <strong>Complex Technical Content</strong>
+                <p>The existing digital footprint lacked a clear information hierarchy, making it difficult for users to digest complex technical details.</p>
+            </div>
+            <div class="mag-problem-card case-problem-card">
+                <div class="mag-problem-icon"><i class="fas fa-palette" aria-hidden="true"></i></div>
+                <strong>Inconsistent Visual Identity</strong>
+                <p>Visitors struggled to navigate dense manufacturing capabilities while the site failed to maintain a consistent visual identity across pages.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Goals -->
+<section class="case-section case-section-alt mag-section">
+    <div class="mag-inner">
+        <div class="mag-header">
+            <div class="mag-label">02 — Project Goals</div>
+            <h2 class="mag-title">Multilingual, stable, and clear communication</h2>
+        </div>
+        <p class="mag-body">Based on the client&apos;s needs, we established the following core objectives:</p>
+
+        <div class="mag-goal-grid">
+            <div class="mag-goal-card">
+                <div class="mag-goal-icon"><i class="fas fa-language" aria-hidden="true"></i></div>
+                <p class="mag-goal-title">Multilingual Support</p>
+                <p class="mag-goal-desc">Create a multilingual-ready interface structure capable of seamlessly handling Traditional Chinese, Japanese, and English layouts.</p>
+            </div>
+            <div class="mag-goal-card">
+                <div class="mag-goal-icon"><i class="fas fa-text-width" aria-hidden="true"></i></div>
+                <p class="mag-goal-title">Visual Stability</p>
+                <p class="mag-goal-desc">Ensure the design remains visually stable and maintains strong readability across different text lengths associated with various languages.</p>
+            </div>
+            <div class="mag-goal-card">
+                <div class="mag-goal-icon"><i class="fas fa-bullhorn" aria-hidden="true"></i></div>
+                <p class="mag-goal-title">Clear Communication</p>
+                <p class="mag-goal-desc">Clearly communicate the company&apos;s technical capabilities, services, and corporate governance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Design Process -->
+<section class="case-section mag-section">
+    <div class="mag-inner">
+        <div class="mag-header">
+            <div class="mag-label">03 — Design Process</div>
+            <h2 class="mag-title">From research to iterative multilingual layouts</h2>
+        </div>
+
+        <div class="mag-phase-grid" aria-label="Four-phase design process">
+            <div class="mag-phase-card">
+                <div class="mag-phase-num">01</div>
+                <div class="mag-phase-title">Research &amp; IA</div>
+                <p class="mag-phase-desc">Organizing operational data into digestible navigation.</p>
+            </div>
+            <div class="mag-phase-card">
+                <div class="mag-phase-num">02</div>
+                <div class="mag-phase-title">Ideation &amp; Wireframing</div>
+                <p class="mag-phase-desc">Flexible modules for three language layouts.</p>
+            </div>
+            <div class="mag-phase-card">
+                <div class="mag-phase-num">03</div>
+                <div class="mag-phase-title">UI Design</div>
+                <p class="mag-phase-desc">Components, color system, and reusable sections.</p>
+            </div>
+            <div class="mag-phase-card">
+                <div class="mag-phase-num">04</div>
+                <div class="mag-phase-title">Testing &amp; Iteration</div>
+                <p class="mag-phase-desc">Stress-testing typography across language lengths.</p>
+            </div>
+        </div>
+
+        <div class="mag-process-block">
+            <h3 class="mag-subsection-title">1. Research &amp; Information Architecture</h3>
+            <div class="mag-split">
+                <div class="mag-split-copy">
+                    <p class="mag-body">
+                        The first step was organizing the company&apos;s extensive operational data into a digestible format. I analyzed their core business sectors to map out a clear user flow, resulting in navigation categorized by core areas:
+                    </p>
+                    <div class="mag-nav-row" aria-label="Site navigation areas">
+                        <span class="mag-nav-chip">About Magnate</span>
+                        <span class="mag-nav-chip">Technical Capabilities</span>
+                        <span class="mag-nav-chip">Application Areas</span>
+                        <span class="mag-nav-chip">Investor Relations</span>
+                        <span class="mag-nav-chip">Sustainable Development (ESG)</span>
+                    </div>
+                    <p class="mag-body">
+                        Application areas include sectors such as Aerospace Engines and Landing Gear, guiding visitors from corporate overview to specialized manufacturing expertise.
+                    </p>
+                </div>
+                <figure class="case-figure case-figure-readable mag-figure">
+                    <img src="assets/img/Magnate/magnate-structure.png" alt="Magnate website information architecture diagram showing core navigation areas and user flows">
+                    <figcaption class="case-caption">Information architecture — core business sectors mapped into an intuitive navigation structure.</figcaption>
+                </figure>
+            </div>
+
+            <h3 class="mag-subsection-title">2. Ideation &amp; Wireframing</h3>
+            <div class="mag-split">
+                <div class="mag-split-copy">
+                    <p class="mag-body">
+                        Because the site required support for three vastly different languages, standard static wireframes would not suffice. I focused on ideating flexible content modules that could expand or contract based on the language being displayed.
+                    </p>
+                    <p class="mag-body">
+                        The wireframing phase heavily prioritized content hierarchy, ensuring that technical specifications—like their 400+ CNC machines and Nadcap special process certifications—were prominent but not overwhelming.
+                    </p>
+                </div>
+                <figure class="case-figure case-figure-readable mag-figure">
+                    <img src="assets/img/Magnate/prototype.png" alt="Low-fidelity wireframe prototypes showing flexible multilingual content modules">
+                    <figcaption class="case-caption">Wireframes — modular layouts designed to expand or contract across language versions.</figcaption>
+                </figure>
+            </div>
+
+            <h3 class="mag-subsection-title">3. UI Design &amp; Component System</h3>
+            <div class="mag-split">
+                <div class="mag-split-copy">
+                    <p class="mag-body">
+                        During the visual design phase, I was responsible for establishing the UI components and color system. I designed reusable UI sections to maintain visual consistency across all pages.
+                    </p>
+                    <p class="mag-body">
+                        This modular approach not only sped up the design handoff but also ensured that the visual identity remained cohesive whether the user was viewing a financial report or a technical capabilities page.
+                    </p>
+                </div>
+                <figure class="case-figure case-figure-readable mag-figure mag-figure-padded">
+                    <img src="assets/img/Magnate/color%20system.png" alt="Magnate UI color system and component palette">
+                    <figcaption class="case-caption">Color system &amp; components — reusable UI sections for consistent visual identity.</figcaption>
+                </figure>
+            </div>
+
+            <h3 class="mag-subsection-title">4. Testing &amp; Iterative Layouts</h3>
+            <p class="mag-body">
+                A major part of the iterative process involved stress-testing the typography and component behavior. We tested the layouts using varying text lengths to ensure responsive behavior kept readability strong under all conditions.
+            </p>
+            <p class="mag-body">
+                This guaranteed that the interface structure remained robust when switching between the concise nature of English and the denser characters of Traditional Chinese and Japanese.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Key Solutions -->
+<section class="case-section case-section-alt mag-section">
+    <div class="mag-inner">
+        <div class="mag-header">
+            <div class="mag-label">04 — Key Solutions / Final Design</div>
+            <h2 class="mag-title">Responsive modules, adaptive type, and guided flows</h2>
+        </div>
+        <p class="mag-body">
+            To solve the initial problems, the final design incorporated three interconnected solutions—each validated through before-and-after comparisons across key pages.
+        </p>
+
+        <div class="mag-solution-block">
+            <div class="mag-solution-copy">
+                <span class="mag-eyebrow">Solution 01</span>
+                <div class="mag-solution-head">
+                    <div class="mag-solution-icon"><i class="fas fa-table-cells" aria-hidden="true"></i></div>
+                    <h3>Modular Responsiveness</h3>
+                </div>
+                <p>A highly responsive web layout built entirely on reusable UI sections, reducing development friction and ensuring visual consistency. The redesign transformed a legacy homepage with limited hierarchy into a clearer, brand-aligned structure.</p>
+                <div class="mag-solution-tags" aria-label="Multilingual support">
+                    <span class="mag-solution-tag"><i class="fas fa-language" aria-hidden="true"></i> Multilingual</span>
+                    <span class="mag-solution-tag"><i class="fas fa-globe" aria-hidden="true"></i> 繁體中文</span>
+                    <span class="mag-solution-tag">EN</span>
+                    <span class="mag-solution-tag">日本語</span>
+                </div>
+            </div>
+            <div class="mag-compare-row">
+                <div class="mag-compare-panel mag-compare-panel--before">
+                    <span class="mag-compare-badge"><i class="fas fa-clock-rotate-left" aria-hidden="true"></i> Previous site</span>
+                    <div class="mag-screen-frame">
+                        <img src="assets/img/Magnate/Old%20site-home%20page.png" alt="Previous Magnate website homepage before redesign">
+                    </div>
+                </div>
+                <div class="mag-compare-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+                <div class="mag-compare-panel mag-compare-panel--after">
+                    <span class="mag-compare-badge"><i class="fas fa-check" aria-hidden="true"></i> Redesigned site</span>
+                    <div class="mag-screen-frame">
+                        <img src="assets/img/Magnate/home%20page.png" alt="Redesigned Magnate website homepage with modular responsive layout">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mag-divider"></div>
+
+        <div class="mag-solution-block">
+            <div class="mag-solution-copy">
+                <span class="mag-eyebrow">Solution 02</span>
+                <div class="mag-solution-head">
+                    <div class="mag-solution-icon"><i class="fas fa-font" aria-hidden="true"></i></div>
+                    <h3>Adaptive Typography</h3>
+                </div>
+                <p>A flexible UI that accommodates the distinct typographic spatial requirements of Traditional Chinese, English, and Japanese without breaking the grid. The same component system extends to inquiry flows, keeping forms readable and visually stable across languages.</p>
+                <div class="mag-solution-tags" aria-label="Supported languages and translation">
+                    <span class="mag-solution-tag"><i class="fas fa-language" aria-hidden="true"></i> Adaptive type</span>
+                    <span class="mag-solution-tag"><i class="fas fa-right-left" aria-hidden="true"></i> Translation-ready</span>
+                    <span class="mag-solution-tag"><i class="fas fa-globe" aria-hidden="true"></i> 繁體中文</span>
+                    <span class="mag-solution-tag">English</span>
+                    <span class="mag-solution-tag">日本語</span>
+                </div>
+            </div>
+            <div class="mag-compare-row">
+                <div class="mag-compare-panel mag-compare-panel--before">
+                    <span class="mag-compare-badge"><i class="fas fa-clock-rotate-left" aria-hidden="true"></i> Previous contact</span>
+                    <div class="mag-screen-frame">
+                        <img src="assets/img/Magnate/old%20site-contact%20us.png" alt="Previous Magnate contact page before redesign">
+                    </div>
+                </div>
+                <div class="mag-compare-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></div>
+                <div class="mag-compare-panel mag-compare-panel--after">
+                    <span class="mag-compare-badge"><i class="fas fa-check" aria-hidden="true"></i> Redesigned contact</span>
+                    <div class="mag-screen-frame">
+                        <img src="assets/img/Magnate/contact%20us%20page.png" alt="Redesigned Magnate Contact Us page with consistent component system">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mag-divider"></div>
+
+        <div class="case-fig-grid-2" style="align-items:center;">
+            <div class="mag-solution-copy">
+                <span class="mag-eyebrow">Solution 03</span>
+                <h3>Streamlined User Flows</h3>
+                <p>Custom front-end interactions that guide users logically from high-level overviews down to specific technical processes, such as 5-axis machining and collaborative engineering.</p>
+            </div>
+            <div>
+                <div class="mag-screen-frame">
+                    <img src="assets/img/Magnate/magnate2.png" alt="Magnate website page showing technical capabilities and guided user flow">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Reflection -->
+<section class="case-section case-section-alt mag-section">
+    <div class="mag-inner">
+        <div class="mag-header">
+            <div class="mag-label">05 — Reflection</div>
+            <h2 class="mag-title">Technical accuracy meets modern digital aesthetics</h2>
+        </div>
+        <p class="mag-body" style="color:var(--text-color);">
+            Designing for the aerospace and precision manufacturing sector required a balance of rigid technical accuracy and modern digital aesthetics.
+        </p>
+        <div class="mag-callout">
+            <p>The biggest takeaway from this project was the importance of designing for scalability. By focusing on flexible content modules early in the process, I learned how to build a design system that doesn&apos;t just look good on day one, but continues to function perfectly as the client updates content across multiple languages.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Summary / Impact -->
+<section class="case-section case-section-alt mag-section">
+    <div class="mag-inner">
+        <div class="mag-header">
+            <div class="mag-label">06 — Summary / Impact</div>
+            <h2 class="mag-title">A modern, accessible digital touchpoint</h2>
+        </div>
+        <p class="mag-body">
+            The redesign successfully transformed Magnate Technology&apos;s digital touchpoint into a modern, accessible platform.
+        </p>
+
+        <div class="mag-impact-grid">
+            <div class="mag-impact-cell">
+                <div class="mag-impact-icon"><i class="fas fa-award" aria-hidden="true"></i></div>
+                <p class="mag-impact-title">Brand Enhancement</p>
+                <p class="mag-impact-desc">The delivered website drastically improved brand consistency across all digital channels.</p>
+            </div>
+            <div class="mag-impact-cell">
+                <div class="mag-impact-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
+                <p class="mag-impact-title">Improved UX</p>
+                <p class="mag-impact-desc">It successfully clarified dense technical content for global visitors.</p>
+            </div>
+            <div class="mag-impact-cell">
+                <div class="mag-impact-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
+                <p class="mag-impact-title">Business Value</p>
+                <p class="mag-impact-desc">By utilizing a modular component system, we provided a scalable foundation for future updates, ensuring the company&apos;s digital presence can grow alongside its manufacturing capabilities.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
