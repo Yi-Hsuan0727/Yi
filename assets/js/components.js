@@ -180,7 +180,7 @@ const PortfolioApp = {
     data: {
         home: {
             title: `Design<span class="shape shape-circle"></span><br>Code<span class="shape shape-triangle"></span><br>Systems<span class="shape shape-square"></span>`,
-            desc: "Hi! I'm Michelle Chen — a UX/UI designer focused on product thinking, craft, and collaboration.",
+            desc: "Hi! I'm Michelle Chen — a UX/UI designer with 3+ years of experience, focused on product thinking, craft, and collaboration.",
             meta: ``
         },
         about: {
