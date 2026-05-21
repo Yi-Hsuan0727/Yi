@@ -12,42 +12,46 @@
 <body>
     <div id="page-specific-content" style="display: none;">
 <style>
-    .un-section { padding-top: 96px; padding-bottom: 96px; }
+    .un-section { padding-top: 72px; padding-bottom: 72px; }
     .un-inner {
         max-width: 900px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 24px;
     }
-    .un-section p, .un-section li { line-height: 1.9; }
-
+    .un-section p, .un-section li { line-height: 1.75; }
+    .un-header {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
     .un-label {
         font-size: 0.68rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.14em;
         color: var(--secondary-text);
-        margin-bottom: 10px;
+        margin: 0;
     }
     .un-title {
         font-size: 1.35rem;
         font-weight: 800;
         line-height: 1.25;
         letter-spacing: -0.2px;
-        margin: 0 0 8px;
+        margin: 0;
     }
     .un-intro {
         font-size: 1rem;
         color: var(--secondary-text);
-        line-height: 1.8;
+        line-height: 1.75;
         margin: 0;
     }
     .un-body {
         font-size: 0.88rem;
         color: var(--secondary-text);
-        line-height: 1.8;
-        margin: 0 0 16px;
+        line-height: 1.75;
+        margin: 0 0 10px;
     }
     .un-body:last-child { margin-bottom: 0; }
     .un-2col-header {
@@ -63,6 +67,41 @@
         color: var(--text-color);
     }
     .un-subtitle:first-of-type { margin-top: 0; }
+    .un-subsection-title {
+        font-size: 1.2rem;
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0 0 14px;
+        color: var(--text-color);
+    }
+    .un-research-block {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+    .un-research-block > .un-subsection-title,
+    .un-research-block > .un-body { margin-bottom: 0; }
+    .un-research-block > .un-subsection-title {
+        padding-top: 36px;
+        border-top: 1px solid var(--border-color);
+    }
+    .un-research-block + .un-research-block {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+    .un-findings-label {
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin: 0;
+    }
+    .un-research-group,
+    .un-closing-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
 
     .un-callout-row {
         display: grid;
@@ -76,7 +115,6 @@
         border-right: 1px solid var(--border-color);
     }
     .un-callout-cell:last-child { border-right: none; }
-    .un-callout-cell.dark { background: var(--text-color); }
     .un-callout-label {
         font-size: 0.65rem;
         font-weight: 700;
@@ -85,8 +123,6 @@
         color: var(--secondary-text);
         margin-bottom: 10px;
     }
-    .un-callout-cell.dark .un-callout-label { color: rgba(200,200,200,0.55); }
-    [data-theme="dark"] .un-callout-cell.dark .un-callout-label { color: rgba(0,0,0,0.55); }
     .un-callout-text {
         font-size: 0.92rem;
         font-weight: 600;
@@ -94,18 +130,56 @@
         color: var(--text-color);
         margin: 0;
     }
-    .un-callout-cell.dark .un-callout-text { color: var(--bg-color); }
+    .un-callout-cell.dark {
+        background: #111 !important;
+        border-color: #111;
+    }
+    .un-callout-cell.dark .un-callout-label {
+        color: rgba(255, 255, 255, 0.55);
+    }
+    .un-callout-cell.dark .un-callout-text {
+        color: #fff;
+    }
+
+    .un-problem-panel {
+        border: 1px solid var(--problem-border);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+    }
+    [data-theme="dark"] .un-problem-panel {
+        background: var(--bg-color);
+    }
+    .un-problem-panel-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--problem-border);
+        background: var(--problem-bg);
+    }
+    .un-problem-panel-header .un-body {
+        margin: 0;
+        font-weight: 700;
+        color: var(--text-color);
+    }
+    .un-problem-panel .un-problem-grid {
+        padding: 20px;
+    }
 
     .un-problem-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 16px;
     }
-    .un-problem-card {
+    .un-problem-card.case-problem-card {
         padding: 22px 20px;
         border-radius: 12px;
         border: 1px solid var(--problem-border);
-        background: var(--problem-bg);
+        background: #ffffff !important;
+    }
+    [data-theme="dark"] .un-problem-card.case-problem-card {
+        background: var(--bg-color) !important;
+    }
+    .un-problem-card.case-problem-card:hover {
+        background: rgba(46, 204, 113, 0.04) !important;
     }
     .un-problem-card .un-problem-icon {
         width: 44px;
@@ -209,30 +283,36 @@
     }
 
     .un-findings {
-        border: 1px solid var(--problem-border);
-        border-radius: 8px;
-        overflow: hidden;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        border: none;
+        overflow: visible;
+        background: transparent !important;
     }
     .un-finding-item {
         display: grid;
-        grid-template-columns: 48px 1fr;
-        gap: 20px;
+        grid-template-columns: 44px 1fr;
+        gap: 16px;
         align-items: start;
-        padding: 22px 24px;
-        border-bottom: 1px solid var(--border-color);
+        padding: 22px 20px;
+        border: 1px solid var(--problem-border);
+        border-radius: 10px;
+        background: #ffffff;
     }
-    .un-finding-item:last-child { border-bottom: none; }
-    .un-finding-num {
-        font-size: 0.68rem;
-        font-weight: 700;
-        color: var(--problem-color);
+    [data-theme="dark"] .un-finding-item {
+        background: var(--bg-color);
+    }
+    .un-finding-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
         background: var(--problem-bg);
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
+        color: var(--problem-color);
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1rem;
         flex-shrink: 0;
     }
     .un-finding-title {
@@ -277,6 +357,8 @@
         margin: 0;
     }
 
+    .un-callout-full { width: 100%; }
+
     .un-persona-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -286,15 +368,30 @@
         border-radius: 12px;
         border: 1px solid var(--border-color);
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-color);
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
-    .un-persona-card img {
+    .un-persona-img-wrap {
+        background: #f4f4f4;
+        padding: 12px 12px 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+    [data-theme="dark"] .un-persona-img-wrap { background: #1e1e1e; }
+    .un-persona-img-wrap img {
         width: 100%;
         height: auto;
+        max-height: 200px;
+        object-fit: contain;
+        object-position: top center;
         display: block;
-        background: var(--border-color);
     }
-    .un-persona-body { padding: 18px; }
+    .un-persona-body {
+        padding: 18px 16px 20px;
+        background: var(--bg-color);
+        flex: 1;
+    }
     .un-persona-icon {
         width: 40px;
         height: 40px;
@@ -345,6 +442,76 @@
         margin: 0;
         color: var(--text-color);
     }
+    .un-decision ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+        font-size: 0.82rem;
+        line-height: 1.7;
+        color: var(--text-color);
+    }
+    .un-decision li { margin-bottom: 6px; }
+    .un-decision li:last-child { margin-bottom: 0; }
+
+    .un-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .un-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--text-color);
+        background: var(--bg-color);
+    }
+    .un-tag i {
+        color: var(--accent-color);
+        font-size: 0.75rem;
+    }
+
+    .un-demo-grid-2 {
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: 24px;
+        align-items: center;
+    }
+    .un-demo-grid-2 > * { min-width: 0; }
+    .un-eyebrow {
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent-color);
+        display: block;
+        margin-bottom: 8px;
+    }
+    .un-solution-copy h3 {
+        font-size: 1.05rem;
+        font-weight: 800;
+        margin: 0 0 10px;
+        line-height: 1.3;
+        color: var(--text-color);
+    }
+    .un-solution-copy p {
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .un-demo-divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 28px 0;
+        border: none;
+    }
 
     .un-grid-2 {
         display: grid;
@@ -358,82 +525,6 @@
         gap: 24px;
         align-items: start;
     }
-    .un-figure { margin: 0; }
-    .un-figure img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-    }
-    .un-figure.un-figure-white img {
-        background: #fff;
-        padding: 16px;
-        box-sizing: border-box;
-    }
-    .un-caption {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 12px 2px 0;
-        font-size: 0.72rem;
-        color: var(--secondary-text);
-        line-height: 1.65;
-        margin: 0;
-    }
-    .un-caption::before {
-        content: "";
-        flex-shrink: 0;
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: var(--accent-color);
-        margin-top: 5px;
-    }
-
-    .un-mockup-row {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        overflow: hidden;
-    }
-    .un-mockup-cell {
-        border-right: 1px solid var(--border-color);
-        display: flex;
-        flex-direction: column;
-        transition: background 0.15s;
-    }
-    .un-mockup-cell:last-child { border-right: none; }
-    .un-mockup-cell:hover { background: rgba(46, 204, 113, 0.04); }
-    .un-mockup-img {
-        padding: 20px 20px 0;
-        flex: 1;
-    }
-    .un-mockup-img img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 6px;
-        border: 1px solid var(--border-color);
-    }
-    .un-mockup-footer {
-        padding: 14px 20px 18px;
-    }
-    .un-mockup-label {
-        font-size: 0.65rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--secondary-text);
-        margin-bottom: 4px;
-    }
-    .un-mockup-title {
-        font-size: 0.88rem;
-        font-weight: 800;
-        color: var(--text-color);
-    }
-
     .un-solution-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -564,19 +655,19 @@
         .un-2col-header,
         .un-goal-grid,
         .un-problem-grid,
+        .un-findings,
         .un-solution-grid,
         .un-insight-grid,
         .un-persona-grid,
         .un-grid-4-8,
         .un-callout-row,
-        .un-impact-grid { grid-template-columns: 1fr; }
+        .un-impact-grid,
+        .un-research-figures,
+        .un-demo-grid-2 { grid-template-columns: 1fr; }
         .un-grid-2 { grid-template-columns: 1fr; }
         .un-phase-grid { grid-template-columns: repeat(2, 1fr); }
         .un-phase-card { border-bottom: 1px solid var(--border-color); }
         .un-phase-card:nth-child(2n) { border-right: none; }
-        .un-mockup-row { grid-template-columns: 1fr; }
-        .un-mockup-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
-        .un-mockup-cell:last-child { border-bottom: none; }
         .un-callout-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
         .un-callout-cell:last-child { border-bottom: none; }
         .un-impact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
@@ -593,8 +684,10 @@
 <!-- Overview -->
 <section class="case-section case-section-alt un-section">
     <div class="un-inner">
-        <div class="un-label">Introduction</div>
-        <h2 class="un-title">Overview</h2>
+        <div class="un-header">
+            <div class="un-label">Introduction</div>
+            <h2 class="un-title">Overview</h2>
+        </div>
         <p class="un-intro">
             The United Nations Educational, Scientific and Cultural Organization (UNESCO) works globally to protect cultural heritage, advance education, and support sustainability. However, despite its monumental real-world impact, many potential volunteers and advocates struggle to navigate the UNESCO website to find relevant opportunities.
         </p>
@@ -609,8 +702,10 @@
     <div class="un-inner">
         <div class="un-2col-header">
             <div>
-                <div class="un-label case-problem-label">Problem Statement</div>
-                <h2 class="un-title">Usability barriers blocking engagement</h2>
+                <div class="un-header">
+                    <div class="un-label case-problem-label">01 — Problem Statement</div>
+                    <h2 class="un-title">Usability barriers blocking engagement</h2>
+                </div>
             </div>
             <div>
                 <p class="un-intro">
@@ -619,40 +714,32 @@
             </div>
         </div>
 
-        <p class="un-body" style="margin-top:0;">Potential volunteers and professionals encountered:</p>
-
-        <div class="un-problem-grid">
-            <div class="un-problem-card case-problem-card">
-                <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-compass" aria-hidden="true"></i></div>
-                <strong>Hidden career pathways</strong>
-                <p>Difficulty locating the Career and Volunteering search sections from the homepage.</p>
+        <div class="un-problem-panel">
+            <div class="un-problem-panel-header">
+                <p class="un-body">Potential volunteers and professionals encountered:</p>
             </div>
-            <div class="un-problem-card case-problem-card">
-                <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-spinner" aria-hidden="true"></i></div>
-                <strong>Loading without feedback</strong>
-                <p>Delays in page loading without visual feedback, causing frustration.</p>
+            <div class="un-problem-grid">
+                <div class="un-problem-card case-problem-card">
+                    <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-compass" aria-hidden="true"></i></div>
+                    <strong>Hidden career pathways</strong>
+                    <p>Difficulty locating the Career and Volunteering search sections from the homepage.</p>
+                </div>
+                <div class="un-problem-card case-problem-card">
+                    <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-spinner" aria-hidden="true"></i></div>
+                    <strong>Loading without feedback</strong>
+                    <p>Delays in page loading without visual feedback, causing frustration.</p>
+                </div>
+                <div class="un-problem-card case-problem-card">
+                    <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-filter" aria-hidden="true"></i></div>
+                    <strong>Confusing filters</strong>
+                    <p>Confusing categorizations and overlapping filter functionalities on the job board.</p>
+                </div>
+                <div class="un-problem-card case-problem-card">
+                    <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-align-left" aria-hidden="true"></i></div>
+                    <strong>Text-heavy listings</strong>
+                    <p>Large blocks of text without proper hierarchy, making it hard to understand internship and volunteer requirements.</p>
+                </div>
             </div>
-            <div class="un-problem-card case-problem-card">
-                <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-filter" aria-hidden="true"></i></div>
-                <strong>Confusing filters</strong>
-                <p>Confusing categorizations and overlapping filter functionalities on the job board.</p>
-            </div>
-            <div class="un-problem-card case-problem-card">
-                <div class="un-problem-icon case-problem-icon-wrap"><i class="fas fa-align-left" aria-hidden="true"></i></div>
-                <strong>Text-heavy listings</strong>
-                <p>Large blocks of text without proper hierarchy, making it hard to understand internship and volunteer requirements.</p>
-            </div>
-        </div>
-
-        <div class="un-grid-2" style="margin-top:8px;">
-            <figure class="un-figure">
-                <img src="assets/img/UNESCO/old site.png" alt="Original UNESCO website interface showing buried navigation and dense text layout">
-                <p class="un-caption">Original UNESCO site — career search buried and difficult to reach from the main experience.</p>
-            </figure>
-            <figure class="un-figure">
-                <img src="assets/img/UNESCO/old site-job page.png" alt="Original UNESCO career job board with overlapping filters and text-heavy listings">
-                <p class="un-caption">Career portal job board — filter categories that did not match listings and formatting that made scanning difficult.</p>
-            </figure>
         </div>
     </div>
 </section>
@@ -660,8 +747,10 @@
 <!-- Project Goals -->
 <section class="case-section case-section-alt un-section">
     <div class="un-inner">
-        <div class="un-label">Project Goals</div>
-        <h2 class="un-title">Guiding objectives for the redesign</h2>
+        <div class="un-header">
+            <div class="un-label">02 — Project Goals</div>
+            <h2 class="un-title">Guiding objectives for the redesign</h2>
+        </div>
 
         <div class="un-goal-grid">
             <div class="un-goal-card">
@@ -691,52 +780,79 @@
 <!-- Design Process overview -->
 <section class="case-section un-section">
     <div class="un-inner">
-        <div class="un-label">Design Process</div>
-        <h2 class="un-title">From research to tested solution</h2>
+        <div class="un-header">
+            <div class="un-label">03 — Design Process</div>
+            <h2 class="un-title">From research to tested solution</h2>
+        </div>
 
         <div class="un-phase-grid" aria-label="Five-phase design process">
             <div class="un-phase-card">
                 <div class="un-phase-num">01</div>
+                <div class="un-phase-title">Test Plan</div>
+                <p class="un-phase-desc">Usability test plan across three core scenarios.</p>
+            </div>
+            <div class="un-phase-card">
+                <div class="un-phase-num">02</div>
                 <div class="un-phase-title">Research &amp; Discovery</div>
                 <p class="un-phase-desc">Survey with 10 respondents on goals and pain points.</p>
             </div>
             <div class="un-phase-card">
-                <div class="un-phase-num">02</div>
+                <div class="un-phase-num">03</div>
                 <div class="un-phase-title">Personas</div>
                 <p class="un-phase-desc">Three personas guiding design decisions.</p>
             </div>
             <div class="un-phase-card">
-                <div class="un-phase-num">03</div>
+                <div class="un-phase-num">04</div>
                 <div class="un-phase-title">Interface Audit</div>
                 <p class="un-phase-desc">Heuristic evaluation of the Career Portal.</p>
             </div>
             <div class="un-phase-card">
-                <div class="un-phase-num">04</div>
+                <div class="un-phase-num">05</div>
                 <div class="un-phase-title">Ideation</div>
                 <p class="un-phase-desc">Information architecture and wireframing.</p>
-            </div>
-            <div class="un-phase-card">
-                <div class="un-phase-num">05</div>
-                <div class="un-phase-title">Testing</div>
-                <p class="un-phase-desc">Usability test plan across three core scenarios.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 1. Research & Discovery -->
+<!-- Research (test plan, survey, personas, audit) -->
 <section class="case-section case-section-alt un-section">
     <div class="un-inner">
-        <div class="un-label">01 — Research &amp; Discovery</div>
-        <h2 class="un-title">UNESCO Website User Experience Survey</h2>
-        <p class="un-body">
-            I began by launching the UNESCO Website User Experience Survey to understand the demographics, goals, and pain points of potential users. The survey gathered qualitative and quantitative data from <strong>10 respondents</strong>.
+        <div class="un-header">
+            <div class="un-label">04 — Research &amp; Discovery</div>
+            <h2 class="un-title">From test plan to validated insights</h2>
+        </div>
+        <p class="un-intro">
+            I structured the full research program around a usability test plan, then layered survey findings, personas, and a career portal audit to guide the redesign.
         </p>
 
-        <div class="un-grid-2">
-            <div>
-                <p class="un-body" style="font-weight:700; color:var(--text-color); margin-bottom:12px;">Key Findings</p>
-                <div class="un-insight-grid" style="grid-template-columns:1fr; gap:12px;">
+        <div class="un-research-block">
+            <h3 class="un-subsection-title">Usability Test Plan Dashboard</h3>
+            <p class="un-body">
+                I created a Usability Test Plan Dashboard to evaluate the redesign. I designed a script and observation sheet to test three core scenarios matching my personas:
+            </p>
+
+            <ul class="un-tags" aria-label="Usability test scenarios">
+                <li class="un-tag"><i class="fas fa-building" aria-hidden="true"></i> Finding NGO Partnerships</li>
+                <li class="un-tag"><i class="fas fa-briefcase" aria-hidden="true"></i> Locating Short-term Volunteering</li>
+                <li class="un-tag"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Student Engagement</li>
+            </ul>
+
+            <figure class="case-figure case-figure-readable un-figure un-figure-white">
+                <img src="assets/img/UNESCO/usability-test-dashboard.png" alt="Usability Test Plan Dashboard with script and observation framework">
+                <figcaption class="case-caption">Usability Test Plan Dashboard — script and observation sheet for three persona-matched scenarios.</figcaption>
+            </figure>
+        </div>
+
+        <div class="un-research-block">
+            <h3 class="un-subsection-title">UNESCO Website User Experience Survey</h3>
+            <p class="un-body">
+                I began by launching the UNESCO Website User Experience Survey to understand the demographics, goals, and pain points of potential users. The survey gathered qualitative and quantitative data from <strong>10 respondents</strong>.
+            </p>
+
+            <div class="un-research-group">
+                <p class="un-findings-label">Key Findings</p>
+                <div class="un-insight-grid">
                     <div class="un-insight-card" style="text-align:left;">
                         <div class="un-insight-icon" style="text-align:left;"><i class="fas fa-map-signs" aria-hidden="true"></i></div>
                         <strong>Unclear navigation</strong>
@@ -753,282 +869,256 @@
                         <p>Time constraints added friction to exploring opportunities.</p>
                     </div>
                 </div>
-                <div class="un-callout-row" style="margin-top:20px;">
-                    <div class="un-callout-cell">
-                        <div class="un-callout-label">Motivation</div>
-                        <p class="un-callout-text">Despite hurdles, users are highly motivated by career development, networking, and a desire to make a tangible impact.</p>
+            </div>
+
+            <div class="un-callout-row un-callout-full">
+                <div class="un-callout-cell">
+                    <div class="un-callout-label">Motivation</div>
+                    <p class="un-callout-text">Despite hurdles, users are highly motivated by career development, networking, and a desire to make a tangible impact.</p>
+                </div>
+                <div class="un-callout-cell dark">
+                    <div class="un-callout-label">Design implication</div>
+                    <p class="un-callout-text">The redesign needed to shorten paths to opportunity while respecting users&apos; limited time.</p>
+                </div>
+            </div>
+
+            <div class="un-research-group">
+                <p class="un-body">Survey themes informed navigation priorities and clearer engagement pathways across the redesign.</p>
+                <div class="case-fig-grid-2 un-research-figures">
+                    <figure class="case-figure case-figure-readable un-figure">
+                        <img src="assets/img/UNESCO/user research summary.png" alt="Summary of UNESCO website user experience survey findings">
+                        <figcaption class="case-caption">Survey summary — qualitative and quantitative themes from 10 respondents.</figcaption>
+                    </figure>
+                    <figure class="case-figure case-figure-readable un-figure">
+                        <img src="assets/img/UNESCO/user research issues and feedbacks.png" alt="UNESCO user research issues and feedback documentation">
+                        <figcaption class="case-caption">Issues and feedback captured during research — informing navigation and content priorities.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+
+        <div class="un-research-block">
+            <h3 class="un-subsection-title">Personas</h3>
+            <p class="un-body">Based on the research, I developed three distinct personas to guide my design decisions:</p>
+
+            <div class="un-persona-grid">
+                <article class="un-persona-card">
+                    <div class="un-persona-img-wrap">
+                        <img src="assets/img/UNESCO/persona-01.png" alt="Persona: The Curious Student — Li Wei, 22">
                     </div>
-                    <div class="un-callout-cell dark">
-                        <div class="un-callout-label">Design implication</div>
-                        <p class="un-callout-text">The redesign needed to shorten paths to opportunity while respecting users&apos; limited time.</p>
+                    <div class="un-persona-body">
+                        <div class="un-persona-icon"><i class="fas fa-user-graduate" aria-hidden="true"></i></div>
+                        <p class="un-persona-name">The Curious Student</p>
+                        <p class="un-persona-meta">Li Wei, 22</p>
+                        <p class="un-persona-desc">Lacks knowledge on how to get involved and needs clear onboarding and introductory programs.</p>
+                    </div>
+                </article>
+                <article class="un-persona-card">
+                    <div class="un-persona-img-wrap">
+                        <img src="assets/img/UNESCO/persona-03.png" alt="Persona: The Cultural Advocate — Aarav Mehta, 35">
+                    </div>
+                    <div class="un-persona-body">
+                        <div class="un-persona-icon"><i class="fas fa-handshake" aria-hidden="true"></i></div>
+                        <p class="un-persona-name">The Cultural Advocate</p>
+                        <p class="un-persona-meta">Aarav Mehta, 35</p>
+                        <p class="un-persona-desc">Looking for long-term sustainable impact but struggles with poor website accessibility and unclear NGO transparency.</p>
+                    </div>
+                </article>
+                <article class="un-persona-card">
+                    <div class="un-persona-img-wrap">
+                        <img src="assets/img/UNESCO/persona-02.png" alt="Persona: The Impact Innovator — Alex Chen, 29">
+                    </div>
+                    <div class="un-persona-body">
+                        <div class="un-persona-icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
+                        <p class="un-persona-name">The Impact Innovator</p>
+                        <p class="un-persona-meta">Alex Chen, 29</p>
+                        <p class="un-persona-desc">A busy UX Designer needing short-term, structured, skill-based volunteering roles.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <div class="un-research-block">
+            <h3 class="un-subsection-title">Interface Audit — Career Portal blockers</h3>
+            <p class="un-body">I conducted an Interface Audit focusing heavily on the Career Portal, which presented the biggest blockers.</p>
+
+            <div class="un-findings">
+                <div class="un-finding-item">
+                    <div class="un-finding-icon"><i class="fas fa-search" aria-hidden="true"></i></div>
+                    <div>
+                        <p class="un-finding-title">Buried career search</p>
+                        <p class="un-finding-desc">The original site buried the career search section, requiring users to leave the main site.</p>
+                    </div>
+                </div>
+                <div class="un-finding-item">
+                    <div class="un-finding-icon"><i class="fas fa-filter" aria-hidden="true"></i></div>
+                    <div>
+                        <p class="un-finding-title">Mismatched filters</p>
+                        <p class="un-finding-desc">Filter categories did not match the job list, and text-heavy formatting made scanning difficult.</p>
                     </div>
                 </div>
             </div>
-            <figure class="un-figure">
-                <img src="assets/img/UNESCO/user research summary.png" alt="Summary of UNESCO website user experience survey findings">
-                <p class="un-caption">Survey summary — qualitative and quantitative themes from 10 respondents.</p>
-            </figure>
-        </div>
 
-        <figure class="un-figure" style="margin-top:8px;">
-            <img src="assets/img/UNESCO/user research issues and feedbacks.png" alt="UNESCO user research issues and feedback documentation">
-            <p class="un-caption">Issues and feedback captured during research — informing navigation and content priorities.</p>
-        </figure>
+            <div class="case-fig-grid-2 un-grid-2">
+                <figure class="case-figure case-figure-readable un-figure">
+                    <img src="assets/img/UNESCO/old site.png" alt="Original UNESCO website interface showing buried navigation and dense text layout">
+                    <figcaption class="case-caption">Original UNESCO site — career search buried and difficult to reach from the main experience.</figcaption>
+                </figure>
+                <figure class="case-figure case-figure-readable un-figure">
+                    <img src="assets/img/UNESCO/old site-job page.png" alt="Original UNESCO career job board with overlapping filters and text-heavy listings">
+                    <figcaption class="case-caption">Career portal job board — filter categories that did not match listings and formatting that made scanning difficult.</figcaption>
+                </figure>
+            </div>
+
+            <h3 class="un-subsection-title">Testing &amp; Iteration</h3>
+            <p class="un-body">
+                By testing these user flows, I identified exactly where users hesitated. I iterated on the visual feedback, adding loading indicators to reduce perceived wait times, and refined the interactive cues (like hover effects) that were previously missing.
+            </p>
+        </div>
     </div>
 </section>
 
-<!-- 2. Personas -->
+<!-- Ideation & Wireframing -->
 <section class="case-section un-section">
     <div class="un-inner">
-        <div class="un-label">02 — Empathizing with the User</div>
-        <h2 class="un-title">Personas</h2>
-        <p class="un-body">Based on the research, I developed three distinct personas to guide my design decisions:</p>
-
-        <div class="un-persona-grid">
-            <article class="un-persona-card">
-                <img src="assets/img/UNESCO/persona-01.png" alt="Persona: The Curious Student — Li Wei, 22">
-                <div class="un-persona-body">
-                    <div class="un-persona-icon"><i class="fas fa-user-graduate" aria-hidden="true"></i></div>
-                    <p class="un-persona-name">The Curious Student</p>
-                    <p class="un-persona-meta">Li Wei, 22</p>
-                    <p class="un-persona-desc">Lacks knowledge on how to get involved and needs clear onboarding and introductory programs.</p>
-                </div>
-            </article>
-            <article class="un-persona-card">
-                <img src="assets/img/UNESCO/persona-03.png" alt="Persona: The Cultural Advocate — Aarav Mehta, 35">
-                <div class="un-persona-body">
-                    <div class="un-persona-icon"><i class="fas fa-handshake" aria-hidden="true"></i></div>
-                    <p class="un-persona-name">The Cultural Advocate</p>
-                    <p class="un-persona-meta">Aarav Mehta, 35</p>
-                    <p class="un-persona-desc">Looking for long-term sustainable impact but struggles with poor website accessibility and unclear NGO transparency.</p>
-                </div>
-            </article>
-            <article class="un-persona-card">
-                <img src="assets/img/UNESCO/persona-02.png" alt="Persona: The Impact Innovator — Alex Chen, 29">
-                <div class="un-persona-body">
-                    <div class="un-persona-icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
-                    <p class="un-persona-name">The Impact Innovator</p>
-                    <p class="un-persona-meta">Alex Chen, 29</p>
-                    <p class="un-persona-desc">A busy UX Designer needing short-term, structured, skill-based volunteering roles.</p>
-                </div>
-            </article>
+        <div class="un-header">
+            <div class="un-label">05 — Ideation &amp; Wireframing</div>
+            <h2 class="un-title">Restructuring information architecture</h2>
         </div>
-    </div>
-</section>
-
-<!-- 3. Interface Audit -->
-<section class="case-section case-section-alt un-section">
-    <div class="un-inner">
-        <div class="un-label">03 — Interface Audit &amp; Heuristic Evaluation</div>
-        <h2 class="un-title">Career Portal blockers</h2>
-        <p class="un-body">I conducted an Interface Audit focusing heavily on the Career Portal, which presented the biggest blockers.</p>
-
-        <div class="un-findings">
-            <div class="un-finding-item">
-                <div class="un-finding-num">01</div>
-                <div>
-                    <p class="un-finding-title">Buried career search</p>
-                    <p class="un-finding-desc">The original site buried the career search section, requiring users to leave the main site.</p>
-                </div>
-            </div>
-            <div class="un-finding-item">
-                <div class="un-finding-num">02</div>
-                <div>
-                    <p class="un-finding-title">Mismatched filters</p>
-                    <p class="un-finding-desc">Filter categories did not match the job list, and text-heavy formatting made scanning difficult.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 4. Ideation & Wireframing -->
-<section class="case-section un-section">
-    <div class="un-inner">
-        <div class="un-label">04 — Ideation &amp; Wireframing</div>
-        <h2 class="un-title">Restructuring information architecture</h2>
         <p class="un-body">
             To solve these issues, I restructured the information architecture. My primary focus was surfacing the search section directly on the home page and overhauling the job filtering system.
         </p>
 
         <div class="un-decision">
-            <div class="un-decision-label">Decision</div>
-            <p>I conceptualized a redesigned search bar placed prominently at the top of the page, allowing users to find jobs with just one click.</p>
-        </div>
-        <div class="un-decision">
-            <div class="un-decision-label">Decision</div>
-            <p>I planned to introduce application statistics, featured jobs, and job alerts to help users track opportunities.</p>
+            <div class="un-decision-label">Decisions</div>
+            <ul>
+                <li>I conceptualized a redesigned search bar placed prominently at the top of the page, allowing users to find jobs with just one click.</li>
+                <li>I planned to introduce application statistics, featured jobs, and job alerts to help users track opportunities.</li>
+            </ul>
         </div>
 
-        <figure class="un-figure un-figure-white" style="margin-top:24px;">
+        <figure class="case-figure case-figure-readable un-figure un-figure-white">
             <img src="assets/img/UNESCO/wireframe.png" alt="UNESCO redesign wireframes showing homepage search and career filtering structure">
-            <p class="un-caption">Wireframes — homepage search surfaced at the top and a reorganized career filtering system.</p>
-        </figure>
-
-        <figure class="un-figure un-figure-white" style="margin-top:16px;">
-            <img src="assets/img/UNESCO/high-fidelity.png" alt="UNESCO high-fidelity design explorations for the redesigned experience">
-            <p class="un-caption">High-fidelity explorations — aligning layout and hierarchy with UNESCO&apos;s global brand.</p>
+            <figcaption class="case-caption">Wireframes — homepage search surfaced at the top and a reorganized career filtering system.</figcaption>
         </figure>
     </div>
 </section>
 
-<!-- 5. Testing & Iteration -->
-<section class="case-section case-section-alt un-section">
-    <div class="un-inner">
-        <div class="un-label">05 — Testing &amp; Iteration</div>
-        <h2 class="un-title">Usability Test Plan Dashboard</h2>
-        <p class="un-body">
-            I created a Usability Test Plan Dashboard to evaluate the redesign. I designed a script and observation sheet to test three core scenarios matching my personas:
-        </p>
-
-        <ul class="un-scenario-list">
-            <li><i class="fas fa-building" aria-hidden="true"></i> Finding NGO Partnerships</li>
-            <li><i class="fas fa-briefcase" aria-hidden="true"></i> Locating Short-term Volunteering</li>
-            <li><i class="fas fa-graduation-cap" aria-hidden="true"></i> Student Engagement</li>
-        </ul>
-
-        <p class="un-body" style="margin-top:24px;">
-            By testing these user flows, I identified exactly where users hesitated. I iterated on the visual feedback, adding loading indicators to reduce perceived wait times, and refined the interactive cues (like hover effects) that were previously missing.
-        </p>
-
-        <!-- Placeholder: no dashboard image in assets folder -->
-        <div class="un-placeholder" role="img" aria-label="Placeholder for Usability Test Plan Dashboard screenshot">
-            <p class="un-placeholder-label">Visual placeholder — Usability Test Plan Dashboard</p>
-            <p class="un-placeholder-path">assets/img/UNESCO/usability-test-dashboard.png</p>
-            <p class="un-body" style="margin-top:12px; text-align:center;">Replace with screenshot of the usability test plan dashboard when available.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Key Solutions -->
+<!-- Key Solutions & Visual Demonstration -->
 <section class="case-section un-section">
     <div class="un-inner">
-        <div class="un-label">Key Solutions</div>
-        <h2 class="un-title">Final design</h2>
-        <p class="un-body">
-            The final high-fidelity designs address the core usability issues while elevating the visual experience to match UNESCO&apos;s prestigious global brand.
-        </p>
+        <div class="un-2col-header">
+            <div class="un-header">
+                <div class="un-label">06 — Key Solutions &amp; Visual Demonstration</div>
+                <h2 class="un-title">Final high-fidelity redesign</h2>
+            </div>
+            <div>
+                <p class="un-intro">
+                    The final designs address core usability issues while elevating the visual experience to match UNESCO&apos;s prestigious global brand.
+                </p>
+            </div>
+        </div>
 
-        <div class="un-solution-grid">
-            <div class="un-solution-card">
-                <div class="un-solution-icon"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></div>
-                <strong>Centralized Career Search</strong>
-                <p>The career portal is now directly accessible, featuring a streamlined search bar, application statistics, and job alerts.</p>
+        <div class="un-demo-grid-2">
+            <div class="un-solution-copy">
+                <span class="un-eyebrow">Solution 01</span>
+                <h3>Centralized Career Search</h3>
+                <p>The career portal is now directly accessible from the homepage, featuring a streamlined search bar, application statistics, and job alerts.</p>
             </div>
-            <div class="un-solution-card">
-                <div class="un-solution-icon"><i class="fas fa-table-cells-large" aria-hidden="true"></i></div>
-                <strong>Advanced Filtering &amp; Views</strong>
-                <p>I improved the career search filters to accurately categorize opportunities by role type. Users can toggle between Map View, List View, and Gallery View.</p>
-            </div>
-            <div class="un-solution-card">
-                <div class="un-solution-icon"><i class="fas fa-file-lines" aria-hidden="true"></i></div>
-                <strong>Structured Job Listings</strong>
+            <figure class="case-figure case-figure-readable un-figure un-figure-white" style="margin:0;">
+                <img src="assets/img/UNESCO/Home.png" alt="Redesigned UNESCO Home Page with prominent search bar and clear calls-to-action">
+                <figcaption class="case-caption">Homepage redesign — career search surfaced at the top with clear calls-to-action.</figcaption>
+            </figure>
+        </div>
+
+        <hr class="un-demo-divider">
+
+        <div class="un-solution-copy">
+            <span class="un-eyebrow">Solution 02</span>
+            <h3>Advanced Filtering &amp; Views</h3>
+            <p>I improved career search filters to accurately categorize opportunities by role type. Users can toggle between Map View, List View, and Gallery View depending on their browsing preference.</p>
+        </div>
+        <div class="case-fig-grid-3 un-view-grid">
+            <figure class="case-figure case-figure-readable un-figure un-figure-white">
+                <img src="assets/img/UNESCO/Career Page (Gallery View).png" alt="UNESCO Career Page Gallery View">
+                <figcaption class="case-caption">Gallery View — browse opportunities in a visual card layout.</figcaption>
+            </figure>
+            <figure class="case-figure case-figure-readable un-figure un-figure-white">
+                <img src="assets/img/UNESCO/Career Page (List View).png" alt="UNESCO Career Page List View">
+                <figcaption class="case-caption">List View — scan roles in a compact, scannable list format.</figcaption>
+            </figure>
+            <figure class="case-figure case-figure-readable un-figure un-figure-white">
+                <img src="assets/img/UNESCO/Career Page (Map View).png" alt="UNESCO Career Page Map View">
+                <figcaption class="case-caption">Map View — explore localized opportunities by geography.</figcaption>
+            </figure>
+        </div>
+
+        <hr class="un-demo-divider">
+
+        <div class="un-demo-grid-2">
+            <div class="un-solution-copy">
+                <span class="un-eyebrow">Solution 03</span>
+                <h3>Structured Job Listings</h3>
                 <p>Internship and volunteer pages clearly define responsibilities, required skills, and duration using a scannable, hierarchical format.</p>
-            </div>
-            <div class="un-solution-card">
-                <div class="un-solution-icon"><i class="fas fa-gauge-high" aria-hidden="true"></i></div>
-                <strong>Performance Feedback</strong>
+                <span class="un-eyebrow" style="margin-top:20px;">Solution 04</span>
+                <h3>Performance Feedback</h3>
                 <p>Implemented visual loading indicators to enhance the perception of site performance and reduce user drop-off.</p>
             </div>
+            <figure class="case-figure case-figure-readable un-figure un-figure-white" style="margin:0;">
+                <img src="assets/img/UNESCO/Career inner page.png" alt="UNESCO structured inner job details page with scannable role information">
+                <figcaption class="case-caption">Inner job page — responsibilities, skills, and duration in a hierarchical, scannable layout.</figcaption>
+            </figure>
         </div>
-    </div>
-</section>
-
-<!-- Visual Demonstration -->
-<section class="case-section case-section-alt un-section">
-    <div class="un-inner">
-        <div class="un-label">Visual Demonstration</div>
-        <h2 class="un-title">The Homepage Redesign</h2>
-
-        <figure class="un-figure un-figure-white">
-            <img src="assets/img/UNESCO/Home.png" alt="Redesigned UNESCO Home Page with prominent search bar and clear calls-to-action">
-            <p class="un-caption">Homepage redesign — career search surfaced at the top with clear calls-to-action.</p>
-        </figure>
-
-        <hr class="un-divider">
-
-        <h3 class="un-subtitle">The Career Portal (Gallery, List, and Map Views)</h3>
-        <div class="un-mockup-row">
-            <div class="un-mockup-cell">
-                <div class="un-mockup-img">
-                    <img src="assets/img/UNESCO/Career Page (Gallery View).png" alt="UNESCO Career Page Gallery View">
-                </div>
-                <div class="un-mockup-footer">
-                    <p class="un-mockup-label">View</p>
-                    <p class="un-mockup-title">Gallery View</p>
-                </div>
-            </div>
-            <div class="un-mockup-cell">
-                <div class="un-mockup-img">
-                    <img src="assets/img/UNESCO/Career Page (List View).png" alt="UNESCO Career Page List View">
-                </div>
-                <div class="un-mockup-footer">
-                    <p class="un-mockup-label">View</p>
-                    <p class="un-mockup-title">List View</p>
-                </div>
-            </div>
-            <div class="un-mockup-cell">
-                <div class="un-mockup-img">
-                    <img src="assets/img/UNESCO/Career Page (Map View).png" alt="UNESCO Career Page Map View">
-                </div>
-                <div class="un-mockup-footer">
-                    <p class="un-mockup-label">View</p>
-                    <p class="un-mockup-title">Map View</p>
-                </div>
-            </div>
-        </div>
-
-        <hr class="un-divider">
-
-        <h3 class="un-subtitle">The Inner Job Details Page</h3>
-        <figure class="un-figure un-figure-white">
-            <img src="assets/img/UNESCO/Career inner page.png" alt="UNESCO structured inner job details page with scannable role information">
-            <p class="un-caption">Inner job page — responsibilities, skills, and duration in a hierarchical, scannable layout.</p>
-        </figure>
     </div>
 </section>
 
 <!-- Reflection -->
-<section class="case-section un-section">
+<section class="case-section case-section-alt un-section">
     <div class="un-inner">
-        <div class="un-label">Reflection</div>
-        <h2 class="un-title">Balancing scale with focused user needs</h2>
-        <blockquote class="un-quote">
-            <p>Designing for an organization as expansive as UNESCO required balancing vast amounts of information with the specific, focused needs of individual users.</p>
-        </blockquote>
-        <p class="un-body" style="margin-top:20px;">
+        <div class="un-header">
+            <div class="un-label">07 — Reflection</div>
+            <h2 class="un-title">Balancing scale with focused user needs</h2>
+        </div>
+        <p class="un-body" style="color:var(--text-color);">
+            Designing for an organization as expansive as UNESCO required balancing vast amounts of information with the specific, focused needs of individual users.
+        </p>
+        <p class="un-body">
             The most challenging aspect was resolving the overlapping filter categories on the original job board. By stepping back and analyzing the data through the lens of my personas—Aarav, Alex, and Li Wei—I was able to create a structured taxonomy that made sense for different levels of commitment.
         </p>
     </div>
 </section>
 
 <!-- Summary / Impact -->
-<section class="case-section case-section-alt un-section">
+<section class="case-section un-section">
     <div class="un-inner">
-        <div class="un-label">Summary / Impact</div>
-        <h2 class="un-title">Vision, problems solved, and goals achieved</h2>
-
-        <div class="un-impact-grid">
-            <div class="un-impact-cell">
-                <div class="un-impact-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
-                <p class="un-impact-title">Vision</p>
-                <p class="un-impact-desc">To make volunteering and engagement with UNESCO accessible, clear, and inspiring.</p>
-            </div>
-            <div class="un-impact-cell">
-                <div class="un-impact-icon"><i class="fas fa-check-double" aria-hidden="true"></i></div>
-                <p class="un-impact-title">Problems Solved</p>
-                <p class="un-impact-desc">Eliminated navigation dead-ends, structured text-heavy job descriptions into scannable formats, and fixed redundant search filters.</p>
-            </div>
-            <div class="un-impact-cell">
-                <div class="un-impact-icon"><i class="fas fa-bullseye" aria-hidden="true"></i></div>
-                <p class="un-impact-title">Goals Achieved</p>
-                <p class="un-impact-desc">Delivered a streamlined, user-tested interface that guides students to entry-level roles, connects professionals with skill-based tasks, and helps advocates find long-term partnerships effortlessly.</p>
-            </div>
+        <div class="un-header">
+            <div class="un-label">08 — Summary / Impact</div>
+            <h2 class="un-title">Vision, problems solved, and goals achieved</h2>
         </div>
 
-        <p class="un-body" style="margin-top:28px;">
-            Ultimately, this project proves that making engagement opportunities easier to discover directly increases a user&apos;s willingness to participate and volunteer.
-        </p>
+        <div class="un-closing-group">
+            <div class="un-impact-grid">
+                <div class="un-impact-cell">
+                    <div class="un-impact-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
+                    <p class="un-impact-title">Vision</p>
+                    <p class="un-impact-desc">To make volunteering and engagement with UNESCO accessible, clear, and inspiring.</p>
+                </div>
+                <div class="un-impact-cell">
+                    <div class="un-impact-icon"><i class="fas fa-check-double" aria-hidden="true"></i></div>
+                    <p class="un-impact-title">Problems Solved</p>
+                    <p class="un-impact-desc">Eliminated navigation dead-ends, structured text-heavy job descriptions into scannable formats, and fixed redundant search filters.</p>
+                </div>
+                <div class="un-impact-cell">
+                    <div class="un-impact-icon"><i class="fas fa-bullseye" aria-hidden="true"></i></div>
+                    <p class="un-impact-title">Goals Achieved</p>
+                    <p class="un-impact-desc">Delivered a streamlined, user-tested interface that guides students to entry-level roles, connects professionals with skill-based tasks, and helps advocates find long-term partnerships effortlessly.</p>
+                </div>
+            </div>
+
+            <p class="un-body">
+                Ultimately, this project proves that making engagement opportunities easier to discover directly increases a user&apos;s willingness to participate and volunteer.
+            </p>
+        </div>
     </div>
 </section>
 

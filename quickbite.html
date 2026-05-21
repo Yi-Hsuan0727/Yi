@@ -264,48 +264,6 @@
         width: 100%;
         max-height: none;
     }
-    .qb-figure { margin: 0; }
-    .qb-figure img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-    }
-    .qb-figure.qb-figure-white {
-        background: transparent;
-        border: none;
-        padding: 0;
-    }
-    .qb-figure.qb-figure-white img {
-        background: #fff;
-        padding: 16px;
-        border: 1px solid var(--border-color) !important;
-        border-radius: 8px;
-        box-sizing: border-box;
-        object-fit: contain;
-    }
-    .qb-caption {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 12px 2px 0;
-        font-size: 0.72rem;
-        color: var(--secondary-text);
-        margin: 0;
-        line-height: 1.65;
-        background: transparent;
-    }
-    .qb-caption::before {
-        content: "";
-        flex-shrink: 0;
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: var(--accent-color);
-        margin-top: 5px;
-    }
-
     /* ─── SOLUTION COPY ─── */
     .qb-solution-icon {
         width: 40px;
@@ -530,9 +488,9 @@
 
         <!-- Phase 1 -->
         <div class="qb-grid-6-6 center">
-            <figure class="qb-figure qb-figure-white qb-figure-lg">
+            <figure class="case-figure case-figure-readable qb-figure qb-figure-white qb-figure-lg">
                 <img src="assets/img/QuickBite/First Version.png" alt="QuickBite Build 1 interface">
-                <p class="qb-caption">Build 1 — initial Streamlit interface and conversational flow before prompt constraints.</p>
+                <figcaption class="case-caption qb-caption">Build 1 — initial Streamlit interface and conversational flow before prompt constraints.</figcaption>
             </figure>
             <div>
                 <div class="qb-label">Phase 01 — Build 1</div>
@@ -560,9 +518,9 @@
                 <p>Users pushed for two major shifts. First, the health dashboard needed to reflect what people actually ate—not only what the bot suggested—so I changed the logic to capture real consumption instead of assumptions. Second, separating the chat stream from data visualization created too much cognitive load; I re-architected the layout to place chat and dashboard side-by-side so macros updated live alongside the conversation.</p>
             </div>
         </div>
-        <figure class="qb-figure qb-figure-white">
+        <figure class="case-figure case-figure-readable qb-figure qb-figure-white">
             <img src="assets/img/QuickBite/second version.png" alt="QuickBite Build 2 modular layout">
-            <p class="qb-caption">Build 2 — modular tab navigation as features expanded beyond a single screen.</p>
+            <figcaption class="case-caption qb-caption">Build 2 — modular tab navigation as features expanded beyond a single screen.</figcaption>
         </figure>
 
         <hr class="qb-divider">
@@ -582,18 +540,18 @@
                 <p>Incorporating feedback regarding temporary storage, I added explicit workflows enabling the browser session to clear or save tracked meal records seamlessly.</p>
             </div>
         </div>
-        <figure class="qb-figure qb-figure-white">
+        <figure class="case-figure case-figure-readable qb-figure qb-figure-white">
             <img src="assets/img/QuickBite/dashboard.png" alt="QuickBite side-by-side chat and dashboard">
-            <p class="qb-caption">Build 3 — side-by-side workspace with chat stream and live macro dashboard.</p>
+            <figcaption class="case-caption qb-caption">Build 3 — side-by-side workspace with chat stream and live macro dashboard.</figcaption>
         </figure>
-        <div class="qb-grid-2 center">
-            <figure class="qb-figure qb-figure-white">
+        <div class="case-fig-grid-2 qb-grid-2 center">
+            <figure class="case-figure case-figure-readable qb-figure qb-figure-white">
                 <img src="assets/img/QuickBite/Inventory and shopping.png" alt="QuickBite inventory and shopping list">
-                <p class="qb-caption">Inventory and Shopping List — missing ingredients pushed automatically from generated recipes.</p>
+                <figcaption class="case-caption qb-caption">Inventory and Shopping List — missing ingredients pushed automatically from generated recipes.</figcaption>
             </figure>
-            <figure class="qb-figure qb-figure-white">
+            <figure class="case-figure case-figure-readable qb-figure qb-figure-white">
                 <img src="assets/img/QuickBite/meals library.png" alt="QuickBite meals library and recipe importer">
-                <p class="qb-caption">Meals Library and Recipe Importer — supporting features added in Build 3.</p>
+                <figcaption class="case-caption qb-caption">Meals Library and Recipe Importer — supporting features added in Build 3.</figcaption>
             </figure>
         </div>
     </div>
@@ -615,9 +573,9 @@
         </div>
 
         <div class="qb-grid-6-6 center">
-            <figure class="qb-figure qb-figure-white qb-figure-lg">
+            <figure class="case-figure case-figure-readable qb-figure qb-figure-white qb-figure-lg">
                 <img src="assets/img/QuickBite/dashboard full height.png" alt="QuickBite side-by-side workspace">
-                <p class="qb-caption">Side-by-side workspace — message the assistant while inventory updates live on screen.</p>
+                <figcaption class="case-caption qb-caption">Side-by-side workspace — message the assistant while inventory updates live on screen.</figcaption>
             </figure>
             <div class="qb-solution-copy">
                 <div class="qb-solution-icon"><i class="fas fa-table-columns" aria-hidden="true"></i></div>
@@ -634,18 +592,18 @@
                 <h3>Smart Inventory &amp; Grocery Mapping</h3>
                 <p>The assistant checks current items in your fridge, identifies exactly what is missing for a generated meal, and automatically pushes those specific missing ingredients to the Shopping List tab.</p>
             </div>
-            <figure class="qb-figure qb-figure-white qb-figure-lg">
+            <figure class="case-figure case-figure-readable qb-figure qb-figure-white qb-figure-lg">
                 <img src="assets/img/QuickBite/Inventory and shopping.png" alt="QuickBite inventory and grocery mapping">
-                <p class="qb-caption">Smart inventory and grocery mapping — missing items flow to the Shopping List tab.</p>
+                <figcaption class="case-caption qb-caption">Smart inventory and grocery mapping — missing items flow to the Shopping List tab.</figcaption>
             </figure>
         </div>
 
         <hr class="qb-divider">
 
         <div class="qb-grid-6-6 center">
-            <figure class="qb-figure qb-figure-white qb-figure-lg">
+            <figure class="case-figure case-figure-readable qb-figure qb-figure-white qb-figure-lg">
                 <img src="assets/img/QuickBite/preference setting.png" alt="QuickBite goal calibration and progress meters">
-                <p class="qb-caption">Goal calibration — users set a primary goal and track macros through visual progress meters.</p>
+                <figcaption class="case-caption qb-caption">Goal calibration — users set a primary goal and track macros through visual progress meters.</figcaption>
             </figure>
             <div class="qb-solution-copy">
                 <div class="qb-solution-icon"><i class="fas fa-bullseye" aria-hidden="true"></i></div>

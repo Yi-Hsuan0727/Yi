@@ -93,7 +93,6 @@
         border-right: 1px solid var(--border-color);
     }
     .lcm-callout-cell:last-child { border-right: none; }
-    .lcm-callout-cell.dark { background: var(--text-color); }
     .lcm-callout-label {
         font-size: 0.65rem;
         font-weight: 700;
@@ -102,8 +101,6 @@
         color: var(--secondary-text);
         margin-bottom: 10px;
     }
-    .lcm-callout-cell.dark .lcm-callout-label { color: rgba(200,200,200,0.55); }
-    [data-theme="dark"] .lcm-callout-cell.dark .lcm-callout-label { color: rgba(0,0,0,0.55); }
     .lcm-callout-text {
         font-size: 0.95rem;
         font-weight: 600;
@@ -111,7 +108,6 @@
         color: var(--text-color);
         margin: 0;
     }
-    .lcm-callout-cell.dark .lcm-callout-text { color: var(--bg-color); }
 
     /* ─── FINDINGS ──────────────────────────────── */
     .lcm-findings {
@@ -315,35 +311,6 @@
     .lcm-grid-4-8.center { align-items: center; }
 
     /* ─── FIGURE / IMAGE ────────────────────────── */
-    .lcm-figure { margin: 0; }
-    .lcm-figure img {
-        width: 100%;
-        height: auto;
-        display: block;
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-    }
-    .lcm-caption {
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 12px 2px 0;
-        font-size: 0.72rem;
-        color: var(--secondary-text);
-        margin-top: 0;
-        line-height: 1.65;
-        background: transparent;
-    }
-    .lcm-caption::before {
-        content: "";
-        flex-shrink: 0;
-        width: 8px;
-        height: 8px;
-        border-radius: 999px;
-        background: var(--accent-color);
-        margin-top: 5px;
-    }
-
     /* ─── SOLUTION ROW ──────────────────────────── */
     .lcm-solution-eyebrow {
         font-size: 0.62rem;
@@ -532,9 +499,9 @@
 
         <!-- Old site screenshot (col-4) + findings (col-8) -->
         <div class="lcm-grid-4-8" style="align-items:start; gap:24px;">
-            <figure class="lcm-figure">
+            <figure class="case-figure case-figure-readable lcm-figure">
                 <img src="assets/img/lcm/old site home page.png" alt="Legacy Indigenous Cultural Museums website homepage showing cluttered navigation, low-contrast text, and rigid category-based structure" style="object-fit:cover; object-position:center top;">
-                <p class="lcm-caption">The legacy platform — linear administrative categories, no accessibility controls, and a visual hierarchy that buried collections content.</p>
+                <figcaption class="case-caption lcm-caption">The legacy platform — linear administrative categories, no accessibility controls, and a visual hierarchy that buried collections content.</figcaption>
             </figure>
 
             <!-- Two findings -->
@@ -619,10 +586,10 @@
         </div>
 
         <!-- ─── Phase 01 — Investigate ─── -->
-        <div class="lcm-grid-2 center">
-            <figure class="lcm-figure">
+        <div class="case-fig-grid-2 lcm-grid-2 center">
+            <figure class="case-figure case-figure-readable lcm-figure">
                 <img src="assets/img/lcm/competitive.png" alt="Competitive analysis comparing the Council of Indigenous Peoples and Indigenous Peoples Cultural Development Center websites across navigation, accessibility, and cultural representation dimensions">
-                <p class="lcm-caption">Competitive analysis — benchmarked the Council of Indigenous Peoples and the Indigenous Peoples Cultural Development Center to identify navigation patterns and accessibility gaps.</p>
+                <figcaption class="case-caption lcm-caption">Competitive analysis — benchmarked the Council of Indigenous Peoples and the Indigenous Peoples Cultural Development Center to identify navigation patterns and accessibility gaps.</figcaption>
             </figure>
             <div>
                 <div class="lcm-label">Phase 01 — Investigate</div>
@@ -635,10 +602,10 @@
         <hr class="lcm-divider">
 
         <!-- ─── Phase 02 — Ideate ─── -->
-        <div class="lcm-grid-2 center" style="grid-template-columns:1fr 1fr;">
-            <figure class="lcm-figure lcm-figure-white" style="order:2;">
+        <div class="case-fig-grid-2 lcm-grid-2 center" style="grid-template-columns:1fr 1fr;">
+            <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white" style="order:2;">
                 <img src="assets/img/lcm/home page structure.png" alt="Information architecture diagram showing the new narrative-driven navigation structure for 30 indigenous museums organised by region, tribal affinity, and cultural timelines">
-                <p class="lcm-caption">New IA — museums organised by geographic clusters, tribal affinities, and seasonal festival relationships instead of alphabetical lists.</p>
+                <figcaption class="case-caption lcm-caption">New IA — museums organised by geographic clusters, tribal affinities, and seasonal festival relationships instead of alphabetical lists.</figcaption>
             </figure>
             <div style="order:1;">
                 <div class="lcm-label">Phase 02 — Ideate</div>
@@ -662,37 +629,37 @@
         </div>
 
         <!-- Colour system image + wireframe/prototype side-by-side -->
-        <div class="lcm-grid-2 center" style="gap:24px; margin-bottom:24px;">
-            <figure class="lcm-figure lcm-figure-white">
+        <div class="case-fig-grid-2 lcm-grid-2 center" style="gap:24px; margin-bottom:24px;">
+            <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
                 <img src="assets/img/lcm/lcm4.png" alt="Design system colour palette for the Indigenous Cultural Museums platform showing the culturally-informed colour tokens — warm rice, traditional red, and deep woven brown">
-                <p class="lcm-caption">Design system colour palette — culturally-informed tokens applied consistently across the entire platform.</p>
+                <figcaption class="case-caption lcm-caption">Design system colour palette — culturally-informed tokens applied consistently across the entire platform.</figcaption>
             </figure>
-            <figure class="lcm-figure lcm-figure-white">
+            <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
                 <img src="assets/img/lcm/prototype2.png" alt="High-fidelity interactive prototype showing homepage design with cultural imagery, accessibility toolbar, and responsive navigation">
-                <p class="lcm-caption">High-fidelity prototype — structural rhythm and interactive flows validated prior to front-end delivery.</p>
+                <figcaption class="case-caption lcm-caption">High-fidelity prototype — structural rhythm and interactive flows validated prior to front-end delivery.</figcaption>
             </figure>
         </div>
 
         <div class="lcm-grid-4-8" style="align-items:start; gap:20px;">
-            <figure class="lcm-figure lcm-figure-white">
+            <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
                 <img src="assets/img/lcm/wireframe.png" alt="Desktop wireframe showing the core layout structure and component arrangement for the Indigenous Cultural Museums platform">
-                <p class="lcm-caption">Desktop wireframe — core layout structure and component arrangement validated before front-end delivery.</p>
+                <figcaption class="case-caption lcm-caption">Desktop wireframe — core layout structure and component arrangement validated before front-end delivery.</figcaption>
             </figure>
             <!-- Responsive proof: 3-device live screenshots -->
             <div>
                 <p style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; color:var(--secondary-text); margin:0 0 10px; text-transform:uppercase;">Responsive layout — verified across devices</p>
                 <div style="display:grid; grid-template-columns:2fr 1fr 1fr; gap:10px; align-items:start;">
-                    <figure class="lcm-figure" style="margin:0;">
+                    <figure class="case-figure case-figure-readable lcm-figure" style="margin:0;">
                         <img src="assets/img/lcm/lcm.tacp.gov.tw_.png" alt="Live production site — desktop viewport" style="max-height:280px; object-fit:cover; object-position:top; width:100%;">
-                        <p class="lcm-caption">Desktop</p>
+                        <figcaption class="case-caption lcm-caption">Desktop</figcaption>
                     </figure>
-                    <figure class="lcm-figure" style="margin:0;">
+                    <figure class="case-figure case-figure-readable lcm-figure" style="margin:0;">
                         <img src="assets/img/lcm/lcm.tacp.gov.tw_(iPad Pro).png" alt="Live site — tablet layout" style="max-height:280px; object-fit:cover; object-position:top; width:100%;">
-                        <p class="lcm-caption">Tablet</p>
+                        <figcaption class="case-caption lcm-caption">Tablet</figcaption>
                     </figure>
-                    <figure class="lcm-figure" style="margin:0;">
+                    <figure class="case-figure case-figure-readable lcm-figure" style="margin:0;">
                         <img src="assets/img/lcm/lcm.tacp.gov.tw_(iPhone 14 Pro Max).png" alt="Live site — mobile layout" style="max-height:280px; object-fit:cover; object-position:top; width:100%;">
-                        <p class="lcm-caption">Mobile</p>
+                        <figcaption class="case-caption lcm-caption">Mobile</figcaption>
                     </figure>
                 </div>
             </div>
@@ -711,14 +678,14 @@
                     <p>A native global toolbar lets users resize typography (Small / Medium / Large) and switch to a high-contrast reading environment — no third-party plugins required, meeting WCAG AA across the full platform.</p>
                 </div>
             </div>
-            <div class="lcm-grid-2" style="align-items:start; gap:16px;">
-                <figure class="lcm-figure lcm-figure-white">
+            <div class="case-fig-grid-2 lcm-grid-2" style="align-items:start; gap:16px;">
+                <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
                     <img src="assets/img/lcm/color contract.png" alt="Colour contrast testing results showing WCAG AA pass/fail evaluation for typography and interactive element colour combinations" style="max-height:240px; object-fit:contain;">
-                    <p class="lcm-caption">Colour contrast audit — every typography stack, card, and button state evaluated against WCAG AA ratios.</p>
+                    <figcaption class="case-caption lcm-caption">Colour contrast audit — every typography stack, card, and button state evaluated against WCAG AA ratios.</figcaption>
                 </figure>
-                <figure class="lcm-figure lcm-figure-white">
+                <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
                     <img src="assets/img/lcm/text and background.png" alt="Typography readability study showing text rendering across varying screen sizes and high-contrast mode for low-vision users" style="max-height:240px; object-fit:contain;">
-                    <p class="lcm-caption">Readability testing — page structure intact under 200% zoom for low-vision users.</p>
+                    <figcaption class="case-caption lcm-caption">Readability testing — page structure intact under 200% zoom for low-vision users.</figcaption>
                 </figure>
             </div>
         </div>
@@ -726,7 +693,7 @@
         <hr class="lcm-divider">
 
         <!-- ─── Phase 05 — Implement ─── -->
-        <div class="lcm-grid-2 center">
+        <div class="case-fig-grid-2 lcm-grid-2 center">
             <div>
                 <div class="lcm-label">Phase 05 — Implement</div>
                 <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Front-End Delivery</h3>
@@ -736,9 +703,9 @@
                     <p>Keyboards can navigate the platform flawlessly using skip-links and strict ARIA layout regions, ensuring complete independence for assistive screen-reader users.</p>
                 </div>
             </div>
-            <figure class="lcm-figure lcm-figure-white">
+            <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
                 <img src="assets/img/lcm/lcm5.png" alt="Museum profile page mockup showing cultural collection highlights, heritage information, and responsive navigation for an individual indigenous museum" style="width:100%; height:auto;">
-                <p class="lcm-caption">Museum profile page — individual museum view with cultural collection highlights and heritage context.</p>
+                <figcaption class="case-caption lcm-caption">Museum profile page — individual museum view with cultural collection highlights and heritage context.</figcaption>
             </figure>
         </div>
 
