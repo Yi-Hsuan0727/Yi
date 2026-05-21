@@ -1650,7 +1650,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .about-intro h1 {
     font-size: clamp(2rem, 6vw, 4rem);
-    line-height: 0.95;
+    line-height: 1.2;
     margin-bottom: 32px;
 }
 .about-intro p {
@@ -1669,14 +1669,19 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .about-experience {
     margin-top: 40px;
+    margin-bottom: 48px;
     max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 40px;
+    align-items: start;
+}
+.about-experience > * {
+    min-width: 0;
 }
 .about-exp-group {
     margin: 0;
-    padding: 28px 0 32px;
+    padding: 0;
     background: transparent;
     border-bottom: none;
 }
@@ -1779,12 +1784,27 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     line-height: 1.6;
 }
 .about-interests {
-    margin-top: 36px;
-    margin-bottom: 48px;
-    padding-top: 28px;
-    padding-bottom: 8px;
-    border-top: 1px solid var(--border-color);
+    margin: 0;
+    padding: 0;
+    border-top: none;
     max-width: 100%;
+}
+.about-interests .about-section-heading {
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--accent-color);
+}
+.about-interests .about-section-heading::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--accent-color);
 }
 .about-interests-list {
     list-style: none;
@@ -1792,7 +1812,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
 }
 .about-interest-item {
     border: 1px solid var(--border-color);
@@ -1805,17 +1825,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .about-interest-item:hover {
     background: rgba(46, 204, 113, 0.04);
     border-color: rgba(46, 204, 113, 0.35);
-}
-@media (min-width: 900px) {
-    .about-interests-list {
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: stretch;
-        gap: 12px;
-    }
-    .about-interest-item {
-        flex: 1 1 0;
-    }
 }
 .about-interest-head {
     display: flex;
@@ -2064,13 +2073,15 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         gap: 8px;
     }
     .about-experience {
+        grid-template-columns: 1fr;
+        gap: 28px;
         margin-bottom: 32px;
     }
     .about-exp-group {
-        padding: 22px 0 26px;
+        padding: 0;
     }
     .about-interests {
-        margin-bottom: 32px;
+        margin-bottom: 0;
     }
     .about-interests-list {
         flex-direction: column;
