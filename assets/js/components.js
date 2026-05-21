@@ -299,19 +299,28 @@ const PortfolioApp = {
         this.injectHead();
         this.buildLayout(pageType);
 
-        this.initEntryEffects(pageType);
+        const startApp = () => {
+            this.initEntryEffects(pageType);
 
-        if (typeof AppLogic !== 'undefined') AppLogic.init();
-        if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
-            MonsterLogic.init();
+            if (typeof AppLogic !== 'undefined') AppLogic.init();
+            if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
+                MonsterLogic.init();
+            }
+            if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
+                ContactFormLogic.init();
+            }
+            if (pageType === 'about' && typeof CarouselLogic !== 'undefined') {
+                CarouselLogic.init();
+            }
+            if (typeof CursorLogic !== 'undefined') CursorLogic.init();
+        };
+
+        if (pageType === 'home' && typeof SplashScreen !== 'undefined' && SplashScreen.shouldShow()) {
+            SplashScreen.show(startApp);
+            return;
         }
-        if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
-            ContactFormLogic.init();
-        }
-        if (pageType === 'about' && typeof CarouselLogic !== 'undefined') {
-            CarouselLogic.init();
-        }
-        if (typeof CursorLogic !== 'undefined') CursorLogic.init();
+
+        startApp();
     },
 
     injectHead: function() {
