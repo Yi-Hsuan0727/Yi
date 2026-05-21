@@ -86,7 +86,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     width: 100%;
 }
 .sidebar-intro-row .hero-text { flex: 1; min-width: 0; }
-.sidebar-intro { margin-bottom: 20px; }
+.sidebar-intro { margin-top: 20px; margin-bottom: 20px; }
 .sidebar-about-icon {
     flex-shrink: 0;
     display: inline-flex;
