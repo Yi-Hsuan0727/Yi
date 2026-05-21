@@ -213,8 +213,45 @@ const LayoutComponents = {
             </div>`;
     },
 
+    buildContactForm: function() {
+        return `
+            <section class="site-contact-band" aria-labelledby="site-contact-heading">
+                <div class="site-contact-inner">
+                    <div class="site-contact-copy">
+                        <h2 id="site-contact-heading" class="site-contact-title">Say hello</h2>
+                        <p class="site-contact-desc">Questions, collaborations, or opportunities — drop me a note.</p>
+                    </div>
+                    <form class="site-contact-form">
+                        <div class="site-contact-fields">
+                            <div class="site-contact-row">
+                                <label class="site-contact-label" for="contact-name">Name <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                <input class="site-contact-input" id="contact-name" name="name" type="text" autocomplete="name" required aria-required="true" minlength="1" placeholder="Your name">
+                            </div>
+                            <div class="site-contact-row">
+                                <label class="site-contact-label" for="contact-email">Email <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                <input class="site-contact-input" id="contact-email" name="email" type="email" autocomplete="email" required aria-required="true" placeholder="you@email.com">
+                            </div>
+                            <div class="site-contact-row">
+                                <label class="site-contact-label" for="contact-message">Message <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                <textarea class="site-contact-input site-contact-textarea" id="contact-message" name="message" rows="4" required aria-required="true" minlength="1" placeholder="What would you like to share?"></textarea>
+                            </div>
+                            <input type="text" name="_honey" class="site-contact-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+                            <button type="submit" class="site-contact-submit">Send message</button>
+                            <p class="site-contact-error" role="alert" hidden></p>
+                        </div>
+                        <div class="site-contact-success" role="status" tabindex="-1" hidden>
+                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <p class="site-contact-success-title">Message sent!</p>
+                            <p class="site-contact-success-text">Thanks for reaching out — I&apos;ve received your note and will contact you soon.</p>
+                        </div>
+                    </form>
+                </div>
+            </section>`;
+    },
+
     buildFooter: function(pageType) {
-        const monsterHTML = (pageType === 'home' || pageType === 'playground' || pageType === 'about')
+        const showMonsterFooter = (pageType === 'home' || pageType === 'playground' || pageType === 'about');
+        const monsterHTML = showMonsterFooter
             ? `
                 <div class="site-footer-monster" aria-hidden="true">
                     <div class="monster-container">
@@ -227,9 +264,11 @@ const LayoutComponents = {
                     </div>
                 </div>`
             : '';
+        const contactFormHTML = showMonsterFooter ? this.buildContactForm() : '';
         return `
             <div class="site-footer-shell ${monsterHTML ? 'site-footer-shell-green' : ''}">
                 ${monsterHTML}
+                ${contactFormHTML}
                 <footer class="site-footer ${monsterHTML ? 'site-footer-green' : ''}">
                     <span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved.</span>
                     <div class="socials">

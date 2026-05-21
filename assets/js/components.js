@@ -53,7 +53,7 @@ const PortfolioApp = {
             link: 'uav.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: '4 Designers',
-            role: 'Pilot interface design',
+            role: 'Technician Interface design',
             tools: 'Figma',
             liveLink: '#'
         },
@@ -304,6 +304,9 @@ const PortfolioApp = {
         if (typeof AppLogic !== 'undefined') AppLogic.init();
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
             MonsterLogic.init();
+        }
+        if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
+            ContactFormLogic.init();
         }
         if (pageType === 'about' && typeof CarouselLogic !== 'undefined') {
             CarouselLogic.init();
