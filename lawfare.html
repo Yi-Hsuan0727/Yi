@@ -11,10 +11,687 @@
 </head>
 <body>
     <div id="page-specific-content" style="display: none;">
-        <div class="case-content">
-            <h2>Overview</h2>
-            <p>The International Lawfare Website serves as a centralized digital repository for legal scholarship, built on Drupal within the ASU Design System. The platform provides researchers, policymakers, and legal professionals with streamlined access to critical analyses of international law and its intersection with national security. The design prioritizes clear information architecture and consistent navigation to support deep academic engagement.</p>
+<style>
+    .law-section { padding-top: 72px; padding-bottom: 72px; }
+    .law-inner {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    .law-section p, .law-section li { line-height: 1.75; }
+    .law-header {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .law-label {
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--secondary-text);
+        margin: 0;
+    }
+    .law-title {
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.2px;
+        margin: 0;
+    }
+    .law-intro {
+        font-size: 1rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .law-body {
+        font-size: 0.88rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+        margin: 0;
+    }
+    .law-2col-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+    .law-problem-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .law-problem-card.case-problem-card {
+        padding: 22px 20px;
+        border-radius: 12px;
+        border: 1px solid var(--problem-border);
+        background: #ffffff !important;
+    }
+    [data-theme="dark"] .law-problem-card.case-problem-card {
+        background: var(--bg-color) !important;
+    }
+    .law-problem-card .law-problem-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        background: var(--problem-bg-strong);
+        color: var(--problem-color);
+    }
+    .law-problem-card strong {
+        display: block;
+        font-size: 0.92rem;
+        margin-bottom: 8px;
+        color: var(--text-color);
+    }
+    .law-problem-card p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: var(--secondary-text);
+        margin: 0;
+    }
+    .law-goal-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .law-goal-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 28px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: background 0.15s;
+    }
+    .law-goal-card:hover { background: rgba(46, 204, 113, 0.04); }
+    .law-goal-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46, 204, 113, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    .law-goal-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+        margin: 0;
+    }
+    .law-goal-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .law-phase-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .law-phase-card {
+        padding: 22px 18px;
+        border-right: 1px solid var(--border-color);
+    }
+    .law-phase-card:last-child { border-right: none; }
+    .law-phase-num {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--secondary-text);
+        margin-bottom: 8px;
+    }
+    .law-phase-title {
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: var(--text-color);
+        line-height: 1.3;
+        margin-bottom: 8px;
+    }
+    .law-phase-desc {
+        font-size: 0.72rem;
+        color: var(--secondary-text);
+        line-height: 1.6;
+        margin: 0;
+    }
+    .law-process-block {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+    }
+    .law-process-block > .law-subsection-title {
+        padding-top: 36px;
+        border-top: 1px solid var(--border-color);
+        margin-bottom: 0;
+    }
+    .law-process-block > .law-subsection-title:first-child {
+        padding-top: 0;
+        border-top: none;
+    }
+    .law-subsection-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        line-height: 1.3;
+        margin: 0;
+        color: var(--text-color);
+    }
+    .law-nav-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .law-nav-chip {
+        border: 1px solid var(--accent-color);
+        border-radius: 999px;
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        background: rgba(46, 204, 113, 0.06);
+        color: var(--text-color);
+    }
+    .law-split {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 28px;
+        align-items: start;
+    }
+    .law-split > * { min-width: 0; }
+    .law-split-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .law-list {
+        margin: 0;
+        padding-left: 1.1rem;
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+        line-height: 1.75;
+    }
+    .law-list li { margin-bottom: 6px; }
+    .law-list li:last-child { margin-bottom: 0; }
+    .law-component-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .law-component-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 22px 18px;
+        background: var(--bg-color);
+    }
+    .law-component-card strong {
+        display: block;
+        font-size: 0.88rem;
+        margin-bottom: 8px;
+        color: var(--text-color);
+    }
+    .law-component-card p {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .law-divider {
+        height: 1px;
+        background: var(--border-color);
+        margin: 36px 0;
+    }
+    .law-eyebrow {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+    .law-solution-copy h3 {
+        margin-top: 0;
+        font-size: 1rem;
+        font-weight: 800;
+        line-height: 1.3;
+        color: var(--text-color);
+    }
+    .law-solution-copy p {
+        font-size: 0.82rem;
+        color: var(--secondary-text);
+        line-height: 1.7;
+        margin: 0;
+    }
+    .law-stack {
+        display: grid;
+        gap: 18px;
+    }
+    .law-screen-frame {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--bg-color);
+        padding: 8px;
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+    }
+    .law-screen-frame img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px;
+        border: none;
+        object-fit: contain;
+    }
+    .law-solution-screens {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 8px;
+    }
+    .law-solution-screens .law-figure { margin: 0; }
+    .law-solution-screens img {
+        object-fit: contain;
+    }
+    .law-demo-block {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .law-callout {
+        border-left: 3px solid var(--accent-color);
+        padding: 16px 20px;
+        background: rgba(46, 204, 113, 0.06);
+        border-radius: 0 8px 8px 0;
+    }
+    .law-callout p {
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        color: var(--text-color);
+    }
+    .law-impact-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    .law-impact-cell {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 28px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .law-impact-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(46, 204, 113, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-color);
+        font-size: 1rem;
+    }
+    .law-impact-title {
+        font-size: 0.92rem;
+        font-weight: 800;
+        color: var(--text-color);
+        margin: 0;
+    }
+    .law-impact-desc {
+        font-size: 0.78rem;
+        color: var(--secondary-text);
+        line-height: 1.65;
+        margin: 0;
+    }
+    .law-figure { margin: 0; }
+
+    @media (max-width: 1200px) {
+        .law-2col-header,
+        .law-problem-grid,
+        .law-goal-grid,
+        .law-split,
+        .law-component-grid,
+        .law-solution-screens,
+        .law-impact-grid,
+        .case-fig-grid-2,
+        .case-fig-grid-3 { grid-template-columns: 1fr; }
+        .law-phase-grid { grid-template-columns: repeat(2, 1fr); }
+        .law-phase-card { border-bottom: 1px solid var(--border-color); }
+        .law-phase-card:nth-child(2n) { border-right: none; }
+        .law-section { padding-top: 60px; padding-bottom: 60px; }
+    }
+    @media (max-width: 600px) {
+        .law-phase-grid { grid-template-columns: 1fr; }
+        .law-phase-card { border-right: none; }
+        .law-section { padding-top: 48px; padding-bottom: 48px; }
+    }
+</style>
+
+<!-- Overview -->
+<section class="case-section case-section-alt law-section">
+    <div class="law-inner">
+        <div class="law-header">
+            <div class="law-label">Introduction</div>
+            <h2 class="law-title">Overview</h2>
         </div>
+        <p class="law-intro">
+            Welcome to the case study for the ASU Program on International Lawfare and Security website. As the designer for this project, my objective was to create an authoritative, academic, and highly structured digital platform.
+        </p>
+        <p class="law-body">
+            The site needed to communicate complex legal and security concepts while serving as a centralized hub for the program&apos;s research, news, and events. This portfolio piece outlines the design decisions that transformed dense academic material into an intuitive, accessible web experience.
+        </p>
+    </div>
+</section>
+
+<!-- Problem Statement -->
+<section class="case-section case-section--problem law-section">
+    <div class="law-inner">
+        <div class="law-2col-header">
+            <div>
+                <div class="law-header">
+                    <div class="law-label case-problem-label">01 — Problem Statement</div>
+                    <h2 class="law-title">Specialized content, scalable architecture</h2>
+                </div>
+            </div>
+            <div>
+                <p class="law-intro">
+                    The concept of &ldquo;International Lawfare&rdquo; is highly specialized—merging law, global security, and military strategy. The primary challenge was twofold:
+                </p>
+            </div>
+        </div>
+
+        <div class="law-problem-grid">
+            <div class="law-problem-card case-problem-card">
+                <div class="law-problem-icon"><i class="fas fa-book-open" aria-hidden="true"></i></div>
+                <strong>Define Without Overwhelming</strong>
+                <p>The program needed a way to clearly define and educate visitors on what &ldquo;Lawfare&rdquo; is without overwhelming them with walls of text.</p>
+            </div>
+            <div class="law-problem-card case-problem-card">
+                <div class="law-problem-icon"><i class="fas fa-sitemap" aria-hidden="true"></i></div>
+                <strong>Organize Growing Content</strong>
+                <p>The site needed a scalable architecture to house growing repositories of academic research, timely news articles, and upcoming events in a way that is easy for scholars, policymakers, and students to navigate.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Project Goals -->
+<section class="case-section case-section-alt law-section">
+    <div class="law-inner">
+        <div class="law-header">
+            <div class="law-label">02 — Project Goals</div>
+            <h2 class="law-title">Authority, readability, and responsive scalability</h2>
+        </div>
+
+        <div class="law-goal-grid">
+            <div class="law-goal-card">
+                <div class="law-goal-icon"><i class="fas fa-university" aria-hidden="true"></i></div>
+                <p class="law-goal-title">Establish Brand Authority</p>
+                <p class="law-goal-desc">Create a visual identity that aligns with Arizona State University&apos;s (ASU) primary branding while establishing a distinct, serious, and legal tone appropriate for national security topics.</p>
+            </div>
+            <div class="law-goal-card">
+                <div class="law-goal-icon"><i class="fas fa-glasses" aria-hidden="true"></i></div>
+                <p class="law-goal-title">Enhance Readability</p>
+                <p class="law-goal-desc">Break down complex, historical definitions of lawfare into scannable, engaging educational sections.</p>
+            </div>
+            <div class="law-goal-card">
+                <div class="law-goal-icon"><i class="fas fa-folder-tree" aria-hidden="true"></i></div>
+                <p class="law-goal-title">Organize Dynamic Content</p>
+                <p class="law-goal-desc">Design scalable, user-friendly layouts for diverse content types, including research publications, news op-eds, and event schedules.</p>
+            </div>
+            <div class="law-goal-card">
+                <div class="law-goal-icon"><i class="fas fa-mobile-screen-button" aria-hidden="true"></i></div>
+                <p class="law-goal-title">Ensure Responsive Scalability</p>
+                <p class="law-goal-desc">Build a modular design system using consistent UI patterns (cards, grids, timelines) that work seamlessly across desktop and mobile devices.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Design Process -->
+<section class="case-section law-section">
+    <div class="law-inner">
+        <div class="law-header">
+            <div class="law-label">03 — Design Process</div>
+            <h2 class="law-title">From architecture to component iteration</h2>
+        </div>
+
+        <div class="law-phase-grid" aria-label="Four-phase design process">
+            <div class="law-phase-card">
+                <div class="law-phase-num">01</div>
+                <div class="law-phase-title">Information Architecture</div>
+                <p class="law-phase-desc">Global navigation and content categorization.</p>
+            </div>
+            <div class="law-phase-card">
+                <div class="law-phase-num">02</div>
+                <div class="law-phase-title">Layout Strategy</div>
+                <p class="law-phase-desc">Modular, section-based page wireframing.</p>
+            </div>
+            <div class="law-phase-card">
+                <div class="law-phase-num">03</div>
+                <div class="law-phase-title">Visual Design</div>
+                <p class="law-phase-desc">ASU maroon and gold with legal thematic imagery.</p>
+            </div>
+            <div class="law-phase-card">
+                <div class="law-phase-num">04</div>
+                <div class="law-phase-title">Component Design</div>
+                <p class="law-phase-desc">Cards, timelines, and filtering tools.</p>
+            </div>
+        </div>
+
+        <div class="law-process-block">
+            <h3 class="law-subsection-title">1. Information Architecture &amp; Navigation</h3>
+            <div class="law-split-copy">
+                <p class="law-body">
+                    Before designing screens, I established a clear navigation structure to categorize the program&apos;s offerings. The global navigation was broken down into straightforward tabs:
+                </p>
+                <div class="law-nav-row" aria-label="Global navigation tabs">
+                    <span class="law-nav-chip">Research</span>
+                    <span class="law-nav-chip">Education</span>
+                    <span class="law-nav-chip">Events</span>
+                    <span class="law-nav-chip">News</span>
+                    <span class="law-nav-chip">People</span>
+                    <span class="law-nav-chip">Contact Us</span>
+                </div>
+                <p class="law-body">
+                    This allowed users to jump directly to their area of interest, whether they were looking for a specific research paper or wanting to understand the program&apos;s core mission.
+                </p>
+            </div>
+
+            <h3 class="law-subsection-title">2. Layout Strategy &amp; Wireframing</h3>
+            <p class="law-body">
+                I opted for a modular, section-based layout for the pages to allow for clear visual breaks in the content.
+            </p>
+            <div class="case-fig-grid-2">
+                <div class="law-demo-block">
+                    <strong style="font-size:0.9rem; color:var(--text-color);">Homepage flow</strong>
+                    <p class="law-body">Structured to tell a story—starting with an impactful hero image, leading into &ldquo;The Problem,&rdquo; explaining &ldquo;What is International Lawfare?,&rdquo; and concluding with the &ldquo;Mission and Vision&rdquo; and &ldquo;Partnerships.&rdquo;</p>
+                </div>
+                <div class="law-demo-block">
+                    <strong style="font-size:0.9rem; color:var(--text-color);">Resource pages</strong>
+                    <p class="law-body">Grid layouts ensure that no matter how many events or research papers were added over time, the pages would remain tidy and structured.</p>
+                </div>
+            </div>
+
+            <h3 class="law-subsection-title">3. Visual Design &amp; Thematic Elements</h3>
+            <div class="law-split">
+                <div class="law-split-copy">
+                    <p class="law-body">
+                        I leveraged ASU&apos;s iconic maroon and gold color palette to maintain institutional trust, building on the ASU Design System for typography, color tokens, and component patterns.
+                    </p>
+                    <p class="law-body">
+                        To convey the specific subject matter (law and security), I incorporated striking, high-contrast imagery—such as the scales of justice, gavels, and legal libraries—paired with clean, geometric background patterns to add depth without causing distraction. Dark thematic backgrounds were used strategically to create contrast and draw attention to key mission statements.
+                    </p>
+                </div>
+                <figure class="case-figure case-figure-readable law-figure">
+                    <img src="assets/img/law/ASU%20Design%20system.png" alt="ASU Design System showing maroon and gold palette, typography, and UI components">
+                    <figcaption class="case-caption">ASU Design System — institutional color, type, and component foundations applied across the site.</figcaption>
+                </figure>
+            </div>
+
+            <h3 class="law-subsection-title">4. Component Design &amp; Iteration</h3>
+            <div class="law-component-grid">
+                <div class="law-component-card">
+                    <strong>Card UI System</strong>
+                    <p>Uniform cards for Research, Events, and News pages with a strict visual hierarchy.</p>
+                </div>
+                <div class="law-component-card">
+                    <strong>Interactive Timeline</strong>
+                    <p>Vertical timeline on the &ldquo;What is International Lawfare?&rdquo; page separates major developments by year.</p>
+                </div>
+                <div class="law-component-card">
+                    <strong>Filtering Tools</strong>
+                    <p>Filter Tags dropdown and Search bar on the Research page to sift through the academic database.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Solutions -->
+<section class="case-section case-section-alt law-section">
+    <div class="law-inner">
+        <div class="law-header">
+            <div class="law-label">04 — Key Solutions / Final Design</div>
+            <h2 class="law-title">Educational storytelling and scalable repositories</h2>
+        </div>
+        <p class="law-body">
+            Four core patterns work together to make dense academic content scannable, navigable, and actionable across the site.
+        </p>
+
+        <div class="case-fig-grid-2" style="align-items:center;">
+            <div class="law-solution-copy">
+                <span class="law-eyebrow">Solution 01</span>
+                <h3>Educational Storytelling (The Timeline)</h3>
+                <p>The historical evolution of lawfare was transformed from an academic essay into a step-by-step visual timeline, clearly marking milestones with gold indicators and concise summaries.</p>
+            </div>
+            <div>
+                <div class="law-screen-frame">
+                    <img src="assets/img/law/What%20is%20International%20Lawfare.png" alt="What is International Lawfare page with legal graphic and vertical timeline of major developments">
+                </div>
+            </div>
+        </div>
+
+        <div class="law-divider"></div>
+
+        <div class="case-fig-grid-2" style="align-items:center;">
+            <div class="law-stack">
+                <div class="law-solution-copy">
+                    <span class="law-eyebrow">Solution 02</span>
+                    <h3>Scalable Content Repositories</h3>
+                    <p>The Research page features an intuitive filtering system above a 3-column grid (on desktop) of publication cards. Distinct tags (like &ldquo;Book&rdquo;) help users immediately identify the resource type.</p>
+                </div>
+                <div class="law-divider" style="margin:0;"></div>
+                <div class="law-solution-copy">
+                    <span class="law-eyebrow">Solution 03</span>
+                    <h3>Engaging Media Grids</h3>
+                    <p>The News page utilizes a featured article layout at the top, followed by a neat grid of secondary articles, ensuring that the latest and most important updates capture the user&apos;s attention first.</p>
+                </div>
+            </div>
+            <div>
+                <div class="law-stack">
+                    <div class="law-screen-frame">
+                        <img src="assets/img/law/Research.png" alt="Research page with filter tags, search bar, and publication card grid">
+                    </div>
+                    <div class="law-screen-frame">
+                        <img src="assets/img/law/News.png" alt="News page with featured article and secondary article grid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="law-divider"></div>
+
+        <div class="case-fig-grid-2" style="align-items:center;">
+            <div class="law-solution-copy">
+                <span class="law-eyebrow">Solution 04</span>
+                <h3>Consistent CTAs</h3>
+                <p>Throughout the site, clear, pill-shaped buttons (in ASU Gold or dark gray) guide user actions smoothly—from homepage hero sections through resource cards and pagination.</p>
+            </div>
+            <div>
+                <div class="law-screen-frame">
+                    <img src="assets/img/law/Home.png" alt="Homepage with bold hero, alternating content bands, and pill-shaped call-to-action buttons">
+                </div>
+            </div>
+        </div>
+
+        <div class="law-divider"></div>
+
+        <p class="law-body" style="margin-bottom:4px;">Additional resource and directory pages extend the same card, grid, and pagination patterns:</p>
+        <div class="law-solution-screens">
+            <figure class="case-figure case-figure-readable law-figure">
+                <img src="assets/img/law/People.png" alt="People directory page">
+                <figcaption class="case-caption">People — faculty and staff directory layout.</figcaption>
+            </figure>
+            <figure class="case-figure case-figure-readable law-figure">
+                <img src="assets/img/law/Education.png" alt="Education page with structured academic content">
+                <figcaption class="case-caption">Education — structured academic content section.</figcaption>
+            </figure>
+            <figure class="case-figure case-figure-readable law-figure">
+                <img src="assets/img/law/Contact%20Us.png" alt="Contact Us page">
+                <figcaption class="case-caption">Contact Us — clear form layout and institutional footer.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<!-- Reflection -->
+<section class="case-section law-section">
+    <div class="law-inner">
+        <div class="law-header">
+            <div class="law-label">05 — Reflection</div>
+            <h2 class="law-title">Professional without feeling outdated</h2>
+        </div>
+        <p class="law-body" style="color:var(--text-color);">
+            Designing for an academic and policy-focused audience requires a careful balance. The design must be professional and serious without feeling outdated or dry.
+        </p>
+        <div class="law-callout">
+            <p>By utilizing modern web patterns—like card-based grids, vertical timelines, and high-contrast typography—I was able to inject modern usability into a traditional academic repository. The strict adherence to the university&apos;s color palette helped ground the project, while the custom iconography and layout choices gave the International Lawfare program its own unique digital footprint.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Summary / Impact -->
+<section class="case-section case-section-alt law-section">
+    <div class="law-inner">
+        <div class="law-header">
+            <div class="law-label">06 — Summary / Impact</div>
+            <h2 class="law-title">Problems solved and project vision achieved</h2>
+        </div>
+
+        <div class="law-impact-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="law-impact-cell">
+                <div class="law-impact-icon"><i class="fas fa-wrench" aria-hidden="true"></i></div>
+                <p class="law-impact-title">Problems Solved</p>
+                <ul class="law-list" style="margin-top:4px;">
+                    <li>Transformed complex, multi-layered academic definitions into accessible, scannable web content.</li>
+                    <li>Organized diverse types of media (books, articles, events, news) into unified, easily navigable layouts.</li>
+                </ul>
+            </div>
+            <div class="law-impact-cell">
+                <div class="law-impact-icon"><i class="fas fa-check-double" aria-hidden="true"></i></div>
+                <p class="law-impact-title">Project Vision Achieved</p>
+                <p class="law-impact-desc">Delivered a cohesive, responsive web platform that serves both as an educational tool for the public and a practical repository for security scholars. The final product successfully balances institutional branding with a modern, user-friendly interface designed for longevity and content growth.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>

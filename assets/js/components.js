@@ -66,7 +66,7 @@ const PortfolioApp = {
             category: 'uiux code',
             tags: ['UI Design', 'Front-End Development', 'Web Design'],
             image: 'assets/img/main images/International Lawfare.png',
-            heroImage: 'assets/img/UAV/hero.png',
+            heroImage: 'assets/img/law/hero.png',
             link: 'lawfare.html',
             timeline: 'Jan 2026 – Feb 2026',
             team: '1 Engineer, 1 Designer, 1 PM',
@@ -106,7 +106,7 @@ const PortfolioApp = {
             team: '2 Designers',
             role: 'UX Research (survey, interview), Product Design (prototype), UI Design (components)',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
-            liveLink: 'https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=5712-1476&t=BYgK6Kby6bZWu9TF-1'
+            liveLink: null
         },
         {
             id: 'quickbite',
@@ -231,7 +231,7 @@ const PortfolioApp = {
         lt: {
             title: "Longtan Walker Pace Counter APP",
             desc: "Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.",
-            meta: ``, backLink: true, liveLink: "https://www.figma.com/proto/liiY3uuAuqkyhPUDgfMtSk/longtan?node-id=5712-1476&t=BYgK6Kby6bZWu9TF-1", cover: false
+            meta: ``, backLink: true, liveLink: null, cover: false
         },
         spring: {
             title: "Echoes of the Four Seasons",
