@@ -7,6 +7,10 @@
     --text-color: #111111;
     --secondary-text: #555555;
     --accent-color: #2ecc71;
+    --problem-color: #e74c3c;
+    --problem-bg: rgba(231, 76, 60, 0.1);
+    --problem-bg-strong: rgba(231, 76, 60, 0.14);
+    --problem-border: rgba(231, 76, 60, 0.32);
     --border-color: #e0e0e0;
     --header-height: 60px;
     --mobile-header-height: 50px;
@@ -893,6 +897,65 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     color: var(--text-color);
     font-size: 0.8rem;
     font-weight: 700;
+}
+.callout-badge i { color: var(--accent-color); }
+
+/* Problem sections: gray section label, red title */
+.case-section--problem .case-section-label,
+.case-section--problem .qb-label,
+.case-section--problem .lcm-label,
+.case-section--problem .p2s-section-number {
+    color: var(--secondary-text);
+}
+.case-section--problem .case-section-title,
+.case-section--problem .qb-title,
+.case-section--problem .lcm-title,
+.case-section--problem .p2s-section-title-main {
+    color: var(--problem-color);
+}
+
+/* Problem / issue emphasis on case study pages */
+.case-problem-icon,
+.case-section--problem .p2s-phase-icon,
+.case-section--problem .callout-badge,
+.case-problem-card .callout-badge,
+.case-problem-card .case-problem-icon-wrap {
+    color: var(--problem-color);
+    background: var(--problem-bg);
+    border-color: var(--problem-border);
+}
+.case-problem-icon i,
+.case-section--problem .p2s-phase-icon i,
+.case-problem-card .callout-badge i,
+.case-problem-card .case-problem-icon-wrap i,
+.case-problem-icon-wrap i {
+    color: var(--problem-color);
+}
+.case-problem-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--problem-bg);
+    border: 1px solid var(--problem-border);
+}
+.case-problem-card {
+    background: var(--problem-bg) !important;
+    border-color: var(--problem-border) !important;
+}
+.qb-finding-item,
+.lcm-finding-item,
+.p2s-finding-item {
+    transition: background 0.15s ease;
+}
+.qb-finding-item:hover,
+.lcm-finding-item:hover,
+.p2s-finding-item:hover,
+.case-problem-card:hover,
+.p2s-issue-card:hover {
+    background: var(--problem-bg-strong) !important;
+}
+.case-section--problem .case-highlight-list li::marker {
+    color: var(--problem-color);
 }
 .case-section-alt { background: var(--bg-color); }
 [data-theme="light"] .case-section-alt { background: #f8f9fa; }

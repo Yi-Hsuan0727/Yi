@@ -36,7 +36,7 @@ const PortfolioApp = {
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
             team: '2 Engineers, 1 Designer, 1 PM',
-            role: 'UI Design (logo, color/components), Front-end interaction and userflow design',
+            role: 'Product Designer & Full-Stack Developer',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
             liveLink: 'http://lcm.tacp.gov.tw/'
         },
@@ -53,7 +53,7 @@ const PortfolioApp = {
             link: 'quickbite.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: 'Solo',
-            role: 'UI Design (logo, color/components), Front-end interaction and userflow design',
+            role: 'Product Designer & Full-Stack Developer',
             tools: 'Python, Streamlit, Anthropic Claude, USDA FoodData Central',
             liveLink: '#'
         },

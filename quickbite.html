@@ -78,40 +78,43 @@
         align-items: start;
     }
 
-    /* ─── TECH STACK (horizontal cards on desktop) ─── */
+    /* ─── TECH STACK (pill tags) ─── */
     .qb-tech-stack {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
     }
     .qb-tech-item {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 20px 16px;
-        font-size: 0.72rem;
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        font-size: 0.58rem;
         font-weight: 600;
         color: var(--text-color);
-        border-right: 1px solid var(--border-color);
-        line-height: 1.45;
-        transition: background 0.15s;
+        line-height: 1.35;
+        border: 1px solid var(--border-color);
+        border-radius: 999px;
+        background: rgba(46, 204, 113, 0.06);
+        transition: background 0.15s, border-color 0.15s;
     }
-    .qb-tech-item:last-child { border-right: none; }
-    .qb-tech-item:hover { background: rgba(46, 204, 113, 0.04); }
+    .qb-tech-item:hover {
+        background: rgba(46, 204, 113, 0.1);
+        border-color: rgba(46, 204, 113, 0.35);
+    }
     .qb-tech-icon {
-        width: 32px;
-        height: 32px;
-        border-radius: 8px;
-        background: rgba(46, 204, 113, 0.12);
-        display: flex;
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         color: var(--accent-color);
-        font-size: 0.9rem;
+        font-size: 0.7rem;
         flex-shrink: 0;
+        background: transparent;
+        width: auto;
+        height: auto;
+        border-radius: 0;
     }
 
     /* ─── FINDINGS (horizontal cards on desktop) ─── */
@@ -132,17 +135,19 @@
         transition: background 0.15s;
     }
     .qb-finding-item:last-child { border-right: none; }
-    .qb-finding-item:hover { background: rgba(46, 204, 113, 0.04); }
     .qb-finding-icon {
         width: 40px;
         height: 40px;
         border-radius: 8px;
-        background: rgba(46, 204, 113, 0.12);
+        background: var(--problem-bg);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--accent-color);
+        color: var(--problem-color);
         font-size: 1rem;
+    }
+    .qb-findings {
+        border-color: var(--problem-border);
     }
     .qb-finding-title {
         font-size: 0.92rem;
@@ -361,15 +366,8 @@
         .qb-overview-split,
         .qb-goal-grid,
         .qb-grid-6-6,
-        .qb-tech-stack,
         .qb-findings,
         .qb-impact-grid { grid-template-columns: 1fr; }
-        .qb-tech-item {
-            flex-direction: row;
-            border-right: none;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .qb-tech-item:last-child { border-bottom: none; }
         .qb-finding-item {
             border-right: none;
             border-bottom: 1px solid var(--border-color);
@@ -385,15 +383,10 @@
         .qb-impact-cell:last-child { border-bottom: none; }
         .qb-section { padding-top: 60px; padding-bottom: 60px; }
     }
-    @media (max-width: 900px) {
-        .qb-tech-stack { grid-template-columns: repeat(2, 1fr); }
-        .qb-tech-item:nth-child(2) { border-right: none; }
-        .qb-tech-item:nth-child(odd):last-child { border-right: none; }
-    }
     @media (max-width: 600px) {
         .qb-goal-grid,
-        .qb-tech-stack,
         .qb-findings { grid-template-columns: 1fr; }
+        .qb-tech-item { font-size: 0.52rem; padding: 4px 8px; }
         .qb-section { padding-top: 48px; padding-bottom: 48px; }
     }
 </style>
@@ -422,11 +415,11 @@
 </section>
 
 <!-- ══════════════ 01 — PROBLEM STATEMENT ══════════════ -->
-<section class="case-section qb-section">
+<section class="case-section case-section--problem qb-section">
     <div class="qb-inner">
         <div class="qb-2col-header">
             <div class="qb-header-block">
-                <div class="qb-label">01 — Problem Statement</div>
+                <div class="qb-label case-problem-label">01 — Problem Statement</div>
                 <h2 class="qb-title">Three pain points block consistent, nutritious meals</h2>
             </div>
             <div>
@@ -506,11 +499,11 @@
         <div class="qb-2col-header">
             <div class="qb-header-block">
                 <div class="qb-label">03 — Design Process &amp; Product Evolution</div>
-                <h2 class="qb-title">Three builds shaped by testing and faculty critique</h2>
+                <h2 class="qb-title">Three builds shaped by testing and user feedback</h2>
             </div>
             <div>
                 <p class="qb-intro">
-                    Building QuickBite required an iterative journey where I coupled &ldquo;vibe coding&rdquo; UI creation with backend structured logic, refining the application across three major builds based on technical testing and faculty critique.
+                    Building QuickBite required an iterative journey where I coupled &ldquo;vibe coding&rdquo; UI creation with backend structured logic, refining the application across three major builds based on technical testing and user feedback.
                 </p>
             </div>
         </div>
@@ -541,28 +534,18 @@
         <!-- Phase 2 -->
         <div>
             <div class="qb-label">Phase 02 — Build 2</div>
-            <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Modular Layout &amp; Mentor Critiques</h3>
+            <h3 style="font-size:1rem; font-weight:800; margin:0 0 12px;">Modular Layout &amp; User Feedback</h3>
             <p class="qb-body"><strong>Action:</strong> As features multiplied, managing a single monolithic codebase became unsustainable. I modularized the application, breaking functions into distinct Python files and surfacing them as clear tabs on the main screen.</p>
-            <p class="qb-body"><strong>UX Critiques &amp; Pivot:</strong> Feedback from design mentors entirely reshaped the product&apos;s UX architecture:</p>
+            <p class="qb-body"><strong>User Feedback &amp; Pivot:</strong> Testing feedback entirely reshaped the product&apos;s UX architecture:</p>
             <div class="qb-pivot">
-                <div class="qb-pivot-label">The Dashboard Source (Prof. Isabel)</div>
-                <p>I was pushed to evaluate whether the health dashboard should visualize what the bot suggested or what the user actually consumed. Recognizing that real health tracking requires accuracy, I altered the logic to allow users to input what they actually ate, tracking real numbers instead of assumptions.</p>
-            </div>
-            <div class="qb-pivot">
-                <div class="qb-pivot-label">Layout Realignment (Prof. Ronald)</div>
-                <p>The chat interface and data visualization sections were initially separated, causing significant cognitive load. I re-architected the layout to place the chat stream and dashboard side-by-side. This immediate visual pairing allowed statistics to update live alongside the conversation.</p>
+                <div class="qb-pivot-label"><i class="fas fa-comments" style="margin-right:5px;" aria-hidden="true"></i>User Feedback</div>
+                <p>Users pushed for two major shifts. First, the health dashboard needed to reflect what people actually ate—not only what the bot suggested—so I changed the logic to capture real consumption instead of assumptions. Second, separating the chat stream from data visualization created too much cognitive load; I re-architected the layout to place chat and dashboard side-by-side so macros updated live alongside the conversation.</p>
             </div>
         </div>
-        <div class="qb-grid-2 center">
-            <figure class="qb-figure qb-figure-white">
-                <img src="assets/img/QuickBite/second version.png" alt="QuickBite Build 2 modular layout">
-                <p class="qb-caption">Build 2 — modular tab navigation as features expanded beyond a single screen.</p>
-            </figure>
-            <figure class="qb-figure qb-figure-white">
-                <img src="assets/img/QuickBite/dashboard.png" alt="QuickBite side-by-side chat and dashboard">
-                <p class="qb-caption">Side-by-side workspace — chat stream paired with live macro dashboard after layout realignment.</p>
-            </figure>
-        </div>
+        <figure class="qb-figure qb-figure-white">
+            <img src="assets/img/QuickBite/second version.png" alt="QuickBite Build 2 modular layout">
+            <p class="qb-caption">Build 2 — modular tab navigation as features expanded beyond a single screen.</p>
+        </figure>
 
         <hr class="qb-divider">
 
@@ -581,6 +564,10 @@
                 <p>Incorporating feedback regarding temporary storage, I added explicit workflows enabling the browser session to clear or save tracked meal records seamlessly.</p>
             </div>
         </div>
+        <figure class="qb-figure qb-figure-white">
+            <img src="assets/img/QuickBite/dashboard.png" alt="QuickBite side-by-side chat and dashboard">
+            <p class="qb-caption">Build 3 — side-by-side workspace with chat stream and live macro dashboard.</p>
+        </figure>
         <div class="qb-grid-2 center">
             <figure class="qb-figure qb-figure-white">
                 <img src="assets/img/QuickBite/Inventory and shopping.png" alt="QuickBite inventory and shopping list">

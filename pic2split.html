@@ -122,7 +122,7 @@
 
             /* === FINDINGS LIST === */
             .p2s-findings-list {
-                border: 1px solid var(--border-color);
+                border: 1px solid var(--problem-border);
                 border-radius: 8px;
                 overflow: hidden;
             }
@@ -139,8 +139,15 @@
                 font-size: 0.68rem;
                 font-weight: 700;
                 letter-spacing: 0.12em;
-                color: var(--secondary-text);
-                padding-top: 2px;
+                color: var(--problem-color);
+                background: var(--problem-bg);
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 0;
             }
             .p2s-finding-title {
                 font-size: 0.9rem;
@@ -437,8 +444,9 @@
             .p2s-scroll-x-inner { min-width: 860px; }
 
             .p2s-issue-card {
-                border: 1px solid var(--border-color);
-                border-top: 3px solid var(--accent-color);
+                border: 1px solid var(--problem-border);
+                border-top: 3px solid var(--problem-color);
+                background: var(--problem-bg);
                 border-radius: 8px;
                 background: var(--bg-color);
                 padding: 18px;
@@ -452,7 +460,7 @@
                 font-weight: 800;
                 margin-bottom: 10px;
             }
-            .p2s-issue-head i { color: var(--accent-color); }
+            .p2s-issue-head i { color: var(--problem-color); }
             .p2s-issue-block + .p2s-issue-block {
                 margin-top: 10px;
                 padding-top: 10px;
@@ -793,6 +801,10 @@
                 margin-bottom: 14px;
                 flex-shrink: 0;
             }
+            .case-section--problem > .case-section-inner > .p2s-grid-3 .p2s-phase-icon {
+                background: var(--problem-bg);
+                color: var(--problem-color);
+            }
             .p2s-phase-num {
                 font-size: 0.62rem;
                 font-weight: 700;
@@ -940,7 +952,7 @@
         </section>
 
         <!-- ===================== 01 — PROBLEM STATEMENT ===================== -->
-        <section class="case-section">
+        <section class="case-section case-section--problem">
             <div class="case-section-inner">
                 <div class="p2s-2col-header">
                     <div>

@@ -115,7 +115,7 @@ const LayoutComponents = {
             { name: 'Drupal', slug: 'drupal' },
             { name: 'HTML5', slug: 'html5' },
             { name: 'CSS3', slug: 'css3' },
-            { name: 'Python', slug: 'python' },
+            { name: 'JavaScript', slug: 'javascript' },
             { name: 'Anthropic', slug: 'anthropic' }
         ];
         const iconSrc = this.toolIconSrc.bind(this);
