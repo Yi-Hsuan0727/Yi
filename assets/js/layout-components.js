@@ -145,10 +145,12 @@ const LayoutComponents = {
         if (pageType === 'home') {
             return `
                 <div class="works-header" id="sticky-filter-bar">
-                    <span class="section-title">Selected Works</span>
+                    <span class="section-title">Work</span>
                     <div class="filter-bar">
-                        <button class="filter-btn active" data-filter="uiux" onclick="filterProjects('uiux')">UI/UX</button>
-                        <button class="filter-btn" data-filter="code" onclick="filterProjects('code')">Currently Live</button>
+                        <button class="filter-btn active" data-filter="all" onclick="filterProjects('all')">All</button>
+                        <button class="filter-btn" data-filter="apps" onclick="filterProjects('apps')">Apps &amp; Products</button>
+                        <button class="filter-btn" data-filter="web" onclick="filterProjects('web')">Websites &amp; Platforms</button>
+                        <button class="filter-btn" data-filter="live" onclick="filterProjects('live')">Live</button>
                     </div>
                 </div>`;
         }
@@ -184,9 +186,11 @@ const LayoutComponents = {
     buildNextProjects: function(projects) {
         if (!projects || !projects.length) return '';
         let cardsHTML = projects.map(function(p) {
-            let tagsHTML = p.tags.map(function(t) {
-                return `<span class="project-overlay-tag">${t}</span>`;
-            }).join('');
+            let tagsHTML = typeof PortfolioApp !== 'undefined' && PortfolioApp.buildProjectOverlayTags
+                ? PortfolioApp.buildProjectOverlayTags(p)
+                : p.tags.map(function(t) {
+                    return `<span class="project-overlay-tag">${t}</span>`;
+                }).join('');
             let imgContent = p.image
                 ? `<img src="${p.image}" alt="${p.title}">
                     <div class="project-overlay">

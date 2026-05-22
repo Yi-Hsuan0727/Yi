@@ -75,9 +75,38 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     width: 30%; height: 100%; padding: 40px 30px 72px;
     display: flex; flex-direction: column; justify-content: flex-start;
     border-right: 1px solid var(--border-color); background: var(--bg-color); z-index: 5;
+    overflow-x: hidden;
     overflow-y: auto;
+    container-type: inline-size;
+    container-name: sidebar;
 }
-.hero-text h1 { font-size: 3.5rem; line-height: 0.95; margin-bottom: 13px; font-weight: 800; font-family: 'Montserrat', sans-serif; }
+.hero-text {
+    min-width: 0;
+    max-width: 100%;
+}
+.hero-text h1 {
+    font-size: clamp(1.85rem, 11cqi, 2.85rem);
+    line-height: 1.12;
+    margin-bottom: 13px;
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;
+    max-width: 100%;
+}
+.hero-title-line {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 0.14em;
+    max-width: 100%;
+}
+.hero-title-line + .hero-title-line {
+    margin-top: 0.06em;
+}
+.hero-title-line .shape {
+    flex-shrink: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+}
 .hero-text .sidebar-meta-value { margin-top: 8px; margin-bottom: 8px; font-size: 24px; }
 .sidebar-intro-row {
     display: flex;
@@ -516,7 +545,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 
 .section-title { font-weight: 700; font-size: 1rem; white-space: nowrap; }
-.filter-bar { display: flex; gap: 10px; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 8px; }
 .filter-btn { background: none; border: 1px solid var(--border-color); padding: 6px 14px; border-radius: 20px; cursor: pointer; color: var(--secondary-text); font-size: 0.8rem; }
 .filter-btn.active, .filter-btn:hover { border-color: var(--accent-color); color: var(--text-color); }
 
@@ -617,6 +646,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     text-transform: uppercase;
     letter-spacing: 0.04em;
     backdrop-filter: blur(4px);
+}
+.project-overlay-tag--audience {
+    border-color: rgba(46, 204, 113, 0.85);
+    background: rgba(46, 204, 113, 0.28);
+    color: #fff;
+    font-weight: 700;
 }
 .project-card:hover .image-container { border-color: var(--accent-color); }
 .project-card:hover .image-container {
@@ -1320,7 +1355,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .case-section-cols-4 { grid-template-columns: 1fr !important; }
 
     /* Sidebar */
-    .hero-text h1 { font-size: 2.2rem; }
+    .hero-text h1 { font-size: clamp(1.65rem, 9cqi, 2.2rem); }
     .sidebar-intro { font-size: 0.82rem; }
 
     /* Works header / filter bar */

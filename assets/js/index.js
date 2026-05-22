@@ -175,14 +175,11 @@ function filterProjects(category) {
 
     buttons.forEach(btn => {
         const filter = btn.getAttribute('data-filter');
-        const isMatch = filter
-            ? filter === category
-            : (category === 'all' && btn.textContent.toLowerCase() === 'all');
-        btn.classList.toggle('active', isMatch);
+        btn.classList.toggle('active', filter === category);
     });
 
     cards.forEach(card => {
-        const categories = card.getAttribute('data-category');
+        const categories = (card.getAttribute('data-category') || '').split(/\s+/);
         const match = category === 'all' || categories.includes(category);
         card.style.display = match ? 'flex' : 'none';
         if (match) setTimeout(() => card.style.opacity = '1', 50);

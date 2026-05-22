@@ -12,8 +12,9 @@ const PortfolioApp = {
             subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
             desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
             demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
-            category: 'uiux',
-            tags: ['Product Design', 'UX Research', 'UI Design', 'Web App'],
+            filterType: 'apps',
+            audience: 'Consumer',
+            tags: ['Product Design', 'UX Research', 'Web App'],
             image: 'assets/img/main images/pic2split.png',
             heroImage: 'assets/img/Pic2Split/hero.png',
             link: 'pic2split.html',
@@ -29,7 +30,8 @@ const PortfolioApp = {
             subtitle: 'UX Redesign for Clarity & Conversion',
             desc: 'A redesign + case study of the volunteer recruiting page for UNESCO. (Class project)',
             demoIntro: 'Conducted research and redesigned the volunteer recruitment experience to improve information hierarchy and usability.',
-            category: 'uiux',
+            filterType: 'web',
+            audience: 'Public',
             tags: ['UX Research', 'UX/UI Design', 'Web Redesign'],
             image: 'assets/img/main images/UNESCO.png',
             heroImage: 'assets/img/UNESCO/hero.png',
@@ -46,8 +48,9 @@ const PortfolioApp = {
             subtitle: 'Agricultural UAV Interface Design',
             desc: 'Designing a UAV control system to help the agriculture industry improve operational efficiency and optimize workflows. (Class project)',
             demoIntro: 'A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.',
-            category: 'uiux',
-            tags: ['UI Design', 'Prototyping'],
+            filterType: 'apps',
+            audience: 'Enterprise',
+            tags: ['UI Design', 'Prototyping', 'Mobile App'],
             image: 'assets/img/main images/UAV.png',
             heroImage: 'assets/img/UAV/hero.png',
             link: 'uav.html',
@@ -63,7 +66,8 @@ const PortfolioApp = {
             subtitle: 'Drupal-Based Legal Scholarship Hub',
             desc: 'The program page for International Lawfare — introducing and sharing course details.',
             demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
-            category: 'uiux code',
+            filterType: 'web',
+            audience: 'Public',
             tags: ['UI Design', 'Front-End Development', 'Web Design'],
             image: 'assets/img/main images/International Lawfare.png',
             heroImage: 'assets/img/law/hero.png',
@@ -80,8 +84,9 @@ const PortfolioApp = {
             subtitle: 'WCAG AA Compliant Website for 30 Museums',
             desc: 'Demonstrate the information of 30 Taiwan indigenous museums, qualified for WCAG level AA. (It is online now!)',
             demoIntro: 'Designed and developed an accessibility-focused website system showcasing Taiwan\'s indigenous cultural institutions.',
-            category: 'uiux code',
-            tags: ['UI Design', 'Front-End Development', 'Accessibility', 'Web Design'],
+            filterType: 'web',
+            audience: 'Public',
+            tags: ['UI Design', 'Front-End Development', 'Accessibility'],
             image: 'assets/img/main images/indigenous Cultural Museums.png',
             heroImage: 'assets/img/lcm/hero.png',
             link: 'lcm.html',
@@ -97,8 +102,9 @@ const PortfolioApp = {
             subtitle: 'Behavior-Driven Mobility App Concept',
             desc: 'By accumulating steps, people are encouraged to walk to reduce the traffic of cars and motorcycles on Longtan Road. (Class project)',
             demoIntro: 'Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.',
-            category: 'uiux',
-            tags: ['UX Research', 'Product Design', 'Mobile App', 'Prototyping'],
+            filterType: 'apps',
+            audience: 'Consumer',
+            tags: ['UX Research', 'Product Design', 'Mobile App'],
             image: 'assets/img/main images/Longtan Walker.png',
             heroImage: 'assets/img/lt/hero.png',
             link: 'lt.html',
@@ -109,30 +115,14 @@ const PortfolioApp = {
             liveLink: null
         },
         {
-            id: 'whatnow',
-            title: 'WhatNow',
-            subtitle: 'Your AI Decision-Making Companion',
-            desc: 'An AI-powered decision companion that helps individuals and groups quickly choose what to eat, watch, or do. (Class project)',
-            demoIntro: 'Reduces everyday decision fatigue by narrowing choices, aligning group preferences, and explaining recommendations transparently.',
-            category: 'uiux',
-            tags: ['UX Research', 'UI Design', 'Mobile App', 'AI'],
-            image: 'assets/img/whatnow/hero.png',
-            heroImage: 'assets/img/whatnow/hero.png',
-            link: 'whatnow.html',
-            timeline: 'Feb 2026 – May 2026',
-            team: '5 Members (United UX Team)',
-            role: 'Usability Testing, Heuristic Evaluation & Design Feedback',
-            tools: 'Figma, Notion, Slack, Miro/FigJam, ChatGPT',
-            liveLink: null
-        },
-        {
             id: 'quickbite',
             title: 'QuickBite',
             subtitle: 'AI Meal Planning Assistant',
             desc: 'A smart meal planning assistant born from the frustration of "What should I eat today?" combined with a busy schedule and limited budget.',
             demoIntro: 'A smart assistant using Claude AI & USDA data to plan meals and recipes based on user needs.',
-            category: 'uiux',
-            tags: ['AI', 'Web App'],
+            filterType: 'apps',
+            audience: 'Consumer',
+            tags: ['AI', 'Web App', 'Product Design'],
             image: 'assets/img/main images/QuickBite.png',
             heroImage: 'assets/img/QuickBite/hero.png',
             link: 'quickbite.html',
@@ -148,8 +138,9 @@ const PortfolioApp = {
             subtitle: 'Corporate Website & Digital Brand System',
             desc: 'Commissioned by Magnate Technology Co., Ltd. to create a website and establish an online presence. (It is online now!)',
             demoIntro: 'Designed and built a scalable website and UI component system to establish a professional digital presence.',
-            category: 'uiux code',
-            tags: ['Web Design', 'UI Design', 'Front-End Development', 'Branding'],
+            filterType: 'web',
+            audience: 'Enterprise',
+            tags: ['Web Design', 'UI Design', 'Branding'],
             image: 'assets/img/main images/Magnate.png',
             heroImage: 'assets/img/Magnate/hero.png',
             link: 'magnate.html',
@@ -165,8 +156,9 @@ const PortfolioApp = {
             subtitle: 'Bridging Cultures Through Interactive Typography',
             desc: 'An interactive web experience that reconstructs Chinese seasonal characters with English letters so non-Chinese speakers can explore poetry through tracing.',
             demoIntro: 'Designed a cross-cultural typography experience that turns Chinese poetry into a participatory tracing system built from English letterforms.',
-            category: 'uiux',
-            tags: ['UI/UX Design', 'Typography', 'Interactive Web', 'Cultural Design'],
+            filterType: 'web',
+            audience: 'Public',
+            tags: ['UI/UX Design', 'Typography', 'Interactive Web'],
             image: 'assets/img/main images/Spring.png',
             heroImage: 'assets/img/lcm/website mockup_lcm.png',
             heroAlt: 'Temporary placeholder hero image for Echoes of the Four Seasons showing desktop, tablet, and mobile screens with the Spring character composed of English letter strokes on a soft beige background.',
@@ -180,8 +172,9 @@ const PortfolioApp = {
             subtitle: 'Cow-Themed Emotional Wellness Tracker',
             desc: 'An emotional wellness tracker built during RoseHack 2025 that turns daily reflection into a low-friction, playful habit. (2nd Place winner)',
             demoIntro: 'Designed a chill, approachable mood-tracking experience that uses playful visuals and actionable care prompts to support emotional self-reflection.',
-            category: 'uiux',
-            tags: ['Hackathon', 'UI/UX Design', 'Wellness', 'Web App'],
+            filterType: 'apps',
+            audience: 'Consumer',
+            tags: ['Hackathon', 'UI/UX Design', 'Wellness'],
             image: 'assets/img/main images/DailyMooMood.png',
             heroImage: 'assets/img/DailyMooMood/_Users_mac_Desktop_msux_2025spring_How\'s%20going%20Arizona!_DailyMooMood_landingPage.html.png',
             heroAlt: 'Daily Moo Mood interface showing the MooYourMood selector, comment field, and calendar in a calm blue and green visual style.',
@@ -196,8 +189,8 @@ const PortfolioApp = {
 
     data: {
         home: {
-            title: `Design<span class="shape shape-circle"></span><br>Code<span class="shape shape-triangle"></span><br>Systems<span class="shape shape-square"></span>`,
-            desc: "Hi! I'm Michelle Chen — a UX/UI designer with 3+ years of experience, focused on product thinking, craft, and collaboration.",
+            title: `<span class="hero-title-line">Product design<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Interaction<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Systems<span class="shape shape-square" aria-hidden="true"></span></span>`,
+            desc: "Hi! I'm Michelle Chen — a UX/UI designer with 3+ years of experience designing apps, platforms, and consumer-facing products.",
             meta: ``
         },
         about: {
@@ -260,11 +253,6 @@ const PortfolioApp = {
             desc: "A cow-themed emotional wellness tracker that turns daily reflection into a low-friction habit through playful visuals and actionable care prompts.",
             meta: ``, backLink: true, liveLink: "https://devpost.com/software/daily-moo-mood", cover: false
         },
-        whatnow: {
-            title: "WhatNow",
-            desc: "An AI-powered decision companion designed to reduce everyday decision fatigue for individuals and groups.",
-            meta: ``, backLink: true, liveLink: null, cover: false
-        },
         quickbite: {
             title: "QuickBite",
             desc: "An AI-powered meal planning system that turns fridge inventory into tailored menus and tracks real nutritional data.",
@@ -289,6 +277,35 @@ const PortfolioApp = {
 
     getProject: function(id) {
         return this.projectList.find(function(p) { return p.id === id; });
+    },
+
+    isLiveProject: function(project) {
+        return !!(project && project.liveLink && project.liveLink !== '#');
+    },
+
+    getProjectFilterCategory: function(project) {
+        if (!project) return '';
+        var parts = [project.filterType || 'web'];
+        if (this.isLiveProject(project)) parts.push('live');
+        return parts.join(' ');
+    },
+
+    buildProjectOverlayTags: function(project) {
+        if (!project) return '';
+        var audienceHTML = project.audience
+            ? '<span class="project-overlay-tag project-overlay-tag--audience">' + project.audience + '</span>'
+            : '';
+        var skillTagsHTML = (project.tags || []).map(function(t) {
+            return '<span class="project-overlay-tag">' + t + '</span>';
+        }).join('');
+        return audienceHTML + skillTagsHTML;
+    },
+
+    getHomeProjects: function() {
+        var self = this;
+        return this.projectList.filter(function(p) {
+            return !self.isPlaygroundProject(p.id);
+        });
     },
 
     /* Playground-only projects — never shown in "Next Projects" on case study pages */
@@ -335,6 +352,9 @@ const PortfolioApp = {
                 CarouselLogic.init();
             }
             if (typeof CursorLogic !== 'undefined') CursorLogic.init();
+            if (pageType === 'home' && typeof filterProjects === 'function') {
+                filterProjects('all');
+            }
         };
 
         if (pageType === 'home' && typeof SplashScreen !== 'undefined' && SplashScreen.shouldShow()) {
