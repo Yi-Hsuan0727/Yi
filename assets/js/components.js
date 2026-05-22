@@ -109,6 +109,23 @@ const PortfolioApp = {
             liveLink: null
         },
         {
+            id: 'whatnow',
+            title: 'WhatNow',
+            subtitle: 'Your AI Decision-Making Companion',
+            desc: 'An AI-powered decision companion that helps individuals and groups quickly choose what to eat, watch, or do. (Class project)',
+            demoIntro: 'Reduces everyday decision fatigue by narrowing choices, aligning group preferences, and explaining recommendations transparently.',
+            category: 'uiux',
+            tags: ['UX Research', 'UI Design', 'Mobile App', 'AI'],
+            image: 'assets/img/whatnow/hero.png',
+            heroImage: 'assets/img/whatnow/hero.png',
+            link: 'whatnow.html',
+            timeline: 'Feb 2026 – May 2026',
+            team: '5 Members (United UX Team)',
+            role: 'Usability Testing, Heuristic Evaluation & Design Feedback',
+            tools: 'Figma, Notion, Slack, Miro/FigJam, ChatGPT',
+            liveLink: null
+        },
+        {
             id: 'quickbite',
             title: 'QuickBite',
             subtitle: 'AI Meal Planning Assistant',
@@ -242,6 +259,11 @@ const PortfolioApp = {
             title: "Daily Moo Mood",
             desc: "A cow-themed emotional wellness tracker that turns daily reflection into a low-friction habit through playful visuals and actionable care prompts.",
             meta: ``, backLink: true, liveLink: "https://devpost.com/software/daily-moo-mood", cover: false
+        },
+        whatnow: {
+            title: "WhatNow",
+            desc: "An AI-powered decision companion designed to reduce everyday decision fatigue for individuals and groups.",
+            meta: ``, backLink: true, liveLink: null, cover: false
         },
         quickbite: {
             title: "QuickBite",
