@@ -99,7 +99,9 @@ const LayoutComponents = {
             'Product Design',
             'Wireframing',
             'Prototyping',
-            'Usability Testing'
+            'Usability Testing',
+            'Responsive Development',
+            'Accessibility'
         ];
         const skillItems = designUxSkills.map(function(skill) {
             return `<li class="sidebar-skill-item"><span class="sidebar-skill-chip">${skill}</span></li>`;
@@ -108,14 +110,11 @@ const LayoutComponents = {
         const tools = [
             { name: 'Figma', slug: 'figma' },
             { name: 'Adobe Illustrator', slug: 'adobeillustrator' },
-            { name: 'Adobe Photoshop', slug: 'adobephotoshop' },
-            { name: 'Adobe XD', slug: 'adobexd' },
             { name: 'Visual Studio Code', slug: 'visualstudiocode' },
             { name: 'WordPress', slug: 'wordpress' },
             { name: 'Drupal', slug: 'drupal' },
             { name: 'HTML5', slug: 'html5' },
             { name: 'CSS3', slug: 'css3' },
-            { name: 'JavaScript', slug: 'javascript' },
             { name: 'Anthropic', slug: 'anthropic' }
         ];
         const iconSrc = this.toolIconSrc.bind(this);
@@ -150,7 +149,6 @@ const LayoutComponents = {
                         <button class="filter-btn active" data-filter="all" onclick="filterProjects('all')">All</button>
                         <button class="filter-btn" data-filter="apps" onclick="filterProjects('apps')">Apps &amp; Products</button>
                         <button class="filter-btn" data-filter="web" onclick="filterProjects('web')">Websites &amp; Platforms</button>
-                        <button class="filter-btn" data-filter="live" onclick="filterProjects('live')">Live</button>
                     </div>
                 </div>`;
         }

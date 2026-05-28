@@ -285,9 +285,7 @@ const PortfolioApp = {
 
     getProjectFilterCategory: function(project) {
         if (!project) return '';
-        var parts = [project.filterType || 'web'];
-        if (this.isLiveProject(project)) parts.push('live');
-        return parts.join(' ');
+        return project.filterType || 'web';
     },
 
     buildProjectOverlayTags: function(project) {
