@@ -781,21 +781,27 @@
             .p2s-phase-card {
                 border: 1px solid var(--border-color);
                 border-radius: 8px;
-                padding: 24px;
+                padding: 0;
                 background: var(--bg-color);
                 min-width: 0;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+            }
+            .p2s-phase-head {
+                padding: 20px 20px 0;
             }
             .p2s-phase-icon {
-                width: 40px;
-                height: 40px;
+                width: 36px;
+                height: 36px;
                 border-radius: 8px;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
                 background: rgba(46, 204, 113, 0.1);
                 color: var(--accent-color);
-                font-size: 1rem;
-                margin-bottom: 14px;
+                font-size: 0.9rem;
+                margin-bottom: 12px;
                 flex-shrink: 0;
             }
             .case-section--problem > .case-section-inner > .p2s-grid-3 .p2s-phase-icon {
@@ -811,17 +817,146 @@
                 margin-bottom: 4px;
             }
             .p2s-phase-title {
-                font-size: 0.95rem;
+                font-size: 0.92rem;
                 font-weight: 800;
                 color: var(--text-color);
-                margin-bottom: 10px;
+                margin-bottom: 0;
                 line-height: 1.3;
             }
-            .p2s-phase-body {
-                font-size: 0.82rem;
-                color: var(--secondary-text);
-                line-height: 1.75;
+            .p2s-phase-zone {
+                margin: 14px 14px 0;
+                padding: 12px 14px;
+                border-radius: 8px;
+            }
+            .p2s-phase-zone:last-child {
+                margin-bottom: 14px;
+            }
+            .p2s-phase-zone-label {
+                display: block;
+                font-size: 0.58rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+            .p2s-phase-process {
+                background: var(--accent-blue-soft);
+                border: 1px solid var(--accent-blue-border);
+            }
+            .p2s-phase-process .p2s-phase-zone-label {
+                color: var(--accent-blue);
+            }
+            .p2s-phase-result {
+                background: rgba(46, 204, 113, 0.08);
+                border: 1px solid rgba(46, 204, 113, 0.28);
+            }
+            .p2s-phase-result .p2s-phase-zone-label {
+                color: var(--accent-color);
+                margin-bottom: 6px;
+            }
+            .p2s-phase-items {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
                 margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            .case-section .p2s-phase-items {
+                margin-left: 0;
+                padding-left: 0;
+            }
+            .case-section .p2s-phase-items li {
+                margin-left: 0;
+            }
+            .p2s-phase-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                width: 100%;
+                padding: 12px 14px;
+                border-radius: 6px;
+                background: var(--bg-color);
+                border: 1px solid var(--border-color);
+                box-sizing: border-box;
+            }
+            .p2s-phase-item-icon {
+                width: 28px;
+                height: 28px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--accent-blue-soft);
+                color: var(--accent-blue);
+                font-size: 0.75rem;
+                flex-shrink: 0;
+            }
+            .p2s-phase-item-text {
+                min-width: 0;
+                flex: 1;
+            }
+            .p2s-phase-item-title {
+                display: block;
+                font-size: 0.76rem;
+                font-weight: 700;
+                color: var(--text-color);
+                line-height: 1.4;
+                margin-bottom: 2px;
+            }
+            .p2s-phase-item-desc {
+                display: block;
+                font-size: 0.72rem;
+                color: var(--secondary-text);
+                line-height: 1.45;
+            }
+            .p2s-phase-result-text {
+                margin: 0;
+                font-size: 0.95rem;
+                line-height: 1.35;
+                color: var(--text-color);
+                font-weight: 800;
+                letter-spacing: -0.01em;
+            }
+            .p2s-phase-compare {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 0;
+            }
+            .p2s-phase-items + .p2s-phase-compare {
+                margin-top: 8px;
+            }
+            .p2s-phase-compare-block {
+                width: 100%;
+                padding: 10px 12px;
+                border-radius: 6px;
+                background: var(--bg-color);
+                border: 1px dashed var(--border-color);
+                box-sizing: border-box;
+            }
+            .p2s-phase-compare-block--after {
+                border-style: solid;
+                border-color: rgba(46, 204, 113, 0.35);
+            }
+            .p2s-phase-compare-label {
+                display: block;
+                font-size: 0.58rem;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                margin-bottom: 4px;
+                color: var(--secondary-text);
+            }
+            .p2s-phase-compare-block--after .p2s-phase-compare-label {
+                color: var(--accent-color);
+            }
+            .p2s-phase-compare-text {
+                margin: 0;
+                font-size: 0.74rem;
+                line-height: 1.5;
+                color: var(--text-color);
+                font-weight: 600;
             }
             .p2s-phase-grid {
                 display: grid;
@@ -1030,69 +1165,158 @@
                 </div>
 
                 <div class="p2s-phase-grid">
-                    <!-- Phase 1 Card -->
                     <div class="p2s-phase-card">
-                        <div class="p2s-phase-icon"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></div>
-                        <div class="p2s-phase-num">Phase 01 — Research</div>
-                        <div class="p2s-phase-title">Strategic Benchmarking &amp; Competitive Analysis</div>
-                        <p class="p2s-phase-body">I conducted scenario-based testing and heuristic evaluations on <em>Scan &amp; Split Bill - OCR Check</em>, the leading market competitor. Three critical gaps emerged:</p>
-                        <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
-                            <li><strong style="color:var(--text-color);">The "Lost" State:</strong> Users felt confused after OCR with no clear next step.</li>
-                            <li><strong style="color:var(--text-color);">The Trust Gap:</strong> No AI transparency lowered user confidence in totals.</li>
-                            <li><strong style="color:var(--text-color);">UI Clutter:</strong> Overly busy interface and messy summary exports.</li>
-                        </ul>
-                        <div class="p2s-pivot-box" style="margin-top:14px;">
-                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Strategy</div>
-                            <p style="font-size:0.82rem;">Prioritized step-by-step progress indicators, a clean UI layout, and a side-by-side receipt review screen to build trust through direct data verification.</p>
+                        <div class="p2s-phase-head">
+                            <div class="p2s-phase-icon"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></div>
+                            <div class="p2s-phase-num">Phase 01 — Research</div>
+                            <div class="p2s-phase-title">Strategic Benchmarking</div>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-process">
+                            <span class="p2s-phase-zone-label">Process</span>
+                            <ul class="p2s-phase-items">
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-map-signs" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Users got lost after OCR</span>
+                                        <span class="p2s-phase-item-desc">No clear next step once the receipt was scanned</span>
+                                    </span>
+                                </li>
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-shield-halved" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Low trust in AI totals</span>
+                                        <span class="p2s-phase-item-desc">No way to verify extracted numbers against the receipt</span>
+                                    </span>
+                                </li>
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-table-cells-large" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Cluttered interface</span>
+                                        <span class="p2s-phase-item-desc">Busy layout and messy summary exports</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-result">
+                            <span class="p2s-phase-zone-label">Result</span>
+                            <p class="p2s-phase-result-text">Progress steps + side-by-side receipt review</p>
                         </div>
                     </div>
 
-                    <!-- Phase 2 Card -->
                     <div class="p2s-phase-card">
-                        <div class="p2s-phase-icon"><i class="fas fa-clipboard-list" aria-hidden="true"></i></div>
-                        <div class="p2s-phase-num">Phase 02 — User Testing</div>
-                        <div class="p2s-phase-title">User Testing &amp; Early Pain Points</div>
-                        <p class="p2s-phase-body">We ran scenario-based usability tests with participants splitting a standard dinner bill on the competitor app. The data set a clear performance baseline:</p>
-                        <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
-                            <li><strong style="color:var(--text-color);">High Session Times:</strong> Completion averaged <strong style="color:var(--text-color);">4:30–5:38 min</strong>.</li>
-                            <li><strong style="color:var(--text-color);">System Ambiguity:</strong> Tax/tip layout felt "unfinished and rough."</li>
-                            <li><strong style="color:var(--text-color);">OCR Friction:</strong> Misread entries were tedious; summary too messy to read.</li>
-                        </ul>
-                        <div class="p2s-pivot-box" style="margin-top:14px;">
-                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Target</div>
-                            <p style="font-size:0.82rem;">Pic2Split needed to completely eliminate layout confusion and dramatically lower session time — our target was under 2 minutes.</p>
+                        <div class="p2s-phase-head">
+                            <div class="p2s-phase-icon"><i class="fas fa-clipboard-check" aria-hidden="true"></i></div>
+                            <div class="p2s-phase-num">Phase 02 — User Testing</div>
+                            <div class="p2s-phase-title">Competitor Baseline</div>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-process">
+                            <span class="p2s-phase-zone-label">Process</span>
+                            <ul class="p2s-phase-items">
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-clock" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Slow to finish — 4:30–5:38 min</span>
+                                        <span class="p2s-phase-item-desc">Participants took too long to split a dinner bill</span>
+                                    </span>
+                                </li>
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-percent" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Tax and tip felt confusing</span>
+                                        <span class="p2s-phase-item-desc">Input screen looked unfinished and hard to follow</span>
+                                    </span>
+                                </li>
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-file-lines" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">OCR errors were painful to fix</span>
+                                        <span class="p2s-phase-item-desc">Final summary was hard to read and share</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-result">
+                            <span class="p2s-phase-zone-label">Result</span>
+                            <p class="p2s-phase-result-text">Target session under 2 minutes</p>
                         </div>
                     </div>
 
-                    <!-- Phase 3 Card -->
                     <div class="p2s-phase-card">
-                        <div class="p2s-phase-icon"><i class="fas fa-route" aria-hidden="true"></i></div>
-                        <div class="p2s-phase-num">Phase 03 — Interaction Design</div>
-                        <div class="p2s-phase-title">Iterating the Core Interactions</div>
-                        <p class="p2s-phase-body">Driven by competitor data, I collaborated with our product lead and engineers to build a single-page flow optimized around two critical structures:</p>
-                        <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
-                            <li><strong style="color:var(--text-color);">Google SSO:</strong> One-tap login removes onboarding friction and securely saves split history.</li>
-                            <li><strong style="color:var(--text-color);">Name-Tag Selection:</strong> Users tap a dish, select member name tags, and the app divides cost equally — no manual math.</li>
-                        </ul>
-                        <div class="p2s-pivot-box" style="margin-top:14px;">
-                            <div class="p2s-pivot-box-label"><i class="fas fa-arrow-right-arrow-left" style="margin-right:5px;" aria-hidden="true"></i>Before vs. After</div>
-                            <p style="font-size:0.82rem;"><strong style="color:var(--text-color);">Competitor:</strong> Scan → Complex Tax Inputs → Cluttered Summary (4–5 min)<br><strong style="color:var(--text-color);">Pic2Split:</strong> Google SSO → Side-by-Side OCR → Tap Name Tags (&lt;2 min)</p>
+                        <div class="p2s-phase-head">
+                            <div class="p2s-phase-icon"><i class="fas fa-route" aria-hidden="true"></i></div>
+                            <div class="p2s-phase-num">Phase 03 — Interaction Design</div>
+                            <div class="p2s-phase-title">Core Flow Iteration</div>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-process">
+                            <span class="p2s-phase-zone-label">Process</span>
+                            <ul class="p2s-phase-items">
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fab fa-google" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Google SSO login</span>
+                                        <span class="p2s-phase-item-desc">One tap to sign in and save split history</span>
+                                    </span>
+                                </li>
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-tags" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Name-tag item split</span>
+                                        <span class="p2s-phase-item-desc">Tap a dish, assign members — no manual math</span>
+                                    </span>
+                                </li>
+                            </ul>
+                            <div class="p2s-phase-compare">
+                                <div class="p2s-phase-compare-block">
+                                    <span class="p2s-phase-compare-label">Competitor flow</span>
+                                    <p class="p2s-phase-compare-text">Scan receipt → enter tax/tip → cluttered summary table</p>
+                                </div>
+                                <div class="p2s-phase-compare-block p2s-phase-compare-block--after">
+                                    <span class="p2s-phase-compare-label">Pic2Split flow</span>
+                                    <p class="p2s-phase-compare-text">Google login → verify OCR side-by-side → tap name tags to split</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-result">
+                            <span class="p2s-phase-zone-label">Result</span>
+                            <p class="p2s-phase-result-text">4–5 min → under 2 min</p>
                         </div>
                     </div>
 
-                    <!-- Phase 4 Card -->
                     <div class="p2s-phase-card">
-                        <div class="p2s-phase-icon"><i class="fas fa-pen-ruler" aria-hidden="true"></i></div>
-                        <div class="p2s-phase-num">Phase 04 — Wireframing</div>
-                        <div class="p2s-phase-title">Wireframing &amp; UI Architecture</div>
-                        <p class="p2s-phase-body">I mapped a comprehensive 23-screen wireframe spec covering every state — AI loading, validation errors, and empty states. Key layout implementations:</p>
-                        <ul style="margin:8px 0 0 16px; font-size:0.82rem; color:var(--secondary-text); line-height:1.8;">
-                            <li><strong style="color:var(--text-color);">"Pay by Same Person" Shortcut:</strong> Quick-action to claim multiple items consecutively.</li>
-                            <li><strong style="color:var(--text-color);">Side-by-Side Verification:</strong> AI-extracted text displayed alongside the receipt image, directly addressing the competitor trust gap.</li>
-                        </ul>
-                        <div class="p2s-pivot-box" style="margin-top:14px;">
-                            <div class="p2s-pivot-box-label"><i class="fas fa-lightbulb" style="margin-right:5px;" aria-hidden="true"></i>Design Decision</div>
-                            <p style="font-size:0.82rem;">Every structural decision — from Google SSO to name-tag splitting to side-by-side verification — was traced directly back to a specific pain point observed in competitor testing, ensuring each choice had measurable justification.</p>
+                        <div class="p2s-phase-head">
+                            <div class="p2s-phase-icon"><i class="fas fa-pen-ruler" aria-hidden="true"></i></div>
+                            <div class="p2s-phase-num">Phase 04 — Wireframing</div>
+                            <div class="p2s-phase-title">23-Screen Architecture</div>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-process">
+                            <span class="p2s-phase-zone-label">Process</span>
+                            <ul class="p2s-phase-items">
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-layer-group" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">23-screen wireframe spec</span>
+                                        <span class="p2s-phase-item-desc">Covers loading, errors, and empty states</span>
+                                    </span>
+                                </li>
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-bolt" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Same-person pay shortcut</span>
+                                        <span class="p2s-phase-item-desc">Claim multiple items for one person in one tap</span>
+                                    </span>
+                                </li>
+                                <li class="p2s-phase-item">
+                                    <span class="p2s-phase-item-icon"><i class="fas fa-columns" aria-hidden="true"></i></span>
+                                    <span class="p2s-phase-item-text">
+                                        <span class="p2s-phase-item-title">Side-by-side verification</span>
+                                        <span class="p2s-phase-item-desc">Receipt photo shown next to extracted line items</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p2s-phase-zone p2s-phase-result">
+                            <span class="p2s-phase-zone-label">Result</span>
+                            <p class="p2s-phase-result-text">Every screen tied to a tested pain point</p>
                         </div>
                     </div>
                 </div>
@@ -1103,11 +1327,11 @@
                     <figcaption class="case-caption p2s-caption">23-screen user flow — the complete path from login through receipt scan, item assignment, and share.</figcaption>
                 </figure>
 
-                <!-- Design system + wireframe -->
+                <!-- Style guide + wireframe -->
                 <div class="case-fig-grid-2 p2s-grid-2" style="align-items:start; gap:20px;">
                     <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
-                        <img src="assets/img/Pic2Split/design system.png" alt="Pic2Split design system — visual language, components, and interface consistency">
-                        <figcaption class="case-caption p2s-caption">Design system — visual language and component library behind the final experience.</figcaption>
+                        <img src="assets/img/Pic2Split/design system.png" alt="Pic2Split visual style guide — logo, color palette, and Inter typography">
+                        <figcaption class="case-caption p2s-caption">Visual style guide — logo, color palette, typography, and brand language for Pic2Split.</figcaption>
                     </figure>
                     <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                         <img src="assets/img/Pic2Split/wireframe.png" alt="Pic2Split low-fidelity wireframes showing the 23-screen specification">
