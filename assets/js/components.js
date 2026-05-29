@@ -333,7 +333,7 @@ const PortfolioApp = {
     },
 
     init: function(pageType) {
-        this.injectHead();
+        this.injectHead(pageType);
         this.buildLayout(pageType);
 
         const startApp = () => {
@@ -350,6 +350,11 @@ const PortfolioApp = {
                 CarouselLogic.init();
             }
             if (typeof CursorLogic !== 'undefined') CursorLogic.init();
+            const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
+            if (isCasePage) {
+                this.initCaseFigureZoom();
+                this.initCaseInfographic();
+            }
             if (pageType === 'home' && typeof filterProjects === 'function') {
                 filterProjects('all');
             }
@@ -363,12 +368,57 @@ const PortfolioApp = {
         startApp();
     },
 
-    injectHead: function() {
+    initCaseFigureZoom: function() {
+        const run = () => {
+            if (typeof CaseFigureZoom !== 'undefined') CaseFigureZoom.init();
+        };
+        if (typeof CaseFigureZoom !== 'undefined') {
+            run();
+            return;
+        }
+        const existing = document.querySelector('script[data-case-figure-zoom]');
+        if (existing) {
+            existing.addEventListener('load', run, { once: true });
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = 'assets/js/case-figure-zoom.js';
+        script.dataset.caseFigureZoom = '1';
+        script.onload = run;
+        document.body.appendChild(script);
+    },
+
+    initCaseInfographic: function() {
+        const run = () => {
+            if (typeof CaseInfographic !== 'undefined') CaseInfographic.init();
+        };
+        if (typeof CaseInfographic !== 'undefined') {
+            run();
+            return;
+        }
+        const existing = document.querySelector('script[data-case-infographic]');
+        if (existing) {
+            existing.addEventListener('load', run, { once: true });
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = 'assets/js/case-infographic.js';
+        script.dataset.caseInfographic = '1';
+        script.onload = run;
+        document.body.appendChild(script);
+    },
+
+    injectHead: function(pageType) {
         if(document.getElementById('app-styles')) return;
+        const isCasePage = pageType && pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
+        const caseInfographicCss = isCasePage
+            ? '<link rel="stylesheet" href="assets/css/case-infographic.css">'
+            : '';
         const headHTML = `
             <meta charset="UTF-8">
             <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            ${caseInfographicCss}
             <style id="app-styles">html.lenis { height: auto; } .lenis.lenis-smooth { scroll-behavior: auto; } .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; } .lenis.lenis-stopped { overflow: hidden; } </style>
         `;
         document.head.insertAdjacentHTML('beforeend', headHTML);

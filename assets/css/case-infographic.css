@@ -1,0 +1,157 @@
+/* === Case study motion infographics (shared) === */
+
+@keyframes caseMotionIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes caseIconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+.case-motion {
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.case-motion.is-visible {
+    animation: caseMotionIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.case-motion-stagger > .case-motion:nth-child(1) { animation-delay: 0ms; }
+.case-motion-stagger > .case-motion:nth-child(2) { animation-delay: 70ms; }
+.case-motion-stagger > .case-motion:nth-child(3) { animation-delay: 140ms; }
+.case-motion-stagger > .case-motion:nth-child(4) { animation-delay: 210ms; }
+.case-motion-stagger > .case-motion:nth-child(5) { animation-delay: 280ms; }
+.case-motion-stagger > .case-motion:nth-child(6) { animation-delay: 350ms; }
+
+/* Hide redundant intro when icon grid follows in same section */
+.case-info-intro-collapsed {
+    display: none !important;
+}
+
+/* Phase grids — motion only (no connector line) */
+.case-info-flow > * {
+    position: relative;
+}
+
+.case-info-flow-step .law-phase-num,
+.case-info-flow-step .mag-phase-num,
+.case-info-flow-step .uav-phase-num,
+.case-info-flow-step [class*="-phase-num"] {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.case-info-flow.is-visible .case-info-flow-step.is-visible .law-phase-num,
+.case-info-flow.is-visible .case-info-flow-step.is-visible .mag-phase-num,
+.case-info-flow.is-visible .case-info-flow-step.is-visible .uav-phase-num,
+.case-info-flow.is-visible .case-info-flow-step.is-visible [class*="-phase-num"] {
+    animation: caseIconPulse 0.6s ease 0.15s 1;
+}
+
+/* Icon cards — subtle hover + motion icon ring */
+.case-motion.case-problem-card [class*="-problem-icon"],
+.case-motion.case-problem-card .case-problem-icon-wrap,
+.case-motion .qb-finding-icon,
+.case-motion .qb-goal-icon,
+.case-motion .law-goal-icon,
+.case-motion .mag-goal-icon,
+.case-motion .uav-goal-icon,
+.case-motion .p2s-phase-icon {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.case-motion.is-visible.case-problem-card [class*="-problem-icon"],
+.case-motion.is-visible.case-problem-card .case-problem-icon-wrap,
+.case-motion.is-visible .qb-finding-icon,
+.case-motion.is-visible .qb-goal-icon,
+.case-motion.is-visible .law-goal-icon,
+.case-motion.is-visible .mag-goal-icon,
+.case-motion.is-visible .uav-goal-icon,
+.case-motion.is-visible .p2s-phase-icon {
+    animation: caseIconPulse 0.55s ease 0.2s 1;
+}
+
+/* Compact stat strip (auto-injected) */
+.case-info-stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 0 0 20px;
+    padding: 0;
+    list-style: none;
+}
+
+.case-info-stat-strip .case-motion {
+    margin: 0;
+}
+
+.case-info-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    border-top: 3px solid var(--accent-blue);
+}
+
+.case-info-stat-value {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+.case-info-stat-label {
+    font-size: 0.72rem;
+    line-height: 1.45;
+    color: var(--secondary-text);
+}
+
+/* Overview motion hero line */
+.case-info-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 12px;
+}
+
+.case-info-tagline::before {
+    content: "";
+    width: 24px;
+    height: 2px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s ease;
+}
+
+.case-info-tagline.is-visible::before {
+    transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .case-motion,
+    .case-motion.is-visible {
+        opacity: 1;
+        transform: none;
+        animation: none !important;
+    }
+    .case-info-tagline::before {
+        transform: scaleX(1);
+    }
+}
