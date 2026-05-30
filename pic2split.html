@@ -316,6 +316,9 @@
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 16px;
             }
+            .p2s-design-assets {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
             .p2s-problem-grid {
                 display: grid;
                 grid-template-columns: 1fr;
@@ -467,11 +470,18 @@
             .p2s-phone-frame {
                 width: min(320px, 100%);
                 margin-inline: auto;
-                padding: 8px;
-                box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
+                padding: 0;
+                border: none;
+                box-shadow: none;
+                background: transparent;
             }
             .p2s-phone-frame img,
-            .p2s-phone-frame video { width: 100%; border-radius: 8px; display: block; }
+            .p2s-phone-frame video {
+                width: 100%;
+                border-radius: 0;
+                display: block;
+                vertical-align: top;
+            }
 
             .p2s-quote-card { background: rgba(46, 204, 113, 0.05); border-left: 3px solid var(--accent-color); }
             .p2s-quote-card p { margin: 0; }
@@ -1038,6 +1048,7 @@
                 .p2s-overview-hero-video { min-height: 60vw; position: relative; }
                 .p2s-grid-2,
                 .p2s-grid-3,
+                .p2s-design-assets,
                 .p2s-grid-4,
                 .p2s-goal-grid,
                 .p2s-highlight-row,
@@ -1324,11 +1335,15 @@
                     <figcaption class="case-caption p2s-caption">23-screen user flow — the complete path from login through receipt scan, item assignment, and share.</figcaption>
                 </figure>
 
-                <!-- Style guide + wireframe -->
-                <div class="case-fig-grid-2 p2s-grid-2" style="align-items:start; gap:20px;">
+                <!-- Style guide, components + wireframe -->
+                <div class="case-fig-grid-2 p2s-grid-2 p2s-design-assets" style="align-items:start; gap:20px;">
                     <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                         <img src="assets/img/Pic2Split/design system.png" alt="Pic2Split visual style guide — logo, color palette, and Inter typography">
                         <figcaption class="case-caption p2s-caption">Visual style guide — logo, color palette, typography, and brand language for Pic2Split.</figcaption>
+                    </figure>
+                    <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
+                        <img src="assets/img/Pic2Split/components.png" alt="Pic2Split UI component library — buttons, inputs, tags, and reusable interface patterns">
+                        <figcaption class="case-caption p2s-caption">Component library — reusable buttons, inputs, tags, and interface patterns across the 23-screen flow.</figcaption>
                     </figure>
                     <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                         <img src="assets/img/Pic2Split/wireframe.png" alt="Pic2Split low-fidelity wireframes showing the 23-screen specification">
@@ -1370,31 +1385,59 @@
 
                 <div class="p2s-divider"></div>
 
-                <!-- Solution 02 + 03 — shared image -->
+                <!-- Solution 02 — OCR -->
                 <div class="case-fig-grid-2 p2s-grid-2" style="align-items:center;">
-                    <div class="p2s-stack">
-                        <div class="p2s-solution-copy">
-                            <span class="p2s-eyebrow">Solution 02</span>
-                            <h3>Instant OCR Side-by-Side Review</h3>
-                            <p>Users snap or upload a photo, and the AI extracts items, prices, tax, and tip instantly. The UI places this data alongside the receipt photo for quick confirmation.</p>
-                        </div>
-                        <div class="p2s-divider" style="margin:0;"></div>
-                        <div class="p2s-solution-copy">
-                            <span class="p2s-eyebrow">Solution 03</span>
-                            <h3>Tap-to-Split Multi-Selection</h3>
-                            <p>Tap an item, select the clean text tags showing the names of the members who shared it, and watch the app divide the cost dynamically and equally.</p>
-                        </div>
+                    <div class="p2s-solution-copy">
+                        <span class="p2s-eyebrow">Solution 02</span>
+                        <h3>Instant OCR Side-by-Side Review</h3>
+                        <p>Users snap or upload a photo, and the AI extracts items, prices, tax, and tip instantly. The UI places this data alongside the receipt photo for quick confirmation.</p>
                     </div>
                     <div>
                         <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/Assign Items-single receipt.png" alt="OCR side-by-side review and tap-to-split item assignment interface">
+                            <video
+                                src="assets/img/Pic2Split/Scan%20a%20receipt.mp4"
+                                autoplay
+                                muted
+                                playsinline
+                                loop
+                                preload="auto"
+                                poster="assets/img/Pic2Split/Assign%20Items-single%20receipt.png"
+                                data-autoplay-on-view
+                                aria-label="Screen recording of scanning a receipt with OCR side-by-side review">
+                            </video>
                         </div>
                     </div>
                 </div>
 
                 <div class="p2s-divider"></div>
 
-                <!-- Solution 04 + 05 — shared image -->
+                <!-- Solution 03 — Tap to split -->
+                <div class="case-fig-grid-2 p2s-grid-2" style="align-items:center;">
+                    <div class="p2s-solution-copy">
+                        <span class="p2s-eyebrow">Solution 03</span>
+                        <h3>Tap-to-Split Multi-Selection</h3>
+                        <p>Tap an item, select the clean text tags showing the names of the members who shared it, and watch the app divide the cost dynamically and equally.</p>
+                    </div>
+                    <div>
+                        <div class="p2s-phone-frame">
+                            <video
+                                src="assets/img/Pic2Split/assign%20item.mp4"
+                                autoplay
+                                muted
+                                playsinline
+                                loop
+                                preload="auto"
+                                poster="assets/img/Pic2Split/Assign%20Items-single%20receipt.png"
+                                data-autoplay-on-view
+                                aria-label="Screen recording of tap-to-split item assignment">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p2s-divider"></div>
+
+                <!-- Solution 04 + 05 — Tax/tip + sharing -->
                 <div class="case-fig-grid-2 p2s-grid-2" style="align-items:center;">
                     <div class="p2s-stack">
                         <div class="p2s-solution-copy">
@@ -1421,7 +1464,17 @@
                     </div>
                     <div>
                         <div class="p2s-phone-frame">
-                            <img src="assets/img/Pic2Split/Split details.png" alt="Split details screen showing proportional tax and tip distribution and shareable summary">
+                            <video
+                                src="assets/img/Pic2Split/share%20the%20result.mp4"
+                                autoplay
+                                muted
+                                playsinline
+                                loop
+                                preload="auto"
+                                poster="assets/img/Pic2Split/Split%20details.png"
+                                data-autoplay-on-view
+                                aria-label="Screen recording of split summary and web sharing flow">
+                            </video>
                         </div>
                     </div>
                 </div>

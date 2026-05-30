@@ -1597,13 +1597,17 @@ body.case-figure-zoom-open #scroll-container {
     border-radius: 8px;
     overflow: hidden;
     background: var(--bg-color);
-    padding: 16px;
+    padding: 0;
 }
 .case-section .case-fig-grid-2 .un-demo-frame img,
-.case-section .p2s-grid-2 .p2s-phone-frame img {
+.case-section .p2s-grid-2 .p2s-phone-frame img,
+.case-section .p2s-grid-2 .p2s-phone-frame video {
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
     padding: 0;
+    width: 100%;
+    display: block;
+    vertical-align: top;
 }
 
 @media (max-width: 1200px) {
