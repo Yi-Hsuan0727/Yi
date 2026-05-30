@@ -1157,6 +1157,11 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .case-section h2 { margin-bottom: 20px; font-size: 1.6rem; }
 .case-section h3 { margin-bottom: 12px; margin-top: 32px; }
+.case-section .case-phase-block-header h3,
+.case-section .case-phase-block-title {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .case-section p { line-height: 1.8; margin-bottom: 16px; }
 .case-section ul, .case-section ol { margin-left: 16px; margin-bottom: 16px; line-height: 1.65; }
 .case-section ul li { margin-bottom: 2px; }
@@ -1164,6 +1169,273 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-section ul li::marker { color: var(--accent-color); font-size: 1.4em; }
 .case-section ol li::marker { color: var(--accent-color); font-weight: 700; }
 .case-highlight-list li::marker { color: var(--accent-color); }
+
+/* Design process — result headline + supporting copy (all case studies) */
+.case-phase-result-head {
+    margin: 0 0 14px;
+    padding: 0 0 0 14px;
+    border-left: 3px solid var(--accent-blue);
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+}
+.case-phase-result-head strong {
+    color: var(--accent-blue);
+    font-weight: 800;
+}
+.case-phase-body {
+    font-size: 0.84rem;
+    line-height: 1.75;
+    color: var(--secondary-text);
+    margin: 0 0 12px;
+}
+.case-phase-emphasis {
+    margin: 12px 0 14px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.55;
+    color: var(--accent-blue);
+}
+.case-section .case-phase-body strong {
+    color: var(--text-color);
+    font-weight: 700;
+}
+
+/* Design process — bordered phase blocks (Pic2Split-style, all case studies) */
+.case-phase-pairs,
+.p2s-phase-pairs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+.case-phase-block,
+.p2s-phase-block {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-color);
+    overflow: hidden;
+}
+.case-phase-block-header,
+.p2s-phase-block-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 22px 28px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(180deg, rgba(74, 85, 224, 0.08) 0%, rgba(74, 85, 224, 0.02) 100%);
+}
+[data-theme="dark"] .case-phase-block-header,
+[data-theme="dark"] .p2s-phase-block-header {
+    background: linear-gradient(180deg, rgba(74, 85, 224, 0.16) 0%, rgba(74, 85, 224, 0.05) 100%);
+}
+.case-phase-kicker,
+.p2s-phase-block-header .p2s-phase-num {
+    display: block;
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+}
+.case-phase-block-title,
+.p2s-phase-block-title {
+    margin: 0;
+    font-size: 1.32rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+}
+.case-phase-block-inner,
+.p2s-phase-block-inner,
+.case-phase-split,
+.law-split,
+.mag-split,
+.wn-split,
+.lt-process-split,
+.lcm-phase-split,
+.qb-phase-split,
+.uav-phase-split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 28px;
+    padding: 18px 28px 28px;
+    align-items: stretch;
+    margin: 0;
+}
+.case-phase-block-inner > *,
+.p2s-phase-block-inner > *,
+.case-phase-split > *,
+.law-split > *,
+.mag-split > *,
+.wn-split > *,
+.lt-process-split > *,
+.lcm-phase-split > *,
+.qb-phase-split > *,
+.uav-phase-split > * {
+    min-width: 0;
+}
+.case-phase-block-copy,
+.p2s-phase-block-copy,
+.case-phase-split-copy,
+.law-split-copy,
+.mag-split-copy,
+.wn-split-copy,
+.lt-process-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    min-height: 100%;
+    align-self: stretch;
+}
+.case-phase-block-copy p,
+.p2s-phase-block-copy p {
+    margin: 0 0 12px;
+}
+.case-phase-block-copy > *:last-child,
+.p2s-phase-block-copy > *:last-child,
+.case-phase-split-copy > *:last-child,
+.law-split-copy > *:last-child,
+.mag-split-copy > *:last-child,
+.wn-split-copy > *:last-child,
+.lt-process-copy > *:last-child {
+    margin-bottom: 0;
+}
+.case-phase-block-media,
+.p2s-phase-block-media,
+.case-phase-split-media {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+}
+.case-phase-block-media .wn-figure-grid,
+.case-phase-split-media .wn-figure-grid,
+.case-phase-block-media .case-fig-grid-2,
+.case-phase-split-media .case-fig-grid-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.case-phase-block-media .un-persona-grid,
+.case-phase-split-media .un-persona-grid {
+    grid-template-columns: 1fr;
+}
+.case-phase-block-media .un-persona-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    align-items: start;
+    width: 100%;
+}
+.case-phase-block-media .un-persona-row .case-figure {
+    margin: 0;
+}
+.case-phase-block-media .un-persona-row img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.case-phase-block-inner--solo {
+    grid-template-columns: 1fr;
+}
+.case-phase-block-media .case-figure,
+.p2s-phase-block-media .case-figure,
+.case-phase-split-media .case-figure {
+    margin: 0;
+}
+.case-phase-split--reverse {
+    direction: rtl;
+}
+.case-phase-split--reverse > * {
+    direction: ltr;
+}
+
+/* Design process copy column — card groups stack vertically */
+.case-phase-block-copy .law-component-grid,
+.case-phase-block-copy .lt-pillar-grid,
+.case-phase-block-copy .uav-principle-grid,
+.case-phase-block-copy .un-insight-grid,
+.case-phase-block-copy .un-findings {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.case-phase-block-copy .law-component-card,
+.case-phase-block-copy .lt-pillar-card,
+.case-phase-block-copy .uav-principle-card,
+.case-phase-block-copy .uav-dashboard-card,
+.case-phase-block-copy .un-insight-card,
+.case-phase-block-copy .law-demo-block,
+.case-phase-block-copy .qb-pivot,
+.case-phase-block-copy .lcm-pivot,
+.case-phase-block-copy .lt-callout {
+    width: 100%;
+    box-sizing: border-box;
+}
+.case-phase-block-copy .law-nav-row,
+.case-phase-block-copy .mag-nav-row,
+.case-phase-block-copy .wn-color-swatches,
+.case-phase-block-copy .wn-tool-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+.case-phase-block-copy .law-nav-chip,
+.case-phase-block-copy .mag-nav-chip,
+.case-phase-block-copy .wn-tool-chip {
+    width: fit-content;
+    max-width: 100%;
+}
+.case-phase-block-copy .un-callout-row {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+.case-phase-block-copy .un-callout-cell {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+}
+.case-phase-block-copy .un-callout-cell:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 900px) {
+    .case-phase-block-inner,
+    .p2s-phase-block-inner,
+    .case-phase-split,
+    .case-phase-split--reverse,
+    .law-split,
+    .mag-split,
+    .wn-split,
+    .lt-process-split,
+    .lcm-phase-split,
+    .qb-phase-split,
+    .uav-phase-split {
+        grid-template-columns: 1fr;
+        direction: ltr;
+    }
+    .case-phase-block-media .un-persona-row {
+        grid-template-columns: 1fr;
+    }
+    .case-phase-block-copy,
+    .p2s-phase-block-copy,
+    .case-phase-split-copy,
+    .law-split-copy,
+    .mag-split-copy,
+    .wn-split-copy,
+    .lt-process-copy {
+        min-height: auto;
+        justify-content: flex-start;
+    }
+}
 
 
 /* UAV case study extras */

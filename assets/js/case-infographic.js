@@ -22,6 +22,7 @@ const CaseInfographic = {
         '.lcm-phase-card',
         '.p2s-phase-card',
         '.p2s-phase-block',
+        '.case-phase-block',
         '.p2s-goal-card',
         '.p2s-card',
         '.p2s-highlight-card',
@@ -53,6 +54,7 @@ const CaseInfographic = {
         '.p2s-goal-grid',
         '.p2s-phase-grid',
         '.p2s-phase-pairs',
+        '.case-phase-pairs',
         '.p2s-highlight-row',
         '.p2s-decision-grid',
         '.p2s-impact-grid'
@@ -85,7 +87,8 @@ const CaseInfographic = {
         '.p2s-grid-3',
         '.p2s-goal-grid',
         '.p2s-phase-grid',
-        '.p2s-phase-pairs'
+        '.p2s-phase-pairs',
+        '.case-phase-pairs'
     ].join(','),
 
     init() {

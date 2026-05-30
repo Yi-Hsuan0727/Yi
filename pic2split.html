@@ -986,21 +986,24 @@
                 overflow: hidden;
             }
             .p2s-phase-block-header {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
                 padding: 22px 28px 20px;
                 border-bottom: 1px solid var(--border-color);
-                background: linear-gradient(180deg, rgba(46, 204, 113, 0.1) 0%, rgba(46, 204, 113, 0.03) 100%);
+                background: linear-gradient(180deg, rgba(74, 85, 224, 0.08) 0%, rgba(74, 85, 224, 0.02) 100%);
             }
             [data-theme="dark"] .p2s-phase-block-header {
-                background: linear-gradient(180deg, rgba(46, 204, 113, 0.14) 0%, rgba(46, 204, 113, 0.05) 100%);
+                background: linear-gradient(180deg, rgba(74, 85, 224, 0.16) 0%, rgba(74, 85, 224, 0.05) 100%);
             }
             .p2s-phase-block-header .p2s-phase-num {
                 display: block;
-                margin-bottom: 4px;
+                margin: 0;
                 font-size: 0.72rem;
                 font-weight: 700;
                 letter-spacing: 0.16em;
                 text-transform: uppercase;
-                color: var(--accent-color);
+                color: var(--accent-blue);
             }
             .p2s-phase-block-title {
                 margin: 0;
@@ -1019,24 +1022,68 @@
                 grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
                 gap: 28px;
                 padding: 18px 28px 28px;
-                align-items: start;
+                align-items: stretch;
             }
             .p2s-phase-block-inner > * { min-width: 0; }
+            .p2s-phase-block-copy {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                min-height: 100%;
+                align-self: stretch;
+            }
             .p2s-phase-block-copy p {
-                margin: 0 0 14px;
-                font-size: 0.92rem;
-                line-height: 1.75;
-                color: var(--secondary-text);
+                margin: 0 0 12px;
             }
             .p2s-phase-block-copy p:last-child {
                 margin-bottom: 0;
             }
-            .p2s-phase-block-outcome {
+            .p2s-phase-result-head,
+            .case-phase-result-head {
+                margin: 0 0 16px;
+                padding: 0 0 0 14px;
+                border-left: 3px solid var(--accent-blue);
+                font-size: 1.15rem;
+                font-weight: 800;
+                line-height: 1.35;
+                letter-spacing: -0.02em;
                 color: var(--text-color);
+            }
+            .p2s-phase-result-head strong,
+            .case-phase-result-head strong {
+                color: var(--accent-blue);
+                font-weight: 800;
+            }
+            .p2s-phase-lead {
+                margin: 0 0 14px;
+                padding: 0 0 0 14px;
+                border-left: 3px solid var(--accent-blue);
+                font-size: 1.1rem;
+                font-weight: 700;
+                font-style: italic;
+                line-height: 1.45;
+                color: var(--text-color);
+            }
+            .p2s-phase-body {
+                font-size: 0.84rem;
+                line-height: 1.75;
+                color: var(--secondary-text);
+            }
+            .p2s-phase-emphasis {
+                margin: 12px 0 14px;
+                font-size: 0.95rem;
+                font-weight: 600;
+                line-height: 1.55;
+                color: var(--accent-blue);
+            }
+            .p2s-phase-body strong {
+                color: var(--text-color);
+                font-weight: 700;
             }
             .p2s-phase-block-media {
                 display: flex;
                 flex-direction: column;
+                justify-content: center;
                 gap: 16px;
             }
             .p2s-phase-block-media .p2s-design-assets-row {
@@ -1044,6 +1091,10 @@
             }
             @media (max-width: 900px) {
                 .p2s-phase-block-inner { grid-template-columns: 1fr; }
+                .p2s-phase-block-copy {
+                    min-height: auto;
+                    justify-content: flex-start;
+                }
             }
             @media (max-width: 700px) {
                 .p2s-phase-grid { grid-template-columns: 1fr; }
@@ -1243,24 +1294,26 @@
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            The core challenge was taking a complex technical pipeline — Upload → AI Processing → Data Extraction → User Assignment → Tax/Tip Math → Share — and making it feel effortless. The work moved through four distinct phases, each driven by real data and critical design decisions.
+                            The pipeline is complex: upload, OCR, assignment, tax/tip math, share. The job was to make it feel effortless. Four phases — each grounded in research and testing.
                         </p>
                     </div>
                 </div>
 
-                <div class="p2s-phase-pairs">
+                <div class="case-phase-pairs p2s-phase-pairs">
 
-                    <article class="p2s-phase-block">
-                        <header class="p2s-phase-block-header">
-                            <div class="p2s-phase-num">Phase 01 — Research</div>
-                            <h3 class="p2s-phase-block-title">Strategic Benchmarking</h3>
+                    <article class="case-phase-block p2s-phase-block">
+                        <header class="case-phase-block-header p2s-phase-block-header">
+                            <div class="case-phase-kicker p2s-phase-num">Phase 01 — Research</div>
+                            <h3 class="case-phase-block-title p2s-phase-block-title">Strategic Benchmarking</h3>
                         </header>
-                        <div class="p2s-phase-block-inner">
-                            <div class="p2s-phase-block-copy">
-                                <p>I benchmarked leading bill-splitting apps and mapped the same friction points across competitors: users got lost immediately after OCR with no clear next step, distrusted AI-generated totals without a way to verify against the receipt, and struggled with cluttered layouts and messy summary exports.</p>
-                                <p class="p2s-phase-block-outcome"><strong>Outcome:</strong> Progress steps and side-by-side receipt review became non-negotiable requirements for Pic2Split.</p>
+                        <div class="case-phase-block-inner p2s-phase-block-inner">
+                            <div class="case-phase-block-copy p2s-phase-block-copy">
+                                <p class="case-phase-result-head p2s-phase-result-head">Progress steps and side-by-side review became must-haves.</p>
+                                <p class="p2s-phase-body">I tested five bill-splitting apps before designing a screen. One question drove it all: where does trust break?</p>
+                                <p class="p2s-phase-emphasis">Scan the receipt — then silence. No next step. No way to check the math against the photo.</p>
+                                <p class="p2s-phase-body">Exports felt like spreadsheets. Nobody wanted to share them at the table.</p>
                             </div>
-                            <div class="p2s-phase-block-media">
+                            <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                                     <img src="assets/img/Pic2Split/Table%20of%20competitive%20issues.jpg" alt="Table summarizing competitive issues found across bill-splitting apps">
                                     <figcaption class="case-caption p2s-caption">Competitive issue matrix — mapped friction points across existing bill-splitting tools.</figcaption>
@@ -1273,17 +1326,19 @@
                         </div>
                     </article>
 
-                    <article class="p2s-phase-block">
-                        <header class="p2s-phase-block-header">
-                            <div class="p2s-phase-num">Phase 02 — User Testing</div>
-                            <h3 class="p2s-phase-block-title">Competitor Baseline</h3>
+                    <article class="case-phase-block p2s-phase-block">
+                        <header class="case-phase-block-header p2s-phase-block-header">
+                            <div class="case-phase-kicker p2s-phase-num">Phase 02 — User Testing</div>
+                            <h3 class="case-phase-block-title p2s-phase-block-title">Competitor Baseline</h3>
                         </header>
-                        <div class="p2s-phase-block-inner">
-                            <div class="p2s-phase-block-copy">
-                                <p>I ran structured usability tests on competitor flows using realistic dinner-bill scenarios. Participants averaged 4:30–5:38 minutes to finish, tax and tip inputs felt confusing and unfinished, and fixing OCR errors took more effort than manual entry — with final summaries that were hard to read and share.</p>
-                                <p class="p2s-phase-block-outcome"><strong>Outcome:</strong> We set a product target of completing a full split in under 2 minutes.</p>
+                        <div class="case-phase-block-inner p2s-phase-block-inner">
+                            <div class="case-phase-block-copy p2s-phase-block-copy">
+                                <p class="case-phase-result-head p2s-phase-result-head">Split a bill in <strong>under 2 minutes</strong>.</p>
+                                <p class="p2s-phase-body">Competitor baseline: <strong>4:30–5:38 minutes</strong>. Real dinner bills. Every tap timed.</p>
+                                <p class="p2s-phase-emphasis">Tax and tip screens looked half-built. Fixing OCR took longer than typing the bill by hand.</p>
+                                <p class="p2s-phase-body">People hesitated to send the final summary to the group chat. That gap became our target.</p>
                             </div>
-                            <div class="p2s-phase-block-media">
+                            <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                                     <img src="assets/img/Pic2Split/usability%20test%20plan%20dashboard.jpg" alt="Usability test plan dashboard for competitor bill-splitting tasks">
                                     <figcaption class="case-caption p2s-caption">Usability test plan — task scenarios and success metrics for competitor baseline testing.</figcaption>
@@ -1296,17 +1351,19 @@
                         </div>
                     </article>
 
-                    <article class="p2s-phase-block">
-                        <header class="p2s-phase-block-header">
-                            <div class="p2s-phase-num">Phase 03 — Interaction Design</div>
-                            <h3 class="p2s-phase-block-title">Core Flow Iteration</h3>
+                    <article class="case-phase-block p2s-phase-block">
+                        <header class="case-phase-block-header p2s-phase-block-header">
+                            <div class="case-phase-kicker p2s-phase-num">Phase 03 — Interaction Design</div>
+                            <h3 class="case-phase-block-title p2s-phase-block-title">Core Flow Iteration</h3>
                         </header>
-                        <div class="p2s-phase-block-inner">
-                            <div class="p2s-phase-block-copy">
-                                <p>I redesigned the core journey around Google SSO for one-tap login and name-tag item assignment so groups could split without manual math. Where competitors forced scan → tax/tip entry → a cluttered summary table, Pic2Split routes users through login → side-by-side OCR verification → tap-to-assign name tags.</p>
-                                <p class="p2s-phase-block-outcome"><strong>Outcome:</strong> The redesigned flow cut expected session time from 4–5 minutes to under 2 minutes.</p>
+                        <div class="case-phase-block-inner p2s-phase-block-inner">
+                            <div class="case-phase-block-copy p2s-phase-block-copy">
+                                <p class="case-phase-result-head p2s-phase-result-head">Session time: <strong>4–5 min → under 2</strong>.</p>
+                                <p class="p2s-phase-body">Research gave us the “why.” Interaction design gave us the “how fast.”</p>
+                                <p class="p2s-phase-body"><strong>Google SSO</strong> — one tap, history saved. <strong>Name tags</strong> — tap a dish, tap who ate it.</p>
+                                <p class="p2s-phase-body">Competitors: scan → messy tax/tip → a wall of numbers. Pic2Split: login → verify OCR → split with recognizable tags.</p>
                             </div>
-                            <div class="p2s-phase-block-media">
+                            <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                                     <img src="assets/img/Pic2Split/pic2split-userflow.jpg" alt="Pic2Split 23-screen user flow diagram showing the complete design process flow">
                                     <figcaption class="case-caption p2s-caption">23-screen user flow — login through receipt scan, item assignment, and share.</figcaption>
@@ -1315,17 +1372,19 @@
                         </div>
                     </article>
 
-                    <article class="p2s-phase-block">
-                        <header class="p2s-phase-block-header">
-                            <div class="p2s-phase-num">Phase 04 — Wireframing</div>
-                            <h3 class="p2s-phase-block-title">23-Screen Architecture</h3>
+                    <article class="case-phase-block p2s-phase-block">
+                        <header class="case-phase-block-header p2s-phase-block-header">
+                            <div class="case-phase-kicker p2s-phase-num">Phase 04 — Wireframing</div>
+                            <h3 class="case-phase-block-title p2s-phase-block-title">23-Screen Architecture</h3>
                         </header>
-                        <div class="p2s-phase-block-inner">
-                            <div class="p2s-phase-block-copy">
-                                <p>I translated research into a 23-screen wireframe spec covering loading, error, and empty states — including a same-person pay shortcut and side-by-side receipt verification on every critical step. Visual design followed with a style guide and reusable component library applied across the full flow.</p>
-                                <p class="p2s-phase-block-outcome"><strong>Outcome:</strong> Every screen tied back to a tested pain point from research and usability testing.</p>
+                        <div class="case-phase-block-inner p2s-phase-block-inner">
+                            <div class="case-phase-block-copy p2s-phase-block-copy">
+                                <p class="case-phase-result-head p2s-phase-result-head">Every screen earned its place — nothing decorative, nothing orphaned.</p>
+                                <p class="p2s-phase-body"><strong>23 wireframes.</strong> Happy paths, errors, empty states. Same-person pay shortcut. Side-by-side verification on every money step.</p>
+                                <p class="p2s-phase-emphasis">Style guide and components next — so engineering never had to guess spacing or patterns.</p>
+                                <p class="p2s-phase-body">Every insight from research became a screen in the spec.</p>
                             </div>
-                            <div class="p2s-phase-block-media">
+                            <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                                     <img src="assets/img/Pic2Split/wireframe.png" alt="Pic2Split low-fidelity wireframes showing the 23-screen specification">
                                     <figcaption class="case-caption p2s-caption">Low-fidelity wireframes — the 23-screen specification before visual polish.</figcaption>
