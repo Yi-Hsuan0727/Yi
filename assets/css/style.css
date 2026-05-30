@@ -1116,14 +1116,37 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-section-inner { max-width: 900px; margin: 0 auto; }
 /* Subtitle + title header (small grey label above large bold title) */
 .case-section-header { margin-bottom: 28px; }
-.case-section-label {
+.case-section-label,
+.case-section .p2s-section-number,
+.case-section .law-header > .law-label,
+.case-section .law-2col-header .law-header > .law-label,
+.case-section .uav-header > .uav-label,
+.case-section .uav-2col-header .uav-header > .uav-label,
+.case-section .qb-header-block > .qb-label,
+.case-section .qb-2col-header > div:first-child > .qb-label,
+.case-section .lt-header > .lt-label,
+.case-section .lt-2col-header > div:first-child > .lt-label,
+.case-section .mag-header > .mag-label,
+.case-section .mag-2col-header > div:first-child > .mag-label,
+.case-section .lcm-2col-header > div:first-child > .lcm-label,
+.case-section .un-2col-header > div:first-child > .un-label,
+.case-section .wn-2col-header > div:first-child > .wn-label,
+.case-section .wn-header > .wn-label {
     display: block;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--secondary-text);
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 6px;
+    letter-spacing: 0.14em;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    padding: 2px 0 2px 12px;
+    border-left: 3px solid var(--accent-color);
+    line-height: 1.4;
+}
+.case-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
 }
 .case-section-title {
     font-size: 1.75rem;
@@ -1259,12 +1282,25 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .callout-badge i { color: var(--accent-color); }
 
-/* Problem sections: gray section label, red title */
+/* Problem sections: muted label, red accent bar + title */
 .case-section--problem .case-section-label,
-.case-section--problem .qb-label,
-.case-section--problem .lcm-label,
-.case-section--problem .p2s-section-number {
-    color: var(--secondary-text);
+.case-section--problem .p2s-section-number,
+.case-section--problem .law-header > .law-label,
+.case-section--problem .law-2col-header .law-header > .law-label,
+.case-section--problem .uav-header > .uav-label,
+.case-section--problem .uav-2col-header .uav-header > .uav-label,
+.case-section--problem .qb-header-block > .qb-label,
+.case-section--problem .qb-2col-header > div:first-child > .qb-label,
+.case-section--problem .lt-header > .lt-label,
+.case-section--problem .lt-2col-header > div:first-child > .lt-label,
+.case-section--problem .mag-header > .mag-label,
+.case-section--problem .mag-2col-header > div:first-child > .mag-label,
+.case-section--problem .lcm-2col-header > div:first-child > .lcm-label,
+.case-section--problem .un-2col-header > div:first-child > .un-label,
+.case-section--problem .wn-2col-header > div:first-child > .wn-label,
+.case-section--problem .wn-header > .wn-label {
+    color: var(--text-color);
+    border-left-color: var(--problem-color);
 }
 .case-section--problem .case-section-title,
 .case-section--problem .qb-title,
