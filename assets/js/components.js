@@ -22,7 +22,8 @@ const PortfolioApp = {
             team: '2 Engineers, 1 Designer, 1 PM',
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',
             tools: 'Figma',
-            liveLink: null
+            liveLink: null,
+            featured: true
         },
         {
             id: 'unesco',
@@ -40,7 +41,8 @@ const PortfolioApp = {
             team: 'Solo',
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design',
             tools: 'Figma',
-            liveLink: '#'
+            liveLink: '#',
+            featured: true
         },
         {
             id: 'uav',
@@ -58,25 +60,8 @@ const PortfolioApp = {
             team: '4 Designers',
             role: 'Technician Interface design',
             tools: 'Figma',
-            liveLink: '#'
-        },
-        {
-            id: 'lawfare',
-            title: 'International Lawfare Website',
-            subtitle: 'Drupal-Based Legal Scholarship Hub',
-            desc: 'The program page for International Lawfare — introducing and sharing course details.',
-            demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
-            filterType: 'web',
-            audience: 'Public',
-            tags: ['UI Design', 'Front-End Development', 'Web Design'],
-            image: 'assets/img/main images/International Lawfare.png',
-            heroImage: 'assets/img/law/hero.png',
-            link: 'lawfare.html',
-            timeline: 'Jan 2026 – Feb 2026',
-            team: '1 Engineer, 1 Designer, 1 PM',
-            role: 'UI Design (Web layout, components), Building site on CMS under ASU Design System (Drupal)',
-            tools: 'Figma, Drupal, Illustrator, Photoshop, HTML/CSS',
-            liveLink: 'https://lawfare-asufactory1.acquia.asu.edu/'
+            liveLink: '#',
+            featured: true
         },
         {
             id: 'lcm',
@@ -94,7 +79,27 @@ const PortfolioApp = {
             team: '2 Engineers, 1 Designer, 1 PM',
             role: 'Product Designer & Full-Stack Developer',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
-            liveLink: 'http://lcm.tacp.gov.tw/'
+            liveLink: 'http://lcm.tacp.gov.tw/',
+            featured: true
+        },
+        {
+            id: 'lawfare',
+            title: 'International Lawfare Website',
+            subtitle: 'Drupal-Based Legal Scholarship Hub',
+            desc: 'The program page for International Lawfare — introducing and sharing course details.',
+            demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
+            filterType: 'web',
+            audience: 'Public',
+            tags: ['UI Design', 'Front-End Development', 'Web Design'],
+            image: 'assets/img/main images/International Lawfare.png',
+            heroImage: 'assets/img/law/hero.png',
+            link: 'lawfare.html',
+            timeline: 'Jan 2026 – Feb 2026',
+            team: '1 Engineer, 1 Designer, 1 PM',
+            role: 'UI Design (Web layout, components), Building site on CMS under ASU Design System (Drupal)',
+            tools: 'Figma, Drupal, Illustrator, Photoshop, HTML/CSS',
+            liveLink: 'https://lawfare-asufactory1.acquia.asu.edu/',
+            secondary: true
         },
         {
             id: 'lt',
@@ -112,7 +117,8 @@ const PortfolioApp = {
             team: '2 Designers',
             role: 'UX Research (survey, interview), Product Design (prototype), UI Design (components)',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
-            liveLink: null
+            liveLink: null,
+            secondary: true
         },
         {
             id: 'quickbite',
@@ -130,7 +136,8 @@ const PortfolioApp = {
             team: 'Solo',
             role: 'Product Designer & Full-Stack Developer',
             tools: 'Python, Streamlit, Anthropic Claude, USDA FoodData Central',
-            liveLink: null
+            liveLink: null,
+            secondary: true
         },
         {
             id: 'magnate',
@@ -148,7 +155,8 @@ const PortfolioApp = {
             team: '2 UI Designers, 3 Engineers, 1 PM, 1 Planner',
             role: 'UI Design (components, color), Front-end interaction and userflow design',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
-            liveLink: 'https://www.maicl.com/'
+            liveLink: 'https://www.maicl.com/',
+            secondary: true
         },
         {
             id: 'spring',
@@ -190,7 +198,8 @@ const PortfolioApp = {
     data: {
         home: {
             title: `<span class="hero-title-line">Product design<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Interaction<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Systems<span class="shape shape-square" aria-hidden="true"></span></span>`,
-            desc: "Hi! I'm Michelle Chen — a UX/UI designer with 3+ years of experience designing apps, platforms, and consumer-facing products.",
+            desc: '',
+            briefIntro: "Hi! I'm Michelle Chen — a UX/UI designer with 3+ years of experience designing apps, platforms, and consumer-facing products.",
             meta: ``
         },
         about: {
@@ -306,6 +315,29 @@ const PortfolioApp = {
         });
     },
 
+    getFeaturedProjects: function() {
+        return this.getHomeProjects().filter(function(p) { return p.featured; });
+    },
+
+    getSecondaryProjects: function() {
+        return this.getHomeProjects().filter(function(p) { return p.secondary; });
+    },
+
+    initHomeProjects: function() {
+        var grid = document.querySelector('.project-grid');
+        if (!grid) return;
+
+        var featured = this.getFeaturedProjects();
+        grid.innerHTML = featured.map(function(p) {
+            return LayoutComponents.buildFeaturedProjectCard(p);
+        }).join('');
+
+        var moreList = document.getElementById('projects-more-list');
+        if (moreList) {
+            moreList.innerHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
+        }
+    },
+
     /* Playground-only projects — never shown in "Next Projects" on case study pages */
     playgroundProjectIds: ['dailymoo', 'enchanter', 'stiffy', 'spring'],
 
@@ -337,6 +369,9 @@ const PortfolioApp = {
         this.buildLayout(pageType);
 
         const startApp = () => {
+            if (pageType === 'home') {
+                this.initHomeProjects();
+            }
             this.initEntryEffects(pageType);
 
             if (typeof AppLogic !== 'undefined') AppLogic.init();
@@ -346,17 +381,18 @@ const PortfolioApp = {
             if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
                 ContactFormLogic.init();
             }
-            if (pageType === 'about' && typeof CarouselLogic !== 'undefined') {
+            if (pageType === 'home' && typeof CarouselLogic !== 'undefined') {
                 CarouselLogic.init();
+            }
+            if (pageType === 'home') {
+                this.initHomeAboutNav();
             }
             if (typeof CursorLogic !== 'undefined') CursorLogic.init();
             const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
             if (isCasePage) {
                 this.initCaseFigureZoom();
                 this.initCaseInfographic();
-            }
-            if (pageType === 'home' && typeof filterProjects === 'function') {
-                filterProjects('all');
+                this.initCaseScrollSpy();
             }
         };
 
@@ -408,6 +444,28 @@ const PortfolioApp = {
         document.body.appendChild(script);
     },
 
+    initCaseScrollSpy: function() {
+        const run = () => {
+            if (typeof CaseScrollSpy !== 'undefined') {
+                setTimeout(() => CaseScrollSpy.init(), 120);
+            }
+        };
+        if (typeof CaseScrollSpy !== 'undefined') {
+            run();
+            return;
+        }
+        const existing = document.querySelector('script[data-case-scroll-spy]');
+        if (existing) {
+            existing.addEventListener('load', run, { once: true });
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = 'assets/js/case-scroll-spy.js';
+        script.dataset.caseScrollSpy = '1';
+        script.onload = run;
+        document.body.appendChild(script);
+    },
+
     injectHead: function(pageType) {
         if(document.getElementById('app-styles')) return;
         const isCasePage = pageType && pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
@@ -443,8 +501,9 @@ const PortfolioApp = {
                 ? `<div class="case-hero-img case-hero-video"><video src="${heroVideo}" autoplay muted playsinline loop preload="auto" poster="${heroImage}" style="width:100%;height:100%;object-fit:cover;"></video></div>`
                 : `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
+        const heroMetaHTML = (!isGridPage && projectMeta) ? LayoutComponents.buildCaseHeroMeta(projectMeta) : '';
         const footerHTML = LayoutComponents.buildFooter(pageType);
-        const finalContent = `${worksHeaderHTML} ${coverHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
+        const finalContent = `${worksHeaderHTML} ${coverHTML} ${heroMetaHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
 
         const aboutBackLinkHTML = pageType === 'about'
             ? `<a href="index.html" class="about-home-link about-home-link-mobile-only"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>`
@@ -483,8 +542,8 @@ const PortfolioApp = {
                 <div class="content-wrapper">
                     <aside class="sidebar">
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
-                        ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
+                        ${!isGridPage && projectMeta ? LayoutComponents.buildSidebarScrollSpy() : LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${isGridPage ? LayoutComponents.buildSidebarToolsMarquee() : ''}
                     </aside>
                         <div class="right-panel">
@@ -499,8 +558,43 @@ const PortfolioApp = {
         document.body.innerHTML = layoutHTML;
     },
 
+    scrollToHomeAbout: function() {
+        const el = document.getElementById('about');
+        if (!el) return;
+        const scroll = () => {
+            if (window.__lenis) {
+                window.__lenis.scrollTo(el, { offset: -16 });
+            } else {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        };
+        requestAnimationFrame(() => setTimeout(scroll, 120));
+    },
+
+    initHomeAboutNav: function() {
+        if (window.location.hash === '#about') {
+            this.scrollToHomeAbout();
+        }
+        document.querySelectorAll('a[href="#about"]').forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                history.pushState(null, '', '#about');
+                this.scrollToHomeAbout();
+            });
+        });
+    },
+
+    initSidebarMotion: function(pageType) {
+        if (pageType !== 'home' && pageType !== 'playground') return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) sidebar.classList.add('sidebar-motion');
+    },
+
     initEntryEffects: function(pageType) {
         const isGridPage = (pageType === 'home' || pageType === 'playground');
+
+        this.initSidebarMotion(pageType);
 
         // Monster: enter from very bottom on home, playground & about
         if (isGridPage || pageType === 'about') {
@@ -515,12 +609,12 @@ const PortfolioApp = {
 
         // Project cards: enter from bottom on grid pages
         if (isGridPage) {
-            const cards = document.querySelectorAll('.project-card');
+            const selector = pageType === 'home' ? '.project-grid .project-card' : '.project-card';
+            const cards = document.querySelectorAll(selector);
             cards.forEach((card, index) => {
                 card.classList.remove('project-enter');
                 const delay = 0.15 + index * 0.06;
                 card.style.animationDelay = `${delay}s`;
-                // Allow browser to apply delay before starting animation
                 requestAnimationFrame(() => {
                     card.classList.add('project-enter');
                 });

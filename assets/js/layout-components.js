@@ -21,7 +21,6 @@ const LayoutComponents = {
                 <a class="brand-logo" href="index.html" aria-label="Back to home">${logoSVG}</a>
                 <nav class="nav-menu">
                     <a href="index.html" class="nav-link home-btn ${pageType === 'home' ? 'active' : ''}">Home</a>
-                    <a href="about.html" class="nav-link ${pageType === 'about' ? 'active' : ''}">About</a>
                     <a href="playground.html" class="nav-link ${pageType === 'playground' ? 'active' : ''}">Playground</a>
                     <button class="theme-toggle" onclick="toggleTheme()" style="margin-left:20px;"><i class="fas fa-moon"></i></button>
                 </nav>
@@ -42,24 +41,41 @@ const LayoutComponents = {
                 return `<span class="sidebar-tag">${t}</span>`;
             }).join('');
         }
-        const introHTML = (!projectMeta && pageData.desc)
-            ? `<p class="sidebar-intro">${pageData.desc}</p>`
+        const introText = !projectMeta && (pageData.briefIntro || pageData.desc);
+        const introHTML = introText
+            ? `<p class="sidebar-intro">${introText}</p>`
             : '';
         const heroContent = `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
         html += heroContent;
         return html;
     },
 
-    /* --- Sidebar metadata: timeline, team, role (project pages only); subtitle & tags live in hero-text --- */
+    /* --- Sidebar scroll spy (project pages); timeline/team/role live under hero --- */
+    buildSidebarScrollSpy: function() {
+        return `
+            <nav class="sidebar-scroll-spy" aria-label="On this page">
+                <ul class="sidebar-scroll-spy-list"></ul>
+            </nav>`;
+    },
+
+    buildCaseHeroMeta: function(projectMeta) {
+        if (!projectMeta) return '';
+        const hasMeta = projectMeta.timeline || projectMeta.team || projectMeta.role;
+        if (!hasMeta) return '';
+        return `
+            <div class="case-hero-meta">
+                <div class="case-hero-meta-inner">
+                    ${projectMeta.timeline ? `<div class="case-hero-meta-item"><span class="case-hero-meta-label">Timeline</span><span class="case-hero-meta-value">${projectMeta.timeline}</span></div>` : ''}
+                    ${projectMeta.team ? `<div class="case-hero-meta-item"><span class="case-hero-meta-label">Team</span><span class="case-hero-meta-value">${projectMeta.team}</span></div>` : ''}
+                    ${projectMeta.role ? `<div class="case-hero-meta-item"><span class="case-hero-meta-label">My Role</span><span class="case-hero-meta-value">${projectMeta.role}</span></div>` : ''}
+                </div>
+            </div>`;
+    },
+
     buildSidebarMeta: function(pageType, projectMeta, pageData) {
         if (pageType === 'home') return '';
         if (!projectMeta) return '';
-        return `
-            <div class="sidebar-meta">
-                ${projectMeta.timeline ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Timeline</span><span class="sidebar-meta-value">${projectMeta.timeline}</span></div>` : ''}
-                ${projectMeta.team ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">Team</span><span class="sidebar-meta-value">${projectMeta.team}</span></div>` : ''}
-                ${projectMeta.role ? `<div class="sidebar-meta-item"><span class="sidebar-meta-label">My Role</span><span class="sidebar-meta-value">${projectMeta.role}</span></div>` : ''}
-            </div>`;
+        return this.buildSidebarScrollSpy();
     },
 
     buildSidebarBottom: function(pageType, pageData) {
@@ -140,19 +156,55 @@ const LayoutComponents = {
             </div>`;
     },
 
-    buildWorksHeader: function(pageType) {
-        if (pageType === 'home') {
-            return `
-                <div class="works-header" id="sticky-filter-bar">
-                    <span class="section-title">Work</span>
-                    <div class="filter-bar">
-                        <button class="filter-btn active" data-filter="all" onclick="filterProjects('all')">All</button>
-                        <button class="filter-btn" data-filter="apps" onclick="filterProjects('apps')">Apps &amp; Products</button>
-                        <button class="filter-btn" data-filter="web" onclick="filterProjects('web')">Websites &amp; Platforms</button>
-                    </div>
-                </div>`;
-        }
+    buildWorksHeader: function() {
         return '';
+    },
+
+    buildFeaturedProjectCard: function(project) {
+        const tagsHTML = typeof PortfolioApp !== 'undefined' && PortfolioApp.buildProjectOverlayTags
+            ? PortfolioApp.buildProjectOverlayTags(project)
+            : '';
+        const category = typeof PortfolioApp !== 'undefined'
+            ? PortfolioApp.getProjectFilterCategory(project)
+            : (project.filterType || 'web');
+        return `
+            <div class="project-card" data-category="${category}" onclick="window.location.href='${project.link}'">
+                <div class="image-container">
+                    <img src="${project.image}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;">
+                    <div class="project-overlay">
+                        <div class="project-overlay-title">${project.title}</div>
+                        <div class="project-overlay-subtitle">${project.subtitle}</div>
+                        <div class="project-overlay-tags">${tagsHTML}</div>
+                    </div>
+                </div>
+            </div>`;
+    },
+
+    buildMoreProjectsListItems: function(projects) {
+        if (!projects || !projects.length) return '';
+        return projects.map(function(p) {
+            const tags = (p.tags || []).slice(0, 3).map(function(t) {
+                return `<span class="projects-more-tag">${t}</span>`;
+            }).join('');
+            return `
+                <li class="projects-more-item">
+                    <a class="projects-more-link" href="${p.link}">
+                        <span class="projects-more-link-title">${p.title}</span>
+                        <span class="projects-more-link-sub">${p.subtitle}</span>
+                        ${tags ? `<span class="projects-more-link-tags">${tags}</span>` : ''}
+                    </a>
+                </li>`;
+        }).join('');
+    },
+
+    buildMoreProjectsSection: function(projects) {
+        const items = this.buildMoreProjectsListItems(projects);
+        if (!items) return '';
+        return `
+            <section class="projects-more" id="projects-more" aria-labelledby="projects-more-heading">
+                <h2 class="projects-more-title" id="projects-more-heading">More projects</h2>
+                <ul class="projects-more-list" id="projects-more-list">${items}</ul>
+            </section>`;
     },
 
     /* Mobile-only: visit live site + back to home above next projects (project pages) */
