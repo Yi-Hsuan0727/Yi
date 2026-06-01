@@ -2923,7 +2923,7 @@ body.case-figure-zoom-open #scroll-container {
     }
 
     .sidebar-scroll-spy {
-        margin-top: 24px;
+        display: none !important;
     }
 
     /* Mobile: show about back-to-home link */

@@ -27,6 +27,11 @@ const CaseScrollSpy = {
         const list = document.querySelector('.sidebar-scroll-spy-list');
         if (!nav || !list) return;
 
+        if (this.isMobile()) {
+            nav.hidden = true;
+            return;
+        }
+
         const sections = Array.from(document.querySelectorAll('.single-page-wrapper .case-section'));
         const items = [];
 
