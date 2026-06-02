@@ -244,7 +244,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     transform: scale(1.06);
 }
 [data-theme="dark"] .sidebar-tool-logo {
-    filter: none;
+    filter: brightness(0) invert(1);
     opacity: 0.92;
 }
 [data-theme="dark"] .sidebar-tool-item:hover .sidebar-tool-logo {
