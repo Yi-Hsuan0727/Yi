@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michelle Chen — Resume</title>
+    <meta name="description" content="Resume of Michelle Chen, UX/UI Designer, Web Designer, and Product Designer.">
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ── Design tokens (matches portfolio) ─────────────────── */
+        :root {
+            --bg: #ffffff;
+            --text: #111111;
+            --secondary: #555555;
+            --accent: #2ecc71;
+            --accent-blue: #4A55E0;
+            --accent-yellow: #E8E258;
+            --border: #e0e0e0;
+            --page-w: 210mm;
+            --page-h: 297mm;
+            --pad-x: 11mm;
+            --pad-y: 8mm;
+        }
+
+        /* ── Reset ──────────────────────────────────────────────── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f0f0f0;
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ── Tab bar (screen only) ──────────────────────────────── */
+        .tab-bar {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 20px 20px 0;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 7px 16px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: #fff;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+        .tab-btn.active {
+            border-color: var(--accent);
+            color: var(--text);
+            background: rgba(46,204,113,0.08);
+        }
+        .tab-btn:hover:not(.active) {
+            border-color: #bbb;
+            color: var(--text);
+        }
+        .spacer { flex: 1; }
+        .download-btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 7px 18px;
+            border: none;
+            border-radius: 20px;
+            background: var(--accent);
+            color: #000;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .download-btn:hover { opacity: 0.85; }
+
+        /* ── A4 paper container ─────────────────────────────────── */
+        .paper-wrap {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px 20px 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .resume-page {
+            width: var(--page-w);
+            min-height: var(--page-h);
+            background: #fff;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+            padding: var(--pad-y) var(--pad-x);
+            position: relative;
+        }
+
+        /* ── Header ─────────────────────────────────────────────── */
+        .r-header { border-bottom: 2px solid var(--accent); padding-bottom: 5px; margin-bottom: 6px; }
+        .r-name {
+            font-size: 22pt;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
+            color: var(--text);
+        }
+        .r-title-line {
+            font-size: 9.5pt;
+            font-weight: 600;
+            color: var(--accent-blue);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        .r-contact {
+            margin-top: 5px;
+            font-size: 7.8pt;
+            color: var(--secondary);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0 14px;
+        }
+        .r-contact a { color: var(--secondary); text-decoration: none; }
+        .r-contact a:hover { color: var(--accent-blue); }
+
+        /* ── Section ────────────────────────────────────────────── */
+        .r-section { margin-top: 10px; }
+        .r-section-title {
+            font-size: 7.5pt;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent-blue);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        /* ── Experience item ────────────────────────────────────── */
+        .r-exp-item { margin-bottom: 5px; }
+        .r-exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+        }
+        .r-exp-role { font-size: 9pt; font-weight: 700; color: var(--text); }
+        .r-exp-period { font-size: 7.5pt; color: var(--secondary); white-space: nowrap; flex-shrink: 0; }
+        .r-exp-org { font-size: 8pt; color: var(--secondary); font-weight: 500; margin-top: 1px; }
+        .r-exp-bullets { margin-top: 2px; padding-left: 12px; list-style: disc; }
+        .r-exp-bullets li {
+            font-size: 7.8pt;
+            color: var(--text);
+            line-height: 1.38;
+            margin-bottom: 0;
+        }
+
+        /* ── Two-column bottom ──────────────────────────────────── */
+        .r-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; margin-top: 6px; }
+
+        /* ── Skills ─────────────────────────────────────────────── */
+        .r-skill-group { margin-bottom: 3px; }
+        .r-skill-label { font-size: 7.5pt; font-weight: 700; color: var(--text); }
+        .r-skill-value { font-size: 7.8pt; color: var(--secondary); line-height: 1.38; }
+
+        /* ── Summary ────────────────────────────────────────────── */
+        .r-summary {
+            font-size: 7.5pt;
+            color: var(--secondary);
+            line-height: 1.5;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+        }
+
+        /* ── Education / Awards / Certs ─────────────────────────── */
+        .r-edu-item, .r-award-item, .r-cert-item { margin-bottom: 3px; }
+        .r-edu-degree { font-size: 8.5pt; font-weight: 700; color: var(--text); }
+        .r-edu-school { font-size: 7.8pt; color: var(--secondary); }
+        .r-edu-meta { font-size: 7.5pt; color: var(--secondary); }
+        .r-award-item, .r-cert-item { font-size: 7.8pt; color: var(--text); line-height: 1.38; }
+
+        /* ── Accent stripe (decorative) ─────────────────────────── */
+        .r-stripe {
+            position: absolute;
+            top: 0; right: 0;
+            width: 5mm;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--accent-blue) 60%, var(--accent-yellow) 100%);
+            border-radius: 0 0 0 0;
+        }
+
+
+        /* ── Hidden versions ────────────────────────────────────── */
+        .resume-version { display: none; }
+        .resume-version.active { display: block; }
+
+        /* ── Projects ───────────────────────────────────────────── */
+        .r-projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+        .r-project-card {
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 6px 8px;
+            position: relative;
+        }
+        .r-project-name {
+            font-size: 7.8pt;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .r-project-name a { color: inherit; text-decoration: none; }
+        .r-project-name a:hover { color: var(--accent-blue); text-decoration: underline; }
+        .r-project-sub { font-size: 7.3pt; color: var(--secondary); margin-top: 1px; line-height: 1.4; }
+        .r-project-desc { display: none; }
+        .r-project-tags { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 3px; }
+        .r-project-tag {
+            font-size: 6.5pt;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 3px;
+            background: rgba(74,85,224,0.08);
+            color: var(--accent-blue);
+            letter-spacing: 0.02em;
+        }
+
+        /* ── Print styles ───────────────────────────────────────── */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                background: #fff !important;
+                min-height: unset;
+            }
+            .tab-bar, .download-btn { display: none !important; }
+            .paper-wrap { padding: 0 !important; }
+            .resume-page {
+                box-shadow: none !important;
+                width: 210mm !important;
+                min-height: 297mm !important;
+                page-break-after: avoid;
+            }
+            /* Only print the active version */
+            .resume-version { display: none !important; }
+            .resume-version.active { display: block !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Tab bar ──────────────────────────────────────────────── -->
+<div class="tab-bar">
+    <button class="tab-btn active" data-tab="uxui">UX/UI Designer</button>
+    <button class="tab-btn" data-tab="web">Web Designer</button>
+    <button class="tab-btn" data-tab="product">Product Designer</button>
+    <!-- To add a new version: copy a tab-btn and a .resume-version block, give both a unique data-tab/id value -->
+    <div class="spacer"></div>
+    <button class="download-btn" onclick="window.print()">Download PDF</button>
+</div>
+
+<!-- ── Paper wrapper ─────────────────────────────────────────── -->
+<div class="paper-wrap">
+<div class="resume-page">
+    <div class="r-stripe"></div>
+
+    <!-- ════════════════════════════════════════════════════════
+         VERSION 1 — UX/UI Designer
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="resume-version active" id="tab-uxui">
+        <header class="r-header">
+            <div class="r-name">Michelle Chen</div>
+            <div class="r-title-line">UX/UI Designer · Human–Computer Interaction</div>
+            <div class="r-contact">
+                <span>Tempe, AZ</span>
+                <span>602-607-9725</span>
+                <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
+                <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
+                <a href="https://linkedin.com/in/mchen0727" target="_blank">linkedin.com/in/mchen0727</a>
+            </div>
+        </header>
+
+        <p class="r-summary">UX/UI designer with 3+ years of experience across web, mobile, and enterprise products. Specializes in user research, interaction design, and accessibility-first UI — from early discovery through shipped deliverable. M.S. candidate in HCI at ASU (GPA 4.0); proven track record of turning research insights into measurable UX improvements.</p>
+
+        <section class="r-section">
+            <div class="r-section-title">Experience</div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX/UI Designer</span>
+                    <span class="r-exp-period">Jun 2025 – May 2026</span>
+                </div>
+                <div class="r-exp-org">VisLab · Arizona State University, AZ</div>
+                <ul class="r-exp-bullets">
+                    <li>Planned and facilitated user research sessions and moderated usability tests; synthesized findings into actionable design iterations for 3+ client web projects</li>
+                    <li>Produced wireframes, interactive prototypes, and production-ready UI in Figma, adhering to ASU's design system and WCAG 2.1 AA accessibility standards</li>
+                    <li>Partnered with engineers and content teams to maintain design intent through development handoff in an agile sprint environment</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UI/UX Designer</span>
+                    <span class="r-exp-period">Oct 2023 – Sep 2024</span>
+                </div>
+                <div class="r-exp-org">M-think Technology · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Iterated on UI prototypes using analytics and moderated user feedback sessions, improving task success rates by 15%</li>
+                    <li>Bridged design and engineering by collaborating with developers and PMs to spec and deliver interface components across agile sprint cycles</li>
+                    <li>Reduced cross-platform UI defects by ~30% by embedding interface QA into the design review cycle across 6+ browsers and devices</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX/UI Designer &amp; Frontend Developer · Volunteer</span>
+                    <span class="r-exp-period">Mar 2023 – Sep 2023</span>
+                </div>
+                <div class="r-exp-org">Toastmasters International · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Conducted heuristic evaluation and content audit to uncover UX gaps; proposed and executed a full information architecture restructure</li>
+                    <li>Redesigned the site in Figma and implemented in HTML/CSS; improved mobile readability and reduced bounce rate by 20%</li>
+                    <li>Strengthened visual hierarchy and interactive components to better align with member task flows</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX/UI Designer</span>
+                    <span class="r-exp-period">May 2022 – Feb 2023</span>
+                </div>
+                <div class="r-exp-org">Self-employment · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Delivered end-to-end UX/UI for two client websites — research, IA, wireframes, prototypes, and final build — increasing client inquiries by 35%</li>
+                    <li>Ran 3–5 structured feedback cycles per project, translating stakeholder input into design revisions while keeping scope and timelines intact</li>
+                    <li>Applied on-page SEO and usability improvements that grew both sites' organic discoverability and user engagement</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">AI-Powered Social Bill-Splitting Web App</div>
+                    <div class="r-project-desc">End-to-end UX/UI — user interviews, flows, and validated high-fidelity prototype for an AI-powered bill splitter.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">UX Research</span><span class="r-project-tag">Prototyping</span><span class="r-project-tag">Web App</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="unesco.html" target="_blank">UNESCO Volunteer Recruitment</a></div>
+                    <div class="r-project-sub">UX Redesign for Clarity &amp; Conversion</div>
+                    <div class="r-project-desc">Heuristic evaluation and IA restructure to reduce volunteer sign-up drop-off and improve conversion.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">UX Research</span><span class="r-project-tag">IA</span><span class="r-project-tag">Web Redesign</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="uav.html" target="_blank">UAV Control System</a></div>
+                    <div class="r-project-sub">Agricultural Drone Technician Interface</div>
+                    <div class="r-project-desc">Simplified a complex multi-tool drone system into an accessible diagnostic UI to reduce operator fatigue.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">UI Design</span><span class="r-project-tag">Prototyping</span><span class="r-project-tag">Mobile App</span></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="r-two-col">
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Education</div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">M.S. in User Experience / HCI</div>
+                        <div class="r-edu-school">Arizona State University, Tempe, AZ</div>
+                        <div class="r-edu-meta">May 2026 · GPA 4.0/4.0</div>
+                    </div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">B.A. in Cultural Heritage Conservation</div>
+                        <div class="r-edu-school">National Yunlin University of Science &amp; Technology, Taiwan</div>
+                        <div class="r-edu-meta">Feb 2021 · GPA 3.75/4.0</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Awards</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge (ASU &amp; Endless Games and Learning Lab, 2025)</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside (2025)</div>
+                </section>
+            </div>
+
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Skills</div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">UX Research</div>
+                        <div class="r-skill-value">User Interviews, Heuristic Evaluation, Usability Testing, Affinity Mapping, Journey Mapping, Information Architecture</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">UI Design</div>
+                        <div class="r-skill-value">Wireframing, Prototyping, Interaction Design, Design Systems, WCAG 2.1 AA Accessibility</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Tools &amp; Web</div>
+                        <div class="r-skill-value">Figma, Adobe Illustrator, HTML5, CSS3, WordPress, Drupal, VS Code</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Certificates</div>
+                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
+                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
+                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
+                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                </section>
+            </div>
+        </div>
+    </div><!-- /tab-uxui -->
+
+
+    <!-- ════════════════════════════════════════════════════════
+         VERSION 2 — Web Designer
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="resume-version" id="tab-web">
+        <header class="r-header">
+            <div class="r-name">Michelle Chen</div>
+            <div class="r-title-line">Web Designer · Frontend Development · Responsive &amp; Accessible Design</div>
+            <div class="r-contact">
+                <span>Tempe, AZ</span>
+                <span>602-607-9725</span>
+                <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
+                <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
+                <a href="https://linkedin.com/in/mchen0727" target="_blank">linkedin.com/in/mchen0727</a>
+            </div>
+        </header>
+
+        <p class="r-summary">Web designer with 3+ years building responsive, accessible websites for corporate, nonprofit, and small-business clients. Fluent in HTML5, CSS3, WordPress, and Drupal — equally comfortable owning visual design in Figma and implementing it in production. Committed to pixel-accurate, cross-browser delivery and WCAG-compliant design.</p>
+
+        <section class="r-section">
+            <div class="r-section-title">Experience</div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX/UI Designer</span>
+                    <span class="r-exp-period">Jun 2025 – May 2026</span>
+                </div>
+                <div class="r-exp-org">VisLab · Arizona State University, AZ</div>
+                <ul class="r-exp-bullets">
+                    <li>Built and maintained responsive, WCAG 2.1 AA-compliant web pages for 3+ external clients using ASU's branded design system</li>
+                    <li>Designed production-ready UI in Figma and implemented in HTML/CSS — from initial concept to final handoff</li>
+                    <li>Collaborated with engineers and content teams to QA and refine front-end implementations before each release</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">Website Interface / UI Designer</span>
+                    <span class="r-exp-period">Oct 2023 – Sep 2024</span>
+                </div>
+                <div class="r-exp-org">M-think Technology · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Reduced cross-browser UI inconsistencies by ~30% through systematic compatibility testing across 6+ platforms (Chrome, Safari, Firefox, Edge, and mobile)</li>
+                    <li>Translated Figma design specs into pixel-accurate web components in close collaboration with the engineering team</li>
+                    <li>Improved task success rates by 15% by iterating on UI based on analytics data and structured user feedback</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">Web Designer &amp; Frontend Developer · Volunteer</span>
+                    <span class="r-exp-period">Mar 2023 – Sep 2023</span>
+                </div>
+                <div class="r-exp-org">Toastmasters International · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Redesigned organizational website from scratch in Figma, then built in HTML/CSS; cut bounce rate by 20%</li>
+                    <li>Implemented mobile-first responsive layouts with improved visual hierarchy for consistent cross-device readability</li>
+                    <li>Integrated interactive navigation and streamlined user flows to increase engagement and session depth</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">Web Designer</span>
+                    <span class="r-exp-period">May 2022 – Feb 2023</span>
+                </div>
+                <div class="r-exp-org">Self-employment · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Designed and built full websites end-to-end — visual design, HTML/CSS, and launch — for two clients, driving a 35% increase in inquiries</li>
+                    <li>Applied on-page SEO best practices (meta structure, image optimization, semantic HTML) to improve search visibility and organic reach</li>
+                    <li>Delivered within agreed timelines across 3–5 revision cycles; managed all client communication independently</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">WCAG AA Compliant Website for 30 Museums</div>
+                    <div class="r-project-desc">Responsive website system for 30 museums; passed all WCAG 2.1 AA government audits with zero failures.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">Accessibility</span><span class="r-project-tag">Front-End Dev</span><span class="r-project-tag">Responsive</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lawfare.html" target="_blank">International Lawfare Website</a></div>
+                    <div class="r-project-sub">Drupal-Based Legal Scholarship Hub</div>
+                    <div class="r-project-desc">Drupal platform balancing institutional branding with modern UX; built for content longevity and scalability.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">Drupal</span><span class="r-project-tag">Web Design</span><span class="r-project-tag">UI Design</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="magnate.html" target="_blank">Magnate Technology Website</a></div>
+                    <div class="r-project-sub">Corporate Website &amp; Digital Brand System</div>
+                    <div class="r-project-desc">Modular component system improving brand consistency and clarifying dense technical content for global visitors.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">Brand System</span><span class="r-project-tag">WordPress</span><span class="r-project-tag">UI Design</span></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="r-two-col">
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Education</div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">M.S. in User Experience / HCI</div>
+                        <div class="r-edu-school">Arizona State University, Tempe, AZ</div>
+                        <div class="r-edu-meta">May 2026 · GPA 4.0/4.0</div>
+                    </div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">B.A. in Cultural Heritage Conservation</div>
+                        <div class="r-edu-school">National Yunlin University of Science &amp; Technology, Taiwan</div>
+                        <div class="r-edu-meta">Feb 2021 · GPA 3.75/4.0</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Awards</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge (ASU &amp; Endless Games, 2025)</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside (2025)</div>
+                </section>
+            </div>
+
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Skills</div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Web Development</div>
+                        <div class="r-skill-value">HTML5, CSS3, Flexbox, CSS Grid, Responsive Design, Cross-browser Testing, WordPress, Drupal</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Visual Design</div>
+                        <div class="r-skill-value">UI Design, Typography, Layout, Visual Hierarchy, Figma, Adobe Illustrator</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Other</div>
+                        <div class="r-skill-value">On-page SEO, WCAG 2.1 AA Accessibility, Agile/Scrum, AI-assisted development tools</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Certificates</div>
+                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
+                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
+                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
+                </section>
+            </div>
+        </div>
+    </div><!-- /tab-web -->
+
+
+    <!-- ════════════════════════════════════════════════════════
+         VERSION 3 — Product Designer
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="resume-version" id="tab-product">
+        <header class="r-header">
+            <div class="r-name">Michelle Chen</div>
+            <div class="r-title-line">Product Designer · End-to-End Design · User Research &amp; Metrics</div>
+            <div class="r-contact">
+                <span>Tempe, AZ</span>
+                <span>602-607-9725</span>
+                <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
+                <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
+                <a href="https://linkedin.com/in/mchen0727" target="_blank">linkedin.com/in/mchen0727</a>
+            </div>
+        </header>
+
+        <p class="r-summary">Product designer with 3+ years owning the full design lifecycle — from user research and problem framing to shipped product — across web apps, mobile concepts, and enterprise platforms. Driven by measurable outcomes, fluent in cross-functional collaboration, and comfortable navigating ambiguity from discovery to delivery. M.S. in HCI at ASU (GPA 4.0).</p>
+
+        <section class="r-section">
+            <div class="r-section-title">Experience</div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX/UI Designer</span>
+                    <span class="r-exp-period">Jun 2025 – May 2026</span>
+                </div>
+                <div class="r-exp-org">VisLab · Arizona State University, AZ</div>
+                <ul class="r-exp-bullets">
+                    <li>Owned end-to-end design of web experiences — from stakeholder brief to shipped product — applying ASU's design system and WCAG 2.1 AA standards for 3+ client projects</li>
+                    <li>Ran user research and moderated usability tests to surface insights, validate design decisions, and drive iterative product improvements</li>
+                    <li>Collaborated with engineers, content strategists, and stakeholders to define scope, align on priorities, and ship on schedule</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UI/UX Designer</span>
+                    <span class="r-exp-period">Oct 2023 – Sep 2024</span>
+                </div>
+                <div class="r-exp-org">M-think Technology · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Established a data-informed iteration loop — synthesizing user analytics and feedback — driving a 15% improvement in task success rates</li>
+                    <li>Partnered with PMs and engineers to scope requirements, write design specs, and deliver components within agile sprint cadences</li>
+                    <li>Reduced interface defects by ~30% by embedding cross-platform QA into the design review process before handoff</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">Product / UX Designer · Volunteer</span>
+                    <span class="r-exp-period">Mar 2023 – Sep 2023</span>
+                </div>
+                <div class="r-exp-org">Toastmasters International · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Diagnosed UX failures through user interviews and a content audit; proposed and executed a full information architecture restructure to align with member needs</li>
+                    <li>Led redesign from research to launch using Figma and HTML/CSS, cutting bounce rate by 20%</li>
+                    <li>Redesigned navigation and interactive components to reduce friction in key member task flows</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">Product Designer · Client Projects</span>
+                    <span class="r-exp-period">May 2022 – Feb 2023</span>
+                </div>
+                <div class="r-exp-org">Self-employment · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Owned the complete product design lifecycle for two client websites — user research, IA, wireframes, prototypes, and delivery — increasing inquiries by 35%</li>
+                    <li>Navigated shifting requirements across 3–5 structured feedback cycles, adapting designs while keeping scope and timeline intact</li>
+                    <li>Applied SEO and UX improvements grounded in usability findings, measurably growing organic traffic and user engagement</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">End-to-End Social Bill-Splitting Web App</div>
+                    <div class="r-project-desc">Full product lifecycle — research to prototype — for an AI receipt splitter that eliminates group dining friction.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">Product Design</span><span class="r-project-tag">UX Research</span><span class="r-project-tag">Web App</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="quickbite.html" target="_blank">QuickBite</a></div>
+                    <div class="r-project-sub">AI Meal Planning Assistant</div>
+                    <div class="r-project-desc">Multi-modal AI product syncing inventory, shopping, and nutrition to eliminate meal-planning decision fatigue.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">Product Design</span><span class="r-project-tag">Web App</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lt.html" target="_blank">Longtan Walker Pace Counter</a></div>
+                    <div class="r-project-sub">Behavior-Driven Mobility App Concept</div>
+                    <div class="r-project-desc">Research-led concept app using activity data and positive reinforcement to build sustainable walking habits.</div>
+                    <div class="r-project-tags"><span class="r-project-tag">UX Research</span><span class="r-project-tag">Mobile App</span><span class="r-project-tag">Behavior Design</span></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="r-two-col">
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Education</div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">M.S. in User Experience / HCI</div>
+                        <div class="r-edu-school">Arizona State University, Tempe, AZ</div>
+                        <div class="r-edu-meta">May 2026 · GPA 4.0/4.0</div>
+                    </div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">B.A. in Cultural Heritage Conservation</div>
+                        <div class="r-edu-school">National Yunlin University of Science &amp; Technology, Taiwan</div>
+                        <div class="r-edu-meta">Feb 2021 · GPA 3.75/4.0</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Awards</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge (ASU &amp; Endless Games, 2025)</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside (2025)</div>
+                </section>
+            </div>
+
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Skills</div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Product Design</div>
+                        <div class="r-skill-value">End-to-End Design, Design Systems, Information Architecture, Journey Mapping, Metrics-Driven Iteration</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Research</div>
+                        <div class="r-skill-value">User Interviews, Usability Testing, Affinity Mapping, Heuristic Evaluation, Problem Framing</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Tools &amp; Collab</div>
+                        <div class="r-skill-value">Figma, Illustrator, HTML5/CSS3, Agile/Scrum, Stakeholder Management, AI-assisted tools</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Certificates</div>
+                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
+                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
+                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
+                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                </section>
+            </div>
+        </div>
+    </div><!-- /tab-product -->
+
+    <!--
+        ══════════════════════════════════════════════════════════
+        HOW TO ADD A NEW VERSION:
+        1. Add a new <button class="tab-btn" data-tab="your-id">Label</button> in the tab-bar above.
+        2. Copy any .resume-version block below, change its id to "tab-your-id".
+        3. Customize the content for that role — done!
+        ══════════════════════════════════════════════════════════
+    -->
+
+</div><!-- /resume-page -->
+</div><!-- /paper-wrap -->
+
+<script>
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab-btn');
+    const versions = document.querySelectorAll('.resume-version');
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const target = btn.dataset.tab;
+            tabs.forEach(b => b.classList.remove('active'));
+            versions.forEach(v => v.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + target).classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
