@@ -2316,6 +2316,7 @@ body.case-figure-zoom-open #scroll-container {
     display: flex;
     gap: 6px;
     flex-wrap: wrap;
+    margin-bottom: 10px;
 }
 .sidebar-tag {
     font-size: 0.75rem;
