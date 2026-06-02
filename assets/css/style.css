@@ -1064,9 +1064,10 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-hero-meta-item {
     min-width: 0;
     padding: 22px 32px;
+    border-right: none;
 }
 .case-hero-meta-item + .case-hero-meta-item {
-    border-left: 1px solid var(--border-color);
+    border-left: 0.5px solid var(--border-color);
 }
 .case-hero-meta-label {
     display: block;
