@@ -50,7 +50,7 @@ const LayoutComponents = {
         return html;
     },
 
-    /* --- Sidebar scroll spy (project pages); timeline/team/role live under hero --- */
+    /* --- Sidebar scroll spy (project pages); timeline/role live under hero --- */
     buildSidebarScrollSpy: function() {
         return `
             <nav class="sidebar-scroll-spy" aria-label="On this page">
@@ -60,14 +60,13 @@ const LayoutComponents = {
 
     buildCaseHeroMeta: function(projectMeta) {
         if (!projectMeta) return '';
-        const hasMeta = projectMeta.timeline || projectMeta.team || projectMeta.role;
+        const hasMeta = projectMeta.timeline || projectMeta.role;
         if (!hasMeta) return '';
         return `
             <div class="case-hero-meta">
                 <div class="case-hero-meta-inner">
-                    ${projectMeta.timeline ? `<div class="case-hero-meta-item"><span class="case-hero-meta-label">Timeline</span><span class="case-hero-meta-value">${projectMeta.timeline}</span></div>` : ''}
-                    ${projectMeta.team ? `<div class="case-hero-meta-item"><span class="case-hero-meta-label">Team</span><span class="case-hero-meta-value">${projectMeta.team}</span></div>` : ''}
-                    ${projectMeta.role ? `<div class="case-hero-meta-item"><span class="case-hero-meta-label">My Role</span><span class="case-hero-meta-value">${projectMeta.role}</span></div>` : ''}
+                    ${projectMeta.timeline ? `<div class="case-hero-meta-item case-hero-meta-item--timeline"><span class="case-hero-meta-label">Timeline</span><span class="case-hero-meta-value">${projectMeta.timeline}</span></div>` : ''}
+                    ${projectMeta.role ? `<div class="case-hero-meta-item case-hero-meta-item--role"><span class="case-hero-meta-label">My Role</span><span class="case-hero-meta-value">${projectMeta.role}</span></div>` : ''}
                 </div>
             </div>`;
     },

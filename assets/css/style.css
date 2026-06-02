@@ -1051,7 +1051,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-hero-meta-inner {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     gap: 0;
     border-top: 1px solid var(--border-color);
 }
@@ -1059,6 +1059,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     min-width: 0;
     padding: 22px 32px;
     border-right: none;
+}
+.case-hero-meta-item:only-child {
+    grid-column: 1 / -1;
 }
 .case-hero-meta-item + .case-hero-meta-item {
     border-left: 0.5px solid var(--border-color);
@@ -1130,7 +1133,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-section .mag-header > .mag-label,
 .case-section .mag-2col-header > div:first-child > .mag-label,
 .case-section .lcm-2col-header > div:first-child > .lcm-label,
-.case-section .un-2col-header > div:first-child > .un-label,
+.case-section .un-header > .un-label,
+.case-section .un-2col-header .un-label,
 .case-section .wn-2col-header > div:first-child > .wn-label,
 .case-section .wn-header > .wn-label {
     display: block;
@@ -1569,7 +1573,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .case-section--problem .mag-header > .mag-label,
 .case-section--problem .mag-2col-header > div:first-child > .mag-label,
 .case-section--problem .lcm-2col-header > div:first-child > .lcm-label,
-.case-section--problem .un-2col-header > div:first-child > .un-label,
+.case-section--problem .un-header > .un-label,
+.case-section--problem .un-2col-header .un-label,
 .case-section--problem .wn-2col-header > div:first-child > .wn-label,
 .case-section--problem .wn-header > .wn-label {
     color: var(--text-color);

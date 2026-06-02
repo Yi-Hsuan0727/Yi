@@ -77,7 +77,7 @@ const PortfolioApp = {
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
             team: '2 Engineers, 1 Designer, 1 PM',
-            role: 'Product Designer & Full-Stack Developer',
+            role: 'Product Designer & Front-End Developer',
             tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
             liveLink: 'http://lcm.tacp.gov.tw/',
             featured: true
@@ -134,7 +134,7 @@ const PortfolioApp = {
             link: 'quickbite.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: 'Solo',
-            role: 'Product Designer & Full-Stack Developer',
+            role: 'Product Designer & Front-End Developer',
             tools: 'Python, Streamlit, Anthropic Claude, USDA FoodData Central',
             liveLink: null,
             secondary: true
@@ -544,7 +544,7 @@ const PortfolioApp = {
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
                         ${!isGridPage && projectMeta ? LayoutComponents.buildSidebarScrollSpy() : LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
-                        ${isGridPage ? LayoutComponents.buildSidebarToolsMarquee() : ''}
+                        ${pageType === 'playground' ? LayoutComponents.buildSidebarToolsMarquee() : ''}
                     </aside>
                         <div class="right-panel">
                         <div class="scroll-area" id="scroll-container">
