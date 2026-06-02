@@ -24,6 +24,12 @@
     --footer-height: 50px;
 }
 
+/* Light theme: normalize gray borders to 0.5px site-wide */
+:root:not([data-theme="dark"]) *,
+body:not([data-theme="dark"]) * {
+    border-width: 0.5px;
+}
+
 [data-theme="dark"] {
     --bg-color: #121212;
     --text-color: #ffffff;
