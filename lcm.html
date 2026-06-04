@@ -56,28 +56,45 @@
     .lcm-overview-hero { padding: 0 !important; overflow: hidden; }
     .lcm-overview-inner {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
         width: 100%;
+        align-items: stretch;
     }
     .lcm-overview-text {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        gap: 16px;
         padding: 64px 48px;
     }
-    .lcm-overview-img {
-        background: var(--border-color);
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .lcm-overview-text > .lcm-label {
+        padding: 2px 0 2px 12px;
+        border-left: 3px solid var(--accent-color);
+        color: var(--text-color);
     }
-    .lcm-overview-img img {
+    .lcm-overview-media {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        overflow: hidden;
+        background: #fff;
+        margin: 0;
+        padding: 0 0 20px;
+    }
+    [data-theme="dark"] .lcm-overview-media { background: var(--bg-color); }
+    .lcm-overview-media video {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center top;
+        height: auto;
         display: block;
+        border: none !important;
+        outline: none;
+        box-shadow: none;
+        clip-path: inset(2px 0);
+    }
+    .lcm-overview-media .case-caption {
+        padding: 12px 24px 0;
+        margin: 0;
     }
 
     /* ─── CALLOUT PAIR ──────────────────────────── */
@@ -450,7 +467,7 @@
         .lcm-impact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
         .lcm-impact-cell:last-child { border-bottom: none; }
         .lcm-overview-inner { grid-template-columns: 1fr; }
-        .lcm-overview-img { min-height: 55vw; }
+        .lcm-overview-media { min-height: 55vw; }
         .lcm-section { padding-top: 60px; padding-bottom: 60px; }
     }
     @media (max-width: 600px) {
@@ -466,18 +483,31 @@
 </style>
 
 <!-- ══════════════ OVERVIEW ══════════════ -->
-<section class="case-section case-section-alt lcm-section">
-    <div class="lcm-inner">
-        <div style="display:flex; flex-direction:column; gap:12px;">
+<section class="case-section case-section-alt lcm-section lcm-overview-hero" id="section-overview">
+    <div class="lcm-overview-inner">
+        <div class="lcm-overview-text">
             <div class="lcm-label">Overview</div>
             <h2 class="lcm-title">A culturally responsive, fully accessible platform for 30 indigenous museums across Taiwan</h2>
             <p class="lcm-intro">
-                Commissioned by the Indigenous Peoples Cultural Development Center, our team rebuilt the unified web platform from the ground up — balancing strict WCAG 2.1 AA legal requirements with a design ecosystem that feels authentic to the communities it represents.
+                Commissioned by the Indigenous Peoples Cultural Development Center, our team rebuilt the unified web platform—balancing WCAG 2.1 AA requirements with design that reflects the communities it serves.
             </p>
             <p style="font-size:0.85rem; color:var(--secondary-text); line-height:1.8; margin:0;">
-                As a designer with a background in cultural heritage management, I led UX research, information architecture, front-end implementation, and accessibility compliance across the full project lifecycle.
+                I led UX research, information architecture, front-end implementation, and accessibility compliance across the full lifecycle.
             </p>
         </div>
+        <figure class="lcm-overview-media">
+            <video
+                src="assets/img/lcm/overview.mp4"
+                autoplay
+                muted
+                playsinline
+                loop
+                preload="auto"
+                poster="assets/img/lcm/home.png"
+                aria-label="Indigenous Cultural Museums platform overview walkthrough">
+            </video>
+            <figcaption class="case-caption lcm-caption">Live platform overview — narrative navigation and accessibility tooling across 30 museums.</figcaption>
+        </figure>
     </div>
 </section>
 

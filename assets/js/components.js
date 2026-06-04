@@ -74,6 +74,7 @@ const PortfolioApp = {
             tags: ['UI Design', 'Front-End Development', 'Accessibility'],
             image: 'assets/img/main images/indigenous Cultural Museums.png',
             heroImage: 'assets/img/lcm/hero.png',
+            heroVideo: 'assets/img/lcm/Icm.mp4',
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
             team: '2 Engineers, 1 Designer, 1 PM',

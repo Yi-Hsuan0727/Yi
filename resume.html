@@ -104,7 +104,7 @@
         }
 
         /* ── Header ─────────────────────────────────────────────── */
-        .r-header { border-bottom: 2px solid var(--accent); padding-bottom: 8px; margin-bottom: 10px; }
+        .r-header { border-bottom: 2px solid var(--accent); padding-bottom: 6px; margin-bottom: 8px; }
         .r-name {
             font-size: 22pt;
             font-weight: 700;
@@ -132,7 +132,7 @@
         .r-contact a:hover { color: var(--accent-blue); }
 
         /* ── Section ────────────────────────────────────────────── */
-        .r-section { margin-top: 11px; }
+        .r-section { margin-top: 5px; }
         .r-section-title {
             font-size: 7.5pt;
             font-weight: 700;
@@ -145,7 +145,7 @@
         }
 
         /* ── Experience item ────────────────────────────────────── */
-        .r-exp-item { margin-bottom: 7px; }
+        .r-exp-item { margin-bottom: 3px; }
         .r-exp-header {
             display: flex;
             justify-content: space-between;
@@ -159,29 +159,29 @@
         .r-exp-bullets li {
             font-size: 7.8pt;
             color: var(--text);
-            line-height: 1.55;
+            line-height: 1.42;
             margin-bottom: 0;
         }
 
         /* ── Two-column bottom ──────────────────────────────────── */
-        .r-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; margin-top: 14px; }
+        .r-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; margin-top: 7px; }
 
         /* ── Skills ─────────────────────────────────────────────── */
-        .r-skill-group { margin-bottom: 6px; }
+        .r-skill-group { margin-bottom: 4px; }
         .r-skill-label { font-size: 7.5pt; font-weight: 700; color: var(--text); }
-        .r-skill-value { font-size: 7.8pt; color: var(--secondary); line-height: 1.5; }
+        .r-skill-value { font-size: 7.8pt; color: var(--secondary); line-height: 1.4; }
 
         /* ── Summary ────────────────────────────────────────────── */
         .r-summary {
             font-size: 7.5pt;
             color: var(--secondary);
             line-height: 1.5;
-            margin-bottom: 5px;
-            padding-bottom: 5px;
+            margin-bottom: 4px;
+            padding-bottom: 4px;
         }
 
         /* ── Education / Awards / Certs ─────────────────────────── */
-        .r-edu-item, .r-award-item, .r-cert-item { margin-bottom: 6px; }
+        .r-edu-item, .r-award-item, .r-cert-item { margin-bottom: 4px; }
         .r-edu-degree { font-size: 8.5pt; font-weight: 700; color: var(--text); }
         .r-edu-school { font-size: 7.8pt; color: var(--secondary); }
         .r-edu-meta { font-size: 7.5pt; color: var(--secondary); }
@@ -261,6 +261,8 @@
     <button class="tab-btn active" data-tab="uxui">UX/UI Designer</button>
     <button class="tab-btn" data-tab="web">Web Designer</button>
     <button class="tab-btn" data-tab="product">Product Designer</button>
+    <button class="tab-btn" data-tab="ux">UX Designer</button>
+    <button class="tab-btn" data-tab="ui">UI Designer</button>
     <!-- To add a new version: copy a tab-btn and a .resume-version block, give both a unique data-tab/id value -->
     <div class="spacer"></div>
     <button class="download-btn" onclick="window.print()">Download PDF</button>
@@ -287,7 +289,7 @@
             </div>
         </header>
 
-        <p class="r-summary">UX/UI designer with 3+ years of experience across web, mobile, and enterprise products. Specializes in user research, interaction design, and accessibility-first UI — from early discovery through shipped deliverable. M.S. candidate in HCI at ASU (GPA 4.0); proven track record of turning research insights into measurable UX improvements.</p>
+        <p class="r-summary">UX/UI designer with 3+ years of experience across web, mobile, and enterprise products. Specializes in research-driven interaction design and accessibility-first UI — from early discovery through shipped deliverable. M.S. in User Experience/HCI from ASU (GPA 4.0).</p>
 
         <section class="r-section">
             <div class="r-section-title">Experience</div>
@@ -388,8 +390,9 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge (ASU &amp; Endless Games and Learning Lab, 2025)</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside (2025)</div>
+                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
                 </section>
             </div>
 
@@ -398,15 +401,15 @@
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
                         <div class="r-skill-label">UX Research</div>
-                        <div class="r-skill-value">User Interviews, Heuristic Evaluation, Usability Testing, Affinity Mapping, Journey Mapping, Information Architecture</div>
+                        <div class="r-skill-value">User Interviews, Usability Testing, Heuristic Eval, Affinity Mapping, IA</div>
                     </div>
                     <div class="r-skill-group">
                         <div class="r-skill-label">UI Design</div>
-                        <div class="r-skill-value">Wireframing, Prototyping, Interaction Design, Design Systems, WCAG 2.1 AA Accessibility</div>
+                        <div class="r-skill-value">Wireframing, Prototyping, Design Systems, WCAG 2.1 AA, AI Product Design</div>
                     </div>
                     <div class="r-skill-group">
-                        <div class="r-skill-label">Tools &amp; Web</div>
-                        <div class="r-skill-value">Figma, Adobe Illustrator, HTML5, CSS3, WordPress, Drupal, VS Code</div>
+                        <div class="r-skill-label">Tools &amp; AI</div>
+                        <div class="r-skill-value">Figma, Cursor, GitHub Copilot, Midjourney, Firefly, Prompt Engineering, HTML5/CSS3</div>
                     </div>
                 </section>
 
@@ -438,7 +441,7 @@
             </div>
         </header>
 
-        <p class="r-summary">Web designer with 3+ years building responsive, accessible websites for corporate, nonprofit, and small-business clients. Fluent in HTML5, CSS3, WordPress, and Drupal — equally comfortable owning visual design in Figma and implementing it in production. Committed to pixel-accurate, cross-browser delivery and WCAG-compliant design.</p>
+        <p class="r-summary">Web designer with 3+ years building responsive, WCAG-compliant websites for corporate, nonprofit, and small-business clients. Fluent in HTML5, CSS3, WordPress, and Drupal — equally comfortable owning visual design in Figma and implementing it in production.</p>
 
         <section class="r-section">
             <div class="r-section-title">Experience</div>
@@ -463,9 +466,8 @@
                 </div>
                 <div class="r-exp-org">M-think Technology · Taiwan</div>
                 <ul class="r-exp-bullets">
-                    <li>Reduced cross-browser UI inconsistencies by ~30% through systematic compatibility testing across 6+ platforms (Chrome, Safari, Firefox, Edge, and mobile)</li>
-                    <li>Translated Figma design specs into pixel-accurate web components in close collaboration with the engineering team</li>
-                    <li>Improved task success rates by 15% by iterating on UI based on analytics data and structured user feedback</li>
+                    <li>Reduced cross-browser UI inconsistencies by ~30% through compatibility testing across 6+ platforms (Chrome, Safari, Firefox, Edge, and mobile)</li>
+                    <li>Translated Figma specs into pixel-accurate web components; improved task success rates by 15% through analytics-driven UI iteration</li>
                 </ul>
             </div>
 
@@ -516,7 +518,7 @@
                     <div class="r-project-name"><a href="magnate.html" target="_blank">Magnate Technology Website</a></div>
                     <div class="r-project-sub">Corporate Website &amp; Digital Brand System</div>
                     <div class="r-project-desc">Modular component system improving brand consistency and clarifying dense technical content for global visitors.</div>
-                    <div class="r-project-tags"><span class="r-project-tag">Brand System</span><span class="r-project-tag">WordPress</span><span class="r-project-tag">UI Design</span></div>
+                    <div class="r-project-tags"><span class="r-project-tag">Brand System</span><span class="r-project-tag">UI Design</span><span class="r-project-tag">HTML/CSS</span></div>
                 </div>
             </div>
         </section>
@@ -539,8 +541,9 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge (ASU &amp; Endless Games, 2025)</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside (2025)</div>
+                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
                 </section>
             </div>
 
@@ -549,15 +552,15 @@
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
                         <div class="r-skill-label">Web Development</div>
-                        <div class="r-skill-value">HTML5, CSS3, Flexbox, CSS Grid, Responsive Design, Cross-browser Testing, WordPress, Drupal</div>
+                        <div class="r-skill-value">HTML5, CSS3, Flexbox, Grid, Responsive, WordPress, Drupal, Cross-browser</div>
                     </div>
                     <div class="r-skill-group">
                         <div class="r-skill-label">Visual Design</div>
-                        <div class="r-skill-value">UI Design, Typography, Layout, Visual Hierarchy, Figma, Adobe Illustrator</div>
+                        <div class="r-skill-value">UI Design, Typography, Figma, Illustrator, Midjourney, Firefly</div>
                     </div>
                     <div class="r-skill-group">
-                        <div class="r-skill-label">Other</div>
-                        <div class="r-skill-value">On-page SEO, WCAG 2.1 AA Accessibility, Agile/Scrum, AI-assisted development tools</div>
+                        <div class="r-skill-label">AI &amp; Other</div>
+                        <div class="r-skill-value">Cursor, GitHub Copilot, Prompt Engineering, SEO, WCAG 2.1 AA, Agile</div>
                     </div>
                 </section>
 
@@ -589,7 +592,7 @@
             </div>
         </header>
 
-        <p class="r-summary">Product designer with 3+ years owning the full design lifecycle — from user research and problem framing to shipped product — across web apps, mobile concepts, and enterprise platforms. Driven by measurable outcomes, fluent in cross-functional collaboration, and comfortable navigating ambiguity from discovery to delivery. M.S. in HCI at ASU (GPA 4.0).</p>
+        <p class="r-summary">Product designer with 3+ years owning the full design lifecycle — research, framing, prototyping, and delivery — across web apps, mobile, and enterprise platforms. Driven by measurable outcomes and fluent in cross-functional collaboration. M.S. in User Experience/HCI from ASU (GPA 4.0).</p>
 
         <section class="r-section">
             <div class="r-section-title">Experience</div>
@@ -690,8 +693,9 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge (ASU &amp; Endless Games, 2025)</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside (2025)</div>
+                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
                 </section>
             </div>
 
@@ -700,15 +704,15 @@
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
                         <div class="r-skill-label">Product Design</div>
-                        <div class="r-skill-value">End-to-End Design, Design Systems, Information Architecture, Journey Mapping, Metrics-Driven Iteration</div>
+                        <div class="r-skill-value">End-to-End Design, Design Systems, IA, Journey Mapping, AI Product Design</div>
                     </div>
                     <div class="r-skill-group">
                         <div class="r-skill-label">Research</div>
-                        <div class="r-skill-value">User Interviews, Usability Testing, Affinity Mapping, Heuristic Evaluation, Problem Framing</div>
+                        <div class="r-skill-value">User Interviews, Usability Testing, Heuristic Eval, Affinity Mapping</div>
                     </div>
                     <div class="r-skill-group">
-                        <div class="r-skill-label">Tools &amp; Collab</div>
-                        <div class="r-skill-value">Figma, Illustrator, HTML5/CSS3, Agile/Scrum, Stakeholder Management, AI-assisted tools</div>
+                        <div class="r-skill-label">Tools &amp; AI</div>
+                        <div class="r-skill-value">Figma, Cursor, GitHub Copilot, Midjourney, Firefly, Prompt Engineering</div>
                     </div>
                 </section>
 
@@ -722,6 +726,294 @@
             </div>
         </div>
     </div><!-- /tab-product -->
+
+    <!-- ════════════════════════════════════════════════════════
+         VERSION 4 — UX Designer
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="resume-version" id="tab-ux">
+        <header class="r-header">
+            <div class="r-name">Michelle Chen</div>
+            <div class="r-title-line">UX Designer · User Research · Information Architecture</div>
+            <div class="r-contact">
+                <span>Tempe, AZ</span>
+                <span>602-607-9725</span>
+                <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
+                <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
+                <a href="https://linkedin.com/in/mchen0727" target="_blank">linkedin.com/in/mchen0727</a>
+            </div>
+        </header>
+
+        <p class="r-summary">UX designer with 3+ years turning research into measurable experience improvements across web, mobile, and enterprise products. Fluent in the full research-to-delivery cycle — interviews, synthesis, IA, wireframes, and usability validation. M.S. in User Experience/HCI from ASU (GPA 4.0); IRB-certified.</p>
+
+        <section class="r-section">
+            <div class="r-section-title">Experience</div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX Designer</span>
+                    <span class="r-exp-period">Jun 2025 – May 2026</span>
+                </div>
+                <div class="r-exp-org">VisLab · Arizona State University, AZ</div>
+                <ul class="r-exp-bullets">
+                    <li>Moderated user interviews, think-aloud tests, and task analysis for 3+ client projects; synthesized findings into prioritized design recommendations</li>
+                    <li>Defined IA and user flows before prototyping, ensuring solutions addressed validated pain points; maintained design intent through handoff</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX / UI Designer</span>
+                    <span class="r-exp-period">Oct 2023 – Sep 2024</span>
+                </div>
+                <div class="r-exp-org">M-think Technology · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Built a user feedback loop via moderated sessions and analytics; iterated on UI to raise task success rates by 15%</li>
+                    <li>Ran cross-platform experience audits across 6+ browsers and devices, reducing interface failures by ~30%</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX Designer · Volunteer</span>
+                    <span class="r-exp-period">Mar 2023 – Sep 2023</span>
+                </div>
+                <div class="r-exp-org">Toastmasters International · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Heuristic evaluation and content audit to identify IA failures; restructured site architecture around member task flows and validated with usability testing</li>
+                    <li>Redesigned in Figma and HTML/CSS; reduced bounce rate by 20% and improved on-page engagement</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UX Designer · Freelance</span>
+                    <span class="r-exp-period">May 2022 – Feb 2023</span>
+                </div>
+                <div class="r-exp-org">Self-employment · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Owned full UX lifecycle for two clients — interviews, IA, wireframes, and usability validation — increasing inquiries by 35%</li>
+                    <li>Applied research findings to SEO and UX improvements across 3–5 feedback cycles, growing traffic and engagement</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">End-to-End UX · Social Bill-Splitting App</div>
+                    <div class="r-project-tags"><span class="r-project-tag">User Research</span><span class="r-project-tag">IA</span><span class="r-project-tag">Usability Testing</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="unesco.html" target="_blank">UNESCO Volunteer Recruitment</a></div>
+                    <div class="r-project-sub">Heuristic Evaluation &amp; IA Redesign</div>
+                    <div class="r-project-tags"><span class="r-project-tag">Heuristic Eval</span><span class="r-project-tag">Journey Map</span><span class="r-project-tag">IA</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lt.html" target="_blank">Longtan Walker Pace Counter</a></div>
+                    <div class="r-project-sub">Behavior-Driven Mobility App Research</div>
+                    <div class="r-project-tags"><span class="r-project-tag">Behavioral Research</span><span class="r-project-tag">Concept Design</span></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="r-two-col">
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Education</div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">M.S. in User Experience / HCI</div>
+                        <div class="r-edu-school">Arizona State University, Tempe, AZ</div>
+                        <div class="r-edu-meta">May 2026 · GPA 4.0/4.0</div>
+                    </div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">B.A. in Cultural Heritage Conservation</div>
+                        <div class="r-edu-school">National Yunlin University of Science &amp; Technology, Taiwan</div>
+                        <div class="r-edu-meta">Feb 2021 · GPA 3.75/4.0</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Awards</div>
+                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
+                </section>
+            </div>
+
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Skills</div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">UX Research</div>
+                        <div class="r-skill-value">User Interviews, Think-Aloud, Heuristic Eval, Affinity Mapping, Task Analysis</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">UX Design</div>
+                        <div class="r-skill-value">IA, Wireframing, Prototyping, Interaction Design, WCAG 2.1 AA, AI UX Design</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Tools &amp; AI</div>
+                        <div class="r-skill-value">Figma, Cursor, GitHub Copilot, Midjourney, Firefly, Prompt Engineering</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Certificates</div>
+                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
+                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
+                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
+                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                </section>
+            </div>
+        </div>
+    </div><!-- /tab-ux -->
+
+    <!-- ════════════════════════════════════════════════════════
+         VERSION 5 — UI Designer
+    ═══════════════════════════════════════════════════════════ -->
+    <div class="resume-version" id="tab-ui">
+        <header class="r-header">
+            <div class="r-name">Michelle Chen</div>
+            <div class="r-title-line">UI Designer · Visual Design · Design Systems · Interaction Design</div>
+            <div class="r-contact">
+                <span>Tempe, AZ</span>
+                <span>602-607-9725</span>
+                <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
+                <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
+                <a href="https://linkedin.com/in/mchen0727" target="_blank">linkedin.com/in/mchen0727</a>
+            </div>
+        </header>
+
+        <p class="r-summary">UI designer with 3+ years crafting polished, accessible interfaces across web and mobile — from component-level design to full design systems. Strong eye for visual hierarchy, typography, and interaction detail. M.S. in User Experience/HCI from ASU (GPA 4.0).</p>
+
+        <section class="r-section">
+            <div class="r-section-title">Experience</div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UI/UX Designer</span>
+                    <span class="r-exp-period">Jun 2025 – May 2026</span>
+                </div>
+                <div class="r-exp-org">VisLab · Arizona State University, AZ</div>
+                <ul class="r-exp-bullets">
+                    <li>Designed production-ready UI for 3+ client web projects in Figma, applying ASU's design system with strict visual consistency and WCAG 2.1 AA compliance</li>
+                    <li>Built reusable component libraries and defined spacing, color, and typography tokens to ensure brand coherence across deliverables</li>
+                    <li>Collaborated with developers on precise design handoff, redlines, and QA to ensure pixel-accurate implementation</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">Website Interface / UI Designer</span>
+                    <span class="r-exp-period">Oct 2023 – Sep 2024</span>
+                </div>
+                <div class="r-exp-org">M-think Technology · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Owned the visual UI layer across all products — prototyping in Figma, specifying interactions, and delivering dev-ready assets</li>
+                    <li>Improved interface task success rates by 15% through systematic visual refinements driven by user feedback and analytics</li>
+                    <li>Ensured cross-platform visual consistency across 6+ browsers and devices, reducing UI defects by ~30%</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UI Designer &amp; Frontend Developer · Volunteer</span>
+                    <span class="r-exp-period">Mar 2023 – Sep 2023</span>
+                </div>
+                <div class="r-exp-org">Toastmasters International · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Redesigned the organization's visual identity and UI in Figma; implemented in HTML/CSS, reducing bounce rate by 20%</li>
+                    <li>Strengthened visual hierarchy, mobile layout, and interactive components to improve readability and engagement</li>
+                </ul>
+            </div>
+
+            <div class="r-exp-item">
+                <div class="r-exp-header">
+                    <span class="r-exp-role">UI Designer · Freelance</span>
+                    <span class="r-exp-period">May 2022 – Feb 2023</span>
+                </div>
+                <div class="r-exp-org">Self-employment · Taiwan</div>
+                <ul class="r-exp-bullets">
+                    <li>Designed and built full visual UI for two client websites end-to-end — boosting client inquiries by 35%</li>
+                    <li>Managed design reviews across 3–5 feedback cycles; applied visual and usability refinements to increase engagement</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="uav.html" target="_blank">UAV Control System</a></div>
+                    <div class="r-project-sub">Agricultural Drone Technician Interface</div>
+                    <div class="r-project-tags"><span class="r-project-tag">UI Design</span><span class="r-project-tag">Design Systems</span><span class="r-project-tag">Prototyping</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">WCAG AA Compliant Website for 30 Museums</div>
+                    <div class="r-project-tags"><span class="r-project-tag">UI Design</span><span class="r-project-tag">Accessibility</span><span class="r-project-tag">Front-End Dev</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="magnate.html" target="_blank">Magnate Technology Website</a></div>
+                    <div class="r-project-sub">Corporate Website &amp; Digital Brand System</div>
+                    <div class="r-project-tags"><span class="r-project-tag">Brand System</span><span class="r-project-tag">UI Design</span><span class="r-project-tag">HTML/CSS</span></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="r-two-col">
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Education</div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">M.S. in User Experience / HCI</div>
+                        <div class="r-edu-school">Arizona State University, Tempe, AZ</div>
+                        <div class="r-edu-meta">May 2026 · GPA 4.0/4.0</div>
+                    </div>
+                    <div class="r-edu-item">
+                        <div class="r-edu-degree">B.A. in Cultural Heritage Conservation</div>
+                        <div class="r-edu-school">National Yunlin University of Science &amp; Technology, Taiwan</div>
+                        <div class="r-edu-meta">Feb 2021 · GPA 3.75/4.0</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Awards</div>
+                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
+                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
+                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
+                </section>
+            </div>
+
+            <div>
+                <section class="r-section">
+                    <div class="r-section-title">Skills</div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">UI Design</div>
+                        <div class="r-skill-value">Visual Design, Design Systems, Component Libraries, Typography, Interaction Design, WCAG 2.1 AA</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Prototyping</div>
+                        <div class="r-skill-value">Figma, High-Fidelity Prototyping, Design Handoff, Redlining, Responsive Design</div>
+                    </div>
+                    <div class="r-skill-group">
+                        <div class="r-skill-label">Tools &amp; AI</div>
+                        <div class="r-skill-value">Figma, Illustrator, Cursor, GitHub Copilot, Midjourney, Firefly, HTML5/CSS3</div>
+                    </div>
+                </section>
+
+                <section class="r-section">
+                    <div class="r-section-title">Certificates</div>
+                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
+                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
+                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
+                </section>
+            </div>
+        </div>
+    </div><!-- /tab-ui -->
 
     <!--
         ══════════════════════════════════════════════════════════
