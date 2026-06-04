@@ -1043,19 +1043,19 @@
                 color: var(--text-color);
                 margin-top: 10px;
             }
-            .p2s-phase-result-head,
-            .case-phase-result-head {
+            .p2s-phase-block-copy .p2s-phase-result-head,
+            .p2s-phase-block-copy .case-phase-result-head {
                 margin: 0 0 16px;
                 padding: 0 0 0 14px;
                 border-left: 3px solid var(--accent-blue);
                 font-size: 1.15rem;
                 font-weight: 800;
-                line-height: 1.2;
+                line-height: 1.1;
                 letter-spacing: -0.02em;
                 color: var(--text-color);
             }
-            .p2s-phase-result-head strong,
-            .case-phase-result-head strong {
+            .p2s-phase-block-copy .p2s-phase-result-head strong,
+            .p2s-phase-block-copy .case-phase-result-head strong {
                 color: var(--accent-blue);
                 font-weight: 800;
             }
@@ -1105,6 +1105,13 @@
                 .p2s-phase-grid { grid-template-columns: 1fr; }
             }
 
+            .p2s-phase-block-inner--with-chart {
+                grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            }
+            .p2s-research-chart--full {
+                grid-column: 1 / -1;
+                width: 100%;
+            }
             /* Research — timed baseline chart (replaces static research screenshots) */
             .p2s-research-chart {
                 border: 1px solid var(--border-color);
@@ -1131,6 +1138,9 @@
                 grid-template-columns: 88px 1fr 44px;
                 gap: 10px;
                 align-items: center;
+            }
+            .p2s-research-chart--full .p2s-chart-row {
+                grid-template-columns: minmax(96px, 120px) 1fr minmax(44px, 56px);
             }
             .p2s-chart-label {
                 font-size: 0.78rem;
@@ -1399,13 +1409,18 @@
                             <div class="case-phase-kicker p2s-phase-num">Phase 01 — Research &amp; Testing</div>
                             <h3 class="case-phase-block-title p2s-phase-block-title">Benchmarking &amp; Baseline</h3>
                         </header>
-                        <div class="case-phase-block-inner p2s-phase-block-inner">
+                        <div class="case-phase-block-inner p2s-phase-block-inner p2s-phase-block-inner--with-chart">
                             <div class="case-phase-block-copy p2s-phase-block-copy">
                                 <p class="case-phase-result-head p2s-phase-result-head">Target: <strong>under 2 minutes</strong>—with progress steps and receipt checks.</p>
                                 <p class="p2s-phase-body">Five competitor apps averaged <strong>4:30–5:38</strong> on real bills; trust broke after OCR, tax or tip UI was weak, and users rarely shared the final summary.</p>
                             </div>
                             <div class="case-phase-block-media p2s-phase-block-media">
-                                <div class="p2s-research-chart" role="img" aria-label="Bar chart comparing competitor split times from 4 minutes 30 seconds to 5 minutes 38 seconds against Pic2Split goal under 2 minutes">
+                                <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
+                                    <img src="assets/img/Pic2Split/Userflow%20of%20competitor_Scan%20%26%20Split%20Bill%20-%20OCR%20Check.jpg" alt="Competitor user flow for scan and split bill with OCR check">
+                                    <figcaption class="case-caption p2s-caption">Competitor flow — stall points after OCR and before share.</figcaption>
+                                </figure>
+                            </div>
+                            <div class="p2s-research-chart p2s-research-chart--full" role="img" aria-label="Bar chart comparing competitor split times from 4 minutes 30 seconds to 5 minutes 38 seconds against Pic2Split goal under 2 minutes">
                                     <p class="p2s-chart-title">Timed baseline — complete a real bill split</p>
                                     <div class="p2s-chart-bars">
                                         <div class="p2s-chart-row">
@@ -1439,11 +1454,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
-                                    <img src="assets/img/Pic2Split/Userflow%20of%20competitor_Scan%20%26%20Split%20Bill%20-%20OCR%20Check.jpg" alt="Competitor user flow for scan and split bill with OCR check">
-                                    <figcaption class="case-caption p2s-caption">Competitor flow — stall points after OCR and before share.</figcaption>
-                                </figure>
-                            </div>
                         </div>
                     </article>
 
