@@ -17,7 +17,7 @@ const CaseInfographic = {
         '.un-problem-card',
         '.lt-problem-card',
         '.lt-phase-card',
-        '.lcm-finding-item',
+        '.lcm-problem-card',
         '.lcm-goal-card',
         '.lcm-phase-card',
         '.p2s-phase-card',
@@ -48,7 +48,7 @@ const CaseInfographic = {
         '.uav-stat-row',
         '.un-problem-grid',
         '.lt-problem-grid',
-        '.lcm-findings',
+        '.lcm-problem-grid',
         '.lcm-goal-grid',
         '.p2s-grid-3',
         '.p2s-goal-grid',
@@ -82,7 +82,7 @@ const CaseInfographic = {
         '.uav-goal-grid',
         '.un-problem-grid',
         '.lt-problem-grid',
-        '.lcm-findings',
+        '.lcm-problem-grid',
         '.lcm-goal-grid',
         '.p2s-grid-3',
         '.p2s-goal-grid',
@@ -135,7 +135,8 @@ const CaseInfographic = {
 
     trimLongBodyBlocks() {
         const uavBody = document.querySelector('.uav-section.case-section--problem .uav-body');
-        if (uavBody && uavBody.textContent.length > 120) {
+        const uavHasStrip = document.querySelector('.uav-section.case-section--problem .case-info-stat-strip');
+        if (uavBody && !uavHasStrip && uavBody.textContent.length > 120) {
             const strip = document.createElement('ul');
             strip.className = 'case-info-stat-strip case-motion-stagger';
             strip.innerHTML = `

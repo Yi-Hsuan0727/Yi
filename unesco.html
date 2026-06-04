@@ -47,6 +47,10 @@
         line-height: 1.75;
         margin: 0;
     }
+    .un-overview-lead {
+        font-weight: 700;
+        color: var(--text-color);
+    }
     .un-body {
         font-size: 0.88rem;
         color: var(--secondary-text);
@@ -728,11 +732,8 @@
                 <div class="un-label">Introduction</div>
                 <h2 class="un-title">Overview</h2>
             </div>
-            <p class="un-intro">
-                UNESCO advances education and protects cultural heritage worldwide—yet many volunteers struggle to find opportunities on its site.
-            </p>
-            <p class="un-body">
-                This case study maps usability barriers and redesigns clearer paths to careers, volunteering, and student programs.
+            <p class="un-intro un-overview-lead">
+                <strong>UNESCO</strong> mobilizes global education and heritage work—this redesign shortens the path from interest to volunteer, intern, and career roles on the site.
             </p>
         </div>
         <div class="un-intro-demo-video">
@@ -743,7 +744,6 @@
                 playsinline
                 loop
                 preload="auto"
-                poster="assets/img/UNESCO/Home.png"
                 aria-label="UNESCO redesign prototype demo walkthrough">
             </video>
         </div>
@@ -986,17 +986,17 @@
     </div>
 </section>
 
-<!-- Key Solutions & Visual Demonstration -->
-<section class="case-section case-section-alt un-section">
+<!-- Key Solutions -->
+<section class="case-section case-section-alt un-section" id="section-04-key-solutions-visual-demonstration">
     <div class="un-inner">
         <div class="un-2col-header">
             <div class="un-header">
-                <div class="un-label">04 — Key Solutions &amp; Visual Demonstration</div>
-                <h2 class="un-title">Final high-fidelity redesign</h2>
+                <div class="un-label">04 — Key Solutions</div>
+                <h2 class="un-title">High-fidelity redesign</h2>
             </div>
             <div>
                 <p class="un-intro">
-                    The final designs address core usability issues while elevating the visual experience to match UNESCO&apos;s prestigious global brand.
+                    Homepage career search, clearer filters and views, scannable listings, and loading feedback—aligned to UNESCO&apos;s global brand.
                 </p>
             </div>
         </div>
@@ -1004,8 +1004,8 @@
         <div class="un-demo-grid-2">
             <div class="un-solution-copy">
                 <span class="un-eyebrow">Solution 01</span>
-                <h3>Centralized Career Search</h3>
-                <p>The career portal is now directly accessible from the homepage, featuring a streamlined search bar, application statistics, and job alerts.</p>
+                <h3>Career search on home</h3>
+                <p>Search, stats, and job alerts live on the homepage—not buried off-site.</p>
             </div>
             <figure class="case-figure case-figure-readable un-figure un-figure-white" style="margin:0;">
                 <video
@@ -1015,11 +1015,10 @@
                     playsinline
                     loop
                     preload="auto"
-                    poster="assets/img/UNESCO/Home.png"
                     data-autoplay-on-view
                     aria-label="Redesigned UNESCO Home Page with prominent search bar and clear calls-to-action">
                 </video>
-                <figcaption class="case-caption">Homepage redesign — career search surfaced at the top with clear calls-to-action.</figcaption>
+                <figcaption class="case-caption">Homepage — career search and calls-to-action up front.</figcaption>
             </figure>
         </div>
 
@@ -1027,21 +1026,21 @@
 
         <div class="un-solution-copy">
             <span class="un-eyebrow">Solution 02</span>
-            <h3>Advanced Filtering &amp; Views</h3>
-            <p>I improved career search filters to accurately categorize opportunities by role type. Users can toggle between Map View, List View, and Gallery View depending on their browsing preference.</p>
+            <h3>Filters &amp; views</h3>
+            <p>Filters match role types; users switch map, list, or gallery view.</p>
         </div>
         <div class="case-fig-grid-3 un-view-grid">
             <figure class="case-figure case-figure-readable un-figure un-figure-white">
                 <img src="assets/img/UNESCO/Career Page (Gallery View).png" alt="UNESCO Career Page Gallery View">
-                <figcaption class="case-caption">Gallery View — browse opportunities in a visual card layout.</figcaption>
+                <figcaption class="case-caption">Gallery view.</figcaption>
             </figure>
             <figure class="case-figure case-figure-readable un-figure un-figure-white">
                 <img src="assets/img/UNESCO/Career Page (List View).png" alt="UNESCO Career Page List View">
-                <figcaption class="case-caption">List View — scan roles in a compact, scannable list format.</figcaption>
+                <figcaption class="case-caption">List view.</figcaption>
             </figure>
             <figure class="case-figure case-figure-readable un-figure un-figure-white">
                 <img src="assets/img/UNESCO/Career Page (Map View).png" alt="UNESCO Career Page Map View">
-                <figcaption class="case-caption">Map View — explore localized opportunities by geography.</figcaption>
+                <figcaption class="case-caption">Map view.</figcaption>
             </figure>
         </div>
 
@@ -1049,12 +1048,9 @@
 
         <div class="un-demo-grid-2">
             <div class="un-solution-copy">
-                <span class="un-eyebrow">Solution 03</span>
-                <h3>Structured Job Listings</h3>
-                <p>Internship and volunteer pages clearly define responsibilities, required skills, and duration using a scannable, hierarchical format.</p>
-                <span class="un-eyebrow" style="margin-top:20px;">Solution 04</span>
-                <h3>Performance Feedback</h3>
-                <p>Implemented visual loading indicators to enhance the perception of site performance and reduce user drop-off.</p>
+                <span class="un-eyebrow">Solution 03 &amp; 04</span>
+                <h3>Listings &amp; performance</h3>
+                <p>Scannable role pages (skills, duration, duties) plus loading indicators so waits feel intentional.</p>
             </div>
             <figure class="case-figure case-figure-readable un-figure un-figure-white" style="margin:0;">
                 <video
@@ -1064,62 +1060,44 @@
                     playsinline
                     loop
                     preload="auto"
-                    poster="assets/img/UNESCO/Career%20inner%20page.png"
                     data-autoplay-on-view
                     aria-label="UNESCO structured inner job details page with scannable role information">
                 </video>
-                <figcaption class="case-caption">Inner job page — responsibilities, skills, and duration in a hierarchical, scannable layout.</figcaption>
+                <figcaption class="case-caption">Inner job page — scannable role details.</figcaption>
             </figure>
         </div>
     </div>
 </section>
 
-<!-- Reflection -->
-<section class="case-section un-section">
+<!-- Reflection & Impact -->
+<section class="case-section case-section-alt un-section" id="section-05-reflection">
     <div class="un-inner">
         <div class="un-header">
-            <div class="un-label">05 — Reflection</div>
-            <h2 class="un-title">Balancing scale with focused user needs</h2>
+            <div class="un-label">05 — Reflection &amp; Impact</div>
+            <h2 class="un-title">Clearer paths to participate</h2>
         </div>
-        <p class="un-body" style="color:var(--text-color);">
-            Designing for an organization as expansive as UNESCO required balancing vast amounts of information with the specific, focused needs of individual users.
+        <p class="un-body" style="color:var(--text-color); margin-bottom:24px;">
+            UNESCO&apos;s scale demands focus—persona-led IA and aligned filters turned a dense job board into paths that match how much time each user can give.
         </p>
-        <p class="un-body">
-            The most challenging aspect was resolving the overlapping filter categories on the original job board. By stepping back and analyzing the data through the lens of my personas—Aarav, Alex, and Li Wei—I was able to create a structured taxonomy that made sense for different levels of commitment.
-        </p>
-    </div>
-</section>
-
-<!-- Summary / Impact -->
-<section class="case-section case-section-alt un-section">
-    <div class="un-inner">
-        <div class="un-header">
-            <div class="un-label">06 — Summary / Impact</div>
-            <h2 class="un-title">Vision, problems solved, and goals achieved</h2>
-        </div>
 
         <div class="un-closing-group">
             <div class="un-impact-grid">
                 <div class="un-impact-cell">
                     <div class="un-impact-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
                     <p class="un-impact-title">Vision</p>
-                    <p class="un-impact-desc">To make volunteering and engagement with UNESCO accessible, clear, and inspiring.</p>
+                    <p class="un-impact-desc">Volunteering and engagement feel accessible, clear, and worth exploring.</p>
                 </div>
                 <div class="un-impact-cell">
                     <div class="un-impact-icon"><i class="fas fa-check-double" aria-hidden="true"></i></div>
-                    <p class="un-impact-title">Problems Solved</p>
-                    <p class="un-impact-desc">Eliminated navigation dead-ends, structured text-heavy job descriptions into scannable formats, and fixed redundant search filters.</p>
-                    </div>
+                    <p class="un-impact-title">Problems solved</p>
+                    <p class="un-impact-desc">Fewer dead-ends, scannable listings, and filters that match the job board.</p>
+                </div>
                 <div class="un-impact-cell">
                     <div class="un-impact-icon"><i class="fas fa-bullseye" aria-hidden="true"></i></div>
-                    <p class="un-impact-title">Goals Achieved</p>
-                    <p class="un-impact-desc">Delivered a streamlined, user-tested interface that guides students to entry-level roles, connects professionals with skill-based tasks, and helps advocates find long-term partnerships effortlessly.</p>
+                    <p class="un-impact-title">Goals achieved</p>
+                    <p class="un-impact-desc">Tested flows for students, skill-based roles, and long-term advocates.</p>
                 </div>
             </div>
-
-            <p class="un-body">
-                Ultimately, this project proves that making engagement opportunities easier to discover directly increases a user&apos;s willingness to participate and volunteer.
-            </p>
         </div>
     </div>
 </section>

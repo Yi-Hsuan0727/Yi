@@ -1084,6 +1084,23 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 
 /* --- Hero video variant --- */
 .case-hero-img.case-hero-video { background: #fff; padding: 0 20%; box-sizing: border-box; border: none !important; box-shadow: none !important; outline: none; }
+.case-hero-video video.case-video-pending,
+.case-section video.case-video-pending,
+.lcm-overview-media video.case-video-pending,
+.un-impact-hero-figure video.case-video-pending,
+.un-intro-demo-video video.case-video-pending,
+.p2s-overview-hero-video video.case-video-pending {
+    opacity: 0;
+}
+.case-hero-video video.case-video-ready,
+.case-section video.case-video-ready,
+.lcm-overview-media video.case-video-ready,
+.un-impact-hero-figure video.case-video-ready,
+.un-intro-demo-video video.case-video-ready,
+.p2s-overview-hero-video video.case-video-ready {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
 .case-hero-img.case-hero-video video { display: block; object-position: center 20%; border: none !important; box-shadow: none !important; outline: none; }
 
 /* --- Parallax banner --- */

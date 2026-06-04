@@ -88,6 +88,10 @@
     padding: 0;
     list-style: none;
 }
+.uav-section.case-section--problem .case-info-stat-strip {
+    margin-left: 0;
+    padding-left: 0;
+}
 
 .case-info-stat-strip .case-motion {
     margin: 0;

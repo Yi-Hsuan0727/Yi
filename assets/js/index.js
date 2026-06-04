@@ -10,8 +10,10 @@ const AppLogic = {
             this.initLenis();
             this.initScrollLogic();
             this.initProjectCardTransitions();
+            this.initCaseStudyVideos();
             // Cursor init is now handled by CursorLogic or Components.js
         }, 50);
+        window.addEventListener('load', () => this.initCaseStudyVideos());
     },
 
     // --- 1. THEME LOGIC ---
@@ -35,6 +37,38 @@ const AppLogic = {
         document.documentElement.setAttribute('data-theme', saved);
         // Delay icon update to ensure DOM is built
         setTimeout(() => self.updateThemeIcons(saved), 0);
+    },
+
+    /* Hide case-study videos until the first frame is ready (avoids poster/static image flash). */
+    initCaseStudyVideos: function() {
+        const videos = document.querySelectorAll('.single-page-wrapper video, .case-hero-video video');
+        videos.forEach((video) => {
+            if (video.dataset.videoInit === '1') return;
+            video.dataset.videoInit = '1';
+            video.classList.add('case-video-pending');
+
+            const reveal = () => {
+                video.classList.remove('case-video-pending');
+                video.classList.add('case-video-ready');
+                video.removeAttribute('poster');
+            };
+
+            if (video.readyState >= 2) {
+                reveal();
+            } else {
+                video.addEventListener('loadeddata', reveal, { once: true });
+                video.addEventListener('canplay', reveal, { once: true });
+            }
+
+            if (video.hasAttribute('autoplay') && !video.hasAttribute('data-autoplay-on-view')) {
+                video.muted = true;
+                video.setAttribute('playsinline', '');
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {});
+                }
+            }
+        });
     },
 
     // --- 2. SMOOTH SCROLL (LENIS) ---

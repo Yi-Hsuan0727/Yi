@@ -47,6 +47,13 @@
         line-height: 1.75;
         margin: 0;
     }
+    .uav-overview-lead {
+        font-weight: 700;
+        color: var(--text-color);
+    }
+    .uav-section .case-phase-result-head {
+        line-height: 1.2;
+    }
     .uav-body {
         font-size: 0.88rem;
         color: var(--secondary-text);
@@ -422,53 +429,42 @@
     }
 </style>
 
-<!-- Overview -->
-<section class="case-section case-section-alt uav-section">
+<!-- Context & Problem -->
+<section class="case-section case-section-alt case-section--problem uav-section" id="section-introduction">
     <div class="uav-inner">
         <div class="uav-header">
-            <div class="uav-label">Introduction</div>
-            <h2 class="uav-title">Overview</h2>
+            <div class="uav-label case-problem-label">01 — Context &amp; Problem</div>
+            <h2 class="uav-title">Technician UI for a multi-payload farm drone</h2>
         </div>
-        <p class="uav-intro">
-            As a UI/UX Designer, I collaborated with a multidisciplinary team to develop the interface ecosystem for AgriDrone, a multi-role agricultural workstation UAV system. Unlike specialized drones limited to a single purpose, AgriDrone is a flexible platform that adapts to various farming needs through interchangeable payloads, advanced imaging, and smart sensors.
+        <p class="uav-intro uav-overview-lead">
+            <strong>AgriDrone</strong> is a modular farm UAV—one aircraft swaps payloads for mapping, spraying, and crop monitoring instead of buying three separate drones. I designed the <strong>Technician tablet UI</strong> for payload control and field diagnostics; teammates owned Pilot and Specialist screens.
         </p>
-        <p class="uav-body">
-            Because the system requires three operators working in tandem, the UI was divided among our design team. While my teammates designed the Pilot and Specialist interfaces, I took full ownership of designing the Technician Interface, creating a workspace optimized for payload management, real-time troubleshooting, and system maintenance.
-        </p>
-    </div>
-</section>
-
-<!-- Problem Statement -->
-<section class="case-section case-section--problem uav-section">
-    <div class="uav-inner">
-        <div class="uav-2col-header">
-            <div>
-                <div class="uav-header">
-                    <div class="uav-label case-problem-label">01 — Problem Statement</div>
-                    <h2 class="uav-title">Complexity is the enemy of usability</h2>
-                </div>
-            </div>
-            <div>
-                <p class="uav-intro">
-                    American farmers manage an average of 466 acres. Monitoring crops and tracking livestock typically involves manual visual inspections, soil sampling, and headcounts done on foot or by truck, which is both slow and expensive.
-                </p>
-            </div>
-        </div>
 
         <div class="uav-stat-row">
             <div class="uav-stat-card">
                 <p class="uav-stat-value">466 acres</p>
-                <p class="uav-stat-label">Average farm size — manual monitoring scales poorly across large plots.</p>
+                <p class="uav-stat-label">Average U.S. farm—manual monitoring doesn&apos;t scale.</p>
             </div>
             <div class="uav-stat-card">
-                <p class="uav-stat-value">$15,000+</p>
-                <p class="uav-stat-label">Typical cost per unitask drone system — most farmers cannot justify purchasing three separate systems for mapping, spraying, and thermal imaging.</p>
+                <p class="uav-stat-value">$15k+</p>
+                <p class="uav-stat-label">Typical single-task drone—three systems is unrealistic.</p>
             </div>
         </div>
 
-        <p class="uav-body">
-            AgriDrone solves this by combining these capabilities into one flexible platform. However, managing a multi-tool drone inherently creates complexity. For a Field Technician working 12-hour shifts, complexity is the enemy of usability. I needed to design a display that made managing attachments, diagnostics, and repairs intuitive and manageable without causing cognitive overload.
-        </p>
+        <ul class="case-info-stat-strip">
+            <li class="case-info-stat">
+                <span class="case-info-stat-value">One platform</span>
+                <span class="case-info-stat-label">Mapping, spray, and thermal in one system</span>
+            </li>
+            <li class="case-info-stat">
+                <span class="case-info-stat-value">12-hour shifts</span>
+                <span class="case-info-stat-label">UI must stay clear under long field load</span>
+            </li>
+            <li class="case-info-stat">
+                <span class="case-info-stat-value">Zero overload</span>
+                <span class="case-info-stat-label">Payloads, diagnostics, repairs—without friction</span>
+            </li>
+        </ul>
     </div>
 </section>
 
@@ -477,24 +473,24 @@
     <div class="uav-inner">
         <div class="uav-header">
             <div class="uav-label">02 — Project Goals</div>
-            <h2 class="uav-title">Guiding objectives for the Technician interface</h2>
+            <h2 class="uav-title">Three goals for the Technician tablet</h2>
         </div>
 
         <div class="uav-goal-grid">
             <div class="uav-goal-card">
                 <div class="uav-goal-icon"><i class="fas fa-tablet-screen-button" aria-hidden="true"></i></div>
-                <p class="uav-goal-title">Role-Specific Focus</p>
-                <p class="uav-goal-desc">Design a tailored, uncluttered tablet display exclusively for the Technician / Payload Operator, who directs cameras, spraying systems, cargo modules, and technical repairs.</p>
+                <p class="uav-goal-title">Role-specific UI</p>
+                <p class="uav-goal-desc">A focused workspace for payload ops—cameras, spray, cargo, and repairs.</p>
             </div>
             <div class="uav-goal-card">
                 <div class="uav-goal-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
-                <p class="uav-goal-title">Reduce Cognitive Load</p>
-                <p class="uav-goal-desc">Apply core human factors principles so the technician can quickly interpret system health, respond to critical alerts, and troubleshoot without split attention.</p>
+                <p class="uav-goal-title">Lower cognitive load</p>
+                <p class="uav-goal-desc">Fast health reads, clear alerts, and troubleshooting without split attention.</p>
             </div>
             <div class="uav-goal-card">
                 <div class="uav-goal-icon"><i class="fas fa-link" aria-hidden="true"></i></div>
-                <p class="uav-goal-title">Seamless Ecosystem</p>
-                <p class="uav-goal-desc">Ensure the Technician interface works in perfect harmony with the Pilot and Specialist interfaces designed by my team.</p>
+                <p class="uav-goal-title">Ecosystem fit</p>
+                <p class="uav-goal-desc">Technician UI aligned with Pilot and Specialist screens from the team.</p>
             </div>
         </div>
     </div>
@@ -505,7 +501,7 @@
     <div class="uav-inner">
         <div class="uav-header">
             <div class="uav-label">03 — Design Process</div>
-            <h2 class="uav-title">From research to human-centered iteration</h2>
+            <h2 class="uav-title">Research through AI-assisted troubleshooting</h2>
         </div>
 
         <div class="case-phase-pairs">
@@ -517,10 +513,8 @@
                 </header>
                 <div class="case-phase-block-inner">
                     <div class="case-phase-block-copy">
-                        <p class="case-phase-result-head">One screen for interchangeable payloads — without confusing the technician.</p>
-                        <p class="case-phase-body uav-body">
-                            We began by analyzing the workflow of agricultural operations and writing a comprehensive white paper outlining our multi-role concept. We determined the drone would act as a &ldquo;flying diagnostic lab.&rdquo; My specific challenge was figuring out how a technician could monitor interchangeable parts—like a sprayer, seeder, or ground-penetrating radar—on a single screen without confusion.
-                        </p>
+                        <p class="case-phase-result-head">One screen for swappable payloads—no technician confusion.</p>
+                        <p class="case-phase-body uav-body">Research framed AgriDrone as a flying diagnostic lab—my job was one tablet view for sprayers, seeders, radar, and more.</p>
                     </div>
                     <div class="case-phase-block-media">
                         <figure class="case-figure case-figure-readable uav-figure">
@@ -538,22 +532,8 @@
                 </header>
                 <div class="case-phase-block-inner">
                     <div class="case-phase-block-copy">
-                        <p class="case-phase-result-head">Three dashboards — overview, mission, and statistics — each scoped to one job.</p>
-                        <p class="case-phase-body uav-body">
-                            I structured the Technician Interface to ensure the operator only saw information critical to their specific responsibilities. I broke the workspace down into three core dashboards:
-                        </p>
-                        <div class="uav-dashboard-card">
-                            <strong>Overview Dashboard</strong>
-                            <p>For at-a-glance health monitoring of the UAV and its current attachments.</p>
-                        </div>
-                        <div class="uav-dashboard-card">
-                            <strong>Mission Dashboard</strong>
-                            <p>For tracking the active task (e.g., spraying zones, usage trends).</p>
-                        </div>
-                        <div class="uav-dashboard-card">
-                            <strong>Statistics Dashboard</strong>
-                            <p>For reviewing post-flight data, maintenance logs, and historical performance.</p>
-                        </div>
+                        <p class="case-phase-result-head">Three dashboards—overview, mission, statistics.</p>
+                        <p class="case-phase-body uav-body">Overview for health, mission for active tasks, statistics for logs—each view shows only what the technician needs.</p>
                     </div>
                     <div class="case-phase-block-media">
                         <figure class="case-figure case-figure-readable uav-figure">
@@ -579,24 +559,8 @@
                 </header>
                 <div class="case-phase-block-inner">
                     <div class="case-phase-block-copy">
-                        <p class="case-phase-result-head">Proximity, mental models, and salience tame dense diagnostic data.</p>
-                        <p class="case-phase-body uav-body">
-                            Translating dense diagnostic data into a user-friendly UI required rigorous application of cognitive principles:
-                        </p>
-                        <div class="uav-principle-grid">
-                            <div class="uav-principle-card">
-                                <strong>Proximity Compatibility</strong>
-                                <p>I grouped related module readings (like fluid levels, nozzle health, and pressure) into hierarchical cards. This minimizes the need for the technician&apos;s eyes to scan wildly across the tablet.</p>
-                            </div>
-                            <div class="uav-principle-card">
-                                <strong>Mental Models &amp; Pictorial Realism</strong>
-                                <p>I included a visual 3D diagram of the UAV on the dashboard. This &ldquo;real-world mapping&rdquo; allows the technician to instantly connect a digital alert to a physical part of the drone.</p>
-                            </div>
-                            <div class="uav-principle-card">
-                                <strong>Salience Compatibility</strong>
-                                <p>I applied strict color-coding (green/yellow/red) to draw immediate attention to critical issues. For example, a blocked nozzle alert is highlighted in red at the top right of the screen to ensure instant visibility.</p>
-                            </div>
-                        </div>
+                        <p class="case-phase-result-head">Proximity, mental models, and salience tame dense data.</p>
+                        <p class="case-phase-body uav-body">Grouped module cards, a 3D UAV diagram, and green/yellow/red alerts cut scan time and tie digital warnings to physical parts.</p>
                     </div>
                     <div class="case-phase-block-media">
                         <figure class="case-figure case-figure-readable uav-figure">
@@ -614,10 +578,8 @@
                 </header>
                 <div class="case-phase-block-inner">
                     <div class="case-phase-block-copy">
-                        <p class="case-phase-result-head">Predictive chatbot guides fixes step-by-step — or escalates to a specialist.</p>
-                        <p class="case-phase-body uav-body">
-                            Agricultural technicians aren&apos;t always drone software experts. To bridge this gap, I integrated an AI Troubleshooting Chatbot into the interface. If a module fails, the chatbot provides predictive aiding—guiding the user toward effective fixes step-by-step, or allowing them to escalate the issue to a specialist via a centralized messaging hub.
-                        </p>
+                        <p class="case-phase-result-head">AI chatbot—step-by-step fixes or specialist handoff.</p>
+                        <p class="case-phase-body uav-body">When a module fails, an in-app chatbot walks through fixes or escalates to a specialist—no deep software expertise required.</p>
                     </div>
                     <div class="case-phase-block-media">
                         <figure class="case-figure case-figure-readable uav-figure">
@@ -637,27 +599,27 @@
     <div class="uav-inner">
         <div class="uav-header">
             <div class="uav-label">04 — Key Solutions / Final Design</div>
-            <h2 class="uav-title">A functional, easily digestible tablet workspace</h2>
+            <h2 class="uav-title">A clear tablet workspace in the field</h2>
         </div>
         <p class="uav-body">
-            The final product for the Technician is a highly functional, easily digestible tablet workspace:
+            Health cards, actionable alerts, and maintenance logs—everything a technician needs on one digestible screen.
         </p>
 
         <div class="uav-solution-grid">
             <div class="uav-solution-card">
                 <div class="uav-solution-icon"><i class="fas fa-heart-pulse" aria-hidden="true"></i></div>
-                <p class="uav-solution-title">Centralized Health Monitoring</p>
-                <p class="uav-solution-desc">Hierarchical status cards provide instant updates on fluid levels, pressure, and temperature.</p>
+                <p class="uav-solution-title">Health monitoring</p>
+                <p class="uav-solution-desc">Status cards for fluid, pressure, and temperature at a glance.</p>
             </div>
             <div class="uav-solution-card">
                 <div class="uav-solution-icon"><i class="fas fa-bell" aria-hidden="true"></i></div>
-                <p class="uav-solution-title">Actionable Alerts</p>
-                <p class="uav-solution-desc">Pop-up alert windows provide not just the problem, but recommended next steps to resolve the issue, supporting top-down processing.</p>
+                <p class="uav-solution-title">Actionable alerts</p>
+                <p class="uav-solution-desc">Pop-ups show the issue and recommended next steps.</p>
             </div>
             <div class="uav-solution-card">
                 <div class="uav-solution-icon"><i class="fas fa-clipboard-list" aria-hidden="true"></i></div>
-                <p class="uav-solution-title">Maintenance Memory</p>
-                <p class="uav-solution-desc">Automated logs serve as &ldquo;external memory,&rdquo; tracking all past issues, resolutions, and timestamps for the UAV and its attachments so the technician doesn&apos;t have to rely on memory.</p>
+                <p class="uav-solution-title">Maintenance logs</p>
+                <p class="uav-solution-desc">Automated history so technicians don&apos;t rely on memory alone.</p>
             </div>
         </div>
     </div>
@@ -692,46 +654,33 @@
     </div>
 </section>
 
-<!-- Reflection -->
-<section class="case-section case-section-alt uav-section">
+<!-- Reflection & Impact -->
+<section class="case-section case-section-alt uav-section" id="section-06-summary-impact">
     <div class="uav-inner">
         <div class="uav-header">
-            <div class="uav-label">06 — Reflection</div>
-            <h2 class="uav-title">Designing for cognitive limits in the field</h2>
+            <div class="uav-label">06 — Reflection &amp; Impact</div>
+            <h2 class="uav-title">Fix problems, not just read errors</h2>
         </div>
-        <p class="uav-body" style="color:var(--text-color);">
-            Designing the Technician interface for high-stress, in-field environments reinforced the importance of designing for human cognitive limits. By strictly applying human factors principles—like proximity compatibility and predictive aiding—I was able to justify every layout decision objectively.
+        <p class="uav-body" style="color:var(--text-color); margin-bottom:24px;">
+            Field stress proved human factors and predictive aiding matter—the outcome is a readable workspace that ships with Pilot and Specialist UIs.
         </p>
-        <div class="uav-callout">
-            <p>The most rewarding part of this project was taking a highly complex, multi-attachment system and simplifying it into an interface that actually helps the user solve problems rather than just displaying errors.</p>
-        </div>
-    </div>
-</section>
-
-<!-- Summary / Impact -->
-<section class="case-section uav-section">
-    <div class="uav-inner">
-        <div class="uav-header">
-            <div class="uav-label">07 — Summary / Impact</div>
-            <h2 class="uav-title">Problems solved, goals achieved, and project vision</h2>
-        </div>
 
         <div class="uav-closing-group">
             <div class="uav-impact-grid">
                 <div class="uav-impact-cell">
                     <div class="uav-impact-icon"><i class="fas fa-wrench" aria-hidden="true"></i></div>
-                    <p class="uav-impact-title">Problems Solved</p>
-                    <p class="uav-impact-desc">Transformed a highly complex multi-tool drone system into an accessible, easy-to-read diagnostic workspace for field technicians.</p>
+                    <p class="uav-impact-title">Problems solved</p>
+                    <p class="uav-impact-desc">Complex multi-tool diagnostics became a readable tablet workspace for technicians.</p>
                 </div>
                 <div class="uav-impact-cell">
                     <div class="uav-impact-icon"><i class="fas fa-check-double" aria-hidden="true"></i></div>
-                    <p class="uav-impact-title">Goals Achieved</p>
-                    <p class="uav-impact-desc">Successfully delivered the complete UI/UX for the Technician role, perfectly complementing the Pilot and Specialist screens designed by my team.</p>
+                    <p class="uav-impact-title">Goals achieved</p>
+                    <p class="uav-impact-desc">Full Technician UI/UX delivered in sync with Pilot and Specialist roles.</p>
                 </div>
                 <div class="uav-impact-cell">
                     <div class="uav-impact-icon"><i class="fas fa-seedling" aria-hidden="true"></i></div>
-                    <p class="uav-impact-title">Project Vision</p>
-                    <p class="uav-impact-desc">By reducing operator fatigue and streamlining maintenance, this interface helps ensure the AgriDrone system saves farmers time, reduces labor, and keeps their equipment in the air.</p>
+                    <p class="uav-impact-title">Vision</p>
+                    <p class="uav-impact-desc">Less fatigue and faster maintenance keep AgriDrone flying—and farmers saving time.</p>
                 </div>
             </div>
         </div>

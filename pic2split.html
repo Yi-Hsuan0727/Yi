@@ -1038,6 +1038,11 @@
             .p2s-phase-block-copy p:last-child {
                 margin-bottom: 0;
             }
+            .p2s-overview-lead {
+                font-weight: 700;
+                color: var(--text-color);
+                margin-top: 10px;
+            }
             .p2s-phase-result-head,
             .case-phase-result-head {
                 margin: 0 0 16px;
@@ -1045,7 +1050,7 @@
                 border-left: 3px solid var(--accent-blue);
                 font-size: 1.15rem;
                 font-weight: 800;
-                line-height: 1.35;
+                line-height: 1.2;
                 letter-spacing: -0.02em;
                 color: var(--text-color);
             }
@@ -1099,6 +1104,97 @@
             @media (max-width: 700px) {
                 .p2s-phase-grid { grid-template-columns: 1fr; }
             }
+
+            /* Research — timed baseline chart (replaces static research screenshots) */
+            .p2s-research-chart {
+                border: 1px solid var(--border-color);
+                border-radius: 10px;
+                padding: 24px 22px;
+                background: var(--bg-color);
+            }
+            .p2s-chart-title {
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: var(--secondary-text);
+                margin: 0 0 18px;
+            }
+            .p2s-chart-bars {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 20px;
+            }
+            .p2s-chart-row {
+                display: grid;
+                grid-template-columns: 88px 1fr 44px;
+                gap: 10px;
+                align-items: center;
+            }
+            .p2s-chart-label {
+                font-size: 0.78rem;
+                font-weight: 600;
+                color: var(--text-color);
+            }
+            .p2s-chart-track {
+                height: 10px;
+                border-radius: 999px;
+                background: rgba(0, 0, 0, 0.06);
+                overflow: hidden;
+            }
+            [data-theme="dark"] .p2s-chart-track {
+                background: rgba(255, 255, 255, 0.08);
+            }
+            .p2s-chart-bar {
+                height: 100%;
+                border-radius: 999px;
+                background: var(--secondary-text);
+                opacity: 0.45;
+            }
+            .p2s-chart-bar--goal {
+                background: var(--accent-color);
+                opacity: 1;
+            }
+            .p2s-chart-value {
+                font-size: 0.78rem;
+                font-weight: 800;
+                color: var(--text-color);
+                text-align: right;
+            }
+            .p2s-chart-value--goal {
+                color: var(--accent-color);
+            }
+            .p2s-chart-stats {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                padding-top: 16px;
+                border-top: 1px solid var(--border-color);
+            }
+            .p2s-chart-stat {
+                text-align: center;
+            }
+            .p2s-chart-stat-num {
+                display: block;
+                font-size: 1.35rem;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                color: var(--accent-blue);
+                line-height: 1.1;
+            }
+            .p2s-chart-stat-label {
+                display: block;
+                font-size: 0.68rem;
+                color: var(--secondary-text);
+                margin-top: 4px;
+                line-height: 1.35;
+            }
+            @media (max-width: 500px) {
+                .p2s-chart-stats { grid-template-columns: 1fr; }
+                .p2s-chart-row { grid-template-columns: 72px 1fr 40px; }
+            }
+
             .p2s-impact-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -1198,9 +1294,8 @@
             <div class="p2s-overview-hero-inner">
                 <div class="p2s-overview-hero-text">
                     <div class="p2s-section-number">Overview</div>
-                    <h2 class="p2s-section-title-main" style="margin-top:10px; margin-bottom:20px;">Effortless group bill splitting</h2>
-                    <p class="p2s-section-intro">
-                        Pic2Split is an AI-powered, <strong>web-first</strong> bill splitter for group dining—no app download. Scan a receipt and split the check fairly in seconds.
+                    <p class="p2s-section-intro p2s-overview-lead">
+                        <strong>Web-first AI bill splitter</strong>—scan a receipt, split fairly, and share in under two minutes, no app install.
                     </p>
                 </div>
                 <div class="p2s-overview-hero-video">
@@ -1211,7 +1306,6 @@
                         playsinline
                         loop
                         preload="auto"
-                        poster="assets/img/Pic2Split/landing.png"
                         aria-label="Pic2Split product mockup animation">
                     </video>
                 </div>
@@ -1224,31 +1318,30 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">01 — Problem Statement</div>
-                        <h2 class="p2s-section-title-main">Calculating a North American restaurant bill is manual, error-prone, and trust-destroying</h2>
+                        <h2 class="p2s-section-title-main">Group checks break on math, OCR, and tax or tip</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            Calculating a North American restaurant bill with subtotal, tax, and tip is often a manual and error-prone task. Our research indicated that users found current tools to be either too simplistic or technically unreliable.
+                            Splitting U.S. receipts with tax and tip is slow and error-prone—existing apps feel too simple or too unreliable to trust at the table.
                         </p>
                     </div>
                 </div>
 
-                <!-- 3 Core Friction Points -->
                 <div class="p2s-grid-3">
                     <div class="p2s-card" style="padding:28px;">
                         <div class="p2s-phase-icon" style="margin-bottom:16px; font-size:1.2rem; width:48px; height:48px;"><i class="fas fa-calculator" aria-hidden="true"></i></div>
-                        <div style="font-size:1rem; font-weight:800; margin-bottom:10px; color:var(--text-color);">Calculation Fatigue</div>
-                        <p class="p2s-muted" style="margin-bottom:0; font-size:0.9rem; line-height:1.75;">Manual itemization often leads to a <strong>$0.01–$0.05 discrepancy</strong>, causing frustration.</p>
+                        <div style="font-size:1rem; font-weight:800; margin-bottom:10px; color:var(--text-color);">Calculation fatigue</div>
+                        <p class="p2s-muted" style="margin-bottom:0; font-size:0.9rem; line-height:1.75;">Manual splits often miss by pennies—and that erodes trust.</p>
                     </div>
                     <div class="p2s-card" style="padding:28px;">
                         <div class="p2s-phase-icon" style="margin-bottom:16px; font-size:1.2rem; width:48px; height:48px;"><i class="fas fa-robot" aria-hidden="true"></i></div>
-                        <div style="font-size:1rem; font-weight:800; margin-bottom:10px; color:var(--text-color);">Low OCR Trust</div>
-                        <p class="p2s-muted" style="margin-bottom:0; font-size:0.9rem; line-height:1.75;">Users expect AI to work perfectly but are often met with "terrible" text extraction that requires more work to fix than manual entry.</p>
+                        <div style="font-size:1rem; font-weight:800; margin-bottom:10px; color:var(--text-color);">Low OCR trust</div>
+                        <p class="p2s-muted" style="margin-bottom:0; font-size:0.9rem; line-height:1.75;">Bad scans take longer to fix than typing the bill by hand.</p>
                     </div>
                     <div class="p2s-card" style="padding:28px;">
                         <div class="p2s-phase-icon" style="margin-bottom:16px; font-size:1.2rem; width:48px; height:48px;"><i class="fas fa-percent" aria-hidden="true"></i></div>
-                        <div style="font-size:1rem; font-weight:800; margin-bottom:10px; color:var(--text-color);">Tax &amp; Tip Confusion</div>
-                        <p class="p2s-muted" style="margin-bottom:0; font-size:0.9rem; line-height:1.75;">Most apps do not clearly distinguish between percentage-based and fixed-dollar additions.</p>
+                        <div style="font-size:1rem; font-weight:800; margin-bottom:10px; color:var(--text-color);">Tax &amp; tip confusion</div>
+                        <p class="p2s-muted" style="margin-bottom:0; font-size:0.9rem; line-height:1.75;">Percent vs. fixed add-ons are rarely explained clearly.</p>
                     </div>
                 </div>
 
@@ -1261,11 +1354,11 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">02 — Project Goals</div>
-                        <h2 class="p2s-section-title-main">Two aligned goals guided every scope and design decision</h2>
+                        <h2 class="p2s-section-title-main">Two goals: fast splits, trusted math</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            Research findings shaped a focused set of design goals — defining what success looked like not just for the final product, but for every sprint and screen decision. The user and business goals reinforced each other: faster meant less friction, and less friction meant better retention.
+                            Success meant a frictionless user flow and a web MVP that finishes in under two minutes.
                         </p>
                     </div>
                 </div>
@@ -1273,11 +1366,11 @@
                 <div class="p2s-callout-row" style="margin-top:0; margin-bottom:28px;">
                     <div class="p2s-callout-cell" style="padding:36px 40px;">
                         <div class="p2s-callout-cell-label" style="font-size:0.72rem; margin-bottom:14px;"><i class="fas fa-user" style="margin-right:8px; color:var(--accent-color);" aria-hidden="true"></i>User Goal</div>
-                        <p class="p2s-callout-cell-text" style="font-size:1.05rem; line-height:1.7;">Create a fast, intuitive way to scan a receipt, itemize it, assign items to people, and share the results instantly.</p>
+                        <p class="p2s-callout-cell-text" style="font-size:1.05rem; line-height:1.7;">Scan, assign items, and share the split instantly.</p>
                     </div>
                     <div class="p2s-callout-cell dark" style="padding:36px 40px;">
                         <div class="p2s-callout-cell-label" style="font-size:0.72rem; margin-bottom:14px;"><i class="fas fa-chart-line" style="margin-right:8px;" aria-hidden="true"></i>Business / Product Goal</div>
-                        <p class="p2s-callout-cell-text" style="font-size:1.05rem; line-height:1.7;">Deliver a functional web-first MVP that keeps the <strong>average session completion under 2 minutes</strong>.</p>
+                        <p class="p2s-callout-cell-text" style="font-size:1.05rem; line-height:1.7;">Ship a web-first MVP with sessions under <strong>2 minutes</strong>.</p>
                     </div>
                 </div>
 
@@ -1290,11 +1383,11 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">03 — Design Process</div>
-                        <h2 class="p2s-section-title-main">Four phases: from competitor benchmarking to a 23-screen production-ready system</h2>
+                        <h2 class="p2s-section-title-main">Three phases to a 23-screen MVP</h2>
                     </div>
                     <div>
                         <p class="p2s-section-intro">
-                            The pipeline is complex: upload, OCR, assignment, tax/tip math, share. The job was to make it feel effortless. Four phases — each grounded in research and testing.
+                            Research and baseline testing, interaction design, and wireframes—each step aimed to make OCR, tax or tip, and sharing feel effortless.
                         </p>
                     </div>
                 </div>
@@ -1303,49 +1396,52 @@
 
                     <article class="case-phase-block p2s-phase-block">
                         <header class="case-phase-block-header p2s-phase-block-header">
-                            <div class="case-phase-kicker p2s-phase-num">Phase 01 — Research</div>
-                            <h3 class="case-phase-block-title p2s-phase-block-title">Strategic Benchmarking</h3>
+                            <div class="case-phase-kicker p2s-phase-num">Phase 01 — Research &amp; Testing</div>
+                            <h3 class="case-phase-block-title p2s-phase-block-title">Benchmarking &amp; Baseline</h3>
                         </header>
                         <div class="case-phase-block-inner p2s-phase-block-inner">
                             <div class="case-phase-block-copy p2s-phase-block-copy">
-                                <p class="case-phase-result-head p2s-phase-result-head">Progress steps and side-by-side review became must-haves.</p>
-                                <p class="p2s-phase-body">I tested five bill-splitting apps before designing a screen. One question drove it all: where does trust break?</p>
-                                <p class="p2s-phase-emphasis">Scan the receipt — then silence. No next step. No way to check the math against the photo.</p>
-                                <p class="p2s-phase-body">Exports felt like spreadsheets. Nobody wanted to share them at the table.</p>
+                                <p class="case-phase-result-head p2s-phase-result-head">Target: <strong>under 2 minutes</strong>—with progress steps and receipt checks.</p>
+                                <p class="p2s-phase-body">Five competitor apps averaged <strong>4:30–5:38</strong> on real bills; trust broke after OCR, tax or tip UI was weak, and users rarely shared the final summary.</p>
                             </div>
                             <div class="case-phase-block-media p2s-phase-block-media">
-                                <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
-                                    <img src="assets/img/Pic2Split/Table%20of%20competitive%20issues.jpg" alt="Table summarizing competitive issues found across bill-splitting apps">
-                                    <figcaption class="case-caption p2s-caption">Competitive issue matrix — mapped friction points across existing bill-splitting tools.</figcaption>
-                                </figure>
-                                <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
-                                    <img src="assets/img/Pic2Split/user%20research%20summary%20for%20competitor.png" alt="User research summary comparing competitor bill-splitting experiences">
-                                    <figcaption class="case-caption p2s-caption">Research synthesis — where competitors failed on trust, clarity, and post-OCR guidance.</figcaption>
-                                </figure>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="case-phase-block p2s-phase-block">
-                        <header class="case-phase-block-header p2s-phase-block-header">
-                            <div class="case-phase-kicker p2s-phase-num">Phase 02 — User Testing</div>
-                            <h3 class="case-phase-block-title p2s-phase-block-title">Competitor Baseline</h3>
-                        </header>
-                        <div class="case-phase-block-inner p2s-phase-block-inner">
-                            <div class="case-phase-block-copy p2s-phase-block-copy">
-                                <p class="case-phase-result-head p2s-phase-result-head">Split a bill in <strong>under 2 minutes</strong>.</p>
-                                <p class="p2s-phase-body">Competitor baseline: <strong>4:30–5:38 minutes</strong>. Real dinner bills. Every tap timed.</p>
-                                <p class="p2s-phase-emphasis">Tax and tip screens looked half-built. Fixing OCR took longer than typing the bill by hand.</p>
-                                <p class="p2s-phase-body">People hesitated to send the final summary to the group chat. That gap became our target.</p>
-                            </div>
-                            <div class="case-phase-block-media p2s-phase-block-media">
-                                <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
-                                    <img src="assets/img/Pic2Split/usability%20test%20plan%20dashboard.jpg" alt="Usability test plan dashboard for competitor bill-splitting tasks">
-                                    <figcaption class="case-caption p2s-caption">Usability test plan — task scenarios and success metrics for competitor baseline testing.</figcaption>
-                                </figure>
+                                <div class="p2s-research-chart" role="img" aria-label="Bar chart comparing competitor split times from 4 minutes 30 seconds to 5 minutes 38 seconds against Pic2Split goal under 2 minutes">
+                                    <p class="p2s-chart-title">Timed baseline — complete a real bill split</p>
+                                    <div class="p2s-chart-bars">
+                                        <div class="p2s-chart-row">
+                                            <span class="p2s-chart-label">Competitor A</span>
+                                            <div class="p2s-chart-track"><div class="p2s-chart-bar" style="width:81%;"></div></div>
+                                            <span class="p2s-chart-value">4:30</span>
+                                        </div>
+                                        <div class="p2s-chart-row">
+                                            <span class="p2s-chart-label">Competitor B</span>
+                                            <div class="p2s-chart-track"><div class="p2s-chart-bar" style="width:94%;"></div></div>
+                                            <span class="p2s-chart-value">5:38</span>
+                                        </div>
+                                        <div class="p2s-chart-row">
+                                            <span class="p2s-chart-label">Pic2Split goal</span>
+                                            <div class="p2s-chart-track"><div class="p2s-chart-bar p2s-chart-bar--goal" style="width:32%;"></div></div>
+                                            <span class="p2s-chart-value p2s-chart-value--goal">&lt;2:00</span>
+                                        </div>
+                                    </div>
+                                    <div class="p2s-chart-stats">
+                                        <div class="p2s-chart-stat">
+                                            <span class="p2s-chart-stat-num">5</span>
+                                            <span class="p2s-chart-stat-label">Apps benchmarked</span>
+                                        </div>
+                                        <div class="p2s-chart-stat">
+                                            <span class="p2s-chart-stat-num">~60%</span>
+                                            <span class="p2s-chart-stat-label">Faster than slowest rival</span>
+                                        </div>
+                                        <div class="p2s-chart-stat">
+                                            <span class="p2s-chart-stat-num">3</span>
+                                            <span class="p2s-chart-stat-label">Top friction themes</span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                                     <img src="assets/img/Pic2Split/Userflow%20of%20competitor_Scan%20%26%20Split%20Bill%20-%20OCR%20Check.jpg" alt="Competitor user flow for scan and split bill with OCR check">
-                                    <figcaption class="case-caption p2s-caption">Competitor flow — where users stalled after OCR and before final split summary.</figcaption>
+                                    <figcaption class="case-caption p2s-caption">Competitor flow — stall points after OCR and before share.</figcaption>
                                 </figure>
                             </div>
                         </div>
@@ -1353,15 +1449,13 @@
 
                     <article class="case-phase-block p2s-phase-block">
                         <header class="case-phase-block-header p2s-phase-block-header">
-                            <div class="case-phase-kicker p2s-phase-num">Phase 03 — Interaction Design</div>
+                            <div class="case-phase-kicker p2s-phase-num">Phase 02 — Interaction Design</div>
                             <h3 class="case-phase-block-title p2s-phase-block-title">Core Flow Iteration</h3>
                         </header>
                         <div class="case-phase-block-inner p2s-phase-block-inner">
                             <div class="case-phase-block-copy p2s-phase-block-copy">
                                 <p class="case-phase-result-head p2s-phase-result-head">Session time: <strong>4–5 min → under 2</strong>.</p>
-                                <p class="p2s-phase-body">Research gave us the “why.” Interaction design gave us the “how fast.”</p>
-                                <p class="p2s-phase-body"><strong>Google SSO</strong> — one tap, history saved. <strong>Name tags</strong> — tap a dish, tap who ate it.</p>
-                                <p class="p2s-phase-body">Competitors: scan → messy tax/tip → a wall of numbers. Pic2Split: login → verify OCR → split with recognizable tags.</p>
+                                <p class="p2s-phase-body"><strong>Google SSO</strong>, name tags for dishes, and verify-OCR-first flow replaced competitors&apos; scan → confusing tax or tip → number wall.</p>
                             </div>
                             <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
@@ -1374,15 +1468,13 @@
 
                     <article class="case-phase-block p2s-phase-block">
                         <header class="case-phase-block-header p2s-phase-block-header">
-                            <div class="case-phase-kicker p2s-phase-num">Phase 04 — Wireframing</div>
+                            <div class="case-phase-kicker p2s-phase-num">Phase 03 — Wireframing</div>
                             <h3 class="case-phase-block-title p2s-phase-block-title">23-Screen Architecture</h3>
                         </header>
                         <div class="case-phase-block-inner p2s-phase-block-inner">
                             <div class="case-phase-block-copy p2s-phase-block-copy">
-                                <p class="case-phase-result-head p2s-phase-result-head">Every screen earned its place — nothing decorative, nothing orphaned.</p>
-                                <p class="p2s-phase-body"><strong>23 wireframes.</strong> Happy paths, errors, empty states. Same-person pay shortcut. Side-by-side verification on every money step.</p>
-                                <p class="p2s-phase-emphasis">Style guide and components next — so engineering never had to guess spacing or patterns.</p>
-                                <p class="p2s-phase-body">Every insight from research became a screen in the spec.</p>
+                                <p class="case-phase-result-head p2s-phase-result-head">23 screens—each with a job, none decorative.</p>
+                                <p class="p2s-phase-body"><strong>23 wireframes</strong> covered happy paths, errors, same-person pay, and side-by-side checks on every money step—ready for components and build.</p>
                             </div>
                             <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
@@ -1455,7 +1547,6 @@
                                 playsinline
                                 loop
                                 preload="auto"
-                                poster="assets/img/Pic2Split/Assign%20Items-single%20receipt.png"
                                 data-autoplay-on-view
                                 aria-label="Screen recording of scanning a receipt with OCR side-by-side review">
                             </video>
@@ -1481,7 +1572,6 @@
                                 playsinline
                                 loop
                                 preload="auto"
-                                poster="assets/img/Pic2Split/Assign%20Items-single%20receipt.png"
                                 data-autoplay-on-view
                                 aria-label="Screen recording of tap-to-split item assignment">
                             </video>
@@ -1525,7 +1615,6 @@
                                 playsinline
                                 loop
                                 preload="auto"
-                                poster="assets/img/Pic2Split/Split%20details.png"
                                 data-autoplay-on-view
                                 aria-label="Screen recording of split summary and web sharing flow">
                             </video>
@@ -1560,27 +1649,27 @@
                 <div class="p2s-2col-header">
                     <div>
                         <div class="p2s-section-number">06 — Summary &amp; Impact</div>
-                        <h2 class="p2s-section-title-main">From messy check to fair split — in seconds</h2>
+                        <h2 class="p2s-section-title-main">Fair splits in seconds, not minutes</h2>
                     </div>
                 </div>
                 <div class="p2s-impact-grid">
                     <div class="p2s-impact-card">
                         <div class="p2s-phase-icon" style="margin-bottom:12px;"><i class="fas fa-circle-check" aria-hidden="true"></i></div>
                         <span class="p2s-eyebrow">Problems Solved</span>
-                        <h3>Eliminated the friction of manual bill splitting</h3>
-                        <p class="p2s-muted">We eliminated the friction of manual bill splitting, especially for complex U.S. receipts with tax and tip. We removed the barrier to entry by making it a web-first platform with seamless Google login.</p>
+                        <h3>Less manual math, more trust</h3>
+                        <p class="p2s-muted">Web-first flow with Google login tackles tax, tip, and OCR friction on real U.S. receipts.</p>
                     </div>
                     <div class="p2s-impact-card">
                         <div class="p2s-phase-icon" style="margin-bottom:12px;"><i class="fas fa-trophy" aria-hidden="true"></i></div>
                         <span class="p2s-eyebrow">Goals Achieved</span>
-                        <h3>Cut 5–10 minutes of manual math to just seconds</h3>
-                        <p class="p2s-muted">We successfully cut down the bill-splitting process from 5–10 minutes of manual math to just seconds. We delivered a functional MVP combining React, PaddleOCR, and Gemini-2.5.</p>
+                        <h3>Minutes down to seconds</h3>
+                        <p class="p2s-muted">Shipped an MVP (React, PaddleOCR, Gemini) that targets sub-two-minute sessions vs. five-plus on competitors.</p>
                     </div>
                     <div class="p2s-impact-card">
                         <div class="p2s-phase-icon" style="margin-bottom:12px;"><i class="fas fa-rocket" aria-hidden="true"></i></div>
                         <span class="p2s-eyebrow">Vision Realized</span>
-                        <h3>A production-ready tool that proves the concept</h3>
-                        <p class="p2s-muted">Pic2Split successfully launched as a production-ready tool, proving that sharing a table shouldn't mean a headache when the check arrives.</p>
+                        <h3>Production-ready at the table</h3>
+                        <p class="p2s-muted">Pic2Split launched as a live tool—group dining without the end-of-meal math headache.</p>
                     </div>
                 </div>
             </div>

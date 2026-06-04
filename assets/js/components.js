@@ -74,7 +74,6 @@ const PortfolioApp = {
             tags: ['UI Design', 'Front-End Development', 'Accessibility'],
             image: 'assets/img/main images/indigenous Cultural Museums.png',
             heroImage: 'assets/img/lcm/hero.png',
-            heroVideo: 'assets/img/lcm/Icm.mp4',
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
             team: '2 Engineers, 1 Designer, 1 PM',
@@ -499,7 +498,7 @@ const PortfolioApp = {
         const heroVideo = projectMeta ? (projectMeta.heroVideo || '') : '';
         const coverHTML = (!isGridPage && projectMeta)
             ? heroVideo
-                ? `<div class="case-hero-img case-hero-video"><video src="${heroVideo}" autoplay muted playsinline loop preload="auto" poster="${heroImage}" style="width:100%;height:100%;object-fit:cover;"></video></div>`
+                ? `<div class="case-hero-img case-hero-video"><video src="${heroVideo}" autoplay muted playsinline loop preload="auto" style="width:100%;height:100%;object-fit:cover;"></video></div>`
                 : `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
         const heroMetaHTML = (!isGridPage && projectMeta) ? LayoutComponents.buildCaseHeroMeta(projectMeta) : '';
