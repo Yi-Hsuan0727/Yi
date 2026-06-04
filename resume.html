@@ -22,6 +22,13 @@
             --page-h: 297mm;
             --pad-x: 11mm;
             --pad-y: 8mm;
+            --r-line: 1.4;
+            --r-space-header: 14px;
+            --r-space-summary: 9px;
+            --r-space-section: 14px;
+            --r-space-two-col: 14px;
+            --r-space-section-title: 7px;
+            --r-space-exp-item: 10px;
         }
 
         /* ── Reset ──────────────────────────────────────────────── */
@@ -36,15 +43,33 @@
             align-items: center;
         }
 
-        /* ── Tab bar (screen only) ──────────────────────────────── */
-        .tab-bar {
+        /* ── Screen UI (hidden when printing) ───────────────────── */
+        .resume-screen-ui {
             width: 100%;
             max-width: 900px;
+            flex-shrink: 0;
+        }
+        .tab-bar {
+            width: 100%;
             display: flex;
             align-items: center;
             gap: 6px;
             padding: 20px 20px 0;
             flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: #f0f0f0;
+        }
+        @media screen {
+            .resume-screen-ui {
+                display: block !important;
+                visibility: visible !important;
+            }
+            .resume-screen-ui .tab-bar {
+                display: flex !important;
+                visibility: visible !important;
+            }
         }
         .tab-btn {
             font-family: 'Montserrat', sans-serif;
@@ -100,16 +125,21 @@
             background: #fff;
             box-shadow: 0 4px 32px rgba(0,0,0,0.12);
             padding: var(--pad-y) var(--pad-x);
+            padding-right: calc(var(--pad-x) + 5mm);
             position: relative;
+            line-height: var(--r-line);
         }
-
         /* ── Header ─────────────────────────────────────────────── */
-        .r-header { border-bottom: 2px solid var(--accent); padding-bottom: 6px; margin-bottom: 8px; }
+        .r-header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 6px;
+            margin-bottom: var(--r-space-header);
+        }
         .r-name {
             font-size: 22pt;
             font-weight: 700;
             letter-spacing: -0.01em;
-            line-height: 1.1;
+            line-height: var(--r-line);
             color: var(--text);
         }
         .r-title-line {
@@ -118,74 +148,142 @@
             color: var(--accent-blue);
             letter-spacing: 0.08em;
             text-transform: uppercase;
+            line-height: var(--r-line);
             margin-top: 2px;
         }
         .r-contact {
             margin-top: 5px;
             font-size: 7.8pt;
+            line-height: var(--r-line);
             color: var(--secondary);
             display: flex;
             flex-wrap: wrap;
-            gap: 0 14px;
+            align-items: center;
+            gap: 0;
+        }
+        .r-contact > * + *::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin: 0 7px;
+            vertical-align: middle;
+            flex-shrink: 0;
         }
         .r-contact a { color: var(--secondary); text-decoration: none; }
         .r-contact a:hover { color: var(--accent-blue); }
 
         /* ── Section ────────────────────────────────────────────── */
-        .r-section { margin-top: 5px; }
+        .r-section { margin-top: var(--r-space-section); }
+        .r-two-col > div > .r-section:first-child { margin-top: 0; }
         .r-section-title {
             font-size: 7.5pt;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
+            line-height: var(--r-line);
             color: var(--accent-blue);
             border-bottom: 1px solid var(--border);
             padding-bottom: 2px;
-            margin-bottom: 4px;
+            margin-bottom: var(--r-space-section-title);
         }
 
         /* ── Experience item ────────────────────────────────────── */
-        .r-exp-item { margin-bottom: 3px; }
+        .r-exp-item { margin-bottom: var(--r-space-exp-item); }
         .r-exp-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             gap: 8px;
         }
-        .r-exp-role { font-size: 9pt; font-weight: 700; color: var(--text); }
-        .r-exp-period { font-size: 7.5pt; color: var(--secondary); white-space: nowrap; flex-shrink: 0; }
-        .r-exp-org { font-size: 8pt; color: var(--secondary); font-weight: 500; margin-top: 1px; }
-        .r-exp-bullets { margin-top: 2px; padding-left: 12px; list-style: disc; }
-        .r-exp-bullets li {
-            font-size: 7.8pt;
+        .r-exp-role {
+            font-size: 9pt;
+            font-weight: 700;
+            line-height: var(--r-line);
             color: var(--text);
-            line-height: 1.42;
+            white-space: nowrap;
+        }
+        .r-exp-period {
+            font-size: 7.5pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .r-exp-org {
+            font-size: 8pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
+            font-weight: 500;
+            margin-top: 1px;
+            hyphens: none;
+            overflow-wrap: normal;
+            word-break: normal;
+        }
+        .r-exp-bullets {
+            margin-top: 2px;
+            padding-left: 10px;
+            list-style-position: outside;
+        }
+        .r-exp-bullets li {
+            font-size: 7.5pt;
+            letter-spacing: -0.02em;
+            line-height: var(--r-line);
+            color: var(--text);
             margin-bottom: 0;
+            hyphens: none;
+            -webkit-hyphens: none;
+            overflow-wrap: normal;
+            word-break: normal;
+            text-wrap: pretty;
         }
 
         /* ── Two-column bottom ──────────────────────────────────── */
-        .r-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; margin-top: 7px; }
+        .r-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 16px;
+            margin-top: var(--r-space-two-col);
+        }
 
         /* ── Skills ─────────────────────────────────────────────── */
         .r-skill-group { margin-bottom: 4px; }
-        .r-skill-label { font-size: 7.5pt; font-weight: 700; color: var(--text); }
-        .r-skill-value { font-size: 7.8pt; color: var(--secondary); line-height: 1.4; }
+        .r-skill-label { font-size: 7.5pt; font-weight: 700; line-height: var(--r-line); color: var(--text); }
+        .r-skill-value { font-size: 7.8pt; line-height: var(--r-line); color: var(--secondary); }
 
         /* ── Summary ────────────────────────────────────────────── */
         .r-summary {
             font-size: 7.5pt;
+            line-height: var(--r-line);
             color: var(--secondary);
-            line-height: 1.5;
-            margin-bottom: 4px;
-            padding-bottom: 4px;
+            margin-bottom: var(--r-space-summary);
         }
 
         /* ── Education / Awards / Certs ─────────────────────────── */
-        .r-edu-item, .r-award-item, .r-cert-item { margin-bottom: 4px; }
-        .r-edu-degree { font-size: 8.5pt; font-weight: 700; color: var(--text); }
-        .r-edu-school { font-size: 7.8pt; color: var(--secondary); }
-        .r-edu-meta { font-size: 7.5pt; color: var(--secondary); }
-        .r-award-item, .r-cert-item { font-size: 7.8pt; color: var(--text); line-height: 1.5; }
+        .r-edu-item { margin-bottom: 4px; }
+        .r-edu-degree { font-size: 8.5pt; font-weight: 700; line-height: var(--r-line); color: var(--text); }
+        .r-edu-school { font-size: 7.8pt; line-height: var(--r-line); color: var(--secondary); }
+        .r-edu-meta { font-size: 7.5pt; line-height: var(--r-line); color: var(--secondary); }
+        .r-award-list,
+        .r-cert-list {
+            margin-top: 2px;
+            padding-left: 10px;
+            list-style: disc;
+            list-style-position: outside;
+        }
+        .r-award-list .r-award-item,
+        .r-cert-list .r-cert-item {
+            font-size: 7.8pt;
+            line-height: var(--r-line);
+            color: var(--text);
+            margin-bottom: 0;
+            hyphens: none;
+            -webkit-hyphens: none;
+            overflow-wrap: normal;
+            word-break: normal;
+        }
 
         /* ── Accent stripe (decorative) ─────────────────────────── */
         .r-stripe {
@@ -199,7 +297,10 @@
 
 
         /* ── Hidden versions ────────────────────────────────────── */
-        .resume-version { display: none; }
+        .resume-version {
+            display: none;
+            line-height: var(--r-line);
+        }
         .resume-version.active { display: block; }
 
         /* ── Projects ───────────────────────────────────────────── */
@@ -213,16 +314,23 @@
         .r-project-name {
             font-size: 7.8pt;
             font-weight: 700;
+            line-height: var(--r-line);
             color: var(--text);
         }
         .r-project-name a { color: inherit; text-decoration: none; }
         .r-project-name a:hover { color: var(--accent-blue); text-decoration: underline; }
-        .r-project-sub { font-size: 7.3pt; color: var(--secondary); margin-top: 1px; line-height: 1.4; }
+        .r-project-sub {
+            font-size: 7.3pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
+            margin-top: 1px;
+        }
         .r-project-desc { display: none; }
         .r-project-tags { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 3px; }
         .r-project-tag {
             font-size: 6.5pt;
             font-weight: 600;
+            line-height: var(--r-line);
             padding: 1px 5px;
             border-radius: 3px;
             background: rgba(74,85,224,0.08);
@@ -240,13 +348,30 @@
                 background: #fff !important;
                 min-height: unset;
             }
-            .tab-bar, .download-btn { display: none !important; }
+            .resume-screen-ui { display: none !important; }
             .paper-wrap { padding: 0 !important; }
             .resume-page {
                 box-shadow: none !important;
                 width: 210mm !important;
-                min-height: 297mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                padding: var(--pad-y) var(--pad-x) !important;
+                padding-right: calc(var(--pad-x) + 5mm) !important;
+                overflow: hidden !important;
                 page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+            :root {
+                --r-line: 1.4;
+                --r-space-section: 13px;
+                --r-space-header: 13px;
+                --r-space-two-col: 13px;
+                --r-space-exp-item: 8px;
+            }
+            .r-exp-bullets li {
+                font-size: 7.4pt;
+                letter-spacing: -0.025em;
+                line-height: var(--r-line);
             }
             /* Only print the active version */
             .resume-version { display: none !important; }
@@ -256,16 +381,18 @@
 </head>
 <body>
 
-<!-- ── Tab bar ──────────────────────────────────────────────── -->
-<div class="tab-bar">
-    <button class="tab-btn active" data-tab="uxui">UX/UI Designer</button>
-    <button class="tab-btn" data-tab="web">Web Designer</button>
-    <button class="tab-btn" data-tab="product">Product Designer</button>
-    <button class="tab-btn" data-tab="ux">UX Designer</button>
-    <button class="tab-btn" data-tab="ui">UI Designer</button>
-    <!-- To add a new version: copy a tab-btn and a .resume-version block, give both a unique data-tab/id value -->
-    <div class="spacer"></div>
-    <button class="download-btn" onclick="window.print()">Download PDF</button>
+<!-- ── Tab bar (screen only — hidden in print/PDF) ─────────────── -->
+<div class="resume-screen-ui">
+    <div class="tab-bar">
+        <button class="tab-btn active" data-tab="uxui">UX/UI Designer</button>
+        <button class="tab-btn" data-tab="web">Web Designer</button>
+        <button class="tab-btn" data-tab="product">Product Designer</button>
+        <button class="tab-btn" data-tab="ux">UX Designer</button>
+        <button class="tab-btn" data-tab="ui">UI Designer</button>
+        <!-- To add a new version: copy a tab-btn and a .resume-version block, give both a unique data-tab/id value -->
+        <div class="spacer"></div>
+        <button class="download-btn" onclick="window.print()">Download PDF</button>
+    </div>
 </div>
 
 <!-- ── Paper wrapper ─────────────────────────────────────────── -->
@@ -390,9 +517,11 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
+                    <ul class="r-award-list">
+                        <li class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</li>
+                        <li class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</li>
+                        <li class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</li>
+                    </ul>
                 </section>
             </div>
 
@@ -415,10 +544,12 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certificates</div>
-                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
-                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
-                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
-                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                    <ul class="r-cert-list">
+                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</li>
+                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</li>
+                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</li>
+                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</li>
+                    </ul>
                 </section>
             </div>
         </div>
@@ -541,9 +672,11 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
+                    <ul class="r-award-list">
+                        <li class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</li>
+                        <li class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</li>
+                        <li class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</li>
+                    </ul>
                 </section>
             </div>
 
@@ -566,10 +699,12 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certificates</div>
-                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
-                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
-                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
-                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
+                    <ul class="r-cert-list">
+                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</li>
+                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</li>
+                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</li>
+                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</li>
+                    </ul>
                 </section>
             </div>
         </div>
@@ -693,9 +828,11 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
+                    <ul class="r-award-list">
+                        <li class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</li>
+                        <li class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</li>
+                        <li class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</li>
+                    </ul>
                 </section>
             </div>
 
@@ -718,10 +855,12 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certificates</div>
-                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
-                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
-                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
-                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                    <ul class="r-cert-list">
+                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</li>
+                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</li>
+                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</li>
+                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</li>
+                    </ul>
                 </section>
             </div>
         </div>
@@ -836,9 +975,11 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
+                    <ul class="r-award-list">
+                        <li class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</li>
+                        <li class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</li>
+                        <li class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</li>
+                    </ul>
                 </section>
             </div>
 
@@ -861,10 +1002,12 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certificates</div>
-                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
-                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
-                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
-                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
+                    <ul class="r-cert-list">
+                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</li>
+                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</li>
+                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</li>
+                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</li>
+                    </ul>
                 </section>
             </div>
         </div>
@@ -981,9 +1124,11 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Awards</div>
-                    <div class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</div>
-                    <div class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</div>
-                    <div class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</div>
+                    <ul class="r-award-list">
+                        <li class="r-award-item">$10,000 New American University Scholarship · Arizona State University, 2024</li>
+                        <li class="r-award-item">People's Choice Award · Endstar Game Maker Spark Challenge, ASU 2025</li>
+                        <li class="r-award-item">2nd Place · RoseHack, UC Riverside, 2025</li>
+                    </ul>
                 </section>
             </div>
 
@@ -1006,10 +1151,12 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certificates</div>
-                    <div class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</div>
-                    <div class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</div>
-                    <div class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</div>
-                    <div class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</div>
+                    <ul class="r-cert-list">
+                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · ASU, 2025</li>
+                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera, 2024</li>
+                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp, 2022</li>
+                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program, 2026</li>
+                    </ul>
                 </section>
             </div>
         </div>
