@@ -97,6 +97,37 @@ const AppLogic = {
     },
 
     // --- 3. SCROLL INTERACTIONS ---
+    initSidebarCompact: function() {
+        const wrapper = document.querySelector('.content-wrapper');
+        if (!wrapper || !wrapper.querySelector('.sidebar-scroll-spy')) {
+            return function() {};
+        }
+
+        const COMPACT_ON = 80;
+        const COMPACT_OFF = 24;
+        let isCompact = false;
+
+        return function(currentScroll) {
+            if (window.innerWidth <= 1200) {
+                if (isCompact) {
+                    wrapper.classList.remove('sidebar-compact');
+                    isCompact = false;
+                }
+                return;
+            }
+
+            if (!isCompact && currentScroll > COMPACT_ON) {
+                wrapper.classList.add('sidebar-compact');
+                isCompact = true;
+                if (window.__lenis) window.__lenis.resize();
+            } else if (isCompact && currentScroll < COMPACT_OFF) {
+                wrapper.classList.remove('sidebar-compact');
+                isCompact = false;
+                if (window.__lenis) window.__lenis.resize();
+            }
+        };
+    },
+
     initScrollLogic: function() {
         const desktopContainer = document.getElementById('scroll-container');
         const progressBar = document.getElementById('progress-bar');
@@ -104,6 +135,7 @@ const AppLogic = {
         let lastScroll = 0;
         const isMobile = window.innerWidth <= 1200;
         const scroller = isMobile ? window : desktopContainer;
+        const updateSidebarCompact = this.initSidebarCompact();
 
         if (!scroller && !isMobile) return;
 
@@ -121,6 +153,8 @@ const AppLogic = {
             }
             
             if (progressBar) progressBar.style.width = ((currentScroll / maxScroll) * 100) + "%";
+
+            updateSidebarCompact(currentScroll);
 
             // Back to Top visibility
             const backToTop = document.querySelector('.back-to-top');
@@ -154,6 +188,18 @@ const AppLogic = {
         } else {
             scroller.addEventListener('scroll', onScroll, { passive: true });
         }
+        onScroll();
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 1200) {
+                updateSidebarCompact(0);
+            } else {
+                const currentScroll = window.__lenis
+                    ? window.__lenis.scroll
+                    : (desktopContainer ? desktopContainer.scrollTop : 0);
+                updateSidebarCompact(currentScroll);
+            }
+        }, { passive: true });
 
         // Back to Top Button
         const backToTopBtn = document.querySelector('.back-to-top');
