@@ -233,12 +233,16 @@ const LayoutComponents = {
         }).join('');
     },
 
+    buildHeroTitleShapes: function() {
+        return `<span class="projects-more-shapes" aria-hidden="true"><span class="shape shape-circle"></span><span class="shape shape-triangle"></span><span class="shape shape-square"></span></span>`;
+    },
+
     buildMoreProjectsSection: function(projects) {
         const items = this.buildMoreProjectsListItems(projects);
         if (!items) return '';
         return `
             <section class="projects-more" id="projects-more" aria-labelledby="projects-more-heading">
-                <h2 class="projects-more-title" id="projects-more-heading">More projects</h2>
+                <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More projects</span>${this.buildHeroTitleShapes()}</h2>
                 <ul class="projects-more-list" id="projects-more-list">${items}</ul>
             </section>`;
     },

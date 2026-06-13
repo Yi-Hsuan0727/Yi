@@ -524,8 +524,11 @@ const PortfolioApp = {
                 : `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
         const heroMetaHTML = (!isGridPage && projectMeta) ? LayoutComponents.buildCaseHeroMeta(projectMeta) : '';
+        const heroHTML = coverHTML
+            ? `<div class="case-hero">${coverHTML}${heroMetaHTML}</div>`
+            : '';
         const footerHTML = LayoutComponents.buildFooter(pageType);
-        let finalContent = `${worksHeaderHTML} ${coverHTML} ${heroMetaHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
+        let finalContent = `${worksHeaderHTML} ${heroHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
 
         if (pageType === 'home') {
             finalContent = `${LayoutComponents.buildHomePageHeader(pageData)}${finalContent}`;

@@ -326,8 +326,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         margin-bottom: 16px;
     }
     .content-wrapper.sidebar-compact-scope--project.sidebar-compact .sidebar-tag {
-        font-size: 0.68rem;
-        padding: 3px 10px;
+        font-size: 0.58rem;
+        padding: 2px 8px;
     }
     .content-wrapper.sidebar-compact-scope--project.sidebar-compact .back-btn {
         font-size: 0.72rem;
@@ -540,7 +540,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     font: inherit;
     font-size: 0.88rem;
     color: #111111;
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.1);
     transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
 .site-contact-input:required {
@@ -548,12 +548,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .site-contact-input:required:user-invalid {
     border-color: rgba(192, 57, 43, 0.85);
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.16);
 }
 .site-contact-input:focus {
     outline: none;
     border-color: rgba(0, 0, 0, 0.55);
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.18);
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
 }
 .site-contact-textarea {
@@ -660,7 +660,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* More projects — text list (no thumbnails) */
 .projects-more {
     padding: 48px 30px 72px;
-    border-top: 1px solid var(--border-color);
     margin-top: 24px;
     margin-bottom: 0;
 }
@@ -673,6 +672,21 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     letter-spacing: -0.02em;
     color: var(--text-color);
     line-height: 1.25;
+}
+.projects-more-title {
+    display: flex;
+    align-items: center;
+    gap: 0.45em;
+}
+.projects-more-shapes {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    flex-shrink: 0;
+}
+.projects-more-shapes .shape {
+    flex-shrink: 0;
+    margin: 0;
 }
 .projects-more-list {
     margin: 0;
@@ -1277,43 +1291,57 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     background-color: rgba(46, 204, 113, 0.08);
 }
 .case-hero-img { width: 100%; height: 350px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 1.5rem; margin-bottom: 0; }
+.case-hero {
+    position: relative;
+}
 .case-hero-meta {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
     padding: 0;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--bg-color);
+    border-bottom: none;
+    background: rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 .case-hero-meta-inner {
     width: 100%;
     display: grid;
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     gap: 0;
-    border-top: 1px solid var(--border-color);
+    border-top: none;
+    background: transparent;
 }
 .case-hero-meta-item {
     min-width: 0;
     padding: 22px 32px;
     border-right: none;
+    background: transparent;
 }
 .case-hero-meta-item:only-child {
     grid-column: 1 / -1;
 }
 .case-hero-meta-item + .case-hero-meta-item {
-    border-left: 0.5px solid var(--border-color);
+    border-left: 1px solid rgba(255, 255, 255, 0.28);
 }
 .case-hero-meta-label {
     display: block;
     font-size: 0.62rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--secondary-text);
+    color: rgba(255, 255, 255, 0.82);
     letter-spacing: 0.12em;
     margin-bottom: 8px;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
 }
 .case-hero-meta-value {
     display: block;
     font-size: 0.84rem;
     line-height: 1.55;
-    color: var(--text-color);
+    color: #ffffff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* --- Hero video variant --- */
@@ -3008,13 +3036,13 @@ body.case-figure-zoom-open #scroll-container {
 }
 .sidebar-tags {
     display: flex;
-    gap: 6px;
+    gap: 5px;
     flex-wrap: wrap;
     margin-bottom: 10px;
 }
 .sidebar-tag {
-    font-size: 0.75rem;
-    padding: 4px 12px;
+    font-size: 0.62rem;
+    padding: 3px 9px;
     border: 1px solid var(--accent-color);
     border-radius: 20px;
     color: var(--accent-color);
@@ -3784,7 +3812,7 @@ body.case-figure-zoom-open #scroll-container {
     }
     .case-hero-meta-item + .case-hero-meta-item {
         border-left: none;
-        border-top: 1px solid var(--border-color);
+        border-top: 1px solid rgba(255, 255, 255, 0.28);
     }
 
     .sidebar-scroll-spy {
