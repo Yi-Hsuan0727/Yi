@@ -150,7 +150,10 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .visit-btn-sidebar-top { margin-bottom: 16px; display: block; text-align: center; }
 .bio-container { display: flex; gap: 15px; align-items: center; border-top: 1px solid var(--border-color); padding-top: 20px; }
-.sidebar-visit-wrap { border: none; padding-top: 0; margin-top: auto; }
+.sidebar-visit-wrap { border: none; padding-top: 0; flex-shrink: 0; }
+.sidebar:has(.sidebar-scroll-spy) .sidebar-visit-wrap {
+    margin-top: 16px;
+}
 
 /* Sidebar tools marquee */
 .sidebar-tools-marquee {
@@ -2972,10 +2975,6 @@ body.case-figure-zoom-open #scroll-container {
     min-height: 0;
 }
 .sidebar:has(.sidebar-scroll-spy) .sidebar-top {
-    flex-shrink: 0;
-}
-.sidebar:has(.sidebar-scroll-spy) .sidebar-visit-wrap {
-    margin-top: 20px;
     flex-shrink: 0;
 }
 .sidebar-scroll-spy {

@@ -589,8 +589,8 @@ const PortfolioApp = {
                 <div class="content-wrapper${sidebarCompactScope}">
                     <aside class="sidebar">
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
-                        ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
                         ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
+                        ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
                         ${pageType === 'playground' ? LayoutComponents.buildSidebarToolsMarquee() : ''}
                     </aside>
                         <div class="right-panel">
