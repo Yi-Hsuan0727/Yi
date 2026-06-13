@@ -25,7 +25,12 @@ const LayoutComponents = {
         const introHTML = introText
             ? `<p class="sidebar-intro">${introText}</p>`
             : '';
-        const heroContent = `<div class="hero-text"><h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
+        const greetingHTML = pageData.heroGreeting && !projectMeta
+            ? (pageType === 'home'
+                ? `<div class="home-hero-greeting-row"><span class="hero-title-greeting">${pageData.heroGreeting}</span>${this.buildSidebarSocials()}</div>`
+                : `<p class="hero-title-greeting">${pageData.heroGreeting}</p>`)
+            : '';
+        const heroContent = `<div class="hero-text">${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
         html += heroContent;
         return html;
     },
@@ -63,15 +68,35 @@ const LayoutComponents = {
                     ${this.buildSidebarTop(pageData, null, 'home')}
                 </div>
                 <div class="home-page-header-aside">
-                    ${this.buildSidebarSocials()}
                     ${this.buildHomeTechNote()}
                 </div>
             </header>`;
     },
 
+    buildHomeTechLogoCursor: function() {
+        return `<svg class="home-header-tech-logo home-header-tech-logo--cursor" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2 3 6.5v11L12 22l9-4.5v-11L12 2zm0 2.45 6.75 3.38v6.74L12 18.55l-6.75-3.38V7.83L12 4.45z"/></svg>`;
+    },
+
+    buildHomeTechLogoClaude: function() {
+        return `<svg class="home-header-tech-logo home-header-tech-logo--claude" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2.4c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm0 8.8c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm-6.4 4.4c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm12.8 0c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6z"/></svg>`;
+    },
+
+    buildHomeTechLogoGithub: function() {
+        return `<i class="fab fa-github" aria-hidden="true"></i>`;
+    },
+
     buildHomeTechNote: function() {
         return `
-            <p class="home-header-tech">This website is built with pure HTML / CSS / JS. <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="footer-tech-link">Hosted on GitHub</a></p>`;
+            <div class="home-header-tech">
+                <p class="home-header-tech-text">
+                    This Portfolio is built with pure HTML / CSS / JS. Co-built with
+                    <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline">Cursor ${this.buildHomeTechLogoCursor()}</a>
+                    &amp;
+                    <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline">Claude ${this.buildHomeTechLogoClaude()}</a>.
+                    <span class="home-header-tech-host">Hosted on
+                    <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline">GitHub ${this.buildHomeTechLogoGithub()}</a>.</span>
+                </p>
+            </div>`;
     },
 
     buildSidebarSocials: function() {

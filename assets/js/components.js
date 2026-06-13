@@ -207,9 +207,10 @@ const PortfolioApp = {
 
     data: {
         home: {
+            heroGreeting: "Hi! I'm Michelle Chen",
             title: `<span class="hero-title-line">Product design<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Interaction<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Systems<span class="shape shape-square" aria-hidden="true"></span></span>`,
             desc: '',
-            briefIntro: "Hi! I'm Michelle Chen — a UX/UI designer who designs and ships accessible, WCAG-compliant front-ends in semantic HTML/CSS, from government sites to AI-powered web apps.",
+            briefIntro: "A UX/UI designer who designs and ships accessible, WCAG-compliant front-ends in semantic HTML/CSS, from government sites to AI-powered web apps.",
             meta: ``
         },
         about: {

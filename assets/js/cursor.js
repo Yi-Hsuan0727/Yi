@@ -70,9 +70,34 @@ const CursorLogic = {
         const hideCursor = () => {
             dot.style.opacity = '0';
             outline.style.opacity = '0';
+            label.style.opacity = '0';
             dot.classList.remove('is-active');
             outline.classList.remove('is-active');
             label.classList.remove('is-active');
+            document.body.classList.remove('cursor-view', 'hovering');
+        };
+
+        const syncHoverState = (x, y) => {
+            const el = document.elementFromPoint(x, y);
+            if (!el) {
+                document.body.classList.remove('cursor-view', 'hovering');
+                return;
+            }
+
+            if (el.closest('.project-grid .project-card')) {
+                document.body.classList.add('hovering', 'cursor-view');
+                label.style.opacity = '1';
+                return;
+            }
+
+            document.body.classList.remove('cursor-view');
+            label.style.opacity = '0';
+
+            if (el.closest('a, button, input, textarea, .project-card, .filter-btn, .visit-btn, .theme-toggle, .nav-link, .cursor-hover')) {
+                document.body.classList.add('hovering');
+            } else {
+                document.body.classList.remove('hovering');
+            }
         };
 
         // Define named listener functions for cleanup
@@ -91,6 +116,7 @@ const CursorLogic = {
                 label.style.top = oy + 'px';
             }
             showCursor();
+            syncHoverState(mx, my);
         };
 
         const onMouseLeave = () => {
@@ -123,19 +149,5 @@ const CursorLogic = {
             requestAnimationFrame(animate);
         }
         animate();
-
-        // Hover Interactions
-        document.body.addEventListener('mouseover', (e) => {
-            if (e.target.closest('.project-grid .project-card')) {
-                document.body.classList.add('hovering', 'cursor-view');
-                return;
-            }
-            document.body.classList.remove('cursor-view');
-            if (e.target.closest('a, button, input, textarea, .project-card, .filter-btn, .visit-btn, .theme-toggle, .nav-link, .cursor-hover')) {
-                document.body.classList.add('hovering');
-            } else {
-                document.body.classList.remove('hovering');
-            }
-        });
     }
 };

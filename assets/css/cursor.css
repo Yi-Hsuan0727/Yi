@@ -71,6 +71,13 @@ body.hovering .cursor-outline {
 body.cursor-view .cursor-label {
     opacity: 1;
     visibility: visible;
+    padding: 12px 22px;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    background: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.35);
 }
 
 body.cursor-view .cursor-dot {

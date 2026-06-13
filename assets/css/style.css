@@ -105,6 +105,14 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     gap: 0.14em;
     max-width: 100%;
 }
+.hero-title-greeting {
+    margin: 0 0 12px;
+    padding-top: 16px;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--accent-color);
+}
 .hero-title-line + .hero-title-line {
     margin-top: 0.06em;
 }
@@ -672,14 +680,17 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     list-style: none;
 }
 .projects-more-item {
+    margin-bottom: 14px;
     border-bottom: 1px solid var(--border-color);
 }
 .projects-more-item:last-child {
+    margin-bottom: 0;
     border-bottom: none;
 }
 .projects-more-link {
     display: block;
-    padding: 16px 4px;
+    padding: 16px 4px 16px 18px;
+    border-left: 3px solid var(--accent-color);
     text-decoration: none;
     color: inherit;
     transition: background 0.2s ease;
@@ -2657,6 +2668,11 @@ body.case-figure-zoom-open #scroll-container {
     to { transform: scaleX(1); }
 }
 
+.sidebar-motion .hero-title-greeting {
+    opacity: 0;
+    animation: sidebarFadeSlideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 .sidebar-motion .hero-text h1 .hero-title-line {
     opacity: 0;
     animation: sidebarFadeSlideIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -2737,6 +2753,7 @@ body.case-figure-zoom-open #scroll-container {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .sidebar-motion .hero-title-greeting,
     .sidebar-motion .hero-text h1 .hero-title-line,
     .sidebar-motion .hero-text h1 .hero-title-line .shape,
     .sidebar-motion .sidebar-intro,
@@ -3381,10 +3398,10 @@ body.case-figure-zoom-open #scroll-container {
 /* Home page header (intro + scroll spy + socials above project list) */
 .home-page-header {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(200px, 260px);
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 300px);
     gap: 24px 40px;
     align-items: stretch;
-    padding: 40px 30px 8px;
+    padding: 56px 30px 40px;
 }
 .home-page-header-main {
     min-width: 0;
@@ -3397,17 +3414,80 @@ body.case-figure-zoom-open #scroll-container {
     justify-self: end;
     align-self: stretch;
     width: 100%;
-    max-width: 260px;
+    max-width: 300px;
     min-height: 100%;
 }
+.home-hero-greeting-row {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 20px;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 12px;
+}
+.home-hero-greeting-row .hero-title-greeting {
+    display: inline-block;
+    margin: 0;
+    padding-top: 0;
+    width: auto;
+    max-width: none;
+    flex: none;
+    align-self: center;
+}
+.home-page-header .home-hero-greeting-row .sidebar-socials {
+    flex: 0 0 auto;
+    margin-top: 0;
+    justify-content: flex-start;
+}
 .home-header-tech {
-    margin: auto 0 0;
-    padding-top: 20px;
-    font-size: 0.68rem;
-    line-height: 1.45;
+    margin: 0;
+    padding-top: 0;
+    max-width: 100%;
+}
+.home-header-tech-text {
+    margin: 0;
+    font-size: 0.76rem;
+    line-height: 1.55;
     color: var(--secondary-text);
     text-align: right;
-    max-width: 100%;
+}
+.home-header-tech-host {
+    display: block;
+    margin-top: 4px;
+}
+.home-header-tech-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: baseline;
+    transition: color 0.2s ease;
+}
+.home-header-tech-inline:hover,
+.home-header-tech-inline:focus-visible {
+    color: var(--accent-color);
+    outline: none;
+}
+.home-header-tech-logo {
+    width: 13px;
+    height: 13px;
+    display: block;
+    flex-shrink: 0;
+}
+.home-header-tech-inline .fab.fa-github {
+    font-size: 13px;
+    line-height: 1;
+}
+.home-header-tech-logo--claude {
+    color: #cc785c;
+}
+.home-header-tech-inline:hover .home-header-tech-logo--claude,
+.home-header-tech-inline:focus-visible .home-header-tech-logo--claude {
+    color: #e39b7d;
 }
 .home-page-header .hero-text h1 {
     font-size: clamp(2.1rem, 4.5vw, 3.35rem);
@@ -3575,18 +3655,25 @@ body.case-figure-zoom-open #scroll-container {
     .home-page-header {
         display: block;
         position: relative;
-        padding: 32px 20px 4px;
+        padding: 44px 20px 28px;
     }
     .home-page-header-main {
-        padding-right: 132px;
+        padding-right: 0;
+    }
+    .home-hero-greeting-row {
+        align-items: flex-start;
+        gap: 12px;
+        padding-top: 0;
     }
     .home-page-header-aside {
-        position: absolute;
-        top: 32px;
-        right: 20px;
+        position: static;
         max-width: none;
-        width: auto;
-        gap: 0;
+        width: 100%;
+        margin-top: 16px;
+        align-items: flex-start;
+    }
+    .home-header-tech-text {
+        text-align: left;
     }
     .home-page-header .sidebar-socials {
         gap: 6px;
