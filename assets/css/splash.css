@@ -2,6 +2,10 @@ body.splash-active {
     overflow: hidden;
 }
 
+body.splash-active #app-root {
+    visibility: hidden;
+}
+
 .splash-screen {
     position: fixed;
     inset: 0;

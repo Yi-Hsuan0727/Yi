@@ -77,6 +77,15 @@ const LayoutComponents = {
         return this.buildSidebarScrollSpy();
     },
 
+    buildSidebarSocials: function() {
+        return `
+            <div class="sidebar-socials" aria-label="Social links">
+                <a href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:yche1356@asu.edu" class="sidebar-social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer" class="sidebar-social-link sidebar-resume-link">Resume</a>
+            </div>`;
+    },
+
     buildSidebarBottom: function(pageType, pageData) {
         if (pageType === 'home' || pageType === 'playground') {
             return '';
@@ -319,18 +328,23 @@ const LayoutComponents = {
                 </div>`
             : '';
         const contactFormHTML = showMonsterFooter ? this.buildContactForm() : '';
+        const socialsInFooter = pageType !== 'home';
+        const socialsHTML = socialsInFooter
+            ? `<div class="socials">
+                        <span class="connect-label" style="font-weight:700;">Connect with me:</span>
+                        <a href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:yche1356@asu.edu" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer" class="social-link resume-link">Resume</a>
+                    </div>`
+            : '';
+        const footerOnlyClass = !socialsInFooter ? ' site-footer--sidebar-socials' : '';
         return `
             <div class="site-footer-shell ${monsterHTML ? 'site-footer-shell-green' : ''}">
                 ${monsterHTML}
                 ${contactFormHTML}
-                <footer class="site-footer ${monsterHTML ? 'site-footer-green' : ''}">
+                <footer class="site-footer ${monsterHTML ? 'site-footer-green' : ''}${footerOnlyClass}">
                     <span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved.</span>
-                    <div class="socials">
-                        <span class="connect-label" style="font-weight:700;">Connect with me:</span>
-                        <a href="https://linkedin.com" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="mailto:yche1356@asu.edu" class="social-link"><i class="fas fa-envelope"></i></a>
-                        <a href="assets/img/resume.pdf" class="social-link resume-link">Resume</a>
-                    </div>
+                    ${socialsHTML}
                 </footer>
             </div>`;
     },

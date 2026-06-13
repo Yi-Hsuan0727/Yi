@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Michelle Chen · Messages</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+.app{display:flex;height:100dvh;width:100vw;background:#fff;overflow:hidden}
+
+/* ── SIDEBAR ─────────────────────────────────────────── */
+.sidebar{width:280px;flex-shrink:0;background:#f5f5f5;border-right:1px solid rgba(0,0,0,.12);display:flex;flex-direction:column;overflow:hidden;transition:transform .28s ease;z-index:50}
+.sb-top{padding:16px 14px 8px}
+.sb-title{font-size:1.1rem;font-weight:700;color:#000}
+.sb-search{margin:0 10px 8px;background:rgba(0,0,0,.08);border-radius:10px;display:flex;align-items:center;gap:6px;padding:6px 10px}
+.sb-si{color:#8e8e93;font-size:.8rem}
+.sb-search input{background:none;border:none;outline:none;font-size:.86rem;color:#000;width:100%}
+.sb-search input::placeholder{color:#8e8e93}
+.sb-list{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:8px}
+.sb-list::-webkit-scrollbar{display:none}
+.sb-label{font-size:.64rem;font-weight:600;color:#8e8e93;text-transform:uppercase;letter-spacing:.08em;padding:10px 16px 3px}
+.ci{display:flex;align-items:center;gap:9px;padding:8px 10px;cursor:pointer;border-radius:12px;margin:1px 6px;transition:background .15s;position:relative}
+.ci:hover{background:rgba(0,0,0,.05)}
+.ci.active{background:#007aff}
+.ci.active .ci-name,.ci.active .ci-preview,.ci.active .ci-time{color:#fff !important}
+.ci-av{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff}
+.ci-body{flex:1;min-width:0}
+.ci-row{display:flex;justify-content:space-between;align-items:baseline;gap:4px}
+.ci-name{font-size:.86rem;font-weight:600;color:#000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-time{font-size:.68rem;color:#8e8e93;white-space:nowrap;flex-shrink:0}
+.ci-preview{font-size:.76rem;color:#8e8e93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.ci-badge{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#007aff;color:#fff;font-size:.64rem;font-weight:700;border-radius:10px;padding:1px 6px;min-width:18px;text-align:center}
+.ci.active .ci-badge{background:#fff;color:#007aff}
+.ci-new{background:#007aff}
+
+/* ── MAIN ────────────────────────────────────────────── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.ch{flex-shrink:0;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:.5px solid rgba(0,0,0,.12);padding:10px 16px;display:flex;align-items:center;gap:10px}
+.ch-menu{display:none;background:none;border:none;cursor:pointer;font-size:1.2rem;color:#007aff;padding:4px;flex-shrink:0}
+.ch-av{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.72rem}
+.ch-info{flex:1}
+.ch-name{font-size:.9rem;font-weight:600;color:#000}
+.ch-sub{font-size:.68rem;color:#8e8e93}
+.ch-acts{display:flex;gap:8px;margin-left:auto}
+.ch-act{background:none;border:none;cursor:pointer;color:#007aff;font-size:1rem;padding:4px 6px;border-radius:8px;transition:background .15s}
+.ch-act:hover{background:rgba(0,122,255,.1)}
+
+/* ── MSGS (spacer pushes content to bottom) ─────────── */
+.msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:8px 20px 4px;display:flex;flex-direction:column}
+.msgs::-webkit-scrollbar{width:4px}
+.msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:2px}
+#msgs-spacer{flex:1;min-height:0}
+
+/* timestamp */
+.ts{text-align:center;font-size:.65rem;font-weight:500;color:#8e8e93;padding:12px 0 4px;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+
+/* tip bubble */
+.tip-bub{background:rgba(0,122,255,.06);border:1px solid rgba(0,122,255,.14);border-radius:14px;padding:9px 14px;margin:4px 0;font-size:.8rem;color:#3a3a4a;line-height:1.55}
+
+/* message group */
+.mg{display:flex;align-items:flex-end;gap:7px;margin-top:2px}
+.mg.out{flex-direction:row-reverse}
+.av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.58rem;font-weight:700}
+.av.mc-av{background:linear-gradient(135deg,#34c759,#007aff)}
+.av.g{visibility:hidden}
+.bc{display:flex;flex-direction:column;gap:2px;max-width:min(72%,580px)}
+.mg.out .bc{align-items:flex-end}
+.bw{display:flex;flex-direction:column}
+.mg.out .bw{align-items:flex-end}
+.b{padding:9px 13px;border-radius:18px;font-size:.9rem;line-height:1.5;word-break:break-word;cursor:default;user-select:none;-webkit-user-select:none}
+.b.in{background:#e9e9eb;color:#000;border-bottom-left-radius:4px;align-self:flex-start}
+.b.out{background:#007aff;color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.bc .bw:not(:last-child) .b.in{border-bottom-left-radius:18px}
+.bc .bw:not(:last-child) .b.out{border-bottom-right-radius:18px}
+.rxns{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}
+.rxp{background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:13px;padding:2px 7px;font-size:.72rem;display:flex;align-items:center;gap:2px;box-shadow:0 1px 4px rgba(0,0,0,.07);cursor:pointer;animation:pop .2s cubic-bezier(.34,1.56,.64,1)}
+.rxp span{font-size:.6rem;font-weight:600}
+@keyframes pop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.typing-row{display:flex;align-items:flex-end;gap:7px;margin-top:2px}
+.typing-d{background:#e9e9eb;border-radius:18px;border-bottom-left-radius:4px;padding:9px 12px;display:flex;gap:4px;align-items:center}
+.dot{width:6px;height:6px;border-radius:50%;background:#8e8e93;animation:bounce 1.2s infinite}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+/* ── MEDIA (avatar offset = 28px + 7px gap = 35px) ─── */
+.media-full{margin:6px 0 6px 35px;margin-right:-20px;width:calc(100% - 15px);display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.media-2{margin:6px 0 6px 35px;margin-right:-20px;width:calc(100% - 15px);display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.media-1{margin:6px 0 6px 35px;margin-right:-20px;width:calc(100% - 15px);display:grid;grid-template-columns:1fr;gap:3px}
+.pm{aspect-ratio:1;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,.07)}
+.pm video,.pm img{width:100%;height:100%;object-fit:contain;background:#fff;display:block}
+
+/* proj footer */
+.proj-foot{display:flex;align-items:center;justify-content:space-between;padding:5px 0 2px;margin-left:35px}
+.proj-tags{display:flex;gap:4px;flex-wrap:wrap}
+.ptag{font-size:.62rem;font-weight:600;padding:2px 6px;border-radius:5px;background:rgba(0,122,255,.1);color:#007aff}
+.proj-open{background:none;border:none;cursor:pointer;color:#007aff;font-size:.74rem;font-weight:600;font-family:inherit;white-space:nowrap;padding:0;transition:opacity .15s}
+.proj-open:hover{opacity:.7}
+.proj-block{margin-top:18px}
+
+/* attach cards */
+.attach-wrap{display:flex;flex-direction:column;gap:6px;margin-top:4px;margin-left:35px}
+.acard{display:flex;align-items:center;gap:10px;background:#f9f9f9;border:1px solid rgba(0,0,0,.08);border-radius:13px;padding:10px 12px;text-decoration:none;color:#000;max-width:280px;transition:background .15s}
+.acard:hover{background:#f0f0f0}
+.aicon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
+.ainfo{flex:1;min-width:0}
+.atitle{font-size:.82rem;font-weight:600;margin-bottom:1px}
+.aurl{font-size:.66rem;color:#8e8e93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aarr{color:#c7c7cc}
+
+/* section gap */
+.section-gap{height:28vh;flex-shrink:0;pointer-events:none}
+.ch-hint{text-align:center;font-size:.7rem;color:#b8b8c0;padding:8px 0 4px;letter-spacing:.02em}
+
+/* bubble entrance */
+@keyframes msg-in{0%{transform:scale(.88) translateY(6px);opacity:0}65%{transform:scale(1.01) translateY(-1px);opacity:1}100%{transform:scale(1) translateY(0);opacity:1}}
+.anim{animation:msg-in .3s cubic-bezier(.34,1.1,.64,1) both}
+.user-mg{display:flex;flex-direction:row-reverse;margin-top:2px;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.user-mg.on{opacity:1;transform:translateY(0)}
+
+/* ── STATIC VIEW ─────────────────────────────────────── */
+.static-msgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:8px 20px 10px;display:flex;flex-direction:column;gap:0}
+.static-msgs::-webkit-scrollbar{width:4px}
+.static-msgs::-webkit-scrollbar-thumb{background:rgba(0,0,0,.12);border-radius:2px}
+
+/* static media grids */
+.s3{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin:6px 0 6px 35px;margin-right:-20px;width:calc(100% - 15px)}
+.s2{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin:6px 0 6px 35px;margin-right:-20px;width:calc(100% - 15px)}
+.s1{margin:6px 0 6px 35px;margin-right:-20px;width:calc(100% - 15px)}
+.s3 .pm,.s2 .pm,.s1 .pm{aspect-ratio:1;overflow:hidden;background:#fff}
+.s-link-row{margin:4px 0 2px 35px}
+.s-link{color:#007aff;font-size:.82rem;font-weight:600;text-decoration:none}
+.s-link:hover{text-decoration:underline}
+.back-btn-wrap{padding:14px 20px 4px;text-align:center}
+.back-btn{background:none;border:none;cursor:pointer;color:#007aff;font-size:.84rem;font-weight:500;font-family:inherit;padding:7px 18px;border-radius:12px;background:rgba(0,122,255,.08)}
+
+/* photos row */
+.s-photos{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:6px 0 6px 35px;padding-bottom:2px}
+.s-photos::-webkit-scrollbar{display:none}
+.s-photo{flex-shrink:0;width:130px;height:130px;border-radius:13px;overflow:hidden;background:#fff}
+.s-photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── PLAYGROUND CARDS ────────────────────────────────── */
+.pg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 8px 35px}
+.pg-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:14px;overflow:hidden;text-decoration:none;color:#000;transition:transform .18s,box-shadow .18s}
+.pg-card:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.pg-card-img{aspect-ratio:1;overflow:hidden;background:#fff}
+.pg-card-img img{width:100%;height:100%;object-fit:contain;background:#fff;display:block}
+.pg-card-body{padding:8px 10px 10px;background:#f9f9f9}
+.pg-card-title{font-size:.8rem;font-weight:700;margin-bottom:2px}
+.pg-card-sub{font-size:.68rem;color:#8e8e93;line-height:1.4}
+
+/* ── GROUP CHAT BAR ──────────────────────────────────── */
+.gbar{flex-shrink:0;background:rgba(255,255,255,.96);border-top:.5px solid rgba(0,0,0,.1);padding:8px 16px 12px}
+.gbar-hint{font-size:.72rem;color:#8e8e93;margin-bottom:5px}
+.gbar-row{display:flex;gap:8px;align-items:center}
+.gbar-members{display:flex;gap:4px;align-items:center;margin-bottom:6px;flex-wrap:wrap}
+.gm-chip{display:flex;align-items:center;gap:4px;background:#f2f2f7;border-radius:12px;padding:3px 8px;font-size:.72rem;font-weight:500}
+.gm-av{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:#fff}
+
+/* ── INPUT BAR ───────────────────────────────────────── */
+.ibar{flex-shrink:0;background:rgba(255,255,255,.96);border-top:.5px solid rgba(0,0,0,.1);padding:8px 16px 12px}
+.hint{font-size:.66rem;color:#8e8e93;margin-bottom:5px;min-height:13px}
+.qr-row{display:flex;gap:5px;margin-bottom:6px;overflow-x:auto;scrollbar-width:none}
+.qr-row::-webkit-scrollbar{display:none}
+.qr{flex-shrink:0;background:#f2f2f7;border:1px solid rgba(0,0,0,.08);border-radius:15px;padding:4px 11px;font-size:.7rem;font-weight:500;color:#007aff;cursor:pointer;font-family:inherit;transition:background .15s,opacity .3s;white-space:nowrap}
+.qr:hover:not(.dim){background:#e5e5ea}
+.qr.active{background:rgba(0,122,255,.12);border-color:rgba(0,122,255,.25)}
+.qr.dim{opacity:.3;pointer-events:none}
+.irow{display:flex;align-items:center;gap:8px;position:relative}
+.cmdbox{position:absolute;bottom:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1);display:none}
+.cmdbox.on{display:block}
+.cmdrow{padding:9px 14px;cursor:pointer;display:flex;gap:8px;font-size:.8rem}
+.cmdrow:hover{background:#f2f2f7}
+.cmdkey{font-weight:700;color:#007aff;font-family:monospace}
+.ifield{flex:1;background:#f2f2f7;border:1px solid rgba(0,0,0,.08);border-radius:20px;padding:7px 14px}
+.ifield input{width:100%;background:none;border:none;outline:none;font-size:.88rem;color:#000;font-family:inherit}
+.ifield input::placeholder{color:#8e8e93}
+.sbtn{width:30px;height:30px;border-radius:50%;border:none;cursor:pointer;background:#34c759;color:#fff;font-size:.9rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,transform .1s}
+.sbtn:disabled{background:#d1d1d6;cursor:default}
+.sbtn:not(:disabled):hover{transform:scale(1.07)}
+
+/* ── NOTIFICATION TOAST ──────────────────────────────── */
+.toast{position:fixed;top:70px;right:20px;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:16px;padding:12px 14px;box-shadow:0 4px 24px rgba(0,0,0,.12);z-index:999;max-width:260px;cursor:pointer;animation:slideIn .35s cubic-bezier(.4,0,.2,1)}
+@keyframes slideIn{from{transform:translateX(300px);opacity:0}to{transform:translateX(0);opacity:1}}
+.toast-icon{font-size:1.4rem;margin-bottom:4px}
+.toast-name{font-size:.8rem;font-weight:600;margin-bottom:2px}
+.toast-msg{font-size:.74rem;color:#8e8e93}
+
+/* ── MOBILE ──────────────────────────────────────────── */
+@media(max-width:768px){
+  .sidebar{position:fixed;top:0;left:0;bottom:0;transform:translateX(-100%);box-shadow:4px 0 24px rgba(0,0,0,.15)}
+  .sidebar.open{transform:translateX(0)}
+  .ch-menu{display:flex}
+}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:40}
+</style>
+</head>
+<body>
+
+<div class="sb-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-top"><span class="sb-title">Messages</span></div>
+    <div class="sb-search">
+      <span class="sb-si">🔍</span>
+      <input type="text" placeholder="Search" id="sbsearch">
+    </div>
+    <div class="sb-list" id="sblist"></div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="ch" id="ch">
+      <button class="ch-menu" onclick="toggleSidebar()">☰</button>
+      <div class="ch-av mc-av" id="chav">MC</div>
+      <div class="ch-info">
+        <div class="ch-name" id="chname">Michelle Chen</div>
+        <div class="ch-sub" id="chsub">UX/UI Designer · Portfolio</div>
+      </div>
+      <div class="ch-acts">
+        <button class="ch-act" onclick="window.open('index.html','_blank')">🌐</button>
+      </div>
+    </header>
+
+    <!-- Portfolio msgs (flex column with spacer at top) -->
+    <div class="msgs" id="msgs">
+      <div id="msgs-spacer"></div>
+      <div id="cc"></div>
+      <div id="fb" style="display:flex;flex-direction:column;gap:2px;margin-top:4px"></div>
+      <div style="height:4px"></div>
+    </div>
+
+    <!-- Static sidebar rooms -->
+    <div class="static-msgs" id="sview" style="display:none"></div>
+
+    <!-- Group chat input (shown only in group chat) -->
+    <div class="gbar" id="gbar" style="display:none">
+      <div class="gbar-members">
+        <span style="font-size:.72rem;color:#8e8e93;margin-right:2px">Members:</span>
+        <span class="gm-chip"><span class="gm-av" style="background:#ff6b6b">CC</span>Cathy</span>
+        <span class="gm-chip"><span class="gm-av mc-av">MC</span>Michelle</span>
+        <span class="gm-chip" style="color:#34c759">+ You</span>
+      </div>
+      <div class="gbar-hint">Send a congratulations message! 🎉</div>
+      <div class="gbar-row">
+        <div class="ifield"><input id="ginp" type="text" placeholder="Congrats!! 🎉" autocomplete="off"></div>
+        <button class="sbtn" id="gsbtn" onclick="sendGroupMsg()">↑</button>
+      </div>
+    </div>
+
+    <!-- Regular input bar -->
+    <div class="ibar" id="ibar">
+      <div class="hint" id="hint">Long-press any bubble to react 👆</div>
+      <div class="qr-row">
+        <button class="qr" data-qr="/top" onclick="doCmd('/top')">⬆ Top</button>
+        <button class="qr dim" data-qr="/works" onclick="doCmd('/works')">💼 Works</button>
+        <button class="qr dim" data-qr="/contact" onclick="doCmd('/contact')">📎 Contact</button>
+        <button class="qr dim" data-qr="/feedback" onclick="doCmd('/feedback')">💌 Feedback</button>
+      </div>
+      <div style="position:relative">
+        <div class="cmdbox" id="cmdbox">
+          <div class="cmdrow" onclick="doCmd('/top')"><span class="cmdkey">/top</span> Back to top</div>
+          <div class="cmdrow" onclick="doCmd('/works')"><span class="cmdkey">/works</span> See my work</div>
+          <div class="cmdrow" onclick="doCmd('/contact')"><span class="cmdkey">/contact</span> Contact info</div>
+          <div class="cmdrow" onclick="doCmd('/feedback')"><span class="cmdkey">/feedback</span> Leave feedback</div>
+        </div>
+        <div class="irow">
+          <div class="ifield"><input id="inp" type="text" placeholder="Message Michelle…" autocomplete="off"></div>
+          <button class="sbtn" id="sbtn" disabled>↑</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Emoji picker -->
+<div id="epick" style="position:fixed;z-index:999;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:28px;padding:6px 9px;display:none;gap:2px;box-shadow:0 8px 30px rgba(0,0,0,.15)">
+  <button class="ep" data-e="❤️">❤️</button><button class="ep" data-e="👍">👍</button>
+  <button class="ep" data-e="😂">😂</button><button class="ep" data-e="😮">😮</button>
+  <button class="ep" data-e="🔥">🔥</button><button class="ep" data-e="🎉">🎉</button>
+  <button class="ep" data-e="💙">💙</button>
+</div>
+<style>.ep{background:none;border:none;font-size:1.4rem;cursor:pointer;border-radius:8px;padding:4px;transition:transform .12s}.ep:hover{transform:scale(1.25)}</style>
+
+<script>
+/* ════ HELPERS ════════════════════════════════════════ */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const esc   = s  => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const bold  = s  => s.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+
+/* ════ DATA ════════════════════════════════════════════ */
+const PHOTOS = ['assets/img/Michelle/CI8A8358.jpg','assets/img/Michelle/IMG_3647.JPG','assets/img/Michelle/IMG_9576.JPG'];
+
+const ATTACHMENTS = [
+  {icon:'🔗',bg:'#e8f0fe',title:'LinkedIn',url:'linkedin.com/in/mchen0727',href:'https://www.linkedin.com/in/mchen0727/'},
+  {icon:'✉️',bg:'#fce8e6',title:'Email',url:'yche1356@asu.edu',href:'mailto:yche1356@asu.edu'},
+  {icon:'📄',bg:'#e6f4ea',title:'Resume',url:'themichellechen.com/resume',href:'assets/img/resume.pdf'},
+  {icon:'🌐',bg:'#f3e8fd',title:'Portfolio',url:'themichellechen.com',href:'https://themichellechen.com'},
+];
+
+const PROJECTS = [
+  {id:'pic2split',title:'Pic2Split',sub:'End-to-End Social Bill-Splitting App',tags:['Product Design','UX Research'],
+   media:[{i:'assets/img/Pic2Split/hero.png'},{v:'assets/img/Pic2Split/Scan a receipt.mp4'},{v:'assets/img/Pic2Split/assign item.mp4'}],href:'pic2split.html'},
+  {id:'uav',title:'UAV Control System',sub:'Agricultural Drone Interface Design',tags:['UI Design','Mobile App'],
+   media:[{v:'assets/img/UAV/technician video.mp4'},{i:'assets/img/UAV/hero.png'},{i:'assets/img/UAV/technician-ai chatbot.png'}],href:'uav.html'},
+  {id:'unesco',title:'UNESCO Volunteer Recruitment',sub:'UX Redesign for Clarity & Conversion',tags:['UX Research','Web Redesign'],
+   media:[{i:'assets/img/UNESCO/hero.png'},{v:'assets/img/UNESCO/Home.mp4'},{i:'assets/img/UNESCO/Career Page (Gallery View).png'}],href:'unesco.html'},
+  {id:'lcm',title:'Indigenous Cultural Museums',sub:'WCAG AA Compliant Website · 30 Museums',tags:['Accessibility','Front-End Dev'],
+   media:[{v:'assets/img/lcm/overview.mp4'},{i:'assets/img/lcm/hero.png'},{i:'assets/img/lcm/activity.png'}],href:'lcm.html'},
+];
+
+/* ════ SIDEBAR CONFIG ══════════════════════════════════ */
+const SIDEBAR_BASE = [
+  {id:'portfolio',name:"Michelle's Portfolio",av:'MC',bg:'linear-gradient(135deg,#34c759,#007aff)',preview:"Hey! I'm Michelle — scroll to explore 👋",time:'now'},
+  {type:'label',text:'Projects'},
+  {id:'pic2split',name:'Pic2Split',av:'P2',bg:'#5e5ce6',preview:'Social bill-splitting · End-to-end design',time:'2025'},
+  {id:'uav',name:'UAV Control System',av:'🚁',bg:'#e5e5ea',preview:'Agricultural drone interface · UI Design',time:'2025'},
+  {id:'unesco',name:'UNESCO Recruitment',av:'UN',bg:'#009fda',preview:'UX redesign · Clarity & conversion',time:'2024'},
+  {id:'lcm',name:'Indigenous Cultural M…',av:'🏛',bg:'#e5e5ea',preview:'WCAG AA · 30 museums',time:'2024'},
+  {type:'label',text:'More'},
+  {id:'about',name:'About Michelle',av:'🙋',bg:'#e5e5ea',preview:'Bio, experience & interests',time:''},
+  {id:'playground',name:'Playground 🎮',av:'🎮',bg:'#e5e5ea',preview:'Side projects & experiments',time:''},
+];
+
+let SIDEBAR = [...SIDEBAR_BASE];
+let dailyMooAdded = false;
+
+/* ════ MAIN CHAT CHAPTERS ══════════════════════════════ */
+const CHAPTERS = {
+  intro:[
+    {type:'ts',text:'Today'},
+    {type:'tip',text:"📱 Explore **Projects** in the sidebar for full case studies · Use **Works** & **Contact** shortcuts below · Long-press any bubble to react 👆"},
+    {type:'in',id:'m1',text:"Hey! 👋 I'm Michelle Chen — UX/UI designer and HCI researcher. I design digital experiences that actually make sense to the people using them."},
+    {type:'in',id:'m2',text:"3+ years in the field · M.S. in UX/HCI from ASU (GPA 4.0) · Tempe, AZ 🌵\n\nI've shipped work at VisLab (ASU), M-think Technology, Toastmasters, and independent clients. Always at the intersection of research, design, and front-end craft."},
+    {type:'in',id:'m-c1',text:"That's a bit about me! 🙋‍♀️ Want to see my work? Tap **Works** above or scroll ↓"},
+    {type:'gap'},
+  ],
+  works:[
+    {type:'ts',text:'Featured Work',anchor:'works'},
+    {type:'in',id:'m3',text:"Here's some of what I've been building lately 👇 Tap **Open in Projects** on any card to see the full case study."},
+    {type:'project',idx:0},{type:'project',idx:1},{type:'project',idx:2},{type:'project',idx:3},
+    {type:'in',id:'m-c2',text:"Hope you enjoyed looking through my work! 🙌 Tap **Contact** or scroll down to see where to find me ↓"},
+    {type:'gap'},
+  ],
+  contact:[
+    {type:'ts',text:"Let's Connect",anchor:'contact'},
+    {type:'in',id:'m4',text:"Here's where to find me 📎\n\nAlways open to new projects, collaborations, or just a good design conversation. Don't be a stranger!"},
+    {type:'attachments'},
+    {type:'in',id:'m5',text:"Got feedback or just want to say hi? Drop a message below 💌"},
+  ],
+};
+const CHAPTER_ORDER = ['intro','works','contact'];
+
+/* ════ DELIVERY ENGINE ═════════════════════════════════ */
+const msgsEl = document.getElementById('msgs');
+const cc      = document.getElementById('cc');
+const fb      = document.getElementById('fb');
+let chIdx = 0, busy = false;
+
+function makeMed(item){
+  if(item&&item.v){
+    const v=document.createElement('video');
+    v.src=item.v;v.autoplay=true;v.muted=true;v.loop=true;v.playsInline=true;
+    v.setAttribute('webkit-playsinline','');return v;
+  }
+  const i=document.createElement('img');i.src=(item&&item.i)||item;i.loading='lazy';i.alt='';return i;
+}
+
+function buildStep(step){
+  if(step.type==='ts'){
+    const d=document.createElement('div');d.className='ts';d.textContent=step.text;
+    if(step.anchor)d.id=step.anchor;return d;
+  }
+  if(step.type==='tip'){
+    const d=document.createElement('div');d.className='tip-bub';d.innerHTML=bold(step.text);return d;
+  }
+  if(step.type==='in'){
+    const mg=document.createElement('div');mg.className='mg';
+    const av=document.createElement('div');av.className='av mc-av g';av.textContent='MC';
+    const bc=document.createElement('div');bc.className='bc';
+    const bw=document.createElement('div');bw.className='bw';
+    const b=document.createElement('div');b.className='b in';b.dataset.id=step.id;
+    b.innerHTML=bold(step.text);
+    const rxns=document.createElement('div');rxns.className='rxns';rxns.id='r-'+step.id;
+    bw.appendChild(b);bw.appendChild(rxns);bc.appendChild(bw);mg.appendChild(av);mg.appendChild(bc);return mg;
+  }
+  if(step.type==='project'){
+    const p=PROJECTS[step.idx];
+    const block=document.createElement('div');block.className='proj-block';
+    const mg=document.createElement('div');mg.className='mg';
+    const av=document.createElement('div');av.className='av mc-av';av.textContent='MC';
+    const bc=document.createElement('div');bc.className='bc';
+    const bw=document.createElement('div');bw.className='bw';
+    const b=document.createElement('div');b.className='b in';
+    b.innerHTML=`<strong>${p.title}</strong> — ${p.sub}`;
+    bw.appendChild(b);bc.appendChild(bw);mg.appendChild(av);mg.appendChild(bc);block.appendChild(mg);
+    const mf=document.createElement('div');mf.className='media-full';
+    p.media.forEach(m=>{const pm=document.createElement('div');pm.className='pm';pm.appendChild(makeMed(m));mf.appendChild(pm);});
+    block.appendChild(mf);
+    const pf=document.createElement('div');pf.className='proj-foot';
+    const tags=document.createElement('div');tags.className='proj-tags';
+    p.tags.forEach(t=>{const s=document.createElement('span');s.className='ptag';s.textContent=t;tags.appendChild(s);});
+    const btn=document.createElement('button');btn.className='proj-open';
+    btn.textContent='Open in Projects →';btn.onclick=()=>switchChat(p.id);
+    pf.appendChild(tags);pf.appendChild(btn);block.appendChild(pf);return block;
+  }
+  if(step.type==='attachments'){
+    const wrap=document.createElement('div');wrap.className='attach-wrap';
+    ATTACHMENTS.forEach(a=>{
+      const card=document.createElement('a');card.className='acard';card.href=a.href;card.target='_blank';
+      card.innerHTML=`<div class="aicon" style="background:${a.bg}">${a.icon}</div><div class="ainfo"><div class="atitle">${a.title}</div><div class="aurl">${a.url}</div></div><div class="aarr">›</div>`;
+      wrap.appendChild(card);
+    });return wrap;
+  }
+  if(step.type==='gap'){
+    const d=document.createElement('div');d.className='section-gap';return d;
+  }
+  return null;
+}
+
+function showTyping(){
+  const row=document.createElement('div');row.className='typing-row';
+  const av=document.createElement('div');av.className='av mc-av';av.textContent='MC';
+  const d=document.createElement('div');d.className='typing-d';
+  d.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+  row.appendChild(av);row.appendChild(d);cc.appendChild(row);
+  msgsEl.scrollTo({top:msgsEl.scrollHeight,behavior:'smooth'});return row;
+}
+
+function appendNode(node, scroll=true){
+  node.classList&&node.classList.add('anim');cc.appendChild(node);
+  node.querySelectorAll&&node.querySelectorAll('.b[data-id]').forEach(bindLP);
+  if(scroll) msgsEl.scrollTo({top:msgsEl.scrollHeight,behavior:'smooth'});
+}
+
+async function deliverStep(step){
+  let tr=null;
+  if(step.type==='in'){tr=showTyping();await sleep(Math.min(300+step.text.replace(/\*\*/g,'').length*9,1700));tr.remove();}
+  else if(step.type==='tip'){await sleep(350);}
+  else if(step.type==='project'){tr=showTyping();await sleep(900);tr.remove();}
+  else if(step.type==='attachments'){await sleep(250);}
+  else if(step.type==='ts'){await sleep(100);}
+  else if(step.type==='gap'){const n=buildStep(step);if(n)cc.appendChild(n);return;}
+  const node=buildStep(step);if(node)appendNode(node,step.type!=='gap');
+}
+
+async function runChapter(name){
+  if(busy)return;busy=true;
+  for(const step of CHAPTERS[name]){
+    await deliverStep(step);
+    await sleep(step.type==='ts'?80:step.type==='project'?460:step.type==='gap'?0:360);
+  }
+  unlockQR();
+  const ni=CHAPTER_ORDER.indexOf(name)+1;
+  if(ni<CHAPTER_ORDER.length)appendSentinel(CHAPTER_ORDER[ni]);
+  busy=false;
+}
+
+function appendSentinel(n){
+  const d=document.createElement('div');d.className='ch-hint';d.dataset.next=n;
+  d.textContent='scroll ↓ or press hotkey to continue';
+  cc.appendChild(d);sentObs.observe(d);
+}
+const sentObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting&&!busy){const n=e.target.dataset.next;sentObs.unobserve(e.target);e.target.remove();chIdx=CHAPTER_ORDER.indexOf(n);runChapter(n);}});
+},{root:msgsEl,threshold:.8});
+
+function unlockQR(){
+  document.querySelector('[data-qr="/top"]').classList.remove('dim');
+  if(chIdx>=0)document.querySelector('[data-qr="/works"]').classList.remove('dim');
+  if(chIdx>=1)document.querySelector('[data-qr="/contact"]').classList.remove('dim');
+  if(chIdx>=2)document.querySelector('[data-qr="/feedback"]').classList.remove('dim');
+}
+
+/* ════ SIDEBAR ═════════════════════════════════════════ */
+let currentId='portfolio';
+
+function buildSidebar(){
+  const list=document.getElementById('sblist');list.innerHTML='';
+  SIDEBAR.forEach(item=>{
+    if(item.type==='label'){const d=document.createElement('div');d.className='sb-label';d.textContent=item.text;list.appendChild(d);return;}
+    const ci=document.createElement('div');ci.className='ci'+(item.id===currentId?' active':'');
+    const isEmoji=item.av&&/^\p{Emoji}/u.test(item.av);
+    const avBg=isEmoji?'#d8d8dc':item.bg;
+    ci.innerHTML=`<div class="ci-av" style="background:${avBg};font-size:${isEmoji?'1.2rem':'.8rem'}">${item.av}</div>
+      <div class="ci-body">
+        <div class="ci-row"><div class="ci-name">${item.name}</div><div class="ci-time">${item.time}</div></div>
+        <div class="ci-preview">${item.preview}</div>
+      </div>${item.unread?`<div class="ci-badge">${item.unread}</div>`:''}`;
+    ci.addEventListener('click',()=>switchChat(item.id));
+    list.appendChild(ci);
+  });
+}
+
+function switchChat(id){
+  currentId=id;buildSidebar();closeSidebar();
+  const item=SIDEBAR.find(s=>s.id===id);if(!item)return;
+  const avEl=document.getElementById('chav');
+  const isEmoji=item.av&&/^\p{Emoji}/u.test(item.av);
+  avEl.textContent=item.av;
+  avEl.className=id==='portfolio'?'ch-av mc-av':'ch-av';
+  if(!isEmoji)avEl.style.background=item.bg;
+  else{avEl.style.background='#d8d8dc';avEl.style.fontSize='1.2rem';}
+  document.getElementById('chname').textContent=item.name;
+  document.getElementById('chsub').textContent=id==='portfolio'?'UX/UI Designer · Portfolio':'';
+  // clear unread badge
+  const si=SIDEBAR.find(s=>s.id===id);if(si)si.unread=0;buildSidebar();
+  document.getElementById('gbar').style.display='none';
+  if(id==='portfolio'){showPortfolioChat();return;}
+  const map={pic2split:showPic2Split,uav:showUAV,unesco:showUNESCO,lcm:showLCM,about:showAbout,playground:showPlayground,dailymoo:showDailyMoo};
+  if(map[id])map[id]();
+}
+
+function showPortfolioChat(){
+  document.getElementById('msgs').style.display='flex';
+  document.getElementById('sview').style.display='none';
+  document.getElementById('ibar').style.display='';
+}
+
+/* ── Static helpers ───────────────────────────────── */
+function sBub(text,avColor='mc'){
+  const mg=document.createElement('div');mg.className='mg';
+  const av=document.createElement('div');av.className='av';
+  av.style.background=avColor==='mc'?'linear-gradient(135deg,#34c759,#007aff)':avColor;
+  av.textContent=avColor==='mc'?'MC':avColor==='#ff6b6b'?'CC':'?';
+  mg.appendChild(av);
+  const bc=document.createElement('div');bc.className='bc';
+  const bw=document.createElement('div');bw.className='bw';
+  const b=document.createElement('div');b.className='b in';b.innerHTML=bold(text);
+  bw.appendChild(b);bc.appendChild(bw);mg.appendChild(bc);return mg;
+}
+function sTs(t){const d=document.createElement('div');d.className='ts';d.textContent=t;return d;}
+function sM(items,cls='s3'){
+  const g=document.createElement('div');g.className=cls;
+  items.forEach(src=>{
+    const pm=document.createElement('div');pm.className='pm';
+    pm.appendChild(makeMed(typeof src==='string'?{i:src}:src));g.appendChild(pm);
+  });return g;
+}
+function sLink(text,href){
+  const d=document.createElement('div');d.className='s-link-row';
+  const a=document.createElement('a');a.className='s-link';a.href=href;a.target='_blank';a.rel='noopener';a.textContent=text;
+  d.appendChild(a);return d;
+}
+function sp(h=4){const d=document.createElement('div');d.style.height=h+'px';return d;}
+function sDivider(){
+  const d=document.createElement('div');
+  d.style.cssText='height:1px;background:rgba(0,0,0,.08);margin:10px 35px;flex-shrink:0;';
+  return d;
+}
+function sPhotos(photos){
+  const row=document.createElement('div');row.className='s-photos';
+  photos.forEach(src=>{
+    const item=document.createElement('div');item.className='s-photo';
+    const img=document.createElement('img');img.src=src;img.loading='eager';img.alt='';
+    item.appendChild(img);row.appendChild(item);
+  });return row;
+}
+
+function showStatic(nodes, showBack=true){
+  document.getElementById('msgs').style.display='none';
+  document.getElementById('ibar').style.display='none';
+  const sv=document.getElementById('sview');sv.style.display='flex';sv.innerHTML='';
+  // Spacer pushes content to bottom when chat is short (same as main msgs)
+  const spacer=document.createElement('div');spacer.style.cssText='flex:1;min-height:0;';
+  sv.appendChild(spacer);
+  nodes.forEach(n=>n&&sv.appendChild(n));
+  if(showBack){
+    const bw=document.createElement('div');bw.className='back-btn-wrap';
+    const b=document.createElement('button');b.className='back-btn';b.textContent='← Back to Portfolio';b.onclick=()=>switchChat('portfolio');
+    bw.appendChild(b);sv.appendChild(bw);
+  }
+  sv.scrollTo({top:sv.scrollHeight,behavior:'instant'});
+}
+
+/* ════ PROJECT CHAT ROOMS (narrative image order) ══════ */
+
+function showPic2Split(){showStatic([
+  sTs('Pic2Split · 2025'),
+  sBub("**Pic2Split** — End-to-End Social Bill-Splitting App 🧾\n\nSplitting U.S. receipts with tax and tip is slow and error-prone. Existing apps feel too simple or too unreliable to trust at the table. I designed Pic2Split to solve this with an AI-powered web app that completes the full split in under two minutes."),
+  sDivider(),
+  sBub("🔍 **Research: Competitive Analysis & User Flow**\n\nI started with a competitive audit of existing bill-splitting tools and mapped out the end-to-end user journey to identify friction points."),
+  sM(['assets/img/Pic2Split/Userflow of competitor_Scan & Split Bill - OCR Check.jpg','assets/img/Pic2Split/pic2split-userflow.jpg','assets/img/Pic2Split/wireframe.png'],'s3'),
+  sDivider(),
+  sBub("🎨 **Design System & Components**\n\nBuilt a comprehensive design system and component library to ensure visual consistency across the entire app."),
+  sM(['assets/img/Pic2Split/design system.png','assets/img/Pic2Split/components.png'],'s2'),
+  sDivider(),
+  sBub("📱 **Prototype — Scan, Assign, Share**\n\nThe final three-step flow: scan the receipt → assign items to people → share the split link instantly. All under two minutes."),
+  sM([{v:'assets/img/Pic2Split/mockup-video-landing-animation.mp4'},{v:'assets/img/Pic2Split/Scan a receipt.mp4'},{v:'assets/img/Pic2Split/assign item.mp4'}],'s3'),
+  sDivider(),
+  sBub("✅ **Outcome**\n\nA frictionless receipt-splitting experience: zero calculation errors, accurate tax and tip distribution, and a complete flow in under 2 minutes. Research-backed and validated through usability testing."),
+  sLink('View full case study →','pic2split.html'),
+])}
+
+function showUAV(){showStatic([
+  sTs('UAV Control System · 2025'),
+  sBub("**UAV Control System** — Agricultural Drone Interface Design 🚁\n\nModern AgriDrones carry cameras, spray rigs, cargo drops, and sensors all at once. Managing them without overwhelming field technicians was the core design challenge."),
+  sM([{i:'assets/img/UAV/mockup.jpg'}],'s1'),
+  sDivider(),
+  sBub("📱 **Main Screens — Overview, Mission, Statistics**\n\nThe three primary views of the Technician role: a high-level payload overview, active mission monitoring, and a statistics/health dashboard."),
+  sM(['assets/img/UAV/technician-overview page.png','assets/img/UAV/technician-mission page.png','assets/img/UAV/technician-statistics page.png'],'s3'),
+  sDivider(),
+  sBub("🔔 **Feature Detail — Alerts & AI Chatbot**\n\nCritical features: a contextual alert detail panel that surfaces actionable diagnostics, and an AI chatbot assistant for real-time troubleshooting guidance."),
+  sM(['assets/img/UAV/alert details pop up window.png','assets/img/UAV/technician-ai chatbot.png'],'s2'),
+  sDivider(),
+  sBub("🎬 **Showreel — Full System in Action**"),
+  sM([{v:'assets/img/UAV/Agro drone Showreel- V2 (1).MP4'}],'s1'),
+  sDivider(),
+  sBub("✅ **Outcome**\n\nLess operator fatigue, faster maintenance, more uptime. One screen for swappable payloads. Clear alerts without split attention. Delivered in sync with the Pilot and Specialist roles."),
+  sLink('View full case study →','uav.html'),
+])}
+
+function showUNESCO(){showStatic([
+  sTs('UNESCO Volunteer Recruitment · 2024'),
+  sBub("**UNESCO Volunteer Recruitment** — UX Redesign for Clarity & Conversion 🌍\n\nThe UNESCO volunteer portal had a major discoverability problem. Potential volunteers couldn't find pathways, filters overlapped confusingly, and text blocks buried the most important requirements."),
+  sDivider(),
+  sBub("🔍 **Research — Dashboard, Summary & Issues**\n\nUsability testing dashboard results, user research summary, and documented issue patterns across the existing site."),
+  sM(['assets/img/UNESCO/usability-test-dashboard.png','assets/img/UNESCO/user research summary.png','assets/img/UNESCO/user research issues and feedbacks.png'],'s3'),
+  sDivider(),
+  sBub("👥 **User Personas — Three Distinct Audiences**\n\nThree distinct user types with different goals: students seeking internships, skilled professionals, and long-term volunteers."),
+  sM(['assets/img/UNESCO/persona-01.png','assets/img/UNESCO/persona-02.png','assets/img/UNESCO/persona-03.png'],'s3'),
+  sDivider(),
+  sBub("⚠️ **Before — Old Site Problems**\n\nThe original site: volunteer sections hidden in navigation, job listings with no filters, and career/internship sections nearly impossible to find."),
+  sM(['assets/img/UNESCO/old site.png','assets/img/UNESCO/old site-job page.png'],'s2'),
+  sDivider(),
+  sBub("✏️ **Redesign — Wireframes & New Navigation**"),
+  sM(['assets/img/UNESCO/wireframe.png'],'s1'),
+  sDivider(),
+  sBub("🎬 **Final Design — Animated Walkthroughs**"),
+  sM([{v:'assets/img/UNESCO/Home.mp4'},{i:'assets/img/UNESCO/Career Page (Gallery View).png'},{i:'assets/img/UNESCO/Career Page (Map View).png'}],'s3'),
+  sDivider(),
+  sBub("✅ **Outcome**\n\nFewer dead-ends, scannable listings, and filters matching the real job board taxonomy. Volunteering now feels accessible and worth exploring. Validated with usability testing across three personas."),
+  sLink('View full case study →','unesco.html'),
+])}
+
+function showLCM(){showStatic([
+  sTs('Indigenous Cultural Museums · 2024'),
+  sBub("**Indigenous Cultural Museums** — One WCAG 2.1 AA Platform for 30 Museums 🏛\n\nThe legacy site failed accessibility standards and buried 30 museums in admin-style navigation. Both had to be fixed while respecting cultural protocols."),
+  sDivider(),
+  sBub("⚠️ **Before — The Legacy Site & Competitive Audit**\n\nThe old site with inaccessible navigation and a competitive analysis showing how peer institutions handled museum content."),
+  sM(['assets/img/lcm/old site home page.png','assets/img/lcm/competitive.png'],'s2'),
+  sDivider(),
+  sBub("🏗 **Process — Structure, Wireframes & Prototype**\n\nInformation architecture planning, wireframes, and interactive prototype before the WCAG implementation."),
+  sM(['assets/img/lcm/home page structure.png','assets/img/lcm/wireframe.png','assets/img/lcm/prototype2.png'],'s3'),
+  sDivider(),
+  sBub("♿ **Accessibility — Contrast & Typography Standards**\n\nColor contrast auditing and typographic accessibility testing to meet WCAG 2.1 AA requirements across all 30 museum profiles."),
+  sM(['assets/img/lcm/color contract.png','assets/img/lcm/text and background.png'],'s2'),
+  sDivider(),
+  sBub("📱 **Final Design — Desktop, iPad, iPhone**\n\nThe redesigned site across breakpoints — lightweight and optimized for low-bandwidth remote regions."),
+  sM(['assets/img/lcm/lcm.tacp.gov.tw_.png','assets/img/lcm/lcm.tacp.gov.tw_(iPad Pro).png','assets/img/lcm/lcm.tacp.gov.tw_(iPhone 14 Pro Max).png'],'s3'),
+  sDivider(),
+  sBub("🎬 **Site Overview**"),
+  sM([{v:'assets/img/lcm/overview.mp4'}],'s1'),
+  sDivider(),
+  sBub("✅ **Outcome** 🏆\n\nPassed ALL government WCAG 2.1 AA audits — zero failures across every museum profile. Fully responsive, optimized for low bandwidth. A scalable brand system that treats indigenous artifacts with historical dignity."),
+  sLink('View full case study →','lcm.html'),
+])}
+
+function showAbout(){showStatic([
+  sTs('About Michelle'),
+  sPhotos(PHOTOS),
+  sDivider(),
+  sBub("**Hello! I'm Michelle Chen** 👋\n\nI'm a UX/UI designer focused on product thinking, interface craft, and practical systems. I turn complex problems into clear, useful digital experiences rooted in real user stories.\n\nI've designed across web & mobile, shipped front-end code, and love collaborating closely with engineers."),
+  sDivider(),
+  sBub("🎓 **Education**\n\nM.S. in User Experience · Arizona State University, Tempe AZ\nGPA 4.0/4.0 · Class of 2026\n\nB.A. in Cultural Heritage Conservation\nNational Yunlin University of Science & Technology, Taiwan\nGPA 3.75/4.0 · Class of 2021"),
+  sDivider(),
+  sBub("💼 **Work Experience**\n\nUX/UI Designer · VisLab, Arizona State University (2025–2026)\nWebsite Interface/UI Designer · M-think Technology, Taiwan (2023–2024)\nUX/UI Designer · Self-employment, Taiwan (2022–2023)"),
+  sDivider(),
+  sBub("🏆 **Awards & Volunteer**\n\nPeople's Choice Award · Endstar Game Maker Spark Challenge (ASU & Endless Studios, 2025)\n2nd Place · RoseHack, UC Riverside (2025)\nStudent Adobe Ambassador · Adobe & ASU\nUX/UI Designer & Front-End Developer · Toastmasters International, Taiwan (2023)"),
+  sDivider(),
+  sBub("✨ **Interests**\n\nAnimation · Design & Art · Traveling ✈️"),
+  sLink('View full about page →','about.html'),
+])}
+
+function showPlayground(){
+  const projects=[
+    {title:'Enchanter',sub:'Interactive Narrative Game 🎮\nPeople\'s Choice Award, ASU 2025',img:'assets/img/main images/Enchanter.png',href:'enchanter.html'},
+    {title:'Stiffy Wanderers',sub:'Playful Sticker Adventure 🐾\nInteractive character animation',img:'assets/img/main images/Stiffy.png',href:'stiffy.html'},
+    {title:'Daily Moo Mood',sub:'Emotional Wellness Tracker 🐄\n2nd Place, RoseHack UC Riverside 2025',img:'assets/img/main images/DailyMooMood.png',href:'dailymoo.html'},
+    {title:'Echoes of Four Seasons',sub:'Interactive Typography 🌸\nTaiwanese cultural heritage',img:'assets/img/main images/Spring.png',href:'gy.html'},
+  ];
+  const grid=document.createElement('div');grid.className='pg-grid';
+  projects.forEach(p=>{
+    const card=document.createElement('a');card.className='pg-card';card.href=p.href;card.target='_blank';card.rel='noopener';
+    card.innerHTML=`<div class="pg-card-img"><img src="${p.img}" alt="${p.title}" loading="lazy"></div>
+      <div class="pg-card-body"><div class="pg-card-title">${p.title}</div><div class="pg-card-sub">${p.sub.replace(/\n/g,'<br>')}</div></div>`;
+    grid.appendChild(card);
+  });
+  showStatic([
+    sTs('Playground 🎮'),
+    sBub("**Playground** — Experiments & Side Projects 🧪\n\nHere's where I build things outside of client work: game jams, interactive experiments, and creative explorations. More experiments and side projects on the way!"),
+    grid,
+    sLink('Open Playground →','playground.html'),
+  ]);
+}
+
+/* ════ DAILY MOO GROUP CHAT ════════════════════════════ */
+let groupMsgSent=false;
+
+function addDailyMooToSidebar(){
+  if(dailyMooAdded)return;
+  dailyMooAdded=true;
+  const entry={id:'dailymoo',name:'Daily Moo Mood 🐄',av:'🐄',bg:'#e5e5ea',preview:"Cathy: WE WON 2ND PLACE!! 🥈🎉",time:'now',unread:3};
+  // Insert after first item (portfolio)
+  SIDEBAR.splice(1,0,entry);
+  buildSidebar();
+  showToast();
+}
+
+function showToast(){
+  const t=document.createElement('div');t.className='toast';t.onclick=()=>{t.remove();switchChat('dailymoo');};
+  t.innerHTML=`<div class="toast-icon">🐄</div><div class="toast-name">Daily Moo Mood 🐄</div><div class="toast-msg">Cathy: WE WON 2ND PLACE!! 🥈🎉</div>`;
+  document.body.appendChild(t);
+  setTimeout(()=>{t.style.transition='opacity .4s';t.style.opacity='0';setTimeout(()=>t.remove(),400);},5000);
+}
+
+function gBub(text,sender){
+  const mg=document.createElement('div');mg.className='mg';
+  const av=document.createElement('div');av.className='av';
+  if(sender==='cathy'){av.style.background='#ff6b6b';av.textContent='CC';}
+  else{av.classList.add('mc-av');av.textContent='MC';}
+  mg.appendChild(av);
+  const bc=document.createElement('div');bc.className='bc';
+  const bw=document.createElement('div');bw.className='bw';
+  const b=document.createElement('div');b.className='b in';b.innerHTML=bold(text);
+  bw.appendChild(b);bc.appendChild(bw);mg.appendChild(bc);return mg;
+}
+
+function showDailyMoo(){
+  const sv=document.getElementById('sview');
+  document.getElementById('msgs').style.display='none';
+  document.getElementById('ibar').style.display='none';
+  sv.style.display='flex';sv.innerHTML='';
+  [
+    sTs('Daily Moo Mood 🐄 · RoseHack 2025'),
+    gBub("MICHELLE!! We just got the RoseHack UC Riverside results 🥳","cathy"),
+    sp(2),gBub("WHAT?! Tell me!!",'mc'),
+    sp(2),gBub("WE WON 2ND PLACE WITH DAILY MOO MOOD!!! 🥈🐄🎉🎉🎉","cathy"),
+    sp(2),gBub("No way... I'm literally shaking 😭🥹",'mc'),
+    sp(2),gBub("The judges said our emotional UX concept was really innovative and the 5-stage Likert scale with cow icons was unexpectedly delightful 😂","cathy"),
+    sp(2),gBub("I can't believe our cow mood tracker actually won an award at a hackathon 😂 This is incredible 💙",'mc'),
+    sp(2),gBub("From a weekend idea to an award-winning product!! Daily Moo Mood forever 🐄","cathy"),
+    sp(4),
+    (() => {
+      const d=document.createElement('div');
+      d.style.cssText='text-align:center;font-size:.7rem;color:#c0c0c8;padding:6px 0 4px';
+      d.textContent='— Send a congratulations message below 🎉 —';
+      return d;
+    })(),
+    sp(4),
+  ].forEach(n=>n&&sv.appendChild(n));
+  const bw=document.createElement('div');bw.className='back-btn-wrap';
+  const b=document.createElement('button');b.className='back-btn';b.textContent='← Back to Portfolio';b.onclick=()=>switchChat('portfolio');
+  bw.appendChild(b);sv.appendChild(bw);
+  sv.scrollTop=sv.scrollHeight;
+  document.getElementById('gbar').style.display='';
+  document.getElementById('ginp').focus();
+}
+
+async function sendGroupMsg(){
+  const ginp=document.getElementById('ginp');
+  const val=ginp.value.trim();if(!val||groupMsgSent)return;
+  groupMsgSent=true;
+  ginp.value='';
+  document.getElementById('gsbtn').disabled=true;
+  // Add user's message to static view
+  const sv=document.getElementById('sview');
+  const bw=document.getElementById('back-btn-wrap');
+  const userMg=document.createElement('div');userMg.className='user-mg';
+  userMg.innerHTML=`<div class="bc" style="align-items:flex-end"><div class="bw" style="align-items:flex-end"><div class="b out">${esc(val)}</div></div></div>`;
+  sv.insertBefore(userMg,sv.lastChild);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>userMg.classList.add('on')));
+  sv.scrollTo({top:sv.scrollHeight,behavior:'smooth'});
+  // Responses
+  await sleep(1000);
+  const r1=gBub("Thank you SO much!! 🥹 This means everything to us 💙","cathy");
+  sv.insertBefore(r1,sv.lastChild);sv.scrollTo({top:sv.scrollHeight,behavior:'smooth'});
+  await sleep(1200);
+  const r2=gBub("Truly grateful!! 🐄 Keep an eye on Daily Moo Mood — we have more ideas brewing 😊",'mc');
+  sv.insertBefore(r2,sv.lastChild);sv.scrollTo({top:sv.scrollHeight,behavior:'smooth'});
+  // Update hint
+  document.getElementById('gbar').querySelector('.gbar-hint').textContent='Message sent! 🎉';
+  document.getElementById('ginp').placeholder='Message sent!';
+}
+
+document.getElementById('ginp').addEventListener('keydown',e=>{if(e.key==='Enter')sendGroupMsg();});
+
+/* ════ COMMANDS ════════════════════════════════════════ */
+function removeSentinels(){document.querySelectorAll('.ch-hint').forEach(e=>{sentObs.unobserve(e);e.remove();})}
+function removeSectionGaps(){document.querySelectorAll('.section-gap').forEach(e=>e.remove())}
+
+function doCmd(cmd){
+  inp.value='';updateSend();cmdbox.classList.remove('on');
+  if(currentId!=='portfolio'){switchChat('portfolio');setTimeout(()=>doCmd(cmd),150);return;}
+  if(cmd==='/top')msgsEl.scrollTo({top:0,behavior:'smooth'});
+  else if(cmd==='/works'){
+    if(chIdx<1&&!busy){removeSentinels();removeSectionGaps();chIdx=1;runChapter('works');}
+    else{const el=document.getElementById('works');if(el)msgsEl.scrollTo({top:el.offsetTop-40,behavior:'smooth'});}
+  }
+  else if(cmd==='/contact'){
+    if(chIdx<2&&!busy){removeSentinels();removeSectionGaps();chIdx=2;runChapter('contact');}
+    else{const el=document.getElementById('contact');if(el)msgsEl.scrollTo({top:el.offsetTop-40,behavior:'smooth'});}
+  }
+  else if(cmd==='/feedback'){msgsEl.scrollTo({top:msgsEl.scrollHeight,behavior:'smooth'});setTimeout(startFeedback,400);}
+}
+
+msgsEl.addEventListener('scroll',()=>{
+  const st=msgsEl.scrollTop;
+  const wEl=document.getElementById('works'),cEl=document.getElementById('contact');
+  document.querySelectorAll('.qr:not(.dim)').forEach(b=>b.classList.remove('active'));
+  if(!wEl||st<(wEl.offsetTop-100))document.querySelector('[data-qr="/top"]')?.classList.add('active');
+  else if(!cEl||st<(cEl.offsetTop-100))document.querySelector('[data-qr="/works"]')?.classList.add('active');
+  else document.querySelector('[data-qr="/contact"]')?.classList.add('active');
+},{passive:true});
+
+/* ════ REACTIONS ═══════════════════════════════════════ */
+const epick=document.getElementById('epick');
+const RK='mc_rxns_v6';
+let rxns=JSON.parse(sessionStorage.getItem(RK)||'{}'),pTgt=null,pT=null;
+function showPicker(el,id){pTgt=id;const r=el.getBoundingClientRect();let left=r.left;const pw=310;if(left+pw>window.innerWidth-8)left=window.innerWidth-pw-8;if(left<8)left=8;epick.style.left=left+'px';epick.style.top=Math.max(8,r.top-54)+'px';epick.style.display='flex';navigator.vibrate&&navigator.vibrate([8]);}
+function hidePicker(){epick.style.display='none';pTgt=null;}
+function renderRxns(id){const el=document.getElementById('r-'+id);if(!el)return;const arr=rxns[id]||[];const cnt={};arr.forEach(e=>cnt[e]=(cnt[e]||0)+1);el.innerHTML=Object.entries(cnt).map(([e,n])=>`<span class="rxp" onclick="rmRxn('${id}','${e}')">${e}${n>1?`<span>${n}</span>`:''}</span>`).join('');}
+function addRxn(id,e){if(!rxns[id])rxns[id]=[];rxns[id].push(e);sessionStorage.setItem(RK,JSON.stringify(rxns));renderRxns(id);}
+function rmRxn(id,e){if(!rxns[id])return;const i=rxns[id].indexOf(e);if(i>-1)rxns[id].splice(i,1);sessionStorage.setItem(RK,JSON.stringify(rxns));renderRxns(id);}
+Object.keys(rxns).forEach(renderRxns);
+function bindLP(el){
+  const id=el.dataset.id;
+  const s=()=>{pT=setTimeout(()=>showPicker(el,id),480)};const c=()=>clearTimeout(pT);
+  el.addEventListener('mousedown',s);el.addEventListener('mouseup',c);el.addEventListener('mouseleave',c);
+  el.addEventListener('touchstart',s,{passive:true});el.addEventListener('touchend',c);el.addEventListener('touchmove',c);
+  el.addEventListener('contextmenu',ev=>{ev.preventDefault();showPicker(el,id);});
+}
+epick.querySelectorAll('.ep').forEach(b=>b.addEventListener('click',()=>{if(pTgt)addRxn(pTgt,b.dataset.e);hidePicker();}));
+document.addEventListener('click',e=>{if(!epick.contains(e.target)&&!e.target.closest('.b'))hidePicker();});
+
+/* ════ FEEDBACK ════════════════════════════════════════ */
+const inp=document.getElementById('inp'),sbtn=document.getElementById('sbtn'),hint=document.getElementById('hint'),cmdbox=document.getElementById('cmdbox');
+let fstep=0,fdata={name:'',email:''};
+const FS=[{ph:'Message Michelle…',h:'Long-press any bubble to react 👆'},{ph:'Your name…',h:"Step 1/3 — What's your name?"},{ph:'Your email…',h:'Step 2/3 — Your email?'},{ph:"What's on your mind?",h:'Step 3/3 — Your message'}];
+function setFS(n){fstep=n;inp.placeholder=FS[n].ph;hint.textContent=FS[n].h;}
+function startFeedback(){if(fstep>0)return;setFS(1);inp.focus();}
+function addUserBub(text){const g=document.createElement('div');g.className='user-mg';g.innerHTML=`<div class="bc" style="align-items:flex-end"><div class="bw" style="align-items:flex-end"><div class="b out">${esc(text)}</div></div></div>`;fb.appendChild(g);requestAnimationFrame(()=>requestAnimationFrame(()=>g.classList.add('on')));msgsEl.scrollTo({top:msgsEl.scrollHeight,behavior:'smooth'});}
+async function addMBub(text,ms=900){return new Promise(res=>{const tr=document.createElement('div');tr.className='typing-row';tr.innerHTML=`<div class="av mc-av">MC</div><div class="typing-d"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;fb.appendChild(tr);msgsEl.scrollTo({top:msgsEl.scrollHeight,behavior:'smooth'});setTimeout(()=>{tr.remove();const g=document.createElement('div');g.className='mg';g.style.cssText='opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;';g.innerHTML=`<div class="av mc-av">MC</div><div class="bc"><div class="bw"><div class="b in">${text}</div></div></div>`;fb.appendChild(g);requestAnimationFrame(()=>requestAnimationFrame(()=>{g.style.opacity='1';g.style.transform='translateY(0)';}));msgsEl.scrollTo({top:msgsEl.scrollHeight,behavior:'smooth'});res();},ms);})}
+function updateSend(){sbtn.disabled=inp.value.trim().length===0;const v=inp.value;if(v.startsWith('/')&&v.length>1)cmdbox.classList.add('on');else cmdbox.classList.remove('on');}
+inp.addEventListener('input',updateSend);
+inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();if(!sbtn.disabled)send();}});
+sbtn.addEventListener('click',send);
+inp.addEventListener('focus',()=>{if(fstep===0&&chIdx>=2)startFeedback();});
+async function send(){
+  const val=inp.value.trim();if(!val)return;
+  if(val.startsWith('/')){doCmd(val.split(' ')[0]);inp.value='';updateSend();return;}
+  inp.value='';updateSend();sbtn.disabled=true;cmdbox.classList.remove('on');
+  if(fstep===0){startFeedback();return;}
+  if(fstep===1){fdata.name=val;addUserBub(`Hi! I'm ${val} 👋`);setFS(2);await addMBub(`Nice to meet you, ${esc(val)}! 😊 What's your email?`,900);sbtn.disabled=false;inp.focus();}
+  else if(fstep===2){fdata.email=val;addUserBub(val);setFS(3);await addMBub("Got it! What's on your mind?",800);sbtn.disabled=false;inp.focus();}
+  else if(fstep===3){const msg=val;addUserBub(val);setFS(0);sbtn.disabled=true;await addMBub(`Thanks so much, ${esc(fdata.name)}! 💙 I'll reach out at ${esc(fdata.email)} soon.`,1100);const sub=encodeURIComponent(`Portfolio feedback from ${fdata.name}`);const body=encodeURIComponent(`Name: ${fdata.name}\nEmail: ${fdata.email}\n\nMessage:\n${msg}`);setTimeout(()=>{window.location.href=`mailto:yche1356@asu.edu?subject=${sub}&body=${body}`;},500);}
+}
+
+/* ════ MOBILE ══════════════════════════════════════════ */
+function toggleSidebar(){const sb=document.getElementById('sidebar'),ov=document.getElementById('overlay');sb.classList.toggle('open');ov.style.display=sb.classList.contains('open')?'block':'none';}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').style.display='none';}
+document.getElementById('sbsearch').addEventListener('input',function(){const q=this.value.toLowerCase();document.querySelectorAll('.ci').forEach(el=>{el.style.display=el.querySelector('.ci-name').textContent.toLowerCase().includes(q)?'':'none';});});
+
+/* ════ INIT ════════════════════════════════════════════ */
+buildSidebar();
+document.querySelector('[data-qr="/top"]').classList.remove('dim');
+runChapter('intro');
+
+// 30-second new group chat notification
+setTimeout(addDailyMooToSidebar, 30000);
+</script>
+</body>
+</html>

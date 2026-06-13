@@ -14,6 +14,15 @@
 <style>
     /* ─── BASE ─────────────────────────────────── */
     .lcm-section { padding-top: 96px; padding-bottom: 96px; }
+    #section-05-reflection .lcm-inner {
+        gap: 12px;
+    }
+    #section-05-reflection .lcm-inner > p {
+        margin-top: 0;
+    }
+    #section-05-reflection .lcm-inner > p + p {
+        margin-top: 8px;
+    }
     .lcm-inner {
         max-width: 900px;
         margin: 0 auto;
@@ -82,19 +91,51 @@
         align-items: stretch;
         justify-content: center;
         overflow: hidden;
-        background: #fff;
+        background: transparent;
         margin: 0;
         padding: 32px;
     }
-    [data-theme="dark"] .lcm-overview-media { background: var(--bg-color); }
-    .lcm-overview-media video {
+    .lcm-video-stage-inner {
         width: 100%;
-        height: auto;
+        aspect-ratio: 16 / 9;
+        background: linear-gradient(
+            165deg,
+            rgba(46, 204, 113, 0.16) 0%,
+            rgba(210, 168, 120, 0.14) 48%,
+            rgba(139, 90, 43, 0.1) 100%
+        );
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(20px, 4vw, 40px);
+        overflow: hidden;
+    }
+    [data-theme="dark"] .lcm-video-stage-inner {
+        background: linear-gradient(
+            165deg,
+            rgba(46, 204, 113, 0.12) 0%,
+            rgba(139, 90, 43, 0.14) 48%,
+            rgba(46, 204, 113, 0.08) 100%
+        );
+    }
+    .lcm-video-stage-inner video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
         display: block;
-        border: none !important;
-        outline: none;
-        box-shadow: none;
-        clip-path: inset(2px 0);
+        box-shadow:
+            0 8px 28px rgba(0, 0, 0, 0.12),
+            0 2px 8px rgba(46, 204, 113, 0.15);
+        clip-path: none;
+    }
+    [data-theme="dark"] .lcm-video-stage-inner video {
+        box-shadow:
+            0 8px 28px rgba(0, 0, 0, 0.35),
+            0 2px 8px rgba(46, 204, 113, 0.12);
     }
     /* ─── CALLOUT PAIR ──────────────────────────── */
     .lcm-callout-row {
@@ -502,15 +543,17 @@
             </p>
         </div>
         <figure class="lcm-overview-media">
-            <video
-                src="assets/img/lcm/overview.mp4"
-                autoplay
-                muted
-                playsinline
-                loop
-                preload="auto"
-                aria-label="Indigenous Cultural Museums platform overview walkthrough">
-            </video>
+            <div class="lcm-video-stage-inner">
+                <video
+                    src="assets/img/lcm/overview.mp4"
+                    autoplay
+                    muted
+                    playsinline
+                    loop
+                    preload="auto"
+                    aria-label="Indigenous Cultural Museums platform overview walkthrough">
+                </video>
+            </div>
         </figure>
     </div>
 </section>
@@ -742,30 +785,30 @@
 </section>
 
 <!-- ══════════════ 04 — SUMMARY / IMPACT ══════════════ -->
-<section class="case-section lcm-section">
+<section class="case-section lcm-section" id="section-04-summary-impact">
     <div class="lcm-inner">
 
         <div>
-                <div class="lcm-label">04 — Summary / Impact</div>
-            <h2 class="lcm-title">30 museums. One accessible gateway. Three goals met.</h2>
-            <p class="lcm-intro" style="margin-top:12px;">By treating web accessibility not as a checklist but as a core design principle, this project successfully unified 30 indigenous museums into a single accessible digital ecosystem.</p>
+            <div class="lcm-label">04 — Summary / Impact</div>
+            <h2 class="lcm-title">30 museums. One accessible gateway.</h2>
+            <p class="lcm-intro" style="margin-top:12px;">One WCAG 2.1 AA platform—built for communities and a global audience.</p>
         </div>
 
         <div class="lcm-impact-grid">
             <div class="lcm-impact-cell">
                 <div class="lcm-impact-icon"><i class="fas fa-circle-check" aria-hidden="true"></i></div>
-                <div class="lcm-impact-title">WCAG 2.1 AA Verified</div>
-                <p class="lcm-impact-desc">Passed all mandatory government accessibility audits across every single museum profile and collection index — zero failures across the full platform.</p>
+                <div class="lcm-impact-title">WCAG 2.1 AA</div>
+                <p class="lcm-impact-desc">Zero audit failures across all museum profiles.</p>
             </div>
             <div class="lcm-impact-cell">
                 <div class="lcm-impact-icon"><i class="fas fa-mobile-screen" aria-hidden="true"></i></div>
-                <div class="lcm-impact-title">Fully Responsive Launch</div>
-                <p class="lcm-impact-desc">Successfully launched a lightweight, cross-platform mobile experience that functions flawlessly even in remote regions with lower network speeds.</p>
+                <div class="lcm-impact-title">Responsive launch</div>
+                <p class="lcm-impact-desc">Works on mobile, even on slower rural networks.</p>
             </div>
             <div class="lcm-impact-cell">
                 <div class="lcm-impact-icon"><i class="fas fa-globe" aria-hidden="true"></i></div>
-                <div class="lcm-impact-title">Cultural Preservation</div>
-                <p class="lcm-impact-desc">Created a scalable digital brand system that treats indigenous artifacts with historical dignity and accurate representation, opening ancestral archives safely to a global audience.</p>
+                <div class="lcm-impact-title">Cultural access</div>
+                <p class="lcm-impact-desc">Archives opened with dignity and accurate representation.</p>
             </div>
         </div>
 
@@ -774,15 +817,16 @@
 </section>
 
 <!-- ══════════════ 05 — REFLECTION ══════════════ -->
-<section class="case-section case-section-alt lcm-section">
+<section class="case-section case-section-alt lcm-section" id="section-05-reflection">
     <div class="lcm-inner">
 
         <div>
             <div class="lcm-label">05 — Reflection</div>
-            <h2 class="lcm-title">Good design is intrinsically inclusive</h2>
+            <h2 class="lcm-title">Inclusive by design</h2>
         </div>
 
-        <p style="font-size:0.95rem; line-height:1.9; color:var(--secondary-text); max-width:680px;">Designing for accessibility forced our team to strip away unnecessary visual noise and flashiness, leading directly to the implementation of our 'slow technology' philosophy. When you design to accommodate and respect the margins — whether those margins are users with physical challenges or underrepresented cultural communities — the final experience becomes profoundly better for everyone.</p>
+        <p style="font-size:0.95rem; line-height:1.75; color:var(--secondary-text); max-width:680px; margin:0;">Accessibility removed visual noise and sharpened the experience—for everyone, not just edge cases. Designing for WCAG 2.1 AA forced clearer hierarchy, stronger contrast, and semantic structure that also improved navigation for sighted users.</p>
+        <p style="font-size:0.95rem; line-height:1.75; color:var(--secondary-text); max-width:680px; margin:0;">The same mindset shaped our slow-technology approach: respect users&apos; attention, reduce clutter, and let cultural content lead—not the interface chrome.</p>
 
 
     </div>

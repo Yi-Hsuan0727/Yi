@@ -2,21 +2,13 @@
  * SplashScreen: Home page entry animation with the brand M logo.
  */
 const SplashScreen = {
-    STORAGE_KEY: 'portfolio-home-splash-seen',
     FILL_DELAY_MS: 350,
     FILL_DURATION_MS: 1400,
     HOLD_MS: 300,
     EXIT_MS: 450,
 
     shouldShow: function() {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            return false;
-        }
-        return sessionStorage.getItem(this.STORAGE_KEY) !== '1';
-    },
-
-    markSeen: function() {
-        sessionStorage.setItem(this.STORAGE_KEY, '1');
+        return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     },
 
     logoMarkup: function() {
@@ -58,7 +50,6 @@ const SplashScreen = {
         window.setTimeout(function() {
             overlay.remove();
             document.body.classList.remove('splash-active');
-            SplashScreen.markSeen();
             if (typeof onComplete === 'function') {
                 onComplete();
             }

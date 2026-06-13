@@ -323,19 +323,27 @@ const PortfolioApp = {
         return this.getHomeProjects().filter(function(p) { return p.secondary; });
     },
 
-    initHomeProjects: function() {
-        var grid = document.querySelector('.project-grid');
-        if (!grid) return;
+    applyHomeProjectsContent: function(html) {
+        if (!html) return html;
 
         var featured = this.getFeaturedProjects();
-        grid.innerHTML = featured.map(function(p) {
+        var gridHTML = featured.map(function(p) {
             return LayoutComponents.buildFeaturedProjectCard(p);
         }).join('');
+        var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
 
-        var moreList = document.getElementById('projects-more-list');
-        if (moreList) {
-            moreList.innerHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
-        }
+        var parser = new DOMParser();
+        var doc = parser.parseFromString('<div id="home-content-root">' + html + '</div>', 'text/html');
+        var root = doc.getElementById('home-content-root');
+        if (!root) return html;
+
+        var grid = root.querySelector('.project-grid');
+        if (grid) grid.innerHTML = gridHTML;
+
+        var moreList = root.querySelector('#projects-more-list');
+        if (moreList) moreList.innerHTML = moreHTML;
+
+        return root.innerHTML;
     },
 
     /* Playground-only projects — never shown in "Next Projects" on case study pages */
@@ -368,40 +376,40 @@ const PortfolioApp = {
         this.injectHead(pageType);
         this.buildLayout(pageType);
 
-        const startApp = () => {
-            if (pageType === 'home') {
-                this.initHomeProjects();
-            }
-            this.initEntryEffects(pageType);
+        const finishBoot = () => this.startAppEffects(pageType);
 
-            if (typeof AppLogic !== 'undefined') AppLogic.init();
-            if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
-                MonsterLogic.init();
-            }
-            if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
-                ContactFormLogic.init();
-            }
-            if (pageType === 'home' && typeof CarouselLogic !== 'undefined') {
-                CarouselLogic.init();
-            }
-            if (pageType === 'home') {
-                this.initHomeAboutNav();
-            }
-            if (typeof CursorLogic !== 'undefined') CursorLogic.init();
-            const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
-            if (isCasePage) {
-                this.initCaseFigureZoom();
-                this.initCaseInfographic();
-                this.initCaseScrollSpy();
-            }
-        };
-
+        /* Splash overlays the built page; CSS hides #app-root until the M animation ends */
         if (pageType === 'home' && typeof SplashScreen !== 'undefined' && SplashScreen.shouldShow()) {
-            SplashScreen.show(startApp);
+            SplashScreen.show(finishBoot);
             return;
         }
 
-        startApp();
+        finishBoot();
+    },
+
+    startAppEffects: function(pageType) {
+        this.initEntryEffects(pageType);
+
+        if (typeof AppLogic !== 'undefined') AppLogic.init();
+        if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
+            MonsterLogic.init();
+        }
+        if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
+            ContactFormLogic.init();
+        }
+        if (pageType === 'about' && typeof CarouselLogic !== 'undefined') {
+            CarouselLogic.init();
+        }
+        if (pageType === 'home') {
+            this.initHomeAboutNav();
+        }
+        if (typeof CursorLogic !== 'undefined') CursorLogic.init();
+        const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
+        if (isCasePage) {
+            this.initCaseFigureZoom();
+            this.initCaseInfographic();
+            this.initCaseScrollSpy();
+        }
     },
 
     initCaseFigureZoom: function() {
@@ -484,7 +492,10 @@ const PortfolioApp = {
 
     buildLayout: function(pageType) {
         const contentDiv = document.getElementById('page-specific-content');
-        const uniqueContent = contentDiv ? contentDiv.innerHTML : "";
+        let uniqueContent = contentDiv ? contentDiv.innerHTML : "";
+        if (pageType === 'home') {
+            uniqueContent = this.applyHomeProjectsContent(uniqueContent);
+        }
         const pageData = this.data[pageType] || this.data.home;
         const projectMeta = this.getProject(pageType);
         const logoSVG = LayoutComponents.logoSVG();
@@ -533,18 +544,25 @@ const PortfolioApp = {
             return;
         }
 
+        const sidebarCompactScope = pageType === 'home'
+            ? ' sidebar-compact-scope sidebar-compact-scope--home'
+            : (!isGridPage && projectMeta)
+            ? ' sidebar-compact-scope sidebar-compact-scope--project'
+            : '';
+
         const layoutHTML = `
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             ${LayoutComponents.buildMobileHeader(logoSVG)}
             <div id="app-root">
                 ${LayoutComponents.buildSiteHeader(logoSVG, pageType)}
-                <div class="content-wrapper">
+                <div class="content-wrapper${sidebarCompactScope}">
                     <aside class="sidebar">
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
                         ${!isGridPage && projectMeta ? LayoutComponents.buildSidebarScrollSpy() : LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${pageType === 'playground' ? LayoutComponents.buildSidebarToolsMarquee() : ''}
+                        ${pageType === 'home' ? LayoutComponents.buildSidebarSocials() : ''}
                     </aside>
                         <div class="right-panel">
                         <div class="scroll-area" id="scroll-container">

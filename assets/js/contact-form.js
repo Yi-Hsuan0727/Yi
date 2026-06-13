@@ -170,10 +170,4 @@ const ContactFormLogic = {
     }
 };
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ContactFormLogic.init.bind(ContactFormLogic));
-} else {
-    setTimeout(function() {
-        ContactFormLogic.init();
-    }, 100);
-}
+/* Initialized by PortfolioApp.startAppEffects — avoid duplicate DOMContentLoaded init */

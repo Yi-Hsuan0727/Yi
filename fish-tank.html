@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Interactive Fish Tank · p5.js</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; background: #04141f; overflow: hidden; }
+  canvas { display: block; }
+  .ui {
+    position: fixed; left: 16px; top: 14px; display: flex; gap: 8px; flex-wrap: wrap;
+    font: 13px/1 ui-sans-serif, system-ui, sans-serif; z-index: 5;
+  }
+  .ui button {
+    border: 0; padding: 9px 13px; border-radius: 10px; cursor: pointer;
+    background: rgba(255,255,255,.14); color: #eaf6ff; backdrop-filter: blur(6px);
+    transition: background .15s;
+  }
+  .ui button:hover { background: rgba(255,255,255,.26); }
+  .hint {
+    position: fixed; left: 16px; bottom: 14px; z-index: 5;
+    font: 13px/1.5 ui-monospace, Menlo, monospace; color: #9fc7da; user-select: none;
+  }
+  .hint b { color: #d8f1ff; }
+</style>
+</head>
+<body>
+<div class="ui">
+  <button id="addFish">+ Add fish</button>
+  <button id="addSchool">+ School of tetras</button>
+  <button id="feed">🍤 Drop food</button>
+  <button id="clear">Reset</button>
+</div>
+<div class="hint">
+  <b>Move</b> the mouse — fish get curious, then dart away if you get close ·
+  <b>Click</b> the water to drop food they'll chase ·
+  <b>Drag</b> to make a current
+</div>
+<script>
+// ---------- Interactive Fish Tank ----------
+let fish = [];
+let foods = [];
+let bubbles = [];
+let plants = [];
+let rays = [];
+let t = 0;
+
+const SPECIES = {
+  clownfish:  { len: 46, col: [255,140,40],  belly:[255,220,180], stripes:true,  fins:[255,255,255], speed:1.0 },
+  angelfish:  { len: 54, col: [245,225,90],  belly:[255,255,210], stripes:true,  fins:[60,60,80],    speed:0.8, tall:1.7 },
+  koi:        { len: 70, col: [250,250,250],  belly:[255,120,90],  blotch:true,   fins:[255,180,170], speed:0.7 },
+  bluetang:   { len: 50, col: [40,110,230],  belly:[90,160,255],  tailfan:true,  fins:[255,210,40],  speed:1.1 },
+  tetra:      { len: 26, col: [80,200,235],  belly:[230,255,255], neon:true,     fins:[200,240,255], speed:1.5 },
+  pufferfish: { len: 44, col: [200,180,120], belly:[245,235,200], puffer:true,   fins:[210,195,150], speed:0.55 },
+};
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  initTank();
+  document.getElementById('addFish').onclick = () => addFish(random(Object.keys(SPECIES)));
+  document.getElementById('addSchool').onclick = () => { for (let i=0;i<10;i++) addFish('tetra', true); };
+  document.getElementById('feed').onclick = () => { for (let i=0;i<6;i++) dropFood(random(width*0.2,width*0.8), random(40,120)); };
+  document.getElementById('clear').onclick = initTank;
+}
+
+function initTank() {
+  fish = []; foods = []; bubbles = []; plants = []; rays = [];
+  const roster = ['clownfish','clownfish','angelfish','koi','bluetang','bluetang','pufferfish'];
+  roster.forEach(s => addFish(s));
+  for (let i=0;i<8;i++) addFish('tetra', true);
+  // seaweed
+  for (let i=0;i<14;i++) {
+    plants.push({ x: random(width), h: random(90,230), seg: floor(random(5,9)),
+      hue: random(95,150), phase: random(TWO_PI), w: random(8,16) });
+  }
+  // light rays
+  for (let i=0;i<5;i++) rays.push({ x: random(width), w: random(60,160), a: random(6,16) });
+  // ambient bubbles
+  for (let i=0;i<30;i++) bubbles.push(newBubble(random(height)));
+}
+
+function addFish(species, schooling=false) {
+  const sp = SPECIES[species];
+  fish.push({
+    species, sp,
+    pos: createVector(random(width), random(height*0.15, height*0.9)),
+    vel: p5.Vector.random2D().mult(random(0.6,1.4)),
+    size: sp.len * random(0.85, 1.2),
+    dir: 1, wobble: random(TWO_PI), tailPhase: random(TWO_PI),
+    maxSpeed: sp.speed * random(1.6, 2.4),
+    fear: 0, hunger: random(0,1), schooling,
+    hue: random(-12,12),
+  });
+}
+
+function newBubble(y) {
+  return { x: random(width), y: y ?? height+10, r: random(2,6), spd: random(0.5,1.6), wob: random(TWO_PI) };
+}
+function dropFood(x,y){ foods.push({ pos: createVector(x,y), vel: createVector(random(-0.3,0.3), 0.6) }); }
+
+function draw() {
+  t += 0.016;
+  drawWater();
+  drawRays();
+  for (const p of plants) drawPlant(p);
+  updateFood();
+  for (const f of fish) { updateFish(f); drawFish(f); }
+  updateBubbles();
+  drawGlass();
+}
+
+// ---------- environment ----------
+function drawWater() {
+  for (let y=0; y<height; y+=2) {
+    const k = y/height;
+    const c1 = color(12, 90, 130), c2 = color(3, 22, 40);
+    stroke(lerpColor(c1,c2,k));
+    line(0,y,width,y);
+  }
+  // caustic shimmer
+  noStroke();
+  for (let i=0;i<60;i++){
+    const x = (noise(i*0.3, t*0.2)*1.4-0.2)*width;
+    const y = (noise(i*0.3+50, t*0.15)*0.6)*height;
+    fill(180,230,255, 6);
+    ellipse(x, y, 120, 40);
+  }
+  // sandy bottom
+  noStroke(); fill(225, 205, 150);
+  beginShape();
+  vertex(0,height);
+  for (let x=0;x<=width;x+=40) curveVertex(x, height-30 - 14*noise(x*0.01, t*0.05));
+  vertex(width,height);
+  endShape(CLOSE);
+}
+
+function drawRays() {
+  noStroke();
+  for (const r of rays) {
+    const x = r.x + sin(t*0.2 + r.x)*20;
+    fill(200, 240, 255, r.a);
+    quad(x, 0, x+r.w, 0, x+r.w*2.4, height, x+r.w*1.4, height);
+  }
+}
+
+function drawPlant(p) {
+  const sway = sin(t*1.2 + p.phase) * 0.25;
+  push(); translate(p.x, height-26);
+  noStroke();
+  for (let s=0;s<p.seg;s++){
+    const k = s/p.seg;                       // 0 at base -> 1 at tip
+    // deep green at base, brighter toward the tip
+    fill(30 + 40*k, 110 + 70*k, 70 + 30*k, 225);
+    const seg = p.h/p.seg;
+    rotate(sway*(0.4+k));
+    ellipse(0, -seg/2, p.w*(1-k*0.5), seg);
+    translate(0, -seg);
+  }
+  pop();
+}
+
+// ---------- food ----------
+function updateFood() {
+  for (let i=foods.length-1;i>=0;i--){
+    const fd = foods[i];
+    fd.vel.y = min(fd.vel.y+0.01, 0.9);
+    fd.pos.add(fd.vel);
+    if (fd.pos.y > height-30) { fd.pos.y = height-30; fd.vel.mult(0); }
+    noStroke(); fill(255,150,90); circle(fd.pos.x, fd.pos.y, 7);
+    fill(255,200,150,120); circle(fd.pos.x, fd.pos.y, 12);
+    if (fd.eaten) foods.splice(i,1);
+  }
+}
+
+// ---------- fish behaviour ----------
+function updateFish(f) {
+  const steer = createVector(0,0);
+
+  // wander
+  f.wobble += 0.03;
+  steer.add(p5.Vector.fromAngle(f.vel.heading() + sin(f.wobble)*0.4).mult(0.05));
+
+  // seek food when hungry
+  let target=null, td=1e9;
+  for (const fd of foods){ const d=p5.Vector.dist(f.pos,fd.pos); if(d<td){td=d;target=fd;} }
+  if (target && td < 320) {
+    const seek = p5.Vector.sub(target.pos, f.pos).setMag(0.18);
+    steer.add(seek);
+    if (td < f.size*0.5) { target.eaten = true; f.hunger=0; for(let b=0;b<4;b++) bubbles.push({x:f.pos.x,y:f.pos.y,r:random(2,4),spd:random(1,2),wob:random(TWO_PI)});}
+  }
+
+  // schooling for tetras
+  if (f.schooling) {
+    const center = createVector(0,0); let n=0; const sep = createVector(0,0);
+    for (const o of fish){ if(o===f||!o.schooling) continue; const d=p5.Vector.dist(f.pos,o.pos);
+      if(d<140){ center.add(o.pos); n++; if(d<40) sep.add(p5.Vector.sub(f.pos,o.pos).setMag(1/(d+1))); } }
+    if(n>0){ center.div(n); steer.add(p5.Vector.sub(center,f.pos).setMag(0.04)); steer.add(sep.mult(0.6)); }
+  }
+
+  // mouse: curiosity at medium range, fear up close
+  const m = createVector(mouseX, mouseY);
+  const dm = p5.Vector.dist(f.pos, m);
+  if (mouseIsInside()) {
+    if (dm < 90) { f.fear = 1; steer.add(p5.Vector.sub(f.pos,m).setMag(0.5)); }
+    else if (dm < 240) { steer.add(p5.Vector.sub(m,f.pos).setMag(0.03)); }
+  }
+  f.fear *= 0.92;
+
+  // current from dragging
+  if (mouseIsPressed && mouseIsInside()) {
+    const drag = createVector(mouseX-pmouseX, mouseY-pmouseY);
+    if (drag.mag()>1 && dm<260) steer.add(drag.setMag(0.25));
+  }
+
+  // soft walls
+  const pad=70;
+  if (f.pos.x<pad) steer.x+=0.12; if (f.pos.x>width-pad) steer.x-=0.12;
+  if (f.pos.y<pad) steer.y+=0.12; if (f.pos.y>height-60) steer.y-=0.16;
+
+  f.vel.add(steer);
+  const sp = f.maxSpeed * (1 + f.fear*1.6);
+  f.vel.limit(sp);
+  if (f.vel.mag()<0.4) f.vel.setMag(0.4);
+  f.pos.add(f.vel);
+  f.dir = f.vel.x >= 0 ? 1 : -1;
+  f.tailPhase += 0.2 + f.vel.mag()*0.05 + f.fear*0.3;
+}
+
+function drawFish(f) {
+  const sp = f.sp, L = f.size, Hh = L*0.5*(sp.tall||1);
+  push();
+  translate(f.pos.x, f.pos.y);
+  rotate(f.vel.heading() + (f.dir<0?PI:0));
+  scale(1, f.dir<0?-1:1);
+  const tail = sin(f.tailPhase)*0.5;
+
+  noStroke();
+  // tail fin
+  fill(sp.fins[0],sp.fins[1],sp.fins[2], 230);
+  push(); translate(-L*0.5,0); rotate(tail*0.6);
+  if (sp.tailfan){ triangle(0,0,-L*0.5,-Hh*0.7,-L*0.5,Hh*0.7); }
+  else { triangle(0,0,-L*0.45,-Hh*0.55,-L*0.45,Hh*0.55); }
+  pop();
+
+  // dorsal + pelvic fins
+  fill(sp.fins[0],sp.fins[1],sp.fins[2], 200);
+  triangle(L*0.05,-Hh*0.6, -L*0.15,-Hh*0.55, L*0.18,-Hh*0.15);
+  triangle(0,Hh*0.55, -L*0.15,Hh*0.4, L*0.12,Hh*0.12);
+
+  // body
+  fill(constrain(sp.col[0]+f.hue,0,255), constrain(sp.col[1]+f.hue,0,255), sp.col[2]);
+  ellipse(0,0, L, Hh*2*0.62);
+  // belly
+  fill(sp.belly[0],sp.belly[1],sp.belly[2], 210);
+  push(); translate(0,Hh*0.18); ellipse(0,0,L*0.82,Hh*0.7); pop();
+
+  // patterns
+  if (sp.stripes){ fill(255,255,255,170);
+    for(let s=-1;s<=1;s++){ push(); translate(s*L*0.18,0); rotate(0.15);
+      rect(-2,-Hh*0.55,4,Hh*1.1,2); pop(); } }
+  if (sp.neon){ fill(60,230,255,230); rect(-L*0.35,-2,L*0.7,3,2);
+    fill(255,60,90,220); rect(0,2,L*0.35,3,2); }
+  if (sp.blotch){ fill(250,120,90,230);
+    ellipse(-L*0.1,-Hh*0.15,L*0.4,Hh*0.5); ellipse(L*0.22,Hh*0.1,L*0.28,Hh*0.4); }
+  if (sp.puffer){ fill(120,100,60,160);
+    for(let i=0;i<10;i++){ const a=random(-0.4,0.4); push(); translate(random(-L*0.3,L*0.3),random(-Hh*0.4,Hh*0.4));
+      rotate(a); triangle(0,0,3,-5,6,0); pop(); } }
+
+  // eye
+  fill(255); circle(L*0.32,-Hh*0.12, L*0.14);
+  fill(20); circle(L*0.35,-Hh*0.12, L*0.07);
+  fill(255,255,255,200); circle(L*0.33,-Hh*0.16, L*0.025);
+  pop();
+}
+
+// ---------- bubbles & glass ----------
+function updateBubbles() {
+  for (let i=bubbles.length-1;i>=0;i--){
+    const b=bubbles[i]; b.y-=b.spd; b.wob+=0.05; b.x+=sin(b.wob)*0.4;
+    noFill(); stroke(220,245,255, 120); strokeWeight(1.3); circle(b.x,b.y,b.r*2);
+    stroke(255,255,255,160); arc(b.x,b.y,b.r*2,b.r*2, PI*1.1, PI*1.5);
+    if (b.y < -10) bubbles.splice(i,1);
+  }
+  if (frameCount%10===0) bubbles.push(newBubble());
+}
+
+function drawGlass() {
+  noFill(); stroke(255,255,255,30); strokeWeight(8);
+  rect(4,4,width-8,height-8, 14);
+  // top light streak
+  noStroke(); fill(255,255,255,10); rect(0,0,width,60);
+}
+
+// ---------- input ----------
+function mouseIsInside(){ return mouseX>=0&&mouseX<=width&&mouseY>=0&&mouseY<=height; }
+function mousePressed(){ if(mouseIsInside()) dropFood(mouseX,mouseY); }
+function windowResized(){ resizeCanvas(windowWidth,windowHeight); }
+</script>
+</body>
+</html>

@@ -98,8 +98,9 @@ const AppLogic = {
 
     // --- 3. SCROLL INTERACTIONS ---
     initSidebarCompact: function() {
-        const wrapper = document.querySelector('.content-wrapper');
-        if (!wrapper || !wrapper.querySelector('.sidebar-scroll-spy')) {
+        const wrapper = document.querySelector('.content-wrapper.sidebar-compact-scope');
+        /* Home and project pages keep sidebar width fixed while scrolling */
+        if (!wrapper || wrapper.classList.contains('sidebar-compact-scope--home') || wrapper.classList.contains('sidebar-compact-scope--project')) {
             return function() {};
         }
 

@@ -183,9 +183,4 @@ const MonsterLogic = {
     }
 };
 
-// Check if DOM is ready, then init
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', MonsterLogic.init.bind(MonsterLogic));
-} else {
-    setTimeout(() => MonsterLogic.init(), 100);
-}
+/* Initialized by PortfolioApp.startAppEffects — avoid duplicate DOMContentLoaded init */

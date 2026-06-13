@@ -12,6 +12,12 @@
 <body>
     <div id="page-specific-content" style="display: none;">
 <style>
+    #section-introduction.uav-section {
+        background: #ffffff;
+    }
+    [data-theme="dark"] #section-introduction.uav-section {
+        background: var(--bg-color);
+    }
     .uav-section { padding-top: 72px; padding-bottom: 72px; }
     .uav-inner {
         max-width: 900px;
@@ -430,7 +436,7 @@
 </style>
 
 <!-- Context & Problem -->
-<section class="case-section case-section-alt case-section--problem uav-section" id="section-introduction">
+<section class="case-section case-section--problem uav-section" id="section-introduction">
     <div class="uav-inner">
         <div class="uav-header">
             <div class="uav-label case-problem-label">01 — Context &amp; Problem</div>
@@ -465,6 +471,20 @@
                 <span class="case-info-stat-label">Payloads, diagnostics, repairs—without friction</span>
             </li>
         </ul>
+
+        <figure class="case-figure case-figure-readable uav-figure uav-demo-video-wrap">
+            <video
+                class="uav-demo-video uav-autoplay-video"
+                src="assets/img/UAV/Agro%20drone%20Showreel-%20V2%20(1).MP4"
+                autoplay
+                muted
+                playsinline
+                loop
+                preload="auto"
+                aria-label="AgriDrone system showreel demonstrating the multi-role agricultural workstation UAV interface ecosystem">
+            </video>
+            <figcaption class="case-caption">AgriDrone Showreel — multi-role agricultural workstation UAV system in action. (This video is provided by Prof. Cameron Rennacker and Shoaib Ahmad.)</figcaption>
+        </figure>
     </div>
 </section>
 
@@ -511,16 +531,51 @@
                     <div class="case-phase-kicker">Phase 01 — Research</div>
                     <h3 class="case-phase-block-title">Concept Development</h3>
                 </header>
-                <div class="case-phase-block-inner">
+                <div class="case-phase-block-inner case-phase-block-inner--with-chart">
                     <div class="case-phase-block-copy">
-                        <p class="case-phase-result-head">One screen for swappable payloads—no technician confusion.</p>
-                        <p class="case-phase-body uav-body">Research framed AgriDrone as a flying diagnostic lab—my job was one tablet view for sprayers, seeders, radar, and more.</p>
+                        <p class="case-phase-result-head">One tablet for every payload.</p>
+                        <p class="case-phase-body uav-body">Sprayers, seeders, radar—one screen, no app switching.</p>
                     </div>
                     <div class="case-phase-block-media">
                         <figure class="case-figure case-figure-readable uav-figure">
                             <img src="assets/img/UAV/mockup.jpg" alt="UAV technician interface concept mockup">
                             <figcaption class="case-caption">Concept mockup — interchangeable payloads on one technician screen.</figcaption>
                         </figure>
+                    </div>
+                    <div class="case-research-chart case-research-chart--full" role="img" aria-label="Bar chart comparing minutes to diagnose payload issues across multi-app workflow, paper checklist, and unified UI goal of 5 minutes">
+                        <p class="case-chart-title">Diagnostic time — identify a payload issue</p>
+                        <p class="case-chart-desc">Estimated minutes for a technician to pinpoint a payload fault using current workflows vs. the unified tablet UI goal.</p>
+                        <div class="case-chart-bars">
+                            <div class="case-chart-row">
+                                <span class="case-chart-label">Multi-app</span>
+                                <div class="case-chart-track"><div class="case-chart-bar" style="--target: 90;"></div></div>
+                                <span class="case-chart-value">18m</span>
+                            </div>
+                            <div class="case-chart-row">
+                                <span class="case-chart-label">Paper checklist</span>
+                                <div class="case-chart-track"><div class="case-chart-bar" style="--target: 60;"></div></div>
+                                <span class="case-chart-value">12m</span>
+                            </div>
+                            <div class="case-chart-row">
+                                <span class="case-chart-label">Unified UI goal</span>
+                                <div class="case-chart-track"><div class="case-chart-bar case-chart-bar--goal" style="--target: 25;"></div></div>
+                                <span class="case-chart-value case-chart-value--goal">5m</span>
+                            </div>
+                        </div>
+                        <div class="case-chart-stats">
+                            <div class="case-chart-stat">
+                                <span class="case-chart-stat-num">4</span>
+                                <span class="case-chart-stat-label">Payload types</span>
+                            </div>
+                            <div class="case-chart-stat">
+                                <span class="case-chart-stat-num">12h</span>
+                                <span class="case-chart-stat-label">Typical shift length</span>
+                            </div>
+                            <div class="case-chart-stat">
+                                <span class="case-chart-stat-num">3</span>
+                                <span class="case-chart-stat-label">Dashboard views</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -632,20 +687,6 @@
             <div class="uav-label">05 — Visual Demonstration</div>
             <h2 class="uav-title">Technician interface in context</h2>
         </div>
-
-        <figure class="case-figure case-figure-readable uav-figure uav-demo-video-wrap">
-            <video
-                class="uav-demo-video uav-autoplay-video"
-                src="assets/img/UAV/Agro%20drone%20Showreel-%20V2%20(1).MP4"
-                autoplay
-                muted
-                playsinline
-                loop
-                preload="auto"
-                aria-label="AgriDrone system showreel demonstrating the multi-role agricultural workstation UAV interface ecosystem">
-            </video>
-            <figcaption class="case-caption">AgriDrone Showreel — multi-role agricultural workstation UAV system in action. (This video is provided by Prof. Cameron Rennacker and Shoaib Ahmad.)</figcaption>
-        </figure>
 
         <figure class="case-figure case-figure-readable uav-figure">
             <img src="assets/img/UAV/mockup.jpg" alt="AgriDrone ecosystem context mockup showing multi-role agricultural workstation UAV system">

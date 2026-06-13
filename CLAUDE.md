@@ -1,0 +1,1 @@
+This folder is my personal portfolio as a UX/UI Designer/Product Designer. I also stored the files on Github: https://github.com/Yi-Hsuan0727/Yi

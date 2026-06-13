@@ -76,10 +76,4 @@ const CarouselLogic = {
     }
 };
 
-// Auto-init once the DOM is ready (works whether script is deferred or inline)
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => CarouselLogic.init());
-} else {
-    // Layout is built dynamically by PortfolioApp — wait one tick
-    setTimeout(() => CarouselLogic.init(), 0);
-}
+/* Initialized by PortfolioApp.startAppEffects on pages that need it */

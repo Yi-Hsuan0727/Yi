@@ -235,7 +235,10 @@
         background: var(--bg-color) !important;
     }
     .un-problem-card.case-problem-card:hover {
-        background: rgba(46, 204, 113, 0.04) !important;
+        background: #ffffff !important;
+    }
+    [data-theme="dark"] .un-problem-card.case-problem-card:hover {
+        background: var(--bg-color) !important;
     }
     .un-problem-card .un-problem-icon {
         width: 44px;
@@ -401,6 +404,8 @@
     }
     .case-phase-block-inner--solo {
         grid-template-columns: 1fr;
+        padding-top: 24px;
+        padding-bottom: 24px;
     }
     .un-persona-card {
         border-radius: 12px;
@@ -522,6 +527,109 @@
         align-items: center;
     }
     .un-demo-grid-2 > * { min-width: 0; }
+    .un-demo-grid-4-8 {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    }
+    .un-demo-grid-4-8 .un-solution-copy { grid-column: 1; }
+    .un-demo-grid-4-8 .un-video-col-8 { grid-column: 2; }
+    .un-solution-row--video-stage {
+        align-items: center;
+    }
+    .un-solution-row--video-stage .un-video-stage.col-12 {
+        grid-column: 1 / -1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .un-solution-row--video-stage .un-video-stage-inner {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: linear-gradient(
+            165deg,
+            rgba(0, 88, 154, 0.2) 0%,
+            rgba(236, 242, 249, 0.98) 44%,
+            rgba(0, 119, 200, 0.14) 100%
+        );
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(20px, 4vw, 40px);
+        overflow: hidden;
+    }
+    [data-theme="dark"] .un-solution-row--video-stage .un-video-stage-inner {
+        background: linear-gradient(
+            165deg,
+            rgba(0, 119, 200, 0.22) 0%,
+            rgba(22, 28, 38, 0.96) 46%,
+            rgba(0, 88, 154, 0.16) 100%
+        );
+    }
+    .un-solution-row--video-stage .un-video-stage-inner video {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        display: block;
+        box-shadow:
+            0 10px 32px rgba(0, 88, 154, 0.2),
+            0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+    [data-theme="dark"] .un-solution-row--video-stage .un-video-stage-inner video {
+        box-shadow:
+            0 10px 32px rgba(0, 0, 0, 0.35),
+            0 4px 14px rgba(0, 119, 200, 0.15);
+    }
+    .un-video-device-wrap {
+        background: linear-gradient(
+            165deg,
+            rgba(248, 250, 252, 0.98) 0%,
+            rgba(0, 102, 178, 0.1) 52%,
+            rgba(228, 236, 245, 0.95) 100%
+        );
+        border-radius: 16px;
+        padding: clamp(16px, 3vw, 28px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    [data-theme="dark"] .un-video-device-wrap {
+        background: linear-gradient(
+            165deg,
+            rgba(28, 34, 46, 0.98) 0%,
+            rgba(0, 119, 200, 0.14) 52%,
+            rgba(20, 26, 36, 0.96) 100%
+        );
+    }
+    .un-video-device-wrap video {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 10px solid rgba(0, 88, 154, 0.35);
+        border-radius: 14px;
+        background: #f8fafc;
+        box-shadow:
+            0 12px 40px rgba(0, 88, 154, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5),
+            inset 0 0 0 1px rgba(0, 88, 154, 0.08);
+    }
+    [data-theme="dark"] .un-video-device-wrap video {
+        border-color: rgba(0, 119, 200, 0.4);
+        background: #141a24;
+        box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.28),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    .un-compare-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+    .un-compare-row > * { min-width: 0; }
     .un-eyebrow {
         font-size: 0.62rem;
         font-weight: 700;
@@ -543,6 +651,28 @@
         color: var(--secondary-text);
         line-height: 1.75;
         margin: 0;
+    }
+    .un-section .case-phase-result-head {
+        line-height: 1.15;
+    }
+    .case-phase-pairs .case-phase-block-inner--media-col-4 {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    }
+    .case-phase-block-copy .case-research-chart--compact {
+        border: none;
+        border-radius: 0;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+    .case-phase-block-copy .case-research-chart--compact .case-chart-title,
+    .case-phase-block-copy .case-research-chart--compact .case-chart-stats,
+    .case-phase-block-copy .case-research-chart--compact .case-chart-source {
+        display: none;
+    }
+    .case-phase-block-copy .case-research-chart--compact .case-chart-desc {
+        display: block;
+        margin-bottom: 10px;
     }
     .un-demo-divider {
         height: 1px;
@@ -712,6 +842,9 @@
         .un-impact-grid,
         .un-research-figures,
         .un-demo-grid-2 { grid-template-columns: 1fr; }
+        .un-demo-grid-4-8 .un-solution-copy,
+        .un-demo-grid-4-8 .un-video-col-8 { grid-column: 1; }
+        .un-compare-row { grid-template-columns: 1fr; }
         .un-grid-2 { grid-template-columns: 1fr; }
         .un-callout-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
         .un-callout-cell:last-child { border-bottom: none; }
@@ -849,18 +982,56 @@
                     <div class="case-phase-kicker">Phase 01 — Research</div>
                     <h3 class="case-phase-block-title">Usability Test Plan</h3>
                 </header>
-                <div class="case-phase-block-inner">
+                <div class="case-phase-block-inner case-phase-block-inner--with-chart case-phase-block-inner--media-col-4">
                     <div class="case-phase-block-copy">
-                        <p class="case-phase-result-head">Three scenarios: partnerships, volunteering, student programs.</p>
-                        <p class="case-phase-body un-body">
-                            A test-plan dashboard, script, and observation sheet covered NGO partnerships, short-term volunteering, and student engagement flows.
-                        </p>
+                        <p class="case-phase-result-head">Three scenarios—partnerships, volunteering, students.</p>
                     </div>
                     <div class="case-phase-block-media">
                         <figure class="case-figure case-figure-readable un-figure un-figure-white">
                             <img src="assets/img/UNESCO/usability-test-dashboard.png" alt="Usability Test Plan Dashboard with script and observation framework">
-                            <figcaption class="case-caption">Usability Test Plan Dashboard — script and observation sheet for three persona-matched scenarios.</figcaption>
+                            <figcaption class="case-caption">Test plan dashboard and observation sheet.</figcaption>
                         </figure>
+                    </div>
+                    <div class="case-research-chart case-research-chart--full case-research-chart--compact" role="img" aria-label="Bar chart of usability issues by site area from participant task log: Navigation 5, Search 4, Careers and internships 5, Loading and mobile 2">
+                        <p class="case-chart-title">Usability issues by site area — participant task log</p>
+                        <p class="case-chart-desc">Bar length = number of usability issues logged in each area. Higher counts mean more participant friction during tasks (6 participants; values are issue totals).</p>
+                        <div class="case-chart-bars">
+                            <div class="case-chart-row">
+                                <span class="case-chart-label">Navigation paths</span>
+                                <div class="case-chart-track"><div class="case-chart-bar" style="--target: 100;"></div></div>
+                                <span class="case-chart-value">5</span>
+                            </div>
+                            <div class="case-chart-row">
+                                <span class="case-chart-label">Search function</span>
+                                <div class="case-chart-track"><div class="case-chart-bar" style="--target: 80;"></div></div>
+                                <span class="case-chart-value">4</span>
+                            </div>
+                            <div class="case-chart-row">
+                                <span class="case-chart-label">Careers &amp; internships</span>
+                                <div class="case-chart-track"><div class="case-chart-bar" style="--target: 100;"></div></div>
+                                <span class="case-chart-value">5</span>
+                            </div>
+                            <div class="case-chart-row">
+                                <span class="case-chart-label">Loading &amp; mobile</span>
+                                <div class="case-chart-track"><div class="case-chart-bar case-chart-bar--goal" style="--target: 40;"></div></div>
+                                <span class="case-chart-value">2</span>
+                            </div>
+                        </div>
+                        <div class="case-chart-stats">
+                            <div class="case-chart-stat">
+                                <span class="case-chart-stat-num">6</span>
+                                <span class="case-chart-stat-label">Test participants</span>
+                            </div>
+                            <div class="case-chart-stat">
+                                <span class="case-chart-stat-num">17</span>
+                                <span class="case-chart-stat-label">Issues logged</span>
+                            </div>
+                            <div class="case-chart-stat">
+                                <span class="case-chart-stat-num">10</span>
+                                <span class="case-chart-stat-label">Areas in scope</span>
+                            </div>
+                        </div>
+                        <p class="case-chart-source">Source: usability test plan dashboard &amp; issues log · Mar 15–21, 2025</p>
                     </div>
                 </div>
             </article>
@@ -881,10 +1052,26 @@
                         </p>
                     </div>
                     <div class="case-phase-block-media">
-                        <figure class="case-figure case-figure-readable un-figure">
-                            <img src="assets/img/UNESCO/user research summary.png" alt="Summary of UNESCO website user experience survey findings">
-                            <figcaption class="case-caption">Survey summary — qualitative and quantitative themes from 10 respondents.</figcaption>
-                        </figure>
+                        <div class="case-pie-chart case-motion" role="img" aria-label="Pie chart of usability issues by severity from study summary: Minor Issue 31 percent, Suggestion 20.7 percent, Major Issue 20.7 percent, Blocker Issue 20.7 percent, Strong Suggestion 6.9 percent">
+                            <p class="case-chart-title">Issues by type — usability study summary</p>
+                            <div class="case-pie-chart-body">
+                                <div class="case-pie-chart-visual">
+                                    <div class="case-pie-ring" aria-hidden="true"></div>
+                                    <div class="case-pie-hole" aria-hidden="true">
+                                        <span class="case-pie-hole-num">17</span>
+                                        <span class="case-pie-hole-label">Issues</span>
+                                    </div>
+                                </div>
+                                <ul class="case-pie-legend">
+                                    <li class="case-pie-legend-item case-motion"><span class="case-pie-swatch case-pie-swatch--minor" aria-hidden="true"></span><span class="case-pie-legend-label">Minor Issue</span><span class="case-pie-legend-value">31.0%</span></li>
+                                    <li class="case-pie-legend-item case-motion"><span class="case-pie-swatch case-pie-swatch--suggestion" aria-hidden="true"></span><span class="case-pie-legend-label">Suggestion</span><span class="case-pie-legend-value">20.7%</span></li>
+                                    <li class="case-pie-legend-item case-motion"><span class="case-pie-swatch case-pie-swatch--major" aria-hidden="true"></span><span class="case-pie-legend-label">Major Issue</span><span class="case-pie-legend-value">20.7%</span></li>
+                                    <li class="case-pie-legend-item case-motion"><span class="case-pie-swatch case-pie-swatch--blocker" aria-hidden="true"></span><span class="case-pie-legend-label">Blocker Issue</span><span class="case-pie-legend-value">20.7%</span></li>
+                                    <li class="case-pie-legend-item case-motion"><span class="case-pie-swatch case-pie-swatch--strong" aria-hidden="true"></span><span class="case-pie-legend-label">Strong Suggestion</span><span class="case-pie-legend-value">6.9%</span></li>
+                                </ul>
+                            </div>
+                            <p class="case-chart-source">Source: study summary dashboard · issue shares match usability synthesis; survey n=10 cited in research notes</p>
+                        </div>
                         <figure class="case-figure case-figure-readable un-figure">
                             <img src="assets/img/UNESCO/user research issues and feedbacks.png" alt="UNESCO user research issues and feedback documentation">
                             <figcaption class="case-caption">Issues and feedback captured during research — informing navigation and content priorities.</figcaption>
@@ -934,14 +1121,16 @@
                         </p>
                     </div>
                     <div class="case-phase-block-media">
-                        <figure class="case-figure case-figure-readable un-figure">
-                            <img src="assets/img/UNESCO/old site.png" alt="Original UNESCO website interface showing buried navigation and dense text layout">
-                            <figcaption class="case-caption">Original UNESCO site — career search buried and difficult to reach from the main experience.</figcaption>
-                        </figure>
-                        <figure class="case-figure case-figure-readable un-figure">
-                            <img src="assets/img/UNESCO/old site-job page.png" alt="Original UNESCO career job board with overlapping filters and text-heavy listings">
-                            <figcaption class="case-caption">Career portal job board — filter categories that did not match listings and formatting that made scanning difficult.</figcaption>
-                        </figure>
+                        <div class="un-compare-row">
+                            <figure class="case-figure case-figure-readable un-figure">
+                                <img src="assets/img/UNESCO/old site.png" alt="Original UNESCO website interface showing buried navigation and dense text layout">
+                                <figcaption class="case-caption">Original site — career search buried off the main experience.</figcaption>
+                            </figure>
+                            <figure class="case-figure case-figure-readable un-figure">
+                                <img src="assets/img/UNESCO/old site-job page.png" alt="Original UNESCO career job board with overlapping filters and text-heavy listings">
+                                <figcaption class="case-caption">Job board — filters that didn&apos;t match listings.</figcaption>
+                            </figure>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -1001,25 +1190,27 @@
             </div>
         </div>
 
-        <div class="un-demo-grid-2">
+        <div class="un-demo-grid-2 un-solution-row--video-stage">
             <div class="un-solution-copy">
                 <span class="un-eyebrow">Solution 01</span>
                 <h3>Career search on home</h3>
                 <p>Search, stats, and job alerts live on the homepage—not buried off-site.</p>
             </div>
-            <figure class="case-figure case-figure-readable un-figure un-figure-white" style="margin:0;">
-                <video
-                    src="assets/img/UNESCO/Home.mp4"
-                    autoplay
-                    muted
-                    playsinline
-                    loop
-                    preload="auto"
-                    data-autoplay-on-view
-                    aria-label="Redesigned UNESCO Home Page with prominent search bar and clear calls-to-action">
-                </video>
+            <div class="un-video-stage col-12">
+                <div class="un-video-stage-inner">
+                    <video
+                        src="assets/img/UNESCO/Home.mp4"
+                        autoplay
+                        muted
+                        playsinline
+                        loop
+                        preload="auto"
+                        data-autoplay-on-view
+                        aria-label="Redesigned UNESCO Home Page with prominent search bar and clear calls-to-action">
+                    </video>
+                </div>
                 <figcaption class="case-caption">Homepage — career search and calls-to-action up front.</figcaption>
-            </figure>
+            </div>
         </div>
 
         <hr class="un-demo-divider">
@@ -1046,25 +1237,27 @@
 
         <hr class="un-demo-divider">
 
-        <div class="un-demo-grid-2">
+        <div class="un-demo-grid-2 un-solution-row--video-stage">
             <div class="un-solution-copy">
                 <span class="un-eyebrow">Solution 03 &amp; 04</span>
                 <h3>Listings &amp; performance</h3>
                 <p>Scannable role pages (skills, duration, duties) plus loading indicators so waits feel intentional.</p>
             </div>
-            <figure class="case-figure case-figure-readable un-figure un-figure-white" style="margin:0;">
-                <video
-                    src="assets/img/UNESCO/Career%20inner%20page.mp4"
-                    autoplay
-                    muted
-                    playsinline
-                    loop
-                    preload="auto"
-                    data-autoplay-on-view
-                    aria-label="UNESCO structured inner job details page with scannable role information">
-                </video>
+            <div class="un-video-stage col-12">
+                <div class="un-video-stage-inner">
+                    <video
+                        src="assets/img/UNESCO/Career%20inner%20page.mp4"
+                        autoplay
+                        muted
+                        playsinline
+                        loop
+                        preload="auto"
+                        data-autoplay-on-view
+                        aria-label="UNESCO structured inner job details page with scannable role information">
+                    </video>
+                </div>
                 <figcaption class="case-caption">Inner job page — scannable role details.</figcaption>
-            </figure>
+            </div>
         </div>
     </div>
 </section>

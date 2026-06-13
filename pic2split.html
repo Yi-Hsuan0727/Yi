@@ -319,6 +319,7 @@
             }
             .p2s-design-assets-row > * { min-width: 0; }
             .p2s-design-col-4 { grid-column: span 4; }
+            .p2s-design-col-6 { grid-column: span 6; }
             .p2s-design-col-8 { grid-column: span 8; }
             .p2s-problem-grid {
                 display: grid;
@@ -482,6 +483,143 @@
                 border-radius: 0;
                 display: block;
                 vertical-align: top;
+            }
+
+            .p2s-solution-row--phone-stage .p2s-phone-stage.col-12 {
+                grid-column: 1 / -1;
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                background: linear-gradient(
+                    165deg,
+                    var(--accent-blue-soft) 0%,
+                    rgba(74, 85, 224, 0.12) 52%,
+                    rgba(232, 226, 88, 0.1) 100%
+                );
+                border-radius: 16px;
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+                padding: clamp(20px, 4vw, 40px);
+                overflow: visible;
+            }
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device {
+                position: relative;
+                isolation: isolate;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: auto;
+                height: auto;
+                align-self: stretch;
+                max-width: min(36%, 300px);
+                aspect-ratio: unset;
+                margin: 0;
+                padding: 5px;
+                border: none;
+                border-radius: 28px;
+                background: linear-gradient(
+                    155deg,
+                    #5a5a5a 0%,
+                    #2a2a2a 16%,
+                    #101010 48%,
+                    #1c1c1c 72%,
+                    #454545 100%
+                );
+                box-shadow:
+                    0 2px 4px rgba(0, 0, 0, 0.14),
+                    0 14px 36px rgba(0, 0, 0, 0.24),
+                    0 28px 56px rgba(0, 0, 0, 0.12),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+                    inset 1px 0 0 rgba(255, 255, 255, 0.14),
+                    inset 0 -1.5px 0 rgba(0, 0, 0, 0.55),
+                    inset -1px 0 0 rgba(0, 0, 0, 0.28),
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.65);
+                box-sizing: border-box;
+            }
+            .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device {
+                width: min(320px, 100%);
+                max-width: 320px;
+                height: auto;
+                aspect-ratio: 9 / 19.5;
+            }
+            .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device video {
+                position: relative;
+                z-index: 1;
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+                border: 2px solid #ffffff;
+                border-radius: 23px;
+                box-shadow:
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+                    0 0 0 1px rgba(0, 0, 0, 0.04);
+            }
+            .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device img {
+                position: relative;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border: 2px solid #ffffff;
+                border-radius: 23px;
+                box-shadow:
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
+                    0 0 0 1px rgba(0, 0, 0, 0.04);
+            }
+            .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device::before {
+                display: none;
+            }
+            .p2s-phone-frame--device::after {
+                content: "";
+                position: absolute;
+                left: 8%;
+                right: 8%;
+                bottom: -14px;
+                height: 20px;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: -1;
+                background: radial-gradient(
+                    ellipse at center,
+                    rgba(0, 0, 0, 0.26) 0%,
+                    rgba(0, 0, 0, 0.08) 48%,
+                    transparent 72%
+                );
+                filter: blur(3px);
+            }
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device img {
+                position: relative;
+                z-index: 1;
+                display: block;
+                width: auto;
+                height: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                border: none;
+                border-radius: 23px;
+                box-shadow:
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+                    0 0 0 0.5px rgba(255, 255, 255, 0.04);
+            }
+            .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device {
+                width: min(320px, 100%);
+                max-width: 320px;
+                height: auto;
+                aspect-ratio: 9 / 19.5;
+            }
+            .p2s-phase-block-inner--with-chart .p2s-phase-block-media .case-figure img {
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+            }
+            .p2s-phase-block-copy .case-research-chart,
+            .p2s-phase-block-copy .p2s-research-chart {
+                margin-top: 8px;
+            }
+            .p2s-phase-block-copy .case-chart-bars,
+            .p2s-phase-block-copy .p2s-chart-bars {
+                gap: 8px;
+                margin-bottom: 0;
+                padding-bottom: 16px;
             }
 
             .p2s-quote-card { background: rgba(46, 204, 113, 0.05); border-left: 3px solid var(--accent-color); }
@@ -1105,106 +1243,6 @@
                 .p2s-phase-grid { grid-template-columns: 1fr; }
             }
 
-            .p2s-phase-block-inner--with-chart {
-                grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-            }
-            .p2s-research-chart--full {
-                grid-column: 1 / -1;
-                width: 100%;
-            }
-            /* Research — timed baseline chart (replaces static research screenshots) */
-            .p2s-research-chart {
-                border: 1px solid var(--border-color);
-                border-radius: 10px;
-                padding: 24px 22px;
-                background: var(--bg-color);
-            }
-            .p2s-chart-title {
-                font-size: 0.72rem;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.1em;
-                color: var(--secondary-text);
-                margin: 0 0 18px;
-            }
-            .p2s-chart-bars {
-                display: flex;
-                flex-direction: column;
-                gap: 14px;
-                margin-bottom: 20px;
-            }
-            .p2s-chart-row {
-                display: grid;
-                grid-template-columns: 88px 1fr 44px;
-                gap: 10px;
-                align-items: center;
-            }
-            .p2s-research-chart--full .p2s-chart-row {
-                grid-template-columns: minmax(96px, 120px) 1fr minmax(44px, 56px);
-            }
-            .p2s-chart-label {
-                font-size: 0.78rem;
-                font-weight: 600;
-                color: var(--text-color);
-            }
-            .p2s-chart-track {
-                height: 10px;
-                border-radius: 999px;
-                background: rgba(0, 0, 0, 0.06);
-                overflow: hidden;
-            }
-            [data-theme="dark"] .p2s-chart-track {
-                background: rgba(255, 255, 255, 0.08);
-            }
-            .p2s-chart-bar {
-                height: 100%;
-                border-radius: 999px;
-                background: var(--secondary-text);
-                opacity: 0.45;
-            }
-            .p2s-chart-bar--goal {
-                background: var(--accent-color);
-                opacity: 1;
-            }
-            .p2s-chart-value {
-                font-size: 0.78rem;
-                font-weight: 800;
-                color: var(--text-color);
-                text-align: right;
-            }
-            .p2s-chart-value--goal {
-                color: var(--accent-color);
-            }
-            .p2s-chart-stats {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-                padding-top: 16px;
-                border-top: 1px solid var(--border-color);
-            }
-            .p2s-chart-stat {
-                text-align: center;
-            }
-            .p2s-chart-stat-num {
-                display: block;
-                font-size: 1.35rem;
-                font-weight: 800;
-                letter-spacing: -0.03em;
-                color: var(--accent-blue);
-                line-height: 1.1;
-            }
-            .p2s-chart-stat-label {
-                display: block;
-                font-size: 0.68rem;
-                color: var(--secondary-text);
-                margin-top: 4px;
-                line-height: 1.35;
-            }
-            @media (max-width: 500px) {
-                .p2s-chart-stats { grid-template-columns: 1fr; }
-                .p2s-chart-row { grid-template-columns: 72px 1fr 40px; }
-            }
-
             .p2s-impact-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -1287,6 +1325,7 @@
                     grid-template-columns: 1fr;
                 }
                 .p2s-design-col-4,
+                .p2s-design-col-6,
                 .p2s-design-col-8 {
                     grid-column: span 1;
                 }
@@ -1409,10 +1448,30 @@
                             <div class="case-phase-kicker p2s-phase-num">Phase 01 — Research &amp; Testing</div>
                             <h3 class="case-phase-block-title p2s-phase-block-title">Benchmarking &amp; Baseline</h3>
                         </header>
-                        <div class="case-phase-block-inner p2s-phase-block-inner p2s-phase-block-inner--with-chart">
+                        <div class="case-phase-block-inner p2s-phase-block-inner case-phase-block-inner--with-chart p2s-phase-block-inner--with-chart">
                             <div class="case-phase-block-copy p2s-phase-block-copy">
-                                <p class="case-phase-result-head p2s-phase-result-head">Target: <strong>under 2 minutes</strong>—with progress steps and receipt checks.</p>
-                                <p class="p2s-phase-body">Five competitor apps averaged <strong>4:30–5:38</strong> on real bills; trust broke after OCR, tax or tip UI was weak, and users rarely shared the final summary.</p>
+                                <p class="case-phase-result-head p2s-phase-result-head">Target: <strong>under 2 minutes</strong>.</p>
+                                <p class="p2s-phase-body">Six participants tested <strong>Scan &amp; Split Bill</strong> — OCR, layout, and AI trust all scored below 3/5.</p>
+                                <div class="case-research-chart p2s-research-chart" role="img" aria-label="Scan and Split Bill competitor satisfaction: OCR accuracy 2.2 out of 5, layout 2.0 out of 5, AI trust 2.6 out of 5">
+                                    <p class="case-chart-desc p2s-chart-desc">Satisfaction scores from six participants after a full split flow on Scan &amp; Split Bill (scale 1–5; below 3 = pain point).</p>
+                                    <div class="case-chart-bars p2s-chart-bars">
+                                        <div class="case-chart-row p2s-chart-row">
+                                            <span class="case-chart-label p2s-chart-label">OCR accuracy</span>
+                                            <div class="case-chart-track p2s-chart-track"><div class="case-chart-bar p2s-chart-bar" style="--target: 44;"></div></div>
+                                            <span class="case-chart-value p2s-chart-value">2.2/5</span>
+                                        </div>
+                                        <div class="case-chart-row p2s-chart-row">
+                                            <span class="case-chart-label p2s-chart-label">Layout clarity</span>
+                                            <div class="case-chart-track p2s-chart-track"><div class="case-chart-bar p2s-chart-bar" style="--target: 40;"></div></div>
+                                            <span class="case-chart-value p2s-chart-value">2.0/5</span>
+                                        </div>
+                                        <div class="case-chart-row p2s-chart-row">
+                                            <span class="case-chart-label p2s-chart-label">AI trust</span>
+                                            <div class="case-chart-track p2s-chart-track"><div class="case-chart-bar p2s-chart-bar" style="--target: 52;"></div></div>
+                                            <span class="case-chart-value p2s-chart-value">2.6/5</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
@@ -1420,40 +1479,6 @@
                                     <figcaption class="case-caption p2s-caption">Competitor flow — stall points after OCR and before share.</figcaption>
                                 </figure>
                             </div>
-                            <div class="p2s-research-chart p2s-research-chart--full" role="img" aria-label="Bar chart comparing competitor split times from 4 minutes 30 seconds to 5 minutes 38 seconds against Pic2Split goal under 2 minutes">
-                                    <p class="p2s-chart-title">Timed baseline — complete a real bill split</p>
-                                    <div class="p2s-chart-bars">
-                                        <div class="p2s-chart-row">
-                                            <span class="p2s-chart-label">Competitor A</span>
-                                            <div class="p2s-chart-track"><div class="p2s-chart-bar" style="width:81%;"></div></div>
-                                            <span class="p2s-chart-value">4:30</span>
-                                        </div>
-                                        <div class="p2s-chart-row">
-                                            <span class="p2s-chart-label">Competitor B</span>
-                                            <div class="p2s-chart-track"><div class="p2s-chart-bar" style="width:94%;"></div></div>
-                                            <span class="p2s-chart-value">5:38</span>
-                                        </div>
-                                        <div class="p2s-chart-row">
-                                            <span class="p2s-chart-label">Pic2Split goal</span>
-                                            <div class="p2s-chart-track"><div class="p2s-chart-bar p2s-chart-bar--goal" style="width:32%;"></div></div>
-                                            <span class="p2s-chart-value p2s-chart-value--goal">&lt;2:00</span>
-                                        </div>
-                                    </div>
-                                    <div class="p2s-chart-stats">
-                                        <div class="p2s-chart-stat">
-                                            <span class="p2s-chart-stat-num">5</span>
-                                            <span class="p2s-chart-stat-label">Apps benchmarked</span>
-                                        </div>
-                                        <div class="p2s-chart-stat">
-                                            <span class="p2s-chart-stat-num">~60%</span>
-                                            <span class="p2s-chart-stat-label">Faster than slowest rival</span>
-                                        </div>
-                                        <div class="p2s-chart-stat">
-                                            <span class="p2s-chart-stat-num">3</span>
-                                            <span class="p2s-chart-stat-label">Top friction themes</span>
-                                        </div>
-                                    </div>
-                                </div>
                         </div>
                     </article>
 
@@ -1470,7 +1495,7 @@
                             <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
                                     <img src="assets/img/Pic2Split/pic2split-userflow.jpg" alt="Pic2Split 23-screen user flow diagram showing the complete design process flow">
-                                    <figcaption class="case-caption p2s-caption">23-screen user flow — login through receipt scan, item assignment, and share.</figcaption>
+                                    <figcaption class="case-caption p2s-caption">User flow — login, scan, assign, share.</figcaption>
                                 </figure>
                             </div>
                         </div>
@@ -1488,17 +1513,17 @@
                             </div>
                             <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
-                                    <img src="assets/img/Pic2Split/wireframe.png" alt="Pic2Split low-fidelity wireframes showing the 23-screen specification">
-                                    <figcaption class="case-caption p2s-caption">Low-fidelity wireframes — the 23-screen specification before visual polish.</figcaption>
+                                    <img src="assets/img/Pic2Split/components.png" alt="Pic2Split UI component library — buttons, inputs, tags, and reusable interface patterns">
+                                    <figcaption class="case-caption p2s-caption">Buttons, inputs, tags, and patterns.</figcaption>
                                 </figure>
                                 <div class="p2s-design-assets-row">
-                                    <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable p2s-design-col-4" style="margin:0;">
+                                    <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable p2s-design-col-6" style="margin:0;">
                                         <img src="assets/img/Pic2Split/design system.png" alt="Pic2Split visual style guide — logo, color palette, and Inter typography">
-                                        <figcaption class="case-caption p2s-caption">Visual style guide — logo, color palette, typography, and brand language.</figcaption>
+                                        <figcaption class="case-caption p2s-caption">Style guide — logo, palette, typography.</figcaption>
                                     </figure>
-                                    <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable p2s-design-col-8" style="margin:0;">
-                                        <img src="assets/img/Pic2Split/components.png" alt="Pic2Split UI component library — buttons, inputs, tags, and reusable interface patterns">
-                                        <figcaption class="case-caption p2s-caption">Component library — reusable buttons, inputs, tags, and interface patterns.</figcaption>
+                                    <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable p2s-design-col-6" style="margin:0;">
+                                        <img src="assets/img/Pic2Split/wireframe.png" alt="Pic2Split low-fidelity wireframes showing the 23-screen specification">
+                                        <figcaption class="case-caption p2s-caption">Wireframes before polish.</figcaption>
                                     </figure>
                                 </div>
                             </div>
@@ -1526,14 +1551,14 @@
                 </div>
 
                 <!-- Solution 01 — Google Auth -->
-                <div class="case-fig-grid-2 p2s-grid-2" style="align-items:center;">
+                <div class="case-fig-grid-2 p2s-grid-2 p2s-solution-row--phone-stage" style="align-items:center;">
                     <div class="p2s-solution-copy">
                         <span class="p2s-eyebrow">Solution 01</span>
                         <h3>Frictionless Google Authentication</h3>
                         <p>One-tap login stores your splitting history safely without tedious onboarding forms.</p>
                     </div>
-                    <div>
-                        <div class="p2s-phone-frame">
+                    <div class="p2s-phone-stage col-12">
+                        <div class="p2s-phone-frame p2s-phone-frame--device case-motion case-motion--phone-device">
                             <img src="assets/img/Pic2Split/landing.png" alt="Pic2Split home screen with Google one-tap login">
                         </div>
                     </div>
@@ -1549,7 +1574,7 @@
                         <p>Users snap or upload a photo, and the AI extracts items, prices, tax, and tip instantly. The UI places this data alongside the receipt photo for quick confirmation.</p>
                     </div>
                     <div>
-                        <div class="p2s-phone-frame">
+                        <div class="p2s-phone-frame p2s-phone-frame--device">
                             <video
                                 src="assets/img/Pic2Split/Scan%20a%20receipt.mp4"
                                 autoplay
@@ -1574,7 +1599,7 @@
                         <p>Tap an item, select the clean text tags showing the names of the members who shared it, and watch the app divide the cost dynamically and equally.</p>
                     </div>
                     <div>
-                        <div class="p2s-phone-frame">
+                        <div class="p2s-phone-frame p2s-phone-frame--device">
                             <video
                                 src="assets/img/Pic2Split/assign%20item.mp4"
                                 autoplay
@@ -1603,21 +1628,11 @@
                         <div class="p2s-solution-copy">
                             <span class="p2s-eyebrow">Solution 05</span>
                             <h3>Web-First Real-Time Sharing</h3>
-                            <p>Generates a clean, transparent web summary link or a QR code. Friends can view exactly what they owe in a browser without downloading an app.</p>
-                            <div class="p2s-share-list" style="grid-template-columns: repeat(2, minmax(0,1fr)); margin-top:16px;">
-                                <div class="p2s-share-item">
-                                    <strong style="display:block; margin-bottom:6px;"><i class="fas fa-globe" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>Web link</strong>
-                                    <p class="p2s-muted" style="margin:0;">A clean browser page showing each person's total.</p>
-                                </div>
-                                <div class="p2s-share-item">
-                                    <strong style="display:block; margin-bottom:6px;"><i class="fas fa-qrcode" style="color:var(--accent-color); margin-right:6px;" aria-hidden="true"></i>QR code</strong>
-                                    <p class="p2s-muted" style="margin:0;">Scan at the table — no typing a URL.</p>
-                                </div>
-                            </div>
+                            <p>Share a clean web link so friends can see exactly what they owe—no app download required.</p>
                         </div>
                     </div>
                     <div>
-                        <div class="p2s-phone-frame">
+                        <div class="p2s-phone-frame p2s-phone-frame--device">
                             <video
                                 src="assets/img/Pic2Split/share%20the%20result.mp4"
                                 autoplay
@@ -1673,7 +1688,7 @@
                         <div class="p2s-phase-icon" style="margin-bottom:12px;"><i class="fas fa-trophy" aria-hidden="true"></i></div>
                         <span class="p2s-eyebrow">Goals Achieved</span>
                         <h3>Minutes down to seconds</h3>
-                        <p class="p2s-muted">Shipped an MVP (React, PaddleOCR, Gemini) that targets sub-two-minute sessions vs. five-plus on competitors.</p>
+                        <p class="p2s-muted">Shipped an MVP (React, PaddleOCR, Gemini) targeting sub-two-minute sessions—addressing the OCR, layout, and trust gaps found in competitor testing.</p>
                     </div>
                     <div class="p2s-impact-card">
                         <div class="p2s-phase-icon" style="margin-bottom:12px;"><i class="fas fa-rocket" aria-hidden="true"></i></div>

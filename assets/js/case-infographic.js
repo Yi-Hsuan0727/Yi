@@ -27,7 +27,10 @@ const CaseInfographic = {
         '.p2s-card',
         '.p2s-highlight-card',
         '.p2s-decision-card',
-        '.p2s-impact-card'
+        '.p2s-impact-card',
+        '.case-research-chart',
+        '.p2s-research-chart',
+        '.case-pie-chart'
     ].join(','),
 
     flowGridSelector: [
@@ -95,9 +98,50 @@ const CaseInfographic = {
         if (!document.querySelector('.case-section, .single-page-wrapper')) return;
 
         this.enhanceGrids();
+        this.nestPhaseCharts();
+        this.initResearchCharts();
+        this.initPieCharts();
+        this.initPhoneStageMotion();
         this.collapseRedundantIntros();
         this.trimLongBodyBlocks();
         this.observeMotion();
+    },
+
+    nestPhaseCharts() {
+        document.querySelectorAll('.case-phase-block-inner--with-chart').forEach((inner) => {
+            const copy = inner.querySelector('.case-phase-block-copy');
+            const chart = inner.querySelector('.case-research-chart, .p2s-research-chart');
+            if (!copy || !chart || copy.contains(chart)) return;
+            copy.appendChild(chart);
+        });
+    },
+
+    initResearchCharts() {
+        document.querySelectorAll('.case-research-chart, .p2s-research-chart').forEach((chart) => {
+            chart.classList.add('case-motion');
+            chart.querySelectorAll('.case-chart-bar, .p2s-chart-bar').forEach((bar) => {
+                const inline = bar.style.width;
+                if (inline && !bar.style.getPropertyValue('--target')) {
+                    const pct = parseFloat(inline);
+                    if (!Number.isNaN(pct)) {
+                        bar.style.setProperty('--target', String(pct));
+                    }
+                    bar.style.width = '';
+                }
+            });
+        });
+    },
+
+    initPieCharts() {
+        document.querySelectorAll('.case-pie-chart').forEach((chart) => {
+            chart.classList.add('case-motion');
+        });
+    },
+
+    initPhoneStageMotion() {
+        document.querySelectorAll('.p2s-phone-frame--device').forEach((frame) => {
+            frame.classList.add('case-motion', 'case-motion--phone-device');
+        });
     },
 
     enhanceGrids() {
