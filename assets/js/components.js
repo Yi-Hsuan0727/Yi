@@ -597,7 +597,6 @@ const PortfolioApp = {
                         <div class="scroll-area" id="scroll-container">
                             <div class="single-page-wrapper">${finalContent}</div>
                         </div>
-                        ${isGridPage ? '' : footerHTML}
                     </div>
                 </div>
             </div>

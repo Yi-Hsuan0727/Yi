@@ -305,20 +305,27 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1), padding 0.4s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .content-wrapper.sidebar-compact-scope--project {
-        --sidebar-width: 24%;
-        --panel-width: 76%;
-        --sidebar-pad-x: 24px;
+        --sidebar-width: 20%;
+        --panel-width: 80%;
+        --sidebar-pad-x: 20px;
+    }
+    .content-wrapper.sidebar-compact-scope--project .hero-text h1 {
+        font-size: clamp(1.45rem, 9cqi, 2.1rem);
+        margin-bottom: 10px;
+    }
+    .content-wrapper.sidebar-compact-scope--project .hero-text .sidebar-meta-value {
+        font-size: 1.05rem;
     }
     .content-wrapper.sidebar-compact-scope--project.sidebar-compact {
-        --sidebar-width: 18%;
-        --panel-width: 82%;
-        --sidebar-pad-x: 18px;
+        --sidebar-width: 15%;
+        --panel-width: 85%;
+        --sidebar-pad-x: 16px;
     }
     .content-wrapper.sidebar-compact-scope--project.sidebar-compact .hero-text h1 {
-        font-size: clamp(1.5rem, 9.5cqi, 2.35rem);
+        font-size: clamp(1.25rem, 8cqi, 1.85rem);
     }
     .content-wrapper.sidebar-compact-scope--project.sidebar-compact .hero-text .sidebar-meta-value {
-        font-size: 1.15rem;
+        font-size: 0.95rem;
     }
     .content-wrapper.sidebar-compact-scope--project.sidebar-compact .sidebar-intro {
         font-size: 0.82rem;

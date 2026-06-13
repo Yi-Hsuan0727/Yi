@@ -76,7 +76,7 @@
         max-width: 900px;
         margin: 0 auto;
         width: 100%;
-        padding: 64px 48px 32px;
+        padding: 64px 0 32px;
         box-sizing: border-box;
     }
     .lcm-overview-text > .lcm-label {
@@ -98,7 +98,7 @@
         margin: 0 auto;
         max-width: 900px;
         width: 100%;
-        padding: 0 48px 64px;
+        padding: 0 0 64px;
         box-sizing: border-box;
     }
     .lcm-video-stage-inner {
@@ -360,6 +360,18 @@
         align-items: start;
         margin-bottom: 16px;
     }
+    .lcm-fig-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    .lcm-fig-stack .lcm-fig-pair {
+        margin-bottom: 0;
+    }
+    .lcm-fig-full {
+        margin: 0;
+        width: 100%;
+    }
     .lcm-fig-pair .case-figure { margin: 0; }
     .lcm-fig-pair img { width: 100%; height: auto; object-fit: contain; }
     .lcm-legacy-figure img {
@@ -524,8 +536,8 @@
         .lcm-callout-cell:last-child { border-bottom: none; }
         .lcm-impact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
         .lcm-impact-cell:last-child { border-bottom: none; }
-        .lcm-overview-text { padding: 48px 32px 24px; }
-        .lcm-overview-media { padding: 0 32px 48px; }
+        .lcm-overview-text { padding: 48px 0 24px; }
+        .lcm-overview-media { padding: 0 0 48px; }
         .lcm-section { padding-top: 60px; padding-bottom: 60px; }
     }
     @media (max-width: 600px) {
@@ -533,8 +545,8 @@
         .lcm-phase-card { border-right: none; border-bottom: 1px solid var(--border-color); }
         .lcm-phase-card:last-child { border-bottom: none; }
         .lcm-goal-grid { grid-template-columns: 1fr; }
-        .lcm-overview-text { padding: 36px 24px 20px; }
-        .lcm-overview-media { padding: 0 24px 36px; }
+        .lcm-overview-text { padding: 36px 0 20px; }
+        .lcm-overview-media { padding: 0 0 36px; }
         .lcm-section { padding-top: 48px; padding-bottom: 48px; }
     }
 </style>
@@ -708,16 +720,6 @@
                 <p class="case-phase-body un-body">Wireframes and prototypes tested layout across devices. Visuals stay restrained—warm cultural tones and humanist type for a calm, community-led browse.</p>
                     </div>
                     <div class="case-phase-block-media">
-                <div class="lcm-fig-pair">
-                    <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
-                        <img src="assets/img/lcm/lcm4.png" alt="Colour palette for the Indigenous Cultural Museums platform — warm rice, traditional red, and woven brown">
-                        <figcaption class="case-caption lcm-caption">Colour palette — culturally informed tones used across the site.</figcaption>
-                    </figure>
-                    <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
-                        <img src="assets/img/lcm/wireframe.png" alt="Desktop wireframe showing core layout structure for the Indigenous Cultural Museums platform">
-                        <figcaption class="case-caption lcm-caption">Desktop wireframe — layout and components before build.</figcaption>
-                    </figure>
-                </div>
                 <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
                     <img src="assets/img/lcm/prototype2.png" alt="High-fidelity interactive prototype showing homepage design with cultural imagery, accessibility toolbar, and responsive navigation">
                     <figcaption class="case-caption lcm-caption">High-fidelity prototype — flows validated before front-end delivery.</figcaption>
@@ -752,15 +754,21 @@
                 <p class="case-phase-body un-body">Accessibility was tested in design, not after launch. A global toolbar offers S/M/L text and high-contrast mode across the site.</p>
                     </div>
                     <div class="case-phase-block-media">
-                <div class="lcm-fig-pair">
-                    <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
-                        <img src="assets/img/lcm/color contract.png" alt="Colour contrast testing results for WCAG AA pass and fail on typography and UI elements" style="max-height:240px; object-fit:contain;">
-                        <figcaption class="case-caption lcm-caption">Contrast audit — type and UI checked against WCAG AA.</figcaption>
+                <div class="lcm-fig-stack">
+                    <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white lcm-fig-full">
+                        <img src="assets/img/lcm/lcm4.png" alt="Colour palette for the Indigenous Cultural Museums platform — warm rice, traditional red, and woven brown">
+                        <figcaption class="case-caption lcm-caption">Colour palette — culturally informed tones used across the site.</figcaption>
                     </figure>
-                    <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
-                        <img src="assets/img/lcm/text and background.png" alt="Typography readability study across screen sizes and high-contrast mode" style="max-height:240px; object-fit:contain;">
-                        <figcaption class="case-caption lcm-caption">Readability — layout holds at 200% zoom.</figcaption>
-                    </figure>
+                    <div class="lcm-fig-pair">
+                        <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
+                            <img src="assets/img/lcm/color contract.png" alt="Colour contrast testing results for WCAG AA pass and fail on typography and UI elements" style="max-height:240px; object-fit:contain;">
+                            <figcaption class="case-caption lcm-caption">Contrast audit — type and UI checked against WCAG AA.</figcaption>
+                        </figure>
+                        <figure class="case-figure case-figure-readable lcm-figure lcm-figure-white">
+                            <img src="assets/img/lcm/text and background.png" alt="Typography readability study across screen sizes and high-contrast mode" style="max-height:240px; object-fit:contain;">
+                            <figcaption class="case-caption lcm-caption">Readability — layout holds at 200% zoom.</figcaption>
+                        </figure>
+                    </div>
                 </div>
                     </div>
                 </div>
