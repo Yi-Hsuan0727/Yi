@@ -9,6 +9,7 @@ const PortfolioApp = {
         {
             id: 'pic2split',
             title: 'Pic2Split',
+            cardHeadline: 'Shipped an AI web app that scans receipts and splits group bills in seconds.',
             subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
             desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
             demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
@@ -28,6 +29,7 @@ const PortfolioApp = {
         {
             id: 'unesco',
             title: 'UNESCO Volunteer Recruitment',
+            cardHeadline: 'Researched and rebuilt UNESCO\'s volunteer flow to turn interest into sign-ups.',
             subtitle: 'UX Redesign for Clarity & Conversion',
             desc: 'A redesign + case study of the volunteer recruiting page for UNESCO. (Class project)',
             demoIntro: 'Conducted research and redesigned the volunteer recruitment experience to improve information hierarchy and usability.',
@@ -45,27 +47,9 @@ const PortfolioApp = {
             featured: true
         },
         {
-            id: 'uav',
-            title: 'UAV Control System',
-            subtitle: 'Agricultural UAV Interface Design',
-            desc: 'Designing a UAV control system to help the agriculture industry improve operational efficiency and optimize workflows. (Class project)',
-            demoIntro: 'A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.',
-            filterType: 'apps',
-            audience: 'Enterprise',
-            tags: ['UI Design', 'Prototyping', 'Mobile App'],
-            image: 'assets/img/main images/UAV.png',
-            heroImage: 'assets/img/UAV/hero.png',
-            link: 'uav.html',
-            timeline: 'Aug 2025 – Dec 2025',
-            team: '4 Designers',
-            role: 'Technician Interface design',
-            tools: 'Figma',
-            liveLink: '#',
-            featured: true
-        },
-        {
             id: 'lcm',
             title: 'Indigenous Cultural Museums',
+            cardHeadline: 'Hand-coded a WCAG 2.1 AA site unifying 30 indigenous museums.',
             subtitle: 'WCAG AA Compliant Website for 30 Museums',
             desc: 'Demonstrate the information of 30 Taiwan indigenous museums, qualified for WCAG level AA. (It is online now!)',
             demoIntro: 'Designed and developed an accessibility-focused website system showcasing Taiwan\'s indigenous cultural institutions.',
@@ -73,6 +57,7 @@ const PortfolioApp = {
             audience: 'Public',
             tags: ['UI Design', 'Front-End Development', 'Accessibility'],
             image: 'assets/img/main images/indigenous Cultural Museums.png',
+            cardImagePosition: 'right center',
             heroImage: 'assets/img/lcm/hero.png',
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
@@ -83,9 +68,31 @@ const PortfolioApp = {
             featured: true
         },
         {
+            id: 'uav',
+            title: 'UAV Control System',
+            cardHeadline: 'Technician tablet UI for an AI-assisted farm drone — four-person team.',
+            subtitle: 'Agricultural UAV Interface Design',
+            desc: 'Designing a UAV control system to help the agriculture industry improve operational efficiency and optimize workflows. (Class project)',
+            demoIntro: 'A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.',
+            filterType: 'apps',
+            audience: 'Enterprise',
+            tags: ['UI Design', 'Prototyping', 'Mobile App'],
+            image: 'assets/img/main images/UAV.png',
+            cardVideo: 'assets/img/UAV/technician video.mp4',
+            heroImage: 'assets/img/UAV/hero.png',
+            link: 'uav.html',
+            timeline: 'Aug 2025 – Dec 2025',
+            team: '4 Designers',
+            role: 'Technician Interface design',
+            tools: 'Figma',
+            liveLink: '#',
+            featured: true
+        },
+        {
             id: 'lawfare',
             title: 'International Lawfare Website',
             subtitle: 'Drupal-Based Legal Scholarship Hub',
+            listSubline: 'Drupal CMS organizing legal scholarship under the ASU Design System — searchable publications and course materials.',
             desc: 'The program page for International Lawfare — introducing and sharing course details.',
             demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
             filterType: 'web',
@@ -105,6 +112,7 @@ const PortfolioApp = {
             id: 'lt',
             title: 'Longtan Walker Pace Counter APP',
             subtitle: 'Behavior-Driven Mobility App Concept',
+            listSubline: 'Step-tracking concept that rewards walking on Longtan Road to cut car and scooter traffic.',
             desc: 'By accumulating steps, people are encouraged to walk to reduce the traffic of cars and motorcycles on Longtan Road. (Class project)',
             demoIntro: 'Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.',
             filterType: 'apps',
@@ -124,6 +132,7 @@ const PortfolioApp = {
             id: 'quickbite',
             title: 'QuickBite',
             subtitle: 'AI Meal Planning Assistant',
+            listSubline: 'Claude-powered planner syncing fridge inventory, nutrition goals, and weekly menus in one workspace.',
             desc: 'A smart meal planning assistant born from the frustration of "What should I eat today?" combined with a busy schedule and limited budget.',
             demoIntro: 'A smart assistant using Claude AI & USDA data to plan meals and recipes based on user needs.',
             filterType: 'apps',
@@ -143,6 +152,7 @@ const PortfolioApp = {
             id: 'magnate',
             title: 'Magnate Technology Official Website',
             subtitle: 'Corporate Website & Digital Brand System',
+            listSubline: 'Corporate site and reusable UI system establishing Magnate Technology\'s industrial automation brand online.',
             desc: 'Commissioned by Magnate Technology Co., Ltd. to create a website and establish an online presence. (It is online now!)',
             demoIntro: 'Designed and built a scalable website and UI component system to establish a professional digital presence.',
             filterType: 'web',
@@ -199,7 +209,7 @@ const PortfolioApp = {
         home: {
             title: `<span class="hero-title-line">Product design<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Interaction<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Systems<span class="shape shape-square" aria-hidden="true"></span></span>`,
             desc: '',
-            briefIntro: "Hi! I'm Michelle Chen — a UX/UI designer with 3+ years of experience designing apps, platforms, and consumer-facing products.",
+            briefIntro: "Hi! I'm Michelle Chen — a UX/UI designer who designs and ships accessible, WCAG-compliant front-ends in semantic HTML/CSS, from government sites to AI-powered web apps.",
             meta: ``
         },
         about: {
@@ -402,6 +412,7 @@ const PortfolioApp = {
         }
         if (pageType === 'home') {
             this.initHomeAboutNav();
+            this.initMoreProjectsPreview();
         }
         if (typeof CursorLogic !== 'undefined') CursorLogic.init();
         const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
@@ -498,7 +509,6 @@ const PortfolioApp = {
         }
         const pageData = this.data[pageType] || this.data.home;
         const projectMeta = this.getProject(pageType);
-        const logoSVG = LayoutComponents.logoSVG();
 
         const worksHeaderHTML = LayoutComponents.buildWorksHeader(pageType);
         const isGridPage = (pageType === 'home' || pageType === 'playground');
@@ -514,7 +524,11 @@ const PortfolioApp = {
             : '';
         const heroMetaHTML = (!isGridPage && projectMeta) ? LayoutComponents.buildCaseHeroMeta(projectMeta) : '';
         const footerHTML = LayoutComponents.buildFooter(pageType);
-        const finalContent = `${worksHeaderHTML} ${coverHTML} ${heroMetaHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
+        let finalContent = `${worksHeaderHTML} ${coverHTML} ${heroMetaHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
+
+        if (pageType === 'home') {
+            finalContent = `${LayoutComponents.buildHomePageHeader(pageData)}${finalContent}`;
+        }
 
         const aboutBackLinkHTML = pageType === 'about'
             ? `<a href="index.html" class="about-home-link about-home-link-mobile-only"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>`
@@ -525,9 +539,7 @@ const PortfolioApp = {
             const layoutHTML = `
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
-                ${LayoutComponents.buildMobileHeader(logoSVG)}
                 <div id="app-root" class="app-root-about">
-                    ${LayoutComponents.buildSiteHeader(logoSVG, pageType)}
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
                             <div class="scroll-area" id="scroll-container">
@@ -544,25 +556,38 @@ const PortfolioApp = {
             return;
         }
 
-        const sidebarCompactScope = pageType === 'home'
-            ? ' sidebar-compact-scope sidebar-compact-scope--home'
-            : (!isGridPage && projectMeta)
+        if (pageType === 'home') {
+            const layoutHTML = `
+                ${LayoutComponents.buildProgressBar()}
+                ${LayoutComponents.buildBackToTop()}
+                <div id="app-root" class="app-root-home">
+                    <div class="content-wrapper content-wrapper-fullwidth">
+                        <div class="right-panel right-panel-fullwidth">
+                            <div class="scroll-area" id="scroll-container">
+                                <div class="single-page-wrapper">${finalContent}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.innerHTML = layoutHTML;
+            return;
+        }
+
+        const sidebarCompactScope = (!isGridPage && projectMeta)
             ? ' sidebar-compact-scope sidebar-compact-scope--project'
             : '';
 
         const layoutHTML = `
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
-            ${LayoutComponents.buildMobileHeader(logoSVG)}
             <div id="app-root">
-                ${LayoutComponents.buildSiteHeader(logoSVG, pageType)}
                 <div class="content-wrapper${sidebarCompactScope}">
                     <aside class="sidebar">
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
                         ${LayoutComponents.buildSidebarBottom(pageType, pageData)}
-                        ${!isGridPage && projectMeta ? LayoutComponents.buildSidebarScrollSpy() : LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
+                        ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
                         ${pageType === 'playground' ? LayoutComponents.buildSidebarToolsMarquee() : ''}
-                        ${pageType === 'home' ? LayoutComponents.buildSidebarSocials() : ''}
                     </aside>
                         <div class="right-panel">
                         <div class="scroll-area" id="scroll-container">
@@ -602,11 +627,106 @@ const PortfolioApp = {
         });
     },
 
+    initMoreProjectsPreview: function() {
+        if (window.matchMedia('(max-width: 900px)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const section = document.getElementById('projects-more');
+        if (!section || section.dataset.morePreviewInit) return;
+        section.dataset.morePreviewInit = '1';
+
+        let preview = document.getElementById('projects-more-preview');
+        if (!preview) {
+            preview = document.createElement('div');
+            preview.id = 'projects-more-preview';
+            preview.className = 'projects-more-preview';
+            preview.setAttribute('aria-hidden', 'true');
+            preview.innerHTML = '<img src="" alt="">';
+            document.body.appendChild(preview);
+        }
+
+        const img = preview.querySelector('img');
+        const size = 200;
+        const gap = 28;
+        let activeLink = null;
+
+        const positionPreview = (x, y) => {
+            let left = x + gap;
+            let top = y - size / 2;
+            const pad = 12;
+
+            if (left + size > window.innerWidth - pad) {
+                left = x - size - gap;
+            }
+            if (top < pad) top = pad;
+            if (top + size > window.innerHeight - pad) {
+                top = window.innerHeight - size - pad;
+            }
+
+            preview.style.left = left + 'px';
+            preview.style.top = top + 'px';
+        };
+
+        const hidePreview = () => {
+            activeLink = null;
+            preview.classList.remove('is-visible');
+        };
+
+        const showPreview = (link, x, y) => {
+            const src = link.dataset.previewSrc;
+            if (!src) return;
+            activeLink = link;
+            const titleEl = link.querySelector('.projects-more-link-title');
+            if (img.getAttribute('src') !== src) {
+                img.src = src;
+            }
+            img.alt = titleEl ? titleEl.textContent.trim() : '';
+            positionPreview(x, y);
+            preview.classList.add('is-visible');
+        };
+
+        section.addEventListener('mouseover', (e) => {
+            const link = e.target.closest('.projects-more-link');
+            if (!link || !link.dataset.previewSrc) return;
+            showPreview(link, e.clientX, e.clientY);
+        });
+
+        section.addEventListener('mouseout', (e) => {
+            const link = e.target.closest('.projects-more-link');
+            if (!link || link !== activeLink) return;
+            const next = e.relatedTarget;
+            if (next && link.contains(next)) return;
+            hidePreview();
+        });
+
+        section.addEventListener('mousemove', (e) => {
+            if (!activeLink) return;
+            if (!activeLink.contains(e.target)) {
+                hidePreview();
+                return;
+            }
+            positionPreview(e.clientX, e.clientY);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!activeLink) return;
+            if (!e.target.closest('.projects-more-link')) {
+                hidePreview();
+            }
+        });
+
+        section.addEventListener('mouseleave', hidePreview);
+        window.addEventListener('scroll', hidePreview, { passive: true });
+        window.addEventListener('blur', hidePreview);
+    },
+
     initSidebarMotion: function(pageType) {
         if (pageType !== 'home' && pageType !== 'playground') return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const sidebar = document.querySelector('.sidebar');
-        if (sidebar) sidebar.classList.add('sidebar-motion');
+        const motionRoot = pageType === 'home'
+            ? document.querySelector('.home-page-header')
+            : document.querySelector('.sidebar');
+        if (motionRoot) motionRoot.classList.add('sidebar-motion');
     },
 
     initEntryEffects: function(pageType) {

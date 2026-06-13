@@ -7,8 +7,10 @@ const CursorLogic = {
     destroy: function() {
         const oldDot = document.querySelector('.cursor-dot');
         const oldOutline = document.querySelector('.cursor-outline');
+        const oldLabel = document.querySelector('.cursor-label');
         if (oldDot) oldDot.remove();
         if (oldOutline) oldOutline.remove();
+        if (oldLabel) oldLabel.remove();
 
         if (this._listeners) {
             window.removeEventListener('mousemove', this._listeners.mousemove);
@@ -30,9 +32,14 @@ const CursorLogic = {
         dot.className = "cursor-dot";
         const outline = document.createElement("div");
         outline.className = "cursor-outline";
+        const label = document.createElement("div");
+        label.className = "cursor-label";
+        label.textContent = "View";
+        label.setAttribute("aria-hidden", "true");
 
         document.body.appendChild(dot);
         document.body.appendChild(outline);
+        document.body.appendChild(label);
 
         // State Variables
         let mx = window.innerWidth / 2;
@@ -44,6 +51,8 @@ const CursorLogic = {
         const positionCursor = (x, y) => {
             dot.style.left = x + 'px';
             dot.style.top = y + 'px';
+            label.style.left = x + 'px';
+            label.style.top = y + 'px';
             outline.style.left = ox + 'px';
             outline.style.top = oy + 'px';
         };
@@ -53,6 +62,7 @@ const CursorLogic = {
         const showCursor = () => {
             dot.classList.add('is-active');
             outline.classList.add('is-active');
+            label.classList.add('is-active');
             dot.style.opacity = '1';
             outline.style.opacity = '1';
         };
@@ -62,6 +72,7 @@ const CursorLogic = {
             outline.style.opacity = '0';
             dot.classList.remove('is-active');
             outline.classList.remove('is-active');
+            label.classList.remove('is-active');
         };
 
         // Define named listener functions for cleanup
@@ -76,6 +87,8 @@ const CursorLogic = {
                 oy = my;
                 outline.style.left = ox + 'px';
                 outline.style.top = oy + 'px';
+                label.style.left = ox + 'px';
+                label.style.top = oy + 'px';
             }
             showCursor();
         };
@@ -105,12 +118,19 @@ const CursorLogic = {
             oy += (my - oy) * 0.15;
             outline.style.left = ox + 'px';
             outline.style.top = oy + 'px';
+            label.style.left = ox + 'px';
+            label.style.top = oy + 'px';
             requestAnimationFrame(animate);
         }
         animate();
 
         // Hover Interactions
         document.body.addEventListener('mouseover', (e) => {
+            if (e.target.closest('.project-grid .project-card')) {
+                document.body.classList.add('hovering', 'cursor-view');
+                return;
+            }
+            document.body.classList.remove('cursor-view');
             if (e.target.closest('a, button, input, textarea, .project-card, .filter-btn, .visit-btn, .theme-toggle, .nav-link, .cursor-hover')) {
                 document.body.classList.add('hovering');
             } else {

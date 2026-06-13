@@ -287,8 +287,8 @@
 .case-chart-row,
 .p2s-chart-row {
     display: grid;
-    grid-template-columns: minmax(88px, 120px) 1fr minmax(44px, 56px);
-    gap: 10px;
+    grid-template-columns: minmax(88px, 120px) 1fr auto;
+    gap: 10px 6px;
     align-items: center;
     padding-bottom: 12px;
 }
@@ -365,7 +365,9 @@
     font-size: 0.78rem;
     font-weight: 800;
     color: var(--text-color);
-    text-align: right;
+    text-align: left;
+    white-space: nowrap;
+    padding-left: 0;
 }
 
 .case-chart-value--goal,
@@ -575,7 +577,7 @@
     .case-chart-stats,
     .p2s-chart-stats { grid-template-columns: 1fr; }
     .case-chart-row,
-    .p2s-chart-row { grid-template-columns: 72px 1fr 40px; }
+    .p2s-chart-row { grid-template-columns: 72px 1fr auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

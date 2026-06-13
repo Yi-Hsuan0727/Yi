@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michelle Chen - Portfolio</title>
-    <meta name="description" content="Michelle Chen — a UX/UI designer with 3+ years of experience designing apps, platforms, and consumer-facing products.">
+    <meta name="description" content="Michelle Chen — a UX/UI designer who designs and ships the front-end. Accessible, WCAG-compliant interfaces in semantic HTML/CSS, from government sites to AI-powered web apps.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Michelle Chen">
-    <meta property="og:title" content="Michelle Chen — UX/UI Designer">
-    <meta property="og:description" content="UX/UI designer with 3+ years of experience designing apps, platforms, and consumer-facing products.">
+    <meta property="og:title" content="Michelle Chen — Accessibility-Focused UX/UI Designer">
+    <meta property="og:description" content="UX/UI designer who designs and ships the front-end. Accessible, WCAG-compliant interfaces in semantic HTML/CSS, from government sites to AI-powered web apps.">
     <meta property="og:image" content="https://themichellechen.com/assets/img/thumbnail.png">
     <meta property="og:url" content="https://themichellechen.com/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Michelle Chen — UX/UI Designer">
-    <meta name="twitter:description" content="UX/UI designer with 3+ years of experience designing apps, platforms, and consumer-facing products.">
+    <meta name="twitter:title" content="Michelle Chen — Accessibility-Focused UX/UI Designer">
+    <meta name="twitter:description" content="UX/UI designer who designs and ships the front-end. Accessible, WCAG-compliant interfaces in semantic HTML/CSS, from government sites to AI-powered web apps.">
     <meta name="twitter:image" content="https://themichellechen.com/assets/img/thumbnail.png">
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -24,146 +24,115 @@
 </head>
 <body>
     <div id="page-specific-content" style="display: none;">
-        <div class="project-grid">
-            <!-- WORK PROJECTS -->
+        <h2 class="visually-hidden" id="featured-work-heading">Featured work</h2>
+        <div class="project-grid" id="featured-work" aria-labelledby="featured-work-heading">
+            <!-- FEATURED WORK — order is data-driven from PortfolioApp.projectList (featured:true) -->
             <div class="project-card" data-category="apps" onclick="window.location.href='pic2split.html'">
                 <div class="image-container">
                     <img src="assets/img/main images/pic2split.png" alt="Pic2Split" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">Pic2Split</div>
-                        <div class="project-overlay-subtitle">End-to-End Design of a Social Bill-Splitting Web App</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Consumer</span>
-                            <span class="project-overlay-tag">Product Design</span>
-                            <span class="project-overlay-tag">UX Research</span>
-                            <span class="project-overlay-tag">Web App</span>
-                        </div>
+                </div>
+                <div class="project-card-info">
+                    <h3 class="project-card-title">Shipped an AI web app that scans receipts and splits group bills in seconds.</h3>
+                    <div class="project-card-tags">
+                        <span class="project-overlay-tag project-overlay-tag--audience">Consumer</span>
+                        <span class="project-overlay-tag">Product Design</span>
+                        <span class="project-overlay-tag">UX Research</span>
+                        <span class="project-overlay-tag">Web App</span>
                     </div>
                 </div>
             </div>
             <div class="project-card" data-category="web" onclick="window.location.href='unesco.html'">
                 <div class="image-container">
                     <img src="assets/img/main images/UNESCO.png" alt="UNESCO Volunteer Recruitment" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">UNESCO Volunteer Recruitment</div>
-                        <div class="project-overlay-subtitle">UX Redesign for Clarity &amp; Conversion</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Public</span>
-                            <span class="project-overlay-tag">UX Research</span>
-                            <span class="project-overlay-tag">UX/UI Design</span>
-                            <span class="project-overlay-tag">Web Redesign</span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="project-card" data-category="apps" onclick="window.location.href='uav.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/UAV.png" alt="UAV Control System" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">UAV Control System</div>
-                        <div class="project-overlay-subtitle">Agricultural UAV Interface Design</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Enterprise</span>
-                            <span class="project-overlay-tag">UI Design</span>
-                            <span class="project-overlay-tag">Prototyping</span>
-                            <span class="project-overlay-tag">Mobile App</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card" data-category="web" onclick="window.location.href='lawfare.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/International Lawfare.png" alt="International Lawfare" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">International Lawfare Website</div>
-                        <div class="project-overlay-subtitle">Drupal-Based Legal Scholarship Hub</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Public</span>
-                            <span class="project-overlay-tag">UI Design</span>
-                            <span class="project-overlay-tag">Front-End Development</span>
-                            <span class="project-overlay-tag">Web Design</span>
-                        </div>
+                <div class="project-card-info">
+                    <h3 class="project-card-title">Researched and rebuilt UNESCO&apos;s volunteer flow to turn interest into sign-ups.</h3>
+                    <div class="project-card-tags">
+                        <span class="project-overlay-tag project-overlay-tag--audience">Public</span>
+                        <span class="project-overlay-tag">UX Research</span>
+                        <span class="project-overlay-tag">UX/UI Design</span>
+                        <span class="project-overlay-tag">Web Redesign</span>
                     </div>
                 </div>
             </div>
             <div class="project-card" data-category="web" onclick="window.location.href='lcm.html'">
                 <div class="image-container">
-                    <img src="assets/img/main images/indigenous Cultural Museums.png" alt="Indigenous Cultural Museums" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">Indigenous Cultural Museums</div>
-                        <div class="project-overlay-subtitle">WCAG AA Compliant Website for 30 Museums</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Public</span>
-                            <span class="project-overlay-tag">UI Design</span>
-                            <span class="project-overlay-tag">Front-End Development</span>
-                            <span class="project-overlay-tag">Accessibility</span>
-                        </div>
+                    <img src="assets/img/main images/indigenous Cultural Museums.png" alt="Indigenous Cultural Museums" style="width:100%;height:100%;object-fit:cover;object-position:right center;">
+                </div>
+                <div class="project-card-info">
+                    <h3 class="project-card-title">Hand-coded a WCAG 2.1 AA site unifying 30 indigenous museums.</h3>
+                    <div class="project-card-tags">
+                        <span class="project-overlay-tag project-overlay-tag--audience">Public</span>
+                        <span class="project-overlay-tag">UI Design</span>
+                        <span class="project-overlay-tag">Front-End Development</span>
+                        <span class="project-overlay-tag">Accessibility</span>
                     </div>
                 </div>
             </div>
-            <div class="project-card" data-category="apps" onclick="window.location.href='lt.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/Longtan Walker.png" alt="Longtan Walker Pace Counter APP" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">Longtan Walker Pace Counter APP</div>
-                        <div class="project-overlay-subtitle">Behavior-Driven Mobility App Concept</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Consumer</span>
-                            <span class="project-overlay-tag">UX Research</span>
-                            <span class="project-overlay-tag">Product Design</span>
-                            <span class="project-overlay-tag">Mobile App</span>
-                        </div>
-                    </div>
+            <div class="project-card" data-category="apps" onclick="window.location.href='uav.html'">
+                <div class="image-container image-container--video">
+                    <video src="assets/img/UAV/technician video.mp4" autoplay muted playsinline loop preload="auto" aria-label="UAV Control System"></video>
                 </div>
-            </div>
-            <div class="project-card" data-category="apps" onclick="window.location.href='quickbite.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/QuickBite.png" alt="QuickBite" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">QuickBite</div>
-                        <div class="project-overlay-subtitle">AI Meal Planning Assistant</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Consumer</span>
-                            <span class="project-overlay-tag">AI</span>
-                            <span class="project-overlay-tag">Web App</span>
-                            <span class="project-overlay-tag">Product Design</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card" data-category="web" onclick="window.location.href='magnate.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/Magnate.png" alt="Magnate Technology Official Website" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">Magnate Technology Official Website</div>
-                        <div class="project-overlay-subtitle">Corporate Website &amp; Digital Brand System</div>
-                        <div class="project-overlay-tags">
-                            <span class="project-overlay-tag project-overlay-tag--audience">Enterprise</span>
-                            <span class="project-overlay-tag">Web Design</span>
-                            <span class="project-overlay-tag">UI Design</span>
-                            <span class="project-overlay-tag">Branding</span>
-                        </div>
+                <div class="project-card-info">
+                    <h3 class="project-card-title">Technician tablet UI for an AI-assisted farm drone — four-person team.</h3>
+                    <div class="project-card-tags">
+                        <span class="project-overlay-tag project-overlay-tag--audience">Enterprise</span>
+                        <span class="project-overlay-tag">UI Design</span>
+                        <span class="project-overlay-tag">Prototyping</span>
+                        <span class="project-overlay-tag">Mobile App</span>
                     </div>
                 </div>
             </div>
         </div>
-        <section class="projects-cta">
-            <div class="projects-cta-falling-shapes" aria-hidden="true">
-                <span class="falling-shape falling-shape-circle"></span>
-                <span class="falling-shape falling-shape-triangle"></span>
-                <span class="falling-shape falling-shape-square"></span>
-                <span class="falling-shape falling-shape-circle falling-shape-2"></span>
-                <span class="falling-shape falling-shape-triangle falling-shape-3"></span>
-                <span class="falling-shape falling-shape-square falling-shape-4"></span>
-            </div>
-            <p class="projects-cta-title">Stay tuned for more future projects.</p>
-            <p class="projects-cta-body">
-                I&apos;m continuously adding new case studies and experiments as I ship more work.
-            </p>
-            <div class="projects-cta-buttons">
-                <a href="about.html" class="projects-cta-btn">Learn more about Michelle</a>
-                <a href="playground.html" class="projects-cta-btn projects-cta-btn-secondary">View playground</a>
-            </div>
+        <!-- MORE WORK — secondary projects (secondary:true); #projects-more-list is filled at runtime from PortfolioApp.getSecondaryProjects() -->
+        <section class="projects-more" id="projects-more" aria-labelledby="projects-more-heading">
+            <h2 class="projects-more-title" id="projects-more-heading">More work</h2>
+            <ul class="projects-more-list" id="projects-more-list">
+                <li class="projects-more-item">
+                    <a class="projects-more-link" href="lawfare.html">
+                        <span class="projects-more-link-title">International Lawfare Website</span>
+                        <span class="projects-more-link-sub">Drupal CMS organizing legal scholarship under the ASU Design System — searchable publications and course materials.</span>
+                        <span class="projects-more-link-tags">
+                            <span class="projects-more-tag">UI Design</span>
+                            <span class="projects-more-tag">Front-End Development</span>
+                            <span class="projects-more-tag">Web Design</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="projects-more-item">
+                    <a class="projects-more-link" href="lt.html">
+                        <span class="projects-more-link-title">Longtan Walker Pace Counter APP</span>
+                        <span class="projects-more-link-sub">Step-tracking concept that rewards walking on Longtan Road to cut car and scooter traffic.</span>
+                        <span class="projects-more-link-tags">
+                            <span class="projects-more-tag">UX Research</span>
+                            <span class="projects-more-tag">Product Design</span>
+                            <span class="projects-more-tag">Mobile App</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="projects-more-item">
+                    <a class="projects-more-link" href="quickbite.html">
+                        <span class="projects-more-link-title">QuickBite</span>
+                        <span class="projects-more-link-sub">Claude-powered planner syncing fridge inventory, nutrition goals, and weekly menus in one workspace.</span>
+                        <span class="projects-more-link-tags">
+                            <span class="projects-more-tag">AI</span>
+                            <span class="projects-more-tag">Web App</span>
+                            <span class="projects-more-tag">Product Design</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="projects-more-item">
+                    <a class="projects-more-link" href="magnate.html">
+                        <span class="projects-more-link-title">Magnate Technology Official Website</span>
+                        <span class="projects-more-link-sub">Corporate site and reusable UI system establishing Magnate Technology&apos;s industrial automation brand online.</span>
+                        <span class="projects-more-link-tags">
+                            <span class="projects-more-tag">Web Design</span>
+                            <span class="projects-more-tag">UI Design</span>
+                            <span class="projects-more-tag">Branding</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </section>
     </div>
 

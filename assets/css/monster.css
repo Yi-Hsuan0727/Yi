@@ -260,9 +260,9 @@
 
 /* --- Mobile Monster Overrides --- */
 @media (max-width: 1200px) {
-    /* Home sidebar: fill viewport minus header */
+    /* Home sidebar: fill viewport */
     .sidebar:has(.sidebar-footer-container) {
-        min-height: calc(100vh - var(--mobile-header-height)) !important;
+        min-height: 100vh !important;
         display: flex;
         flex-direction: column;
     }

@@ -270,32 +270,95 @@
             }
             .p2s-overview-hero-inner {
                 display: grid;
-                grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+                grid-template-columns: 1fr;
                 width: 100%;
             }
             .p2s-overview-hero-text {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                padding: 64px 48px;
+                justify-content: flex-start;
+                max-width: 900px;
+                margin: 0 auto;
+                width: 100%;
+                padding: 64px 0 32px;
+                box-sizing: border-box;
             }
-            .p2s-overview-hero-video {
+            .p2s-overview-hero-stage {
+                width: 100%;
+                max-width: 900px;
+                margin: 0 auto 64px;
+                aspect-ratio: 16 / 9;
+                background: linear-gradient(
+                    165deg,
+                    var(--accent-blue-soft) 0%,
+                    rgba(74, 85, 224, 0.12) 52%,
+                    rgba(232, 226, 88, 0.1) 100%
+                );
+                border-radius: 16px;
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+                padding: clamp(20px, 4vw, 40px);
+                box-sizing: border-box;
+                overflow: visible;
+            }
+            .p2s-overview-hero-phones {
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+                gap: clamp(16px, 3vw, 32px);
+                width: 100%;
+                height: 100%;
+            }
+            .p2s-overview-hero-stage .p2s-phone-frame--device {
+                position: relative;
+                isolation: isolate;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                overflow: hidden;
-                background: #fff;
-                padding: 0;
-                margin: 0;
-            }
-            .p2s-overview-hero-video video {
-                width: 100%;
+                width: auto;
                 height: auto;
+                align-self: stretch;
+                max-width: min(30%, 240px);
+                aspect-ratio: unset;
+                margin: 0;
+                padding: 5px;
+                border: none;
+                border-radius: 28px;
+                background: linear-gradient(
+                    155deg,
+                    #2a2a2a 0%,
+                    #0a0a0a 24%,
+                    #000000 50%,
+                    #0a0a0a 76%,
+                    #2a2a2a 100%
+                );
+                box-shadow:
+                    0 2px 4px rgba(0, 0, 0, 0.2),
+                    0 14px 36px rgba(0, 0, 0, 0.32),
+                    0 28px 56px rgba(0, 0, 0, 0.16),
+                    inset 0 0 0 2px #000000,
+                    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+                    inset 0 -1.5px 0 rgba(0, 0, 0, 0.75);
+                box-sizing: border-box;
+            }
+            .p2s-overview-hero-stage .p2s-phone-frame--device::after {
+                display: none;
+            }
+            .p2s-overview-hero-stage .p2s-phone-frame--device video {
+                position: relative;
+                z-index: 1;
                 display: block;
-                border: none !important;
-                outline: none;
-                box-shadow: none;
-                clip-path: inset(2px 0);
+                width: auto;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                border: 2px solid #000000;
+                border-radius: 23px;
+                box-shadow:
+                    inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+                    0 0 0 1px rgba(0, 0, 0, 0.2);
             }
 
             /* === GRID LAYOUTS === */
@@ -502,6 +565,14 @@
                 padding: clamp(20px, 4vw, 40px);
                 overflow: visible;
             }
+            .p2s-solution-row--phone-stage .p2s-phone-stage-phones {
+                display: flex;
+                align-items: stretch;
+                justify-content: center;
+                gap: clamp(20px, 4vw, 48px);
+                width: 100%;
+                height: 100%;
+            }
             .p2s-solution-row--phone-stage .p2s-phone-frame--device {
                 position: relative;
                 isolation: isolate;
@@ -511,7 +582,7 @@
                 width: auto;
                 height: auto;
                 align-self: stretch;
-                max-width: min(36%, 300px);
+                max-width: min(34%, 280px);
                 aspect-ratio: unset;
                 margin: 0;
                 padding: 5px;
@@ -535,6 +606,9 @@
                     inset -1px 0 0 rgba(0, 0, 0, 0.28),
                     inset 0 0 0 1px rgba(0, 0, 0, 0.65);
                 box-sizing: border-box;
+            }
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device::after {
+                display: none;
             }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device {
                 width: min(320px, 100%);
@@ -587,7 +661,8 @@
                 );
                 filter: blur(3px);
             }
-            .p2s-solution-row--phone-stage .p2s-phone-frame--device img {
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device img,
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device video {
                 position: relative;
                 z-index: 1;
                 display: block;
@@ -1129,19 +1204,6 @@
                 gap: 2px;
                 padding: 22px 28px 20px;
                 border-bottom: 1px solid var(--border-color);
-                background: linear-gradient(180deg, rgba(74, 85, 224, 0.08) 0%, rgba(74, 85, 224, 0.02) 100%);
-            }
-            [data-theme="dark"] .p2s-phase-block-header {
-                background: linear-gradient(180deg, rgba(74, 85, 224, 0.16) 0%, rgba(74, 85, 224, 0.05) 100%);
-            }
-            .p2s-phase-block-header .p2s-phase-num {
-                display: block;
-                margin: 0;
-                font-size: 0.72rem;
-                font-weight: 700;
-                letter-spacing: 0.16em;
-                text-transform: uppercase;
-                color: var(--accent-blue);
             }
             .p2s-phase-block-title {
                 margin: 0;
@@ -1159,7 +1221,7 @@
                 display: grid;
                 grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
                 gap: 28px;
-                padding: 18px 28px 28px;
+                padding: 40px 28px 44px;
                 align-items: stretch;
             }
             .p2s-phase-block-inner > * { min-width: 0; }
@@ -1311,8 +1373,14 @@
                 .p2s-outcome-cell:nth-child(2) { border-right: none; }
                 .p2s-outcome-cell:nth-child(3) { border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); }
                 .p2s-outcome-cell:nth-child(4) { border-top: 1px solid var(--border-color); }
-                .p2s-overview-hero-inner { grid-template-columns: 1fr; min-height: auto; }
-                .p2s-overview-hero-video { min-height: 60vw; position: relative; }
+                .p2s-overview-hero-text { padding: 48px 0 24px; }
+                .p2s-overview-hero-stage {
+                    margin: 0 32px 48px;
+                    width: auto;
+                }
+                .p2s-overview-hero-stage .p2s-phone-frame--device {
+                    max-width: min(30%, 160px);
+                }
                 .p2s-grid-2,
                 .p2s-grid-3,
                 .p2s-design-assets-row,
@@ -1335,11 +1403,18 @@
             @media (max-width: 600px) {
                 .case-section { padding-top: 56px; padding-bottom: 56px; }
                 .case-section-inner { gap: 28px; }
+                .p2s-overview-hero-text { padding: 36px 0 20px; }
+                .p2s-overview-hero-stage {
+                    margin: 0 24px 36px;
+                }
+                .p2s-overview-hero-stage .p2s-phone-frame--device {
+                    max-width: min(30%, 110px);
+                }
             }
         </style>
 
         <!-- ===================== OVERVIEW ===================== -->
-        <section class="case-section case-section-alt p2s-overview-hero">
+        <section class="case-section case-section-alt p2s-overview-hero" id="section-overview">
             <div class="p2s-overview-hero-inner">
                 <div class="p2s-overview-hero-text">
                     <div class="p2s-section-number">Overview</div>
@@ -1347,16 +1422,45 @@
                         <strong>Web-first AI bill splitter</strong>—scan a receipt, split fairly, and share in under two minutes, no app install.
                     </p>
                 </div>
-                <div class="p2s-overview-hero-video">
-                    <video
-                        src="assets/img/Pic2Split/mockup-video-landing-animation.mp4"
-                        autoplay
-                        muted
-                        playsinline
-                        loop
-                        preload="auto"
-                        aria-label="Pic2Split product mockup animation">
-                    </video>
+                <div class="p2s-overview-hero-stage">
+                    <div class="p2s-overview-hero-phones case-motion-stagger">
+                        <div class="p2s-phone-frame p2s-phone-frame--device case-motion case-motion--phone-device">
+                            <video
+                                src="assets/img/Pic2Split/Scan%20a%20receipt.mp4"
+                                autoplay
+                                muted
+                                playsinline
+                                loop
+                                preload="auto"
+                                data-autoplay-on-view
+                                aria-label="Screen recording of scanning a receipt with OCR side-by-side review">
+                            </video>
+                        </div>
+                        <div class="p2s-phone-frame p2s-phone-frame--device case-motion case-motion--phone-device">
+                            <video
+                                src="assets/img/Pic2Split/assign%20item.mp4"
+                                autoplay
+                                muted
+                                playsinline
+                                loop
+                                preload="auto"
+                                data-autoplay-on-view
+                                aria-label="Screen recording of tap-to-split item assignment">
+                            </video>
+                        </div>
+                        <div class="p2s-phone-frame p2s-phone-frame--device case-motion case-motion--phone-device">
+                            <video
+                                src="assets/img/Pic2Split/share%20the%20result.mp4"
+                                autoplay
+                                muted
+                                playsinline
+                                loop
+                                preload="auto"
+                                data-autoplay-on-view
+                                aria-label="Screen recording of split summary and web sharing flow">
+                            </video>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1509,7 +1613,7 @@
                         <div class="case-phase-block-inner p2s-phase-block-inner">
                             <div class="case-phase-block-copy p2s-phase-block-copy">
                                 <p class="case-phase-result-head p2s-phase-result-head">23 screens—each with a job, none decorative.</p>
-                                <p class="p2s-phase-body"><strong>23 wireframes</strong> covered happy paths, errors, same-person pay, and side-by-side checks on every money step—ready for components and build.</p>
+                                <p class="p2s-phase-body"><strong>23 wireframes</strong> covered happy paths, errors, same-person pay, and side-by-side checks on every money step. The component library—buttons, inputs, tags, and reusable patterns—was built on <strong>Tailwind CSS</strong>, so screens shared one token-based system ready for build.</p>
                             </div>
                             <div class="case-phase-block-media p2s-phase-block-media">
                                 <figure class="case-figure case-figure-readable p2s-figure p2s-figure-readable" style="margin:0;">
@@ -1558,8 +1662,22 @@
                         <p>One-tap login stores your splitting history safely without tedious onboarding forms.</p>
                     </div>
                     <div class="p2s-phone-stage col-12">
-                        <div class="p2s-phone-frame p2s-phone-frame--device case-motion case-motion--phone-device">
-                            <img src="assets/img/Pic2Split/landing.png" alt="Pic2Split home screen with Google one-tap login">
+                        <div class="p2s-phone-stage-phones case-motion-stagger">
+                            <div class="p2s-phone-frame p2s-phone-frame--device case-motion case-motion--phone-device">
+                                <video
+                                    src="assets/img/Pic2Split/opening%20animation.mp4"
+                                    autoplay
+                                    muted
+                                    playsinline
+                                    loop
+                                    preload="auto"
+                                    data-autoplay-on-view
+                                    aria-label="Pic2Split opening animation on the home screen">
+                                </video>
+                            </div>
+                            <div class="p2s-phone-frame p2s-phone-frame--device case-motion case-motion--phone-device">
+                                <img src="assets/img/Pic2Split/landing.png" alt="Pic2Split home screen with Google one-tap login">
+                            </div>
                         </div>
                     </div>
                 </div>

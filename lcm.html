@@ -65,16 +65,19 @@
     .lcm-overview-hero { padding: 0 !important; overflow: hidden; }
     .lcm-overview-inner {
         display: grid;
-        grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+        grid-template-columns: 1fr;
         width: 100%;
-        align-items: stretch;
     }
     .lcm-overview-text {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 16px;
-        padding: 64px 48px;
+        max-width: 900px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 64px 48px 32px;
+        box-sizing: border-box;
     }
     .lcm-overview-text > .lcm-label {
         padding: 2px 0 2px 12px;
@@ -92,8 +95,11 @@
         justify-content: center;
         overflow: hidden;
         background: transparent;
-        margin: 0;
-        padding: 32px;
+        margin: 0 auto;
+        max-width: 900px;
+        width: 100%;
+        padding: 0 48px 64px;
+        box-sizing: border-box;
     }
     .lcm-video-stage-inner {
         width: 100%;
@@ -120,8 +126,10 @@
         );
     }
     .lcm-video-stage-inner video {
-        width: 100%;
+        width: auto;
         height: 100%;
+        max-width: 100%;
+        max-height: 100%;
         object-fit: contain;
         border: none;
         border-radius: 8px;
@@ -516,11 +524,8 @@
         .lcm-callout-cell:last-child { border-bottom: none; }
         .lcm-impact-cell { border-right: none; border-bottom: 1px solid var(--border-color); }
         .lcm-impact-cell:last-child { border-bottom: none; }
-        .lcm-overview-inner { grid-template-columns: 1fr; }
-        .lcm-overview-media {
-            min-height: 55vw;
-            padding: 24px;
-        }
+        .lcm-overview-text { padding: 48px 32px 24px; }
+        .lcm-overview-media { padding: 0 32px 48px; }
         .lcm-section { padding-top: 60px; padding-bottom: 60px; }
     }
     @media (max-width: 600px) {
@@ -528,7 +533,8 @@
         .lcm-phase-card { border-right: none; border-bottom: 1px solid var(--border-color); }
         .lcm-phase-card:last-child { border-bottom: none; }
         .lcm-goal-grid { grid-template-columns: 1fr; }
-        .lcm-overview-text { padding: 36px 24px; }
+        .lcm-overview-text { padding: 36px 24px 20px; }
+        .lcm-overview-media { padding: 0 24px 36px; }
         .lcm-section { padding-top: 48px; padding-bottom: 48px; }
     }
 </style>
@@ -539,7 +545,7 @@
         <div class="lcm-overview-text">
             <div class="lcm-label">Overview</div>
             <p class="lcm-intro lcm-overview-lead">
-                One WCAG 2.1 AA platform for 30 museums—accessible, story-driven, built end to end.
+                Designed and built — front to back. A WCAG 2.1 AA–compliant government website (lcm.tacp.gov.tw) where I owned both the UX design and the semantic HTML/CSS/ARIA implementation: one accessible, story-driven platform for 30 museums.
             </p>
         </div>
         <figure class="lcm-overview-media">

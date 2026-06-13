@@ -22,36 +22,28 @@ const CaseScrollSpy = {
         '.wn-2col-header > div:first-child'
     ].join(', '),
 
+    homeSections: [
+        { selector: '#featured-work', labelFrom: '#featured-work-heading' },
+        { selector: '#projects-more', labelFrom: '#projects-more-heading' },
+        { selector: '.site-contact-band', labelFrom: '#site-contact-heading' }
+    ],
+
     init: function() {
         const nav = document.querySelector('.sidebar-scroll-spy');
         const list = document.querySelector('.sidebar-scroll-spy-list');
         if (!nav || !list) return;
+
+        list.innerHTML = '';
 
         if (this.isMobile()) {
             nav.hidden = true;
             return;
         }
 
-        const sections = Array.from(document.querySelectorAll('.single-page-wrapper .case-section'));
-        const items = [];
-
-        sections.forEach((section, index) => {
-            const label = this.findSectionLabel(section);
-            if (!label) return;
-
-            const id = section.id || this.slugify(label, index);
-            if (!section.id) section.id = id;
-
-            const li = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = `#${id}`;
-            link.className = 'sidebar-scroll-spy-link';
-            link.textContent = label;
-            link.addEventListener('click', (event) => this.onNavClick(event, section));
-            li.appendChild(link);
-            list.appendChild(li);
-            items.push({ section: section, link: link });
-        });
+        nav.hidden = false;
+        const isHome = !!document.querySelector('.single-page-wrapper .project-grid');
+        const sections = isHome ? this.collectHomeSections() : this.collectCaseSections();
+        const items = this.buildNavItems(list, sections);
 
         if (!items.length) {
             nav.hidden = true;
@@ -60,6 +52,67 @@ const CaseScrollSpy = {
 
         items[0].link.classList.add('is-active');
         this.bindScrollSpy(items);
+    },
+
+    collectCaseSections: function() {
+        return Array.from(document.querySelectorAll('.single-page-wrapper .case-section'));
+    },
+
+    collectHomeSections: function() {
+        const wrapper = document.querySelector('.single-page-wrapper');
+        if (!wrapper) return [];
+
+        return this.homeSections
+            .map(function(config) {
+                const section = wrapper.querySelector(config.selector);
+                if (!section) return null;
+                return { section: section, label: CaseScrollSpy.getHomeSectionLabel(section, config) };
+            })
+            .filter(function(item) { return item && item.label; });
+    },
+
+    getHomeSectionLabel: function(section, config) {
+        if (config.labelFrom) {
+            const labelEl = document.querySelector(config.labelFrom);
+            if (labelEl && labelEl.textContent.trim()) {
+                return labelEl.textContent.trim();
+            }
+        }
+        const labelledBy = section.getAttribute('aria-labelledby');
+        if (labelledBy) {
+            const labelEl = document.getElementById(labelledBy);
+            if (labelEl && labelEl.textContent.trim()) {
+                return labelEl.textContent.trim();
+            }
+        }
+        return '';
+    },
+
+    buildNavItems: function(list, sections) {
+        const items = [];
+
+        sections.forEach(function(entry, index) {
+            const section = entry.section || entry;
+            const label = entry.label || CaseScrollSpy.findSectionLabel(section);
+            if (!label) return;
+
+            const id = section.id || CaseScrollSpy.slugify(label, index);
+            if (!section.id) section.id = id;
+
+            const li = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = `#${id}`;
+            link.className = 'sidebar-scroll-spy-link';
+            link.textContent = label;
+            link.addEventListener('click', function(event) {
+                CaseScrollSpy.onNavClick(event, section);
+            });
+            li.appendChild(link);
+            list.appendChild(li);
+            items.push({ section: section, link: link });
+        });
+
+        return items;
     },
 
     findSectionLabel: function(section) {

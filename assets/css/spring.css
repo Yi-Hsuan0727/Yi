@@ -464,3 +464,19 @@
         font-size: 5.4rem;
     }
 }
+
+/* Design process phase headers — green, gold, and blue from the Four Seasons palette */
+.case-phase-block-header {
+    background: linear-gradient(165deg, rgba(46, 204, 113, 0.1) 0%, rgba(255, 193, 7, 0.1) 45%, rgba(52, 152, 219, 0.08) 100%);
+    border-bottom-color: rgba(138, 106, 63, 0.15);
+}
+[data-theme="dark"] .case-phase-block-header {
+    background: linear-gradient(165deg, rgba(46, 204, 113, 0.14) 0%, rgba(255, 193, 7, 0.12) 45%, rgba(52, 152, 219, 0.12) 100%);
+    border-bottom-color: rgba(138, 106, 63, 0.22);
+}
+.case-phase-kicker {
+    color: #8a6a3f;
+}
+[data-theme="dark"] .case-phase-kicker {
+    color: #d4b896;
+}

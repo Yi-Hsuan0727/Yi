@@ -7,26 +7,6 @@ const LayoutComponents = {
         return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><text x="32" y="54" font-size="72" font-weight="900" font-family="Arial" fill="#2ecc71" text-anchor="middle">M</text></svg>`;
     },
 
-    buildMobileHeader: function(logoSVG) {
-        return `
-            <div class="mobile-top-bar" id="mobile-header">
-                <a class="brand-logo" href="index.html" aria-label="Back to home">${logoSVG}</a>
-                <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
-            </div>`;
-    },
-
-    buildSiteHeader: function(logoSVG, pageType) {
-        return `
-            <header class="site-header">
-                <a class="brand-logo" href="index.html" aria-label="Back to home">${logoSVG}</a>
-                <nav class="nav-menu">
-                    <a href="index.html" class="nav-link home-btn ${pageType === 'home' ? 'active' : ''}">Home</a>
-                    <a href="playground.html" class="nav-link ${pageType === 'playground' ? 'active' : ''}">Playground</a>
-                    <button class="theme-toggle" onclick="toggleTheme()" style="margin-left:20px;"><i class="fas fa-moon"></i></button>
-                </nav>
-            </header>`;
-    },
-
     buildSidebarTop: function(pageData, projectMeta, pageType) {
         let html = '';
         if (pageData.backLink && projectMeta) {
@@ -71,10 +51,27 @@ const LayoutComponents = {
             </div>`;
     },
 
-    buildSidebarMeta: function(pageType, projectMeta, pageData) {
-        if (pageType === 'home') return '';
-        if (!projectMeta) return '';
+    buildSidebarMeta: function(pageType, projectMeta) {
+        if (!projectMeta || pageType === 'playground' || pageType === 'about') return '';
         return this.buildSidebarScrollSpy();
+    },
+
+    buildHomePageHeader: function(pageData) {
+        return `
+            <header class="home-page-header">
+                <div class="home-page-header-main">
+                    ${this.buildSidebarTop(pageData, null, 'home')}
+                </div>
+                <div class="home-page-header-aside">
+                    ${this.buildSidebarSocials()}
+                    ${this.buildHomeTechNote()}
+                </div>
+            </header>`;
+    },
+
+    buildHomeTechNote: function() {
+        return `
+            <p class="home-header-tech">This website is built with pure HTML / CSS / JS. <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="footer-tech-link">Hosted on GitHub</a></p>`;
     },
 
     buildSidebarSocials: function() {
@@ -175,15 +172,19 @@ const LayoutComponents = {
         const category = typeof PortfolioApp !== 'undefined'
             ? PortfolioApp.getProjectFilterCategory(project)
             : (project.filterType || 'web');
+        const containerClass = project.cardVideo ? 'image-container image-container--video' : 'image-container';
+        const imgObjectPosition = project.cardImagePosition ? ` object-position:${project.cardImagePosition};` : '';
+        const mediaHTML = project.cardVideo
+            ? `<video src="${project.cardVideo}" autoplay muted playsinline loop preload="auto" aria-label="${project.title}"></video>`
+            : `<img src="${project.image}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;${imgObjectPosition}">`;
         return `
-            <div class="project-card" data-category="${category}" onclick="window.location.href='${project.link}'">
-                <div class="image-container">
-                    <img src="${project.image}" alt="${project.title}" style="width:100%;height:100%;object-fit:cover;">
-                    <div class="project-overlay">
-                        <div class="project-overlay-title">${project.title}</div>
-                        <div class="project-overlay-subtitle">${project.subtitle}</div>
-                        <div class="project-overlay-tags">${tagsHTML}</div>
-                    </div>
+            <div class="project-card" data-category="${category}" data-project-id="${project.id || ''}" onclick="window.location.href='${project.link}'">
+                <div class="${containerClass}">
+                    ${mediaHTML}
+                </div>
+                <div class="project-card-info">
+                    <h3 class="project-card-title">${project.cardHeadline || project.title}</h3>
+                    <div class="project-card-tags">${tagsHTML}</div>
                 </div>
             </div>`;
     },
@@ -194,11 +195,13 @@ const LayoutComponents = {
             const tags = (p.tags || []).slice(0, 3).map(function(t) {
                 return `<span class="projects-more-tag">${t}</span>`;
             }).join('');
+            const previewSrc = p.heroImage || p.image || '';
+            const previewAttr = previewSrc ? ` data-preview-src="${previewSrc}"` : '';
             return `
                 <li class="projects-more-item">
-                    <a class="projects-more-link" href="${p.link}">
+                    <a class="projects-more-link" href="${p.link}"${previewAttr}>
                         <span class="projects-more-link-title">${p.title}</span>
-                        <span class="projects-more-link-sub">${p.subtitle}</span>
+                        <span class="projects-more-link-sub">${p.listSubline || p.subtitle}</span>
                         ${tags ? `<span class="projects-more-link-tags">${tags}</span>` : ''}
                     </a>
                 </li>`;
@@ -338,14 +341,20 @@ const LayoutComponents = {
                     </div>`
             : '';
         const footerOnlyClass = !socialsInFooter ? ' site-footer--sidebar-socials' : '';
+        const copyrightHTML = pageType === 'home'
+            ? ''
+            : `<span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved. This website is built with pure HTML / CSS / JS. <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="footer-tech-link">Hosted on GitHub</a></span>`;
+        const footerBarHTML = (copyrightHTML || socialsHTML)
+            ? `<footer class="site-footer ${monsterHTML ? 'site-footer-green' : ''}${footerOnlyClass}">
+                    ${copyrightHTML}
+                    ${socialsHTML}
+                </footer>`
+            : '';
         return `
             <div class="site-footer-shell ${monsterHTML ? 'site-footer-shell-green' : ''}">
                 ${monsterHTML}
                 ${contactFormHTML}
-                <footer class="site-footer ${monsterHTML ? 'site-footer-green' : ''}${footerOnlyClass}">
-                    <span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved.</span>
-                    ${socialsHTML}
-                </footer>
+                ${footerBarHTML}
             </div>`;
     },
 

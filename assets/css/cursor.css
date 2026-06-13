@@ -42,6 +42,49 @@ body.hovering .cursor-outline {
     border-color: var(--accent-color);
 }
 
+.cursor-label {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 100000;
+    pointer-events: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-color);
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transition: none !important;
+}
+.cursor-label.is-active {
+    visibility: visible;
+}
+
+body.cursor-view .cursor-label {
+    opacity: 1;
+    visibility: visible;
+}
+
+body.cursor-view .cursor-dot {
+    opacity: 0 !important;
+}
+
+body.cursor-view .cursor-outline {
+    width: 0;
+    height: 0;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    border-width: 0;
+}
+
 /* --- Hide Default Cursor on Desktop --- */
 @media (min-width: 901px) {
     body, a, button, .project-card, input, textarea {
@@ -51,5 +94,5 @@ body.hovering .cursor-outline {
 
 /* --- Hide Custom Cursor on Mobile --- */
 @media (max-width: 1200px) {
-    .cursor-dot, .cursor-outline { display: none !important; }
+    .cursor-dot, .cursor-outline, .cursor-label { display: none !important; }
 }
