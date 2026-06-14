@@ -824,21 +824,73 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 /* Home — about section (carousel, bio, education & awards) */
 .home-about {
-    border-top: 1px solid var(--border-color);
+    width: 100%;
 }
 .home-about .about-carousel {
-    padding: 24px 0 24px 30px;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    padding: 8px 0 48px 30px;
 }
 .home-about .about-carousel-item {
     width: clamp(160px, 20vw, 260px);
     height: clamp(107px, 13vw, 173px);
 }
-.home-about-intro {
-    padding: 40px 30px 32px;
+.home-about .about-carousel-track {
+    transition: none;
 }
-.home-about-experience {
-    margin-top: 40px;
-    margin-bottom: 0;
+.home-about-intro {
+    max-width: 1280px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 40px 30px 32px;
+    box-sizing: border-box;
+}
+.home-about-title {
+    padding-top: 0;
+}
+.home-about-lead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 28px 40px;
+    align-items: start;
+}
+.home-about-copy {
+    max-width: 600px;
+}
+.home-about-copy p {
+    margin: 0;
+    font-size: 0.94rem;
+    line-height: 1.75;
+    color: var(--secondary-text);
+}
+.home-about-copy p + p {
+    margin-top: 14px;
+}
+.home-about-career {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    min-width: 0;
+}
+.home-about-career .about-exp-group .about-section-heading {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+}
+.home-about-intro .about-carousel {
+    margin-top: 20px;
+    padding: 8px 0 32px 30px;
+}
+.home-about-intro .about-exp-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 16px 0;
+}
+.home-about-intro .about-exp-item:hover,
+.home-about-intro .about-exp-group--work .about-exp-item:hover,
+.home-about-intro .about-exp-group--education .about-exp-item:hover {
+    background: transparent;
 }
 .about-interests-text {
     font-size: inherit;
@@ -3429,6 +3481,17 @@ body.case-figure-zoom-open #scroll-container {
     left: -10%;
 }
 
+/* Home content column — shared max width */
+.home-page-header,
+#featured-work.project-grid,
+.projects-more {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 /* Home page header (intro + scroll spy + socials above project list) */
 .home-page-header {
     display: grid;
@@ -3739,12 +3802,12 @@ body.case-figure-zoom-open #scroll-container {
     }
     .projects-more { padding: 36px 20px 52px; margin-top: 16px; }
     .home-below-projects { padding: 8px 20px 40px; margin-top: 4px; }
-    .home-about .about-carousel { padding: 20px 0 20px 20px; }
-    .home-about .about-carousel-item {
-        width: clamp(140px, 42vw, 200px);
-        height: clamp(93px, 28vw, 133px);
+    .home-about-intro { padding: 28px 20px 24px; }
+    .home-about-lead {
+        grid-template-columns: 1fr;
+        gap: 28px;
     }
-    .home-about-intro { padding: 28px 20px 16px; }
+    .home-about-intro .about-carousel { padding: 8px 0 28px 20px; }
     .projects-more-title,
     .home-work-experience .about-section-heading {
         padding: 24px 0 16px;

@@ -12,10 +12,20 @@ const CursorLogic = {
         if (oldOutline) oldOutline.remove();
         if (oldLabel) oldLabel.remove();
 
+        document.body.classList.remove('cursor-view', 'hovering');
+
         if (this._listeners) {
             window.removeEventListener('mousemove', this._listeners.mousemove);
             document.removeEventListener('mouseleave', this._listeners.mouseleave);
             document.removeEventListener('mouseenter', this._listeners.mouseenter);
+            if (this._listeners.scroll) {
+                this._listeners.scroll.forEach(({ target, handler }) => {
+                    target.removeEventListener('scroll', handler);
+                });
+            }
+            if (this._listeners.pageshow) {
+                window.removeEventListener('pageshow', this._listeners.pageshow);
+            }
             this._listeners = null;
         }
     },
@@ -67,31 +77,37 @@ const CursorLogic = {
             outline.style.opacity = '1';
         };
 
+        const setViewCursor = (active) => {
+            document.body.classList.toggle('cursor-view', active);
+            label.style.opacity = active ? '1' : '0';
+            label.classList.toggle('is-view', active);
+        };
+
         const hideCursor = () => {
             dot.style.opacity = '0';
             outline.style.opacity = '0';
-            label.style.opacity = '0';
             dot.classList.remove('is-active');
             outline.classList.remove('is-active');
             label.classList.remove('is-active');
-            document.body.classList.remove('cursor-view', 'hovering');
+            setViewCursor(false);
+            document.body.classList.remove('hovering');
         };
 
         const syncHoverState = (x, y) => {
             const el = document.elementFromPoint(x, y);
             if (!el) {
-                document.body.classList.remove('cursor-view', 'hovering');
+                setViewCursor(false);
+                document.body.classList.remove('hovering');
                 return;
             }
 
             if (el.closest('.project-grid .project-card')) {
-                document.body.classList.add('hovering', 'cursor-view');
-                label.style.opacity = '1';
+                document.body.classList.add('hovering');
+                setViewCursor(true);
                 return;
             }
 
-            document.body.classList.remove('cursor-view');
-            label.style.opacity = '0';
+            setViewCursor(false);
 
             if (el.closest('a, button, input, textarea, .project-card, .filter-btn, .visit-btn, .theme-toggle, .nav-link, .cursor-hover')) {
                 document.body.classList.add('hovering');
@@ -127,16 +143,43 @@ const CursorLogic = {
             if (hasMoved) showCursor();
         };
 
+        const onScroll = () => {
+            if (hasMoved) syncHoverState(mx, my);
+        };
+
+        const onPageShow = () => {
+            setViewCursor(false);
+            document.body.classList.remove('hovering');
+            if (hasMoved) syncHoverState(mx, my);
+        };
+
+        const scrollTargets = [
+            window,
+            document.getElementById('scroll-container')
+        ].filter(Boolean);
+
         // Store references for cleanup
         this._listeners = {
             mousemove: onMouseMove,
             mouseleave: onMouseLeave,
-            mouseenter: onMouseEnter
+            mouseenter: onMouseEnter,
+            pageshow: onPageShow,
+            scroll: scrollTargets.map((target) => {
+                target.addEventListener('scroll', onScroll, { passive: true });
+                return { target, handler: onScroll };
+            })
         };
 
         window.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseleave', onMouseLeave);
         document.addEventListener('mouseenter', onMouseEnter);
+        window.addEventListener('pageshow', onPageShow);
+
+        document.querySelectorAll('.project-grid .project-card').forEach((card) => {
+            card.addEventListener('mouseleave', () => {
+                requestAnimationFrame(() => syncHoverState(mx, my));
+            });
+        });
 
         // Animation Loop
         function animate() {
@@ -146,6 +189,7 @@ const CursorLogic = {
             outline.style.top = oy + 'px';
             label.style.left = ox + 'px';
             label.style.top = oy + 'px';
+            if (hasMoved) syncHoverState(mx, my);
             requestAnimationFrame(animate);
         }
         animate();

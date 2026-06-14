@@ -408,7 +408,7 @@ const PortfolioApp = {
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
             ContactFormLogic.init();
         }
-        if (pageType === 'about' && typeof CarouselLogic !== 'undefined') {
+        if ((pageType === 'home' || pageType === 'about') && typeof CarouselLogic !== 'undefined') {
             CarouselLogic.init();
         }
         if (pageType === 'home') {

@@ -1,6 +1,7 @@
 /*
  * CarouselLogic: Horizontal image carousel for the About page.
  * Users can swipe left/right (touch or mouse drag) to scroll. No scrollbar shown.
+ * Home page carousel auto-scrolls slowly when idle.
  */
 const CarouselLogic = {
     currentTranslate: 0,
@@ -9,6 +10,9 @@ const CarouselLogic = {
     isDragging: false,
     startX: 0,
     startTranslate: 0,
+    autoScrollSpeed: 0.22,
+    autoScrollPausedUntil: 0,
+    loopWidth: 0,
 
     init: function () {
         const carousel = document.querySelector('.about-carousel');
@@ -17,13 +21,34 @@ const CarouselLogic = {
         const track = carousel.querySelector('.about-carousel-track');
         if (!track) return;
 
+        const isHomeCarousel = !!carousel.closest('.home-about');
+        if (isHomeCarousel) {
+            track.innerHTML += track.innerHTML;
+        }
+
         this.currentTranslate = 0;
         this.targetTranslate = 0;
-        const maxTranslate = 0;
-        const minTranslate = -(track.scrollWidth - carousel.offsetWidth);
+        this.loopWidth = isHomeCarousel ? track.scrollWidth / 2 : 0;
+
+        const getBounds = () => {
+            const maxTranslate = 0;
+            const minTranslate = -(track.scrollWidth - carousel.offsetWidth);
+            return { maxTranslate, minTranslate };
+        };
 
         const applyTransform = () => {
-            this.currentTranslate += (this.targetTranslate - this.currentTranslate) * 0.15;
+            const now = performance.now();
+            const { maxTranslate, minTranslate } = getBounds();
+
+            if (isHomeCarousel && !this.isDragging && now >= this.autoScrollPausedUntil) {
+                this.targetTranslate -= this.autoScrollSpeed;
+                if (this.loopWidth > 0 && this.targetTranslate <= -this.loopWidth) {
+                    this.targetTranslate += this.loopWidth;
+                    this.currentTranslate += this.loopWidth;
+                }
+            }
+
+            this.currentTranslate += (this.targetTranslate - this.currentTranslate) * 0.06;
             track.style.transform = `translateX(${this.currentTranslate}px)`;
         };
 
@@ -33,18 +58,26 @@ const CarouselLogic = {
         };
         tick();
 
-        const clamp = (val) => Math.max(minTranslate, Math.min(maxTranslate, val));
+        const clamp = (val) => {
+            const { maxTranslate, minTranslate } = getBounds();
+            return Math.max(minTranslate, Math.min(maxTranslate, val));
+        };
+
+        const pauseAutoScroll = () => {
+            this.autoScrollPausedUntil = performance.now() + 2400;
+        };
 
         // Touch events (mobile swipe)
         carousel.addEventListener('touchstart', (e) => {
             this.startX = e.touches[0].clientX;
             this.startTranslate = this.targetTranslate;
+            pauseAutoScroll();
         }, { passive: true });
 
         carousel.addEventListener('touchmove', (e) => {
             const dx = e.touches[0].clientX - this.startX;
             this.targetTranslate = clamp(this.startTranslate + dx);
-            e.preventDefault(); // Prevent page scroll when swiping carousel
+            e.preventDefault();
         }, { passive: false });
 
         carousel.addEventListener('touchend', () => {
@@ -57,6 +90,7 @@ const CarouselLogic = {
             this.isDragging = true;
             this.startX = e.clientX;
             this.startTranslate = this.targetTranslate;
+            pauseAutoScroll();
         });
 
         document.addEventListener('mousemove', (e) => {
@@ -68,6 +102,8 @@ const CarouselLogic = {
         document.addEventListener('mouseup', () => {
             this.isDragging = false;
         });
+
+        carousel.addEventListener('mouseenter', pauseAutoScroll);
 
         carousel.style.cursor = 'grab';
         carousel.style.userSelect = 'none';

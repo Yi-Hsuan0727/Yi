@@ -68,7 +68,8 @@ body.hovering .cursor-outline {
     visibility: visible;
 }
 
-body.cursor-view .cursor-label {
+body.cursor-view .cursor-label,
+.cursor-label.is-view {
     opacity: 1;
     visibility: visible;
     padding: 12px 22px;
