@@ -73,6 +73,84 @@ const MonsterLogic = {
                 this.triggerClickEffect(monsterBody, null);
             }
         }, { passive: false });
+
+        this.initSpeechBubble();
+    },
+
+    initSpeechBubble: function() {
+        const cluster = document.querySelector('.monster-speech-cluster');
+        const monster = document.querySelector('.site-footer-monster');
+        if (!cluster || !monster) return;
+
+        const bubbles = cluster.querySelectorAll('.monster-chat-bubble');
+        let isVisible = false;
+
+        const resetBubbles = () => {
+            bubbles.forEach((bubble) => {
+                bubble.style.animation = 'none';
+                void bubble.offsetHeight;
+                bubble.style.animation = '';
+            });
+        };
+
+        const setVisible = (visible) => {
+            if (visible === isVisible) return;
+            isVisible = visible;
+            if (!visible) resetBubbles();
+            cluster.classList.toggle('is-visible', visible);
+        };
+
+        const getScrollState = () => {
+            const container = document.getElementById('scroll-container');
+            const isMobile = window.matchMedia('(max-width: 1200px)').matches;
+
+            if (window.__lenis && !isMobile) {
+                return {
+                    scroll: window.__lenis.scroll,
+                    max: window.__lenis.limit
+                };
+            }
+            if (!isMobile && container) {
+                return {
+                    scroll: container.scrollTop,
+                    max: container.scrollHeight - container.clientHeight
+                };
+            }
+            return {
+                scroll: window.scrollY,
+                max: document.documentElement.scrollHeight - window.innerHeight
+            };
+        };
+
+        const update = () => {
+            const { scroll, max } = getScrollState();
+            const atBottom = max <= 0 || scroll >= max - 40;
+            setVisible(atBottom);
+        };
+
+        const container = document.getElementById('scroll-container');
+        if (container) {
+            container.addEventListener('scroll', update, { passive: true });
+        }
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+
+        const bindLenis = () => {
+            if (!window.__lenis || this._lenisSpeechBound) return;
+            this._lenisSpeechBound = true;
+            window.__lenis.on('scroll', update);
+            update();
+        };
+
+        bindLenis();
+        setTimeout(bindLenis, 80);
+        setTimeout(bindLenis, 250);
+        window.addEventListener('load', () => {
+            bindLenis();
+            update();
+        });
+
+        update();
     },
 
     startBlinking: function(eyes) {

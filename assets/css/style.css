@@ -408,6 +408,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .single-page-wrapper:has(.site-footer-shell) .site-footer-shell {
     margin-top: auto;
 }
+.single-page-wrapper:has(.site-footer-shell-green) {
+    padding-bottom: 32px;
+}
 /* When a projects-cta is present: pull only the monster up into the CTA padding */
 .single-page-wrapper:has(.projects-cta) .site-footer-shell {
     margin-top: 0;
@@ -419,7 +422,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .single-page-wrapper:has(.projects-cta) .site-contact-band {
     position: relative;
-    z-index: 3;
+    z-index: 12;
 }
 
 /* FOOTER */
@@ -433,11 +436,17 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .site-footer-shell-green {
     background: transparent;
+    position: relative;
+    z-index: 5;
+    overflow: visible;
+    margin-top: 56px;
 }
 .site-footer-monster {
-    position: static;
-    height: 132px;
-    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    height: auto;
+    min-height: 240px;
+    overflow: visible;
     background: transparent;
 }
 .site-footer {
@@ -485,10 +494,15 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 
 /* Footer contact form (between monster eyes and footer bar) */
 .site-contact-band {
+    position: relative;
+    z-index: 12;
     background: var(--accent-color);
-    padding: 40px 30px 28px;
+    padding: 28px 30px 56px;
+    overflow: visible;
 }
 .site-contact-inner {
+    position: relative;
+    z-index: 13;
     max-width: 520px;
     margin: 0 auto;
     display: flex;
@@ -497,11 +511,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     text-align: center;
     gap: 20px;
 }
-.site-contact-copy {
-    width: 100%;
-}
 .site-contact-title {
-    margin: 0 0 8px;
+    margin: 0;
     font-size: 1.35rem;
     font-weight: 800;
     line-height: 1.2;
@@ -509,18 +520,91 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .site-contact-desc {
     margin: 0;
-    font-size: 0.88rem;
-    line-height: 1.65;
-    color: rgba(0, 0, 0, 0.72);
+    text-align: center;
+}
+
+/* Comic speech bubbles (footer monster + contact copy) */
+.comic-speech-bubble {
+    position: relative;
+    display: inline-block;
+    background: #ffffff;
+    border: 3px solid #111111;
+    border-radius: 26px;
+    box-shadow: 5px 6px 0 rgba(0, 0, 0, 0.13);
+    color: #111111;
+}
+.comic-speech-bubble--tail-down::before,
+.comic-speech-bubble--tail-up::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 0;
+}
+.comic-speech-bubble--tail-down::after,
+.comic-speech-bubble--tail-up::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 1;
+}
+.comic-speech-bubble--tail-down::before {
+    bottom: -17px;
+    left: var(--bubble-tail-x, 64%);
+    transform: translateX(-50%) rotate(10deg);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 18px solid #111111;
+}
+.comic-speech-bubble--tail-down::after {
+    bottom: -11px;
+    left: var(--bubble-tail-x, 64%);
+    transform: translateX(-50%) rotate(10deg);
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 14px solid #ffffff;
+}
+.comic-speech-bubble--tail-left {
+    --bubble-tail-x: 44%;
+}
+.comic-speech-bubble--tail-right {
+    --bubble-tail-x: 58%;
+}
+.comic-speech-bubble--tail-up::before {
+    top: -17px;
+    left: 22%;
+    transform: translateX(-50%) rotate(-14deg);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 18px solid #111111;
+}
+.comic-speech-bubble--tail-up::after {
+    top: -11px;
+    left: 22%;
+    transform: translateX(-50%) rotate(-14deg);
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 14px solid #ffffff;
+}
+.site-contact-desc.comic-speech-bubble {
+    padding: 12px 18px 14px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    font-weight: 700;
+    transform: rotate(-2.5deg);
+    white-space: nowrap;
 }
 .site-contact-form {
+    position: relative;
+    z-index: 14;
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
-    background: var(--accent-color);
+    background: transparent;
     border: none;
-    border-radius: 14px;
-    padding: 22px 22px 20px;
+    border-radius: 0;
+    padding: 0;
     box-shadow: none;
 }
 .site-contact-row {
@@ -536,35 +620,38 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.65);
+    color: #111111;
 }
 .site-contact-label .site-contact-required {
-    color: rgba(0, 0, 0, 0.45);
+    color: rgba(0, 0, 0, 0.55);
     font-weight: 700;
 }
 .site-contact-input {
     width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(0, 0, 0, 0.28);
     border-radius: 10px;
     padding: 11px 12px;
     font: inherit;
     font-size: 0.88rem;
     color: #111111;
-    background: rgba(255, 255, 255, 0.1);
-    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    background: rgba(0, 0, 0, 0.12);
+    transition: border-color 0.15s, background 0.15s;
+}
+.site-contact-input::placeholder {
+    color: rgba(0, 0, 0, 0.42);
 }
 .site-contact-input:required {
-    box-shadow: inset 0 0 0 1px transparent;
+    box-shadow: none;
 }
 .site-contact-input:required:user-invalid {
     border-color: rgba(192, 57, 43, 0.85);
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(0, 0, 0, 0.14);
 }
 .site-contact-input:focus {
     outline: none;
-    border-color: rgba(0, 0, 0, 0.55);
-    background: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.42);
+    background: rgba(0, 0, 0, 0.16);
+    box-shadow: none;
 }
 .site-contact-textarea {
     resize: vertical;
@@ -573,7 +660,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .site-contact-word-count {
     margin: 8px 0 0;
     font-size: 0.72rem;
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.55);
     text-align: right;
 }
 .site-contact-word-count.is-over-limit {
@@ -591,7 +678,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .site-contact-submit {
     margin-top: 16px;
     width: 100%;
-    border: 1px solid rgba(0, 0, 0, 0.55);
+    border: none;
     border-radius: 999px;
     padding: 12px 18px;
     background: #111111;
@@ -622,7 +709,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     padding: 24px 20px 20px;
     border: 1px solid rgba(0, 0, 0, 0.22);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.1);
 }
 .site-contact-success i {
     font-size: 2rem;
@@ -713,8 +800,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .projects-more-link {
     display: block;
-    padding: 16px 4px 16px 18px;
-    border-left: 3px solid var(--accent-color);
+    padding: 16px 4px;
     text-decoration: none;
     color: inherit;
     transition: background 0.2s ease;
@@ -844,7 +930,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding: 40px 30px 32px;
+    padding: 40px 30px 64px;
     box-sizing: border-box;
 }
 .home-about-title {
@@ -1031,16 +1117,17 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .project-grid .project-card .image-container { margin-bottom: 0; }
 .project-grid .project-card .image-container::before { display: none; }
 .project-grid .project-card .image-container.image-container--video {
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 12 / 9;
     display: block;
     height: auto;
     background: #0a0a0a;
 }
 .project-grid .project-card .image-container.image-container--video video {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center center;
 }
 .project-card-info {
     display: flex;
@@ -1352,7 +1439,20 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border-color: var(--accent-color);
     background-color: rgba(46, 204, 113, 0.08);
 }
-.case-hero-img { width: 100%; height: 350px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; color: #888; font-weight: bold; font-size: 1.5rem; margin-bottom: 0; }
+.case-hero-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2.63 / 1;
+    background: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    overflow: hidden;
+}
 .case-hero {
     position: relative;
 }
@@ -1407,7 +1507,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 
 /* --- Hero video variant --- */
-.case-hero-img.case-hero-video { background: #fff; padding: 0 20%; box-sizing: border-box; border: none !important; box-shadow: none !important; outline: none; }
+.case-hero-img.case-hero-video { background: #0a0a0a; padding: 0; box-sizing: border-box; border: none !important; box-shadow: none !important; outline: none; }
 .case-hero-video video.case-video-pending,
 .case-section video.case-video-pending,
 .lcm-overview-media video.case-video-pending,
@@ -3729,8 +3829,11 @@ body.case-figure-zoom-open #scroll-container {
         padding: 3px 10px;
     }
 
+    .site-footer-shell-green {
+        margin-top: 40px;
+    }
     .site-contact-band {
-        padding: 32px 20px 22px;
+        padding: 24px 20px 44px;
     }
     .site-contact-inner {
         max-width: 100%;
@@ -3738,7 +3841,7 @@ body.case-figure-zoom-open #scroll-container {
     }
     .site-contact-form {
         max-width: 100%;
-        padding: 18px 16px 16px;
+        padding: 0;
     }
 
     .projects-cta {
@@ -3802,7 +3905,7 @@ body.case-figure-zoom-open #scroll-container {
     }
     .projects-more { padding: 36px 20px 52px; margin-top: 16px; }
     .home-below-projects { padding: 8px 20px 40px; margin-top: 4px; }
-    .home-about-intro { padding: 28px 20px 24px; }
+    .home-about-intro { padding: 28px 20px 48px; }
     .home-about-lead {
         grid-template-columns: 1fr;
         gap: 28px;
@@ -3870,6 +3973,56 @@ body.case-figure-zoom-open #scroll-container {
 
     /* Mobile: case content padding */
     .case-content { padding: 20px; }
+
+    /* Case hero video: preserve ratio inside 2.63:1 frame */
+    .case-hero-img.case-hero-video {
+        padding: 0;
+        background: #0a0a0a;
+    }
+    .case-hero-img.case-hero-video video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain !important;
+        object-position: center center;
+    }
+
+    /* Preserve video aspect ratios on project pages */
+    .single-page-wrapper .case-section video {
+        object-fit: contain;
+        max-width: 100%;
+    }
+    .p2s-overview-hero-stage .p2s-phone-frame--device,
+    .case-section .p2s-grid-2.p2s-solution-row--phone-stage .p2s-phone-frame--device {
+        aspect-ratio: 9 / 19.5;
+        align-self: center;
+        height: auto;
+        max-height: min(46vw, 260px);
+    }
+
+    /* Overview hero blocks: side padding */
+    .p2s-overview-hero-inner,
+    .lt-overview-hero-inner,
+    .lcm-overview-inner {
+        padding-left: 20px;
+        padding-right: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Project list: square thumbnails on mobile (video cards stay 12:9) */
+    .project-grid .project-card .image-container,
+    .project-grid .project-card:nth-child(n) .image-container:not(.image-container--video) {
+        aspect-ratio: 1 / 1;
+    }
+    .project-grid .project-card .image-container.image-container--video {
+        aspect-ratio: 12 / 9;
+    }
+    .project-grid .project-card .image-container.image-container--video video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+
     .case-hero-meta {
         padding: 0;
     }

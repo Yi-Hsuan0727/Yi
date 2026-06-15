@@ -311,10 +311,6 @@ const LayoutComponents = {
         return `
             <section class="site-contact-band" aria-labelledby="site-contact-heading">
                 <div class="site-contact-inner">
-                    <div class="site-contact-copy">
-                        <h2 id="site-contact-heading" class="site-contact-title">Say hello</h2>
-                        <p class="site-contact-desc">Questions, collaborations, or opportunities — drop me a note.</p>
-                    </div>
                     <form class="site-contact-form">
                         <div class="site-contact-fields">
                             <div class="site-contact-row">
@@ -348,10 +344,16 @@ const LayoutComponents = {
         const showMonsterFooter = (pageType === 'home' || pageType === 'playground' || pageType === 'about');
         const monsterHTML = showMonsterFooter
             ? `
-                <div class="site-footer-monster" aria-hidden="true">
+                <div class="site-footer-monster">
                     <div class="monster-container">
                         <div class="monster-body">
-                            <div class="monster-eyes-wrapper">
+                            <div class="monster-speech-cluster" aria-live="polite">
+                                <h2 id="site-contact-heading" class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--1">Say hello!</h2>
+                                <p class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--2">Got a project in mind?</p>
+                                <p class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--3">Or just want to chat?</p>
+                                <p class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--4">Drop me a note below!</p>
+                            </div>
+                            <div class="monster-eyes-wrapper" aria-hidden="true">
                                 <div class="monster-eye"><div class="monster-pupil"></div></div>
                                 <div class="monster-eye"><div class="monster-pupil"></div></div>
                             </div>
