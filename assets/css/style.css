@@ -960,6 +960,18 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .home-about-copy p + p {
     margin-top: 14px;
 }
+.home-about-copy a {
+    color: var(--text-color);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgba(46, 204, 113, 0.55);
+    text-underline-offset: 3px;
+}
+.home-about-copy a:hover,
+.home-about-copy a:focus-visible {
+    color: var(--accent-color);
+    text-decoration-color: var(--accent-color);
+}
 .home-about-photos {
     position: relative;
     width: 100%;
