@@ -19,6 +19,7 @@ const ContactFormLogic = {
         this.successPanel = form.querySelector('.site-contact-success');
         this.errorPanel = form.querySelector('.site-contact-error');
         this.fieldsWrap = form.querySelector('.site-contact-fields');
+        this.layoutWrap = form.querySelector('.site-contact-layout');
         this.messageField = form.querySelector('#contact-message');
         this.wordCountEl = form.querySelector('#contact-message-count');
 
@@ -145,13 +146,17 @@ const ContactFormLogic = {
             this.errorPanel.hidden = true;
             this.errorPanel.textContent = '';
         }
-        if (this.fieldsWrap) {
+        if (this.layoutWrap) {
+            this.layoutWrap.hidden = false;
+        } else if (this.fieldsWrap) {
             this.fieldsWrap.hidden = false;
         }
     },
 
     showSuccess: function() {
-        if (this.fieldsWrap) {
+        if (this.layoutWrap) {
+            this.layoutWrap.hidden = true;
+        } else if (this.fieldsWrap) {
             this.fieldsWrap.hidden = true;
         }
         if (this.errorPanel) {

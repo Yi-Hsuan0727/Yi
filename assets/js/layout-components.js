@@ -137,6 +137,33 @@ const LayoutComponents = {
         return `https://cdn.jsdelivr.net/npm/simple-icons@11.14.0/icons/${slug}.svg`;
     },
 
+    buildToolSticker: function(modifier, innerHTML, href, label) {
+        return `<a class="tool-sticker tool-sticker--${modifier}" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${label}" role="listitem">${innerHTML}</a>`;
+    },
+
+    buildToolStickers: function(wrapperClass) {
+        const icon = this.toolIconSrc.bind(this);
+        const cursorSvg = '<svg class="tool-sticker-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2 3 6.5v11L12 22l9-4.5v-11L12 2zm0 2.45 6.75 3.38v6.74L12 18.55l-6.75-3.38V7.83L12 4.45z"/></svg>';
+        const claudeSvg = '<svg class="tool-sticker-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2.4c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm0 8.8c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm-6.4 4.4c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm12.8 0c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6z"/></svg>';
+        const stickers = [
+            this.buildToolSticker('figma', `<img src="${icon('figma')}" alt="">`, 'https://www.figma.com/', 'Figma'),
+            this.buildToolSticker('ai', '<span class="tool-sticker-mark" aria-hidden="true">Ai</span>', 'https://www.adobe.com/products/illustrator.html', 'Adobe Illustrator'),
+            this.buildToolSticker('ps', '<span class="tool-sticker-mark" aria-hidden="true">Ps</span>', 'https://www.adobe.com/products/photoshop.html', 'Adobe Photoshop'),
+            this.buildToolSticker('code', '<span class="tool-sticker-code-mark" aria-hidden="true"><span>HTML</span><span>CSS</span></span>', 'https://developer.mozilla.org/en-US/docs/Web', 'HTML and CSS'),
+            this.buildToolSticker('drupal', `<img src="${icon('drupal')}" alt="">`, 'https://www.drupal.org/', 'Drupal'),
+            this.buildToolSticker('wordpress', `<img src="${icon('wordpress')}" alt="">`, 'https://wordpress.org/', 'WordPress'),
+            this.buildToolSticker('indesign', '<span class="tool-sticker-mark tool-sticker-mark--id" aria-hidden="true">Id</span>', 'https://www.adobe.com/products/indesign.html', 'Adobe InDesign'),
+            this.buildToolSticker('vscode', `<img src="${icon('visualstudiocode')}" alt="">`, 'https://code.visualstudio.com/', 'VS Code'),
+            this.buildToolSticker('github', `<img src="${icon('github')}" alt="">`, 'https://github.com/Yi-Hsuan0727/Yi', 'GitHub'),
+            this.buildToolSticker('cursor', cursorSvg, 'https://cursor.com/', 'Cursor'),
+            this.buildToolSticker('claude', claudeSvg, 'https://claude.ai/', 'Claude'),
+            this.buildToolSticker('gemini', `<img src="${icon('googlegemini')}" alt="">`, 'https://gemini.google.com/', 'Gemini'),
+            this.buildToolSticker('chatgpt', `<img src="${icon('openai')}" alt="">`, 'https://chat.openai.com/', 'ChatGPT')
+        ];
+        const wrapper = wrapperClass || 'home-toolbox-stickers';
+        return `<div class="${wrapper}" role="list" aria-label="Tools and technologies">${stickers.join('')}</div>`;
+    },
+
     /* Skills list (static) + auto-scrolling tool logos (all pages with sidebar) */
     buildSidebarToolsMarquee: function() {
         const designUxSkills = [
@@ -312,25 +339,44 @@ const LayoutComponents = {
             <section class="site-contact-band" aria-labelledby="site-contact-heading">
                 <div class="site-contact-inner">
                     <form class="site-contact-form">
-                        <div class="site-contact-fields">
-                            <div class="site-contact-row">
-                                <label class="site-contact-label" for="contact-name">Name <span class="site-contact-required" aria-hidden="true">*</span></label>
-                                <input class="site-contact-input" id="contact-name" name="name" type="text" autocomplete="name" required aria-required="true" minlength="1" placeholder="Your name">
+                        <div class="site-contact-layout">
+                            <div class="site-contact-fields comic-speech-bubble">
+                                <div class="site-contact-row">
+                                    <label class="site-contact-label" for="contact-name">Name <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                    <input class="site-contact-input" id="contact-name" name="name" type="text" autocomplete="name" required aria-required="true" minlength="1" placeholder="Your name">
+                                </div>
+                                <div class="site-contact-row">
+                                    <label class="site-contact-label" for="contact-email">Email <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                    <input class="site-contact-input" id="contact-email" name="email" type="email" autocomplete="email" required aria-required="true" placeholder="you@email.com">
+                                </div>
+                                <div class="site-contact-row">
+                                    <label class="site-contact-label" for="contact-message">Message <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                    <textarea class="site-contact-input site-contact-textarea" id="contact-message" name="message" rows="4" required aria-required="true" minlength="1" maxlength="2000" placeholder="What would you like to share?" aria-describedby="contact-message-count"></textarea>
+                                    <p class="site-contact-word-count" id="contact-message-count" aria-live="polite">0 / 250 words</p>
+                                </div>
+                                <input type="text" name="_honey" class="site-contact-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+                                <button type="submit" class="site-contact-submit">Send message</button>
+                                <p class="site-contact-error" role="alert" hidden></p>
                             </div>
-                            <div class="site-contact-row">
-                                <label class="site-contact-label" for="contact-email">Email <span class="site-contact-required" aria-hidden="true">*</span></label>
-                                <input class="site-contact-input" id="contact-email" name="email" type="email" autocomplete="email" required aria-required="true" placeholder="you@email.com">
-                            </div>
-                            <div class="site-contact-row">
-                                <label class="site-contact-label" for="contact-message">Message <span class="site-contact-required" aria-hidden="true">*</span></label>
-                                <textarea class="site-contact-input site-contact-textarea" id="contact-message" name="message" rows="4" required aria-required="true" minlength="1" maxlength="2000" placeholder="What would you like to share?" aria-describedby="contact-message-count"></textarea>
-                                <p class="site-contact-word-count" id="contact-message-count" aria-live="polite">0 / 250 words</p>
-                            </div>
-                            <input type="text" name="_honey" class="site-contact-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-                            <button type="submit" class="site-contact-submit">Send message</button>
-                            <p class="site-contact-error" role="alert" hidden></p>
+                            <aside class="site-contact-connect" aria-label="Other ways to connect">
+                                <p class="site-contact-connect-heading">Thanks for scrolling all the way down! You can also connect with me through</p>
+                                <div class="site-contact-connect-stickers">
+                                    <a class="connect-sticker connect-sticker--email" href="mailto:yche1356@asu.edu">
+                                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                                        <span>yche1356@asu.edu</span>
+                                    </a>
+                                    <a class="connect-sticker connect-sticker--linkedin" href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin" aria-hidden="true"></i>
+                                        <span>LinkedIn</span>
+                                    </a>
+                                    <a class="connect-sticker connect-sticker--resume" href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer">
+                                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                                        <span>Resume</span>
+                                    </a>
+                                </div>
+                            </aside>
                         </div>
-                        <div class="site-contact-success" role="status" tabindex="-1" hidden>
+                        <div class="site-contact-success comic-speech-bubble" role="status" tabindex="-1" hidden>
                             <i class="fas fa-check-circle" aria-hidden="true"></i>
                             <p class="site-contact-success-title">Message sent!</p>
                             <p class="site-contact-success-text">Thanks for reaching out — I&apos;ve received your note and will contact you soon.</p>
