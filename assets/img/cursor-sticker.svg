@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="44" viewBox="0 0 36 44" fill="none" aria-hidden="true">
+  <defs>
+    <filter id="sticker-shadow" x="-35%" y="-35%" width="170%" height="170%">
+      <feDropShadow dx="2.5" dy="3.5" stdDeviation="2.4" flood-color="#000000" flood-opacity="0.26"/>
+    </filter>
+  </defs>
+  <g filter="url(#sticker-shadow)" transform="rotate(-10 2 2)">
+    <path
+      d="M2 2 L2 30 L10 22.5 L15.5 37 L20.5 35 L15 20.5 L27.5 20.5 Z"
+      fill="#ffffff"
+      stroke="#ffffff"
+      stroke-width="4.8"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+    <path
+      d="M2 2 L2 30 L10 22.5 L15.5 37 L20.5 35 L15 20.5 L27.5 20.5 Z"
+      fill="#ffffff"
+      stroke="#111111"
+      stroke-width="2.2"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

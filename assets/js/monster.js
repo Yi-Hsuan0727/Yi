@@ -84,6 +84,7 @@ const MonsterLogic = {
 
         const bubbles = cluster.querySelectorAll('.monster-chat-bubble');
         let isVisible = false;
+        let observer = null;
 
         const resetBubbles = () => {
             bubbles.forEach((bubble) => {
@@ -100,57 +101,29 @@ const MonsterLogic = {
             cluster.classList.toggle('is-visible', visible);
         };
 
-        const getScrollState = () => {
-            const container = document.getElementById('scroll-container');
+        const bindObserver = () => {
+            if (observer) observer.disconnect();
+
             const isMobile = window.matchMedia('(max-width: 1200px)').matches;
+            const scrollRoot = !isMobile ? document.getElementById('scroll-container') : null;
 
-            if (window.__lenis && !isMobile) {
-                return {
-                    scroll: window.__lenis.scroll,
-                    max: window.__lenis.limit
-                };
-            }
-            if (!isMobile && container) {
-                return {
-                    scroll: container.scrollTop,
-                    max: container.scrollHeight - container.clientHeight
-                };
-            }
-            return {
-                scroll: window.scrollY,
-                max: document.documentElement.scrollHeight - window.innerHeight
-            };
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.target !== monster) return;
+                    setVisible(entry.isIntersecting);
+                });
+            }, {
+                root: scrollRoot,
+                threshold: 0.06,
+                rootMargin: '0px 0px 0px 0px'
+            });
+
+            observer.observe(monster);
         };
 
-        const update = () => {
-            const { scroll, max } = getScrollState();
-            const atBottom = max <= 0 || scroll >= max - 40;
-            setVisible(atBottom);
-        };
-
-        const container = document.getElementById('scroll-container');
-        if (container) {
-            container.addEventListener('scroll', update, { passive: true });
-        }
-        window.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update);
-
-        const bindLenis = () => {
-            if (!window.__lenis || this._lenisSpeechBound) return;
-            this._lenisSpeechBound = true;
-            window.__lenis.on('scroll', update);
-            update();
-        };
-
-        bindLenis();
-        setTimeout(bindLenis, 80);
-        setTimeout(bindLenis, 250);
-        window.addEventListener('load', () => {
-            bindLenis();
-            update();
-        });
-
-        update();
+        bindObserver();
+        window.addEventListener('resize', bindObserver);
+        window.addEventListener('load', bindObserver);
     },
 
     startBlinking: function(eyes) {

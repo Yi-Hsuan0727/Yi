@@ -735,10 +735,12 @@ const PortfolioApp = {
     initEntryEffects: function(pageType) {
         const isGridPage = (pageType === 'home' || pageType === 'playground');
 
-        this.initSidebarMotion(pageType);
+        if (pageType !== 'home') {
+            this.initSidebarMotion(pageType);
+        }
 
-        // Monster: enter from very bottom on home, playground & about
-        if (isGridPage || pageType === 'about') {
+        // Monster: enter from very bottom on playground & about (home uses cascade)
+        if ((isGridPage || pageType === 'about') && pageType !== 'home') {
             const monsterBody = document.querySelector('.monster-body');
             if (monsterBody) {
                 monsterBody.classList.remove('monster-enter');
@@ -748,10 +750,10 @@ const PortfolioApp = {
             }
         }
 
-        // Project cards: enter from bottom on grid pages
-        if (isGridPage) {
-            const selector = pageType === 'home' ? '.project-grid .project-card' : '.project-card';
-            const cards = document.querySelectorAll(selector);
+        if (pageType === 'home') {
+            this.initHomeCascadeAnimations();
+        } else if (isGridPage) {
+            const cards = document.querySelectorAll('.project-card');
             cards.forEach((card, index) => {
                 card.classList.remove('project-enter');
                 const delay = 0.15 + index * 0.06;
@@ -761,5 +763,59 @@ const PortfolioApp = {
                 });
             });
         }
+    },
+
+    initHomeCascadeAnimations: function() {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const STEP_MS = 85;
+
+        const steps = [
+            { selector: '.hero-title-greeting', extraClass: '' },
+            { selector: '.home-hero-greeting-row .sidebar-social-link', extraClass: '' },
+            { selector: '.hero-title-line', extraClass: '' },
+            { selector: '.sidebar-intro', extraClass: '' },
+            { selector: '.home-header-tech', extraClass: '' },
+            { selector: '.project-grid .project-card', extraClass: '' },
+            { selector: '.projects-more-title', extraClass: '' },
+            { selector: '.projects-more-item', extraClass: '' },
+            { selector: '.home-about-title', extraClass: '' },
+            { selector: '.home-about-copy', extraClass: '' },
+            { selector: '.home-about-photo-card', extraClass: 'home-reveal--fade' },
+            { selector: '.home-about-photo-bubble', extraClass: 'home-reveal--pop' },
+            { selector: '.home-about-career .about-exp-group', extraClass: '' },
+            { selector: '.site-footer-monster', extraClass: '' },
+            { selector: '.site-contact-band', extraClass: '' }
+        ];
+
+        const targets = [];
+        let index = 0;
+
+        steps.forEach(({ selector, extraClass }) => {
+            document.querySelectorAll(selector).forEach((el) => {
+                el.classList.remove('project-enter', 'monster-enter');
+                el.classList.add('home-reveal');
+                if (extraClass) {
+                    extraClass.split(/\s+/).forEach((cls) => el.classList.add(cls));
+                }
+                el.style.setProperty('--home-reveal-delay', `${index * STEP_MS}ms`);
+                targets.push(el);
+                index += 1;
+            });
+        });
+
+        if (!targets.length) return;
+
+        const revealAll = () => {
+            targets.forEach((el) => el.classList.add('is-revealed'));
+        };
+
+        if (reducedMotion) {
+            revealAll();
+            return;
+        }
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(revealAll);
+        });
     }
 };
