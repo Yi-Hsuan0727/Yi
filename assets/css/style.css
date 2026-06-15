@@ -445,7 +445,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     position: relative;
     z-index: 2;
     height: auto;
-    min-height: 240px;
+    min-height: 280px;
     overflow: visible;
     background: transparent;
 }
@@ -565,8 +565,27 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border-right: 9px solid transparent;
     border-top: 14px solid #ffffff;
 }
-.comic-speech-bubble--tail-left {
-    --bubble-tail-x: 44%;
+.comic-speech-bubble--tail-right::before {
+    right: -17px;
+    top: 50%;
+    left: auto;
+    bottom: auto;
+    transform: translateY(-50%) rotate(-90deg);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 18px solid #111111;
+    border-bottom: none;
+}
+.comic-speech-bubble--tail-right::after {
+    right: -12px;
+    top: 50%;
+    left: auto;
+    bottom: auto;
+    transform: translateY(-50%) rotate(-90deg);
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 14px solid #ffffff;
+    border-bottom: none;
 }
 .comic-speech-bubble--tail-right {
     --bubble-tail-x: 58%;
@@ -908,29 +927,16 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .home-work-experience {
     margin: 0;
 }
-/* Home — about section (carousel, bio, education & awards) */
+/* Home — about section (bio, photo deck, career) */
 .home-about {
     width: 100%;
-}
-.home-about .about-carousel {
-    width: 100vw;
-    max-width: none;
-    margin-left: calc(50% - 50vw);
-    padding: 8px 0 48px 30px;
-}
-.home-about .about-carousel-item {
-    width: clamp(160px, 20vw, 260px);
-    height: clamp(107px, 13vw, 173px);
-}
-.home-about .about-carousel-track {
-    transition: none;
 }
 .home-about-intro {
     max-width: 1280px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding: 40px 30px 64px;
+    padding: 40px 30px 48px;
     box-sizing: border-box;
 }
 .home-about-title {
@@ -938,8 +944,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .home-about-lead {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 28px 40px;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.95fr);
+    gap: 28px 48px;
     align-items: start;
 }
 .home-about-copy {
@@ -954,28 +960,109 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .home-about-copy p + p {
     margin-top: 14px;
 }
+.home-about-photos {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+}
+.home-about-photo-hero {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 6;
+}
+.home-about-photo-bubble {
+    position: absolute;
+    top: -20px;
+    right: 4px;
+    z-index: 10;
+    margin: 0;
+    padding: 10px 18px 12px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    line-height: 1.3;
+    transform: rotate(6deg);
+    --bubble-tail-x: 72%;
+}
+.home-about-photo-card {
+    position: absolute;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid #ffffff;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        0 12px 32px rgba(0, 0, 0, 0.12);
+    background: var(--border-color);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+.home-about-photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.home-about-photo-card--front {
+    position: relative;
+    width: 300px;
+    height: 376px;
+    left: auto;
+    top: auto;
+    transform: rotate(3deg);
+    z-index: 5;
+}
+.home-about-photo-card--back-a {
+    width: 196px;
+    height: 246px;
+    right: 252px;
+    left: auto;
+    top: 18px;
+    transform: rotate(-16deg);
+    z-index: 2;
+}
+.home-about-photo-card--back-b {
+    width: 188px;
+    height: 236px;
+    right: 232px;
+    left: auto;
+    bottom: 12px;
+    top: auto;
+    transform: rotate(11deg);
+    z-index: 3;
+}
+.home-about-photos:hover .home-about-photo-card--front { transform: rotate(5deg) translateY(-6px); }
+.home-about-photos:hover .home-about-photo-card--back-a { transform: rotate(-17deg) translateY(-4px); }
+.home-about-photos:hover .home-about-photo-card--back-b { transform: rotate(12deg) translateY(4px); }
 .home-about-career {
-    display: flex;
-    flex-direction: column;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 30px 64px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 28px;
-    min-width: 0;
+    align-items: start;
+    text-align: left;
+}
+.home-about-career .about-exp-group {
+    grid-column: 1 / span 6;
+    width: 100%;
+    max-width: 610px;
+    text-align: left;
 }
 .home-about-career .about-exp-group .about-section-heading {
     margin-bottom: 8px;
     padding-bottom: 8px;
 }
-.home-about-intro .about-carousel {
-    margin-top: 20px;
-    padding: 8px 0 32px 30px;
-}
-.home-about-intro .about-exp-item {
+.home-about-career .about-exp-item {
     grid-template-columns: 1fr;
     gap: 8px;
     padding: 16px 0;
 }
-.home-about-intro .about-exp-item:hover,
-.home-about-intro .about-exp-group--work .about-exp-item:hover,
-.home-about-intro .about-exp-group--education .about-exp-item:hover {
+.home-about-career .about-exp-item:hover,
+.home-about-career .about-exp-group--work .about-exp-item:hover,
+.home-about-career .about-exp-group--education .about-exp-item:hover {
     background: transparent;
 }
 .about-interests-text {
@@ -1137,8 +1224,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .project-card-title {
     margin: 0;
-    font-size: 1.15rem;
-    font-weight: 800;
+    font-size: 1.6rem;
+    font-weight: 600;
     line-height: 1.3;
     letter-spacing: -0.02em;
     color: var(--text-color);
@@ -3905,12 +3992,53 @@ body.case-figure-zoom-open #scroll-container {
     }
     .projects-more { padding: 36px 20px 52px; margin-top: 16px; }
     .home-below-projects { padding: 8px 20px 40px; margin-top: 4px; }
-    .home-about-intro { padding: 28px 20px 48px; }
+    .home-about-intro { padding: 28px 20px 36px; }
     .home-about-lead {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 32px;
     }
-    .home-about-intro .about-carousel { padding: 8px 0 28px 20px; }
+    .home-about-photos {
+        min-height: 340px;
+    }
+    .home-about-photo-hero {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 0;
+    }
+    .home-about-photo-card--front {
+        width: 228px;
+        height: 286px;
+    }
+    .home-about-photo-card--back-a {
+        width: 148px;
+        height: 186px;
+        right: 178px;
+        top: 12px;
+    }
+    .home-about-photo-card--back-b {
+        width: 140px;
+        height: 176px;
+        right: 162px;
+        bottom: 8px;
+    }
+    .home-about-photo-bubble {
+        top: -14px;
+        right: -4px;
+        transform: rotate(5deg);
+        font-size: 0.8rem;
+        padding: 8px 14px 10px;
+    }
+    .home-about-career {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 0 20px 48px;
+    }
+    .home-about-career .about-exp-group {
+        grid-column: auto;
+        max-width: none;
+    }
     .projects-more-title,
     .home-work-experience .about-section-heading {
         padding: 24px 0 16px;

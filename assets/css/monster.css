@@ -25,7 +25,7 @@
 .site-footer-monster .monster-container {
     width: 100%;
     height: auto;
-    min-height: 240px;
+    min-height: 280px;
     position: relative;
     display: flex;
     align-items: flex-end;
@@ -37,11 +37,11 @@
     position: relative;
     z-index: 2;
     height: auto;
-    min-height: 240px;
+    min-height: 280px;
     overflow: visible;
     background: transparent;
     margin-bottom: 0;
-    padding-top: 56px;
+    padding-top: 80px;
 }
 
 /* Curved blob background (keeps eyes visible) */
@@ -82,10 +82,11 @@
     z-index: 6;
     width: 100%;
     max-width: 640px;
-    min-height: 168px;
-    margin: -32px auto 0;
+    min-height: 188px;
+    margin: -64px auto 0;
     padding: 0 16px 10px;
     pointer-events: none;
+    transform: translateY(-36px);
 }
 
 .monster-chat-bubble {
@@ -113,25 +114,25 @@ h2.monster-chat-bubble {
     --bubble-tilt: -5deg;
     --bubble-tail-x: 36%;
     left: 2%;
-    top: 0;
+    top: -28px;
 }
 .monster-chat-bubble--2 {
     --bubble-tilt: 4deg;
     --bubble-tail-x: 54%;
     left: 36%;
-    top: 6px;
+    top: -20px;
 }
 .monster-chat-bubble--3 {
     --bubble-tilt: -2.5deg;
     --bubble-tail-x: 46%;
     right: 0;
-    top: 48px;
+    top: 16px;
 }
 .monster-chat-bubble--4 {
     --bubble-tilt: 3deg;
     --bubble-tail-x: 58%;
     left: 18%;
-    top: 88px;
+    top: 52px;
 }
 
 .monster-speech-cluster.is-visible .monster-chat-bubble {
@@ -392,9 +393,10 @@ h2.monster-chat-bubble {
     }
 
     .monster-speech-cluster {
-        min-height: 148px;
-        margin: -24px auto 0;
+        min-height: 160px;
+        margin: -48px auto 0;
         padding: 0 12px 8px;
+        transform: translateY(-28px);
     }
 
     .monster-chat-bubble {
@@ -406,25 +408,25 @@ h2.monster-chat-bubble {
 
     .monster-chat-bubble--1 {
         left: 0;
-        top: 0;
+        top: -20px;
         max-width: 42%;
     }
 
     .monster-chat-bubble--2 {
         left: 34%;
-        top: 4px;
+        top: -12px;
         max-width: 48%;
     }
 
     .monster-chat-bubble--3 {
         right: 0;
-        top: 52px;
+        top: 28px;
         max-width: 44%;
     }
 
     .monster-chat-bubble--4 {
         left: 14%;
-        top: 96px;
+        top: 64px;
         max-width: 52%;
     }
 
