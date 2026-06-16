@@ -21,8 +21,13 @@ const PortfolioApp = {
             link: 'pic2split.html',
             timeline: 'Nov 2025 – Jan 2026',
             team: '2 Engineers, 1 Designer, 1 PM',
+            teamRoster: [
+                '1 Product Designer (me)',
+                '1 Product Manager',
+                '2 Software Engineers'
+            ],
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',
-            tools: 'Figma',
+            tools: ['Figma', 'Tailwind CSS', 'React', 'PaddleOCR', 'Google Gemini', 'Google SSO'],
             liveLink: null,
             featured: true
         },
@@ -41,8 +46,9 @@ const PortfolioApp = {
             link: 'unesco.html',
             timeline: 'Jan 2025 – May 2025',
             team: 'Solo',
+            teamRoster: ['1 UX/UI Designer (me)'],
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design',
-            tools: 'Figma',
+            tools: ['Figma'],
             liveLink: '#',
             featured: true
         },
@@ -62,8 +68,13 @@ const PortfolioApp = {
             link: 'lcm.html',
             timeline: 'Oct 2022 – Feb 2023',
             team: '2 Engineers, 1 Designer, 1 PM',
+            teamRoster: [
+                '1 Product Designer & Front-End Developer (me)',
+                '1 Product Manager',
+                '2 Software Engineers'
+            ],
             role: 'Product Designer & Front-End Developer',
-            tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
+            tools: ['HTML/CSS', 'Illustrator', 'jQuery', 'Bootstrap'],
             liveLink: 'http://lcm.tacp.gov.tw/',
             featured: true
         },
@@ -83,8 +94,12 @@ const PortfolioApp = {
             link: 'uav.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: '4 Designers',
+            teamRoster: [
+                '1 Product Designer — Technician Interface (me)',
+                '3 Product Designers'
+            ],
             role: 'Technician Interface design',
-            tools: 'Figma',
+            tools: ['Figma'],
             liveLink: '#',
             featured: true
         },
@@ -103,8 +118,13 @@ const PortfolioApp = {
             link: 'lawfare.html',
             timeline: 'Jan 2026 – Feb 2026',
             team: '1 Engineer, 1 Designer, 1 PM',
+            teamRoster: [
+                '1 UI Designer (me)',
+                '1 Product Manager',
+                '1 Software Engineer'
+            ],
             role: 'UI Design (Web layout, components), Building site on CMS under ASU Design System (Drupal)',
-            tools: 'Figma, Drupal, Illustrator, Photoshop, HTML/CSS',
+            tools: ['Figma', 'Drupal', 'Illustrator', 'Photoshop', 'HTML/CSS', 'ASU Design System'],
             liveLink: 'https://lawfare-asufactory1.acquia.asu.edu/',
             secondary: true
         },
@@ -123,8 +143,12 @@ const PortfolioApp = {
             link: 'lt.html',
             timeline: 'Jan 2020 – May 2020',
             team: '2 Designers',
+            teamRoster: [
+                '1 Product Designer (me)',
+                '1 Product Designer'
+            ],
             role: 'UX Research (survey, interview), Product Design (prototype), UI Design (components)',
-            tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
+            tools: ['Figma', 'HTML/CSS', 'Illustrator', 'jQuery', 'Bootstrap'],
             liveLink: null,
             secondary: true
         },
@@ -143,8 +167,9 @@ const PortfolioApp = {
             link: 'quickbite.html',
             timeline: 'Aug 2025 – Dec 2025',
             team: 'Solo',
+            teamRoster: ['1 Product Designer & Front-End Developer (me)'],
             role: 'Product Designer & Front-End Developer',
-            tools: 'Python, Streamlit, Anthropic Claude, USDA FoodData Central',
+            tools: ['Python', 'Streamlit', 'Anthropic Claude', 'Google Gemini', 'USDA FoodData Central', 'GitHub', 'Google AI Studio'],
             liveLink: null,
             secondary: true
         },
@@ -163,8 +188,15 @@ const PortfolioApp = {
             link: 'magnate.html',
             timeline: 'Jun 2023 – Sep 2023',
             team: '2 UI Designers, 3 Engineers, 1 PM, 1 Planner',
+            teamRoster: [
+                '1 UI Designer (me)',
+                '1 UI Designer',
+                '3 Software Engineers',
+                '1 Product Manager',
+                '1 Planner'
+            ],
             role: 'UI Design (components, color), Front-end interaction and userflow design',
-            tools: 'HTML/CSS, Illustrator, jQuery, Bootstrap',
+            tools: ['HTML/CSS', 'Illustrator', 'jQuery', 'Bootstrap'],
             liveLink: 'https://www.maicl.com/',
             secondary: true
         },
@@ -181,7 +213,10 @@ const PortfolioApp = {
             heroImage: 'assets/img/lcm/website mockup_lcm.png',
             heroAlt: 'Temporary placeholder hero image for Echoes of the Four Seasons showing desktop, tablet, and mobile screens with the Spring character composed of English letter strokes on a soft beige background.',
             link: 'spring.html',
+            team: 'Solo',
+            teamRoster: ['1 UI/UX Designer, Visual Designer & Typographer (me)'],
             role: 'UI/UX Designer, Visual Designer, Typographer',
+            tools: ['HTML/CSS', 'JavaScript', 'Canvas API', 'Illustrator'],
             liveLink: 'spring/phome.html'
         },
         {
@@ -199,8 +234,13 @@ const PortfolioApp = {
             link: 'dailymoo.html',
             timeline: 'RoseHack 2025',
             team: 'Cathy Chen, Michelle Chen, Jerry Chen',
+            teamRoster: [
+                'Michelle Chen — UI/Front-end Lead (me)',
+                'Cathy Chen',
+                'Jerry Chen'
+            ],
             role: 'UI/Front-end Lead',
-            tools: 'React, Alpine.js, Tailwind CSS, ASP.NET Core MVC, SQLite, JavaScript, HTML5, CSS',
+            tools: ['Figma', 'React', 'Alpine.js', 'Tailwind CSS', 'ASP.NET Core MVC', 'SQLite', 'JavaScript', 'HTML5', 'CSS'],
             liveLink: 'https://devpost.com/software/daily-moo-mood'
         }
     ],
@@ -419,7 +459,7 @@ const PortfolioApp = {
             this.initMoreProjectsDeck();
             this.initAboutAwardPreviews();
         }
-        if (typeof CursorLogic !== 'undefined') CursorLogic.init();
+        if (typeof CursorLogic !== 'undefined') CursorLogic.ensure();
         const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
         if (isCasePage) {
             this.initCaseFigureZoom();
@@ -507,6 +547,10 @@ const PortfolioApp = {
     },
 
     buildLayout: function(pageType) {
+        if (typeof CursorLogic !== 'undefined') {
+            CursorLogic.destroy();
+        }
+
         const contentDiv = document.getElementById('page-specific-content');
         let uniqueContent = contentDiv ? contentDiv.innerHTML : "";
         if (pageType === 'home') {
@@ -585,12 +629,16 @@ const PortfolioApp = {
         const sidebarCompactScope = (!isGridPage && projectMeta)
             ? ' sidebar-compact-scope sidebar-compact-scope--project'
             : '';
+        const canSidebarPush = !isGridPage && projectMeta
+            && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+            && window.matchMedia('(min-width: 1201px)').matches;
+        const sidebarPushClass = canSidebarPush ? ' sidebar-push-enter' : '';
 
         const layoutHTML = `
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             <div id="app-root">
-                <div class="content-wrapper${sidebarCompactScope}">
+                <div class="content-wrapper${sidebarCompactScope}${sidebarPushClass}">
                     <aside class="sidebar">
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
                         ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
@@ -743,12 +791,28 @@ const PortfolioApp = {
     },
 
     initSidebarMotion: function(pageType) {
-        if (pageType !== 'home' && pageType !== 'playground') return;
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        const motionRoot = pageType === 'home'
-            ? document.querySelector('.home-page-header')
-            : document.querySelector('.sidebar');
-        if (motionRoot) motionRoot.classList.add('sidebar-motion');
+        if (pageType === 'home') {
+            const motionRoot = document.querySelector('.home-page-header');
+            if (motionRoot) motionRoot.classList.add('sidebar-motion');
+            return;
+        }
+        if (pageType === 'playground') {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) sidebar.classList.add('sidebar-motion');
+            return;
+        }
+        if (pageType !== 'about' && this.getProject(pageType)) {
+            const sidebar = document.querySelector('.sidebar');
+            const wrapper = document.querySelector('.content-wrapper.sidebar-compact-scope--project');
+            if (sidebar) sidebar.classList.add('sidebar-motion', 'sidebar-motion--project');
+            if (wrapper && wrapper.classList.contains('sidebar-push-enter')) {
+                wrapper.addEventListener('animationend', (event) => {
+                    if (event.animationName !== 'projectSidebarPushIn') return;
+                    wrapper.classList.remove('sidebar-push-enter');
+                }, { once: true });
+            }
+        }
     },
 
     initEntryEffects: function(pageType) {
@@ -780,6 +844,73 @@ const PortfolioApp = {
                 requestAnimationFrame(() => {
                     card.classList.add('project-enter');
                 });
+            });
+        } else if (pageType !== 'about') {
+            this.initProjectPageEnterAnimations();
+        }
+    },
+
+    initProjectPageEnterAnimations: function() {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const scrollTargets = [];
+
+        document.querySelectorAll('.case-section').forEach((section) => {
+            section.classList.add('case-enter', 'case-enter--section');
+            scrollTargets.push(section);
+        });
+
+        document.querySelectorAll('.next-projects-section, .mobile-project-actions').forEach((el) => {
+            el.classList.add('case-enter', 'case-enter--section');
+            scrollTargets.push(el);
+        });
+
+        if (!scrollTargets.length) return;
+
+        if (reducedMotion) {
+            scrollTargets.forEach((el) => el.classList.add('is-entered'));
+            return;
+        }
+
+        this.bindCaseScrollEnter(scrollTargets);
+    },
+
+    bindCaseScrollEnter: function(targets) {
+        if (this._caseEnterObserver) {
+            this._caseEnterObserver.disconnect();
+            this._caseEnterObserver = null;
+        }
+
+        const createObserver = () => {
+            if (this._caseEnterObserver) {
+                this._caseEnterObserver.disconnect();
+            }
+
+            this._caseEnterObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-entered');
+                    this._caseEnterObserver.unobserve(entry.target);
+                });
+            }, {
+                root: this.getHomeScrollRoot(),
+                threshold: 0.1,
+                rootMargin: '0px 0px -6% 0px'
+            });
+
+            targets.forEach((el) => {
+                if (!el.classList.contains('is-entered')) {
+                    this._caseEnterObserver.observe(el);
+                }
+            });
+        };
+
+        createObserver();
+
+        if (!this._caseEnterResizeBound) {
+            this._caseEnterResizeBound = true;
+            window.addEventListener('resize', () => {
+                window.clearTimeout(this._caseEnterResizeTimer);
+                this._caseEnterResizeTimer = window.setTimeout(createObserver, 150);
             });
         }
     },

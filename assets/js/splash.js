@@ -30,6 +30,10 @@ const SplashScreen = {
     show: function(onComplete) {
         document.body.classList.add('splash-active');
 
+        if (typeof CursorLogic !== 'undefined') {
+            CursorLogic.init();
+        }
+
         const overlay = document.createElement('div');
         overlay.id = 'splash-screen';
         overlay.className = 'splash-screen';

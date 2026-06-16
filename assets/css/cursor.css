@@ -61,6 +61,8 @@ body.cursor-view .cursor-label,
 }
 
 @media (min-width: 1200px) {
+    html.custom-cursor-active,
+    html.custom-cursor-active *,
     body.custom-cursor-active,
     body.custom-cursor-active * {
         cursor: none !important;

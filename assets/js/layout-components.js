@@ -43,17 +43,82 @@ const LayoutComponents = {
             </nav>`;
     },
 
+    getCaseHeroToolItems: function(projectMeta) {
+        if (!projectMeta || !projectMeta.tools) return [];
+        if (Array.isArray(projectMeta.tools)) {
+            return projectMeta.tools.filter(Boolean);
+        }
+        return projectMeta.tools.split(',').map(function(item) {
+            return item.trim();
+        }).filter(Boolean);
+    },
+
     buildCaseHeroMeta: function(projectMeta) {
         if (!projectMeta) return '';
-        const hasMeta = projectMeta.timeline || projectMeta.role;
-        if (!hasMeta) return '';
+
+        const self = this;
+        const sections = [];
+
+        if (projectMeta.timeline) {
+            sections.push({
+                modifier: 'timeline',
+                label: 'Timeline',
+                body: `<span class="case-hero-meta-value">${projectMeta.timeline}</span>`
+            });
+        }
+
+        const toolItems = self.getCaseHeroToolItems(projectMeta);
+        if (toolItems.length) {
+            sections.push({
+                modifier: 'tools',
+                label: 'Tools',
+                body: `<span class="case-hero-meta-value case-hero-meta-tools">${toolItems.join(' / ')}</span>`
+            });
+        }
+
+        const teamRoster = self.getCaseHeroTeamRoster(projectMeta);
+        if (teamRoster.length) {
+            sections.push({
+                modifier: 'team',
+                label: 'Team',
+                body: `<ul class="case-hero-meta-list">${teamRoster.map(function(item) {
+                    return `<li>${item}</li>`;
+                }).join('')}</ul>`
+            });
+        }
+
+        if (!sections.length) return '';
+
+        const itemsHTML = sections.map(function(section) {
+            return `<div class="case-hero-meta-item case-hero-meta-item--${section.modifier}"><span class="case-hero-meta-label">${section.label}</span>${section.body}</div>`;
+        }).join('');
+
         return `
             <div class="case-hero-meta">
-                <div class="case-hero-meta-inner">
-                    ${projectMeta.timeline ? `<div class="case-hero-meta-item case-hero-meta-item--timeline"><span class="case-hero-meta-label">Timeline</span><span class="case-hero-meta-value">${projectMeta.timeline}</span></div>` : ''}
-                    ${projectMeta.role ? `<div class="case-hero-meta-item case-hero-meta-item--role"><span class="case-hero-meta-label">My Role</span><span class="case-hero-meta-value">${projectMeta.role}</span></div>` : ''}
+                <div class="case-hero-meta-inner case-hero-meta-inner--cols-${sections.length}">
+                    ${itemsHTML}
                 </div>
             </div>`;
+    },
+
+    getCaseHeroTeamRoster: function(projectMeta) {
+        if (projectMeta.teamRoster && projectMeta.teamRoster.length) {
+            return projectMeta.teamRoster;
+        }
+        if (projectMeta.team === 'Solo' && projectMeta.role) {
+            return [`1 ${projectMeta.role} (me)`];
+        }
+        const roster = [];
+        if (projectMeta.role) {
+            roster.push(`1 ${projectMeta.role} (me)`);
+        }
+        if (projectMeta.team && projectMeta.team !== 'Solo') {
+            projectMeta.team.split(',').forEach(function(part) {
+                const trimmed = part.trim();
+                if (trimmed) roster.push(trimmed);
+            });
+        }
+        return roster;
     },
 
     buildSidebarMeta: function(pageType, projectMeta) {

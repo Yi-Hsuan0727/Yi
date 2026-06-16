@@ -5,11 +5,9 @@ const CursorLogic = {
     _listeners: null,
 
     destroy: function() {
-        const oldPointer = document.querySelector('.cursor-pointer');
-        const oldLabel = document.querySelector('.cursor-label');
-        if (oldPointer) oldPointer.remove();
-        if (oldLabel) oldLabel.remove();
+        document.querySelectorAll('.cursor-pointer, .cursor-label').forEach((el) => el.remove());
 
+        document.documentElement.classList.remove('custom-cursor-active');
         document.body.classList.remove('cursor-view', 'hovering', 'custom-cursor-active');
 
         if (this._listeners) {
@@ -44,6 +42,7 @@ const CursorLogic = {
 
         document.body.appendChild(pointer);
         document.body.appendChild(label);
+        document.documentElement.classList.add('custom-cursor-active');
         document.body.classList.add('custom-cursor-active');
 
         let mx = window.innerWidth / 2;
@@ -128,7 +127,11 @@ const CursorLogic = {
             if (hasMoved) syncHoverState(mx, my);
         };
 
-        const onPageShow = () => {
+        const onPageShow = (event) => {
+            if (event.persisted) {
+                this.init();
+                return;
+            }
             setViewCursor(false);
             document.body.classList.remove('hovering');
             if (hasMoved) syncHoverState(mx, my);
@@ -155,10 +158,25 @@ const CursorLogic = {
         document.addEventListener('mouseenter', onMouseEnter);
         window.addEventListener('pageshow', onPageShow);
 
-        document.querySelectorAll('.project-grid .project-card').forEach((card) => {
-            card.addEventListener('mouseleave', () => {
+        const projectGrid = document.querySelector('.project-grid');
+        if (projectGrid) {
+            projectGrid.addEventListener('mouseleave', (e) => {
+                if (!e.target.closest('.project-card')) return;
                 requestAnimationFrame(() => syncHoverState(mx, my));
             });
-        });
+        }
+
+        showCursor();
+        syncHoverState(mx, my);
+    },
+
+    ensure: function() {
+        if (window.innerWidth < 1200) {
+            this.destroy();
+            return;
+        }
+        if (!document.querySelector('.cursor-pointer')) {
+            this.init();
+        }
     }
 };

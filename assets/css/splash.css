@@ -2,6 +2,13 @@ body.splash-active {
     overflow: hidden;
 }
 
+html.custom-cursor-active body.splash-active,
+html.custom-cursor-active body.splash-active *,
+body.splash-active.custom-cursor-active,
+body.splash-active.custom-cursor-active * {
+    cursor: none !important;
+}
+
 body.splash-active #app-root {
     visibility: hidden;
 }
@@ -15,6 +22,7 @@ body.splash-active #app-root {
     justify-content: center;
     background: #ffffff;
     transition: opacity 0.45s ease, visibility 0.45s ease;
+    cursor: none;
 }
 
 .splash-screen--exit {
