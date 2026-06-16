@@ -23,16 +23,53 @@ const MoreProjectsDeck = {
         const cards = deck.querySelectorAll('.projects-more-card');
         if (!cards.length) return;
 
+        this._layerTop = 22;
+
+        const getLayerDelay = (card) => {
+            const raw = window.getComputedStyle(card).getPropertyValue('--card-duration').trim();
+            const seconds = parseFloat(raw);
+            return Math.round((Number.isFinite(seconds) ? seconds : 0.82) * 1000);
+        };
+
+        const scheduleLayerReset = (card) => {
+            const delay = getLayerDelay(card);
+            window.clearTimeout(card._layerResetTimer);
+            card._layerResetTimer = window.setTimeout(() => {
+                card.classList.remove('is-settling');
+                card.style.zIndex = '';
+            }, delay);
+        };
+
         const setActive = (card) => {
             deck.classList.add('is-hovering');
+
             cards.forEach((item) => {
-                item.classList.toggle('is-active', item === card);
+                if (item === card) return;
+
+                if (item.classList.contains('is-active')) {
+                    item.classList.remove('is-active');
+                    item.classList.add('is-settling');
+                    scheduleLayerReset(item);
+                } else {
+                    item.classList.remove('is-active');
+                }
             });
+
+            card.classList.remove('is-settling');
+            window.clearTimeout(card._layerResetTimer);
+            this._layerTop += 1;
+            card.style.zIndex = String(this._layerTop);
+            card.classList.add('is-active');
         };
 
         const clearActive = () => {
             deck.classList.remove('is-hovering');
-            cards.forEach((item) => item.classList.remove('is-active'));
+            cards.forEach((item) => {
+                if (!item.classList.contains('is-active')) return;
+                item.classList.remove('is-active');
+                item.classList.add('is-settling');
+                scheduleLayerReset(item);
+            });
         };
 
         cards.forEach((card) => {

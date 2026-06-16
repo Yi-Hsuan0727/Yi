@@ -797,12 +797,12 @@ const PortfolioApp = {
             { selector: '.project-grid .project-card', extraClass: '' },
             { selector: '.projects-more-title', extraClass: '' },
             { selector: '.projects-more-intro', extraClass: '' },
-            { selector: '.projects-more-card', extraClass: '' },
+            { selector: '.projects-more-card', extraClass: 'home-reveal--deck', stepMs: 110 },
             { selector: '.home-about-title', extraClass: '' },
             { selector: '.home-about-copy', extraClass: '' },
-            { selector: '.home-about-photo-card', extraClass: 'home-reveal--fade' },
-            { selector: '.home-about-photo-stickers .photo-deco-sticker', extraClass: 'home-reveal--fade' },
-            { selector: '.home-about-photo-bubble', extraClass: 'home-reveal--pop' },
+            { selector: '.home-about-photo-card', extraClass: 'home-reveal--photo', stepMs: 100 },
+            { selector: '.home-about-photo-stickers .photo-deco-sticker', extraClass: 'home-reveal--sticker', stepMs: 95 },
+            { selector: '.home-about-photo-bubble', extraClass: 'home-reveal--pop home-reveal--bubble', stepMs: 140 },
             { selector: '.home-about-career .about-exp-group', extraClass: '' },
             { selector: '.home-toolbox-stickers .tool-sticker', extraClass: 'home-reveal--fade' },
             { selector: '.site-footer-monster', extraClass: '' },
@@ -813,14 +813,15 @@ const PortfolioApp = {
 
         const targets = [];
 
-        steps.forEach(({ selector, extraClass }) => {
+        steps.forEach(({ selector, extraClass, stepMs }) => {
+            const delayStep = stepMs || STEP_MS;
             document.querySelectorAll(selector).forEach((el, groupIndex) => {
                 el.classList.remove('project-enter', 'monster-enter');
                 el.classList.add('home-reveal');
                 if (extraClass) {
                     extraClass.split(/\s+/).forEach((cls) => el.classList.add(cls));
                 }
-                el.style.setProperty('--home-reveal-delay', `${groupIndex * STEP_MS}ms`);
+                el.style.setProperty('--home-reveal-delay', `${groupIndex * delayStep}ms`);
                 targets.push(el);
             });
         });
@@ -864,8 +865,8 @@ const PortfolioApp = {
                 });
             }, {
                 root: this.getHomeScrollRoot(),
-                threshold: 0.15,
-                rootMargin: '0px 0px -6% 0px'
+                threshold: 0.12,
+                rootMargin: '0px 0px -4% 0px'
             });
 
             targets.forEach((el) => {
