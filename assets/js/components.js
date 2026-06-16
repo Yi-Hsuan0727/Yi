@@ -208,7 +208,7 @@ const PortfolioApp = {
     data: {
         home: {
             heroGreeting: "Hi! I'm Michelle Chen",
-            title: `<span class="hero-title-line">Accessibility<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">WCAG<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Web products<span class="shape shape-square" aria-hidden="true"></span></span>`,
+            title: `<span class="hero-title-line">Accessibility<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Design<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Web products<span class="shape shape-square" aria-hidden="true"></span></span>`,
             desc: '',
             briefIntro: "An accessibility-focused product designer who designs and ships WCAG-compliant web products in semantic HTML/CSS—from government platforms to inclusive, AI-powered apps.",
             meta: ``
