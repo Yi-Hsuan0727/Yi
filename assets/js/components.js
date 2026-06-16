@@ -888,9 +888,9 @@ const PortfolioApp = {
             { selector: '.home-about-career .about-exp-group', extraClass: '' },
             { selector: '.home-toolbox-stickers .tool-sticker', extraClass: 'home-reveal--fade' },
             { selector: '.site-footer-monster', extraClass: '' },
-            { selector: '.site-contact-fields', extraClass: '' },
-            { selector: '.site-contact-connect', extraClass: '' },
-            { selector: '.connect-sticker', extraClass: '' }
+            { selector: '.site-contact-connect-note', extraClass: '' },
+            { selector: '.connect-sticker', extraClass: '' },
+            { selector: '.site-contact-fields', extraClass: '' }
         ];
 
         const targets = [];

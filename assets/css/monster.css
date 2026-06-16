@@ -303,6 +303,39 @@ h2.monster-chat-bubble {
     animation: blinkQuickBottom 0.3s ease-in-out;
 }
 
+/* --- Confetti behind comic speech bubbles --- */
+.bubble-confetti-host {
+    position: absolute;
+    inset: -100px;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+}
+.bubble-confetti-piece {
+    position: absolute;
+    pointer-events: none;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+.bubble-confetti-piece--rect {
+    width: 8px;
+    height: 4px;
+    border-radius: 1px;
+}
+.bubble-confetti-piece--circle {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+.bubble-confetti-piece--triangle {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 8px solid currentColor;
+    background: transparent;
+}
+
 /* --- Sparkle layer — fixed to body so it never contributes to scroll dimensions --- */
 .monster-spark-layer {
     position: fixed;

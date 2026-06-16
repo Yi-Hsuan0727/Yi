@@ -340,6 +340,24 @@ const LayoutComponents = {
                 <div class="site-contact-inner">
                     <form class="site-contact-form">
                         <div class="site-contact-layout">
+                            <div class="site-contact-connect-note">
+                                <p class="site-contact-scroll-thanks">Thanks for scrolling all the way down!</p>
+                                <p class="site-contact-connect-lead">You can send me a message through the contact form below, or connect with me through</p>
+                                <div class="site-contact-connect-stickers">
+                                    <a class="connect-sticker connect-sticker--email" href="mailto:yche1356@asu.edu">
+                                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                                        <span>email</span>
+                                    </a>
+                                    <a class="connect-sticker connect-sticker--linkedin" href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin" aria-hidden="true"></i>
+                                        <span>LinkedIn</span>
+                                    </a>
+                                    <a class="connect-sticker connect-sticker--resume" href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer">
+                                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                                        <span>Resume</span>
+                                    </a>
+                                </div>
+                            </div>
                             <div class="site-contact-fields comic-speech-bubble">
                                 <div class="site-contact-row">
                                     <label class="site-contact-label" for="contact-name">Name <span class="site-contact-required" aria-hidden="true">*</span></label>
@@ -358,23 +376,6 @@ const LayoutComponents = {
                                 <button type="submit" class="site-contact-submit">Send message</button>
                                 <p class="site-contact-error" role="alert" hidden></p>
                             </div>
-                            <aside class="site-contact-connect" aria-label="Other ways to connect">
-                                <p class="site-contact-connect-heading">Thanks for scrolling all the way down! You can also connect with me through</p>
-                                <div class="site-contact-connect-stickers">
-                                    <a class="connect-sticker connect-sticker--email" href="mailto:yche1356@asu.edu">
-                                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                                        <span>yche1356@asu.edu</span>
-                                    </a>
-                                    <a class="connect-sticker connect-sticker--linkedin" href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer">
-                                        <i class="fab fa-linkedin" aria-hidden="true"></i>
-                                        <span>LinkedIn</span>
-                                    </a>
-                                    <a class="connect-sticker connect-sticker--resume" href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer">
-                                        <i class="fas fa-file-alt" aria-hidden="true"></i>
-                                        <span>Resume</span>
-                                    </a>
-                                </div>
-                            </aside>
                         </div>
                         <div class="site-contact-success comic-speech-bubble" role="status" tabindex="-1" hidden>
                             <i class="fas fa-check-circle" aria-hidden="true"></i>

@@ -29,6 +29,49 @@ const ContactFormLogic = {
             this.messageField.addEventListener('input', this.handleMessageInput.bind(this));
             this.updateWordCount(this.messageField.value);
         }
+
+        this.initScrollThanksConfetti();
+    },
+
+    initScrollThanksConfetti: function() {
+        const thanks = document.querySelector('.site-contact-scroll-thanks');
+        if (!thanks || typeof BubbleConfetti === 'undefined') return;
+
+        let isVisible = false;
+        let observer = null;
+
+        const bindObserver = () => {
+            if (observer) observer.disconnect();
+
+            const isMobile = window.matchMedia('(max-width: 1200px)').matches;
+            const scrollRoot = !isMobile ? document.getElementById('scroll-container') : null;
+
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.target !== thanks) return;
+                    const visible = entry.isIntersecting;
+                    if (visible === isVisible) return;
+                    isVisible = visible;
+                    if (visible) {
+                        setTimeout(() => {
+                            BubbleConfetti.burst(thanks, {
+                                count: 36,
+                                spreadX: 0.85,
+                                spreadY: 0.75
+                            });
+                        }, 280);
+                    }
+                });
+            }, {
+                root: scrollRoot,
+                threshold: 0.65
+            });
+
+            observer.observe(thanks);
+        };
+
+        bindObserver();
+        window.addEventListener('resize', bindObserver);
     },
 
     countWords: function(text) {
@@ -165,6 +208,13 @@ const ContactFormLogic = {
         if (this.successPanel) {
             this.successPanel.hidden = false;
             this.successPanel.focus();
+            if (typeof BubbleConfetti !== 'undefined') {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        BubbleConfetti.burst(this.successPanel, { count: 36 });
+                    });
+                });
+            }
         }
     },
 
