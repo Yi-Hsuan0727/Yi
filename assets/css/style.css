@@ -1684,10 +1684,12 @@ body.projects-more-modal-open {
     .projects-more-card.home-reveal:not(.is-active),
     .projects-more-card.home-reveal.is-revealed:not(.is-active) {
         transform: rotate(var(--card-tilt, 0deg)) translateY(var(--card-lift, 0px));
-        opacity: 1;
         transition:
             transform var(--card-duration, 0.58s) var(--card-ease, cubic-bezier(0.33, 1, 0.68, 1)),
             opacity 0.58s var(--card-ease, cubic-bezier(0.33, 1, 0.68, 1));
+    }
+    .projects-more-card.home-reveal.is-revealed:not(.is-active) {
+        opacity: 1;
     }
     .projects-more-deck.is-hovering .projects-more-card.home-reveal.is-revealed:not(.is-active) {
         transform: rotate(var(--card-tilt, 0deg)) translateY(var(--card-lift, 0px)) scale(0.97);

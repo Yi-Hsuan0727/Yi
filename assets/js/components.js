@@ -812,18 +812,16 @@ const PortfolioApp = {
         ];
 
         const targets = [];
-        let index = 0;
 
         steps.forEach(({ selector, extraClass }) => {
-            document.querySelectorAll(selector).forEach((el) => {
+            document.querySelectorAll(selector).forEach((el, groupIndex) => {
                 el.classList.remove('project-enter', 'monster-enter');
                 el.classList.add('home-reveal');
                 if (extraClass) {
                     extraClass.split(/\s+/).forEach((cls) => el.classList.add(cls));
                 }
-                el.style.setProperty('--home-reveal-delay', `${index * STEP_MS}ms`);
+                el.style.setProperty('--home-reveal-delay', `${groupIndex * STEP_MS}ms`);
                 targets.push(el);
-                index += 1;
             });
         });
 
@@ -838,8 +836,53 @@ const PortfolioApp = {
             return;
         }
 
-        requestAnimationFrame(() => {
-            requestAnimationFrame(revealAll);
-        });
+        this.bindHomeScrollReveal(targets);
+    },
+
+    getHomeScrollRoot: function() {
+        const isMobile = window.matchMedia('(max-width: 1200px)').matches;
+        if (isMobile) return null;
+        return document.getElementById('scroll-container');
+    },
+
+    bindHomeScrollReveal: function(targets) {
+        if (this._homeRevealObserver) {
+            this._homeRevealObserver.disconnect();
+            this._homeRevealObserver = null;
+        }
+
+        const createObserver = () => {
+            if (this._homeRevealObserver) {
+                this._homeRevealObserver.disconnect();
+            }
+
+            this._homeRevealObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-revealed');
+                    this._homeRevealObserver.unobserve(entry.target);
+                });
+            }, {
+                root: this.getHomeScrollRoot(),
+                threshold: 0.15,
+                rootMargin: '0px 0px -6% 0px'
+            });
+
+            targets.forEach((el) => {
+                if (!el.classList.contains('is-revealed')) {
+                    this._homeRevealObserver.observe(el);
+                }
+            });
+        };
+
+        createObserver();
+
+        if (!this._homeRevealResizeBound) {
+            this._homeRevealResizeBound = true;
+            window.addEventListener('resize', () => {
+                window.clearTimeout(this._homeRevealResizeTimer);
+                this._homeRevealResizeTimer = window.setTimeout(createObserver, 150);
+            });
+        }
     }
 };

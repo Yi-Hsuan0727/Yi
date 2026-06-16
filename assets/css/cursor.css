@@ -17,7 +17,7 @@
 .cursor-pointer {
     width: 36px;
     height: 44px;
-    z-index: 99999;
+    z-index: 100002;
     transform-origin: 2px 2px;
     background: url("../img/cursor-sticker.svg") no-repeat 0 0 / contain;
     filter: drop-shadow(0 0 0 transparent);
@@ -33,7 +33,7 @@ body.hovering:not(.cursor-view) .cursor-pointer {
 }
 
 .cursor-label {
-    z-index: 100000;
+    z-index: 100003;
     transform: translate(0, 0);
 }
 
