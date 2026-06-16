@@ -241,23 +241,30 @@ const LayoutComponents = {
             </div>`;
     },
 
-    buildMoreProjectsListItems: function(projects) {
+    buildMoreProjectsDeckItems: function(projects) {
         if (!projects || !projects.length) return '';
-        return projects.map(function(p) {
-            const tags = (p.tags || []).slice(0, 3).map(function(t) {
-                return `<span class="projects-more-tag">${t}</span>`;
-            }).join('');
-            const previewSrc = p.heroImage || p.image || '';
-            const previewAttr = previewSrc ? ` data-preview-src="${previewSrc}"` : '';
+        const deckStyles = [
+            { tilt: '-7deg', z: 2, lift: '10px' },
+            { tilt: '4deg', z: 4, lift: '-18px' },
+            { tilt: '-3deg', z: 3, lift: '6px' },
+            { tilt: '6deg', z: 1, lift: '14px' }
+        ];
+
+        return projects.map(function(p, index) {
+            const style = deckStyles[index % deckStyles.length];
+            const heroSrc = p.heroImage || p.image || '';
             return `
-                <li class="projects-more-item">
-                    <a class="projects-more-link" href="${p.link}"${previewAttr}>
-                        <span class="projects-more-link-title">${p.title}</span>
-                        <span class="projects-more-link-sub">${p.listSubline || p.subtitle}</span>
-                        ${tags ? `<span class="projects-more-link-tags">${tags}</span>` : ''}
-                    </a>
-                </li>`;
+                <button type="button" class="projects-more-card" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};--card-lift:${style.lift};" aria-haspopup="dialog" aria-label="${p.title}">
+                    <span class="projects-more-card-name" aria-hidden="true">${p.title}</span>
+                    <span class="projects-more-card-visual">
+                        <img src="${heroSrc}" alt="" loading="lazy" decoding="async">
+                    </span>
+                </button>`;
         }).join('');
+    },
+
+    buildMoreProjectsListItems: function(projects) {
+        return this.buildMoreProjectsDeckItems(projects);
     },
 
     buildHeroTitleShapes: function() {
@@ -269,8 +276,11 @@ const LayoutComponents = {
         if (!items) return '';
         return `
             <section class="projects-more" id="projects-more" aria-labelledby="projects-more-heading">
-                <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More projects</span>${this.buildHeroTitleShapes()}</h2>
-                <ul class="projects-more-list" id="projects-more-list">${items}</ul>
+                <div class="projects-more-inner">
+                    <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More projects</span>${this.buildHeroTitleShapes()}</h2>
+                    <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects — client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
+                    <div class="projects-more-deck" id="projects-more-list" role="list">${items}</div>
+                </div>
             </section>`;
     },
 

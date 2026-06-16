@@ -158,7 +158,7 @@ const PortfolioApp = {
             filterType: 'web',
             audience: 'Enterprise',
             tags: ['Web Design', 'UI Design', 'Branding'],
-            image: 'assets/img/main images/Magnate.png',
+            image: 'assets/img/Magnate/hero.png',
             heroImage: 'assets/img/Magnate/hero.png',
             link: 'magnate.html',
             timeline: 'Jun 2023 – Sep 2023',
@@ -208,9 +208,9 @@ const PortfolioApp = {
     data: {
         home: {
             heroGreeting: "Hi! I'm Michelle Chen",
-            title: `<span class="hero-title-line">Product design<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Interaction<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Systems<span class="shape shape-square" aria-hidden="true"></span></span>`,
+            title: `<span class="hero-title-line">Accessibility<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">WCAG<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Web products<span class="shape shape-square" aria-hidden="true"></span></span>`,
             desc: '',
-            briefIntro: "A UX/UI designer who designs and ships accessible, WCAG-compliant front-ends in semantic HTML/CSS, from government sites to AI-powered web apps.",
+            briefIntro: "An accessibility-focused product designer who designs and ships WCAG-compliant web products in semantic HTML/CSS—from government platforms to inclusive, AI-powered apps.",
             meta: ``
         },
         about: {
@@ -416,7 +416,7 @@ const PortfolioApp = {
         }
         if (pageType === 'home') {
             this.initHomeAboutNav();
-            this.initMoreProjectsPreview();
+            this.initMoreProjectsDeck();
             this.initAboutAwardPreviews();
         }
         if (typeof CursorLogic !== 'undefined') CursorLogic.init();
@@ -640,97 +640,14 @@ const PortfolioApp = {
         });
     },
 
-    initMoreProjectsPreview: function() {
-        if (window.matchMedia('(max-width: 900px)').matches) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-        const section = document.getElementById('projects-more');
-        if (!section || section.dataset.morePreviewInit) return;
-        section.dataset.morePreviewInit = '1';
-
-        let preview = document.getElementById('projects-more-preview');
-        if (!preview) {
-            preview = document.createElement('div');
-            preview.id = 'projects-more-preview';
-            preview.className = 'projects-more-preview';
-            preview.setAttribute('aria-hidden', 'true');
-            preview.innerHTML = '<img src="" alt="">';
-            document.body.appendChild(preview);
+    initMoreProjectsDeck: function() {
+        if (typeof MoreProjectsDeck !== 'undefined') {
+            MoreProjectsDeck.init();
         }
+    },
 
-        const img = preview.querySelector('img');
-        const size = 200;
-        const gap = 28;
-        let activeLink = null;
-
-        const positionPreview = (x, y) => {
-            let left = x + gap;
-            let top = y - size / 2;
-            const pad = 12;
-
-            if (left + size > window.innerWidth - pad) {
-                left = x - size - gap;
-            }
-            if (top < pad) top = pad;
-            if (top + size > window.innerHeight - pad) {
-                top = window.innerHeight - size - pad;
-            }
-
-            preview.style.left = left + 'px';
-            preview.style.top = top + 'px';
-        };
-
-        const hidePreview = () => {
-            activeLink = null;
-            preview.classList.remove('is-visible');
-        };
-
-        const showPreview = (link, x, y) => {
-            const src = link.dataset.previewSrc;
-            if (!src) return;
-            activeLink = link;
-            const titleEl = link.querySelector('.projects-more-link-title');
-            if (img.getAttribute('src') !== src) {
-                img.src = src;
-            }
-            img.alt = titleEl ? titleEl.textContent.trim() : '';
-            positionPreview(x, y);
-            preview.classList.add('is-visible');
-        };
-
-        section.addEventListener('mouseover', (e) => {
-            const link = e.target.closest('.projects-more-link');
-            if (!link || !link.dataset.previewSrc) return;
-            showPreview(link, e.clientX, e.clientY);
-        });
-
-        section.addEventListener('mouseout', (e) => {
-            const link = e.target.closest('.projects-more-link');
-            if (!link || link !== activeLink) return;
-            const next = e.relatedTarget;
-            if (next && link.contains(next)) return;
-            hidePreview();
-        });
-
-        section.addEventListener('mousemove', (e) => {
-            if (!activeLink) return;
-            if (!activeLink.contains(e.target)) {
-                hidePreview();
-                return;
-            }
-            positionPreview(e.clientX, e.clientY);
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (!activeLink) return;
-            if (!e.target.closest('.projects-more-link')) {
-                hidePreview();
-            }
-        });
-
-        section.addEventListener('mouseleave', hidePreview);
-        window.addEventListener('scroll', hidePreview, { passive: true });
-        window.addEventListener('blur', hidePreview);
+    initMoreProjectsPreview: function() {
+        this.initMoreProjectsDeck();
     },
 
     initAboutAwardPreviews: function() {
@@ -879,7 +796,8 @@ const PortfolioApp = {
             { selector: '.home-header-tech', extraClass: '' },
             { selector: '.project-grid .project-card', extraClass: '' },
             { selector: '.projects-more-title', extraClass: '' },
-            { selector: '.projects-more-item', extraClass: '' },
+            { selector: '.projects-more-intro', extraClass: '' },
+            { selector: '.projects-more-card', extraClass: '' },
             { selector: '.home-about-title', extraClass: '' },
             { selector: '.home-about-copy', extraClass: '' },
             { selector: '.home-about-photo-card', extraClass: 'home-reveal--fade' },

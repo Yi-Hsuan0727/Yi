@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michelle Chen - Portfolio</title>
-    <meta name="description" content="Michelle Chen — a UX/UI designer who designs and ships the front-end. Accessible, WCAG-compliant interfaces in semantic HTML/CSS, from government sites to AI-powered web apps.">
+    <meta name="description" content="Michelle Chen — an accessibility-focused product designer who designs and ships WCAG-compliant web products in semantic HTML/CSS, from government platforms to inclusive, AI-powered apps.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Michelle Chen">
-    <meta property="og:title" content="Michelle Chen — Accessibility-Focused UX/UI Designer">
-    <meta property="og:description" content="UX/UI designer who designs and ships the front-end. Accessible, WCAG-compliant interfaces in semantic HTML/CSS, from government sites to AI-powered web apps.">
+    <meta property="og:title" content="Michelle Chen — Accessibility-Focused Product Designer">
+    <meta property="og:description" content="Accessibility-focused product designer who designs and ships WCAG-compliant web products in semantic HTML/CSS, from government platforms to inclusive, AI-powered apps.">
     <meta property="og:image" content="https://themichellechen.com/assets/img/thumbnail.png">
     <meta property="og:url" content="https://themichellechen.com/">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Michelle Chen — Accessibility-Focused UX/UI Designer">
-    <meta name="twitter:description" content="UX/UI designer who designs and ships the front-end. Accessible, WCAG-compliant interfaces in semantic HTML/CSS, from government sites to AI-powered web apps.">
+    <meta name="twitter:title" content="Michelle Chen — Accessibility-Focused Product Designer">
+    <meta name="twitter:description" content="Accessibility-focused product designer who designs and ships WCAG-compliant web products in semantic HTML/CSS, from government platforms to inclusive, AI-powered apps.">
     <meta name="twitter:image" content="https://themichellechen.com/assets/img/thumbnail.png">
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -86,53 +86,11 @@
         </div>
         <!-- MORE WORK — secondary projects (secondary:true); #projects-more-list is filled at runtime from PortfolioApp.getSecondaryProjects() -->
         <section class="projects-more" id="projects-more" aria-labelledby="projects-more-heading">
-            <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More work</span><span class="projects-more-shapes" aria-hidden="true"><span class="shape shape-circle"></span><span class="shape shape-triangle"></span><span class="shape shape-square"></span></span></h2>
-            <ul class="projects-more-list" id="projects-more-list">
-                <li class="projects-more-item">
-                    <a class="projects-more-link" href="lawfare.html">
-                        <span class="projects-more-link-title">International Lawfare Website</span>
-                        <span class="projects-more-link-sub">Drupal CMS organizing legal scholarship under the ASU Design System — searchable publications and course materials.</span>
-                        <span class="projects-more-link-tags">
-                            <span class="projects-more-tag">UI Design</span>
-                            <span class="projects-more-tag">Front-End Development</span>
-                            <span class="projects-more-tag">Web Design</span>
-                        </span>
-                    </a>
-                </li>
-                <li class="projects-more-item">
-                    <a class="projects-more-link" href="lt.html">
-                        <span class="projects-more-link-title">Longtan Walker Pace Counter APP</span>
-                        <span class="projects-more-link-sub">Step-tracking concept that rewards walking on Longtan Road to cut car and scooter traffic.</span>
-                        <span class="projects-more-link-tags">
-                            <span class="projects-more-tag">UX Research</span>
-                            <span class="projects-more-tag">Product Design</span>
-                            <span class="projects-more-tag">Mobile App</span>
-                        </span>
-                    </a>
-                </li>
-                <li class="projects-more-item">
-                    <a class="projects-more-link" href="quickbite.html">
-                        <span class="projects-more-link-title">QuickBite</span>
-                        <span class="projects-more-link-sub">Claude-powered planner syncing fridge inventory, nutrition goals, and weekly menus in one workspace.</span>
-                        <span class="projects-more-link-tags">
-                            <span class="projects-more-tag">AI</span>
-                            <span class="projects-more-tag">Web App</span>
-                            <span class="projects-more-tag">Product Design</span>
-                        </span>
-                    </a>
-                </li>
-                <li class="projects-more-item">
-                    <a class="projects-more-link" href="magnate.html">
-                        <span class="projects-more-link-title">Magnate Technology Official Website</span>
-                        <span class="projects-more-link-sub">Corporate site and reusable UI system establishing Magnate Technology&apos;s industrial automation brand online.</span>
-                        <span class="projects-more-link-tags">
-                            <span class="projects-more-tag">Web Design</span>
-                            <span class="projects-more-tag">UI Design</span>
-                            <span class="projects-more-tag">Branding</span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
+            <div class="projects-more-inner">
+                <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More work</span><span class="projects-more-shapes" aria-hidden="true"><span class="shape shape-circle"></span><span class="shape shape-triangle"></span><span class="shape shape-square"></span></span></h2>
+                <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects — client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
+                <div class="projects-more-deck" id="projects-more-list" role="list"></div>
+            </div>
         </section>
         <section class="home-about" id="about" aria-label="About Michelle">
             <div class="home-about-intro">
@@ -232,6 +190,7 @@
 
     <script src="assets/js/splash.js"></script>
 
+    <script src="assets/js/more-projects-deck.js"></script>
     <script src="assets/js/components.js"></script>
 
 
