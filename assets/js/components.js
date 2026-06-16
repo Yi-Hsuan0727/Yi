@@ -629,16 +629,12 @@ const PortfolioApp = {
         const sidebarCompactScope = (!isGridPage && projectMeta)
             ? ' sidebar-compact-scope sidebar-compact-scope--project'
             : '';
-        const canSidebarPush = !isGridPage && projectMeta
-            && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-            && window.matchMedia('(min-width: 1201px)').matches;
-        const sidebarPushClass = canSidebarPush ? ' sidebar-push-enter' : '';
 
         const layoutHTML = `
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             <div id="app-root">
-                <div class="content-wrapper${sidebarCompactScope}${sidebarPushClass}">
+                <div class="content-wrapper${sidebarCompactScope}">
                     <aside class="sidebar">
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
                         ${LayoutComponents.buildSidebarMeta(pageType, projectMeta, pageData)}
@@ -804,14 +800,7 @@ const PortfolioApp = {
         }
         if (pageType !== 'about' && this.getProject(pageType)) {
             const sidebar = document.querySelector('.sidebar');
-            const wrapper = document.querySelector('.content-wrapper.sidebar-compact-scope--project');
             if (sidebar) sidebar.classList.add('sidebar-motion', 'sidebar-motion--project');
-            if (wrapper && wrapper.classList.contains('sidebar-push-enter')) {
-                wrapper.addEventListener('animationend', (event) => {
-                    if (event.animationName !== 'projectSidebarPushIn') return;
-                    wrapper.classList.remove('sidebar-push-enter');
-                }, { once: true });
-            }
         }
     },
 

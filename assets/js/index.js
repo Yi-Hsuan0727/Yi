@@ -11,9 +11,13 @@ const AppLogic = {
             this.initScrollLogic();
             this.initProjectCardTransitions();
             this.initCaseStudyVideos();
+            this.initVideoHoverPause();
             // Cursor init is now handled by CursorLogic or Components.js
         }, 50);
-        window.addEventListener('load', () => this.initCaseStudyVideos());
+        window.addEventListener('load', () => {
+            this.initCaseStudyVideos();
+            this.initVideoHoverPause();
+        });
     },
 
     // --- 1. THEME LOGIC ---
@@ -68,6 +72,30 @@ const AppLogic = {
                     playPromise.catch(() => {});
                 }
             }
+        });
+    },
+
+    initVideoHoverPause: function(root) {
+        const scope = root || document;
+        scope.querySelectorAll('video').forEach((video) => {
+            if (video.dataset.hoverPauseInit === '1') return;
+            video.dataset.hoverPauseInit = '1';
+
+            video.addEventListener('mouseenter', () => {
+                if (!video.paused) {
+                    video.dataset.wasPlayingBeforeHover = '1';
+                }
+                video.pause();
+            });
+
+            video.addEventListener('mouseleave', () => {
+                if (video.dataset.wasPlayingBeforeHover !== '1') return;
+                delete video.dataset.wasPlayingBeforeHover;
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {});
+                }
+            });
         });
     },
 
