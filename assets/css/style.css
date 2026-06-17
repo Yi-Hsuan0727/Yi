@@ -2452,6 +2452,7 @@ body.projects-more-modal-open {
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner {
     gap: 0;
+    align-items: center;
 }
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--timeline) {
@@ -2465,6 +2466,15 @@ body.projects-more-modal-open {
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-item {
     padding: 0;
     background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-hero-meta-list {
+    align-items: center;
 }
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-item:not(:last-child) {
@@ -5234,6 +5244,8 @@ body.case-figure-zoom-open #scroll-container {
 
     .content-wrapper.sidebar-compact-scope--project .case-hero-meta-item {
         padding: 0;
+        align-items: center;
+        text-align: center;
     }
 
     .content-wrapper.sidebar-compact-scope--project .case-hero-meta-item:not(:last-child) {
