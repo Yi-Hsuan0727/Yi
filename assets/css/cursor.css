@@ -50,6 +50,16 @@ body.hovering:not(.cursor-view) .cursor-pointer {
     white-space: nowrap;
 }
 
+.cursor-label.cursor-label--tool.comic-speech-bubble {
+    padding: 8px 14px 10px;
+    font-size: 0.82rem;
+}
+
+body.cursor-tool-label .cursor-pointer {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 .cursor-label.is-active {
     visibility: visible;
 }

@@ -10,7 +10,7 @@ const LayoutComponents = {
     buildSidebarTop: function(pageData, projectMeta, pageType) {
         let html = '';
         if (pageData.backLink && projectMeta) {
-            html += `<a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
+            html += `<a href="index.html" class="back-btn connect-sticker connect-sticker--back"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
         }
         if (pageType === 'playground') {
             html += `<a href="index.html" class="back-btn back-btn-mobile-only"><i class="fas fa-arrow-left"></i> Back to Home</a>`;

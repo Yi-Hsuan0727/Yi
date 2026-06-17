@@ -62,41 +62,65 @@ const CursorLogic = {
         positionPointer(mx, my);
         positionLabel(mx, my);
 
+        const DEFAULT_LABEL = 'View';
+
+        const setCursorLabel = (options = {}) => {
+            const {
+                visible = false,
+                text = DEFAULT_LABEL,
+                hidePointer = false,
+                isTool = false
+            } = options;
+
+            label.textContent = text;
+            document.body.classList.toggle('cursor-view', hidePointer);
+            document.body.classList.toggle('cursor-tool-label', visible && isTool);
+            label.style.opacity = visible ? '1' : '0';
+            label.classList.toggle('is-view', visible);
+            label.classList.toggle('cursor-label--tool', visible && isTool);
+        };
+
         const showCursor = () => {
             pointer.classList.add('is-active');
             label.classList.add('is-active');
             pointer.style.opacity = '1';
         };
 
-        const setViewCursor = (active) => {
-            document.body.classList.toggle('cursor-view', active);
-            label.style.opacity = active ? '1' : '0';
-            label.classList.toggle('is-view', active);
-        };
-
         const hideCursor = () => {
             pointer.style.opacity = '0';
             pointer.classList.remove('is-active');
             label.classList.remove('is-active');
-            setViewCursor(false);
+            setCursorLabel({ visible: false });
             document.body.classList.remove('hovering');
         };
 
         const syncHoverState = (x, y) => {
             const el = document.elementFromPoint(x, y);
             if (!el) {
-                setViewCursor(false);
+                setCursorLabel({ visible: false });
                 document.body.classList.remove('hovering');
                 return;
             }
 
             if (el.closest('.project-grid .project-card')) {
                 document.body.classList.add('hovering');
-                setViewCursor(true);
+                setCursorLabel({ visible: true, text: DEFAULT_LABEL, hidePointer: true });
                 return;
             }
 
-            setViewCursor(false);
+            const toolSticker = el.closest('.tool-sticker');
+            if (toolSticker) {
+                document.body.classList.add('hovering');
+                setCursorLabel({
+                    visible: true,
+                    text: toolSticker.getAttribute('aria-label') || '',
+                    hidePointer: false,
+                    isTool: true
+                });
+                return;
+            }
+
+            setCursorLabel({ visible: false });
 
             if (el.closest('a, button, input, textarea, .project-card, .filter-btn, .visit-btn, .theme-toggle, .nav-link, .cursor-hover')) {
                 document.body.classList.add('hovering');
@@ -132,7 +156,7 @@ const CursorLogic = {
                 this.init();
                 return;
             }
-            setViewCursor(false);
+            setCursorLabel({ visible: false });
             document.body.classList.remove('hovering');
             if (hasMoved) syncHoverState(mx, my);
         };
@@ -162,6 +186,13 @@ const CursorLogic = {
         if (projectGrid) {
             projectGrid.addEventListener('mouseleave', (e) => {
                 if (!e.target.closest('.project-card')) return;
+                requestAnimationFrame(() => syncHoverState(mx, my));
+            });
+        }
+
+        const toolbox = document.querySelector('.home-toolbox-stickers');
+        if (toolbox) {
+            toolbox.addEventListener('mouseleave', () => {
                 requestAnimationFrame(() => syncHoverState(mx, my));
             });
         }
