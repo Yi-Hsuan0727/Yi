@@ -305,10 +305,16 @@
         padding: 6px;
         box-shadow: 0 14px 32px rgba(0, 0, 0, 0.08);
     }
+    .lt-phone-frame:has(> video) {
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        padding: 0;
+    }
     .lt-phone-frame img,
     .lt-phone-frame video {
         width: 100%;
-        border-radius: 4px;
+        border-radius: 8px;
         display: block;
         border: none;
         object-fit: contain;
@@ -375,6 +381,7 @@
         max-height: 620px;
         object-fit: contain;
         display: block;
+        border-radius: 8px;
     }
     .lt-impact-grid {
         display: grid;
@@ -419,6 +426,7 @@
         width: 100%;
         object-fit: contain;
         vertical-align: middle;
+        border-radius: 8px;
     }
 
     @media (max-width: 1200px) {

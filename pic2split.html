@@ -294,13 +294,13 @@
                     rgba(74, 85, 224, 0.12) 52%,
                     rgba(232, 226, 88, 0.1) 100%
                 );
-                border-radius: 16px;
+                border-radius: 8px;
                 display: flex;
                 align-items: stretch;
                 justify-content: center;
                 padding: clamp(20px, 4vw, 40px);
                 box-sizing: border-box;
-                overflow: visible;
+                overflow: hidden;
             }
             .p2s-overview-hero-phones {
                 display: flex;
@@ -324,7 +324,7 @@
                 margin: 0;
                 padding: 5px;
                 border: none;
-                border-radius: 28px;
+                border-radius: 8px;
                 background: linear-gradient(
                     155deg,
                     #2a2a2a 0%,
@@ -354,11 +354,9 @@
                 max-width: 100%;
                 max-height: 100%;
                 object-fit: contain;
-                border: 2px solid #000000;
-                border-radius: 23px;
-                box-shadow:
-                    inset 0 0 0 1px rgba(0, 0, 0, 0.5),
-                    0 0 0 1px rgba(0, 0, 0, 0.2);
+                border: none;
+                border-radius: 8px;
+                box-shadow: var(--video-shadow);
             }
 
             /* === GRID LAYOUTS === */
@@ -462,14 +460,22 @@
 
             /* Figures */
             .p2s-figure { margin: 0; overflow: visible; border: 0; background: transparent; }
-            .p2s-figure img,
-            .p2s-figure video {
+            .p2s-figure img {
                 width: 100%;
                 height: auto;
                 display: block;
                 border: 1px solid var(--border-color);
                 border-radius: 8px;
                 background: var(--bg-color);
+            }
+            .p2s-figure video {
+                width: 100%;
+                height: auto;
+                display: block;
+                border: none;
+                border-radius: 8px;
+                background: transparent;
+                box-shadow: var(--video-shadow);
             }
             .p2s-figure-readable img {
                 width: 100%;
@@ -543,7 +549,7 @@
             .p2s-phone-frame img,
             .p2s-phone-frame video {
                 width: 100%;
-                border-radius: 0;
+                border-radius: 8px;
                 display: block;
                 vertical-align: top;
             }
@@ -558,12 +564,12 @@
                     rgba(74, 85, 224, 0.12) 52%,
                     rgba(232, 226, 88, 0.1) 100%
                 );
-                border-radius: 16px;
+                border-radius: 8px;
                 display: flex;
                 align-items: stretch;
                 justify-content: center;
                 padding: clamp(20px, 4vw, 40px);
-                overflow: visible;
+                overflow: hidden;
             }
             .p2s-solution-row--phone-stage .p2s-phone-stage-phones {
                 display: flex;
@@ -587,7 +593,7 @@
                 margin: 0;
                 padding: 5px;
                 border: none;
-                border-radius: 28px;
+                border-radius: 8px;
                 background: linear-gradient(
                     155deg,
                     #5a5a5a 0%,
@@ -610,6 +616,9 @@
             .p2s-solution-row--phone-stage .p2s-phone-frame--device::after {
                 display: none;
             }
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device::before {
+                display: none;
+            }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device {
                 width: min(320px, 100%);
                 max-width: 320px;
@@ -622,11 +631,12 @@
                 width: 100%;
                 height: auto;
                 object-fit: contain;
-                border: 2px solid #ffffff;
-                border-radius: 23px;
-                box-shadow:
-                    inset 0 0 0 1px rgba(0, 0, 0, 0.08),
-                    0 0 0 1px rgba(0, 0, 0, 0.04);
+                border: none;
+                border-radius: 8px;
+                box-shadow: var(--video-shadow) !important;
+            }
+            .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device:has(> video):not(:has(> img)) {
+                overflow: visible;
             }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device img {
                 position: relative;
@@ -635,7 +645,7 @@
                 height: 100%;
                 object-fit: cover;
                 border: 2px solid #ffffff;
-                border-radius: 23px;
+                border-radius: 8px;
                 box-shadow:
                     inset 0 0 0 1px rgba(0, 0, 0, 0.08),
                     0 0 0 1px rgba(0, 0, 0, 0.04);
@@ -661,7 +671,18 @@
                 );
                 filter: blur(3px);
             }
-            .p2s-solution-row--phone-stage .p2s-phone-frame--device img,
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device img {
+                position: relative;
+                z-index: 1;
+                display: block;
+                width: auto;
+                height: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                border: none;
+                border-radius: 8px;
+                box-shadow: none;
+            }
             .p2s-solution-row--phone-stage .p2s-phone-frame--device video {
                 position: relative;
                 z-index: 1;
@@ -671,10 +692,26 @@
                 max-height: 100%;
                 object-fit: contain;
                 border: none;
-                border-radius: 23px;
-                box-shadow:
-                    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
-                    0 0 0 0.5px rgba(255, 255, 255, 0.04);
+                border-radius: 8px;
+                box-shadow: none;
+            }
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device:has(> video):not(:has(> img)) {
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+            }
+            .p2s-solution-row--phone-stage .p2s-phone-frame--device:has(> img):not(:has(> video)) {
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+            }
+            .p2s-overview-hero-stage .p2s-phone-frame--device:has(> video) {
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                padding: 0 !important;
             }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device {
                 width: min(320px, 100%);
@@ -986,10 +1023,11 @@
                 width: 100%;
                 display: block;
                 border-radius: 8px;
-                border: 1px solid var(--border-color);
-                background: var(--bg-color);
+                border: none;
+                background: transparent;
                 max-height: 480px;
                 object-fit: cover;
+                box-shadow: var(--video-shadow);
             }
 
             /* === SUMMARY & IMPACT GRID === */

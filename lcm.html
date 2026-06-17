@@ -110,7 +110,7 @@
             rgba(210, 168, 120, 0.14) 48%,
             rgba(139, 90, 43, 0.1) 100%
         );
-        border-radius: 16px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -135,15 +135,11 @@
         border-radius: 8px;
         background: transparent;
         display: block;
-        box-shadow:
-            0 8px 28px rgba(0, 0, 0, 0.12),
-            0 2px 8px rgba(46, 204, 113, 0.15);
+        box-shadow: var(--video-shadow);
         clip-path: none;
     }
     [data-theme="dark"] .lcm-video-stage-inner video {
-        box-shadow:
-            0 8px 28px rgba(0, 0, 0, 0.35),
-            0 2px 8px rgba(46, 204, 113, 0.12);
+        box-shadow: var(--video-shadow-dark);
     }
     /* ─── CALLOUT PAIR ──────────────────────────── */
     .lcm-callout-row {
