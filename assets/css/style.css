@@ -2597,8 +2597,16 @@ body.projects-more-modal-open {
     grid-template-columns: minmax(0, 2.5fr) minmax(0, 5fr);
 }
 
+.content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--tools):has(.case-hero-meta-item--team) {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.75fr);
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--timeline):has(.case-hero-meta-item--team):not(:has(.case-hero-meta-item--tools)) {
+    grid-template-columns: minmax(0, 2.5fr) minmax(0, 3fr);
+}
+
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-3 {
-    grid-template-columns: minmax(0, 2.5fr) minmax(0, 3.75fr) minmax(0, 3.75fr);
+    grid-template-columns: minmax(0, 2.5fr) minmax(0, 5fr) minmax(0, 2.25fr);
 }
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-item {
@@ -5456,8 +5464,18 @@ body.case-figure-zoom-open #scroll-container {
     .case-hero-meta {
         padding: 0;
     }
-    .case-hero-meta-inner {
-        grid-template-columns: 1fr;
+    .case-hero-meta-inner,
+    .case-hero-meta-inner--cols-1,
+    .case-hero-meta-inner--cols-2,
+    .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--tools):has(.case-hero-meta-item--team),
+    .case-hero-meta-inner--cols-3,
+    .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner,
+    .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2,
+    .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--timeline),
+    .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--tools):has(.case-hero-meta-item--team),
+    .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--timeline):has(.case-hero-meta-item--team):not(:has(.case-hero-meta-item--tools)),
+    .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-3 {
+        grid-template-columns: minmax(0, 1fr) !important;
     }
     .case-hero-meta-item {
         padding: 16px 20px;
@@ -5494,7 +5512,7 @@ body.case-figure-zoom-open #scroll-container {
 
     .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner {
         gap: 0;
-        align-items: start;
+        align-items: stretch;
     }
 
     .content-wrapper.sidebar-compact-scope--project .case-hero-meta-item {
