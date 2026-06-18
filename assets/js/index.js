@@ -75,10 +75,17 @@ const AppLogic = {
 
     // --- 2. SMOOTH SCROLL (LENIS) ---
     initLenis: function() {
+        // Tear down any existing instance + its rAF loop. This is essential when
+        // the viewport crosses to mobile width: a leftover Lenis instance stays
+        // bound to #scroll-container (which becomes overflow:visible on mobile) and
+        // swallows wheel/touch gestures, leaving the page stuck at the top.
         if (window.__lenis) {
+            if (this._lenisRaf) cancelAnimationFrame(this._lenisRaf);
+            this._lenisRaf = null;
             window.__lenis.destroy();
             window.__lenis = null;
         }
+
         if (window.innerWidth > 1200 && typeof Lenis !== 'undefined') {
             const wrapper = document.getElementById('scroll-container');
             const content = document.querySelector('.single-page-wrapper');
@@ -87,15 +94,33 @@ const AppLogic = {
             const lenis = new Lenis({ wrapper, content, duration: 1.2, smooth: true });
             window.__lenis = lenis;
 
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
+            const raf = (time) => { lenis.raf(time); this._lenisRaf = requestAnimationFrame(raf); };
+            this._lenisRaf = requestAnimationFrame(raf);
 
             const refreshLenis = () => lenis.resize();
             setTimeout(refreshLenis, 100);
             setTimeout(refreshLenis, 400);
             window.addEventListener('load', refreshLenis);
-            window.addEventListener('resize', refreshLenis);
         }
+
+        this.initLenisBreakpointWatcher();
+    },
+
+    // Re-evaluate Lenis when the viewport crosses the 1200px breakpoint so smooth
+    // scroll is created on desktop and fully destroyed on mobile (bound once).
+    initLenisBreakpointWatcher: function() {
+        if (this._lenisBreakpointBound) return;
+        this._lenisBreakpointBound = true;
+        window.addEventListener('resize', () => {
+            const isMobile = window.innerWidth <= 1200;
+            if (isMobile) {
+                if (window.__lenis) this.initLenis();
+            } else if (!window.__lenis) {
+                this.initLenis();
+            } else {
+                window.__lenis.resize();
+            }
+        }, { passive: true });
     },
 
     // --- 3. SCROLL INTERACTIONS ---
