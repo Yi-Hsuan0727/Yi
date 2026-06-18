@@ -1878,31 +1878,40 @@
             <img id="p2s-parallax-img" src="assets/img/Pic2Split/landing image.png" alt="">
         </div>
 
-        <script>
-            (function () {
-                const root = document.querySelector('#page-specific-content');
-                if (!root) return;
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="assets/js/cursor.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/layout-components.js"></script>
+    <script src="assets/js/components.js"></script>
+
+    <script>
+        PortfolioApp.init('pic2split');
+    </script>
+    <script>
+        /* Runs after PortfolioApp.init has built the live layout — query the
+           rendered DOM, not #page-specific-content (which buildLayout discards). */
+        (function () {
+            function setup() {
                 /* --- Parallax (rAF loop — works with Lenis) --- */
-                const wrap = root.querySelector('.p2s-parallax-wrap');
-                const img  = root.querySelector('#p2s-parallax-img');
+                const wrap = document.querySelector('.p2s-parallax-wrap');
+                const img  = document.querySelector('#p2s-parallax-img');
                 if (wrap && img) {
                     const scroller = document.querySelector('#scroll-container');
                     const SPEED = 0.3;
-                    let rafId;
                     function updateParallax() {
-                        const scrollTop = scroller ? scroller.scrollTop : window.scrollY;
                         const wrapRect  = wrap.getBoundingClientRect();
                         const containerTop = scroller ? scroller.getBoundingClientRect().top : 0;
                         const relativeTop  = wrapRect.top - containerTop;
                         const offset = -relativeTop * SPEED;
                         img.style.transform = `translateY(${offset}px)`;
-                        rafId = requestAnimationFrame(updateParallax);
+                        requestAnimationFrame(updateParallax);
                     }
                     updateParallax();
                 }
 
-                const videos = Array.from(root.querySelectorAll('video[data-autoplay-on-view]'));
+                const videos = Array.from(document.querySelectorAll('video[data-autoplay-on-view]'));
                 if (!videos.length || typeof IntersectionObserver === 'undefined') return;
 
                 const observer = new IntersectionObserver((entries) => {
@@ -1923,18 +1932,14 @@
                 }, { threshold: 0.35 });
 
                 videos.forEach((video) => observer.observe(video));
-            })();
-        </script>
-    </div>
+            }
 
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="assets/js/cursor.js"></script>
-    <script src="assets/js/index.js"></script>
-    <script src="assets/js/layout-components.js"></script>
-    <script src="assets/js/components.js"></script>
-
-    <script>
-        PortfolioApp.init('pic2split');
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setup);
+            } else {
+                setup();
+            }
+        })();
     </script>
 </body>
 </html>
