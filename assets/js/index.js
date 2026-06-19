@@ -106,21 +106,30 @@ const AppLogic = {
         this.initLenisBreakpointWatcher();
     },
 
+    _handleLenisBreakpoint: function() {
+        const isMobile = window.innerWidth <= 1200;
+        if (isMobile) {
+            if (window.__lenis) this.initLenis();
+        } else if (!window.__lenis) {
+            this.initLenis();
+        } else {
+            window.__lenis.resize();
+        }
+    },
+
     // Re-evaluate Lenis when the viewport crosses the 1200px breakpoint so smooth
-    // scroll is created on desktop and fully destroyed on mobile (bound once).
+    // scroll is created on desktop and fully destroyed on mobile.
     initLenisBreakpointWatcher: function() {
-        if (this._lenisBreakpointBound) return;
-        this._lenisBreakpointBound = true;
-        window.addEventListener('resize', () => {
-            const isMobile = window.innerWidth <= 1200;
-            if (isMobile) {
-                if (window.__lenis) this.initLenis();
-            } else if (!window.__lenis) {
-                this.initLenis();
-            } else {
-                window.__lenis.resize();
-            }
-        }, { passive: true });
+        if (this._lenisResizeHandler) return;
+        this._lenisResizeHandler = () => this._handleLenisBreakpoint();
+        window.addEventListener('resize', this._lenisResizeHandler, { passive: true });
+        window.addEventListener('pagehide', () => this.teardownLenisBreakpointWatcher(), { once: true });
+    },
+
+    teardownLenisBreakpointWatcher: function() {
+        if (!this._lenisResizeHandler) return;
+        window.removeEventListener('resize', this._lenisResizeHandler);
+        this._lenisResizeHandler = null;
     },
 
     // --- 3. SCROLL INTERACTIONS ---

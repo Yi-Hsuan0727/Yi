@@ -36,7 +36,6 @@ export function Sticker({
     <>
       {icon}
       {!iconOnly && children}
-      {iconOnly && children}
     </>
   );
   if (href) {
