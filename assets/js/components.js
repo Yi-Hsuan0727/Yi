@@ -416,17 +416,6 @@ const PortfolioApp = {
         return this.getHomeProjects().filter(function(p) { return p.secondary; });
     },
 
-    getPlaygroundProjects: function() {
-        var self = this;
-        return this.playgroundProjectIds.map(function(id) {
-            return self.getProject(id);
-        }).filter(Boolean);
-    },
-
-    getMoreWorkProjects: function() {
-        return this.getSecondaryProjects().concat(this.getPlaygroundProjects());
-    },
-
     applyHomeProjectsContent: function(html) {
         if (!html) return html;
 
@@ -434,7 +423,7 @@ const PortfolioApp = {
         var gridHTML = featured.map(function(p) {
             return LayoutComponents.buildFeaturedProjectCard(p);
         }).join('');
-        var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getMoreWorkProjects());
+        var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
 
         var parser = new DOMParser();
         var doc = parser.parseFromString('<div id="home-content-root">' + html + '</div>', 'text/html');
