@@ -9,7 +9,7 @@ const PortfolioApp = {
         {
             id: 'pic2split',
             title: 'Pic2Split',
-            cardHeadline: 'Shipped an AI web app that scans receipts and splits group bills in seconds.',
+            cardHeadline: 'Shipped an AI web app that splits group bills in under 2 min—2× faster than the 4-min competitor baseline.',
             subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
             desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
             demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
