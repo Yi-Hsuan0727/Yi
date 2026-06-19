@@ -1,0 +1,82 @@
+/* =========================================================================
+   Yi Portfolio Design System — Design Tokens
+   Ported from the portfolio's :root variables + FIGMA_TOKENS.json.
+   Every component in this library styles itself from these custom properties.
+   ========================================================================= */
+:root {
+  /* Brand font */
+  --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* --- Color: surfaces & text --- */
+  --bg-color: #ffffff;
+  --text-color: #111111;
+  --secondary-text: #555555;
+  --border-color: #e0e0e0;
+  --surface-alt: #f8f9fa;
+  --image-placeholder: #eeeeee;
+
+  /* --- Color: accent --- */
+  --accent-color: #2ecc71;
+  --accent-hover: #27ae60;
+  --accent-soft: rgba(46, 204, 113, 0.07);
+  --accent-blue: #4a55e0;
+  --accent-yellow: #e8e258;
+
+  /* --- Color: problem / destructive --- */
+  --problem-color: #e74c3c;
+  --problem-bg: rgba(231, 76, 60, 0.1);
+  --problem-bg-strong: rgba(231, 76, 60, 0.14);
+  --problem-border: rgba(231, 76, 60, 0.32);
+
+  /* --- Elevation --- */
+  --video-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.06);
+  --sticker-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08), 4px 6px 0 rgba(0, 0, 0, 0.12),
+    0 10px 22px rgba(0, 0, 0, 0.14);
+  --sticker-shadow-hover: 0 0 0 2px rgba(0, 0, 0, 0.1), 5px 7px 0 rgba(0, 0, 0, 0.14),
+    0 14px 28px rgba(0, 0, 0, 0.16);
+
+  /* --- Radius --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  /* --- Spacing scale --- */
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 10px;
+  --space-5: 12px;
+  --space-6: 14px;
+  --space-7: 15px;
+  --space-8: 16px;
+  --space-9: 18px;
+  --space-10: 20px;
+  --space-11: 24px;
+  --space-12: 25px;
+  --space-13: 28px;
+  --space-14: 30px;
+  --space-15: 40px;
+  --space-16: 56px;
+  --space-17: 60px;
+  --space-18: 72px;
+
+  /* --- Type scale --- */
+  --fs-display: 56px;
+  --fs-section: 28px;
+  --fs-next-project: 24px;
+  --fs-card-overlay: 25px;
+  --fs-label: 13px;
+  --fs-body: 16px;
+  --fs-body-sm: 14px;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --secondary-text: #aaaaaa;
+  --border-color: #333333;
+  --surface-alt: #1a1a1a;
+  --accent-soft: rgba(46, 204, 113, 0.1);
+}

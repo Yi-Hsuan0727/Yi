@@ -1,0 +1,14 @@
+{
+  "pkg": "yi-portfolio-ds",
+  "globalName": "YiDS",
+  "shape": "package",
+  "buildCmd": "npm --prefix design-system run build",
+  "cssEntry": "dist/styles.css",
+  "tokensGlob": "dist/tokens.css",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "Modal": { "cardMode": "single", "primaryStory": "Open", "viewport": "600x480" },
+    "PieChart": { "cardMode": "column" },
+    "ProjectCard": { "cardMode": "column" }
+  }
+}
