@@ -73,6 +73,29 @@ const AppLogic = {
         });
     },
 
+    _refreshLenis: function() {
+        if (window.__lenis) window.__lenis.resize();
+    },
+
+    _clearLenisRefreshTimers: function() {
+        if (this._lenisRefreshT100 != null) clearTimeout(this._lenisRefreshT100);
+        if (this._lenisRefreshT400 != null) clearTimeout(this._lenisRefreshT400);
+        this._lenisRefreshT100 = null;
+        this._lenisRefreshT400 = null;
+    },
+
+    _bindLenisLoadRefresh: function() {
+        if (this._lenisLoadHandler) return;
+        this._lenisLoadHandler = () => this._refreshLenis();
+        window.addEventListener('load', this._lenisLoadHandler);
+    },
+
+    _unbindLenisLoadRefresh: function() {
+        if (!this._lenisLoadHandler) return;
+        window.removeEventListener('load', this._lenisLoadHandler);
+        this._lenisLoadHandler = null;
+    },
+
     // --- 2. SMOOTH SCROLL (LENIS) ---
     initLenis: function() {
         // Tear down any existing instance + its rAF loop. This is essential when

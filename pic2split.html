@@ -1900,6 +1900,20 @@
                 if (wrap && img) {
                     const scroller = document.querySelector('#scroll-container');
                     const SPEED = 0.3;
+                    let parallaxRaf = null;
+
+                    function stopParallax() {
+                        if (parallaxRaf !== null) {
+                            cancelAnimationFrame(parallaxRaf);
+                            parallaxRaf = null;
+                        }
+                    }
+
+                    function updateParallax() {
+                        if (!wrap.isConnected || !img.isConnected) {
+                            stopParallax();
+                            return;
+                        }
                     function updateParallax() {
                         const wrapRect  = wrap.getBoundingClientRect();
                         const containerTop = scroller ? scroller.getBoundingClientRect().top : 0;
@@ -1908,7 +1922,9 @@
                         img.style.transform = `translateY(${offset}px)`;
                         requestAnimationFrame(updateParallax);
                     }
-                    updateParallax();
+
+                    parallaxRaf = requestAnimationFrame(updateParallax);
+                    window.addEventListener('pagehide', stopParallax, { once: true });
                 }
 
                 const videos = Array.from(document.querySelectorAll('video[data-autoplay-on-view]'));
