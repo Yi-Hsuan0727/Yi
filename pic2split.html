@@ -1914,12 +1914,13 @@
                             stopParallax();
                             return;
                         }
+                    function updateParallax() {
                         const wrapRect  = wrap.getBoundingClientRect();
                         const containerTop = scroller ? scroller.getBoundingClientRect().top : 0;
                         const relativeTop  = wrapRect.top - containerTop;
                         const offset = -relativeTop * SPEED;
                         img.style.transform = `translateY(${offset}px)`;
-                        parallaxRaf = requestAnimationFrame(updateParallax);
+                        requestAnimationFrame(updateParallax);
                     }
 
                     parallaxRaf = requestAnimationFrame(updateParallax);

@@ -102,10 +102,8 @@ const AppLogic = {
         // the viewport crosses to mobile width: a leftover Lenis instance stays
         // bound to #scroll-container (which becomes overflow:visible on mobile) and
         // swallows wheel/touch gestures, leaving the page stuck at the top.
-        this._clearLenisRefreshTimers();
-
         if (window.__lenis) {
-            if (this._lenisRaf != null) cancelAnimationFrame(this._lenisRaf);
+            if (this._lenisRaf) cancelAnimationFrame(this._lenisRaf);
             this._lenisRaf = null;
             window.__lenis.destroy();
             window.__lenis = null;
@@ -122,55 +120,30 @@ const AppLogic = {
             const raf = (time) => { lenis.raf(time); this._lenisRaf = requestAnimationFrame(raf); };
             this._lenisRaf = requestAnimationFrame(raf);
 
-            this._lenisRefreshT100 = setTimeout(() => this._refreshLenis(), 100);
-            this._lenisRefreshT400 = setTimeout(() => this._refreshLenis(), 400);
-            this._bindLenisLoadRefresh();
-        } else {
-            this._unbindLenisLoadRefresh();
+            const refreshLenis = () => lenis.resize();
+            setTimeout(refreshLenis, 100);
+            setTimeout(refreshLenis, 400);
+            window.addEventListener('load', refreshLenis);
         }
 
         this.initLenisBreakpointWatcher();
     },
 
-    _handleLenisBreakpoint: function() {
-        const isMobile = window.innerWidth <= 1200;
-        if (isMobile) {
-            if (window.__lenis) this.initLenis();
-        } else if (!window.__lenis) {
-            this.initLenis();
-        } else {
-            window.__lenis.resize();
-        }
-    },
-
     // Re-evaluate Lenis when the viewport crosses the 1200px breakpoint so smooth
-    // scroll is created on desktop and fully destroyed on mobile.
+    // scroll is created on desktop and fully destroyed on mobile (bound once).
     initLenisBreakpointWatcher: function() {
-        if (this._lenisBreakpointWatcherBound) return;
-        this._lenisBreakpointWatcherBound = true;
-
-        this._lenisResizeHandler = () => this._handleLenisBreakpoint();
-        window.addEventListener('resize', this._lenisResizeHandler, { passive: true });
-
-        this._lenisPagehideHandler = () => this.teardownLenisBreakpointWatcher();
-        window.addEventListener('pagehide', this._lenisPagehideHandler);
-    },
-
-    teardownLenisBreakpointWatcher: function() {
-        if (!this._lenisBreakpointWatcherBound) return;
-        this._lenisBreakpointWatcherBound = false;
-
-        if (this._lenisResizeHandler) {
-            window.removeEventListener('resize', this._lenisResizeHandler);
-            this._lenisResizeHandler = null;
-        }
-        if (this._lenisPagehideHandler) {
-            window.removeEventListener('pagehide', this._lenisPagehideHandler);
-            this._lenisPagehideHandler = null;
-        }
-
-        this._clearLenisRefreshTimers();
-        this._unbindLenisLoadRefresh();
+        if (this._lenisBreakpointBound) return;
+        this._lenisBreakpointBound = true;
+        window.addEventListener('resize', () => {
+            const isMobile = window.innerWidth <= 1200;
+            if (isMobile) {
+                if (window.__lenis) this.initLenis();
+            } else if (!window.__lenis) {
+                this.initLenis();
+            } else {
+                window.__lenis.resize();
+            }
+        }, { passive: true });
     },
 
     // --- 3. SCROLL INTERACTIONS ---
