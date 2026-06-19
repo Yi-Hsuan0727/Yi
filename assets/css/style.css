@@ -1298,6 +1298,81 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .projects-more-card.is-active .projects-more-card-visual img {
     transform: scale(1.03);
 }
+.projects-more-card-award {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    max-width: calc(100% - 24px);
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(17, 17, 17, 0.88);
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+}
+.projects-more-card-name-award {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.82);
+}
+.projects-more-deck:has(.projects-more-card:nth-child(6)) .projects-more-card {
+    flex: 0 0 min(240px, 22vw);
+    margin: 0 -58px;
+}
+.home-can-bring {
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.home-can-bring-title {
+    margin-bottom: 24px;
+}
+.home-can-bring-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+.home-can-bring-card {
+    padding: 24px 22px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.home-can-bring-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    background: var(--accent-green-soft);
+    color: #1a9c54;
+    font-size: 1.05rem;
+}
+.home-can-bring-card-title {
+    margin: 0 0 10px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+    line-height: 1.3;
+}
+.home-can-bring-card-desc {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--secondary-text);
+}
 body.projects-more-modal-open {
     overflow: hidden;
 }
@@ -5300,6 +5375,17 @@ body.case-figure-zoom-open #scroll-container {
         top: -40px;
         max-width: 100%;
         white-space: normal;
+    }
+    .home-can-bring {
+        margin-top: 36px;
+        padding-top: 32px;
+    }
+    .home-can-bring-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .home-can-bring-card {
+        padding: 20px 18px;
     }
     .home-below-projects { padding: 8px 20px 40px; margin-top: 4px; }
     .home-about-intro { padding: 28px 20px 36px; }

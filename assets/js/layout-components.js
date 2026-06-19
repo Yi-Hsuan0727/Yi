@@ -318,10 +318,16 @@ const LayoutComponents = {
         return projects.map(function(p, index) {
             const style = deckStyles[index % deckStyles.length];
             const heroSrc = p.heroImage || p.image || '';
+            const awardLabel = p.awardShort || p.award || '';
+            const awardHTML = awardLabel
+                ? `<span class="projects-more-card-award">${awardLabel}</span>`
+                : '';
+            const cardLabel = awardLabel ? `${p.title} — ${awardLabel}` : p.title;
             return `
-                <button type="button" class="projects-more-card" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};--card-lift:${style.lift};" aria-haspopup="dialog" aria-label="${p.title}">
-                    <span class="projects-more-card-name" aria-hidden="true">${p.title}</span>
+                <button type="button" class="projects-more-card${awardLabel ? ' has-award' : ''}" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};--card-lift:${style.lift};" aria-haspopup="dialog" aria-label="${cardLabel}">
+                    <span class="projects-more-card-name" aria-hidden="true">${p.title}${awardLabel ? `<span class="projects-more-card-name-award">${awardLabel}</span>` : ''}</span>
                     <span class="projects-more-card-visual">
+                        ${awardHTML}
                         <img src="${heroSrc}" alt="" loading="lazy" decoding="async">
                     </span>
                 </button>`;

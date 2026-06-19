@@ -241,7 +241,49 @@ const PortfolioApp = {
             ],
             role: 'UI/Front-end Lead',
             tools: ['Figma', 'React', 'Alpine.js', 'Tailwind CSS', 'ASP.NET Core MVC', 'SQLite', 'JavaScript', 'HTML5', 'CSS'],
-            liveLink: 'https://devpost.com/software/daily-moo-mood'
+            liveLink: 'https://devpost.com/software/daily-moo-mood',
+            award: "2nd Place Winner · RoseHack, UC Riverside (2025)",
+            awardShort: '2nd Place · RoseHack 2025'
+        },
+        {
+            id: 'enchanter',
+            title: 'Enchanter',
+            subtitle: '3D Adventure Game',
+            listSubline: 'Endstar platform game where players fix a magical painting to break a kingdom\'s curse.',
+            desc: 'A 3D adventure game built on the Endstar platform combining exploration, puzzle-solving, and narrative storytelling. (People\'s Choice Award winner)',
+            demoIntro: 'Designed and built a fantasy adventure game on Endstar where players restore a magical painting to break a kingdom\'s curse.',
+            filterType: 'apps',
+            audience: 'Consumer',
+            tags: ['Game Design', '3D', 'Narrative'],
+            image: 'assets/img/main images/Enchanter.png',
+            heroImage: 'assets/img/main images/Enchanter.png',
+            link: 'enchanter.html',
+            timeline: 'Endstar Game Maker Spark Challenge 2025',
+            team: 'Team project',
+            role: 'Game Design & Development',
+            tools: ['Endstar', 'Figma'],
+            liveLink: 'https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game',
+            award: "People's Choice Award · Endstar Game Maker Spark Challenge, ASU (2025)",
+            awardShort: "People's Choice Award"
+        },
+        {
+            id: 'stiffy',
+            title: 'Stiffy Wanderers',
+            subtitle: 'Interactive Mobile Game',
+            listSubline: 'Location-based mobile game guiding a rock character through environmental missions.',
+            desc: 'A mobile game guiding a rock character through environmental missions based on real-time location. (Hackathon project)',
+            demoIntro: 'Designed an interactive mobile game that uses real-time location to guide players through environmental missions.',
+            filterType: 'apps',
+            audience: 'Consumer',
+            tags: ['Game Design', 'Mobile App', 'Hackathon'],
+            image: 'assets/img/main images/Stiffy.png',
+            heroImage: 'assets/img/Stiffy/main visual.png',
+            link: 'stiffy.html',
+            timeline: 'Hackathon project',
+            team: 'Team project',
+            role: 'UI/UX Design',
+            tools: ['Figma'],
+            liveLink: 'https://devpost.com/software/stiffy-wanderers'
         }
     ],
 
@@ -374,6 +416,17 @@ const PortfolioApp = {
         return this.getHomeProjects().filter(function(p) { return p.secondary; });
     },
 
+    getPlaygroundProjects: function() {
+        var self = this;
+        return this.playgroundProjectIds.map(function(id) {
+            return self.getProject(id);
+        }).filter(Boolean);
+    },
+
+    getMoreWorkProjects: function() {
+        return this.getSecondaryProjects().concat(this.getPlaygroundProjects());
+    },
+
     applyHomeProjectsContent: function(html) {
         if (!html) return html;
 
@@ -381,7 +434,7 @@ const PortfolioApp = {
         var gridHTML = featured.map(function(p) {
             return LayoutComponents.buildFeaturedProjectCard(p);
         }).join('');
-        var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
+        var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getMoreWorkProjects());
 
         var parser = new DOMParser();
         var doc = parser.parseFromString('<div id="home-content-root">' + html + '</div>', 'text/html');
@@ -920,6 +973,8 @@ const PortfolioApp = {
             { selector: '.projects-more-title', extraClass: '' },
             { selector: '.projects-more-intro', extraClass: '' },
             { selector: '.projects-more-card', extraClass: 'home-reveal--deck', stepMs: 110 },
+            { selector: '.home-can-bring-title', extraClass: '' },
+            { selector: '.home-can-bring-card', extraClass: '' },
             { selector: '.home-about-title', extraClass: '' },
             { selector: '.home-about-copy', extraClass: '' },
             { selector: '.home-about-photo-card', extraClass: 'home-reveal--photo', stepMs: 100 },
