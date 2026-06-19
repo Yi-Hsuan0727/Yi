@@ -134,7 +134,7 @@
 
 .case-info-stat-value {
     font-size: 1.05rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-color);
     line-height: 1.2;
 }
@@ -363,7 +363,7 @@
 .case-chart-value,
 .p2s-chart-value {
     font-size: 0.78rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-color);
     text-align: left;
     white-space: nowrap;
@@ -409,7 +409,7 @@
 .p2s-chart-stat-num {
     display: block;
     font-size: 1.35rem;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: -0.03em;
     color: var(--accent-blue);
     line-height: 1.1;
@@ -489,7 +489,7 @@
 
 .case-pie-hole-num {
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--accent-blue);
     line-height: 1;
 }
@@ -559,7 +559,7 @@
 
 .case-pie-legend-value {
     font-size: 0.78rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--accent-blue);
 }
 

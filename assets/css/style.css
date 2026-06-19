@@ -2640,6 +2640,35 @@ body.projects-more-modal-open {
     padding-right: var(--case-page-pad-x);
 }
 
+/* Project case content: reserve 800 for sidebar page h1 only (.hero-text h1); no 900 */
+.content-wrapper.sidebar-compact-scope--project .right-panel :is(
+    h2, h3, h4, h5, h6,
+    .case-section-title,
+    .case-phase-result-head,
+    .case-phase-block-title,
+    .p2s-section-title-main,
+    .p2s-phase-block-title,
+    .p2s-step-num,
+    .p2s-outcome-num,
+    .p2s-speed-stat-value,
+    .law-title,
+    .uav-title,
+    .uav-hero-title,
+    .qb-title,
+    .lt-title,
+    .mag-title,
+    .lcm-title,
+    .un-title,
+    .wn-title,
+    .next-projects-title
+) {
+    font-weight: 700;
+}
+
+.content-wrapper.sidebar-compact-scope--project .hero-text h1 {
+    font-weight: 800;
+}
+
 .content-wrapper.sidebar-compact-scope--project .case-hero {
     position: static;
     padding: 32px var(--case-page-pad-x) 0;
@@ -2837,7 +2866,7 @@ body.projects-more-modal-open {
 }
 .case-section-title {
     font-size: 1.75rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.2;
     margin: 0;
     color: var(--text-color);
@@ -2863,14 +2892,14 @@ body.projects-more-modal-open {
     padding: 0 0 0 14px;
     border-left: 3px solid var(--accent-blue);
     font-size: 1.15rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.02em;
     color: var(--text-color);
 }
 .case-phase-result-head strong {
     color: var(--accent-blue);
-    font-weight: 800;
+    font-weight: 700;
 }
 .case-phase-body {
     font-size: 0.84rem;
@@ -3026,7 +3055,7 @@ body.projects-more-modal-open {
 .p2s-phase-block-title {
     margin: 0;
     font-size: 1.32rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.02em;
     color: var(--text-color);
@@ -3342,7 +3371,7 @@ body.projects-more-modal-open {
 .uav-hero-title {
     font-size: clamp(2rem, 5vw, 3.2rem);
     line-height: 1.05;
-    font-weight: 900;
+    font-weight: 700;
     margin-top: 10px;
     margin-bottom: 8px;
 }
@@ -4610,7 +4639,7 @@ body.case-figure-zoom-open #scroll-container {
 }
 .next-projects-title {
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 700;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 24px;
 }
@@ -5516,11 +5545,22 @@ body.case-figure-zoom-open #scroll-container {
         max-width: 100%;
     }
     .p2s-overview-hero-stage .p2s-phone-frame--device,
+    .p2s-impact-demo-stage .p2s-phone-frame--device,
     .case-section .p2s-grid-2.p2s-solution-row--phone-stage .p2s-phone-frame--device {
         aspect-ratio: 9 / 19.5;
         align-self: center;
         height: auto;
+        width: min(38%, 148px);
+        max-width: min(38%, 148px);
         max-height: min(46vw, 260px);
+    }
+    .p2s-solution-row--phone-stage .p2s-phone-frame--device video,
+    .p2s-solution-row--phone-stage .p2s-phone-frame--device img,
+    .p2s-impact-demo-stage .p2s-phone-frame--device video {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
     }
 
     /* Overview hero blocks: side padding */
