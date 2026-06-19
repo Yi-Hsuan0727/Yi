@@ -73,12 +73,37 @@ const AppLogic = {
         });
     },
 
+    _refreshLenis: function() {
+        if (window.__lenis) window.__lenis.resize();
+    },
+
+    _clearLenisRefreshTimers: function() {
+        if (this._lenisRefreshT100) clearTimeout(this._lenisRefreshT100);
+        if (this._lenisRefreshT400) clearTimeout(this._lenisRefreshT400);
+        this._lenisRefreshT100 = null;
+        this._lenisRefreshT400 = null;
+    },
+
+    _bindLenisLoadRefresh: function() {
+        if (this._lenisLoadHandler) return;
+        this._lenisLoadHandler = () => this._refreshLenis();
+        window.addEventListener('load', this._lenisLoadHandler);
+    },
+
+    _unbindLenisLoadRefresh: function() {
+        if (!this._lenisLoadHandler) return;
+        window.removeEventListener('load', this._lenisLoadHandler);
+        this._lenisLoadHandler = null;
+    },
+
     // --- 2. SMOOTH SCROLL (LENIS) ---
     initLenis: function() {
         // Tear down any existing instance + its rAF loop. This is essential when
         // the viewport crosses to mobile width: a leftover Lenis instance stays
         // bound to #scroll-container (which becomes overflow:visible on mobile) and
         // swallows wheel/touch gestures, leaving the page stuck at the top.
+        this._clearLenisRefreshTimers();
+
         if (window.__lenis) {
             if (this._lenisRaf) cancelAnimationFrame(this._lenisRaf);
             this._lenisRaf = null;
@@ -97,10 +122,11 @@ const AppLogic = {
             const raf = (time) => { lenis.raf(time); this._lenisRaf = requestAnimationFrame(raf); };
             this._lenisRaf = requestAnimationFrame(raf);
 
-            const refreshLenis = () => lenis.resize();
-            setTimeout(refreshLenis, 100);
-            setTimeout(refreshLenis, 400);
-            window.addEventListener('load', refreshLenis);
+            this._lenisRefreshT100 = setTimeout(() => this._refreshLenis(), 100);
+            this._lenisRefreshT400 = setTimeout(() => this._refreshLenis(), 400);
+            this._bindLenisLoadRefresh();
+        } else {
+            this._unbindLenisLoadRefresh();
         }
 
         this.initLenisBreakpointWatcher();
@@ -130,6 +156,8 @@ const AppLogic = {
         if (!this._lenisResizeHandler) return;
         window.removeEventListener('resize', this._lenisResizeHandler);
         this._lenisResizeHandler = null;
+        this._clearLenisRefreshTimers();
+        this._unbindLenisLoadRefresh();
     },
 
     // --- 3. SCROLL INTERACTIONS ---
