@@ -78,8 +78,8 @@ const AppLogic = {
     },
 
     _clearLenisRefreshTimers: function() {
-        if (this._lenisRefreshT100) clearTimeout(this._lenisRefreshT100);
-        if (this._lenisRefreshT400) clearTimeout(this._lenisRefreshT400);
+        if (this._lenisRefreshT100 != null) clearTimeout(this._lenisRefreshT100);
+        if (this._lenisRefreshT400 != null) clearTimeout(this._lenisRefreshT400);
         this._lenisRefreshT100 = null;
         this._lenisRefreshT400 = null;
     },
@@ -105,7 +105,7 @@ const AppLogic = {
         this._clearLenisRefreshTimers();
 
         if (window.__lenis) {
-            if (this._lenisRaf) cancelAnimationFrame(this._lenisRaf);
+            if (this._lenisRaf != null) cancelAnimationFrame(this._lenisRaf);
             this._lenisRaf = null;
             window.__lenis.destroy();
             window.__lenis = null;
@@ -146,16 +146,29 @@ const AppLogic = {
     // Re-evaluate Lenis when the viewport crosses the 1200px breakpoint so smooth
     // scroll is created on desktop and fully destroyed on mobile.
     initLenisBreakpointWatcher: function() {
-        if (this._lenisResizeHandler) return;
+        if (this._lenisBreakpointWatcherBound) return;
+        this._lenisBreakpointWatcherBound = true;
+
         this._lenisResizeHandler = () => this._handleLenisBreakpoint();
         window.addEventListener('resize', this._lenisResizeHandler, { passive: true });
-        window.addEventListener('pagehide', () => this.teardownLenisBreakpointWatcher(), { once: true });
+
+        this._lenisPagehideHandler = () => this.teardownLenisBreakpointWatcher();
+        window.addEventListener('pagehide', this._lenisPagehideHandler);
     },
 
     teardownLenisBreakpointWatcher: function() {
-        if (!this._lenisResizeHandler) return;
-        window.removeEventListener('resize', this._lenisResizeHandler);
-        this._lenisResizeHandler = null;
+        if (!this._lenisBreakpointWatcherBound) return;
+        this._lenisBreakpointWatcherBound = false;
+
+        if (this._lenisResizeHandler) {
+            window.removeEventListener('resize', this._lenisResizeHandler);
+            this._lenisResizeHandler = null;
+        }
+        if (this._lenisPagehideHandler) {
+            window.removeEventListener('pagehide', this._lenisPagehideHandler);
+            this._lenisPagehideHandler = null;
+        }
+
         this._clearLenisRefreshTimers();
         this._unbindLenisLoadRefresh();
     },
