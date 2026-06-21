@@ -102,7 +102,7 @@ const CursorLogic = {
                 return;
             }
 
-            if (el.closest('.project-grid .project-card')) {
+            if (el.closest('.project-grid .project-card, .home-spotlight-card__link')) {
                 document.body.classList.add('hovering');
                 setCursorLabel({ visible: true, text: DEFAULT_LABEL, hidePointer: true });
                 return;

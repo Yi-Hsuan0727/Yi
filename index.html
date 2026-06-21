@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michelle Chen - Portfolio</title>
-    <meta name="description" content="Michelle Chen — an accessibility-focused product designer who designs and ships WCAG-compliant web products in semantic HTML/CSS, from government platforms to inclusive, AI-powered apps.">
+    <meta name="description" content="Michelle Chen — I transform complex, high-density data and AI-driven technologies into intuitive, accessible web experiences. Armed with an M.S. in UX/HCI, I design and ship scalable, WCAG-compliant digital systems built for everyone.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Michelle Chen">
     <meta property="og:title" content="Michelle Chen — Accessibility-Focused Product Designer">
@@ -24,72 +24,59 @@
 </head>
 <body>
     <div id="page-specific-content" style="display: none;">
-        <h2 class="visually-hidden" id="featured-work-heading">Featured work</h2>
-        <div class="project-grid" id="featured-work" aria-labelledby="featured-work-heading">
-            <!-- FEATURED WORK — order is data-driven from PortfolioApp.projectList (featured:true) -->
-            <div class="project-card" data-category="apps" onclick="window.location.href='pic2split.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/pic2split.png" alt="Pic2Split" style="width:100%;height:100%;object-fit:cover;">
-                </div>
-                <div class="project-card-info">
-                    <h3 class="project-card-title">Shipped an AI web app that scans receipts and splits group bills in seconds.</h3>
-                    <div class="project-card-tags">
-                        <span class="project-overlay-tag project-overlay-tag--audience">Consumer</span>
-                        <span class="project-overlay-tag">Product Design</span>
-                        <span class="project-overlay-tag">UX Research</span>
-                        <span class="project-overlay-tag">Web App</span>
-                    </div>
+        <section class="home-featured-edge" id="featured-work" aria-labelledby="featured-work-heading">
+            <div class="home-featured-edge-inner">
+                <h2 class="visually-hidden" id="featured-work-heading">Featured work</h2>
+                <div class="home-featured-spotlights" id="featured-work-list" aria-label="Featured case studies">
+                    <!-- Filled at runtime from PortfolioApp.getFeaturedProjects() -->
                 </div>
             </div>
-            <div class="project-card" data-category="web" onclick="window.location.href='unesco.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/UNESCO.png" alt="UNESCO Volunteer Recruitment" style="width:100%;height:100%;object-fit:cover;">
-                </div>
-                <div class="project-card-info">
-                    <h3 class="project-card-title">Researched and rebuilt UNESCO&apos;s volunteer flow to turn interest into sign-ups.</h3>
-                    <div class="project-card-tags">
-                        <span class="project-overlay-tag project-overlay-tag--audience">Public</span>
-                        <span class="project-overlay-tag">UX Research</span>
-                        <span class="project-overlay-tag">UX/UI Design</span>
-                        <span class="project-overlay-tag">Web Redesign</span>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card" data-category="web" onclick="window.location.href='lcm.html'">
-                <div class="image-container">
-                    <img src="assets/img/main images/indigenous Cultural Museums.png" alt="Indigenous Cultural Museums" style="width:100%;height:100%;object-fit:cover;object-position:right center;">
-                </div>
-                <div class="project-card-info">
-                    <h3 class="project-card-title">Hand-coded a WCAG 2.1 AA site unifying 30 indigenous museums.</h3>
-                    <div class="project-card-tags">
-                        <span class="project-overlay-tag project-overlay-tag--audience">Public</span>
-                        <span class="project-overlay-tag">UI Design</span>
-                        <span class="project-overlay-tag">Front-End Development</span>
-                        <span class="project-overlay-tag">Accessibility</span>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card" data-category="apps" onclick="window.location.href='uav.html'">
-                <div class="image-container image-container--video">
-                    <video src="assets/img/UAV/technician video.mp4" autoplay muted playsinline loop preload="auto" aria-label="UAV Control System"></video>
-                </div>
-                <div class="project-card-info">
-                    <h3 class="project-card-title">Technician tablet UI for an AI-assisted farm drone — four-person team.</h3>
-                    <div class="project-card-tags">
-                        <span class="project-overlay-tag project-overlay-tag--audience">Enterprise</span>
-                        <span class="project-overlay-tag">UI Design</span>
-                        <span class="project-overlay-tag">Prototyping</span>
-                        <span class="project-overlay-tag">Mobile App</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
         <!-- MORE WORK — secondary projects (secondary:true); #projects-more-list is filled at runtime from PortfolioApp.getSecondaryProjects() -->
         <section class="projects-more" id="projects-more" aria-labelledby="projects-more-heading">
             <div class="projects-more-inner">
                 <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More work</span><span class="projects-more-shapes" aria-hidden="true"><span class="shape shape-circle"></span><span class="shape shape-triangle"></span><span class="shape shape-square"></span></span></h2>
                 <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects — client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
-                <div class="projects-more-deck" id="projects-more-list" role="list"></div>
+                <div class="projects-more-scroll" tabindex="0" aria-label="Scroll through more projects">
+                    <div class="projects-more-deck projects-more-deck--scroll" id="projects-more-list" role="list"></div>
+                </div>
+            </div>
+        </section>
+        <section class="home-can-bring home-panel" id="home-can-bring" aria-labelledby="home-can-bring-heading">
+            <div class="home-can-bring-ai-note comic-speech-bubble comic-speech-bubble--tail-down home-reveal home-reveal--pop home-reveal--bubble">
+                <i class="fas fa-bolt" aria-hidden="true"></i>
+                <p>I move fast with <strong>Claude, Cursor, and Figma</strong> — more energy for the decisions that matter.</p>
+            </div>
+            <div class="home-can-bring-inner">
+                <header class="home-can-bring-header home-reveal">
+                    <h2 class="projects-more-title home-can-bring-title" id="home-can-bring-heading"><span class="projects-more-title-text">What can I bring</span><span class="projects-more-shapes" aria-hidden="true"><span class="shape shape-circle"></span><span class="shape shape-triangle"></span><span class="shape shape-square"></span></span></h2>
+                </header>
+                <div class="home-can-bring-grid">
+                    <article class="home-can-bring-card home-reveal">
+                        <div class="home-can-bring-card-head">
+                            <span class="home-can-bring-card-icon" aria-hidden="true"><i class="fas fa-code"></i></span>
+                            <span class="home-can-bring-card-num">01</span>
+                        </div>
+                        <h3 class="home-can-bring-card-title">I ship the front-end</h3>
+                        <p class="home-can-bring-card-desc">I write the semantic HTML, CSS, and ARIA myself. Focus states, keyboard flows, and screen-reader behavior survive into production instead of getting lost in handoff — because I build them, not just spec them.</p>
+                    </article>
+                    <article class="home-can-bring-card home-reveal">
+                        <div class="home-can-bring-card-head">
+                            <span class="home-can-bring-card-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></span>
+                            <span class="home-can-bring-card-num">02</span>
+                        </div>
+                        <h3 class="home-can-bring-card-title">Accessibility, real-world tested</h3>
+                        <p class="home-can-bring-card-desc">I&apos;ve hand-coded a live WCAG 2.1 AA government platform. With the European Accessibility Act and ADA Title II deadlines landing, I help teams design out compliance risk early — as working code, not a checklist.</p>
+                    </article>
+                    <article class="home-can-bring-card home-reveal">
+                        <div class="home-can-bring-card-head">
+                            <span class="home-can-bring-card-icon" aria-hidden="true"><i class="fas fa-link"></i></span>
+                            <span class="home-can-bring-card-num">03</span>
+                        </div>
+                        <h3 class="home-can-bring-card-title">A real bridge to engineering</h3>
+                        <p class="home-can-bring-card-desc">I speak enough of engineering&apos;s language to make the work better: designs grounded in what&apos;s shippable, fewer dropped details, and a smoother handoff because there&apos;s simply less to hand off.</p>
+                    </article>
+                </div>
             </div>
         </section>
         <section class="home-about" id="about" aria-label="About Michelle">
@@ -97,10 +84,6 @@
                 <h2 class="projects-more-title home-about-title">About me</h2>
                 <div class="home-about-lead">
                     <div class="home-about-copy">
-                        <p>
-                            I am a UX/UI designer focused on product thinking, interface craft, and practical systems.
-                            I enjoy turning complex problems into clear, useful digital experiences rooted in real user stories.
-                        </p>
                         <p>
                             Originally from Taiwan, I moved to Arizona in August 2024 to pursue my M.S. in UX/HCI at Arizona State University, graduating in May 2026.
                             I speak fluent Mandarin and am learning Japanese and German.
@@ -111,9 +94,46 @@
                             <a href="https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game" target="_blank" rel="noopener noreferrer" class="home-about-award-link" data-award-preview="assets/img/Enchanter/group%20presentation.jpeg">People&apos;s Choice Award · Endstar Game Maker Spark Challenge</a> recipient, and I care deeply about community—through
                             volunteering, serving as a Student Adobe Ambassador at ASU, and my work with Toastmasters.
                         </p>
-                        <p>
-                            Outside of work, I recharge through animation, design and art, travel, Minecraft, and saying yes to new things.
-                        </p>
+
+                        <div class="home-about-career">
+                            <div class="about-exp-group about-exp-group--work">
+                                <h3 class="about-section-heading">Work Experience</h3>
+                                <ul class="about-experience-list">
+                                    <li class="about-exp-item">
+                                        <span class="about-exp-period">Jun 2025 – May 2026</span>
+                                        <div class="about-exp-body">
+                                            <p class="about-exp-title">UX/UI Designer at VisLab</p>
+                                            <p class="about-exp-desc">Designed scalable UI for multi-tenant Drupal apps and an EdTech water-resource platform—turning complex data into accessible interfaces through research, prototyping, and close engineer collaboration.</p>
+                                        </div>
+                                    </li>
+                                    <li class="about-exp-item">
+                                        <span class="about-exp-period">Oct 2023 – Sep 2024</span>
+                                        <div class="about-exp-body">
+                                            <p class="about-exp-title">UX/UI Designer at M-think Technology</p>
+                                            <p class="about-exp-desc">Raised core task success rates by 15% through analytics-driven UI iterations, modular component specs, and cross-platform design QA before engineering handoff.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="about-exp-group about-exp-group--education">
+                                <h3 class="about-section-heading">Education</h3>
+                                <ul class="about-experience-list">
+                                    <li class="about-exp-item">
+                                        <span class="about-exp-period">May 2026</span>
+                                        <div class="about-exp-body">
+                                            <p class="about-exp-title">M.S. UX/HCI</p>
+                                            <p class="about-exp-org">Arizona State University, Tempe, AZ · GPA 4.0/4.0</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="about-exp-group about-exp-group--toolbox" id="toolbox">
+                                <h3 class="about-section-heading">Toolbox</h3>
+                                <div id="home-toolbox-stickers" class="home-toolbox-stickers" role="list" aria-label="Tools and technologies"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="home-about-photos" aria-label="Photos of Michelle">
@@ -129,46 +149,6 @@
                             <div class="home-about-photo-card home-about-photo-card--front"><img src="assets/img/Michelle/IMG_2395.png" alt="Michelle photo"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="home-about-career">
-                <div class="about-exp-group about-exp-group--work">
-                    <h3 class="about-section-heading">Work Experience</h3>
-                    <ul class="about-experience-list">
-                        <li class="about-exp-item">
-                            <span class="about-exp-period">Jun 2025 – May 2026</span>
-                            <div class="about-exp-body">
-                                <p class="about-exp-title">UX/UI Designer</p>
-                                <p class="about-exp-org">VisLab, Arizona State University</p>
-                            </div>
-                        </li>
-                        <li class="about-exp-item">
-                            <span class="about-exp-period">Oct 2023 – Sep 2024</span>
-                            <div class="about-exp-body">
-                                <p class="about-exp-title">Website Interface/UI Designer</p>
-                                <p class="about-exp-org">M-think Technology, Taiwan</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="about-exp-group about-exp-group--education">
-                    <h3 class="about-section-heading">Education</h3>
-                    <ul class="about-experience-list">
-                        <li class="about-exp-item">
-                            <span class="about-exp-period">May 2026</span>
-                            <div class="about-exp-body">
-                                <p class="about-exp-title">M.S. UX/HCI</p>
-                                <p class="about-exp-org">Arizona State University, Tempe, AZ · GPA 4.0/4.0</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="about-exp-group about-exp-group--toolbox" id="toolbox">
-                    <h3 class="about-section-heading">Toolbox</h3>
-                    <div id="home-toolbox-stickers" class="home-toolbox-stickers" role="list" aria-label="Tools and technologies"></div>
                 </div>
             </div>
         </section>

@@ -7,7 +7,7 @@ const BubbleConfetti = {
     },
 
     getHostParent: function(target) {
-        return target.closest('.site-contact-form, .site-contact-connect-note');
+        return target.closest('.site-contact-form, .site-contact-actions');
     },
 
     ensureHost: function(target) {

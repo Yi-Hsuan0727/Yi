@@ -135,7 +135,9 @@ const ContactFormLogic = {
 
         this.form.dataset.state = isSubmitting ? 'submitting' : 'idle';
         this.submitBtn.disabled = isSubmitting;
-        this.submitBtn.textContent = isSubmitting ? 'Sending…' : 'Send message';
+        this.submitBtn.innerHTML = isSubmitting
+            ? 'Sending…'
+            : 'Say hello <i class="fas fa-arrow-up-right" aria-hidden="true"></i>';
     },
 
     clearFeedback: function() {

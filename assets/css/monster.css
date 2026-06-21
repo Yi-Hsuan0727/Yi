@@ -82,11 +82,11 @@
     z-index: 6;
     width: 100%;
     max-width: 640px;
-    min-height: 188px;
-    margin: -64px auto 0;
-    padding: 0 16px 10px;
+    min-height: 168px;
+    margin: -40px auto 0;
+    padding: 0 16px 6px;
     pointer-events: none;
-    transform: translateY(-36px);
+    transform: translateY(-12px);
 }
 
 .monster-chat-bubble {
@@ -113,25 +113,25 @@ h2.monster-chat-bubble {
     --bubble-tilt: -5deg;
     --bubble-tail-x: 36%;
     left: 2%;
-    top: -28px;
+    top: -12px;
 }
 .monster-chat-bubble--2 {
     --bubble-tilt: 4deg;
     --bubble-tail-x: 54%;
     left: 36%;
-    top: -20px;
+    top: -2px;
 }
 .monster-chat-bubble--3 {
     --bubble-tilt: -2.5deg;
     --bubble-tail-x: 46%;
     right: 0;
-    top: 16px;
+    top: 26px;
 }
 .monster-chat-bubble--4 {
     --bubble-tilt: 3deg;
     --bubble-tail-x: 58%;
     left: 18%;
-    top: 52px;
+    top: 58px;
 }
 
 .monster-speech-cluster.is-visible .monster-chat-bubble {
@@ -425,10 +425,10 @@ h2.monster-chat-bubble {
     }
 
     .monster-speech-cluster {
-        min-height: 160px;
-        margin: -48px auto 0;
-        padding: 0 12px 8px;
-        transform: translateY(-28px);
+        min-height: 145px;
+        margin: -32px auto 0;
+        padding: 0 12px 6px;
+        transform: translateY(-8px);
     }
 
     .monster-chat-bubble {
@@ -440,13 +440,13 @@ h2.monster-chat-bubble {
 
     .monster-chat-bubble--1 {
         left: 0;
-        top: -20px;
+        top: -8px;
         max-width: 42%;
     }
 
     .monster-chat-bubble--2 {
         left: 34%;
-        top: -12px;
+        top: 0;
         max-width: 48%;
     }
 
@@ -458,7 +458,7 @@ h2.monster-chat-bubble {
 
     .monster-chat-bubble--4 {
         left: 14%;
-        top: 64px;
+        top: 62px;
         max-width: 52%;
     }
 

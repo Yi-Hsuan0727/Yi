@@ -202,14 +202,17 @@ const LayoutComponents = {
         return `https://cdn.jsdelivr.net/npm/simple-icons@11.14.0/icons/${slug}.svg`;
     },
 
+    toolIconBrandSrc: function(slug) {
+        return `https://cdn.simpleicons.org/${slug}`;
+    },
+
     buildToolSticker: function(modifier, innerHTML, href, label) {
         return `<a class="tool-sticker tool-sticker--${modifier}" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${label}" role="listitem">${innerHTML}</a>`;
     },
 
     buildToolStickers: function(wrapperClass) {
+        const brand = this.toolIconBrandSrc.bind(this);
         const icon = this.toolIconSrc.bind(this);
-        const cursorSvg = '<svg class="tool-sticker-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2 3 6.5v11L12 22l9-4.5v-11L12 2zm0 2.45 6.75 3.38v6.74L12 18.55l-6.75-3.38V7.83L12 4.45z"/></svg>';
-        const claudeSvg = '<svg class="tool-sticker-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2.4c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm0 8.8c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm-6.4 4.4c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6zm12.8 0c.35 2.45 2.15 4.25 4.6 4.6-2.45.35-4.25 2.15-4.6 4.6-.35-2.45-2.15-4.25-4.6-4.6 2.45-.35 4.25-2.15 4.6-4.6z"/></svg>';
         const stickers = [
             this.buildToolSticker('figma', `<img src="${icon('figma')}" alt="">`, 'https://www.figma.com/', 'Figma'),
             this.buildToolSticker('ai', '<span class="tool-sticker-mark" aria-hidden="true">Ai</span>', 'https://www.adobe.com/products/illustrator.html', 'Adobe Illustrator'),
@@ -220,8 +223,8 @@ const LayoutComponents = {
             this.buildToolSticker('indesign', '<span class="tool-sticker-mark tool-sticker-mark--id" aria-hidden="true">Id</span>', 'https://www.adobe.com/products/indesign.html', 'Adobe InDesign'),
             this.buildToolSticker('vscode', `<img src="${icon('visualstudiocode')}" alt="">`, 'https://code.visualstudio.com/', 'VS Code'),
             this.buildToolSticker('github', `<img src="${icon('github')}" alt="">`, 'https://github.com/Yi-Hsuan0727/Yi', 'GitHub'),
-            this.buildToolSticker('cursor', cursorSvg, 'https://cursor.com/', 'Cursor'),
-            this.buildToolSticker('claude', claudeSvg, 'https://claude.ai/', 'Claude'),
+            this.buildToolSticker('cursor', `<img src="${brand('cursor')}" alt="">`, 'https://cursor.com/', 'Cursor'),
+            this.buildToolSticker('claude', `<img src="${icon('anthropic')}" alt="">`, 'https://claude.ai/', 'Claude'),
             this.buildToolSticker('gemini', `<img src="${icon('googlegemini')}" alt="">`, 'https://gemini.google.com/', 'Gemini'),
             this.buildToolSticker('chatgpt', `<img src="${icon('openai')}" alt="">`, 'https://chat.openai.com/', 'ChatGPT')
         ];
@@ -282,6 +285,33 @@ const LayoutComponents = {
         return '';
     },
 
+    buildFeaturedSpotlightCard: function(project) {
+        const stats = (project.spotlightStats || []).map(function(stat) {
+            const valueClass = stat.accent ? ' home-spotlight-stat__value--accent' : '';
+            return `<div class="home-spotlight-stat">
+                <dt class="home-spotlight-stat__value${valueClass}">${stat.value}</dt>
+                <dd class="home-spotlight-stat__label">${stat.label}</dd>
+            </div>`;
+        }).join('');
+        const imgSrc = project.image || '';
+        const objectPosition = project.cardImagePosition || 'center center';
+        return `
+            <article class="home-spotlight-card" data-project-id="${project.id || ''}">
+                <a class="home-spotlight-card__link" href="${project.link}">
+                    <div class="home-spotlight-card__visual">
+                        <img class="home-spotlight-card__hero" src="${imgSrc}" alt="${project.title}" loading="lazy" decoding="async" style="object-position:${objectPosition};">
+                    </div>
+                    <div class="home-spotlight-card__body">
+                        <p class="home-spotlight-card__eyebrow">${project.spotlightEyebrow || project.audience || ''}</p>
+                        <h3 class="home-spotlight-card__title">${project.spotlightTitle || project.cardHeadline || project.title}</h3>
+                        <p class="home-spotlight-card__desc">${project.spotlightDesc || project.demoIntro || project.desc || ''}</p>
+                        <dl class="home-spotlight-card__stats">${stats}</dl>
+                        <span class="home-spotlight-card__cta">Read the case study <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+            </article>`;
+    },
+
     buildFeaturedProjectCard: function(project) {
         const tagsHTML = typeof PortfolioApp !== 'undefined' && PortfolioApp.buildProjectOverlayTags
             ? PortfolioApp.buildProjectOverlayTags(project)
@@ -309,10 +339,10 @@ const LayoutComponents = {
     buildMoreProjectsDeckItems: function(projects) {
         if (!projects || !projects.length) return '';
         const deckStyles = [
-            { tilt: '-7deg', z: 2, lift: '10px' },
-            { tilt: '4deg', z: 4, lift: '-18px' },
-            { tilt: '-3deg', z: 3, lift: '6px' },
-            { tilt: '6deg', z: 1, lift: '14px' }
+            { tilt: '-2deg', z: 1 },
+            { tilt: '2deg', z: 2 },
+            { tilt: '-1deg', z: 3 },
+            { tilt: '1.5deg', z: 4 }
         ];
 
         return projects.map(function(p, index) {
@@ -324,7 +354,7 @@ const LayoutComponents = {
                 : '';
             const cardLabel = awardLabel ? `${p.title} — ${awardLabel}` : p.title;
             return `
-                <button type="button" class="projects-more-card${awardLabel ? ' has-award' : ''}" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};--card-lift:${style.lift};" aria-haspopup="dialog" aria-label="${cardLabel}">
+                <button type="button" class="projects-more-card${awardLabel ? ' has-award' : ''}" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};" aria-haspopup="dialog" aria-label="${cardLabel}">
                     <span class="projects-more-card-name" aria-hidden="true">${p.title}${awardLabel ? `<span class="projects-more-card-name-award">${awardLabel}</span>` : ''}</span>
                     <span class="projects-more-card-visual">
                         ${awardHTML}
@@ -350,7 +380,9 @@ const LayoutComponents = {
                 <div class="projects-more-inner">
                     <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More projects</span>${this.buildHeroTitleShapes()}</h2>
                     <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects — client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
-                    <div class="projects-more-deck" id="projects-more-list" role="list">${items}</div>
+                    <div class="projects-more-scroll" tabindex="0" aria-label="Scroll through more projects">
+                        <div class="projects-more-deck projects-more-deck--scroll" id="projects-more-list" role="list">${items}</div>
+                    </div>
                 </div>
             </section>`;
     },
@@ -421,41 +453,41 @@ const LayoutComponents = {
                 <div class="site-contact-inner">
                     <form class="site-contact-form">
                         <div class="site-contact-layout">
-                            <div class="site-contact-connect-note">
-                                <p class="site-contact-scroll-thanks">Thanks for scrolling all the way down!</p>
-                                <p class="site-contact-connect-lead">You can send me a message through the contact form below, or connect with me through</p>
-                                <div class="site-contact-connect-stickers">
-                                    <a class="connect-sticker connect-sticker--email" href="mailto:yche1356@asu.edu">
-                                        <i class="fas fa-envelope" aria-hidden="true"></i>
-                                        <span>email</span>
-                                    </a>
-                                    <a class="connect-sticker connect-sticker--linkedin" href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer">
+                            <div class="site-contact-col site-contact-col--intro home-reveal">
+                                <p class="site-contact-kicker"><span class="site-contact-kicker-dot" aria-hidden="true"></span>Get in touch</p>
+                                <h2 class="site-contact-heading" id="site-contact-heading">Let&apos;s build something<br>that ships.</h2>
+                                <div class="site-contact-social">
+                                    <a class="site-contact-btn site-contact-btn--icon site-contact-btn--outline" href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                                         <i class="fab fa-linkedin" aria-hidden="true"></i>
-                                        <span>LinkedIn</span>
                                     </a>
-                                    <a class="connect-sticker connect-sticker--resume" href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer">
+                                    <a class="site-contact-btn site-contact-btn--icon site-contact-btn--outline" href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume">
                                         <i class="fas fa-file-alt" aria-hidden="true"></i>
-                                        <span>Resume</span>
                                     </a>
                                 </div>
                             </div>
-                            <div class="site-contact-fields comic-speech-bubble">
-                                <div class="site-contact-row">
-                                    <label class="site-contact-label" for="contact-name">Name <span class="site-contact-required" aria-hidden="true">*</span></label>
-                                    <input class="site-contact-input" id="contact-name" name="name" type="text" autocomplete="name" required aria-required="true" minlength="1" placeholder="Your name">
+                            <div class="site-contact-divider" aria-hidden="true"></div>
+                            <div class="site-contact-col site-contact-col--body home-reveal">
+                                <p class="site-contact-lead">Open to new opportunities, collaborations, or just a good conversation about design.</p>
+                                <div class="site-contact-fields">
+                                    <div class="site-contact-row">
+                                        <label class="site-contact-label" for="contact-name">Name <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                        <input class="site-contact-input" id="contact-name" name="name" type="text" autocomplete="name" required aria-required="true" minlength="1" placeholder="Your name">
+                                    </div>
+                                    <div class="site-contact-row">
+                                        <label class="site-contact-label" for="contact-email">Email <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                        <input class="site-contact-input" id="contact-email" name="email" type="email" autocomplete="email" required aria-required="true" placeholder="you@email.com">
+                                    </div>
+                                    <div class="site-contact-row">
+                                        <label class="site-contact-label" for="contact-message">Message <span class="site-contact-required" aria-hidden="true">*</span></label>
+                                        <textarea class="site-contact-input site-contact-textarea" id="contact-message" name="message" rows="4" required aria-required="true" minlength="1" maxlength="2000" placeholder="What would you like to share?" aria-describedby="contact-message-count"></textarea>
+                                        <p class="site-contact-word-count" id="contact-message-count" aria-live="polite">0 / 250 words</p>
+                                    </div>
+                                    <input type="text" name="_honey" class="site-contact-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+                                    <div class="site-contact-actions">
+                                        <button type="submit" class="site-contact-btn site-contact-btn--primary site-contact-submit">Say hello <i class="fas fa-arrow-up-right" aria-hidden="true"></i></button>
+                                    </div>
+                                    <p class="site-contact-error" role="alert" hidden></p>
                                 </div>
-                                <div class="site-contact-row">
-                                    <label class="site-contact-label" for="contact-email">Email <span class="site-contact-required" aria-hidden="true">*</span></label>
-                                    <input class="site-contact-input" id="contact-email" name="email" type="email" autocomplete="email" required aria-required="true" placeholder="you@email.com">
-                                </div>
-                                <div class="site-contact-row">
-                                    <label class="site-contact-label" for="contact-message">Message <span class="site-contact-required" aria-hidden="true">*</span></label>
-                                    <textarea class="site-contact-input site-contact-textarea" id="contact-message" name="message" rows="4" required aria-required="true" minlength="1" maxlength="2000" placeholder="What would you like to share?" aria-describedby="contact-message-count"></textarea>
-                                    <p class="site-contact-word-count" id="contact-message-count" aria-live="polite">0 / 250 words</p>
-                                </div>
-                                <input type="text" name="_honey" class="site-contact-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-                                <button type="submit" class="site-contact-submit">Send message</button>
-                                <p class="site-contact-error" role="alert" hidden></p>
                             </div>
                         </div>
                         <div class="site-contact-success comic-speech-bubble" role="status" tabindex="-1" hidden>
@@ -475,8 +507,8 @@ const LayoutComponents = {
                 <div class="site-footer-monster">
                     <div class="monster-container">
                         <div class="monster-body">
-                            <div class="monster-speech-cluster" aria-live="polite">
-                                <h2 id="site-contact-heading" class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--1">Say hello!</h2>
+                            <div class="monster-speech-cluster" aria-hidden="true">
+                                <p class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--1">Say hello!</p>
                                 <p class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--2">Got a project in mind?</p>
                                 <p class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--3">Or just want to chat?</p>
                                 <p class="monster-chat-bubble comic-speech-bubble comic-speech-bubble--tail-down monster-chat-bubble--4">Drop me a note below!</p>

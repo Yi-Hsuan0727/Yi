@@ -17,6 +17,28 @@ const MoreProjectsDeck = {
         this.ensureModal();
         this.bindDeck(deck);
         this.bindDeckHover(deck);
+        this.centerDeckScroll();
+    },
+
+    centerDeckScroll: function() {
+        const scroll = document.querySelector('.projects-more-scroll');
+        const deck = document.getElementById('projects-more-list');
+        if (!scroll || !deck) return;
+
+        const center = () => {
+            const overflow = deck.scrollWidth - scroll.clientWidth;
+            scroll.scrollLeft = overflow > 0 ? overflow / 2 : 0;
+        };
+
+        center();
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(center);
+        }
+        window.addEventListener('load', center, { once: true });
+        window.addEventListener('resize', () => {
+            window.clearTimeout(this._deckCenterTimer);
+            this._deckCenterTimer = window.setTimeout(center, 120);
+        }, { passive: true });
     },
 
     bindDeckHover: function(deck) {

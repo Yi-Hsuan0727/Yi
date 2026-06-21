@@ -29,7 +29,15 @@ const PortfolioApp = {
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design (logo, components)',
             tools: ['Figma', 'Tailwind CSS', 'React', 'PaddleOCR', 'Google Gemini', 'Google SSO'],
             liveLink: null,
-            featured: true
+            featured: true,
+            spotlightEyebrow: 'Flagship · AI product',
+            spotlightTitle: 'Scan a receipt, split the bill in seconds.',
+            spotlightDesc: 'An end-to-end AI web app using OCR + Google Gemini—from photo to validated, shareable split—with multi-state logic that keeps cognitive load low at the table.',
+            spotlightStats: [
+                { value: '2× faster', label: 'vs. 4-min baseline', accent: true },
+                { value: '50% less time', label: 'per group split' },
+                { value: 'Live today', label: 'no app install' }
+            ]
         },
         {
             id: 'unesco',
@@ -50,7 +58,8 @@ const PortfolioApp = {
             role: 'UX Research (survey, interview, usability test), Product Design (userflow, wireframe, prototype), UI Design',
             tools: ['Figma'],
             liveLink: '#',
-            featured: true
+            featured: false,
+            secondary: true
         },
         {
             id: 'lcm',
@@ -76,7 +85,19 @@ const PortfolioApp = {
             role: 'Product Designer & Front-End Developer',
             tools: ['HTML/CSS', 'Illustrator', 'jQuery', 'Bootstrap'],
             liveLink: 'http://lcm.tacp.gov.tw/',
-            featured: true
+            featured: true,
+            spotlightEyebrow: 'Public sector · Accessibility',
+            spotlightTitle: 'One WCAG 2.1 AA home for 30 indigenous museums.',
+            spotlightDesc: 'I designed and hand-coded a unified museum portal for Taiwan\'s indigenous cultural institutions—semantic HTML/CSS, AA contrast, and navigation patterns that scale across 30 distinct collections.',
+            spotlightTagline: '30 museums, one accessible web home.',
+            spotlightVisual: 'assets/img/lcm/website mockup_lcm.png',
+            spotlightLogo: 'assets/img/lcm/lcm-logo.png',
+            spotlightBg: '#1a6b5c',
+            spotlightStats: [
+                { value: 'WCAG 2.1 AA', label: 'compliance target', accent: true },
+                { value: '30 museums', label: 'unified portal' },
+                { value: 'HTML/CSS', label: 'hand-coded ship' }
+            ]
         },
         {
             id: 'uav',
@@ -101,7 +122,15 @@ const PortfolioApp = {
             role: 'Technician Interface design',
             tools: ['Figma'],
             liveLink: '#',
-            featured: true
+            featured: true,
+            spotlightEyebrow: 'Enterprise · Agtech',
+            spotlightTitle: 'Technician UI for an AI-assisted farm drone.',
+            spotlightDesc: 'I owned the technician tablet interface—unifying mapping, spray, and thermal workflows into one screen, with a design target that cuts payload diagnosis from 18 minutes to 5.',
+            spotlightStats: [
+                { value: '18m → 5m', label: 'diagnosis target', accent: true },
+                { value: 'One platform', label: 'map · spray · thermal' },
+                { value: '12-hr shifts', label: 'field-ready UI' }
+            ]
         },
         {
             id: 'lawfare',
@@ -292,7 +321,7 @@ const PortfolioApp = {
             heroGreeting: "Hi! I'm Michelle Chen",
             title: `<span class="hero-title-line">Accessibility<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Design<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Web products<span class="shape shape-square" aria-hidden="true"></span></span>`,
             desc: '',
-            briefIntro: "An accessibility-focused product designer who designs and ships WCAG-compliant web products in semantic HTML/CSS—from government platforms to inclusive, AI-powered apps.",
+            briefIntro: "I transform complex, high-density data and AI-driven technologies into intuitive, accessible web experiences. Armed with an M.S. in UX/HCI, I design and ship scalable, WCAG-compliant digital systems built for everyone.",
             meta: ``
         },
         about: {
@@ -420,8 +449,8 @@ const PortfolioApp = {
         if (!html) return html;
 
         var featured = this.getFeaturedProjects();
-        var gridHTML = featured.map(function(p) {
-            return LayoutComponents.buildFeaturedProjectCard(p);
+        var spotlightHTML = featured.map(function(p) {
+            return LayoutComponents.buildFeaturedSpotlightCard(p);
         }).join('');
         var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
 
@@ -430,8 +459,8 @@ const PortfolioApp = {
         var root = doc.getElementById('home-content-root');
         if (!root) return html;
 
-        var grid = root.querySelector('.project-grid');
-        if (grid) grid.innerHTML = gridHTML;
+        var spotlightList = root.querySelector('#featured-work-list, .home-featured-spotlights');
+        if (spotlightList) spotlightList.innerHTML = spotlightHTML;
 
         var moreList = root.querySelector('#projects-more-list');
         if (moreList) moreList.innerHTML = moreHTML;
@@ -958,12 +987,13 @@ const PortfolioApp = {
             { selector: '.hero-title-line', extraClass: '' },
             { selector: '.sidebar-intro', extraClass: '' },
             { selector: '.home-header-tech', extraClass: '' },
-            { selector: '.project-grid .project-card', extraClass: '' },
+            { selector: '.home-spotlight-card', extraClass: '' },
             { selector: '.projects-more-title', extraClass: '' },
             { selector: '.projects-more-intro', extraClass: '' },
             { selector: '.projects-more-card', extraClass: 'home-reveal--deck', stepMs: 110 },
-            { selector: '.home-can-bring-title', extraClass: '' },
+            { selector: '.home-can-bring-header', extraClass: '' },
             { selector: '.home-can-bring-card', extraClass: '' },
+            { selector: '.home-can-bring-ai-note', extraClass: 'home-reveal--pop home-reveal--bubble' },
             { selector: '.home-about-title', extraClass: '' },
             { selector: '.home-about-copy', extraClass: '' },
             { selector: '.home-about-photo-card', extraClass: 'home-reveal--photo', stepMs: 100 },
@@ -972,8 +1002,8 @@ const PortfolioApp = {
             { selector: '.home-about-career .about-exp-group', extraClass: '' },
             { selector: '.home-toolbox-stickers .tool-sticker', extraClass: 'home-reveal--fade' },
             { selector: '.site-footer-monster', extraClass: '' },
-            { selector: '.site-contact-connect-note', extraClass: '' },
-            { selector: '.connect-sticker', extraClass: '' },
+            { selector: '.site-contact-col--intro', extraClass: '' },
+            { selector: '.site-contact-col--body', extraClass: '' },
             { selector: '.site-contact-fields', extraClass: '' }
         ];
 

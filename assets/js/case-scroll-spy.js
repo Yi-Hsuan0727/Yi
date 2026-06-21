@@ -25,6 +25,7 @@ const CaseScrollSpy = {
     homeSections: [
         { selector: '#featured-work', labelFrom: '#featured-work-heading' },
         { selector: '#projects-more', labelFrom: '#projects-more-heading' },
+        { selector: '#home-can-bring', labelFrom: '#home-can-bring-heading' },
         { selector: '.site-contact-band', labelFrom: '#site-contact-heading' }
     ],
 
@@ -41,7 +42,7 @@ const CaseScrollSpy = {
         }
 
         nav.hidden = false;
-        const isHome = !!document.querySelector('.single-page-wrapper .project-grid');
+        const isHome = !!document.querySelector('#featured-work, .home-featured-edge');
         const sections = isHome ? this.collectHomeSections() : this.collectCaseSections();
         const items = this.buildNavItems(list, sections);
 
