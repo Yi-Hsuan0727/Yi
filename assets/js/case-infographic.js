@@ -209,12 +209,22 @@ const CaseInfographic = {
 
     observeMotion() {
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const isMobileLayout = window.matchMedia('(max-width: 1200px)').matches;
         const targets = document.querySelectorAll('.case-motion, .case-info-flow');
 
         if (reduced) {
             targets.forEach((el) => el.classList.add('is-visible'));
             return;
         }
+
+        if (isMobileLayout) {
+            document.querySelectorAll('.case-motion--phone-device').forEach((el) => {
+                el.classList.add('is-visible');
+            });
+        }
+
+        const scrollRoot = document.getElementById('scroll-container');
+        const observerRoot = isMobileLayout || !scrollRoot ? null : scrollRoot;
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -224,7 +234,7 @@ const CaseInfographic = {
                     observer.unobserve(entry.target);
                 });
             },
-            { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+            { threshold: 0.08, root: observerRoot, rootMargin: '0px 0px -24px 0px' }
         );
 
         targets.forEach((el) => observer.observe(el));
