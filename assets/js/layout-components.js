@@ -126,6 +126,44 @@ const LayoutComponents = {
         return this.buildSidebarScrollSpy();
     },
 
+    buildHomeHeaderComposition: function() {
+        return `
+            <figure class="home-header-composition cursor-hover" aria-hidden="true">
+                <div class="home-header-composition__float">
+                    <div class="home-header-composition__stage">
+                        <div class="home-header-composition__canvas-wrap" aria-hidden="true">
+                            <div class="home-header-composition__selection"></div>
+                            <div class="home-header-composition__canvas"></div>
+                            <div class="home-header-composition__frame">
+                                <span class="home-header-composition__handle home-header-composition__handle--tl"></span>
+                                <span class="home-header-composition__handle home-header-composition__handle--tr"></span>
+                                <span class="home-header-composition__handle home-header-composition__handle--bl"></span>
+                                <span class="home-header-composition__handle home-header-composition__handle--br"></span>
+                                <span class="home-header-composition__handle home-header-composition__handle--tm"></span>
+                                <span class="home-header-composition__handle home-header-composition__handle--bm"></span>
+                                <span class="home-header-composition__handle home-header-composition__handle--lm"></span>
+                                <span class="home-header-composition__handle home-header-composition__handle--rm"></span>
+                            </div>
+                            <span class="home-header-composition__measure home-header-composition__measure--width">451</span>
+                            <span class="home-header-composition__measure home-header-composition__measure--height">975</span>
+                            <span class="home-header-composition__tick home-header-composition__tick--top-left-h"></span>
+                            <span class="home-header-composition__tick home-header-composition__tick--top-left-v"></span>
+                            <span class="home-header-composition__tick home-header-composition__tick--top-right-h"></span>
+                            <span class="home-header-composition__tick home-header-composition__tick--top-right-v"></span>
+                            <span class="home-header-composition__tick home-header-composition__tick--bottom-left-h"></span>
+                            <span class="home-header-composition__tick home-header-composition__tick--bottom-left-v"></span>
+                        </div>
+                        <div
+                            class="home-header-composition__art"
+                            data-src="assets/img/Michelle/portfolio-composition-animated.svg"
+                            role="img"
+                            aria-hidden="true"
+                        ></div>
+                    </div>
+                </div>
+            </figure>`;
+    },
+
     buildHomePageHeader: function(pageData) {
         return `
             <header class="home-page-header">
@@ -134,6 +172,7 @@ const LayoutComponents = {
                 </div>
                 <div class="home-page-header-aside">
                     ${this.buildHomeTechNote()}
+                    ${this.buildHomeHeaderComposition()}
                 </div>
             </header>`;
     },

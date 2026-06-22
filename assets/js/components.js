@@ -529,6 +529,7 @@ const PortfolioApp = {
             this.initHomeAboutNav();
             this.initMoreProjectsDeck();
             this.initAboutAwardPreviews();
+            this.initHomeHeaderComposition();
         }
         if (typeof CursorLogic !== 'undefined') CursorLogic.ensure();
         const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
@@ -859,6 +860,169 @@ const PortfolioApp = {
         window.addEventListener('blur', hidePreview);
     },
 
+    initHomeHeaderComposition: function() {
+        if (window.matchMedia('(max-width: 1199px)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        const figure = document.querySelector('.home-header-composition');
+        const inner = figure ? figure.querySelector('.home-header-composition__float') : null;
+        const artHost = figure ? figure.querySelector('.home-header-composition__art') : null;
+        if (!figure || !inner || !artHost || figure.dataset.compositionInit) return;
+
+        const parallaxLayers = [
+            ['.comp-shape--purple', 9],
+            ['.comp-shape--orange', 13],
+            ['.comp-shape--green', 11],
+            ['.comp-shape--blue', 8],
+            ['.comp-shape--pink', 12],
+            ['.comp-shape--sage', 10],
+            ['.comp-bridge', 11],
+            ['.comp-chrome', 6],
+            ['.comp-dots', 14],
+            ['.comp-crosses', 16]
+        ];
+
+        const maxTilt = 7;
+        let layerNodes = [];
+        let svgRoot = null;
+
+        const cacheLayers = () => {
+            if (!svgRoot) return false;
+            layerNodes = parallaxLayers.map(([selector, strength]) => {
+                const node = svgRoot.querySelector(`${selector} .comp-parallax`);
+                return node ? { node, strength } : null;
+            }).filter(Boolean);
+            return layerNodes.length > 0;
+        };
+
+        const resetLayers = () => {
+            layerNodes.forEach(({ node }) => {
+                node.style.transform = '';
+            });
+        };
+
+        const onMove = (event) => {
+            const rect = figure.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+
+            const x = (event.clientX - rect.left) / rect.width - 0.5;
+            const y = (event.clientY - rect.top) / rect.height - 0.5;
+
+            inner.style.setProperty('--comp-tilt-x', `${(y * -maxTilt).toFixed(2)}deg`);
+            inner.style.setProperty('--comp-tilt-y', `${(x * maxTilt + -3).toFixed(2)}deg`);
+            figure.classList.add('is-interacting');
+
+            layerNodes.forEach(({ node, strength }) => {
+                node.style.transform = `translate(${(x * strength).toFixed(2)}px, ${(y * strength).toFixed(2)}px)`;
+            });
+        };
+
+        const onLeave = () => {
+            inner.style.removeProperty('--comp-tilt-x');
+            inner.style.removeProperty('--comp-tilt-y');
+            figure.classList.remove('is-interacting');
+            resetLayers();
+        };
+
+        const onMoveTiltOnly = (event) => {
+            const rect = figure.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            const x = (event.clientX - rect.left) / rect.width - 0.5;
+            const y = (event.clientY - rect.top) / rect.height - 0.5;
+            inner.style.setProperty('--comp-tilt-x', `${(y * -maxTilt).toFixed(2)}deg`);
+            inner.style.setProperty('--comp-tilt-y', `${(x * maxTilt + -3).toFixed(2)}deg`);
+            figure.classList.add('is-interacting');
+        };
+
+        const onLeaveTiltOnly = () => {
+            inner.style.removeProperty('--comp-tilt-x');
+            inner.style.removeProperty('--comp-tilt-y');
+            figure.classList.remove('is-interacting');
+        };
+
+        const bindTiltOnly = () => {
+            figure.dataset.compositionInit = '1';
+            figure.addEventListener('mousemove', onMoveTiltOnly);
+            figure.addEventListener('mouseleave', onLeaveTiltOnly);
+        };
+
+        const bind = () => {
+            if (!cacheLayers()) {
+                bindTiltOnly();
+                return;
+            }
+            figure.dataset.compositionInit = '1';
+            figure.addEventListener('mousemove', onMove);
+            figure.addEventListener('mouseleave', onLeave);
+        };
+
+        const svgSrc = artHost.dataset.src || 'assets/img/Michelle/portfolio-composition-animated.svg';
+        const canvasWrap = figure.querySelector('.home-header-composition__canvas-wrap');
+        const stage = figure.querySelector('.home-header-composition__stage');
+
+        const syncCanvasToPortrait = () => {
+            if (!canvasWrap || !stage || !svgRoot) return;
+            const portrait = svgRoot.querySelector('.comp-portrait image');
+            if (!portrait) return;
+
+            const stageRect = stage.getBoundingClientRect();
+            const portraitRect = portrait.getBoundingClientRect();
+            if (!stageRect.width || !stageRect.height || !portraitRect.width || !portraitRect.height) return;
+
+            const left = ((portraitRect.left - stageRect.left) / stageRect.width) * 100;
+            const top = ((portraitRect.top - stageRect.top) / stageRect.height) * 100;
+            const right = ((stageRect.right - portraitRect.right) / stageRect.width) * 100;
+            const bottom = ((stageRect.bottom - portraitRect.bottom) / stageRect.height) * 100;
+
+            canvasWrap.style.setProperty('--portrait-left', `${left.toFixed(3)}%`);
+            canvasWrap.style.setProperty('--portrait-top', `${top.toFixed(3)}%`);
+            canvasWrap.style.setProperty('--portrait-right', `${right.toFixed(3)}%`);
+            canvasWrap.style.setProperty('--portrait-bottom', `${bottom.toFixed(3)}%`);
+        };
+
+        const scheduleCanvasSync = () => {
+            requestAnimationFrame(() => {
+                syncCanvasToPortrait();
+                requestAnimationFrame(syncCanvasToPortrait);
+            });
+        };
+
+        if (!figure.dataset.compositionCanvasSync) {
+            figure.dataset.compositionCanvasSync = '1';
+            window.addEventListener('resize', scheduleCanvasSync);
+        }
+
+        fetch(svgSrc)
+            .then((response) => {
+                if (!response.ok) throw new Error('composition svg failed to load');
+                return response.text();
+            })
+            .then((svgText) => {
+                artHost.innerHTML = svgText.replace(
+                    /href="portrait-composition\.png"/g,
+                    'href="assets/img/Michelle/portrait-composition.png"'
+                );
+                svgRoot = artHost.querySelector('svg');
+                if (svgRoot) {
+                    svgRoot.setAttribute('aria-hidden', 'true');
+                    svgRoot.classList.add('home-header-composition__svg');
+                }
+                const portrait = svgRoot ? svgRoot.querySelector('.comp-portrait image') : null;
+                if (portrait) {
+                    if (portrait.complete) {
+                        scheduleCanvasSync();
+                    } else {
+                        portrait.addEventListener('load', scheduleCanvasSync, { once: true });
+                    }
+                }
+                bind();
+            })
+            .catch(() => {
+                artHost.innerHTML = `<img class="home-header-composition__fallback" src="${svgSrc}" alt="" aria-hidden="true">`;
+                bindTiltOnly();
+            });
+    },
+
     initSidebarMotion: function(pageType) {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         if (pageType === 'home') {
@@ -987,6 +1151,7 @@ const PortfolioApp = {
             { selector: '.hero-title-line', extraClass: '' },
             { selector: '.sidebar-intro', extraClass: '' },
             { selector: '.home-header-tech', extraClass: '' },
+            { selector: '.home-header-composition', extraClass: 'home-reveal--pop' },
             { selector: '.home-spotlight-card', extraClass: '' },
             { selector: '.projects-more-title', extraClass: '' },
             { selector: '.projects-more-intro', extraClass: '' },
