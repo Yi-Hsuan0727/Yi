@@ -44,14 +44,18 @@
     padding-top: 80px;
 }
 
-/* Curved blob background (keeps eyes visible) */
+/* Curved blob background — anchored to monster container, not above it */
 .site-footer-monster::before {
+    display: none;
+}
+
+.site-footer-monster .monster-container::before {
     content: '';
     position: absolute;
     left: 50%;
-    bottom: -60px;
+    bottom: 0;
     width: 180%;
-    height: 240px;
+    height: 100%;
     transform: translateX(-50%);
     background: rgb(46, 204, 113);
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
@@ -427,15 +431,23 @@ h2.monster-chat-bubble {
     .site-footer-monster {
         min-height: 0;
         padding-top: 56px;
+        overflow: visible;
     }
 
     .site-footer-monster .monster-container {
-        min-height: 0;
+        position: relative;
+        min-height: 140px;
+        overflow: visible;
     }
 
-    .site-footer-monster::before {
-        bottom: 0;
-        height: 200px;
+    .site-footer-monster .monster-container::before {
+        width: 220%;
+        border-radius: 50% 50% 0 0 / 55% 55% 0 0;
+    }
+
+    .site-footer-monster .monster-body {
+        position: relative;
+        z-index: 1;
     }
 
     .monster-speech-cluster {
