@@ -22,26 +22,26 @@
     justify-content: flex-end;
 }
 
+.site-footer-monster {
+    position: relative;
+    z-index: 2;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    background: transparent;
+    margin-bottom: 0;
+    padding-top: 80px;
+}
+
 .site-footer-monster .monster-container {
     width: 100%;
     height: auto;
-    min-height: 280px;
+    min-height: 200px;
     position: relative;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     overflow: visible;
-}
-
-.site-footer-monster {
-    position: relative;
-    z-index: 2;
-    height: auto;
-    min-height: 280px;
-    overflow: visible;
-    background: transparent;
-    margin-bottom: 0;
-    padding-top: 80px;
 }
 
 /* Curved blob background — anchored to monster container, not above it */
@@ -385,6 +385,34 @@ h2.monster-chat-bubble {
     100% {
         opacity: 0;
         transform: translate(-50%, -50%) translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1.05);
+    }
+}
+
+/* --- Desktop footer monster: curve locked to monster body --- */
+@media (min-width: 1201px) {
+    .site-footer-monster {
+        min-height: 0;
+        padding-top: 80px;
+    }
+
+    .site-footer-monster .monster-container {
+        min-height: 200px;
+    }
+
+    .site-footer-monster::before {
+        display: none;
+    }
+
+    .site-footer-monster .monster-container::before {
+        width: 180%;
+        height: 100%;
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+
+    .site-footer-monster .monster-body {
+        position: relative;
+        z-index: 1;
+        background: transparent;
     }
 }
 
