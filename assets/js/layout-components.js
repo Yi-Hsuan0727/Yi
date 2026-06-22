@@ -456,14 +456,7 @@ const LayoutComponents = {
                             <div class="site-contact-col site-contact-col--intro home-reveal">
                                 <p class="site-contact-kicker"><span class="site-contact-kicker-dot" aria-hidden="true"></span>Get in touch</p>
                                 <h2 class="site-contact-heading" id="site-contact-heading">Let&apos;s build something<br>that ships.</h2>
-                                <div class="site-contact-social">
-                                    <a class="site-contact-btn site-contact-btn--icon site-contact-btn--outline" href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                                        <i class="fab fa-linkedin" aria-hidden="true"></i>
-                                    </a>
-                                    <a class="site-contact-btn site-contact-btn--icon site-contact-btn--outline" href="assets/img/resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume">
-                                        <i class="fas fa-file-alt" aria-hidden="true"></i>
-                                    </a>
-                                </div>
+                                ${this.buildSidebarSocials()}
                             </div>
                             <div class="site-contact-divider" aria-hidden="true"></div>
                             <div class="site-contact-col site-contact-col--body home-reveal">

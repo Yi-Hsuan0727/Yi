@@ -424,6 +424,20 @@ h2.monster-chat-bubble {
         height: 14px;
     }
 
+    .site-footer-monster {
+        min-height: 0;
+        padding-top: 56px;
+    }
+
+    .site-footer-monster .monster-container {
+        min-height: 0;
+    }
+
+    .site-footer-monster::before {
+        bottom: 0;
+        height: 200px;
+    }
+
     .monster-speech-cluster {
         min-height: 145px;
         margin: -32px auto 0;
@@ -446,7 +460,7 @@ h2.monster-chat-bubble {
 
     .monster-chat-bubble--2 {
         left: 34%;
-        top: 0;
+        top: -10px;
         max-width: 48%;
     }
 

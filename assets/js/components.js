@@ -1003,6 +1003,7 @@ const PortfolioApp = {
             { selector: '.home-toolbox-stickers .tool-sticker', extraClass: 'home-reveal--fade' },
             { selector: '.site-footer-monster', extraClass: '' },
             { selector: '.site-contact-col--intro', extraClass: '' },
+            { selector: '.site-contact-col--intro .sidebar-social-link', extraClass: '' },
             { selector: '.site-contact-col--body', extraClass: '' },
             { selector: '.site-contact-fields', extraClass: '' }
         ];
