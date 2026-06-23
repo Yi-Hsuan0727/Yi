@@ -1817,6 +1817,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .projects-more-card-name__text {
     display: block;
     max-width: 100%;
+    /* The global `* { font-family: Montserrat }` rule matches this span directly and
+       beats the font inherited from the parent — so set the handwriting face here too. */
+    font-family: inherit;
     clip-path: inset(0 100% 0 0);
 }
 .projects-more-card-name__underline {
