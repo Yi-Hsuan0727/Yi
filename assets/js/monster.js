@@ -9,8 +9,8 @@ const MonsterLogic = {
     init: function() {
         if (this.isInitialized) return;
         const eyes = document.querySelectorAll('.monster-eye');
+        if (!eyes.length) return;
         const monsterBody = document.querySelector('.monster-body');
-        if (!eyes.length || !monsterBody) return;
         this.isInitialized = true;
 
         // --- 1. EYES FOLLOW CURSOR ---
@@ -55,26 +55,28 @@ const MonsterLogic = {
         this.startBlinking(eyes);
 
         // --- 4. CLICK/TAP: Brief pulse + sparkles ---
-        monsterBody.addEventListener('click', (e) => {
-            this.triggerClickEffect(monsterBody, {
-                clientX: e.clientX,
-                clientY: e.clientY
-            });
-        });
-        monsterBody.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            const touch = e.touches && e.touches[0];
-            if (touch) {
+        if (monsterBody) {
+            monsterBody.addEventListener('click', (e) => {
                 this.triggerClickEffect(monsterBody, {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
+                    clientX: e.clientX,
+                    clientY: e.clientY
                 });
-            } else {
-                this.triggerClickEffect(monsterBody, null);
-            }
-        }, { passive: false });
+            });
+            monsterBody.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches && e.touches[0];
+                if (touch) {
+                    this.triggerClickEffect(monsterBody, {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    });
+                } else {
+                    this.triggerClickEffect(monsterBody, null);
+                }
+            }, { passive: false });
 
-        this.initSpeechBubble();
+            this.initSpeechBubble();
+        }
     },
 
     initSpeechBubble: function() {

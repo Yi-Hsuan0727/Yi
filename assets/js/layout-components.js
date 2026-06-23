@@ -25,12 +25,22 @@ const LayoutComponents = {
         const introHTML = introText
             ? `<p class="sidebar-intro">${introText}</p>`
             : '';
-        const greetingHTML = pageData.heroGreeting && !projectMeta
-            ? (pageType === 'home'
-                ? `<div class="home-hero-greeting-row"><span class="hero-title-greeting">${pageData.heroGreeting}</span>${this.buildSidebarSocials()}</div>`
-                : `<p class="hero-title-greeting">${pageData.heroGreeting}</p>`)
+        const greetingHTML = pageData.heroGreeting && !projectMeta && pageType !== 'home'
+            ? `<p class="hero-title-greeting">${pageData.heroGreeting}</p>`
             : '';
-        const heroContent = `<div class="hero-text">${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}</div>`;
+        const homeActionsHTML = pageType === 'home' && !projectMeta
+            ? `<div class="home-hero-actions">
+                <a href="#featured-work" class="home-hero-cta">
+                    <span class="home-hero-cta__eyes monster-eyes-wrapper" aria-hidden="true">
+                        <span class="monster-eye home-hero-cta__eye"><span class="monster-pupil"></span></span>
+                        <span class="monster-eye home-hero-cta__eye"><span class="monster-pupil"></span></span>
+                    </span>
+                    <span class="home-hero-cta__label">View my work</span>
+                </a>
+                ${this.buildSidebarSocials()}
+            </div>`
+            : '';
+        const heroContent = `<div class="hero-text">${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}${homeActionsHTML}</div>`;
         html += heroContent;
         return html;
     },

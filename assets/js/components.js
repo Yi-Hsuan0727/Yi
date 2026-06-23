@@ -318,10 +318,10 @@ const PortfolioApp = {
 
     data: {
         home: {
-            heroGreeting: "Hi! I'm Michelle Chen",
-            title: `<span class="hero-title-line">Accessibility<span class="shape shape-circle" aria-hidden="true"></span></span><span class="hero-title-line">Design<span class="shape shape-triangle" aria-hidden="true"></span></span><span class="hero-title-line">Web products<span class="shape shape-square" aria-hidden="true"></span></span>`,
+            heroGreeting: '',
+            title: `<span class="hero-title-line hero-title-line--meta"><span class="shape shape-circle hero-meta-dot" aria-hidden="true"></span><span class="hero-meta-name">Michelle Chen</span><span class="hero-meta-sep" aria-hidden="true">·</span><span class="hero-meta-role">Product Designer</span></span><span class="hero-title-line hero-title-line--focus">I design accessible<span class="shape shape-circle" aria-hidden="true"></span>,</span><span class="hero-title-line hero-title-line--focus">AI-driven<span class="shape shape-triangle" aria-hidden="true"></span> products<span class="shape shape-square" aria-hidden="true"></span>.</span>`,
             desc: '',
-            briefIntro: "I transform complex, high-density data and AI-driven technologies into intuitive, accessible web experiences. Armed with an M.S. in UX/HCI, I design and ship scalable, WCAG-compliant digital systems built for everyone.",
+            briefIntro: 'UX/UI Designer at <a href="https://vislab.asu.edu/" target="_blank" rel="noopener noreferrer">VisLab</a> · M.S. UX/HCI, ASU. From research and prototyping through front-end—shipping WCAG-compliant interfaces for data-heavy tools.',
             meta: ``
         },
         about: {
@@ -527,6 +527,7 @@ const PortfolioApp = {
         }
         if (pageType === 'home') {
             this.initHomeAboutNav();
+            this.initHomeFeaturedWorkNav();
             this.initMoreProjectsDeck();
             this.initAboutAwardPreviews();
             this.initHomeHeaderComposition();
@@ -727,16 +728,45 @@ const PortfolioApp = {
     },
 
     scrollToHomeAbout: function() {
-        const el = document.getElementById('about');
+        this.scrollToHomeSection('about', -16);
+    },
+
+    scrollToHomeSection: function(id, offset) {
+        const el = document.getElementById(id);
         if (!el) return;
         const scroll = () => {
             if (window.__lenis) {
-                window.__lenis.scrollTo(el, { offset: -16 });
+                window.__lenis.scrollTo(el, { offset: offset ?? -16 });
             } else {
                 el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         };
         requestAnimationFrame(() => setTimeout(scroll, 120));
+    },
+
+    initHomeFeaturedWorkNav: function() {
+        const scrollHomeToTop = () => {
+            if (window.__lenis) {
+                window.__lenis.scrollTo(0, { immediate: true });
+            } else {
+                const scrollRoot = document.getElementById('scroll-container');
+                if (scrollRoot) scrollRoot.scrollTop = 0;
+                window.scrollTo(0, 0);
+            }
+        };
+
+        if (window.location.hash === '#featured-work') {
+            history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+            scrollHomeToTop();
+            requestAnimationFrame(() => setTimeout(scrollHomeToTop, 120));
+        }
+
+        document.querySelectorAll('a[href="#featured-work"]').forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.scrollToHomeSection('featured-work', -20);
+            });
+        });
     },
 
     initHomeToolbox: function() {
@@ -1146,10 +1176,10 @@ const PortfolioApp = {
         const STEP_MS = 85;
 
         const steps = [
-            { selector: '.hero-title-greeting', extraClass: '' },
-            { selector: '.home-hero-greeting-row .sidebar-social-link', extraClass: '' },
             { selector: '.hero-title-line', extraClass: '' },
             { selector: '.sidebar-intro', extraClass: '' },
+            { selector: '.home-hero-cta', extraClass: '' },
+            { selector: '.home-hero-actions .sidebar-social-link', extraClass: '' },
             { selector: '.home-header-tech', extraClass: '' },
             { selector: '.home-header-composition', extraClass: 'home-reveal--pop' },
             { selector: '.home-spotlight-card', extraClass: '' },
