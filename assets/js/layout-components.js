@@ -9,12 +9,6 @@ const LayoutComponents = {
 
     buildSidebarTop: function(pageData, projectMeta, pageType) {
         let html = '';
-        if (pageData.backLink && projectMeta) {
-            html += `<a href="index.html" class="back-btn connect-sticker connect-sticker--back"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
-        }
-        if (pageType === 'playground') {
-            html += `<a href="index.html" class="back-btn back-btn-mobile-only"><i class="fas fa-arrow-left"></i> Back to Home</a>`;
-        }
         let tagsHTML = '';
         if (projectMeta && projectMeta.tags && projectMeta.tags.length) {
             tagsHTML = projectMeta.tags.map(function(t) {
@@ -29,14 +23,7 @@ const LayoutComponents = {
             ? `<p class="hero-title-greeting">${pageData.heroGreeting}</p>`
             : '';
         const homeActionsHTML = pageType === 'home' && !projectMeta
-            ? `<div class="home-hero-actions">
-                <a href="#featured-work" class="home-hero-cta">
-                    <span class="home-hero-cta__eyes monster-eyes-wrapper" aria-hidden="true">
-                        <span class="monster-eye home-hero-cta__eye"><span class="monster-pupil"></span></span>
-                        <span class="monster-eye home-hero-cta__eye"><span class="monster-pupil"></span></span>
-                    </span>
-                    <span class="home-hero-cta__label">View my work</span>
-                </a>
+            ? `<div class="home-hero-actions home-hero-actions--socials">
                 ${this.buildSidebarSocials()}
             </div>`
             : '';
@@ -174,6 +161,36 @@ const LayoutComponents = {
             </figure>`;
     },
 
+    buildHomeHeroCtaArrowSvg: function() {
+        return `<svg class="home-hero-cta-arrow__svg" viewBox="0 0 88 60" fill="none" aria-hidden="true" focusable="false">
+                            <path class="home-hero-cta-arrow__shaft" pathLength="1" d="M 80 18 C 58 21 34 28 15 30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="home-hero-cta-arrow__head" pathLength="1" d="M 27 22 L 14 30 L 27 38" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>`;
+    },
+
+    buildHomeHeroCta: function() {
+        // Two hand-drawn arrows fanning back toward the button (tips on the left, near the button).
+        return `
+            <div class="home-hero-cta-wrap">
+                <div class="home-hero-cta-cluster">
+                    <a href="#featured-work" class="home-hero-cta">
+                        <span class="home-hero-cta__eyes monster-eyes-wrapper" aria-hidden="true">
+                            <span class="monster-eye home-hero-cta__eye"><span class="monster-pupil"></span></span>
+                            <span class="monster-eye home-hero-cta__eye"><span class="monster-pupil"></span></span>
+                        </span>
+                        <span class="home-hero-cta__label">View my work</span>
+                    </a>
+                    <span class="home-hero-cta-arrow home-hero-cta-arrow--a" aria-hidden="true">
+                        ${this.buildHomeHeroCtaArrowSvg()}
+                    </span>
+                    <span class="home-hero-cta-arrow home-hero-cta-arrow--b" aria-hidden="true">
+                        ${this.buildHomeHeroCtaArrowSvg()}
+                    </span>
+                </div>
+                <p class="home-hero-cta-hint" aria-hidden="true">Tap to explore featured projects</p>
+            </div>`;
+    },
+
     buildHomePageHeader: function(pageData) {
         return `
             <header class="home-page-header">
@@ -181,9 +198,9 @@ const LayoutComponents = {
                     ${this.buildSidebarTop(pageData, null, 'home')}
                 </div>
                 <div class="home-page-header-aside">
-                    ${this.buildHomeTechNote()}
                     ${this.buildHomeHeaderComposition()}
                 </div>
+                ${this.buildHomeHeroCta()}
             </header>`;
     },
 
@@ -211,6 +228,15 @@ const LayoutComponents = {
                     <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline">GitHub ${this.buildHomeTechLogoGithub()}</a>.</span>
                 </p>
             </div>`;
+    },
+
+    buildHomeTechNoteInline: function() {
+        return `This Portfolio is built with pure HTML / CSS / JS. Co-built with
+            <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline footer-tech-inline">Cursor ${this.buildHomeTechLogoCursor()}</a>
+            &amp;
+            <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline footer-tech-inline">Claude ${this.buildHomeTechLogoClaude()}</a>.
+            Hosted on
+            <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline footer-tech-inline">GitHub ${this.buildHomeTechLogoGithub()}</a>.`;
     },
 
     buildSidebarSocials: function() {
@@ -361,6 +387,50 @@ const LayoutComponents = {
             </article>`;
     },
 
+    /* Sticky stacking deck — full-width split cards that pin and fan into a stack on scroll. */
+    buildStackDeck: function(projects) {
+        if (!projects || !projects.length) return '';
+        const cards = projects.map((p, i) => this.buildStackCard(p, i)).join('');
+        return `<div class="stack-deck">${cards}</div>`;
+    },
+
+    buildStackCard: function(project, index) {
+        const num = String(index + 1).padStart(2, '0');
+        const category = project.audience
+            || (typeof PortfolioApp !== 'undefined' ? PortfolioApp.getProjectFilterCategory(project) : project.filterType)
+            || '';
+        const headline = project.spotlightTitle || project.cardHeadline || project.title;
+        const desc = project.spotlightDesc || project.desc || project.demoIntro || '';
+        const tags = (project.tags || []).map(function(t) {
+            return `<li class="stack-card__tag">${t}</li>`;
+        }).join('');
+        const imgSrc = project.image || '';
+        const objectPosition = project.cardImagePosition || 'center center';
+        /* Stepped sticky offset: 28, 74, 120… (≈46px header height per card behind). */
+        const top = 28 + index * 46;
+        return `
+            <article class="stack-card" data-project-id="${project.id || ''}" style="--stack-top:${top}px; z-index:${index + 1};">
+                <a class="stack-card__link" href="${project.link}">
+                    <header class="stack-card__bar">
+                        <span class="stack-card__index">${num}</span>
+                        <span class="stack-card__name">${project.title}</span>
+                        <span class="stack-card__category">${category}</span>
+                    </header>
+                    <div class="stack-card__split">
+                        <div class="stack-card__media">
+                            <img src="${imgSrc}" alt="${project.title}" loading="lazy" decoding="async" style="object-position:${objectPosition};">
+                        </div>
+                        <div class="stack-card__content">
+                            <h3 class="stack-card__headline">${headline}</h3>
+                            <p class="stack-card__desc">${desc}</p>
+                            <ul class="stack-card__tags">${tags}</ul>
+                            <span class="stack-card__cta">View case study <span class="stack-card__cta-arrow" aria-hidden="true">&rarr;</span></span>
+                        </div>
+                    </div>
+                </a>
+            </article>`;
+    },
+
     buildFeaturedProjectCard: function(project) {
         const tagsHTML = typeof PortfolioApp !== 'undefined' && PortfolioApp.buildProjectOverlayTags
             ? PortfolioApp.buildProjectOverlayTags(project)
@@ -385,6 +455,15 @@ const LayoutComponents = {
             </div>`;
     },
 
+    buildMoreProjectsNameMarkup: function(title) {
+        return `<span class="projects-more-card-name">
+            <span class="projects-more-card-name__text">${title}</span>
+            <svg class="projects-more-card-name__underline" viewBox="0 0 120 8" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <path class="projects-more-card-name__stroke" pathLength="1" d="M2 5.4 C20 3.6 38 6.3 58 4.7 C78 3.2 98 6.1 118 4.1" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>`;
+    },
+
     buildMoreProjectsDeckItems: function(projects) {
         if (!projects || !projects.length) return '';
         const deckStyles = [
@@ -394,7 +473,7 @@ const LayoutComponents = {
             { tilt: '1.5deg', z: 4 }
         ];
 
-        return projects.map(function(p, index) {
+        return projects.map((p, index) => {
             const style = deckStyles[index % deckStyles.length];
             const heroSrc = p.heroImage || p.image || '';
             const awardLabel = p.awardShort || p.award || '';
@@ -404,10 +483,14 @@ const LayoutComponents = {
             const cardLabel = awardLabel ? `${p.title} — ${awardLabel}` : p.title;
             return `
                 <button type="button" class="projects-more-card${awardLabel ? ' has-award' : ''}" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};" aria-haspopup="dialog" aria-label="${cardLabel}">
-                    <span class="projects-more-card-name" aria-hidden="true">${p.title}${awardLabel ? `<span class="projects-more-card-name-award">${awardLabel}</span>` : ''}</span>
-                    <span class="projects-more-card-visual">
-                        ${awardHTML}
-                        <img src="${heroSrc}" alt="" loading="lazy" decoding="async">
+                    <span class="projects-more-card-frame">
+                        <span class="projects-more-card-visual">
+                            ${awardHTML}
+                            <img src="${heroSrc}" alt="" loading="lazy" decoding="async">
+                        </span>
+                        <span class="projects-more-card-caption">
+                            ${this.buildMoreProjectsNameMarkup(p.title)}${awardLabel ? `<span class="projects-more-card-name-award">${awardLabel}</span>` : ''}
+                        </span>
                     </span>
                 </button>`;
         }).join('');
@@ -419,6 +502,23 @@ const LayoutComponents = {
 
     buildHeroTitleShapes: function() {
         return `<span class="projects-more-shapes" aria-hidden="true"><span class="shape shape-circle"></span><span class="shape shape-triangle"></span><span class="shape shape-square"></span></span>`;
+    },
+
+    buildMoreWorkPaintFilters: function() {
+        return `<svg class="visually-hidden" aria-hidden="true" focusable="false" width="0" height="0">
+            <defs>
+                <filter id="projects-more-paint-stipple" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="4" seed="7" result="noise"/>
+                    <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 21 -9" result="alpha"/>
+                    <feComposite in="SourceGraphic" in2="alpha" operator="in"/>
+                </filter>
+                <filter id="projects-more-paint-splatter" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.38" numOctaves="3" seed="19" result="noise"/>
+                    <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 13 -5.5" result="alpha"/>
+                    <feComposite in="SourceGraphic" in2="alpha" operator="in"/>
+                </filter>
+            </defs>
+        </svg>`;
     },
 
     buildMoreProjectsSection: function(projects) {
@@ -436,14 +536,11 @@ const LayoutComponents = {
             </section>`;
     },
 
-    /* Mobile-only: visit live site + back to home above next projects (project pages) */
+    /* Mobile-only: visit live site above next projects (project pages) */
     buildMobileProjectActions: function(projectMeta) {
         if (!projectMeta) return '';
         const liveLink = projectMeta.liveLink;
-        if (!liveLink || liveLink === '#') return `
-            <div class="mobile-project-actions">
-                <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
-            </div>`;
+        if (!liveLink || liveLink === '#') return '';
         let liveLabel = 'Visit Live Site';
         let liveIcon = 'fa-external-link-alt';
         if (projectMeta.id === 'unesco' || projectMeta.id === 'spring' || (liveLink && liveLink.indexOf('figma.com') !== -1)) {
@@ -457,7 +554,6 @@ const LayoutComponents = {
         return `
             <div class="mobile-project-actions">
                 <a href="${liveLink}" target="_blank" class="projects-cta-btn projects-cta-btn-secondary">${liveLabel} <i class="fas ${liveIcon}" style="margin-left:6px;"></i></a>
-                <a href="index.html" class="projects-cta-btn"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
             </div>`;
     },
 
@@ -498,7 +594,7 @@ const LayoutComponents = {
 
     buildContactForm: function() {
         return `
-            <section class="site-contact-band" aria-labelledby="site-contact-heading">
+            <section class="site-contact-band" id="contact" aria-labelledby="site-contact-heading">
                 <div class="site-contact-inner">
                     <form class="site-contact-form">
                         <div class="site-contact-layout">
@@ -577,8 +673,12 @@ const LayoutComponents = {
         const copyrightHTML = pageType === 'home'
             ? ''
             : `<span class="footer-copyright">&copy; 2025 Michelle Chen. All Rights Reserved. This website is built with pure HTML / CSS / JS. <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="footer-tech-link">Hosted on GitHub</a></span>`;
-        const footerBarHTML = (copyrightHTML || socialsHTML)
+        const homeTechNoteHTML = pageType === 'home'
+            ? `<span class="footer-tech-note">${this.buildHomeTechNoteInline()}</span>`
+            : '';
+        const footerBarHTML = (copyrightHTML || socialsHTML || homeTechNoteHTML)
             ? `<footer class="site-footer ${monsterHTML ? 'site-footer-green' : ''}${footerOnlyClass}">
+                    ${homeTechNoteHTML}
                     ${copyrightHTML}
                     ${socialsHTML}
                 </footer>`
@@ -591,8 +691,165 @@ const LayoutComponents = {
             </div>`;
     },
 
+    buildPlaygroundBoard: function() {
+        const items = [
+            {
+                id: 'prototype',
+                kind: 'project',
+                src: 'assets/img/playground/prototype.png',
+                alt: 'Prototype screens',
+                caption: 'App concept explorations from an early design sprint',
+                x: 5,
+                y: 6,
+                width: 210,
+                rotate: -4,
+                z: 2
+            },
+            {
+                id: 'lk12',
+                kind: 'project',
+                src: 'assets/img/playground/lk12.png',
+                alt: 'LK12 icon grid',
+                caption: 'Custom icons and mascot explorations I ended up not using',
+                x: 7,
+                y: 33,
+                width: 250,
+                rotate: 6,
+                z: 4
+            },
+            {
+                id: 'note-yellow',
+                kind: 'note',
+                text: 'Keep the weird ideas.<br>Some of them become projects.',
+                x: 4,
+                y: 64,
+                width: 150,
+                rotate: -5,
+                z: 6
+            },
+            {
+                id: 'mockup',
+                kind: 'project',
+                src: 'assets/img/playground/mockup.png',
+                alt: 'Product mockup',
+                caption: 'A commuter pass concept I sketched for fun',
+                x: 24,
+                y: 70,
+                width: 280,
+                rotate: -2,
+                z: 7
+            },
+            {
+                id: 'tnaf-mockup',
+                kind: 'project',
+                src: 'assets/img/playground/tnaf-mockup.png',
+                alt: 'TNAF mobile mockups',
+                caption: 'Ecom screens for a hyperlocal eco marketplace concept',
+                x: 58,
+                y: 5,
+                width: 260,
+                rotate: 3,
+                z: 9
+            },
+            {
+                id: 'rwd-tnaf',
+                kind: 'project',
+                src: 'assets/img/playground/rwd-tnaf.png',
+                alt: 'Responsive TNAF layouts',
+                caption: 'Responsive layout studies for the same product idea',
+                x: 62,
+                y: 31,
+                width: 230,
+                rotate: -3,
+                z: 11
+            },
+            {
+                id: 'tnaf-gif',
+                kind: 'project',
+                src: 'assets/img/playground/tnaf.gif',
+                alt: 'TNAF interaction GIF',
+                caption: 'An app icon and interaction GIF I made for a friend',
+                x: 68,
+                y: 55,
+                width: 170,
+                rotate: 8,
+                z: 13
+            }
+        ];
+
+        const itemHTML = items.map(function(item) {
+            const style = [
+                `--pg-x:${item.x}%`,
+                `--pg-y:${item.y}%`,
+                `--pg-rotate:${item.rotate}deg`,
+                `--pg-z:${item.z}`,
+                item.width ? `--pg-width:${item.width}px` : ''
+            ].filter(Boolean).join(';');
+
+            if (item.kind === 'project') {
+                return `<div class="playground-item playground-item--project" data-playground-id="${item.id}" style="${style}">
+                    <div class="playground-item__media" role="img" aria-label="${item.alt}">
+                        <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    <p class="playground-item__caption">${item.caption}</p>
+                </div>`;
+            }
+
+            if (item.kind === 'note') {
+                return `<div class="playground-item playground-item--note" data-playground-id="${item.id}" style="${style}">
+                    <p>${item.text}</p>
+                </div>`;
+            }
+
+            return '';
+        }).join('');
+
+        return `
+            <section class="playground-page" aria-labelledby="playground-board-title">
+                <div class="playground-board-shell">
+                    <header class="playground-board-header">
+                        <div class="playground-board-header__icon" aria-hidden="true">
+                            <i class="far fa-image"></i>
+                            <i class="far fa-image"></i>
+                        </div>
+                        <h1 class="playground-board-header__title" id="playground-board-title">Playground</h1>
+                        <p class="playground-board-header__subtitle">Old work, side projects, or random explorations</p>
+                        <p class="playground-board-header__hint">Drag the pieces around the board</p>
+                    </header>
+                    <div class="playground-board" id="playground-board">
+                        ${itemHTML}
+                    </div>
+                </div>
+            </section>`;
+    },
+
     buildProgressBar: function() {
         return `<div id="progress-bar"></div>`;
+    },
+
+    buildTopNav: function(pageType) {
+        const isHome = pageType === 'home';
+        const isPlayground = pageType === 'playground';
+        const workHref = isHome ? '#featured-work' : 'index.html#featured-work';
+        const aboutHref = isHome ? '#about' : 'index.html#about';
+        const contactHref = isHome ? '#contact' : 'index.html#contact';
+        const playgroundAttrs = isPlayground ? ' aria-current="page" class="site-top-nav__link site-top-nav__link--current cursor-hover"' : ' class="site-top-nav__link cursor-hover"';
+
+        return `
+            <nav class="site-top-nav site-top-nav--auto-hide" aria-label="Primary">
+                <div class="site-top-nav__inner">
+                    <a href="index.html" class="site-top-nav__brand cursor-hover">
+                        <img class="site-top-nav__avatar" src="assets/img/Michelle/IMG_2395.png" alt="" width="28" height="28" decoding="async">
+                        <span class="site-top-nav__name">Michelle</span>
+                    </a>
+                    <ul class="site-top-nav__links">
+                        <li><a class="site-top-nav__link cursor-hover" href="${workHref}">Work</a></li>
+                        <li><a${playgroundAttrs} href="playground.html">Playground</a></li>
+                        <li><a class="site-top-nav__link cursor-hover" href="${aboutHref}">About</a></li>
+                        <li><a class="site-top-nav__link cursor-hover" href="${contactHref}">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>`;
     },
 
     buildBackToTop: function() {

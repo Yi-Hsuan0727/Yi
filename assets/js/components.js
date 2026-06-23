@@ -319,7 +319,7 @@ const PortfolioApp = {
     data: {
         home: {
             heroGreeting: '',
-            title: `<span class="hero-title-line hero-title-line--meta"><span class="shape shape-circle hero-meta-dot" aria-hidden="true"></span><span class="hero-meta-name">Michelle Chen</span><span class="hero-meta-sep" aria-hidden="true">·</span><span class="hero-meta-role">Product Designer</span></span><span class="hero-title-line hero-title-line--focus">I design accessible<span class="shape shape-circle" aria-hidden="true"></span>,</span><span class="hero-title-line hero-title-line--focus">AI-driven<span class="shape shape-triangle" aria-hidden="true"></span> products<span class="shape shape-square" aria-hidden="true"></span>.</span>`,
+            title: `<span class="hero-title-line hero-title-line--meta"><span class="shape shape-circle hero-meta-dot" aria-hidden="true"></span><span class="hero-meta-name">Michelle Chen</span><span class="hero-meta-sep" aria-hidden="true">·</span><span class="hero-meta-role">Product Designer</span></span><span class="hero-title-line hero-title-line--focus">I design accessible<span class="shape shape-circle" aria-hidden="true"></span>,</span><span class="hero-title-line hero-title-line--focus">AI-driven products<span class="shape shape-square" aria-hidden="true"></span>.</span>`,
             desc: '',
             briefIntro: 'Currently working at <a href="https://vislab.asu.edu/" target="_blank" rel="noopener noreferrer">VisLab</a> · M.S. UX/HCI, ASU. From research and prototyping through front-end—shipping WCAG-compliant interfaces for data-heavy tools.',
             meta: ``
@@ -331,7 +331,7 @@ const PortfolioApp = {
         },
         playground: {
             title: `Playground`,
-            desc: "Side projects, hackathons, game jams, and creative experiments that explore ideas beyond client work.",
+            desc: "Old work, side projects, or random explorations.",
             meta: ``
         },
         pic2split: {
@@ -449,9 +449,7 @@ const PortfolioApp = {
         if (!html) return html;
 
         var featured = this.getFeaturedProjects();
-        var spotlightHTML = featured.map(function(p) {
-            return LayoutComponents.buildFeaturedSpotlightCard(p);
-        }).join('');
+        var spotlightHTML = LayoutComponents.buildStackDeck(featured);
         var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
 
         var parser = new DOMParser();
@@ -527,14 +525,24 @@ const PortfolioApp = {
         }
         if (pageType === 'home') {
             this.initHomeAboutNav();
+            this.initHomeContactNav();
             this.initHomeFeaturedWorkNav();
+            this.initProjectStack();
+            this.initHomeTopNav();
+            this.initTopNavAutoHide();
             this.initMoreProjectsDeck();
             this.initAboutAwardPreviews();
             this.initHomeHeaderComposition();
         }
+        if (pageType === 'playground') {
+            this.initPlaygroundBoard();
+            this.initHomeTopNav();
+            this.initTopNavAutoHide();
+        }
         if (typeof CursorLogic !== 'undefined') CursorLogic.ensure();
         const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
         if (isCasePage) {
+            this.initProjectTopNav();
             this.initCaseFigureZoom();
             this.initCaseInfographic();
             this.initCaseScrollSpy();
@@ -609,10 +617,14 @@ const PortfolioApp = {
         const caseInfographicCss = isCasePage
             ? '<link rel="stylesheet" href="assets/css/case-infographic.css">'
             : '';
+        const homeFonts = pageType === 'home'
+            ? '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">'
+            : '';
         const headHTML = `
             <meta charset="UTF-8">
             <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            ${homeFonts}
             ${caseInfographicCss}
             <style id="app-styles">html.lenis { height: auto; } .lenis.lenis-smooth { scroll-behavior: auto; } .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; } .lenis.lenis-stopped { overflow: hidden; } </style>
         `;
@@ -633,9 +645,10 @@ const PortfolioApp = {
         const projectMeta = this.getProject(pageType);
 
         const worksHeaderHTML = LayoutComponents.buildWorksHeader(pageType);
-        const isGridPage = (pageType === 'home' || pageType === 'playground');
-        const nextProjectHTML = !isGridPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
-        const mobileProjectActionsHTML = !isGridPage && projectMeta ? LayoutComponents.buildMobileProjectActions(projectMeta) : '';
+        const isGridPage = pageType === 'home';
+        const isPlaygroundPage = pageType === 'playground';
+        const nextProjectHTML = !isGridPage && !isPlaygroundPage ? LayoutComponents.buildNextProjects(this.getNextProjects(pageType, 2)) : '';
+        const mobileProjectActionsHTML = !isGridPage && !isPlaygroundPage && projectMeta ? LayoutComponents.buildMobileProjectActions(projectMeta) : '';
         const heroImage = projectMeta ? (projectMeta.heroImage || projectMeta.image || 'assets/img/bk/welcome.jpg') : '';
         const heroAlt = projectMeta ? (projectMeta.heroAlt || (projectMeta.title + ' main hero image')) : '';
         const heroVideo = projectMeta ? (projectMeta.heroVideo || '') : '';
@@ -649,10 +662,14 @@ const PortfolioApp = {
             ? `<div class="case-hero">${coverHTML}${heroMetaHTML}</div>`
             : '';
         const footerHTML = LayoutComponents.buildFooter(pageType);
-        let finalContent = `${worksHeaderHTML} ${heroHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${isGridPage ? footerHTML : ''}`;
+        let finalContent = `${worksHeaderHTML} ${heroHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${(isGridPage || isPlaygroundPage) ? footerHTML : ''}`;
 
         if (pageType === 'home') {
             finalContent = `${LayoutComponents.buildHomePageHeader(pageData)}${finalContent}`;
+        }
+
+        if (pageType === 'playground') {
+            finalContent = LayoutComponents.buildPlaygroundBoard();
         }
 
         const aboutBackLinkHTML = pageType === 'about'
@@ -683,8 +700,10 @@ const PortfolioApp = {
 
         if (pageType === 'home') {
             const layoutHTML = `
+                ${LayoutComponents.buildMoreWorkPaintFilters()}
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
+                ${LayoutComponents.buildTopNav('home')}
                 <div id="app-root" class="app-root-home">
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
@@ -699,6 +718,26 @@ const PortfolioApp = {
             return;
         }
 
+        if (pageType === 'playground') {
+            const layoutHTML = `
+                ${LayoutComponents.buildTopNav('playground')}
+                <div id="app-root" class="app-root-playground app-root-about">
+                    <div class="content-wrapper content-wrapper-fullwidth">
+                        <div class="right-panel right-panel-fullwidth">
+                            <div class="scroll-area" id="scroll-container">
+                                <div class="single-page-wrapper">
+                                    ${finalContent}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.innerHTML = layoutHTML;
+            document.body.classList.add('is-playground-page');
+            return;
+        }
+
         const sidebarCompactScope = (!isGridPage && projectMeta)
             ? ' sidebar-compact-scope sidebar-compact-scope--project'
             : '';
@@ -706,7 +745,8 @@ const PortfolioApp = {
         const layoutHTML = `
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
-            <div id="app-root">
+            ${LayoutComponents.buildTopNav(pageType)}
+            <div id="app-root" class="app-root-project">
                 <div class="content-wrapper${sidebarCompactScope}">
                     <aside class="sidebar">
                         <div class="sidebar-top">${LayoutComponents.buildSidebarTop(pageData, projectMeta, pageType)}</div>
@@ -734,17 +774,53 @@ const PortfolioApp = {
     scrollToHomeSection: function(id, offset) {
         const el = document.getElementById(id);
         if (!el) return;
-        const scroll = () => {
+
+        const offsetVal = offset ?? -16;
+        const scrollRoot = document.getElementById('scroll-container');
+        const prefersLenis = window.innerWidth > 1200 && !!scrollRoot;
+
+        const runScroll = () => {
             if (window.__lenis) {
-                window.__lenis.scrollTo(el, { offset: offset ?? -16 });
-            } else {
-                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.__lenis.scrollTo(el, { offset: offsetVal });
+                return;
             }
+
+            if (scrollRoot && prefersLenis) {
+                const rootRect = scrollRoot.getBoundingClientRect();
+                const elRect = el.getBoundingClientRect();
+                const top = scrollRoot.scrollTop + (elRect.top - rootRect.top) + offsetVal;
+                scrollRoot.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                return;
+            }
+
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
-        requestAnimationFrame(() => setTimeout(scroll, 120));
+
+        const scheduleScroll = () => {
+            requestAnimationFrame(() => setTimeout(runScroll, 120));
+        };
+
+        if (window.__lenis || !prefersLenis) {
+            scheduleScroll();
+            return;
+        }
+
+        let attempts = 0;
+        const waitForLenis = () => {
+            if (window.__lenis || attempts >= 20) {
+                scheduleScroll();
+                return;
+            }
+            attempts += 1;
+            setTimeout(waitForLenis, 50);
+        };
+        waitForLenis();
     },
 
     initHomeFeaturedWorkNav: function() {
+        if (this._homeFeaturedNavBound) return;
+        this._homeFeaturedNavBound = true;
+
         const scrollHomeToTop = () => {
             if (window.__lenis) {
                 window.__lenis.scrollTo(0, { immediate: true });
@@ -761,18 +837,134 @@ const PortfolioApp = {
             requestAnimationFrame(() => setTimeout(scrollHomeToTop, 120));
         }
 
-        document.querySelectorAll('a[href="#featured-work"]').forEach((link) => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.scrollToHomeSection('featured-work', -20);
-            });
+        document.addEventListener('click', (event) => {
+            const link = event.target.closest('a[href="#featured-work"]');
+            if (!link) return;
+            event.preventDefault();
+            this.scrollToHomeSection('featured-work', -20);
         });
+    },
+
+    initHomeFeaturedStack: function() {
+        const stack = document.querySelector('.home-featured-spotlights--stack');
+        if (!stack) return;
+
+        const refreshLenis = () => {
+            if (window.__lenis) window.__lenis.resize();
+        };
+
+        const syncStackSpacers = () => {
+            const cards = stack.querySelectorAll('.home-spotlight-card');
+            if (!cards.length) return;
+
+            cards.forEach((card) => {
+                card.style.removeProperty('min-height');
+            });
+
+            let maxHeight = 0;
+            cards.forEach((card) => {
+                maxHeight = Math.max(maxHeight, card.getBoundingClientRect().height);
+            });
+            if (!maxHeight) return;
+
+            const cardHeight = Math.ceil(maxHeight);
+            cards.forEach((card) => {
+                card.style.minHeight = `${cardHeight}px`;
+            });
+
+            const viewportRoom = Math.max(window.innerHeight - 160, 320);
+            const spacer = Math.max(180, Math.round(Math.min(viewportRoom * 0.5, cardHeight * 0.85)));
+            const release = Math.max(72, Math.round((cards.length - 1) * cardHeight * 0.35 + spacer * 0.25));
+            stack.style.setProperty('--spotlight-stack-height', `${cardHeight}px`);
+            stack.style.setProperty('--spotlight-stack-overlap', `${cardHeight}px`);
+            stack.style.setProperty('--spotlight-stack-spacer', `${spacer}px`);
+            stack.style.setProperty('--spotlight-stack-release', `${release}px`);
+            refreshLenis();
+        };
+
+        stack.querySelectorAll('.home-spotlight-card img').forEach((img) => {
+            if (img.complete) return;
+            img.addEventListener('load', syncStackSpacers, { once: true });
+        });
+
+        const revealStackCards = () => {
+            stack.querySelectorAll('.home-spotlight-card').forEach((card) => {
+                card.classList.add('is-revealed');
+            });
+        };
+
+        syncStackSpacers();
+        revealStackCards();
+        window.addEventListener('load', () => {
+            syncStackSpacers();
+            revealStackCards();
+        }, { once: true });
+        window.addEventListener('resize', syncStackSpacers);
+    },
+
+    /* Sticky stacking project cards: scroll-driven scale + dim as each card is covered. */
+    initProjectStack: function() {
+        const deck = document.querySelector('.stack-deck');
+        if (!deck) return;
+        const cards = Array.prototype.slice.call(deck.querySelectorAll('.stack-card'));
+        if (cards.length < 2) return;
+
+        const mq = window.matchMedia('(max-width: 860px), (prefers-reduced-motion: reduce)');
+        let ticking = false;
+
+        const clear = () => {
+            cards.forEach((card) => {
+                card.style.transform = '';
+                card.style.filter = '';
+            });
+        };
+
+        const update = () => {
+            ticking = false;
+            if (mq.matches) { clear(); return; }
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const next = cards[i + 1];
+                if (!next) { card.style.transform = ''; card.style.filter = ''; continue; }
+                const h = card.offsetHeight;
+                if (!h) continue;
+                /* Coverage 0→1: how far the next card has risen over this pinned one.
+                   transform-origin keeps the top edge fixed, so rects stay comparable. */
+                const gap = next.getBoundingClientRect().top - card.getBoundingClientRect().top;
+                let p = 1 - gap / h;
+                p = p < 0 ? 0 : p > 1 ? 1 : p;
+                card.style.transform = 'scale(' + (1 - 0.05 * p).toFixed(4) + ')';
+                card.style.filter = 'brightness(' + (1 - 0.10 * p).toFixed(3) + ')';
+            }
+        };
+
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+        };
+
+        /* Bind the native scroller (#scroll-container fires even while Lenis drives it,
+           and survives Lenis being torn down/recreated at the 1200px breakpoint) plus
+           window for the mobile/native-scroll case. */
+        const scroller = document.getElementById('scroll-container');
+        if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        window.addEventListener('load', onScroll, { once: true });
+        update();
     },
 
     initHomeToolbox: function() {
         const mount = document.getElementById('home-toolbox-stickers');
         if (!mount || typeof LayoutComponents === 'undefined') return;
         mount.outerHTML = LayoutComponents.buildToolStickers('home-toolbox-stickers');
+    },
+
+    initPlaygroundBoard: function() {
+        if (typeof PlaygroundBoard !== 'undefined') {
+            PlaygroundBoard.init();
+        }
     },
 
     initHomeAboutNav: function() {
@@ -786,6 +978,122 @@ const PortfolioApp = {
                 this.scrollToHomeAbout();
             });
         });
+    },
+
+    initHomeContactNav: function() {
+        if (window.location.hash === '#contact') {
+            this.scrollToHomeSection('contact', -20);
+        }
+        document.querySelectorAll('a[href="#contact"]').forEach((link) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                history.pushState(null, '', '#contact');
+                this.scrollToHomeSection('contact', -20);
+            });
+        });
+    },
+
+    initHomeTopNav: function() {
+        const brand = document.querySelector('.site-top-nav__brand');
+        if (!brand || brand.dataset.navBound) return;
+        brand.dataset.navBound = '1';
+
+        brand.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (window.__lenis) {
+                window.__lenis.scrollTo(0, { immediate: false });
+            } else {
+                const scrollRoot = document.getElementById('scroll-container');
+                if (scrollRoot) scrollRoot.scrollTo({ top: 0, behavior: 'smooth' });
+                else window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+        });
+    },
+
+    initProjectTopNav: function() {
+        this.initHomeTopNav();
+        this.initTopNavAutoHide();
+    },
+
+    initTopNavAutoHide: function() {
+        const nav = document.querySelector('.site-top-nav');
+        if (!nav || nav.dataset.autoHideBound) return;
+        nav.dataset.autoHideBound = '1';
+        nav.classList.add('site-top-nav--auto-hide');
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        let lastScroll = 0;
+        let ticking = false;
+        const threshold = 8;
+        const minScroll = 64;
+
+        const getScrollPosition = () => {
+            const isPlayground = !!document.querySelector('.app-root-playground');
+            if (isPlayground) return 0;
+
+            const isMobile = window.innerWidth <= 1200;
+            if (!isMobile && window.__lenis) return window.__lenis.scroll;
+            if (isMobile) return window.scrollY;
+            const scrollRoot = document.getElementById('scroll-container');
+            return scrollRoot ? scrollRoot.scrollTop : window.scrollY;
+        };
+
+        const updateNavVisibility = () => {
+            ticking = false;
+            const currentScroll = getScrollPosition();
+            const delta = currentScroll - lastScroll;
+
+            if (currentScroll <= minScroll) {
+                nav.classList.remove('is-scroll-hidden');
+            } else if (delta > threshold) {
+                nav.classList.add('is-scroll-hidden');
+            } else if (delta < -threshold) {
+                nav.classList.remove('is-scroll-hidden');
+            }
+
+            lastScroll = Math.max(0, currentScroll);
+        };
+
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(updateNavVisibility);
+        };
+
+        const bindScroll = () => {
+            const isPlayground = !!document.querySelector('.app-root-playground');
+            if (isPlayground) {
+                nav.classList.remove('is-scroll-hidden');
+                return;
+            }
+
+            const isMobile = window.innerWidth <= 1200;
+            if (!isMobile && window.__lenis) {
+                window.__lenis.on('scroll', onScroll);
+            } else {
+                const scroller = isMobile ? window : document.getElementById('scroll-container');
+                if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
+            }
+            updateNavVisibility();
+        };
+
+        if (window.__lenis) {
+            bindScroll();
+            return;
+        }
+
+        let attempts = 0;
+        const waitForLenis = () => {
+            if (window.__lenis || attempts >= 30) {
+                bindScroll();
+                return;
+            }
+            attempts += 1;
+            setTimeout(waitForLenis, 50);
+        };
+        waitForLenis();
     },
 
     initMoreProjectsDeck: function() {
@@ -900,27 +1208,46 @@ const PortfolioApp = {
         if (!figure || !inner || !artHost || figure.dataset.compositionInit) return;
 
         const parallaxLayers = [
-            ['.comp-shape--purple', 9],
-            ['.comp-shape--orange', 13],
-            ['.comp-shape--green', 11],
-            ['.comp-shape--blue', 8],
-            ['.comp-shape--pink', 12],
-            ['.comp-shape--sage', 10],
-            ['.comp-bridge', 11],
-            ['.comp-chrome', 6],
-            ['.comp-dots', 14],
-            ['.comp-crosses', 16]
+            ['.comp-shape--purple', { mx: 24, my: 38, rx: -5, ry: -7, sx: 0.05, kx: 0, ky: 0 }],
+            ['.comp-shape--orange', { mx: 52, my: -20, rx: 14, ry: 4, sx: 0.11, kx: 0, ky: 0 }],
+            ['.comp-shape--green', { mx: -18, my: 46, rx: 6, ry: -12, sx: 0.04, kx: 0, ky: 0 }],
+            ['.comp-shape--blue', { mx: 36, my: 28, rx: -10, ry: 10, sx: 0.09, kx: 0, ky: 0 }],
+            ['.comp-shape--pink', { mx: 42, my: -34, rx: -15, ry: 8, sx: 0.03, kx: 6, ky: 0 }],
+            ['.comp-shape--sage', { mx: 12, my: 50, rx: 4, ry: 5, sx: 0.04, kx: 0, ky: 0 }],
+            ['.comp-bridge', { mx: 48, my: 14, rx: -7, ry: -3, sx: 0.02, kx: 0, ky: 5 }],
+            ['.comp-chrome', { mx: 14, my: 30, rx: 3, ry: 6, sx: 0.015, kx: 0, ky: 0 }],
+            ['.comp-crosses', { mx: 58, my: -44, rx: 20, ry: -12, sx: 0.1, kx: -4, ky: 3 }]
         ];
 
-        const maxTilt = 7;
         let layerNodes = [];
         let svgRoot = null;
+        let moveFrame = 0;
+        let lastMoveEvent = null;
+
+        const amplifyAxis = (value) => value * (1 + Math.abs(value) * 1.35);
+
+        const applyLayerTransform = (layer, x, y) => {
+            const { node, mx, my, rx, ry, sx, kx, ky } = layer;
+            const tx = x * mx;
+            const ty = y * my;
+            const rotation = x * rx + y * ry;
+            const scale = 1 + (Math.abs(x) + Math.abs(y)) * sx * 0.5;
+            const skewX = x * kx;
+            const skewY = y * ky;
+            const parts = [`translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px)`];
+
+            if (rotation) parts.push(`rotate(${rotation.toFixed(2)}deg)`);
+            if (skewX || skewY) parts.push(`skew(${skewX.toFixed(2)}deg, ${skewY.toFixed(2)}deg)`);
+            if (scale !== 1) parts.push(`scale(${scale.toFixed(3)})`);
+
+            node.style.transform = parts.join(' ');
+        };
 
         const cacheLayers = () => {
             if (!svgRoot) return false;
-            layerNodes = parallaxLayers.map(([selector, strength]) => {
+            layerNodes = parallaxLayers.map(([selector, config]) => {
                 const node = svgRoot.querySelector(`${selector} .comp-parallax`);
-                return node ? { node, strength } : null;
+                return node ? { node, ...config } : null;
             }).filter(Boolean);
             return layerNodes.length > 0;
         };
@@ -931,42 +1258,41 @@ const PortfolioApp = {
             });
         };
 
-        const onMove = (event) => {
+        const paintLayers = (event) => {
             const rect = figure.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
 
-            const x = (event.clientX - rect.left) / rect.width - 0.5;
-            const y = (event.clientY - rect.top) / rect.height - 0.5;
+            const x = amplifyAxis((event.clientX - rect.left) / rect.width - 0.5);
+            const y = amplifyAxis((event.clientY - rect.top) / rect.height - 0.5);
 
-            inner.style.setProperty('--comp-tilt-x', `${(y * -maxTilt).toFixed(2)}deg`);
-            inner.style.setProperty('--comp-tilt-y', `${(x * maxTilt + -3).toFixed(2)}deg`);
             figure.classList.add('is-interacting');
+            layerNodes.forEach((layer) => applyLayerTransform(layer, x, y));
+        };
 
-            layerNodes.forEach(({ node, strength }) => {
-                node.style.transform = `translate(${(x * strength).toFixed(2)}px, ${(y * strength).toFixed(2)}px)`;
+        const onMove = (event) => {
+            lastMoveEvent = event;
+            if (moveFrame) return;
+            moveFrame = requestAnimationFrame(() => {
+                moveFrame = 0;
+                if (lastMoveEvent) paintLayers(lastMoveEvent);
             });
         };
 
         const onLeave = () => {
-            inner.style.removeProperty('--comp-tilt-x');
-            inner.style.removeProperty('--comp-tilt-y');
+            lastMoveEvent = null;
+            if (moveFrame) {
+                cancelAnimationFrame(moveFrame);
+                moveFrame = 0;
+            }
             figure.classList.remove('is-interacting');
             resetLayers();
         };
 
-        const onMoveTiltOnly = (event) => {
-            const rect = figure.getBoundingClientRect();
-            if (!rect.width || !rect.height) return;
-            const x = (event.clientX - rect.left) / rect.width - 0.5;
-            const y = (event.clientY - rect.top) / rect.height - 0.5;
-            inner.style.setProperty('--comp-tilt-x', `${(y * -maxTilt).toFixed(2)}deg`);
-            inner.style.setProperty('--comp-tilt-y', `${(x * maxTilt + -3).toFixed(2)}deg`);
+        const onMoveTiltOnly = () => {
             figure.classList.add('is-interacting');
         };
 
         const onLeaveTiltOnly = () => {
-            inner.style.removeProperty('--comp-tilt-x');
-            inner.style.removeProperty('--comp-tilt-y');
             figure.classList.remove('is-interacting');
         };
 
@@ -1072,14 +1398,14 @@ const PortfolioApp = {
     },
 
     initEntryEffects: function(pageType) {
-        const isGridPage = (pageType === 'home' || pageType === 'playground');
+        const isGridPage = pageType === 'home';
 
-        if (pageType !== 'home') {
+        if (pageType !== 'home' && pageType !== 'playground') {
             this.initSidebarMotion(pageType);
         }
 
         // Monster: enter from very bottom on playground & about (home uses cascade)
-        if ((isGridPage || pageType === 'about') && pageType !== 'home') {
+        if ((isGridPage || pageType === 'about' || pageType === 'playground') && pageType !== 'home') {
             const monsterBody = document.querySelector('.monster-body');
             if (monsterBody) {
                 monsterBody.classList.remove('monster-enter');
@@ -1091,6 +1417,8 @@ const PortfolioApp = {
 
         if (pageType === 'home') {
             this.initHomeCascadeAnimations();
+        } else if (pageType === 'playground') {
+            /* board handles its own layout */
         } else if (isGridPage) {
             const cards = document.querySelectorAll('.project-card');
             cards.forEach((card, index) => {
@@ -1178,11 +1506,10 @@ const PortfolioApp = {
         const steps = [
             { selector: '.hero-title-line', extraClass: '' },
             { selector: '.sidebar-intro', extraClass: '' },
-            { selector: '.home-hero-cta', extraClass: '' },
+            { selector: '.home-hero-cta-wrap', extraClass: 'home-reveal--fade' },
             { selector: '.home-hero-actions .sidebar-social-link', extraClass: '' },
-            { selector: '.home-header-tech', extraClass: '' },
             { selector: '.home-header-composition', extraClass: 'home-reveal--pop' },
-            { selector: '.home-spotlight-card', extraClass: '' },
+            { selector: '.home-spotlight-card', extraClass: 'home-reveal--fade' },
             { selector: '.projects-more-title', extraClass: '' },
             { selector: '.projects-more-intro', extraClass: '' },
             { selector: '.projects-more-card', extraClass: 'home-reveal--deck', stepMs: 110 },

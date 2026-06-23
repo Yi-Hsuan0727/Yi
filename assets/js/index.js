@@ -109,7 +109,7 @@ const AppLogic = {
             window.__lenis = null;
         }
 
-        if (window.innerWidth > 1200 && typeof Lenis !== 'undefined') {
+        if (window.innerWidth > 1200 && typeof Lenis !== 'undefined' && !document.querySelector('.app-root-playground')) {
             const wrapper = document.getElementById('scroll-container');
             const content = document.querySelector('.single-page-wrapper');
             if (!wrapper || !content) return;
@@ -182,20 +182,24 @@ const AppLogic = {
     initScrollLogic: function() {
         const desktopContainer = document.getElementById('scroll-container');
         const progressBar = document.getElementById('progress-bar');
+        const isPlayground = !!document.querySelector('.app-root-playground');
         
         let lastScroll = 0;
         const isMobile = window.innerWidth <= 1200;
-        const scroller = isMobile ? window : desktopContainer;
+        const useWindowScroll = isMobile || isPlayground;
+        const scroller = useWindowScroll ? window : desktopContainer;
         const updateSidebarCompact = this.initSidebarCompact();
+        const topNav = document.querySelector('.site-top-nav--auto-hide');
+        const NAV_HIDE_AFTER = 120; // keep nav visible near the top
 
-        if (!scroller && !isMobile) return;
+        if (!scroller && !useWindowScroll) return;
 
         const onScroll = () => {
             let currentScroll, maxScroll;
-            if (!isMobile && window.__lenis) {
+            if (!useWindowScroll && window.__lenis) {
                 currentScroll = window.__lenis.scroll;
                 maxScroll = window.__lenis.limit;
-            } else if (isMobile) {
+            } else if (useWindowScroll) {
                 currentScroll = window.scrollY;
                 maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             } else {
@@ -206,6 +210,16 @@ const AppLogic = {
             if (progressBar) progressBar.style.width = ((currentScroll / maxScroll) * 100) + "%";
 
             updateSidebarCompact(currentScroll);
+
+            // Nav auto-hide: drop it when scrolling down, bring it back on scroll up
+            if (topNav) {
+                const delta = currentScroll - lastScroll;
+                if (currentScroll <= NAV_HIDE_AFTER || delta < -4) {
+                    topNav.classList.remove('is-scroll-hidden');
+                } else if (delta > 4) {
+                    topNav.classList.add('is-scroll-hidden');
+                }
+            }
 
             // Back to Top visibility
             const backToTop = document.querySelector('.back-to-top');
@@ -220,7 +234,7 @@ const AppLogic = {
             lastScroll = currentScroll <= 0 ? 0 : currentScroll;
         };
 
-        if (!isMobile && window.__lenis) {
+        if (!useWindowScroll && window.__lenis) {
             window.__lenis.on('scroll', onScroll);
         } else {
             scroller.addEventListener('scroll', onScroll, { passive: true });
@@ -242,7 +256,7 @@ const AppLogic = {
         const backToTopBtn = document.querySelector('.back-to-top');
         if (backToTopBtn) {
             backToTopBtn.addEventListener('click', () => {
-                if (isMobile) {
+                if (useWindowScroll) {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else if (window.__lenis) {
                     window.__lenis.scrollTo(0);
