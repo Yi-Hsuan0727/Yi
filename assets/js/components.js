@@ -321,7 +321,7 @@ const PortfolioApp = {
             heroGreeting: '',
             title: `<span class="hero-title-line hero-title-line--meta"><span class="shape shape-circle hero-meta-dot" aria-hidden="true"></span><span class="hero-meta-name">Michelle Chen</span><span class="hero-meta-sep" aria-hidden="true">·</span><span class="hero-meta-role">Product Designer</span></span><span class="hero-title-line hero-title-line--focus">I design accessible<span class="shape shape-circle" aria-hidden="true"></span>,</span><span class="hero-title-line hero-title-line--focus">AI-driven<span class="shape shape-triangle" aria-hidden="true"></span> products<span class="shape shape-square" aria-hidden="true"></span>.</span>`,
             desc: '',
-            briefIntro: 'UX/UI Designer at <a href="https://vislab.asu.edu/" target="_blank" rel="noopener noreferrer">VisLab</a> · M.S. UX/HCI, ASU. From research and prototyping through front-end—shipping WCAG-compliant interfaces for data-heavy tools.',
+            briefIntro: 'Currently working at <a href="https://vislab.asu.edu/" target="_blank" rel="noopener noreferrer">VisLab</a> · M.S. UX/HCI, ASU. From research and prototyping through front-end—shipping WCAG-compliant interfaces for data-heavy tools.',
             meta: ``
         },
         about: {
