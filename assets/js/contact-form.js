@@ -89,7 +89,7 @@ const ContactFormLogic = {
             name: (formData.get('name') || '').toString().trim(),
             email: (formData.get('email') || '').toString().trim(),
             message: (formData.get('message') || '').toString().trim(),
-            _subject: 'Portfolio contact form — new message',
+            _subject: 'Portfolio contact form: new message',
             _replyto: (formData.get('email') || '').toString().trim(),
             _captcha: 'false',
             _template: 'table'

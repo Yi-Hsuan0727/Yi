@@ -9,7 +9,7 @@ const PortfolioApp = {
         {
             id: 'pic2split',
             title: 'Pic2Split',
-            cardHeadline: 'Shipped an AI web app that splits group bills in under 2 min—2× faster than the 4-min competitor baseline.',
+            cardHeadline: 'Shipped an AI web app that splits group bills in under 2 min, 2× faster than the 4-min competitor baseline.',
             subtitle: 'End-to-End Design of a Social Bill-Splitting Web App',
             desc: 'A web app that helps groups use OCR to scan receipts and share split results with friends. (It is online now!)',
             demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
@@ -32,7 +32,7 @@ const PortfolioApp = {
             featured: true,
             spotlightEyebrow: 'Flagship · AI product',
             spotlightTitle: 'Scan a receipt, split the bill in seconds.',
-            spotlightDesc: 'An end-to-end AI web app using OCR + Google Gemini—from photo to validated, shareable split—with multi-state logic that keeps cognitive load low at the table.',
+            spotlightDesc: 'An end-to-end AI web app using OCR + Google Gemini that turns a photo into a validated, shareable split, with multi-state logic that keeps cognitive load low at the table.',
             spotlightStats: [
                 { value: '2× faster', label: 'vs. 4-min baseline', accent: true },
                 { value: '50% less time', label: 'per group split' },
@@ -88,7 +88,7 @@ const PortfolioApp = {
             featured: true,
             spotlightEyebrow: 'Public sector · Accessibility',
             spotlightTitle: 'One WCAG 2.1 AA home for 30 indigenous museums.',
-            spotlightDesc: 'I designed and hand-coded a unified museum portal for Taiwan\'s indigenous cultural institutions—semantic HTML/CSS, AA contrast, and navigation patterns that scale across 30 distinct collections.',
+            spotlightDesc: 'I designed and hand-coded a unified museum portal for Taiwan\'s indigenous cultural institutions, using semantic HTML/CSS, AA contrast, and navigation patterns that scale across 30 distinct collections.',
             spotlightTagline: '30 museums, one accessible web home.',
             spotlightVisual: 'assets/img/lcm/website mockup_lcm.png',
             spotlightLogo: 'assets/img/lcm/lcm-logo.png',
@@ -102,7 +102,7 @@ const PortfolioApp = {
         {
             id: 'uav',
             title: 'UAV Control System',
-            cardHeadline: 'Technician tablet UI for an AI-assisted farm drone — four-person team.',
+            cardHeadline: 'Technician tablet UI for an AI-assisted farm drone, built by a four-person team.',
             subtitle: 'Agricultural UAV Interface Design',
             desc: 'Designing a UAV control system to help the agriculture industry improve operational efficiency and optimize workflows. (Class project)',
             demoIntro: 'A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.',
@@ -116,7 +116,7 @@ const PortfolioApp = {
             timeline: 'Aug 2025 – Dec 2025',
             team: '4 Designers',
             teamRoster: [
-                '1 Product Designer — Technician Interface (me)',
+                '1 Product Designer, Technician Interface (me)',
                 '3 Product Designers'
             ],
             role: 'Technician Interface design',
@@ -125,7 +125,7 @@ const PortfolioApp = {
             featured: true,
             spotlightEyebrow: 'Enterprise · Agtech',
             spotlightTitle: 'Technician UI for an AI-assisted farm drone.',
-            spotlightDesc: 'I owned the technician tablet interface—unifying mapping, spray, and thermal workflows into one screen, with a design target that cuts payload diagnosis from 18 minutes to 5.',
+            spotlightDesc: 'I owned the technician tablet interface, unifying mapping, spray, and thermal workflows into one screen, with a design target that cuts payload diagnosis from 18 minutes to 5.',
             spotlightStats: [
                 { value: '18m → 5m', label: 'diagnosis target', accent: true },
                 { value: 'One platform', label: 'map · spray · thermal' },
@@ -136,8 +136,8 @@ const PortfolioApp = {
             id: 'lawfare',
             title: 'International Lawfare Website',
             subtitle: 'Drupal-Based Legal Scholarship Hub',
-            listSubline: 'Drupal CMS organizing legal scholarship under the ASU Design System — searchable publications and course materials.',
-            desc: 'The program page for International Lawfare — introducing and sharing course details.',
+            listSubline: 'Drupal CMS organizing legal scholarship under the ASU Design System, with searchable publications and course materials.',
+            desc: 'The program page for International Lawfare, introducing and sharing course details.',
             demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
             filterType: 'web',
             audience: 'Public',
@@ -264,7 +264,7 @@ const PortfolioApp = {
             timeline: 'RoseHack 2025',
             team: 'Cathy Chen, Michelle Chen, Jerry Chen',
             teamRoster: [
-                'Michelle Chen — UI/Front-end Lead (me)',
+                'Michelle Chen, UI/Front-end Lead (me)',
                 'Cathy Chen',
                 'Jerry Chen'
             ],
@@ -321,7 +321,7 @@ const PortfolioApp = {
             heroGreeting: '',
             title: `<span class="hero-title-line hero-title-line--meta"><span class="shape shape-circle hero-meta-dot" aria-hidden="true"></span><span class="hero-meta-name">Michelle Chen</span><span class="hero-meta-sep" aria-hidden="true">·</span><span class="hero-meta-role">Product Designer</span></span><span class="hero-title-line hero-title-line--focus">I design accessible<span class="shape shape-circle" aria-hidden="true"></span>,</span><span class="hero-title-line hero-title-line--focus">AI-driven products<span class="shape shape-square" aria-hidden="true"></span>.</span>`,
             desc: '',
-            briefIntro: 'Currently working at <a href="https://vislab.asu.edu/" target="_blank" rel="noopener noreferrer">VisLab</a> · M.S. UX/HCI, ASU. From research and prototyping through front-end—shipping WCAG-compliant interfaces for data-heavy tools.',
+            briefIntro: 'Currently working at <a href="https://vislab.asu.edu/" target="_blank" rel="noopener noreferrer">VisLab</a> · M.S. UX/HCI, ASU. From research and prototyping through front-end, shipping WCAG-compliant interfaces for data-heavy tools.',
             meta: ``
         },
         about: {
