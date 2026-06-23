@@ -1,58 +1,69 @@
-/* Playground — draggable mood board */
+/* Playground — single-viewport draggable mood board (no scroll) */
 
 html:has(body.is-playground-page),
 body.is-playground-page {
-    height: auto;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 body.is-playground-page {
-    overflow-x: hidden;
-    overflow-y: auto;
+    max-width: 100vw;
 }
 
 #app-root.app-root-playground {
-    height: auto;
-    min-height: 100vh;
-    overflow: visible;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;
 }
 
 .app-root-playground .content-wrapper-fullwidth,
 .app-root-playground .right-panel-fullwidth,
 .app-root-playground .right-panel-fullwidth .scroll-area,
 .app-root-playground .single-page-wrapper {
-    height: auto;
+    height: 100%;
     min-height: 0;
     flex: none;
-    overflow: visible;
+    overflow: hidden;
     display: block;
 }
 
 .playground-page {
     width: 100%;
-    min-height: 100%;
-    background: #ececec;
-    overflow: visible;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
+    /* Graph-paper grid backdrop */
+    background-color: #fcfcfc;
+    background-image:
+        linear-gradient(to right, rgba(17, 17, 17, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(17, 17, 17, 0.07) 1px, transparent 1px);
+    background-size: 40px 40px;
+    overflow: hidden;
 }
 
 .playground-board-shell {
     position: relative;
-    width: min(100%, 1280px);
-    margin: 0 auto;
-    padding: 0 24px 120px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .playground-board-header {
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    inset: 0;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100dvh;
     max-width: 420px;
-    margin: 0 auto 48px;
-    padding: 0 16px 48px;
+    margin: 0 auto;
+    padding: 0 16px;
     box-sizing: border-box;
     text-align: center;
     pointer-events: none;
@@ -77,7 +88,7 @@ body.is-playground-page {
 .playground-board-header__title {
     margin: 0 0 10px;
     font-family: "Times New Roman", Times, serif;
-    font-size: clamp(2.8rem, 7vw, 4.4rem);
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
     font-weight: 400;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -86,7 +97,7 @@ body.is-playground-page {
 
 .playground-board-header__subtitle {
     margin: 0;
-    font-size: 0.92rem;
+    font-size: clamp(0.82rem, 2vw, 0.92rem);
     line-height: 1.5;
     color: rgba(17, 17, 17, 0.42);
 }
@@ -101,24 +112,26 @@ body.is-playground-page {
 }
 
 .playground-board {
-    position: relative;
-    min-height: 1180px;
-    border-radius: 8px;
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+    height: 100%;
+    border-radius: 0;
     overflow: visible;
-    touch-action: auto;
+    touch-action: none;
 }
 
 .playground-item {
     position: absolute;
     left: var(--pg-x, 10%);
-    top: var(--pg-y, 40px);
+    top: var(--pg-y, 8%);
     z-index: var(--pg-z, 1);
-    width: var(--pg-width, auto);
-    max-width: min(var(--pg-width, 280px), calc(100% - 24px));
+    width: min(var(--pg-width, auto), 24vw);
+    max-width: min(var(--pg-width, 280px), calc(100vw - 32px));
     transform: rotate(var(--pg-rotate, 0deg));
     transform-origin: center center;
     cursor: grab;
-    touch-action: manipulation;
+    touch-action: none;
     user-select: none;
     transition: box-shadow 0.2s ease, filter 0.2s ease;
 }
@@ -126,7 +139,6 @@ body.is-playground-page {
 .playground-item.is-dragging {
     cursor: grabbing;
     z-index: 200 !important;
-    touch-action: none;
     filter: drop-shadow(0 16px 28px rgba(17, 17, 17, 0.18));
 }
 
@@ -134,41 +146,38 @@ body.is-playground-page {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 8px;
     padding: 0;
     background: transparent;
     box-shadow: none;
 }
 
 .playground-item__media {
-    background: #ffffff;
-    padding: 8px;
-    border-radius: 12px;
-    box-shadow:
-        0 1px 2px rgba(17, 17, 17, 0.05),
-        0 10px 24px rgba(17, 17, 17, 0.1);
+    background: transparent;
+    padding: 0;
+    border-radius: 6px;
 }
 
 .playground-item__media img {
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 6px;
     pointer-events: none;
 }
 
 .playground-item__caption {
     margin: 0;
     padding: 0 2px;
-    font-size: 0.82rem;
-    line-height: 1.45;
+    font-size: clamp(0.68rem, 1.4vw, 0.82rem);
+    line-height: 1.4;
     color: rgba(17, 17, 17, 0.48);
     pointer-events: none;
 }
 
 .playground-item--note {
-    width: min(var(--pg-width, 160px), calc(100vw - 48px));
-    padding: 16px 14px;
+    width: min(var(--pg-width, 160px), 18vw, calc(100vw - 48px));
+    padding: 14px 12px;
     background: #f4e58d;
     border-radius: 2px;
     box-shadow:
@@ -179,7 +188,7 @@ body.is-playground-page {
 .playground-item--note p {
     margin: 0;
     font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
-    font-size: 0.92rem;
+    font-size: clamp(0.78rem, 1.5vw, 0.92rem);
     line-height: 1.35;
     color: rgba(17, 17, 17, 0.72);
 }
@@ -190,43 +199,17 @@ body.is-playground-page {
     max-width: none;
 }
 
-.app-root-playground .about-home-link-mobile-only {
-    position: absolute;
-    top: 18px;
-    left: 20px;
-    z-index: 5;
-}
-
 @media (max-width: 900px) {
-    .app-root-playground .about-home-link-mobile-only {
-        position: static;
-        display: inline-flex;
-        margin: 0 0 8px 16px;
-    }
-}
-
-@media (max-width: 900px) {
-    .playground-board-shell {
-        padding: 0 16px 96px;
+    .playground-item {
+        width: min(var(--pg-width, auto), 38vw);
     }
 
-    .playground-board-header {
-        min-height: 100dvh;
-        margin-bottom: 32px;
-        padding: 0 12px 32px;
-    }
-
-    .playground-board {
-        min-height: 1320px;
+    .playground-item--note {
+        width: min(var(--pg-width, 140px), 34vw, calc(100vw - 40px));
     }
 
     .playground-board-header__hint {
         margin-top: 10px;
-    }
-
-    .playground-item__caption,
-    .playground-item--note p {
-        font-size: 0.78rem;
     }
 }
 
@@ -234,8 +217,4 @@ body.is-playground-page {
     .playground-item {
         transition: none;
     }
-}
-
-.app-root-playground .site-footer-shell {
-    margin-top: 48px;
 }

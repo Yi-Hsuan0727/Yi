@@ -449,9 +449,7 @@ const PortfolioApp = {
         if (!html) return html;
 
         var featured = this.getFeaturedProjects();
-        var spotlightHTML = featured.map(function(p) {
-            return LayoutComponents.buildFeaturedSpotlightCard(p);
-        }).join('');
+        var spotlightHTML = LayoutComponents.buildStackDeck(featured);
         var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
 
         var parser = new DOMParser();
@@ -529,13 +527,17 @@ const PortfolioApp = {
             this.initHomeAboutNav();
             this.initHomeContactNav();
             this.initHomeFeaturedWorkNav();
+            this.initProjectStack();
             this.initHomeTopNav();
+            this.initTopNavAutoHide();
             this.initMoreProjectsDeck();
             this.initAboutAwardPreviews();
             this.initHomeHeaderComposition();
         }
         if (pageType === 'playground') {
             this.initPlaygroundBoard();
+            this.initHomeTopNav();
+            this.initTopNavAutoHide();
         }
         if (typeof CursorLogic !== 'undefined') CursorLogic.ensure();
         const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';
@@ -667,7 +669,7 @@ const PortfolioApp = {
         }
 
         if (pageType === 'playground') {
-            finalContent = `${LayoutComponents.buildPlaygroundBoard()}${footerHTML}`;
+            finalContent = LayoutComponents.buildPlaygroundBoard();
         }
 
         const aboutBackLinkHTML = pageType === 'about'
@@ -718,15 +720,12 @@ const PortfolioApp = {
 
         if (pageType === 'playground') {
             const layoutHTML = `
-                ${LayoutComponents.buildProgressBar()}
-                ${LayoutComponents.buildBackToTop()}
                 ${LayoutComponents.buildTopNav('playground')}
                 <div id="app-root" class="app-root-playground app-root-about">
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
                             <div class="scroll-area" id="scroll-container">
                                 <div class="single-page-wrapper">
-                                    <a href="index.html" class="about-home-link about-home-link-mobile-only"><i class="fas fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
                                     ${finalContent}
                                 </div>
                             </div>
@@ -903,6 +902,59 @@ const PortfolioApp = {
         window.addEventListener('resize', syncStackSpacers);
     },
 
+    /* Sticky stacking project cards: scroll-driven scale + dim as each card is covered. */
+    initProjectStack: function() {
+        const deck = document.querySelector('.stack-deck');
+        if (!deck) return;
+        const cards = Array.prototype.slice.call(deck.querySelectorAll('.stack-card'));
+        if (cards.length < 2) return;
+
+        const mq = window.matchMedia('(max-width: 860px), (prefers-reduced-motion: reduce)');
+        let ticking = false;
+
+        const clear = () => {
+            cards.forEach((card) => {
+                card.style.transform = '';
+                card.style.filter = '';
+            });
+        };
+
+        const update = () => {
+            ticking = false;
+            if (mq.matches) { clear(); return; }
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const next = cards[i + 1];
+                if (!next) { card.style.transform = ''; card.style.filter = ''; continue; }
+                const h = card.offsetHeight;
+                if (!h) continue;
+                /* Coverage 0→1: how far the next card has risen over this pinned one.
+                   transform-origin keeps the top edge fixed, so rects stay comparable. */
+                const gap = next.getBoundingClientRect().top - card.getBoundingClientRect().top;
+                let p = 1 - gap / h;
+                p = p < 0 ? 0 : p > 1 ? 1 : p;
+                card.style.transform = 'scale(' + (1 - 0.05 * p).toFixed(4) + ')';
+                card.style.filter = 'brightness(' + (1 - 0.10 * p).toFixed(3) + ')';
+            }
+        };
+
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+        };
+
+        /* Bind the native scroller (#scroll-container fires even while Lenis drives it,
+           and survives Lenis being torn down/recreated at the 1200px breakpoint) plus
+           window for the mobile/native-scroll case. */
+        const scroller = document.getElementById('scroll-container');
+        if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        window.addEventListener('load', onScroll, { once: true });
+        update();
+    },
+
     initHomeToolbox: function() {
         const mount = document.getElementById('home-toolbox-stickers');
         if (!mount || typeof LayoutComponents === 'undefined') return;
@@ -960,12 +1012,15 @@ const PortfolioApp = {
     },
 
     initProjectTopNav: function() {
+        this.initHomeTopNav();
+        this.initTopNavAutoHide();
+    },
+
+    initTopNavAutoHide: function() {
         const nav = document.querySelector('.site-top-nav');
         if (!nav || nav.dataset.autoHideBound) return;
         nav.dataset.autoHideBound = '1';
         nav.classList.add('site-top-nav--auto-hide');
-
-        this.initHomeTopNav();
 
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -975,6 +1030,9 @@ const PortfolioApp = {
         const minScroll = 64;
 
         const getScrollPosition = () => {
+            const isPlayground = !!document.querySelector('.app-root-playground');
+            if (isPlayground) return 0;
+
             const isMobile = window.innerWidth <= 1200;
             if (!isMobile && window.__lenis) return window.__lenis.scroll;
             if (isMobile) return window.scrollY;
@@ -1005,6 +1063,12 @@ const PortfolioApp = {
         };
 
         const bindScroll = () => {
+            const isPlayground = !!document.querySelector('.app-root-playground');
+            if (isPlayground) {
+                nav.classList.remove('is-scroll-hidden');
+                return;
+            }
+
             const isMobile = window.innerWidth <= 1200;
             if (!isMobile && window.__lenis) {
                 window.__lenis.on('scroll', onScroll);

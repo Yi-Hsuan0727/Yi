@@ -2,7 +2,7 @@
  * PlaygroundBoard: draggable mood-board items on the playground page.
  */
 const PlaygroundBoard = {
-    storageKey: 'playground-board-positions-v1',
+    storageKey: 'playground-board-positions-v2',
     zCounter: 10,
     dragThreshold: 6,
 
@@ -24,29 +24,19 @@ const PlaygroundBoard = {
     },
 
     refreshScroll: function() {
-        const refresh = () => {
-            if (window.__lenis) window.__lenis.resize();
-        };
+        /* Playground is a fixed viewport — no scroll container to refresh. */
+    },
 
-        refresh();
-        setTimeout(refresh, 120);
-        setTimeout(refresh, 480);
+    applyPosition: function(item, left, top) {
+        const boardRect = this.getBoardRect();
+        if (!boardRect.width || !boardRect.height) return;
 
-        this.board.querySelectorAll('img').forEach((img) => {
-            if (img.complete) return;
-            img.addEventListener('load', refresh, { once: true });
-        });
-
-        window.addEventListener('load', refresh, { once: true });
+        item.style.left = `${(left / boardRect.width) * 100}%`;
+        item.style.top = `${(top / boardRect.height) * 100}%`;
     },
 
     getBoardRect: function() {
         return this.board.getBoundingClientRect();
-    },
-
-    applyPosition: function(item, left, top) {
-        item.style.left = `${left}px`;
-        item.style.top = `${top}px`;
     },
 
     readStoredPositions: function() {
@@ -71,13 +61,13 @@ const PlaygroundBoard = {
                 this.zCounter = Math.max(this.zCounter, saved.z);
             }
 
-            if (typeof saved.leftPercent === 'number' && typeof saved.topPercent === 'number') {
+            if (typeof saved.leftPercent === 'number' && typeof saved.topPercentY === 'number') {
                 item.style.left = `${saved.leftPercent}%`;
-                item.style.top = `${saved.topPercent}px`;
+                item.style.top = `${saved.topPercentY}%`;
                 return;
             }
 
-            if (typeof saved.left === 'number' && typeof saved.top === 'number' && boardRect.width) {
+            if (typeof saved.left === 'number' && typeof saved.top === 'number' && boardRect.width && boardRect.height) {
                 this.applyPosition(item, saved.left, saved.top);
             }
         });
@@ -94,7 +84,7 @@ const PlaygroundBoard = {
             left: Math.round(left),
             top: Math.round(top),
             leftPercent: boardRect.width ? (left / boardRect.width) * 100 : null,
-            topPercent: top,
+            topPercentY: boardRect.height ? (top / boardRect.height) * 100 : null,
             z: parseInt(item.style.zIndex, 10) || this.zCounter
         };
 

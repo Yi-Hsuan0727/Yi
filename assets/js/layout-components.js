@@ -161,44 +161,15 @@ const LayoutComponents = {
             </figure>`;
     },
 
-    buildHomeHeroCtaArrow: function(type) {
-        const paths = {
-            'in-high': {
-                viewBox: '0 0 72 48',
-                width: 72,
-                height: 48,
-                origin: '6px 42px',
-                shaft: 'M 52 -12 C 42 -1 26 18 16 30 C 10 37 9.2 40.2 9.8 40.6',
-                head: 'M 11.2 36.8 L 6 42 L 11.2 45.2'
-            },
-            'in-flat': {
-                viewBox: '0 0 72 36',
-                width: 72,
-                height: 36,
-                origin: '6px 28px',
-                shaft: 'M 58 0 C 46 6 28 16 16 23 C 10 26.5 9.4 27.4 9.8 27.6',
-                head: 'M 11.2 23.2 L 6 28 L 11.2 32.8'
-            },
-            'in-low': {
-                viewBox: '0 0 72 18',
-                width: 72,
-                height: 18,
-                origin: '6px 9px',
-                shaft: 'M 66 9.5 C 50 9.2 34 9.1 20 9 C 12 9 10.4 9 10.4 9',
-                head: 'M 11.2 5.4 L 6 9 L 11.2 12.6'
-            }
-        };
-        const path = paths[type] || paths['in-flat'];
-
-        return `<span class="home-hero-cta-arrow home-hero-cta-arrow--${type}" style="--arrow-origin:${path.origin};width:${path.width}px;height:${path.height}px;" aria-hidden="true">
-            <svg class="home-hero-cta-arrow__svg" viewBox="${path.viewBox}" aria-hidden="true" focusable="false">
-                <path class="home-hero-cta-arrow__shaft" pathLength="1" d="${path.shaft}" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"/>
-                <path class="home-hero-cta-arrow__head" pathLength="1" d="${path.head}" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="miter"/>
-            </svg>
-        </span>`;
+    buildHomeHeroCtaArrowSvg: function() {
+        return `<svg class="home-hero-cta-arrow__svg" viewBox="0 0 88 60" fill="none" aria-hidden="true" focusable="false">
+                            <path class="home-hero-cta-arrow__shaft" pathLength="1" d="M 80 18 C 58 21 34 28 15 30" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path class="home-hero-cta-arrow__head" pathLength="1" d="M 27 22 L 14 30 L 27 38" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>`;
     },
 
     buildHomeHeroCta: function() {
+        // Two hand-drawn arrows fanning back toward the button (tips on the left, near the button).
         return `
             <div class="home-hero-cta-wrap">
                 <div class="home-hero-cta-cluster">
@@ -209,11 +180,12 @@ const LayoutComponents = {
                         </span>
                         <span class="home-hero-cta__label">View my work</span>
                     </a>
-                    <div class="home-hero-cta-arrows" aria-hidden="true">
-                        ${this.buildHomeHeroCtaArrow('in-high')}
-                        ${this.buildHomeHeroCtaArrow('in-flat')}
-                        ${this.buildHomeHeroCtaArrow('in-low')}
-                    </div>
+                    <span class="home-hero-cta-arrow home-hero-cta-arrow--a" aria-hidden="true">
+                        ${this.buildHomeHeroCtaArrowSvg()}
+                    </span>
+                    <span class="home-hero-cta-arrow home-hero-cta-arrow--b" aria-hidden="true">
+                        ${this.buildHomeHeroCtaArrowSvg()}
+                    </span>
                 </div>
                 <p class="home-hero-cta-hint" aria-hidden="true">Tap to explore featured projects</p>
             </div>`;
@@ -410,6 +382,50 @@ const LayoutComponents = {
                         <p class="home-spotlight-card__desc">${project.spotlightDesc || project.demoIntro || project.desc || ''}</p>
                         <dl class="home-spotlight-card__stats">${stats}</dl>
                         <span class="home-spotlight-card__cta">Read the case study <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+            </article>`;
+    },
+
+    /* Sticky stacking deck — full-width split cards that pin and fan into a stack on scroll. */
+    buildStackDeck: function(projects) {
+        if (!projects || !projects.length) return '';
+        const cards = projects.map((p, i) => this.buildStackCard(p, i)).join('');
+        return `<div class="stack-deck">${cards}</div>`;
+    },
+
+    buildStackCard: function(project, index) {
+        const num = String(index + 1).padStart(2, '0');
+        const category = project.audience
+            || (typeof PortfolioApp !== 'undefined' ? PortfolioApp.getProjectFilterCategory(project) : project.filterType)
+            || '';
+        const headline = project.spotlightTitle || project.cardHeadline || project.title;
+        const desc = project.spotlightDesc || project.desc || project.demoIntro || '';
+        const tags = (project.tags || []).map(function(t) {
+            return `<li class="stack-card__tag">${t}</li>`;
+        }).join('');
+        const imgSrc = project.image || '';
+        const objectPosition = project.cardImagePosition || 'center center';
+        /* Stepped sticky offset: 28, 74, 120… (≈46px header height per card behind). */
+        const top = 28 + index * 46;
+        return `
+            <article class="stack-card" data-project-id="${project.id || ''}" style="--stack-top:${top}px; z-index:${index + 1};">
+                <a class="stack-card__link" href="${project.link}">
+                    <header class="stack-card__bar">
+                        <span class="stack-card__index">${num}</span>
+                        <span class="stack-card__name">${project.title}</span>
+                        <span class="stack-card__category">${category}</span>
+                    </header>
+                    <div class="stack-card__split">
+                        <div class="stack-card__media">
+                            <img src="${imgSrc}" alt="${project.title}" loading="lazy" decoding="async" style="object-position:${objectPosition};">
+                        </div>
+                        <div class="stack-card__content">
+                            <h3 class="stack-card__headline">${headline}</h3>
+                            <p class="stack-card__desc">${desc}</p>
+                            <ul class="stack-card__tags">${tags}</ul>
+                            <span class="stack-card__cta">View case study <span class="stack-card__cta-arrow" aria-hidden="true">&rarr;</span></span>
+                        </div>
                     </div>
                 </a>
             </article>`;
@@ -684,7 +700,7 @@ const LayoutComponents = {
                 alt: 'Prototype screens',
                 caption: 'App concept explorations from an early design sprint',
                 x: 5,
-                y: 72,
+                y: 6,
                 width: 210,
                 rotate: -4,
                 z: 2
@@ -696,7 +712,7 @@ const LayoutComponents = {
                 alt: 'LK12 icon grid',
                 caption: 'Custom icons and mascot explorations I ended up not using',
                 x: 7,
-                y: 390,
+                y: 33,
                 width: 250,
                 rotate: 6,
                 z: 4
@@ -706,7 +722,7 @@ const LayoutComponents = {
                 kind: 'note',
                 text: 'Keep the weird ideas.<br>Some of them become projects.',
                 x: 4,
-                y: 760,
+                y: 64,
                 width: 150,
                 rotate: -5,
                 z: 6
@@ -718,7 +734,7 @@ const LayoutComponents = {
                 alt: 'Product mockup',
                 caption: 'A commuter pass concept I sketched for fun',
                 x: 24,
-                y: 820,
+                y: 70,
                 width: 280,
                 rotate: -2,
                 z: 7
@@ -730,7 +746,7 @@ const LayoutComponents = {
                 alt: 'TNAF mobile mockups',
                 caption: 'Ecom screens for a hyperlocal eco marketplace concept',
                 x: 58,
-                y: 64,
+                y: 5,
                 width: 260,
                 rotate: 3,
                 z: 9
@@ -742,7 +758,7 @@ const LayoutComponents = {
                 alt: 'Responsive TNAF layouts',
                 caption: 'Responsive layout studies for the same product idea',
                 x: 62,
-                y: 360,
+                y: 31,
                 width: 230,
                 rotate: -3,
                 z: 11
@@ -754,7 +770,7 @@ const LayoutComponents = {
                 alt: 'TNAF interaction GIF',
                 caption: 'An app icon and interaction GIF I made for a friend',
                 x: 68,
-                y: 650,
+                y: 55,
                 width: 170,
                 rotate: 8,
                 z: 13
@@ -764,7 +780,7 @@ const LayoutComponents = {
         const itemHTML = items.map(function(item) {
             const style = [
                 `--pg-x:${item.x}%`,
-                `--pg-y:${item.y}px`,
+                `--pg-y:${item.y}%`,
                 `--pg-rotate:${item.rotate}deg`,
                 `--pg-z:${item.z}`,
                 item.width ? `--pg-width:${item.width}px` : ''
@@ -820,7 +836,7 @@ const LayoutComponents = {
         const playgroundAttrs = isPlayground ? ' aria-current="page" class="site-top-nav__link site-top-nav__link--current cursor-hover"' : ' class="site-top-nav__link cursor-hover"';
 
         return `
-            <nav class="site-top-nav" aria-label="Primary">
+            <nav class="site-top-nav site-top-nav--auto-hide" aria-label="Primary">
                 <div class="site-top-nav__inner">
                     <a href="index.html" class="site-top-nav__brand cursor-hover">
                         <img class="site-top-nav__avatar" src="assets/img/Michelle/IMG_2395.png" alt="" width="28" height="28" decoding="async">

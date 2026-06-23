@@ -189,6 +189,8 @@ const AppLogic = {
         const useWindowScroll = isMobile || isPlayground;
         const scroller = useWindowScroll ? window : desktopContainer;
         const updateSidebarCompact = this.initSidebarCompact();
+        const topNav = document.querySelector('.site-top-nav--auto-hide');
+        const NAV_HIDE_AFTER = 120; // keep nav visible near the top
 
         if (!scroller && !useWindowScroll) return;
 
@@ -208,6 +210,16 @@ const AppLogic = {
             if (progressBar) progressBar.style.width = ((currentScroll / maxScroll) * 100) + "%";
 
             updateSidebarCompact(currentScroll);
+
+            // Nav auto-hide: drop it when scrolling down, bring it back on scroll up
+            if (topNav) {
+                const delta = currentScroll - lastScroll;
+                if (currentScroll <= NAV_HIDE_AFTER || delta < -4) {
+                    topNav.classList.remove('is-scroll-hidden');
+                } else if (delta > 4) {
+                    topNav.classList.add('is-scroll-hidden');
+                }
+            }
 
             // Back to Top visibility
             const backToTop = document.querySelector('.back-to-top');
