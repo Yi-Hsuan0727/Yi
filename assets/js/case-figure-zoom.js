@@ -19,7 +19,7 @@ const CaseFigureZoom = {
             img.setAttribute('tabindex', '0');
             const caption = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim();
             if (caption) {
-                img.setAttribute('aria-label', caption + ' — click to zoom');
+                img.setAttribute('aria-label', caption + ' (click to zoom)');
             }
             img.addEventListener('click', () => this.open(img));
             img.addEventListener('keydown', (e) => {

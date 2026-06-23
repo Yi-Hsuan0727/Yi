@@ -88,7 +88,7 @@ body.is-playground-page {
 .playground-board-header__title {
     margin: 0 0 10px;
     font-family: "Times New Roman", Times, serif;
-    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    font-size: clamp(1.7rem, 3.6vw, 2.6rem);
     font-weight: 400;
     line-height: 1;
     letter-spacing: -0.03em;

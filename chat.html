@@ -315,7 +315,7 @@ const PROJECTS = [
 
 /* ════ SIDEBAR CONFIG ══════════════════════════════════ */
 const SIDEBAR_BASE = [
-  {id:'portfolio',name:"Michelle's Portfolio",av:'MC',bg:'linear-gradient(135deg,#34c759,#007aff)',preview:"Hey! I'm Michelle — scroll to explore 👋",time:'now'},
+  {id:'portfolio',name:"Michelle's Portfolio",av:'MC',bg:'linear-gradient(135deg,#34c759,#007aff)',preview:"Hey! I'm Michelle, scroll to explore 👋",time:'now'},
   {type:'label',text:'Projects'},
   {id:'pic2split',name:'Pic2Split',av:'P2',bg:'#5e5ce6',preview:'Social bill-splitting · End-to-end design',time:'2025'},
   {id:'uav',name:'UAV Control System',av:'🚁',bg:'#e5e5ea',preview:'Agricultural drone interface · UI Design',time:'2025'},
@@ -334,7 +334,7 @@ const CHAPTERS = {
   intro:[
     {type:'ts',text:'Today'},
     {type:'tip',text:"📱 Explore **Projects** in the sidebar for full case studies · Use **Works** & **Contact** shortcuts below · Long-press any bubble to react 👆"},
-    {type:'in',id:'m1',text:"Hey! 👋 I'm Michelle Chen — UX/UI designer and HCI researcher. I design digital experiences that actually make sense to the people using them."},
+    {type:'in',id:'m1',text:"Hey! 👋 I'm Michelle Chen, a UX/UI designer and HCI researcher. I design digital experiences that actually make sense to the people using them."},
     {type:'in',id:'m2',text:"3+ years in the field · M.S. in UX/HCI from ASU (GPA 4.0) · Tempe, AZ 🌵\n\nI've shipped work at VisLab (ASU), M-think Technology, Toastmasters, and independent clients. Always at the intersection of research, design, and front-end craft."},
     {type:'in',id:'m-c1',text:"That's a bit about me! 🙋‍♀️ Want to see my work? Tap **Works** above or scroll ↓"},
     {type:'gap'},
@@ -396,7 +396,7 @@ function buildStep(step){
     const bc=document.createElement('div');bc.className='bc';
     const bw=document.createElement('div');bw.className='bw';
     const b=document.createElement('div');b.className='b in';
-    b.innerHTML=`<strong>${p.title}</strong> — ${p.sub}`;
+    b.innerHTML=`<strong>${p.title}</strong>: ${p.sub}`;
     bw.appendChild(b);bc.appendChild(bw);mg.appendChild(av);mg.appendChild(bc);block.appendChild(mg);
     const mf=document.createElement('div');mf.className='media-full';
     p.media.forEach(m=>{const pm=document.createElement('div');pm.className='pm';pm.appendChild(makeMed(m));mf.appendChild(pm);});
@@ -581,7 +581,7 @@ function showStatic(nodes, showBack=true){
 
 function showPic2Split(){showStatic([
   sTs('Pic2Split · 2025'),
-  sBub("**Pic2Split** — End-to-End Social Bill-Splitting App 🧾\n\nSplitting U.S. receipts with tax and tip is slow and error-prone. Existing apps feel too simple or too unreliable to trust at the table. I designed Pic2Split to solve this with an AI-powered web app that completes the full split in under two minutes."),
+  sBub("**Pic2Split**: End-to-End Social Bill-Splitting App 🧾\n\nSplitting U.S. receipts with tax and tip is slow and error-prone. Existing apps feel too simple or too unreliable to trust at the table. I designed Pic2Split to solve this with an AI-powered web app that completes the full split in under two minutes."),
   sDivider(),
   sBub("🔍 **Research: Competitive Analysis & User Flow**\n\nI started with a competitive audit of existing bill-splitting tools and mapped out the end-to-end user journey to identify friction points."),
   sM(['assets/img/Pic2Split/Userflow of competitor_Scan & Split Bill - OCR Check.jpg','assets/img/Pic2Split/pic2split-userflow.jpg','assets/img/Pic2Split/wireframe.png'],'s3'),
@@ -589,7 +589,7 @@ function showPic2Split(){showStatic([
   sBub("🎨 **Design System & Components**\n\nBuilt a comprehensive design system and component library to ensure visual consistency across the entire app."),
   sM(['assets/img/Pic2Split/design system.png','assets/img/Pic2Split/components.png'],'s2'),
   sDivider(),
-  sBub("📱 **Prototype — Scan, Assign, Share**\n\nThe final three-step flow: scan the receipt → assign items to people → share the split link instantly. All under two minutes."),
+  sBub("📱 **Prototype: Scan, Assign, Share**\n\nThe final three-step flow: scan the receipt → assign items to people → share the split link instantly. All under two minutes."),
   sM([{v:'assets/img/Pic2Split/mockup-video-landing-animation.mp4'},{v:'assets/img/Pic2Split/Scan a receipt.mp4'},{v:'assets/img/Pic2Split/assign item.mp4'}],'s3'),
   sDivider(),
   sBub("✅ **Outcome**\n\nA frictionless receipt-splitting experience: zero calculation errors, accurate tax and tip distribution, and a complete flow in under 2 minutes. Research-backed and validated through usability testing."),
@@ -598,16 +598,16 @@ function showPic2Split(){showStatic([
 
 function showUAV(){showStatic([
   sTs('UAV Control System · 2025'),
-  sBub("**UAV Control System** — Agricultural Drone Interface Design 🚁\n\nModern AgriDrones carry cameras, spray rigs, cargo drops, and sensors all at once. Managing them without overwhelming field technicians was the core design challenge."),
+  sBub("**UAV Control System**: Agricultural Drone Interface Design 🚁\n\nModern AgriDrones carry cameras, spray rigs, cargo drops, and sensors all at once. Managing them without overwhelming field technicians was the core design challenge."),
   sM([{i:'assets/img/UAV/mockup.jpg'}],'s1'),
   sDivider(),
-  sBub("📱 **Main Screens — Overview, Mission, Statistics**\n\nThe three primary views of the Technician role: a high-level payload overview, active mission monitoring, and a statistics/health dashboard."),
+  sBub("📱 **Main Screens: Overview, Mission, Statistics**\n\nThe three primary views of the Technician role: a high-level payload overview, active mission monitoring, and a statistics/health dashboard."),
   sM(['assets/img/UAV/technician-overview page.png','assets/img/UAV/technician-mission page.png','assets/img/UAV/technician-statistics page.png'],'s3'),
   sDivider(),
-  sBub("🔔 **Feature Detail — Alerts & AI Chatbot**\n\nCritical features: a contextual alert detail panel that surfaces actionable diagnostics, and an AI chatbot assistant for real-time troubleshooting guidance."),
+  sBub("🔔 **Feature Detail: Alerts & AI Chatbot**\n\nCritical features: a contextual alert detail panel that surfaces actionable diagnostics, and an AI chatbot assistant for real-time troubleshooting guidance."),
   sM(['assets/img/UAV/alert details pop up window.png','assets/img/UAV/technician-ai chatbot.png'],'s2'),
   sDivider(),
-  sBub("🎬 **Showreel — Full System in Action**"),
+  sBub("🎬 **Showreel: Full System in Action**"),
   sM([{v:'assets/img/UAV/Agro drone Showreel- V2 (1).MP4'}],'s1'),
   sDivider(),
   sBub("✅ **Outcome**\n\nLess operator fatigue, faster maintenance, more uptime. One screen for swappable payloads. Clear alerts without split attention. Delivered in sync with the Pilot and Specialist roles."),
@@ -616,21 +616,21 @@ function showUAV(){showStatic([
 
 function showUNESCO(){showStatic([
   sTs('UNESCO Volunteer Recruitment · 2024'),
-  sBub("**UNESCO Volunteer Recruitment** — UX Redesign for Clarity & Conversion 🌍\n\nThe UNESCO volunteer portal had a major discoverability problem. Potential volunteers couldn't find pathways, filters overlapped confusingly, and text blocks buried the most important requirements."),
+  sBub("**UNESCO Volunteer Recruitment**: UX Redesign for Clarity & Conversion 🌍\n\nThe UNESCO volunteer portal had a major discoverability problem. Potential volunteers couldn't find pathways, filters overlapped confusingly, and text blocks buried the most important requirements."),
   sDivider(),
-  sBub("🔍 **Research — Dashboard, Summary & Issues**\n\nUsability testing dashboard results, user research summary, and documented issue patterns across the existing site."),
+  sBub("🔍 **Research: Dashboard, Summary & Issues**\n\nUsability testing dashboard results, user research summary, and documented issue patterns across the existing site."),
   sM(['assets/img/UNESCO/usability-test-dashboard.png','assets/img/UNESCO/user research summary.png','assets/img/UNESCO/user research issues and feedbacks.png'],'s3'),
   sDivider(),
-  sBub("👥 **User Personas — Three Distinct Audiences**\n\nThree distinct user types with different goals: students seeking internships, skilled professionals, and long-term volunteers."),
+  sBub("👥 **User Personas: Three Distinct Audiences**\n\nThree distinct user types with different goals: students seeking internships, skilled professionals, and long-term volunteers."),
   sM(['assets/img/UNESCO/persona-01.png','assets/img/UNESCO/persona-02.png','assets/img/UNESCO/persona-03.png'],'s3'),
   sDivider(),
-  sBub("⚠️ **Before — Old Site Problems**\n\nThe original site: volunteer sections hidden in navigation, job listings with no filters, and career/internship sections nearly impossible to find."),
+  sBub("⚠️ **Before: Old Site Problems**\n\nThe original site: volunteer sections hidden in navigation, job listings with no filters, and career/internship sections nearly impossible to find."),
   sM(['assets/img/UNESCO/old site.png','assets/img/UNESCO/old site-job page.png'],'s2'),
   sDivider(),
-  sBub("✏️ **Redesign — Wireframes & New Navigation**"),
+  sBub("✏️ **Redesign: Wireframes & New Navigation**"),
   sM(['assets/img/UNESCO/wireframe.png'],'s1'),
   sDivider(),
-  sBub("🎬 **Final Design — Animated Walkthroughs**"),
+  sBub("🎬 **Final Design: Animated Walkthroughs**"),
   sM([{v:'assets/img/UNESCO/Home.mp4'},{i:'assets/img/UNESCO/Career Page (Gallery View).png'},{i:'assets/img/UNESCO/Career Page (Map View).png'}],'s3'),
   sDivider(),
   sBub("✅ **Outcome**\n\nFewer dead-ends, scannable listings, and filters matching the real job board taxonomy. Volunteering now feels accessible and worth exploring. Validated with usability testing across three personas."),
@@ -639,24 +639,24 @@ function showUNESCO(){showStatic([
 
 function showLCM(){showStatic([
   sTs('Indigenous Cultural Museums · 2024'),
-  sBub("**Indigenous Cultural Museums** — One WCAG 2.1 AA Platform for 30 Museums 🏛\n\nThe legacy site failed accessibility standards and buried 30 museums in admin-style navigation. Both had to be fixed while respecting cultural protocols."),
+  sBub("**Indigenous Cultural Museums**: One WCAG 2.1 AA Platform for 30 Museums 🏛\n\nThe legacy site failed accessibility standards and buried 30 museums in admin-style navigation. Both had to be fixed while respecting cultural protocols."),
   sDivider(),
-  sBub("⚠️ **Before — The Legacy Site & Competitive Audit**\n\nThe old site with inaccessible navigation and a competitive analysis showing how peer institutions handled museum content."),
+  sBub("⚠️ **Before: The Legacy Site & Competitive Audit**\n\nThe old site with inaccessible navigation and a competitive analysis showing how peer institutions handled museum content."),
   sM(['assets/img/lcm/old site home page.png','assets/img/lcm/competitive.png'],'s2'),
   sDivider(),
-  sBub("🏗 **Process — Structure, Wireframes & Prototype**\n\nInformation architecture planning, wireframes, and interactive prototype before the WCAG implementation."),
+  sBub("🏗 **Process: Structure, Wireframes & Prototype**\n\nInformation architecture planning, wireframes, and interactive prototype before the WCAG implementation."),
   sM(['assets/img/lcm/home page structure.png','assets/img/lcm/wireframe.png','assets/img/lcm/prototype2.png'],'s3'),
   sDivider(),
-  sBub("♿ **Accessibility — Contrast & Typography Standards**\n\nColor contrast auditing and typographic accessibility testing to meet WCAG 2.1 AA requirements across all 30 museum profiles."),
+  sBub("♿ **Accessibility: Contrast & Typography Standards**\n\nColor contrast auditing and typographic accessibility testing to meet WCAG 2.1 AA requirements across all 30 museum profiles."),
   sM(['assets/img/lcm/color contract.png','assets/img/lcm/text and background.png'],'s2'),
   sDivider(),
-  sBub("📱 **Final Design — Desktop, iPad, iPhone**\n\nThe redesigned site across breakpoints — lightweight and optimized for low-bandwidth remote regions."),
+  sBub("📱 **Final Design: Desktop, iPad, iPhone**\n\nThe redesigned site across breakpoints, lightweight and optimized for low-bandwidth remote regions."),
   sM(['assets/img/lcm/lcm.tacp.gov.tw_.png','assets/img/lcm/lcm.tacp.gov.tw_(iPad Pro).png','assets/img/lcm/lcm.tacp.gov.tw_(iPhone 14 Pro Max).png'],'s3'),
   sDivider(),
   sBub("🎬 **Site Overview**"),
   sM([{v:'assets/img/lcm/overview.mp4'}],'s1'),
   sDivider(),
-  sBub("✅ **Outcome** 🏆\n\nPassed ALL government WCAG 2.1 AA audits — zero failures across every museum profile. Fully responsive, optimized for low bandwidth. A scalable brand system that treats indigenous artifacts with historical dignity."),
+  sBub("✅ **Outcome** 🏆\n\nPassed ALL government WCAG 2.1 AA audits, zero failures across every museum profile. Fully responsive, optimized for low bandwidth. A scalable brand system that treats indigenous artifacts with historical dignity."),
   sLink('View full case study →','lcm.html'),
 ])}
 
@@ -692,7 +692,7 @@ function showPlayground(){
   });
   showStatic([
     sTs('Playground 🎮'),
-    sBub("**Playground** — Experiments & Side Projects 🧪\n\nHere's where I build things outside of client work: game jams, interactive experiments, and creative explorations. More experiments and side projects on the way!"),
+    sBub("**Playground**: Experiments & Side Projects 🧪\n\nHere's where I build things outside of client work: game jams, interactive experiments, and creative explorations. More experiments and side projects on the way!"),
     grid,
     sLink('Open Playground →','playground.html'),
   ]);
@@ -748,7 +748,7 @@ function showDailyMoo(){
     (() => {
       const d=document.createElement('div');
       d.style.cssText='text-align:center;font-size:.7rem;color:#c0c0c8;padding:6px 0 4px';
-      d.textContent='— Send a congratulations message below 🎉 —';
+      d.textContent='· Send a congratulations message below 🎉 ·';
       return d;
     })(),
     sp(4),
@@ -780,7 +780,7 @@ async function sendGroupMsg(){
   const r1=gBub("Thank you SO much!! 🥹 This means everything to us 💙","cathy");
   sv.insertBefore(r1,sv.lastChild);sv.scrollTo({top:sv.scrollHeight,behavior:'smooth'});
   await sleep(1200);
-  const r2=gBub("Truly grateful!! 🐄 Keep an eye on Daily Moo Mood — we have more ideas brewing 😊",'mc');
+  const r2=gBub("Truly grateful!! 🐄 Keep an eye on Daily Moo Mood, we have more ideas brewing 😊",'mc');
   sv.insertBefore(r2,sv.lastChild);sv.scrollTo({top:sv.scrollHeight,behavior:'smooth'});
   // Update hint
   document.getElementById('gbar').querySelector('.gbar-hint').textContent='Message sent! 🎉';
@@ -840,7 +840,7 @@ document.addEventListener('click',e=>{if(!epick.contains(e.target)&&!e.target.cl
 /* ════ FEEDBACK ════════════════════════════════════════ */
 const inp=document.getElementById('inp'),sbtn=document.getElementById('sbtn'),hint=document.getElementById('hint'),cmdbox=document.getElementById('cmdbox');
 let fstep=0,fdata={name:'',email:''};
-const FS=[{ph:'Message Michelle…',h:'Long-press any bubble to react 👆'},{ph:'Your name…',h:"Step 1/3 — What's your name?"},{ph:'Your email…',h:'Step 2/3 — Your email?'},{ph:"What's on your mind?",h:'Step 3/3 — Your message'}];
+const FS=[{ph:'Message Michelle…',h:'Long-press any bubble to react 👆'},{ph:'Your name…',h:"Step 1/3 · What's your name?"},{ph:'Your email…',h:'Step 2/3 · Your email?'},{ph:"What's on your mind?",h:'Step 3/3 · Your message'}];
 function setFS(n){fstep=n;inp.placeholder=FS[n].ph;hint.textContent=FS[n].h;}
 function startFeedback(){if(fstep>0)return;setFS(1);inp.focus();}
 function addUserBub(text){const g=document.createElement('div');g.className='user-mg';g.innerHTML=`<div class="bc" style="align-items:flex-end"><div class="bw" style="align-items:flex-end"><div class="b out">${esc(text)}</div></div></div>`;fb.appendChild(g);requestAnimationFrame(()=>requestAnimationFrame(()=>g.classList.add('on')));msgsEl.scrollTo({top:msgsEl.scrollHeight,behavior:'smooth'});}

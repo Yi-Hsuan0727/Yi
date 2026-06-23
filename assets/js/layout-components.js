@@ -480,7 +480,7 @@ const LayoutComponents = {
             const awardHTML = awardLabel
                 ? `<span class="projects-more-card-award">${awardLabel}</span>`
                 : '';
-            const cardLabel = awardLabel ? `${p.title} — ${awardLabel}` : p.title;
+            const cardLabel = awardLabel ? `${p.title}, ${awardLabel}` : p.title;
             return `
                 <button type="button" class="projects-more-card${awardLabel ? ' has-award' : ''}" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};" aria-haspopup="dialog" aria-label="${cardLabel}">
                     <span class="projects-more-card-frame">
@@ -528,7 +528,7 @@ const LayoutComponents = {
             <section class="projects-more" id="projects-more" aria-labelledby="projects-more-heading">
                 <div class="projects-more-inner">
                     <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More projects</span>${this.buildHeroTitleShapes()}</h2>
-                    <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects — client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
+                    <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects: client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
                     <div class="projects-more-scroll" tabindex="0" aria-label="Scroll through more projects">
                         <div class="projects-more-deck projects-more-deck--scroll" id="projects-more-list" role="list">${items}</div>
                     </div>
@@ -631,7 +631,7 @@ const LayoutComponents = {
                         <div class="site-contact-success comic-speech-bubble" role="status" tabindex="-1" hidden>
                             <i class="fas fa-check-circle" aria-hidden="true"></i>
                             <p class="site-contact-success-title">Message sent!</p>
-                            <p class="site-contact-success-text">Thanks for reaching out — I&apos;ve received your note and will contact you soon.</p>
+                            <p class="site-contact-success-text">Thanks for reaching out. I&apos;ve received your note and will contact you soon.</p>
                         </div>
                     </form>
                 </div>
@@ -694,18 +694,6 @@ const LayoutComponents = {
     buildPlaygroundBoard: function() {
         const items = [
             {
-                id: 'prototype',
-                kind: 'project',
-                src: 'assets/img/playground/prototype.png',
-                alt: 'Prototype screens',
-                caption: 'App concept explorations from an early design sprint',
-                x: 5,
-                y: 6,
-                width: 210,
-                rotate: -4,
-                z: 2
-            },
-            {
                 id: 'lk12',
                 kind: 'project',
                 src: 'assets/img/playground/lk12.png',
@@ -726,18 +714,6 @@ const LayoutComponents = {
                 width: 150,
                 rotate: -5,
                 z: 6
-            },
-            {
-                id: 'mockup',
-                kind: 'project',
-                src: 'assets/img/playground/mockup.png',
-                alt: 'Product mockup',
-                caption: 'A commuter pass concept I sketched for fun',
-                x: 24,
-                y: 70,
-                width: 280,
-                rotate: -2,
-                z: 7
             },
             {
                 id: 'tnaf-mockup',
@@ -792,7 +768,7 @@ const LayoutComponents = {
                 kind: 'project',
                 src: 'assets/img/playground/me and teammate.png',
                 alt: 'Me and teammates at a design sprint',
-                caption: 'My team mid affinity-mapping — sticky notes everywhere',
+                caption: 'My team mid affinity-mapping, sticky notes everywhere',
                 x: 47,
                 y: 27,
                 width: 180,
@@ -807,7 +783,7 @@ const LayoutComponents = {
                 caption: 'Low-fi wireframes for a jazz venue site',
                 x: 30,
                 y: 31,
-                width: 125,
+                width: 92,
                 rotate: 4,
                 z: 5
             },
