@@ -5,30 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michelle Chen — Resume</title>
     <meta name="description" content="Resume of Michelle Chen, UX/UI Designer, Web Designer, and Product Designer.">
+    <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ── Design tokens (matches portfolio) ─────────────────── */
         :root {
             --bg: #ffffff;
             --text: #111111;
-            --secondary: #555555;
+            --secondary: #666666;
             --accent: #2ecc71;
             --accent-blue: #4A55E0;
             --accent-yellow: #E8E258;
-            --border: #e0e0e0;
+            --border: #e8e8e8;
             --page-w: 210mm;
             --page-h: 297mm;
-            --pad-x: 11mm;
-            --pad-y: 5.5mm;
-            --r-line: 1.30;
-            --r-space-header: 6px;
-            --r-space-summary: 4px;
-            --r-space-section: 3px;
-            --r-space-two-col: 4px;
-            --r-space-section-title: 3px;
-            --r-space-exp-item: 4px;
+            --pad-x: 12mm;
+            --pad-y: 9mm;
+            --sidebar-w: 62mm;
+            --r-line: 1.28;
+            --r-space-section: 14px;
+            --r-space-exp-item: 9px;
+            --r-space-block: 18px;
         }
 
         /* ── Reset ──────────────────────────────────────────────── */
@@ -41,6 +40,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
         }
 
         /* ── Screen UI (hidden when printing) ───────────────────── */
@@ -125,69 +126,142 @@
             background: #fff;
             box-shadow: 0 4px 32px rgba(0,0,0,0.12);
             padding: var(--pad-y) var(--pad-x);
-            padding-right: calc(var(--pad-x) + 4mm);
             position: relative;
             line-height: var(--r-line);
         }
-        /* ── Header ─────────────────────────────────────────────── */
-        .r-header {
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 6px;
-            margin-bottom: var(--r-space-header);
+
+        /* ── Two-column layout (reference-style) ─────────────────── */
+        .r-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) var(--sidebar-w);
+            grid-template-rows: auto auto 1fr;
+            column-gap: 7mm;
+            align-items: start;
         }
+        .r-header {
+            grid-column: 1 / -1;
+            grid-row: 1;
+            padding-bottom: 6px;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+        .r-layout > .r-summary {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            margin-top: 0;
+            margin-bottom: var(--r-space-block);
+            padding-bottom: var(--r-space-block);
+            border-bottom: 1px solid var(--border);
+        }
+        .r-sidebar {
+            grid-column: 2;
+            grid-row: 3;
+            align-self: start;
+            padding-left: 5mm;
+            border-left: 1px solid var(--border);
+        }
+        .r-main {
+            grid-column: 1;
+            grid-row: 3;
+            min-width: 0;
+        }
+
+        /* ── Header / name ──────────────────────────────────────── */
         .r-name {
+            display: flex;
+            align-items: center;
+            gap: 0.35em;
+            font-family: 'Montserrat', sans-serif;
             font-size: 22pt;
-            font-weight: 700;
-            letter-spacing: -0.01em;
-            line-height: var(--r-line);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.08;
             color: var(--text);
         }
-        .r-title-line {
-            font-size: 9.5pt;
-            font-weight: 600;
-            color: var(--accent-blue);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            line-height: var(--r-line);
-            margin-top: 2px;
+        .r-name-dot {
+            display: inline-block;
+            width: 0.34em;
+            height: 0.34em;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 0.12em;
         }
-        .r-contact {
-            margin-top: 5px;
-            font-size: 7.8pt;
-            line-height: var(--r-line);
+        .r-title-line {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8.4pt;
+            font-weight: 500;
             color: var(--secondary);
+            letter-spacing: 0.02em;
+            line-height: var(--r-line);
+            margin-top: 4px;
+            max-width: 100%;
+        }
+        .r-header .r-contact--inline {
+            margin-top: 6px;
+            margin-bottom: 0;
+        }
+
+        /* ── Contact line ───────────────────────────────────────── */
+        .r-contact--inline {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 0;
+            font-size: 7.6pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
         }
-        .r-contact > * + *::before {
+        .r-contact--inline > * + *::before {
             content: '';
             display: inline-block;
             width: 3px;
             height: 3px;
             border-radius: 50%;
             background: var(--accent);
-            margin: 0 7px;
+            margin: 0 6px;
             vertical-align: middle;
-            flex-shrink: 0;
         }
-        .r-contact a { color: var(--secondary); text-decoration: none; }
+        .r-section--contacts .r-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            font-size: 7.6pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
+        }
+        .r-section--contacts .r-contact > * + *::before { display: none; }
+        .r-contact a {
+            color: var(--secondary);
+            text-decoration: none;
+            word-break: break-word;
+        }
         .r-contact a:hover { color: var(--accent-blue); }
 
-        /* ── Section ────────────────────────────────────────────── */
+        /* ── Section headings ───────────────────────────────────── */
         .r-section { margin-top: var(--r-space-section); }
-        .r-two-col > div > .r-section:first-child { margin-top: 0; }
+        .r-sidebar > .r-section + .r-section,
+        .r-main > .r-section + .r-section { margin-top: var(--r-space-block); }
+        .r-sidebar > .r-section:first-child,
+        .r-main > .r-section:first-child { margin-top: 0; }
         .r-section-title {
-            font-size: 7.5pt;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 8pt;
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
             line-height: var(--r-line);
             color: var(--accent-blue);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 2px;
-            margin-bottom: var(--r-space-section-title);
+            margin-bottom: 8px;
+        }
+        .r-section-title::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
         }
 
         /* ── Experience item ────────────────────────────────────── */
@@ -199,142 +273,141 @@
             gap: 8px;
         }
         .r-exp-role {
-            font-size: 9pt;
+            font-size: 9.2pt;
             font-weight: 700;
             line-height: var(--r-line);
             color: var(--text);
-            white-space: nowrap;
         }
         .r-exp-period {
-            font-size: 7.5pt;
+            font-size: 7.6pt;
             line-height: var(--r-line);
             color: var(--secondary);
             white-space: nowrap;
             flex-shrink: 0;
         }
         .r-exp-org {
-            font-size: 8pt;
+            font-size: 7.8pt;
             line-height: var(--r-line);
             color: var(--secondary);
             font-weight: 500;
             margin-top: 1px;
-            hyphens: none;
-            overflow-wrap: normal;
-            word-break: normal;
         }
         .r-exp-bullets {
             margin-top: 2px;
-            padding-left: 10px;
+            padding-left: 11px;
+            list-style: disc;
             list-style-position: outside;
         }
         .r-exp-bullets li {
-            font-size: 7.0pt;
-            letter-spacing: -0.01em;
+            font-size: 7.4pt;
             line-height: var(--r-line);
             color: var(--text);
             margin-bottom: 0;
-            hyphens: none;
-            -webkit-hyphens: none;
-            overflow-wrap: normal;
-            word-break: normal;
             text-wrap: pretty;
         }
-
-        /* ── Two-column bottom ──────────────────────────────────── */
-        .r-two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0 16px;
-            margin-top: var(--r-space-two-col);
-        }
-
-        /* ── Skills ─────────────────────────────────────────────── */
-        .r-skill-group { margin-bottom: 2px; }
-        .r-skill-label { font-size: 7.5pt; font-weight: 700; line-height: var(--r-line); color: var(--text); }
-        .r-skill-value { font-size: 7.2pt; line-height: var(--r-line); color: var(--secondary); }
+        .r-exp-bullets li::marker { color: var(--accent); font-size: 0.85em; }
 
         /* ── Summary ────────────────────────────────────────────── */
         .r-summary {
+            font-size: 7.8pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
+            margin-bottom: var(--r-space-block);
+        }
+
+        /* ── Skills ─────────────────────────────────────────────── */
+        .r-skill-group {
+            margin-bottom: 4px;
+            line-height: var(--r-line);
+        }
+        .r-skill-label {
+            font-size: 7.6pt;
+            font-weight: 700;
+            line-height: var(--r-line);
+            color: var(--text);
+            display: block;
+            margin-bottom: 1px;
+        }
+        .r-skill-value {
             font-size: 7.5pt;
             line-height: var(--r-line);
             color: var(--secondary);
-            margin-bottom: var(--r-space-summary);
+            display: block;
         }
 
         /* ── Education / Awards / Certs ─────────────────────────── */
         .r-edu-item { margin-bottom: 4px; }
-        .r-edu-degree { font-size: 8.5pt; font-weight: 700; line-height: var(--r-line); color: var(--text); }
-        .r-edu-school { font-size: 7.8pt; line-height: var(--r-line); color: var(--secondary); }
-        .r-edu-meta { font-size: 7.5pt; line-height: var(--r-line); color: var(--secondary); }
-        .r-award-list,
+        .r-edu-degree { font-size: 7.8pt; font-weight: 700; line-height: var(--r-line); color: var(--text); }
+        .r-edu-school { font-size: 7.5pt; line-height: var(--r-line); color: var(--secondary); }
+        .r-edu-meta { font-size: 7.4pt; line-height: var(--r-line); color: var(--secondary); }
         .r-cert-list {
-            margin-top: 2px;
+            margin-top: 0;
             padding-left: 0;
             list-style: none;
         }
-        .r-award-list .r-award-item,
-        .r-cert-list .r-cert-item {
-            font-size: 7.5pt;
-            line-height: var(--r-line);
-            color: var(--text);
-            margin-bottom: 2px;
+        .r-cert-item { margin-bottom: 4px; }
+        .r-cert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 6px;
         }
-        .r-vol-item { margin-bottom: 6px; }
+        .r-cert-title {
+            flex: 1;
+            min-width: 0;
+            font-size: 7.6pt;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+        }
+        .r-cert-period {
+            flex-shrink: 0;
+            font-size: 7.4pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
+        }
+        .r-cert-org {
+            font-size: 7.4pt;
+            line-height: var(--r-line);
+            color: var(--secondary);
+            margin-bottom: 1px;
+        }
+        .r-award-list {
+            margin-top: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .r-vol-item { margin-bottom: 4px; }
         .r-vol-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            gap: 8px;
+            gap: 6px;
         }
         .r-vol-role {
-            font-size: 8pt;
+            font-size: 7.6pt;
             font-weight: 700;
-            line-height: var(--r-line);
+            line-height: 1.25;
             color: var(--text);
         }
         .r-vol-period {
             flex-shrink: 0;
-            font-size: 7.5pt;
+            font-size: 7.4pt;
             line-height: var(--r-line);
             color: var(--secondary);
         }
         .r-vol-org {
-            font-size: 7.5pt;
+            font-size: 7.4pt;
             line-height: var(--r-line);
             color: var(--secondary);
-            margin-bottom: 2px;
-        }
-        .r-vol-desc {
-            font-size: 7.5pt;
-            line-height: var(--r-line);
-            color: var(--text);
-            margin: 2px 0 0;
-        }
-        .r-vol-bullets {
-            margin: 2px 0 4px 14px;
-            padding: 0;
-            list-style: disc;
-        }
-        .r-vol-bullets li {
-            font-size: 7.5pt;
-            line-height: var(--r-line);
-            color: var(--text);
             margin-bottom: 1px;
         }
-        .r-award-list {
-            margin-top: 6px;
+        .r-vol-desc {
+            font-size: 7.2pt;
+            line-height: var(--r-line);
+            color: var(--text);
+            margin: 1px 0 0;
         }
-
-        /* ── Accent stripe (decorative) ─────────────────────────── */
-        .r-stripe {
-            position: absolute;
-            top: 0; right: 0;
-            width: 5mm;
-            height: 100%;
-            background: linear-gradient(180deg, var(--accent) 0%, var(--accent-blue) 60%, var(--accent-yellow) 100%);
-            border-radius: 0 0 0 0;
-        }
-
 
         /* ── Hidden versions ────────────────────────────────────── */
         .resume-version {
@@ -344,15 +417,12 @@
         .resume-version.active { display: block; }
 
         /* ── Projects ───────────────────────────────────────────── */
-        .r-projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; }
+        .r-projects-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
         .r-project-card {
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            padding: 6px 8px;
-            position: relative;
+            padding: 0 0 2px;
         }
         .r-project-name {
-            font-size: 7.8pt;
+            font-size: 7.9pt;
             font-weight: 700;
             line-height: var(--r-line);
             color: var(--text);
@@ -360,54 +430,56 @@
         .r-project-name a { color: inherit; text-decoration: none; }
         .r-project-name a:hover { color: var(--accent-blue); text-decoration: underline; }
         .r-project-sub {
-            font-size: 7.3pt;
+            font-size: 7.4pt;
             line-height: var(--r-line);
             color: var(--secondary);
             margin-top: 1px;
         }
-        .r-project-desc { display: none; }
         .r-project-bullets {
-            margin-top: 3px;
-            padding-left: 9px;
+            margin-top: 2px;
+            padding-left: 10px;
+            list-style: disc;
             list-style-position: outside;
         }
         .r-project-bullets li {
-            font-size: 6.4pt;
+            font-size: 7pt;
             line-height: 1.28;
             color: var(--text);
-            margin-bottom: 1px;
-            hyphens: none;
-            overflow-wrap: normal;
-            word-break: normal;
+            margin-bottom: 0;
         }
-        .r-project-tags { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 3px; }
+        .r-project-bullets li::marker { color: var(--accent-blue); font-size: 0.85em; }
+        .r-project-tags { margin-top: 3px; display: flex; flex-wrap: wrap; gap: 3px; }
         .r-project-tag {
-            font-size: 6.5pt;
+            font-size: 6.6pt;
             font-weight: 600;
-            line-height: var(--r-line);
+            line-height: 1.2;
             padding: 1px 5px;
             border-radius: 3px;
             background: rgba(74,85,224,0.08);
             color: var(--accent-blue);
-            letter-spacing: 0.02em;
+        }
+
+        /* ── Decorative stripe (portfolio accent) ───────────────── */
+        .r-stripe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3mm;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--accent-blue) 55%, var(--accent-yellow) 100%);
         }
 
         /* ── Per-version spacing overrides ─────────────────────── */
-        #tab-uxui { --r-line: 1.37; --r-space-section: 4px; --r-space-exp-item: 5px; --r-space-two-col: 5px; --r-space-header: 8px; }
-        #tab-web  { --r-line: 1.36; --r-space-section: 4px; --r-space-exp-item: 5px; --r-space-two-col: 5px; }
-        #tab-ui   { --r-line: 1.35; --r-space-section: 4px; --r-space-exp-item: 4px; --r-space-two-col: 5px; }
-        #tab-ux   { --r-line: 1.42; --r-space-section: 5px; --r-space-exp-item: 6px; --r-space-two-col: 9px; }
+        #tab-uxui { --r-line: 1.28; --r-space-section: 13px; --r-space-exp-item: 8px; --r-space-block: 17px; }
+        #tab-web  { --r-line: 1.27; --r-space-section: 13px; --r-space-exp-item: 8px; --r-space-block: 17px; }
+        #tab-ui   { --r-line: 1.26; --r-space-section: 12px; --r-space-exp-item: 8px; --r-space-block: 16px; }
+        #tab-ux   { --r-line: 1.29; --r-space-section: 14px; --r-space-exp-item: 9px; --r-space-block: 18px; }
+        #tab-product, #tab-steadyiq { --r-line: 1.27; --r-space-section: 13px; --r-space-exp-item: 8px; --r-space-block: 17px; }
 
         /* ── Print styles ───────────────────────────────────────── */
         @media print {
-            @page {
-                size: A4;
-                margin: 0;
-            }
-            body {
-                background: #fff !important;
-                min-height: unset;
-            }
+            @page { size: A4; margin: 0; }
+            body { background: #fff !important; min-height: unset; }
             .resume-screen-ui { display: none !important; }
             .paper-wrap { padding: 0 !important; }
             .resume-page {
@@ -416,26 +488,37 @@
                 height: 297mm !important;
                 max-height: 297mm !important;
                 padding: var(--pad-y) var(--pad-x) !important;
-                padding-right: calc(var(--pad-x) + 5mm) !important;
                 overflow: hidden !important;
-                page-break-after: avoid;
-                page-break-inside: avoid;
             }
-            :root {
-                --r-line: 1.4;
-                --r-space-section: 13px;
-                --r-space-header: 13px;
-                --r-space-two-col: 13px;
-                --r-space-exp-item: 8px;
+            .r-layout {
+                grid-template-columns: minmax(0, 1fr) 58mm;
+                column-gap: 6mm;
             }
-            .r-exp-bullets li {
-                font-size: 7.4pt;
-                letter-spacing: -0.025em;
-                line-height: var(--r-line);
-            }
-            /* Only print the active version */
             .resume-version { display: none !important; }
             .resume-version.active { display: block !important; }
+            .r-contact a { color: var(--secondary) !important; }
+        }
+
+        /* ── ATS / small-screen: single column, DOM reading order ─ */
+        @media screen and (max-width: 720px) {
+            .r-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            .r-header,
+            .r-main,
+            .r-sidebar,
+            .r-layout > .r-summary {
+                grid-column: 1;
+                grid-row: auto;
+            }
+            .r-sidebar {
+                border-left: none;
+                border-top: 1px solid var(--border);
+                padding-left: 0;
+                padding-top: 8px;
+                margin-top: 8px;
+            }
         }
     </style>
 </head>
@@ -465,21 +548,28 @@
          VERSION 1 — UX/UI Designer
     ═══════════════════════════════════════════════════════════ -->
     <div class="resume-version active" id="tab-uxui">
-        <header class="r-header">
-            <div class="r-name">Michelle Chen</div>
-            <div class="r-title-line">UX/UI Designer · Human–Computer Interaction &amp; Design Systems</div>
-            <div class="r-contact">
-                <span>Tempe, AZ</span>
+        <div class="r-layout">
+            <header class="r-header">
+                <div class="r-name">Michelle Chen<span class="r-name-dot" aria-hidden="true"></span></div>
+                <div class="r-title-line">UX/UI Designer · Human–Computer Interaction &amp; Design Systems</div>
+            
+                <div class="r-contact r-contact--inline">
+<span>Tempe, AZ</span>
                 <span>602-607-9725</span>
                 <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
                 <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
                 <a href="https://www.linkedin.com/in/mchen0727/" target="_blank">linkedin.com/in/mchen0727</a>
-            </div>
-        </header>
+                </div>
 
-        <p class="r-summary">UX/UI designer with 3+ years steering end-to-end product lifecycles for enterprise SaaS, data-dense web systems, and user-centered digital ecosystems. Converts HCI research, quantitative analytics, and complex information architecture into scalable UI components that bridge user intent and front-end execution. M.S. UX/HCI, ASU (GPA 4.0).</p>
 
-        <section class="r-section">
+            </header>
+
+            
+            <p class="r-summary">UX/UI designer with 3+ years steering end-to-end product lifecycles for enterprise SaaS, data-dense web systems, and user-centered digital ecosystems. Converts HCI research, quantitative analytics, and complex information architecture into scalable UI components that bridge user intent and front-end execution. M.S. UX/HCI, ASU (GPA 4.0).</p>
+
+<main class="r-main">
+
+<section class="r-section">
             <div class="r-section-title">Experience</div>
 
             <div class="r-exp-item">
@@ -524,32 +614,8 @@
 
         </section>
 
-        <section class="r-section">
-            <div class="r-section-title">Selected Projects</div>
-            <div class="r-projects-grid">
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
-                    <div class="r-project-sub">AI-Powered Social Bill-Splitting Web App · OCR &amp; Google Gemini</div>
-                    <ul class="r-project-bullets">
-                        <li>Designed end-to-end UX/UI for a shipped AI product; cut split flow from 4-min competitor baseline to under 2 min (2× faster, 50% less time) using OCR, Google Gemini, and multi-state assignment flows</li>
-                        <li>Engineered multi-state flows in Figma for OCR review, tax/tip validation, and split logic across mobile and desktop viewports</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">OCR</span><span class="r-project-tag">Fintech SaaS</span></div>
-                </div>
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="unesco.html" target="_blank">UNESCO Volunteer Recruitment</a></div>
-                    <div class="r-project-sub">UX Redesign for Clarity &amp; Conversion</div>
-                    <ul class="r-project-bullets">
-                        <li>Conducted heuristic evaluations and usability tests to restructure IA and reduce sign-up drop-off</li>
-                        <li>Delivered high-fidelity mockups aligned to accessibility and conversion best practices</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">Heuristic Evaluation</span><span class="r-project-tag">Information Architecture</span><span class="r-project-tag">Web Applications</span></div>
-                </div>
-            </div>
-        </section>
+                
 
-        <div class="r-two-col">
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Education</div>
                     <div class="r-edu-item">
@@ -564,7 +630,32 @@
                     </div>
                 </section>
 
-                <section class="r-section">
+<section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">AI-Powered Social Bill-Splitting Web App · OCR &amp; Google Gemini</div>
+                    <ul class="r-project-bullets">
+                        <li>Designed end-to-end UX/UI for a shipped AI product; cut split flow from 4-min competitor baseline to under 2 min (2× faster, 50% less time) using OCR, Google Gemini, and multi-state assignment flows</li>
+                        <li>Engineered multi-state flows in Figma for OCR review, tax/tip validation, and split logic across mobile and desktop viewports</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">OCR</span><span class="r-project-tag">Fintech SaaS</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">WCAG AA Portal for 30 Museums · UX/UI &amp; Front-End Delivery</div>
+                    <ul class="r-project-bullets">
+                        <li>Designed UX/UI and semantic front-end for a 30-museum web system; passed WCAG 2.1 AA government audits with zero failures</li>
+                        <li>Built modular component patterns, typography systems, and accessible interaction templates scalable across institutional brands</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">WCAG 2.1/2.2</span><span class="r-project-tag">Design Systems</span><span class="r-project-tag">Web Applications</span></div>
+                </div>
+            </div>
+        </section>
+            </main>
+        <aside class="r-sidebar">
+<section class="r-section">
                     <div class="r-section-title">Awards &amp; Volunteer</div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
@@ -576,7 +667,7 @@
                     </div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
-                            <span class="r-vol-role">Volunteer · Product / UX Design</span>
+                            <span class="r-vol-role">Product / UX Design</span>
                             <span class="r-vol-period">2023</span>
                         </div>
                         <div class="r-vol-org">Toastmasters International · Taiwan</div>
@@ -604,9 +695,7 @@
                         <div class="r-vol-org">UC Riverside</div>
                     </div>
                 </section>
-            </div>
 
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
@@ -629,15 +718,40 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certifications</div>
-                    <ul class="r-cert-list">
-                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program (2026)</li>
-                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · Arizona State University (2025)</li>
-                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera (2024)</li>
-                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp (2022)</li>
-                    </ul>
+                    <div class="r-cert-list">
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">IRB – Social and Behavioral Research (Group 2)</span>
+                            <span class="r-cert-period">2026</span>
+                        </div>
+                        <div class="r-cert-org">CITI Program</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Spark Challenge Skill Badge: UX Design</span>
+                            <span class="r-cert-period">2025</span>
+                        </div>
+                        <div class="r-cert-org">Arizona State University</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Foundations of UX Design</span>
+                            <span class="r-cert-period">2024</span>
+                        </div>
+                        <div class="r-cert-org">Google / Coursera</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Responsive Web Design Developer Certification</span>
+                            <span class="r-cert-period">2022</span>
+                        </div>
+                        <div class="r-cert-org">freeCodeCamp</div>
+                    </div>
+                    </div>
                 </section>
+            </aside>
+
             </div>
-        </div>
     </div><!-- /tab-uxui -->
 
 
@@ -645,21 +759,28 @@
          VERSION 2 — Web Designer
     ═══════════════════════════════════════════════════════════ -->
     <div class="resume-version" id="tab-web">
-        <header class="r-header">
-            <div class="r-name">Michelle Chen</div>
-            <div class="r-title-line">Web Designer · Responsive Systems · WCAG &amp; Front-End Implementation</div>
-            <div class="r-contact">
-                <span>Tempe, AZ</span>
+        <div class="r-layout">
+            <header class="r-header">
+                <div class="r-name">Michelle Chen<span class="r-name-dot" aria-hidden="true"></span></div>
+                <div class="r-title-line">Web Designer · Responsive Systems · WCAG &amp; Front-End Implementation</div>
+            
+                <div class="r-contact r-contact--inline">
+<span>Tempe, AZ</span>
                 <span>602-607-9725</span>
                 <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
                 <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
                 <a href="https://www.linkedin.com/in/mchen0727/" target="_blank">linkedin.com/in/mchen0727</a>
-            </div>
-        </header>
+                </div>
 
-        <p class="r-summary">Web designer with 3+ years building responsive, WCAG-compliant web applications and modular design systems for enterprise and public-sector digital ecosystems. Translates Figma mockups into production HTML/CSS and Drupal implementations while preserving accessibility, SEO architecture, and cross-platform consistency.</p>
 
-        <section class="r-section">
+            </header>
+
+            
+            <p class="r-summary">Web designer with 3+ years building responsive, WCAG-compliant web applications and modular design systems for enterprise and public-sector digital ecosystems. Translates Figma mockups into production HTML/CSS and Drupal implementations while preserving accessibility, SEO architecture, and cross-platform consistency.</p>
+
+<main class="r-main">
+
+<section class="r-section">
             <div class="r-section-title">Experience</div>
 
             <div class="r-exp-item">
@@ -702,32 +823,8 @@
 
         </section>
 
-        <section class="r-section">
-            <div class="r-section-title">Selected Projects</div>
-            <div class="r-projects-grid">
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
-                    <div class="r-project-sub">WCAG AA Compliant Website for 30 Museums</div>
-                    <ul class="r-project-bullets">
-                        <li>Built responsive website system for 30 museums; passed WCAG 2.1 AA government audits with zero failures</li>
-                        <li>Applied accessibility patterns, typography systems, and modular page templates at scale</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">WCAG 2.1/2.2</span><span class="r-project-tag">Web Applications</span><span class="r-project-tag">Design Systems</span></div>
-                </div>
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="lawfare.html" target="_blank">International Lawfare Website</a></div>
-                    <div class="r-project-sub">Drupal-Based Legal Scholarship Hub</div>
-                    <ul class="r-project-bullets">
-                        <li>Designed Drupal platform balancing institutional branding with clear navigation across document-heavy content</li>
-                        <li>Structured IA for research, events, and scholarship repositories built for content longevity</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">Drupal</span><span class="r-project-tag">Information Architecture</span><span class="r-project-tag">Responsive Design</span></div>
-                </div>
-            </div>
-        </section>
+                
 
-        <div class="r-two-col">
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Education</div>
                     <div class="r-edu-item">
@@ -742,7 +839,32 @@
                     </div>
                 </section>
 
-                <section class="r-section">
+<section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">Responsive AI Web App · Semantic HTML/CSS · WCAG Patterns</div>
+                    <ul class="r-project-bullets">
+                        <li>Built and shipped responsive web UI in HTML/CSS for an AI receipt-splitting product; cut split flow from 4-min baseline to under 2 min across mobile and desktop</li>
+                        <li>Implemented accessible multi-step flows—OCR review, tax/tip validation, and shareable links—with WCAG-informed patterns and no-app, no-login access</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">Responsive Web Design</span><span class="r-project-tag">HTML/CSS</span><span class="r-project-tag">WCAG 2.1/2.2</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">WCAG AA Compliant Website for 30 Museums</div>
+                    <ul class="r-project-bullets">
+                        <li>Built responsive website system for 30 museums; passed WCAG 2.1 AA government audits with zero failures</li>
+                        <li>Applied accessibility patterns, typography systems, and modular page templates at scale</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">WCAG 2.1/2.2</span><span class="r-project-tag">Web Applications</span><span class="r-project-tag">Design Systems</span></div>
+                </div>
+            </div>
+        </section>
+            </main>
+        <aside class="r-sidebar">
+<section class="r-section">
                     <div class="r-section-title">Awards &amp; Volunteer</div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
@@ -754,7 +876,7 @@
                     </div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
-                            <span class="r-vol-role">Volunteer · Product / UX Design</span>
+                            <span class="r-vol-role">Product / UX Design</span>
                             <span class="r-vol-period">2023</span>
                         </div>
                         <div class="r-vol-org">Toastmasters International · Taiwan</div>
@@ -782,9 +904,7 @@
                         <div class="r-vol-org">UC Riverside</div>
                     </div>
                 </section>
-            </div>
 
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
@@ -807,15 +927,40 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certifications</div>
-                    <ul class="r-cert-list">
-                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp (2022)</li>
-                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera (2024)</li>
-                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · Arizona State University (2025)</li>
-                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program (2026)</li>
-                    </ul>
+                    <div class="r-cert-list">
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Responsive Web Design Developer Certification</span>
+                            <span class="r-cert-period">2022</span>
+                        </div>
+                        <div class="r-cert-org">freeCodeCamp</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Foundations of UX Design</span>
+                            <span class="r-cert-period">2024</span>
+                        </div>
+                        <div class="r-cert-org">Google / Coursera</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Spark Challenge Skill Badge: UX Design</span>
+                            <span class="r-cert-period">2025</span>
+                        </div>
+                        <div class="r-cert-org">Arizona State University</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">IRB – Social and Behavioral Research (Group 2)</span>
+                            <span class="r-cert-period">2026</span>
+                        </div>
+                        <div class="r-cert-org">CITI Program</div>
+                    </div>
+                    </div>
                 </section>
+            </aside>
+
             </div>
-        </div>
     </div><!-- /tab-web -->
 
 
@@ -823,21 +968,28 @@
          VERSION 3 — Product Designer
     ═══════════════════════════════════════════════════════════ -->
     <div class="resume-version" id="tab-product">
-        <header class="r-header">
-            <div class="r-name">Michelle Chen</div>
-            <div class="r-title-line">Product Designer · End-to-End Design Systems</div>
-            <div class="r-contact">
-                <span>Tempe, AZ</span>
+        <div class="r-layout">
+            <header class="r-header">
+                <div class="r-name">Michelle Chen<span class="r-name-dot" aria-hidden="true"></span></div>
+                <div class="r-title-line">Product Designer · End-to-End Design Systems</div>
+            
+                <div class="r-contact r-contact--inline">
+<span>Tempe, AZ</span>
                 <span>602-607-9725</span>
                 <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
                 <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
                 <a href="https://www.linkedin.com/in/mchen0727/" target="_blank">linkedin.com/in/mchen0727</a>
-            </div>
-        </header>
+                </div>
 
-        <p class="r-summary">Analytical product designer with 3+ years steering the end-to-end product lifecycle for enterprise SaaS applications, data-dense web systems, and complex user-centered digital ecosystems. Specialized in HCI methodologies—converting quantitative analytics and intricate information architecture into scalable design components that bridge user intent and front-end engineering execution.</p>
 
-        <section class="r-section">
+            </header>
+
+            
+            <p class="r-summary">Analytical product designer with 3+ years steering the end-to-end product lifecycle for enterprise SaaS applications, data-dense web systems, and complex user-centered digital ecosystems. Specialized in HCI methodologies—converting quantitative analytics and intricate information architecture into scalable design components that bridge user intent and front-end engineering execution.</p>
+
+<main class="r-main">
+
+<section class="r-section">
             <div class="r-section-title">Experience</div>
 
             <div class="r-exp-item">
@@ -882,32 +1034,8 @@
 
         </section>
 
-        <section class="r-section">
-            <div class="r-section-title">Selected Projects</div>
-            <div class="r-projects-grid">
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
-                    <div class="r-project-sub">AI-Powered Fintech SaaS · OCR Receipt Scanning &amp; Google Gemini</div>
-                    <ul class="r-project-bullets">
-                        <li>Architected end-to-end product lifecycle for a shipped AI web app; reduced split time from 4-min baseline to under 2 min (2× faster, ~2 min saved) via OCR, Google Gemini, and streamlined tax/tip flows</li>
-                        <li>Engineered multi-state flows in Figma mapping OCR review, tax/tip distribution, and split edge cases to minimize cognitive load and dropout</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">OCR</span><span class="r-project-tag">Product Lifecycle</span></div>
-                </div>
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="quickbite.html" target="_blank">QuickBite</a></div>
-                    <div class="r-project-sub">AI Meal Planning Assistant</div>
-                    <ul class="r-project-bullets">
-                        <li>Designed responsive AI-driven product using autonomous agents for personalized nutritional planning systems</li>
-                        <li>Formulated Human-AI interaction patterns—conversational onboarding, prompt-response structures, progressive disclosure—for algorithmic transparency</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">AI Agent Design</span><span class="r-project-tag">Digital Products</span><span class="r-project-tag">User-Centered Design</span></div>
-                </div>
-            </div>
-        </section>
+                
 
-        <div class="r-two-col">
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Education</div>
                     <div class="r-edu-item">
@@ -922,7 +1050,32 @@
                     </div>
                 </section>
 
-                <section class="r-section">
+<section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">AI-Powered Fintech SaaS · OCR Receipt Scanning &amp; Google Gemini</div>
+                    <ul class="r-project-bullets">
+                        <li>Architected end-to-end product lifecycle for a shipped AI web app; reduced split time from 4-min baseline to under 2 min (2× faster, ~2 min saved) via OCR, Google Gemini, and streamlined tax/tip flows</li>
+                        <li>Engineered multi-state flows in Figma mapping OCR review, tax/tip distribution, and split edge cases to minimize cognitive load and dropout</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">OCR</span><span class="r-project-tag">Product Lifecycle</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">Multi-Site Cultural Portal · IA &amp; Product Design</div>
+                    <ul class="r-project-bullets">
+                        <li>Directed product design for a 30-museum digital ecosystem—IA, wireframes, and high-fidelity UI aligned to government accessibility requirements</li>
+                        <li>Structured community-driven navigation (place, lineage, seasonal events) so users discover content without search-heavy paths</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">Information Architecture</span><span class="r-project-tag">Product Lifecycle</span><span class="r-project-tag">WCAG 2.1/2.2</span></div>
+                </div>
+            </div>
+        </section>
+            </main>
+        <aside class="r-sidebar">
+<section class="r-section">
                     <div class="r-section-title">Awards &amp; Volunteer</div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
@@ -934,7 +1087,7 @@
                     </div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
-                            <span class="r-vol-role">Volunteer · Product / UX Design</span>
+                            <span class="r-vol-role">Product / UX Design</span>
                             <span class="r-vol-period">2023</span>
                         </div>
                         <div class="r-vol-org">Toastmasters International · Taiwan</div>
@@ -962,9 +1115,7 @@
                         <div class="r-vol-org">UC Riverside</div>
                     </div>
                 </section>
-            </div>
 
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
@@ -987,36 +1138,68 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certifications</div>
-                    <ul class="r-cert-list">
-                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program (2026)</li>
-                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · Arizona State University (2025)</li>
-                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera (2024)</li>
-                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp (2022)</li>
-                    </ul>
+                    <div class="r-cert-list">
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">IRB – Social and Behavioral Research (Group 2)</span>
+                            <span class="r-cert-period">2026</span>
+                        </div>
+                        <div class="r-cert-org">CITI Program</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Spark Challenge Skill Badge: UX Design</span>
+                            <span class="r-cert-period">2025</span>
+                        </div>
+                        <div class="r-cert-org">Arizona State University</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Foundations of UX Design</span>
+                            <span class="r-cert-period">2024</span>
+                        </div>
+                        <div class="r-cert-org">Google / Coursera</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Responsive Web Design Developer Certification</span>
+                            <span class="r-cert-period">2022</span>
+                        </div>
+                        <div class="r-cert-org">freeCodeCamp</div>
+                    </div>
+                    </div>
                 </section>
+            </aside>
+
             </div>
-        </div>
     </div><!-- /tab-product -->
 
     <!-- ════════════════════════════════════════════════════════
          VERSION 4 — UX Designer
     ═══════════════════════════════════════════════════════════ -->
     <div class="resume-version" id="tab-ux">
-        <header class="r-header">
-            <div class="r-name">Michelle Chen</div>
-            <div class="r-title-line">UX Designer · User Research · Information Architecture</div>
-            <div class="r-contact">
-                <span>Tempe, AZ</span>
+        <div class="r-layout">
+            <header class="r-header">
+                <div class="r-name">Michelle Chen<span class="r-name-dot" aria-hidden="true"></span></div>
+                <div class="r-title-line">UX Designer · User Research · Information Architecture</div>
+            
+                <div class="r-contact r-contact--inline">
+<span>Tempe, AZ</span>
                 <span>602-607-9725</span>
                 <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
                 <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
                 <a href="https://www.linkedin.com/in/mchen0727/" target="_blank">linkedin.com/in/mchen0727</a>
-            </div>
-        </header>
+                </div>
 
-        <p class="r-summary">UX designer with 3+ years applying HCI methodologies across enterprise SaaS and data-dense web systems. Expertise in usability engineering, heuristic evaluation, user journey mapping, and information architecture—translating quantitative analytics and qualitative research into validated product improvements. M.S. UX/HCI, ASU (GPA 4.0); IRB-certified.</p>
 
-        <section class="r-section">
+            </header>
+
+            
+            <p class="r-summary">UX designer with 3+ years applying HCI methodologies across enterprise SaaS and data-dense web systems. Expertise in usability engineering, heuristic evaluation, user journey mapping, and information architecture—translating quantitative analytics and qualitative research into validated product improvements. M.S. UX/HCI, ASU (GPA 4.0); IRB-certified.</p>
+
+<main class="r-main">
+
+<section class="r-section">
             <div class="r-section-title">Experience</div>
 
             <div class="r-exp-item">
@@ -1057,32 +1240,8 @@
             </div>
         </section>
 
-        <section class="r-section">
-            <div class="r-section-title">Selected Projects</div>
-            <div class="r-projects-grid">
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
-                    <div class="r-project-sub">AI Bill-Splitting App · OCR &amp; Google Gemini UX Research</div>
-                    <ul class="r-project-bullets">
-                        <li>Researched competitor flows averaging 4 min per split; designed Pic2Split UX targeting under 2 min (2× faster, 50% less time) with validated OCR review and assignment workflows</li>
-                        <li>Validated OCR review and assignment flows through task-based usability evaluations across mobile and desktop viewports</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">Usability Testing</span><span class="r-project-tag">User Journey Mapping</span></div>
-                </div>
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="unesco.html" target="_blank">UNESCO Volunteer Recruitment</a></div>
-                    <div class="r-project-sub">Heuristic Evaluation &amp; IA Redesign</div>
-                    <ul class="r-project-bullets">
-                        <li>Conducted heuristic evaluations and user research to restructure IA and improve volunteer conversion</li>
-                        <li>Reduced sign-up friction through decision-path optimization and content hierarchy refinements</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">Heuristic Evaluation</span><span class="r-project-tag">Quantitative Analysis</span><span class="r-project-tag">Web Applications</span></div>
-                </div>
-            </div>
-        </section>
+                
 
-        <div class="r-two-col">
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Education</div>
                     <div class="r-edu-item">
@@ -1097,7 +1256,32 @@
                     </div>
                 </section>
 
-                <section class="r-section">
+<section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">AI Bill-Splitting App · OCR &amp; Google Gemini UX Research</div>
+                    <ul class="r-project-bullets">
+                        <li>Researched competitor flows averaging 4 min per split; designed Pic2Split UX targeting under 2 min (2× faster, 50% less time) with validated OCR review and assignment workflows</li>
+                        <li>Validated OCR review and assignment flows through task-based usability evaluations across mobile and desktop viewports</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">Usability Testing</span><span class="r-project-tag">User Journey Mapping</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">Heuristic Evaluation &amp; IA for 30-Museum Network</div>
+                    <ul class="r-project-bullets">
+                        <li>Conducted heuristic evaluations and IA restructuring for 30 cultural museum sites; grouped content by community storytelling patterns</li>
+                        <li>Validated navigation and accessibility flows to meet WCAG 2.1 AA government audit standards with zero failures</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">Heuristic Evaluation</span><span class="r-project-tag">Information Architecture</span><span class="r-project-tag">Usability Testing</span></div>
+                </div>
+            </div>
+        </section>
+            </main>
+        <aside class="r-sidebar">
+<section class="r-section">
                     <div class="r-section-title">Awards &amp; Volunteer</div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
@@ -1109,7 +1293,7 @@
                     </div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
-                            <span class="r-vol-role">Volunteer · Product / UX Design</span>
+                            <span class="r-vol-role">Product / UX Design</span>
                             <span class="r-vol-period">2023</span>
                         </div>
                         <div class="r-vol-org">Toastmasters International · Taiwan</div>
@@ -1137,9 +1321,7 @@
                         <div class="r-vol-org">UC Riverside</div>
                     </div>
                 </section>
-            </div>
 
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
@@ -1162,36 +1344,68 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certifications</div>
-                    <ul class="r-cert-list">
-                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program (2026)</li>
-                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · Arizona State University (2025)</li>
-                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera (2024)</li>
-                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp (2022)</li>
-                    </ul>
+                    <div class="r-cert-list">
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">IRB – Social and Behavioral Research (Group 2)</span>
+                            <span class="r-cert-period">2026</span>
+                        </div>
+                        <div class="r-cert-org">CITI Program</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Spark Challenge Skill Badge: UX Design</span>
+                            <span class="r-cert-period">2025</span>
+                        </div>
+                        <div class="r-cert-org">Arizona State University</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Foundations of UX Design</span>
+                            <span class="r-cert-period">2024</span>
+                        </div>
+                        <div class="r-cert-org">Google / Coursera</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Responsive Web Design Developer Certification</span>
+                            <span class="r-cert-period">2022</span>
+                        </div>
+                        <div class="r-cert-org">freeCodeCamp</div>
+                    </div>
+                    </div>
                 </section>
+            </aside>
+
             </div>
-        </div>
     </div><!-- /tab-ux -->
 
     <!-- ════════════════════════════════════════════════════════
          VERSION 5 — UI Designer
     ═══════════════════════════════════════════════════════════ -->
     <div class="resume-version" id="tab-ui">
-        <header class="r-header">
-            <div class="r-name">Michelle Chen</div>
-            <div class="r-title-line">UI Designer · Visual Design · Design Systems · Interaction Design</div>
-            <div class="r-contact">
-                <span>Tempe, AZ</span>
+        <div class="r-layout">
+            <header class="r-header">
+                <div class="r-name">Michelle Chen<span class="r-name-dot" aria-hidden="true"></span></div>
+                <div class="r-title-line">UI Designer · Visual Design · Design Systems · Interaction Design</div>
+            
+                <div class="r-contact r-contact--inline">
+<span>Tempe, AZ</span>
                 <span>602-607-9725</span>
                 <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
                 <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
                 <a href="https://www.linkedin.com/in/mchen0727/" target="_blank">linkedin.com/in/mchen0727</a>
-            </div>
-        </header>
+                </div>
 
-        <p class="r-summary">UI designer with 3+ years crafting high-fidelity mockups, component architecture, and interaction design for enterprise SaaS and data-dense web systems. Builds scalable design systems—from modular Drupal libraries to Figma component sets—that preserve brand coherence and WCAG compliance. M.S. UX/HCI, ASU (GPA 4.0).</p>
 
-        <section class="r-section">
+            </header>
+
+            
+            <p class="r-summary">UI designer with 3+ years crafting high-fidelity mockups, component architecture, and interaction design for enterprise SaaS and data-dense web systems. Builds scalable design systems—from modular Drupal libraries to Figma component sets—that preserve brand coherence and WCAG compliance. M.S. UX/HCI, ASU (GPA 4.0).</p>
+
+<main class="r-main">
+
+<section class="r-section">
             <div class="r-section-title">Experience</div>
 
             <div class="r-exp-item">
@@ -1233,32 +1447,8 @@
             </div>
         </section>
 
-        <section class="r-section">
-            <div class="r-section-title">Selected Projects</div>
-            <div class="r-projects-grid">
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="uav.html" target="_blank">UAV Control System</a></div>
-                    <div class="r-project-sub">Agricultural Drone Technician Interface</div>
-                    <ul class="r-project-bullets">
-                        <li>Designed data-dense diagnostic UI with clear visual hierarchy to reduce operator fatigue</li>
-                        <li>Built interaction patterns and component specs for a complex multi-tool control system</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">Visual Design</span><span class="r-project-tag">Interaction Design</span><span class="r-project-tag">Component Architecture</span></div>
-                </div>
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
-                    <div class="r-project-sub">WCAG AA Compliant Website for 30 Museums</div>
-                    <ul class="r-project-bullets">
-                        <li>Created modular typography and layout systems for 30 institutional sites at scale</li>
-                        <li>Passed WCAG 2.1 AA government audits with zero failures through accessible UI patterns</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">Design Systems</span><span class="r-project-tag">Typography</span><span class="r-project-tag">WCAG 2.1/2.2</span></div>
-                </div>
-            </div>
-        </section>
+                
 
-        <div class="r-two-col">
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Education</div>
                     <div class="r-edu-item">
@@ -1273,7 +1463,32 @@
                     </div>
                 </section>
 
-                <section class="r-section">
+<section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">High-Fidelity UI · Multi-State Assignment Flows</div>
+                    <ul class="r-project-bullets">
+                        <li>Designed high-fidelity UI and interaction specs for OCR review, dish assignment, and proportional tax/tip splits across responsive viewports</li>
+                        <li>Engineered visual hierarchy and component states in Figma to reduce cognitive load in a data-dense bill-splitting workflow</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">Visual Design</span><span class="r-project-tag">Interaction Design</span><span class="r-project-tag">Component Architecture</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">WCAG AA Compliant Website for 30 Museums</div>
+                    <ul class="r-project-bullets">
+                        <li>Created modular typography and layout systems for 30 institutional sites at scale</li>
+                        <li>Passed WCAG 2.1 AA government audits with zero failures through accessible UI patterns</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">Design Systems</span><span class="r-project-tag">Typography</span><span class="r-project-tag">WCAG 2.1/2.2</span></div>
+                </div>
+            </div>
+        </section>
+            </main>
+        <aside class="r-sidebar">
+<section class="r-section">
                     <div class="r-section-title">Awards &amp; Volunteer</div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
@@ -1285,7 +1500,7 @@
                     </div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
-                            <span class="r-vol-role">Volunteer · Product / UX Design</span>
+                            <span class="r-vol-role">Product / UX Design</span>
                             <span class="r-vol-period">2023</span>
                         </div>
                         <div class="r-vol-org">Toastmasters International · Taiwan</div>
@@ -1313,9 +1528,7 @@
                         <div class="r-vol-org">UC Riverside</div>
                     </div>
                 </section>
-            </div>
 
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
@@ -1338,36 +1551,68 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certifications</div>
-                    <ul class="r-cert-list">
-                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · Arizona State University (2025)</li>
-                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera (2024)</li>
-                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp (2022)</li>
-                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program (2026)</li>
-                    </ul>
+                    <div class="r-cert-list">
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Spark Challenge Skill Badge: UX Design</span>
+                            <span class="r-cert-period">2025</span>
+                        </div>
+                        <div class="r-cert-org">Arizona State University</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Foundations of UX Design</span>
+                            <span class="r-cert-period">2024</span>
+                        </div>
+                        <div class="r-cert-org">Google / Coursera</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Responsive Web Design Developer Certification</span>
+                            <span class="r-cert-period">2022</span>
+                        </div>
+                        <div class="r-cert-org">freeCodeCamp</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">IRB – Social and Behavioral Research (Group 2)</span>
+                            <span class="r-cert-period">2026</span>
+                        </div>
+                        <div class="r-cert-org">CITI Program</div>
+                    </div>
+                    </div>
                 </section>
+            </aside>
+
             </div>
-        </div>
     </div><!-- /tab-ui -->
 
     <!-- ════════════════════════════════════════════════════════
          VERSION 6 — SteadyIQ · Contract Product Designer
     ═══════════════════════════════════════════════════════════ -->
     <div class="resume-version" id="tab-steadyiq">
-        <header class="r-header">
-            <div class="r-name">Michelle Chen</div>
-            <div class="r-title-line">Product Designer · Complex Workflows · Gov &amp; Operational Systems</div>
-            <div class="r-contact">
-                <span>Tempe, AZ</span>
+        <div class="r-layout">
+            <header class="r-header">
+                <div class="r-name">Michelle Chen<span class="r-name-dot" aria-hidden="true"></span></div>
+                <div class="r-title-line">Product Designer · Complex Workflows · Gov &amp; Operational Systems</div>
+            
+                <div class="r-contact r-contact--inline">
+<span>Tempe, AZ</span>
                 <span>602-607-9725</span>
                 <a href="mailto:yche1356@asu.edu">yche1356@asu.edu</a>
                 <a href="https://themichellechen.com" target="_blank">themichellechen.com</a>
                 <a href="https://www.linkedin.com/in/mchen0727/" target="_blank">linkedin.com/in/mchen0727</a>
-            </div>
-        </header>
+                </div>
 
-        <p class="r-summary">Product designer with 3+ years shaping form-heavy, data-dense SaaS web applications and multi-tenant digital ecosystems for enterprise and public-sector contexts. Specialized in complex multi-step workflows, information architecture, and WCAG-compliant design systems. M.S. UX/HCI, ASU (GPA 4.0); IRB-certified.</p>
 
-        <section class="r-section">
+            </header>
+
+            
+            <p class="r-summary">Product designer with 3+ years shaping form-heavy, data-dense SaaS web applications and multi-tenant digital ecosystems for enterprise and public-sector contexts. Specialized in complex multi-step workflows, information architecture, and WCAG-compliant design systems. M.S. UX/HCI, ASU (GPA 4.0); IRB-certified.</p>
+
+<main class="r-main">
+
+<section class="r-section">
             <div class="r-section-title">Experience</div>
 
             <div class="r-exp-item">
@@ -1409,32 +1654,8 @@
 
         </section>
 
-        <section class="r-section">
-            <div class="r-section-title">Selected Projects</div>
-            <div class="r-projects-grid">
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
-                    <div class="r-project-sub">AI Receipt Splitting · OCR &amp; Google Gemini · Multi-Step Flows</div>
-                    <ul class="r-project-bullets">
-                        <li>Shipped AI product (OCR + Google Gemini)—23-screen flow from upload through share; cut split time from 4-min competitor baseline to under 2 min (2× faster, ~2 min saved per split)</li>
-                        <li>Engineered multi-state verification flows minimizing cognitive load across complex financial allocation scenarios</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">OCR</span><span class="r-project-tag">Multi-Step Flows</span></div>
-                </div>
-                <div class="r-project-card">
-                    <div class="r-project-name"><a href="lawfare.html" target="_blank">International Lawfare Website</a></div>
-                    <div class="r-project-sub">Gov-Adjacent Drupal · Dense Scholarship IA</div>
-                    <ul class="r-project-bullets">
-                        <li>Drupal hub balancing institutional requirements with clear navigation across research, events, and document-heavy content</li>
-                        <li>Structured IA for regulated public-facing scholarship and legal resource repositories</li>
-                    </ul>
-                    <div class="r-project-tags"><span class="r-project-tag">Drupal</span><span class="r-project-tag">Information Architecture</span><span class="r-project-tag">Web Applications</span></div>
-                </div>
-            </div>
-        </section>
+                
 
-        <div class="r-two-col">
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Education</div>
                     <div class="r-edu-item">
@@ -1449,7 +1670,32 @@
                     </div>
                 </section>
 
-                <section class="r-section">
+<section class="r-section">
+            <div class="r-section-title">Selected Projects</div>
+            <div class="r-projects-grid">
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="pic2split.html" target="_blank">Pic2Split</a></div>
+                    <div class="r-project-sub">AI Receipt Splitting · OCR &amp; Google Gemini · Multi-Step Flows</div>
+                    <ul class="r-project-bullets">
+                        <li>Shipped AI product (OCR + Google Gemini)—23-screen flow from upload through share; cut split time from 4-min competitor baseline to under 2 min (2× faster, ~2 min saved per split)</li>
+                        <li>Engineered multi-state verification flows minimizing cognitive load across complex financial allocation scenarios</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">AI Product</span><span class="r-project-tag">OCR</span><span class="r-project-tag">Multi-Step Flows</span></div>
+                </div>
+                <div class="r-project-card">
+                    <div class="r-project-name"><a href="lcm.html" target="_blank">Indigenous Cultural Museums</a></div>
+                    <div class="r-project-sub">Gov-Adjacent Portal · Dense Content IA · WCAG Compliance</div>
+                    <ul class="r-project-bullets">
+                        <li>Designed a regulated public-facing portal for 30 museums—balancing institutional requirements with clear navigation across event-heavy, document-dense content</li>
+                        <li>Delivered WCAG 2.1 AA-compliant UI patterns and modular templates built for long-term content governance at scale</li>
+                    </ul>
+                    <div class="r-project-tags"><span class="r-project-tag">Information Architecture</span><span class="r-project-tag">WCAG 2.1/2.2</span><span class="r-project-tag">Web Applications</span></div>
+                </div>
+            </div>
+        </section>
+            </main>
+        <aside class="r-sidebar">
+<section class="r-section">
                     <div class="r-section-title">Awards &amp; Volunteer</div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
@@ -1461,7 +1707,7 @@
                     </div>
                     <div class="r-vol-item">
                         <div class="r-vol-header">
-                            <span class="r-vol-role">Volunteer · Product / UX Design</span>
+                            <span class="r-vol-role">Product / UX Design</span>
                             <span class="r-vol-period">2023</span>
                         </div>
                         <div class="r-vol-org">Toastmasters International · Taiwan</div>
@@ -1489,9 +1735,7 @@
                         <div class="r-vol-org">UC Riverside</div>
                     </div>
                 </section>
-            </div>
 
-            <div>
                 <section class="r-section">
                     <div class="r-section-title">Skills</div>
                     <div class="r-skill-group">
@@ -1514,15 +1758,40 @@
 
                 <section class="r-section">
                     <div class="r-section-title">Certifications</div>
-                    <ul class="r-cert-list">
-                        <li class="r-cert-item">IRB – Social and Behavioral Research (Group 2) · CITI Program (2026)</li>
-                        <li class="r-cert-item">Spark Challenge Skill Badge: UX Design · Arizona State University (2025)</li>
-                        <li class="r-cert-item">Foundations of UX Design · Google / Coursera (2024)</li>
-                        <li class="r-cert-item">Responsive Web Design Developer Certification · freeCodeCamp (2022)</li>
-                    </ul>
+                    <div class="r-cert-list">
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">IRB – Social and Behavioral Research (Group 2)</span>
+                            <span class="r-cert-period">2026</span>
+                        </div>
+                        <div class="r-cert-org">CITI Program</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Spark Challenge Skill Badge: UX Design</span>
+                            <span class="r-cert-period">2025</span>
+                        </div>
+                        <div class="r-cert-org">Arizona State University</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Foundations of UX Design</span>
+                            <span class="r-cert-period">2024</span>
+                        </div>
+                        <div class="r-cert-org">Google / Coursera</div>
+                    </div>
+<div class="r-cert-item">
+                        <div class="r-cert-header">
+                            <span class="r-cert-title">Responsive Web Design Developer Certification</span>
+                            <span class="r-cert-period">2022</span>
+                        </div>
+                        <div class="r-cert-org">freeCodeCamp</div>
+                    </div>
+                    </div>
                 </section>
+            </aside>
+
             </div>
-        </div>
     </div><!-- /tab-steadyiq -->
 
     <!--
