@@ -774,6 +774,66 @@ const LayoutComponents = {
                 width: 170,
                 rotate: 8,
                 z: 13
+            },
+            {
+                id: 'cocktail',
+                kind: 'project',
+                src: 'assets/img/playground/cocktail website.png',
+                alt: 'Cocktail recipe website mockup',
+                caption: 'A moody cocktail site I built to practice CSS',
+                x: 32,
+                y: 4,
+                width: 240,
+                rotate: 3,
+                z: 3
+            },
+            {
+                id: 'me-teammate',
+                kind: 'project',
+                src: 'assets/img/playground/me and teammate.png',
+                alt: 'Me and teammates at a design sprint',
+                caption: 'My team mid affinity-mapping — sticky notes everywhere',
+                x: 47,
+                y: 27,
+                width: 180,
+                rotate: -5,
+                z: 8
+            },
+            {
+                id: 'lofi-home',
+                kind: 'project',
+                src: 'assets/img/playground/low fi home.png',
+                alt: 'Low-fidelity homepage wireframe',
+                caption: 'Low-fi wireframes for a jazz venue site',
+                x: 30,
+                y: 31,
+                width: 125,
+                rotate: 4,
+                z: 5
+            },
+            {
+                id: 'weather-mockup',
+                kind: 'project',
+                src: 'assets/img/playground/mockup.jpg',
+                alt: 'Weather app mockups',
+                caption: 'Weather app concept starring a grumpy little rock',
+                x: 45,
+                y: 72,
+                width: 250,
+                rotate: -3,
+                z: 10
+            },
+            {
+                id: 'rock-mascot',
+                kind: 'project',
+                src: 'assets/img/playground/rock.png',
+                alt: 'Rock mascot illustration',
+                caption: 'Meet the rock mascot from that weather app',
+                x: 63,
+                y: 78,
+                width: 115,
+                rotate: 7,
+                z: 14
             }
         ];
 
