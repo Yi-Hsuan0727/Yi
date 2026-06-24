@@ -1464,7 +1464,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* ===== Sticky stacking project cards ===== */
 .stack-deck {
     position: relative;
-    max-width: 1120px;
+    max-width: 800px;
     margin: 0 auto;
     padding-bottom: 48px;
 }
