@@ -400,7 +400,6 @@ const LayoutComponents = {
             || (typeof PortfolioApp !== 'undefined' ? PortfolioApp.getProjectFilterCategory(project) : project.filterType)
             || '';
         const headline = project.spotlightTitle || project.cardHeadline || project.title;
-        const desc = project.spotlightDesc || project.desc || project.demoIntro || '';
         const tags = (project.tags || []).map(function(t) {
             return `<li class="stack-card__tag">${t}</li>`;
         }).join('');
@@ -422,7 +421,6 @@ const LayoutComponents = {
                         </div>
                         <div class="stack-card__content">
                             <h3 class="stack-card__headline">${headline}</h3>
-                            <p class="stack-card__desc">${desc}</p>
                             <ul class="stack-card__tags">${tags}</ul>
                             <span class="stack-card__cta">View case study <span class="stack-card__cta-arrow" aria-hidden="true">&rarr;</span></span>
                         </div>

@@ -814,12 +814,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     height: 56px;
     padding: 9px;
     background: #ffffff;
-    border: 3px solid #ffffff;
+    border: 2px solid #e8e6e1;
     border-radius: 16px;
-    box-shadow:
-        0 0 0 2px rgba(0, 0, 0, 0.07),
-        4px 6px 0 rgba(0, 0, 0, 0.11),
-        0 10px 20px rgba(0, 0, 0, 0.13);
+    box-shadow: none;
     transform: rotate(var(--sticker-tilt));
     text-decoration: none;
     color: inherit;
@@ -830,10 +827,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .tool-sticker:hover,
 .tool-sticker:focus-visible {
     transform: rotate(var(--sticker-tilt)) translateY(-4px) scale(1.06);
-    box-shadow:
-        0 0 0 2px rgba(0, 0, 0, 0.1),
-        5px 8px 0 rgba(0, 0, 0, 0.14),
-        0 14px 28px rgba(0, 0, 0, 0.16);
+    box-shadow: none;
     outline: none;
 }
 .tool-sticker img,
@@ -1544,6 +1538,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .stack-card__media {
     flex: 0 0 52%;
     max-width: 52%;
+    aspect-ratio: 1 / 1;
+    align-self: center;
     background: #f3f4f6;
     overflow: hidden;
 }
@@ -1551,7 +1547,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     display: block;
     width: 100%;
     height: 100%;
-    min-height: 340px;
     object-fit: cover;
 }
 .stack-card__content {
@@ -1565,9 +1560,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .stack-card__headline {
     margin: 0;
-    font-size: clamp(1.3rem, 2.3vw, 1.85rem);
+    font-size: clamp(1.1rem, 1.8vw, 1.45rem);
     font-weight: 800;
-    line-height: 1.18;
+    line-height: 1.2;
     letter-spacing: -0.025em;
     color: var(--text-color);
 }
@@ -1628,6 +1623,10 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     .stack-card__content {
         flex-basis: auto;
         max-width: 100%;
+    }
+    .stack-card__media {
+        aspect-ratio: auto;
+        align-self: stretch;
     }
     .stack-card__media img {
         min-height: 200px;
@@ -2006,8 +2005,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     margin: 28px auto 56px;
 }
 .home-panel {
-    width: min(100% - 60px, 1280px);
-    max-width: 1280px;
+    width: min(100% - 60px, 800px);
+    max-width: 800px;
     padding: 48px 40px 56px;
     box-sizing: border-box;
     border-radius: 20px;
@@ -2034,7 +2033,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     font-weight: 400;
 }
 .home-can-bring-inner {
-    max-width: 1280px;
+    max-width: 800px;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
@@ -2092,11 +2091,11 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .home-can-bring-card-title {
     margin: 0;
-    font-size: clamp(1.22rem, 1.9vw, 1.38rem);
+    font-size: clamp(1.05rem, 1.5vw, 1.18rem);
     font-weight: 800;
     letter-spacing: -0.02em;
     color: var(--text-color);
-    line-height: 1.25;
+    line-height: 1.3;
 }
 .home-can-bring-card-desc {
     margin: 0;
