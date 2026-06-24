@@ -999,6 +999,16 @@ const PortfolioApp = {
         brand.dataset.navBound = '1';
 
         brand.addEventListener('click', (e) => {
+            // Only intercept the brand click when the user is already on the home
+            // page (so it scrolls to top). If not on home (e.g. playground), allow
+            // the normal anchor navigation to `index.html`.
+            const isHome = document.body.classList.contains('app-root-home')
+                || window.location.pathname.endsWith('index.html')
+                || window.location.pathname === '/';
+            if (!isHome) {
+                return; // allow default navigation
+            }
+
             e.preventDefault();
             if (window.__lenis) {
                 window.__lenis.scrollTo(0, { immediate: false });
