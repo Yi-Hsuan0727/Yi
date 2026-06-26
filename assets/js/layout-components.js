@@ -200,7 +200,6 @@ const LayoutComponents = {
                 <div class="home-page-header-aside">
                     ${this.buildHomeHeaderComposition()}
                 </div>
-                ${this.buildHomeHeroCta()}
             </header>`;
     },
 
@@ -395,10 +394,6 @@ const LayoutComponents = {
     },
 
     buildStackCard: function(project, index) {
-        const num = String(index + 1).padStart(2, '0');
-        const category = project.audience
-            || (typeof PortfolioApp !== 'undefined' ? PortfolioApp.getProjectFilterCategory(project) : project.filterType)
-            || '';
         const headline = project.spotlightTitle || project.cardHeadline || project.title;
         const tags = (project.tags || []).map(function(t) {
             return `<li class="stack-card__tag">${t}</li>`;
@@ -410,11 +405,6 @@ const LayoutComponents = {
         return `
             <article class="stack-card" data-project-id="${project.id || ''}" style="--stack-top:${top}px; z-index:${index + 1};">
                 <a class="stack-card__link" href="${project.link}">
-                    <header class="stack-card__bar">
-                        <span class="stack-card__index">${num}</span>
-                        <span class="stack-card__name">${project.title}</span>
-                        <span class="stack-card__category">${category}</span>
-                    </header>
                     <div class="stack-card__split">
                         <div class="stack-card__media">
                             <img src="${imgSrc}" alt="${project.title}" loading="lazy" decoding="async" style="object-position:${objectPosition};">
@@ -464,31 +454,31 @@ const LayoutComponents = {
 
     buildMoreProjectsDeckItems: function(projects) {
         if (!projects || !projects.length) return '';
-        const deckStyles = [
+        const rowStyles = [
             { tilt: '-2deg', z: 1 },
             { tilt: '2deg', z: 2 },
             { tilt: '-1deg', z: 3 },
-            { tilt: '1.5deg', z: 4 }
+            { tilt: '1.5deg', z: 4 },
+            { tilt: '-1.5deg', z: 5 },
+            { tilt: '1deg', z: 6 }
         ];
 
         return projects.map((p, index) => {
-            const style = deckStyles[index % deckStyles.length];
-            const heroSrc = p.heroImage || p.image || '';
+            const style = rowStyles[index % rowStyles.length];
+            const heroSrc = p.image || p.heroImage || '';
             const awardLabel = p.awardShort || p.award || '';
-            const awardHTML = awardLabel
-                ? `<span class="projects-more-card-award">${awardLabel}</span>`
-                : '';
-            const cardLabel = awardLabel ? `${p.title}, ${awardLabel}` : p.title;
+            const displayTitle = p.moreCardTitle || p.title;
+            const cardLabel = awardLabel ? `${displayTitle}, ${awardLabel}` : displayTitle;
+            const cardWidth = p.moreCardWidth || 140;
+            const cardStyle = [
+                `--card-tilt:${style.tilt}`,
+                `--card-z:${style.z}`,
+                `--more-card-width:${cardWidth}px`
+            ].join(';');
             return `
-                <button type="button" class="projects-more-card${awardLabel ? ' has-award' : ''}" data-project-id="${p.id || ''}" style="--card-tilt:${style.tilt};--card-z:${style.z};" aria-haspopup="dialog" aria-label="${cardLabel}">
-                    <span class="projects-more-card-frame">
-                        <span class="projects-more-card-visual">
-                            ${awardHTML}
-                            <img src="${heroSrc}" alt="" loading="lazy" decoding="async">
-                        </span>
-                        <span class="projects-more-card-caption">
-                            ${this.buildMoreProjectsNameMarkup(p.title)}${awardLabel ? `<span class="projects-more-card-name-award">${awardLabel}</span>` : ''}
-                        </span>
+                <button type="button" class="projects-more-card projects-more-card--flat${awardLabel ? ' has-award' : ''}" data-project-id="${p.id || ''}" style="${cardStyle}" aria-haspopup="dialog" aria-label="${cardLabel}">
+                    <span class="projects-more-card-surface">
+                        <img class="projects-more-card-image" src="${heroSrc}" alt="" loading="lazy" decoding="async">
                     </span>
                 </button>`;
         }).join('');
@@ -527,8 +517,8 @@ const LayoutComponents = {
                 <div class="projects-more-inner">
                     <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More projects</span>${this.buildHeroTitleShapes()}</h2>
                     <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects: client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
-                    <div class="projects-more-scroll" tabindex="0" aria-label="Scroll through more projects">
-                        <div class="projects-more-deck projects-more-deck--scroll" id="projects-more-list" role="list">${items}</div>
+                    <div class="projects-more-row-wrap" aria-label="More work projects">
+                        <div class="projects-more-row" id="projects-more-list" role="list">${items}</div>
                     </div>
                 </div>
             </section>`;
@@ -689,51 +679,62 @@ const LayoutComponents = {
             </div>`;
     },
 
+    buildPlaygroundAwardArrow: function(modifier) {
+        return `<svg class="playground-award-arrow playground-award-arrow--${modifier}" viewBox="0 0 72 40" aria-hidden="true" focusable="false">
+            <path d="M2 6 C22 4 48 18 68 34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4"/>
+            <path d="M62 30 L68 34 L62 38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+    },
+
     buildPlaygroundBoard: function() {
         const items = [
             {
-                id: 'lk12',
+                id: 'enchanter',
                 kind: 'project',
-                src: 'assets/img/playground/lk12.png',
-                alt: 'LK12 icon grid',
-                caption: 'Custom icons and mascot explorations I ended up not using',
-                x: 7,
-                y: 33,
-                width: 250,
-                rotate: 6,
-                z: 4
+                src: 'assets/img/playground/Enchanter.png',
+                alt: 'Enchanter game',
+                caption: "Enchanter — 3D adventure game on Endstar",
+                href: 'https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game',
+                external: true,
+                x: 20,
+                y: 24,
+                width: 128,
+                rotate: 3,
+                z: 3
             },
             {
-                id: 'note-yellow',
+                id: 'note-enchanter-award',
                 kind: 'note',
-                text: 'Keep the weird ideas.<br>Some of them become projects.',
-                x: 4,
-                y: 64,
-                width: 150,
-                rotate: -5,
-                z: 6
+                awardFor: 'enchanter',
+                text: "People's Choice<br>Endstar Spark '25",
+                x: 17,
+                y: 19,
+                width: 98,
+                rotate: 5,
+                z: 16
             },
             {
                 id: 'tnaf-mockup',
                 kind: 'project',
                 src: 'assets/img/playground/tnaf-mockup.png',
                 alt: 'TNAF mobile mockups',
-                caption: 'Ecom screens for a hyperlocal eco marketplace concept',
-                x: 58,
-                y: 5,
-                width: 260,
-                rotate: 3,
+                x: 38,
+                y: 20,
+                width: 168,
+                rotate: 2,
                 z: 9
             },
             {
-                id: 'rwd-tnaf',
+                id: 'spring',
                 kind: 'project',
-                src: 'assets/img/playground/rwd-tnaf.png',
-                alt: 'Responsive TNAF layouts',
-                caption: 'Responsive layout studies for the same product idea',
-                x: 62,
-                y: 31,
-                width: 230,
+                src: 'assets/img/playground/spring-before.png',
+                alt: 'Echoes of the Four Seasons typography prototype',
+                caption: 'Echoes of the Four Seasons — interactive typography',
+                href: 'spring/phome.html',
+                external: false,
+                x: 56,
+                y: 22,
+                width: 108,
                 rotate: -3,
                 z: 11
             },
@@ -742,24 +743,36 @@ const LayoutComponents = {
                 kind: 'project',
                 src: 'assets/img/playground/tnaf.gif',
                 alt: 'TNAF interaction GIF',
-                caption: 'An app icon and interaction GIF I made for a friend',
-                x: 68,
-                y: 55,
-                width: 170,
+                x: 72,
+                y: 17,
+                width: 168,
                 rotate: 8,
                 z: 13
             },
             {
-                id: 'cocktail',
+                id: 'dailymoo',
                 kind: 'project',
-                src: 'assets/img/playground/cocktail website.png',
-                alt: 'Cocktail recipe website mockup',
-                caption: 'A moody cocktail site I built to practice CSS',
-                x: 32,
-                y: 4,
-                width: 240,
-                rotate: 3,
-                z: 3
+                src: 'assets/img/playground/DailyMooMood.png',
+                alt: 'Daily Moo Mood interface',
+                caption: 'Daily Moo Mood — cow-themed emotional wellness tracker',
+                href: 'https://devpost.com/software/daily-moo-mood',
+                external: true,
+                x: 20,
+                y: 60,
+                width: 158,
+                rotate: 6,
+                z: 4
+            },
+            {
+                id: 'note-dailymoo-award',
+                kind: 'note',
+                awardFor: 'dailymoo',
+                text: '2nd Place<br>RoseHack 2025',
+                x: 17,
+                y: 54,
+                width: 98,
+                rotate: -8,
+                z: 15
             },
             {
                 id: 'me-teammate',
@@ -767,51 +780,39 @@ const LayoutComponents = {
                 src: 'assets/img/playground/me and teammate.png',
                 alt: 'Me and teammates at a design sprint',
                 caption: 'My team mid affinity-mapping, sticky notes everywhere',
-                x: 47,
-                y: 27,
-                width: 180,
-                rotate: -5,
+                x: 38,
+                y: 66,
+                width: 192,
+                rotate: -4,
                 z: 8
             },
             {
-                id: 'lofi-home',
+                id: 'stiffy',
                 kind: 'project',
-                src: 'assets/img/playground/low fi home.png',
-                alt: 'Low-fidelity homepage wireframe',
-                caption: 'Low-fi wireframes for a jazz venue site',
-                x: 30,
-                y: 31,
-                width: 92,
-                rotate: 4,
-                z: 5
+                src: 'assets/img/main images/Stiffy.png',
+                alt: 'Stiffy Wanderers',
+                caption: 'Stiffy Wanderers — location-based mobile game',
+                href: 'https://devpost.com/software/stiffy-wanderers',
+                external: true,
+                x: 68,
+                y: 62,
+                width: 142,
+                rotate: -5,
+                z: 7
             },
             {
-                id: 'weather-mockup',
-                kind: 'project',
-                src: 'assets/img/playground/mockup.jpg',
-                alt: 'Weather app mockups',
-                caption: 'Weather app concept starring a grumpy little rock',
-                x: 45,
-                y: 72,
-                width: 250,
-                rotate: -3,
-                z: 10
-            },
-            {
-                id: 'rock-mascot',
-                kind: 'project',
-                src: 'assets/img/playground/rock.png',
-                alt: 'Rock mascot illustration',
-                caption: 'Meet the rock mascot from that weather app',
-                x: 63,
-                y: 78,
-                width: 115,
-                rotate: 7,
-                z: 14
+                id: 'note-yellow',
+                kind: 'note',
+                text: 'Keep the weird ideas.<br>Some of them become projects.',
+                x: 62,
+                y: 70,
+                width: 128,
+                rotate: -5,
+                z: 6
             }
         ];
 
-        const itemHTML = items.map(function(item) {
+        const itemHTML = items.map((item) => {
             const style = [
                 `--pg-x:${item.x}%`,
                 `--pg-y:${item.y}%`,
@@ -821,16 +822,30 @@ const LayoutComponents = {
             ].filter(Boolean).join(';');
 
             if (item.kind === 'project') {
-                return `<div class="playground-item playground-item--project" data-playground-id="${item.id}" style="${style}">
+                const linkedClass = item.href ? ' playground-item--linked' : '';
+                const noCaptionClass = item.caption ? '' : ' playground-item--no-caption';
+                const hrefAttrs = item.href
+                    ? ` data-href="${item.href}"${item.external ? ' data-href-external="true"' : ''}`
+                    : '';
+                const ariaLabel = item.href
+                    ? ` aria-label="${item.alt}. Opens ${item.external ? 'in a new tab' : 'project site'}"`
+                    : '';
+                const captionHTML = item.caption
+                    ? `<p class="playground-item__caption">${item.caption}</p>`
+                    : '';
+                return `<div class="playground-item playground-item--project${linkedClass}${noCaptionClass}" data-playground-id="${item.id}"${hrefAttrs}${ariaLabel} style="${style}">
                     <div class="playground-item__media" role="img" aria-label="${item.alt}">
                         <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" draggable="false">
                     </div>
-                    <p class="playground-item__caption">${item.caption}</p>
+                    ${captionHTML}
                 </div>`;
             }
 
             if (item.kind === 'note') {
-                return `<div class="playground-item playground-item--note" data-playground-id="${item.id}" style="${style}">
+                const awardClass = item.awardFor ? ` playground-item--award-note playground-item--award-note--${item.awardFor}` : '';
+                const arrowHTML = item.awardFor ? this.buildPlaygroundAwardArrow(item.awardFor) : '';
+                return `<div class="playground-item playground-item--note${awardClass}" data-playground-id="${item.id}" style="${style}">
+                    ${arrowHTML}
                     <p>${item.text}</p>
                 </div>`;
             }

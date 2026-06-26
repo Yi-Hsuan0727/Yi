@@ -84,7 +84,7 @@ const PortfolioApp = {
             ],
             role: 'Product Designer & Front-End Developer',
             tools: ['HTML/CSS', 'Illustrator', 'jQuery', 'Bootstrap'],
-            liveLink: 'http://lcm.tacp.gov.tw/',
+            liveLink: null,
             featured: true,
             spotlightEyebrow: 'Public sector · Accessibility',
             spotlightTitle: 'One WCAG 2.1 AA home for 30 indigenous museums.',
@@ -184,6 +184,7 @@ const PortfolioApp = {
         {
             id: 'quickbite',
             title: 'QuickBite',
+            moreCardTitle: 'QuickBite AI Assistant',
             subtitle: 'AI Meal Planning Assistant',
             listSubline: 'Claude-powered planner syncing fridge inventory, nutrition goals, and weekly menus in one workspace.',
             desc: 'A smart meal planning assistant born from the frustration of "What should I eat today?" combined with a busy schedule and limited budget.',
@@ -200,7 +201,8 @@ const PortfolioApp = {
             role: 'Product Designer & Front-End Developer',
             tools: ['Python', 'Streamlit', 'Anthropic Claude', 'Google Gemini', 'USDA FoodData Central', 'GitHub', 'Google AI Studio'],
             liveLink: null,
-            secondary: true
+            secondary: true,
+            moreCardWidth: 140
         },
         {
             id: 'magnate',
@@ -212,7 +214,7 @@ const PortfolioApp = {
             filterType: 'web',
             audience: 'Enterprise',
             tags: ['Web Design', 'UI Design', 'Branding'],
-            image: 'assets/img/Magnate/hero.png',
+            image: 'assets/img/main images/Magnate.png',
             heroImage: 'assets/img/Magnate/hero.png',
             link: 'magnate.html',
             timeline: 'Jun 2023 – Sep 2023',
@@ -357,7 +359,7 @@ const PortfolioApp = {
         lcm: {
             title: "Indigenous Cultural Museums",
             desc: "Designed and developed an accessibility-focused website system showcasing Taiwan's indigenous cultural institutions.",
-            meta: ``, backLink: true, liveLink: "http://lcm.tacp.gov.tw/", cover: true
+            meta: ``, backLink: true, liveLink: null, cover: true
         },
         magnate: {
             title: "Magnate Technology Official Website",
@@ -1528,9 +1530,9 @@ const PortfolioApp = {
             { selector: '.home-can-bring-ai-note', extraClass: 'home-reveal--pop home-reveal--bubble' },
             { selector: '.home-about-title', extraClass: '' },
             { selector: '.home-about-copy', extraClass: '' },
+            { selector: '.home-about-note-stickers .note-deco-sticker', extraClass: 'home-reveal--sticker', stepMs: 90 },
             { selector: '.home-about-photo-card', extraClass: 'home-reveal--photo', stepMs: 100 },
             { selector: '.home-about-photo-stickers .photo-deco-sticker', extraClass: 'home-reveal--sticker', stepMs: 95 },
-            { selector: '.home-about-photo-bubble', extraClass: 'home-reveal--pop home-reveal--bubble', stepMs: 140 },
             { selector: '.home-about-career .about-exp-group', extraClass: '' },
             { selector: '.home-toolbox-stickers .tool-sticker', extraClass: 'home-reveal--fade' },
             { selector: '.site-footer-monster', extraClass: '' },
@@ -1567,6 +1569,53 @@ const PortfolioApp = {
         }
 
         this.bindHomeScrollReveal(targets);
+        this.bindAboutPhotoBubbleReveal();
+    },
+
+    bindAboutPhotoBubbleReveal: function() {
+        const frontPhoto = document.querySelector('.home-about-photo-card--front');
+        const bubble = document.querySelector('.home-about-photo-bubble');
+        if (!frontPhoto || !bubble) return;
+
+        bubble.classList.add('home-reveal', 'home-reveal--pop', 'home-reveal--bubble');
+
+        const revealBubble = () => {
+            bubble.classList.add('is-revealed');
+        };
+
+        const scheduleAfterPhoto = () => {
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reducedMotion) {
+                revealBubble();
+                return;
+            }
+
+            let finished = false;
+            const finish = () => {
+                if (finished) return;
+                finished = true;
+                window.setTimeout(revealBubble, 80);
+            };
+
+            frontPhoto.addEventListener('transitionend', (event) => {
+                if (event.propertyName === 'transform' || event.propertyName === 'opacity') {
+                    finish();
+                }
+            }, { once: true });
+            window.setTimeout(finish, 1200);
+        };
+
+        if (frontPhoto.classList.contains('is-revealed')) {
+            scheduleAfterPhoto();
+            return;
+        }
+
+        const observer = new MutationObserver(() => {
+            if (!frontPhoto.classList.contains('is-revealed')) return;
+            observer.disconnect();
+            scheduleAfterPhoto();
+        });
+        observer.observe(frontPhoto, { attributes: true, attributeFilter: ['class'] });
     },
 
     getHomeScrollRoot: function() {

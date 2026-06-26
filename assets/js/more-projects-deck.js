@@ -11,34 +11,16 @@ const MoreProjectsDeck = {
         if (this.isInitialized) return;
 
         const deck = document.getElementById('projects-more-list');
-        if (!deck || !deck.classList.contains('projects-more-deck')) return;
+        if (!deck || !deck.classList.contains('projects-more-row')) return;
 
         this.isInitialized = true;
         this.ensureModal();
         this.bindDeck(deck);
         this.bindDeckHover(deck);
-        this.centerDeckScroll();
     },
 
     centerDeckScroll: function() {
-        const scroll = document.querySelector('.projects-more-scroll');
-        const deck = document.getElementById('projects-more-list');
-        if (!scroll || !deck) return;
-
-        const center = () => {
-            const overflow = deck.scrollWidth - scroll.clientWidth;
-            scroll.scrollLeft = overflow > 0 ? overflow / 2 : 0;
-        };
-
-        center();
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(center);
-        }
-        window.addEventListener('load', center, { once: true });
-        window.addEventListener('resize', () => {
-            window.clearTimeout(this._deckCenterTimer);
-            this._deckCenterTimer = window.setTimeout(center, 120);
-        }, { passive: true });
+        /* Board layout is static — no horizontal scroll centering. */
     },
 
     bindDeckHover: function(deck) {

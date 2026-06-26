@@ -37,9 +37,8 @@
             <div class="projects-more-inner">
                 <h2 class="projects-more-title" id="projects-more-heading"><span class="projects-more-title-text">More work</span><span class="projects-more-shapes" aria-hidden="true"><span class="shape shape-circle"></span><span class="shape shape-triangle"></span><span class="shape shape-square"></span></span></h2>
                 <p class="projects-more-intro">Beyond the featured case studies above, these are additional projects: client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
-                <div class="projects-more-scroll" tabindex="0" aria-label="Scroll through more projects">
-                    <div class="projects-more-deck projects-more-deck--scroll" id="projects-more-list" role="list"></div>
-                    <p class="projects-more-scroll-hint" aria-hidden="true">Swipe to see more <i class="fas fa-arrow-right" aria-hidden="true"></i></p>
+                <div class="projects-more-row-wrap" aria-label="More work projects">
+                    <div class="projects-more-row" id="projects-more-list" role="list"></div>
                 </div>
             </div>
         </section>
@@ -106,36 +105,53 @@
         </section>
         <section class="home-about" id="about" aria-label="About Michelle">
             <div class="home-about-intro">
-                <h2 class="projects-more-title home-about-title">About me</h2>
                 <div class="home-about-lead">
                     <div class="home-about-copy">
-                        <p>
-                            Originally from Taiwan, I moved to Arizona in August 2024 for my M.S. in UX/HCI at Arizona State University (May 2026).
-                            I speak fluent Mandarin and am learning Japanese and German.
-                        </p>
-                        <p>
-                            I design across web + mobile, ship front-end work, and collaborate closely with engineers.
-                            Hackathon award winner (<a href="https://devpost.com/software/daily-moo-mood" target="_blank" rel="noopener noreferrer" class="home-about-award-link" data-award-preview="assets/img/DailyMooMood/landing%20page.png">2nd Place, RoseHack 2025</a> for Daily Moo Mood) and
-                            <a href="https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game" target="_blank" rel="noopener noreferrer" class="home-about-award-link" data-award-preview="assets/img/Enchanter/group%20presentation.jpeg">People&apos;s Choice · Endstar Game Maker Spark Challenge</a> recipient.
-                            I care about community as a Student Adobe Ambassador at ASU and through Toastmasters.
-                        </p>
+                        <div class="home-about-note-wrap">
+                            <div class="home-about-note-stickers" aria-hidden="true">
+                                <span class="note-deco-sticker note-deco-sticker--heart">
+                                    <svg class="note-deco-sticker__art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                                        <path d="M32 52s-20-13.2-20-28.8C12 14.8 18.2 9 25.4 9c4.8 0 8.8 2.6 10.6 6.4 1.8-3.8 5.8-6.4 10.6-6.4C53.8 9 60 14.8 60 23.2 60 38.8 32 52 32 52z"/>
+                                    </svg>
+                                </span>
+                                <span class="note-deco-sticker note-deco-sticker--star">
+                                    <svg class="note-deco-sticker__art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                                        <path d="M32 8.5l6.8 14.8 16.2 2.2-11.8 11.2 3.1 16.1L32 45.8 17.7 53.8l3.1-16.1L9 25.5l16.2-2.2L32 8.5z"/>
+                                    </svg>
+                                </span>
+                                <span class="note-deco-sticker note-deco-sticker--circle">
+                                    <svg class="note-deco-sticker__art" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+                                        <circle cx="32" cy="32" r="22"/>
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="home-about-note">
+                            <h2 class="home-about-note-title">About Me</h2>
+                            <p>
+                                Originally from Taiwan, I moved to Arizona in August 2024 for my M.S. in UX/HCI at Arizona State University (May 2026).
+                                I speak fluent Mandarin and am learning Japanese and German.
+                            </p>
+                            <p>
+                                I design across web + mobile, ship front-end work, and collaborate closely with engineers.
+                                Hackathon award winner (<a href="https://devpost.com/software/daily-moo-mood" target="_blank" rel="noopener noreferrer" class="home-about-award-link" data-award-preview="assets/img/DailyMooMood/landing%20page.png">2nd Place, RoseHack 2025</a> for Daily Moo Mood) and
+                                <a href="https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game" target="_blank" rel="noopener noreferrer" class="home-about-award-link" data-award-preview="assets/img/Enchanter/group%20presentation.jpeg">People&apos;s Choice · Endstar Game Maker Spark Challenge</a> recipient.
+                                I care about community as a Student Adobe Ambassador at ASU and through Toastmasters.
+                            </p>
+                        </div>
+                        </div>
                     </div>
 
                     <div class="home-about-photos" aria-label="Photos of Michelle">
-                        <div class="home-about-photo-stickers" aria-hidden="true">
-                            <span class="photo-deco-sticker photo-deco-sticker--heart"><i class="fas fa-heart" aria-hidden="true"></i></span>
-                            <span class="photo-deco-sticker photo-deco-sticker--star"><span class="photo-deco-shape photo-deco-shape--star" aria-hidden="true"></span></span>
-                            <span class="photo-deco-sticker photo-deco-sticker--sparkle"><i class="fas fa-sun" aria-hidden="true"></i></span>
-                        </div>
                         <div class="home-about-photo-card home-about-photo-card--back-a"><img src="assets/img/Michelle/IMG_1139.JPG" alt="Michelle photo"></div>
                         <div class="home-about-photo-card home-about-photo-card--back-b"><img src="assets/img/Michelle/IMG_3647.JPG" alt="Michelle photo"></div>
                         <div class="home-about-photo-hero">
-                            <p class="home-about-photo-bubble comic-speech-bubble comic-speech-bubble--tail-down">That&apos;s me!</p>
+                            <p class="home-about-photo-bubble comic-speech-bubble comic-speech-bubble--tail-down home-reveal home-reveal--pop home-reveal--bubble">That&apos;s me!</p>
                             <div class="home-about-photo-card home-about-photo-card--front"><img src="assets/img/Michelle/IMG_2395.png" alt="Michelle photo"></div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="home-about-rest">
+                <div class="home-about-rest">
                         <div class="home-about-career">
                             <div class="about-exp-group about-exp-group--toolbox" id="toolbox">
                                 <h3 class="about-section-heading">Toolbox</h3>
@@ -176,7 +192,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </section>
     </div>

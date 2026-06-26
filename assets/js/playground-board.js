@@ -2,7 +2,7 @@
  * PlaygroundBoard: draggable mood-board items on the playground page.
  */
 const PlaygroundBoard = {
-    storageKey: 'playground-board-positions-v2',
+    storageKey: 'playground-board-positions-v6',
     zCounter: 10,
     dragThreshold: 6,
 
@@ -155,7 +155,17 @@ const PlaygroundBoard = {
         };
 
         const onPointerUp = (event) => {
+            const wasClick = !isDragging;
             finishDrag(event);
+
+            if (wasClick && item.dataset.href) {
+                const href = item.dataset.href;
+                if (item.dataset.hrefExternal === 'true') {
+                    window.open(href, '_blank', 'noopener,noreferrer');
+                } else {
+                    window.location.href = href;
+                }
+            }
         };
 
         const onPointerDown = (event) => {

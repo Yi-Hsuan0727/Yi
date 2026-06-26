@@ -126,7 +126,7 @@ body.is-playground-page {
     left: var(--pg-x, 10%);
     top: var(--pg-y, 8%);
     z-index: var(--pg-z, 1);
-    width: min(var(--pg-width, auto), 24vw);
+    width: min(var(--pg-width, auto), 17vw);
     max-width: min(var(--pg-width, 280px), calc(100vw - 32px));
     transform: rotate(var(--pg-rotate, 0deg));
     transform-origin: center center;
@@ -145,11 +145,24 @@ body.is-playground-page {
 .playground-item--project {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 8px;
     padding: 0;
     background: transparent;
     box-shadow: none;
+}
+
+.playground-item--linked .playground-item__media {
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.playground-item--linked:not(.is-dragging):hover .playground-item__media {
+    transform: scale(1.02);
+    filter: drop-shadow(0 8px 16px rgba(17, 17, 17, 0.12));
+}
+
+.playground-item--linked:not(.is-dragging):hover .playground-item__caption {
+    color: rgba(17, 17, 17, 0.72);
 }
 
 .playground-item__media {
@@ -168,15 +181,24 @@ body.is-playground-page {
 
 .playground-item__caption {
     margin: 0;
-    padding: 0 2px;
-    font-size: clamp(0.68rem, 1.4vw, 0.82rem);
-    line-height: 1.4;
-    color: rgba(17, 17, 17, 0.48);
+    padding: 0 4px;
+    width: 100%;
+    font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
+    font-size: clamp(0.72rem, 1.2vw, 0.88rem);
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: #1a1a1a;
     pointer-events: none;
 }
 
+.playground-item--no-caption {
+    gap: 0;
+}
+
 .playground-item--note {
-    width: min(var(--pg-width, 160px), 18vw, calc(100vw - 48px));
+    width: min(var(--pg-width, 160px), 14vw, calc(100vw - 48px));
     padding: 14px 12px;
     background: #f4e58d;
     border-radius: 2px;
@@ -185,8 +207,38 @@ body.is-playground-page {
         0 8px 18px rgba(17, 17, 17, 0.08);
 }
 
+.playground-item--award-note {
+    z-index: calc(var(--pg-z, 1) + 1);
+    overflow: visible;
+}
+
+.playground-award-arrow {
+    position: absolute;
+    color: rgba(17, 17, 17, 0.38);
+    pointer-events: none;
+    overflow: visible;
+}
+
+.playground-award-arrow--enchanter {
+    right: -46px;
+    bottom: 2px;
+    width: 58px;
+    height: 34px;
+    transform: rotate(6deg);
+}
+
+.playground-award-arrow--dailymoo {
+    right: -50px;
+    bottom: 6px;
+    width: 62px;
+    height: 36px;
+    transform: rotate(4deg);
+}
+
 .playground-item--note p {
     margin: 0;
+    position: relative;
+    z-index: 1;
     font-family: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
     font-size: clamp(0.78rem, 1.5vw, 0.92rem);
     line-height: 1.35;
@@ -201,11 +253,11 @@ body.is-playground-page {
 
 @media (max-width: 900px) {
     .playground-item {
-        width: min(var(--pg-width, auto), 38vw);
+        width: min(var(--pg-width, auto), 28vw);
     }
 
     .playground-item--note {
-        width: min(var(--pg-width, 140px), 34vw, calc(100vw - 40px));
+        width: min(var(--pg-width, 140px), 26vw, calc(100vw - 40px));
     }
 
     .playground-board-header__hint {
