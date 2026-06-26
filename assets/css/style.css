@@ -1728,22 +1728,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     scrollbar-width: none;
 }
 .projects-more-row-wrap::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: min(150%, 1640px);
-    height: clamp(300px, 130%, 440px);
-    pointer-events: none;
-    background-image:
-        linear-gradient(to right, rgba(17, 17, 17, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(17, 17, 17, 0.08) 1px, transparent 1px);
-    background-size: 40px 40px;
-    background-position: center center;
-    -webkit-mask-image: radial-gradient(ellipse 82% 88% at 50% 50%, #000 42%, rgba(0, 0, 0, 0.4) 70%, transparent 88%);
-    mask-image: radial-gradient(ellipse 82% 88% at 50% 50%, #000 42%, rgba(0, 0, 0, 0.4) 70%, transparent 88%);
-    z-index: 0;
+    content: none;
 }
 .projects-more-row-wrap::-webkit-scrollbar {
     display: none;
@@ -1786,6 +1771,12 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     border: var(--elevation-border);
     box-shadow: var(--elevation-shadow);
     background: #ffffff;
+}
+.projects-more-card--flat[data-project-id="lt"] .projects-more-card-surface {
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
 }
 .projects-more-card--flat .projects-more-card-image {
     display: block;
@@ -7253,10 +7244,6 @@ body.case-figure-zoom-open #scroll-container {
         width: 100vw;
         max-width: 100vw;
         margin-left: calc(50% - 50vw);
-    }
-    .projects-more-row-wrap::before {
-        width: min(118vw, 980px);
-        height: clamp(260px, 68vw, 340px);
     }
     .projects-more-row {
         justify-content: flex-start;
