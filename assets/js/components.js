@@ -557,6 +557,9 @@ const PortfolioApp = {
             this.initHomeAboutNav();
             this.initHomeContactNav();
             this.initHomeFeaturedWorkNav();
+            if (typeof HomeScrollScenes !== 'undefined') {
+                HomeScrollScenes.init();
+            }
             this.initProjectStack();
             this.initHomeTopNav();
             this.initTopNavAutoHide();
@@ -805,6 +808,20 @@ const PortfolioApp = {
         const el = document.getElementById(id);
         if (!el) return;
 
+        if (typeof HomeScrollScenes !== 'undefined' && HomeScrollScenes.enabled) {
+            const stepMap = {
+                'featured-work': 1,
+                'home-can-bring': 6,
+                about: 10,
+                toolbox: 11,
+                contact: 12
+            };
+            if (stepMap[id] != null) {
+                HomeScrollScenes.scrollToStep(stepMap[id], false);
+                return;
+            }
+        }
+
         const offsetVal = offset ?? -16;
         const scrollRoot = document.getElementById('scroll-container');
         const prefersLenis = window.innerWidth > 1200 && !!scrollRoot;
@@ -936,6 +953,7 @@ const PortfolioApp = {
     initProjectStack: function() {
         const deck = document.querySelector('.stack-deck');
         if (!deck) return;
+        if (document.documentElement.classList.contains('home-scroll-scenes')) return;
         const cards = Array.prototype.slice.call(deck.querySelectorAll('.stack-card'));
         if (cards.length < 2) return;
 

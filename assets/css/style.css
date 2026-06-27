@@ -7897,3 +7897,163 @@ body.case-figure-zoom-open #scroll-container {
         border-right: none !important;
     }
 }
+
+/* ===== Home scroll scenes (desktop): one viewport per step ===== */
+@media (min-width: 1201px) and (prefers-reduced-motion: no-preference) {
+    html.home-scroll-scenes #scroll-container {
+        scroll-snap-type: y proximity;
+    }
+
+    html.home-scroll-scenes .home-scroll-scene--header {
+        height: 100vh;
+        height: 100dvh;
+        min-height: 100vh;
+        min-height: 100dvh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        box-sizing: border-box;
+    }
+
+    html.home-scroll-scenes .home-scroll-pin-block {
+        position: relative;
+        height: calc(var(--pin-steps, 1) * 100vh);
+        height: calc(var(--pin-steps, 1) * 100dvh);
+        margin: 0 auto;
+        padding: 0 30px;
+        box-sizing: border-box;
+        scroll-snap-align: start;
+    }
+
+    html.home-scroll-scenes .home-scroll-pin-block--featured {
+        max-width: 1280px;
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    html.home-scroll-scenes .home-scroll-pin-block--can-bring {
+        max-width: none;
+        width: 100%;
+        padding: 0 30px;
+        margin: 0 auto;
+    }
+
+    html.home-scroll-scenes .home-scroll-pin {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 72px 0 24px;
+    }
+
+    html.home-scroll-scenes .home-scroll-pin--can-bring {
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+    }
+
+    html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-inner {
+        width: min(100% - 60px, 800px);
+        margin: 0 auto;
+    }
+
+    html.home-scroll-scenes .home-scroll-pin--can-bring .home-panel,
+    html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-inner {
+        width: min(100% - 60px, 800px);
+    }
+
+    html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-ai-note {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: -12px auto 0;
+        align-self: flex-end;
+        max-width: min(340px, calc(100% - 60px));
+        transform: rotate(2deg);
+    }
+
+    html.home-scroll-scenes .stack-deck--scene {
+        position: relative;
+        width: min(100%, 800px);
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0;
+        min-height: clamp(320px, 42vh, 420px);
+    }
+
+    html.home-scroll-scenes .stack-deck--scene .stack-card {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        margin: 0 !important;
+        top: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: none !important;
+        filter: none !important;
+        transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.4s;
+    }
+
+    html.home-scroll-scenes .stack-deck--scene .stack-card.is-scene-active {
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    html.home-scroll-scenes .home-scroll-scene--about-intro,
+    html.home-scroll-scenes .home-scroll-scene--about-rest,
+    html.home-scroll-scenes .home-scroll-scene--footer {
+        height: 100vh;
+        height: 100dvh;
+        min-height: 100vh;
+        min-height: 100dvh;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    html.home-scroll-scenes .home-scroll-scene--about-intro {
+        margin-top: 0;
+        padding-top: 72px;
+        padding-bottom: 24px;
+    }
+
+    html.home-scroll-scenes .home-scroll-scene--about-rest {
+        margin-top: 0;
+        padding-top: 72px;
+        padding-bottom: 24px;
+        justify-content: flex-start;
+        overflow-y: auto;
+    }
+
+    html.home-scroll-scenes .home-scroll-scene--footer {
+        justify-content: flex-end;
+        padding-bottom: 0;
+    }
+
+    html.home-scroll-scenes .home-scroll-scene--footer .site-footer-monster {
+        margin-top: auto;
+    }
+
+    html.home-scroll-scenes #home-can-bring.home-scroll-pin-block--can-bring {
+        margin: 0 auto;
+    }
+
+    html.home-scroll-scenes #about.home-about {
+        margin-top: 0;
+    }
+
+    html.home-scroll-scenes .home-featured-edge {
+        padding: 0;
+        margin: 0 auto;
+    }
+}
+
