@@ -1467,11 +1467,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     padding-bottom: 48px;
 }
 .stack-card {
-    position: sticky;
-    top: var(--stack-top, 28px);
-    transform-origin: top center;
-    will-change: transform, filter;
-    margin-bottom: 120px;
+    position: relative;
+    margin-bottom: 56px;
 }
 .stack-card:last-child {
     margin-bottom: 0;
@@ -2544,20 +2541,17 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     color: var(--accent-color);
     font-size: 0.95rem;
 }
+/* No entrance fade/zoom — section content is always visible. */
+.home-can-bring .home-reveal,
+.home-can-bring .home-reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
 @media (prefers-reduced-motion: no-preference) {
-    .home-can-bring-ai-note.home-reveal--bubble.home-reveal--pop:not(.is-revealed) {
-        transform: scale(0.72) rotate(4deg) translateY(12px);
-    }
-    .home-can-bring-ai-note.home-reveal--bubble.home-reveal--pop.is-revealed {
-        transform: scale(1) rotate(2deg) translateY(0);
-    }
-    /* Hover nudge — translate/scale are independent of `transform`, so the reveal
-       pop (which animates `transform`) stays intact. 2-class selector keeps the
-       reveal opacity/transform transition while adding translate/scale. */
     .home-can-bring-ai-note.comic-speech-bubble {
+        transform: rotate(2deg);
         transition:
-            opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-            transform 0.82s cubic-bezier(0.34, 1.35, 0.64, 1),
             translate 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
             scale 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
             box-shadow 0.32s ease;
@@ -7586,8 +7580,7 @@ body.case-figure-zoom-open #scroll-container {
         transform: none;
         --bubble-tail-x: 78%;
     }
-    .home-can-bring-ai-note.home-reveal--bubble.home-reveal--pop:not(.is-revealed),
-    .home-can-bring-ai-note.home-reveal--bubble.home-reveal--pop.is-revealed {
+    .home-can-bring-ai-note.comic-speech-bubble {
         transform: none;
     }
     .home-below-projects { padding: 8px 20px 40px; margin-top: 4px; }
@@ -7898,30 +7891,21 @@ body.case-figure-zoom-open #scroll-container {
     }
 }
 
-/* ===== Home scroll scenes (desktop): one viewport per step ===== */
+/* The pinned can-bring panel anchors the speech bubble at its top-right corner. */
+.home-can-bring-panel { position: relative; }
+
+/* ===== Home scroll scenes (desktop): pin "What can I bring" + flip cards ===== */
 @media (min-width: 1201px) and (prefers-reduced-motion: no-preference) {
-    html.home-scroll-scenes #scroll-container {
-        scroll-snap-type: y proximity;
-    }
-
-    html.home-scroll-scenes .home-scroll-scene--header {
-        height: 100vh;
-        height: 100dvh;
-        min-height: 100vh;
-        min-height: 100dvh;
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
-        box-sizing: border-box;
-    }
-
     html.home-scroll-scenes .home-scroll-pin-block {
         position: relative;
+        flex: 0 0 auto;
         height: calc(var(--pin-steps, 1) * 100vh);
         height: calc(var(--pin-steps, 1) * 100dvh);
+        min-height: calc(var(--pin-steps, 1) * 100vh);
+        min-height: calc(var(--pin-steps, 1) * 100dvh);
         margin: 0 auto;
         padding: 0 30px;
         box-sizing: border-box;
-        scroll-snap-align: start;
     }
 
     html.home-scroll-scenes .home-scroll-pin-block--featured {
@@ -7966,13 +7950,18 @@ body.case-figure-zoom-open #scroll-container {
         width: min(100% - 60px, 800px);
     }
 
-    html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-ai-note {
+    html.home-scroll-scenes .home-scroll-pin--can-bring .home-panel {
         position: relative;
-        top: auto;
-        right: auto;
-        margin: -12px auto 0;
-        align-self: flex-end;
-        max-width: min(340px, calc(100% - 60px));
+        opacity: 1;
+        transform: none;
+    }
+    html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-ai-note {
+        position: absolute;
+        top: -30px;
+        right: 24px;
+        left: auto;
+        margin: 0;
+        max-width: min(320px, calc(100% - 60px));
         transform: rotate(2deg);
     }
 
@@ -8046,15 +8035,6 @@ body.case-figure-zoom-open #scroll-container {
 
     html.home-scroll-scenes #home-can-bring.home-scroll-pin-block--can-bring {
         margin: 8vh auto 12vh;
-    }
-
-    html.home-scroll-scenes #about.home-about {
-        margin-top: 8vh;
-    }
-
-    html.home-scroll-scenes .home-featured-edge {
-        padding: 0;
-        margin: 0 auto;
     }
 }
 

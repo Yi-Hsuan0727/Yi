@@ -1,27 +1,20 @@
 /*
- * HomeScrollScenes: desktop home scroll — one viewport step per scene.
- * header → stack cards (×5) → can-bring (+3 flips) → about → toolbox → footer
+ * HomeScrollScenes (desktop): pins ONLY the "What can I bring" section in the
+ * center of the viewport and flips its three cards one at a time as the user
+ * scrolls through the pinned range. Featured work and About scroll normally
+ * (entrance reveals only). Disabled on mobile / reduced-motion.
  */
 const HomeScrollScenes = {
     enabled: false,
     bound: false,
-    snapTimer: null,
-    totalSteps: 13,
-    stackCards: [],
-    canBringCards: [],
-    featuredPin: null,
-    canBringPin: null,
+    cards: [],
+    block: null,
+    panel: null,
     mq: null,
+    PIN_STEPS: 4, // 1 viewport to enter/exit + 3 flips of scroll distance
 
     init: function() {
-        if (!document.body.classList.contains('app-root-home')) return;
-
-        const canBring = document.querySelector('#home-can-bring');
-        this.canBringCards = canBring
-            ? Array.prototype.slice.call(canBring.querySelectorAll('.home-can-bring-card'))
-            : [];
-        this.bindCanBringScrollFlip();
-
+        if (!document.querySelector('.app-root-home')) return;
         this.mq = window.matchMedia('(min-width: 1201px) and (prefers-reduced-motion: no-preference)');
         const run = () => (this.mq.matches ? this.enable() : this.disable());
         run();
@@ -32,90 +25,38 @@ const HomeScrollScenes = {
         }
     },
 
-    getViewportHeight: function() {
-        return window.innerHeight || document.documentElement.clientHeight || 800;
-    },
-
-    getScrollY: function() {
-        if (window.__lenis) return window.__lenis.scroll || 0;
-        const scroller = document.getElementById('scroll-container');
-        return scroller ? scroller.scrollTop : window.scrollY;
-    },
-
-    scrollToStep: function(step, immediate) {
-        const vh = this.getViewportHeight();
-        const target = Math.max(0, Math.min(this.totalSteps - 1, step)) * vh;
-        if (window.__lenis) {
-            window.__lenis.scrollTo(target, { immediate: !!immediate, duration: immediate ? 0 : 0.65 });
-            return;
-        }
-        const scroller = document.getElementById('scroll-container');
-        if (scroller) {
-            scroller.scrollTo({ top: target, behavior: immediate ? 'auto' : 'smooth' });
-        } else {
-            window.scrollTo({ top: target, behavior: immediate ? 'auto' : 'smooth' });
-        }
-    },
-
     enable: function() {
-        const wrapper = document.querySelector('.single-page-wrapper');
-        if (!wrapper || wrapper.dataset.scrollScenesReady === '1') {
-            if (wrapper && wrapper.dataset.scrollScenesReady === '1') {
-                this.enabled = true;
-                document.documentElement.classList.add('home-scroll-scenes');
-                this.bindScroll();
-                this.update();
-            }
-            return;
+        const canBring = document.querySelector('#home-can-bring');
+        if (!canBring) return;
+        this.cards = Array.prototype.slice.call(canBring.querySelectorAll('.home-can-bring-card'));
+        if (!this.cards.length) return;
+
+        // Restructure once: the section becomes a tall scroll track; the panel +
+        // note move into a sticky, centered pin. The panel box (home-panel) must
+        // move off the (now 4×100vh) section so it doesn't become a giant box.
+        if (canBring.dataset.pinReady !== '1') {
+            const inner = canBring.querySelector('.home-can-bring-inner');
+            const note = canBring.querySelector('.home-can-bring-ai-note');
+
+            const panel = document.createElement('div');
+            panel.className = 'home-panel home-can-bring-panel';
+            if (inner) panel.appendChild(inner);
+            if (note) panel.appendChild(note); // bubble sits at the panel's top-right corner
+
+            const pin = document.createElement('div');
+            pin.className = 'home-scroll-pin home-scroll-pin--can-bring';
+            pin.appendChild(panel);
+
+            canBring.classList.remove('home-panel');
+            canBring.classList.add('home-scroll-pin-block', 'home-scroll-pin-block--can-bring');
+            canBring.style.setProperty('--pin-steps', String(this.PIN_STEPS));
+            canBring.innerHTML = '';
+            canBring.appendChild(pin);
+            canBring.dataset.pinReady = '1';
         }
 
-        const header = wrapper.querySelector('.home-page-header');
-        const featured = wrapper.querySelector('#featured-work');
-        const deck = featured && featured.querySelector('.stack-deck');
-        const canBring = wrapper.querySelector('#home-can-bring');
-        const about = wrapper.querySelector('#about');
-        const aboutIntro = about && about.querySelector('.home-about-intro');
-        const aboutRest = about && about.querySelector('.home-about-rest');
-        const footer = wrapper.querySelector('.site-footer-shell');
-
-        if (!header || !featured || !deck || !canBring || !aboutIntro || !aboutRest || !footer) return;
-
-        this.stackCards = Array.prototype.slice.call(deck.querySelectorAll('.stack-card'));
-        this.canBringCards = Array.prototype.slice.call(canBring.querySelectorAll('.home-can-bring-card'));
-        if (this.stackCards.length < 2) return;
-
-        this.totalSteps = 1 + this.stackCards.length + 4 + 3;
-
-        wrapper.dataset.scrollScenesReady = '1';
-
-        header.classList.add('home-scroll-scene', 'home-scroll-scene--header');
-
-        featured.classList.add('home-scroll-pin-block', 'home-scroll-pin-block--featured');
-        featured.style.setProperty('--pin-steps', String(this.stackCards.length));
-        const featuredPin = document.createElement('div');
-        featuredPin.className = 'home-scroll-pin';
-        deck.classList.add('stack-deck--scene');
-        featuredPin.appendChild(deck);
-        featured.innerHTML = '';
-        featured.appendChild(featuredPin);
-        this.featuredPin = featured;
-
-        const canInner = canBring.querySelector('.home-can-bring-inner');
-        const canNote = canBring.querySelector('.home-can-bring-ai-note');
-        canBring.classList.add('home-scroll-pin-block', 'home-scroll-pin-block--can-bring');
-        canBring.style.setProperty('--pin-steps', '4');
-        const canPin = document.createElement('div');
-        canPin.className = 'home-scroll-pin home-scroll-pin--can-bring';
-        if (canInner) canPin.appendChild(canInner);
-        if (canNote) canPin.appendChild(canNote);
-        canBring.innerHTML = '';
-        canBring.appendChild(canPin);
-        this.canBringPin = canBring;
-
-        aboutIntro.classList.add('home-scroll-scene', 'home-scroll-scene--about-intro');
-        aboutRest.classList.add('home-scroll-scene', 'home-scroll-scene--about-rest');
-        footer.classList.add('home-scroll-scene', 'home-scroll-scene--footer');
-
+        this.block = canBring;
+        this.panel = canBring.querySelector('.home-can-bring-panel');
         document.documentElement.classList.add('home-scroll-scenes');
         this.enabled = true;
         this.bindScroll();
@@ -127,73 +68,42 @@ const HomeScrollScenes = {
         document.documentElement.classList.remove('home-scroll-scenes');
         this.enabled = false;
         this.unbindScroll();
-        this.updateCanBringByScroll();
+        this.cards.forEach((c) => c.classList.remove('is-flipped'));
     },
 
-    bindCanBringScrollFlip: function() {
-        if (this.canBringFlipBound || !this.canBringCards.length) return;
-        this.canBringFlipBound = true;
-        this.onCanBringScrollFlip = this.onCanBringScrollFlip.bind(this);
-        const scroller = document.getElementById('scroll-container');
-        if (scroller) scroller.addEventListener('scroll', this.onCanBringScrollFlip, { passive: true });
-        window.addEventListener('scroll', this.onCanBringScrollFlip, { passive: true });
-        window.addEventListener('resize', this.onCanBringScrollFlip, { passive: true });
-        if (window.__lenis) {
-            window.__lenis.on('scroll', this.onCanBringScrollFlip);
-        } else {
-            this.waitForLenisCanBringFlip();
+    /* Flip exactly one card based on scroll progress through the pinned range. */
+    update: function() {
+        if (!this.enabled || !this.block) return;
+        const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+        const rect = this.block.getBoundingClientRect();
+        const pinnable = rect.height - vh; // scroll distance available while pinned
+        if (pinnable <= 0) return;
+
+        const progress = Math.max(0, Math.min(1, -rect.top / pinnable)); // 0..1
+        const n = this.cards.length;
+
+        // Buffer before the first flip and after the last, then one equal segment
+        // per card. Only one card is flipped at any time.
+        const enter = 0.08;
+        const exit = 0.96;
+        let active = -1;
+        if (progress > enter && progress < exit) {
+            const span = (exit - enter) / n;
+            active = Math.min(n - 1, Math.floor((progress - enter) / span));
         }
-        this.updateCanBringByScroll();
-    },
 
-    waitForLenisCanBringFlip: function() {
-        let attempts = 0;
-        const tick = () => {
-            if (window.__lenis) {
-                window.__lenis.on('scroll', this.onCanBringScrollFlip);
-                this.updateCanBringByScroll();
-                return;
-            }
-            attempts += 1;
-            if (attempts < 40) setTimeout(tick, 50);
-        };
-        tick();
-    },
-
-    onCanBringScrollFlip: function() {
-        if (this.enabled) return;
-        this.updateCanBringByScroll();
-    },
-
-    updateCanBringByScroll: function() {
-        if (!this.canBringCards.length) return;
-        const section = document.getElementById('home-can-bring');
-        if (!section) return;
-
-        const vh = this.getViewportHeight();
-        const rect = section.getBoundingClientRect();
-        const start = vh * 0.82;
-        const end = vh * 0.18;
-        const total = Math.max(rect.height + start - end, 1);
-        const scrolled = start - rect.top;
-        const progress = Math.max(0, Math.min(1, scrolled / total));
-
-        this.canBringCards.forEach((card, index) => {
-            const threshold = (index + 1) / (this.canBringCards.length + 1);
-            card.classList.toggle('is-flipped', progress >= threshold);
-        });
+        this.cards.forEach((card, i) => card.classList.toggle('is-flipped', i === active));
     },
 
     bindScroll: function() {
         if (this.bound) return;
         this.bound = true;
-        this.onScroll = this.onScroll.bind(this);
-        this.onResize = this.onResize.bind(this);
+        this.onScroll = this.update.bind(this);
 
         const scroller = document.getElementById('scroll-container');
         if (scroller) scroller.addEventListener('scroll', this.onScroll, { passive: true });
         window.addEventListener('scroll', this.onScroll, { passive: true });
-        window.addEventListener('resize', this.onResize, { passive: true });
+        window.addEventListener('resize', this.onScroll, { passive: true });
 
         if (window.__lenis) {
             window.__lenis.on('scroll', this.onScroll);
@@ -212,8 +122,7 @@ const HomeScrollScenes = {
                 this.refreshLenis();
                 return;
             }
-            attempts += 1;
-            if (attempts < 40) setTimeout(tick, 50);
+            if (++attempts < 40) setTimeout(tick, 50);
         };
         tick();
     },
@@ -224,56 +133,7 @@ const HomeScrollScenes = {
         const scroller = document.getElementById('scroll-container');
         if (scroller) scroller.removeEventListener('scroll', this.onScroll);
         window.removeEventListener('scroll', this.onScroll);
-        window.removeEventListener('resize', this.onResize);
-    },
-
-    onResize: function() {
-        this.update();
-        this.refreshLenis();
-    },
-
-    onScroll: function() {
-        this.update();
-        if (this.snapTimer) clearTimeout(this.snapTimer);
-        this.snapTimer = setTimeout(() => this.snapToNearestStep(), 140);
-    },
-
-    snapToNearestStep: function() {
-        if (!this.enabled) return;
-        const vh = this.getViewportHeight();
-        if (!vh) return;
-        const scrollY = this.getScrollY();
-        const step = Math.round(scrollY / vh);
-        const target = Math.max(0, Math.min(this.totalSteps - 1, step)) * vh;
-        if (Math.abs(scrollY - target) > 6) {
-            this.scrollToStep(step, false);
-        }
-    },
-
-    getStep: function(scrollY, vh) {
-        return Math.max(0, Math.min(this.totalSteps - 1, Math.round(scrollY / vh)));
-    },
-
-    update: function() {
-        if (!this.enabled) return;
-
-        const vh = this.getViewportHeight();
-        const scrollY = this.getScrollY();
-        const step = this.getStep(scrollY, vh);
-
-        document.body.dataset.homeScrollStep = String(step);
-
-        this.stackCards.forEach((card, index) => {
-            const active = step === index + 1;
-            card.classList.toggle('is-scene-active', active);
-            card.style.transform = '';
-            card.style.filter = '';
-        });
-
-        const canBringFirstStep = this.stackCards.length + 1;
-        this.canBringCards.forEach((card, index) => {
-            card.classList.toggle('is-flipped', step >= canBringFirstStep + 1 + index);
-        });
+        window.removeEventListener('resize', this.onScroll);
     },
 
     refreshLenis: function() {

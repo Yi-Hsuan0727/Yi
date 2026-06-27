@@ -808,20 +808,6 @@ const PortfolioApp = {
         const el = document.getElementById(id);
         if (!el) return;
 
-        if (typeof HomeScrollScenes !== 'undefined' && HomeScrollScenes.enabled) {
-            const stepMap = {
-                'featured-work': 1,
-                'home-can-bring': 6,
-                about: 10,
-                toolbox: 11,
-                contact: 12
-            };
-            if (stepMap[id] != null) {
-                HomeScrollScenes.scrollToStep(stepMap[id], false);
-                return;
-            }
-        }
-
         const offsetVal = offset ?? -16;
         const scrollRoot = document.getElementById('scroll-container');
         const prefersLenis = window.innerWidth > 1200 && !!scrollRoot;
@@ -949,8 +935,10 @@ const PortfolioApp = {
         window.addEventListener('resize', syncStackSpacers);
     },
 
-    /* Sticky stacking project cards: scroll-driven scale + dim as each card is covered. */
+    /* Sticky stacking project cards: scroll-driven scale + dim as each card is covered.
+       Disabled — the Featured deck no longer uses sticky stacking. */
     initProjectStack: function() {
+        return;
         const deck = document.querySelector('.stack-deck');
         if (!deck) return;
         if (document.documentElement.classList.contains('home-scroll-scenes')) return;
@@ -1598,12 +1586,10 @@ const PortfolioApp = {
             { selector: '.home-hero-cta-wrap', extraClass: 'home-reveal--fade' },
             { selector: '.home-header-composition', extraClass: 'home-reveal--pop' },
             { selector: '.home-spotlight-card', extraClass: 'home-reveal--fade' },
+            { selector: '.stack-card', extraClass: 'home-reveal--fade', stepMs: 90 },
             { selector: '.projects-more-title', extraClass: '' },
             { selector: '.projects-more-intro', extraClass: '' },
             { selector: '.projects-more-card', extraClass: 'home-reveal--deck', stepMs: 110 },
-            { selector: '.home-can-bring-header', extraClass: '' },
-            { selector: '.home-can-bring-card', extraClass: '' },
-            { selector: '.home-can-bring-ai-note', extraClass: 'home-reveal--pop home-reveal--bubble' },
             { selector: '.home-about-title', extraClass: '' },
             { selector: '.home-about-copy', extraClass: '' },
             { selector: '.home-about-note-stickers .note-deco-sticker', extraClass: 'home-reveal--sticker', stepMs: 90 },

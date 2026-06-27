@@ -115,7 +115,13 @@ const AppLogic = {
             const content = document.querySelector('.single-page-wrapper');
             if (!wrapper || !content) return;
 
-            const lenis = new Lenis({ wrapper, content, duration: 1.2, smooth: true });
+            const lenis = new Lenis({
+                wrapper,
+                content,
+                duration: 0.85,
+                smooth: true,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
             window.__lenis = lenis;
             if (this._snapOnScroll) lenis.on('scroll', this._snapOnScroll);
 
@@ -181,10 +187,33 @@ const AppLogic = {
                 });
             }
 
-            alignCenter(document.querySelector('#home-can-bring'));
+            const canBring = document.querySelector('#home-can-bring');
+            const canBringUsesPin = canBring
+                && canBring.classList.contains('home-scroll-pin-block--can-bring')
+                && typeof HomeScrollScenes !== 'undefined'
+                && HomeScrollScenes.enabled;
+            if (!canBringUsesPin) {
+                alignCenter(canBring);
+            }
+
             alignCenter(document.querySelector('#about'));
 
             return positions;
+        };
+
+        const getCanBringPinLanding = (refTop, current, viewport) => {
+            const canBring = document.querySelector('#home-can-bring.home-scroll-pin-block--can-bring');
+            if (!canBring || typeof HomeScrollScenes === 'undefined' || !HomeScrollScenes.enabled) return null;
+
+            const pinnable = canBring.offsetHeight - viewport;
+            if (pinnable <= 0) return null;
+
+            const top = canBring.getBoundingClientRect().top - refTop;
+            const progress = Math.max(0, Math.min(1, -top / pinnable));
+            // Only ease into the section at the start of the pin range — not mid-flip.
+            if (progress > 0.14) return null;
+
+            return current + top;
         };
 
         const snapToNearest = () => {
@@ -197,6 +226,10 @@ const AppLogic = {
             const current = window.__lenis ? window.__lenis.scroll : scroller.scrollTop;
 
             const positions = getSnapPositions(refTop, current, viewport);
+            const canBringLanding = getCanBringPinLanding(refTop, current, viewport);
+            if (canBringLanding != null) {
+                positions.push(canBringLanding);
+            }
             if (!positions.length) return;
 
             let bestTarget = null, bestDist = Infinity;
@@ -206,13 +239,21 @@ const AppLogic = {
             });
             if (bestTarget === null) return;
 
+            const isCanBringLanding = canBringLanding != null && Math.abs(bestTarget - canBringLanding) < 2;
+
             // Only ease in when a snap point is reasonably close but not already aligned.
             if (bestDist <= 3 || bestDist >= viewport * 0.6) return;
 
             const target = Math.max(0, Math.round(bestTarget));
-            lockUntil = Date.now() + 1200;
+            const snapDuration = isCanBringLanding
+                ? Math.min(1.05, 0.65 + (bestDist / viewport) * 0.55)
+                : 0.55;
+            lockUntil = Date.now() + Math.round(snapDuration * 1000) + 120;
             if (window.__lenis) {
-                window.__lenis.scrollTo(target, { duration: 1.0 });
+                window.__lenis.scrollTo(target, {
+                    duration: snapDuration,
+                    easing: (t) => 1 - Math.pow(1 - t, 3)
+                });
             } else if (isWindow) {
                 window.scrollTo({ top: target, behavior: 'smooth' });
             } else {
@@ -222,13 +263,17 @@ const AppLogic = {
 
         const onScroll = () => {
             if (settleTimer) clearTimeout(settleTimer);
-            settleTimer = setTimeout(snapToNearest, 110);
+            settleTimer = setTimeout(snapToNearest, 130);
         };
 
         // Expose so initLenis can also hook Lenis' scroll event (covers desktop).
         this._snapOnScroll = onScroll;
         sc.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('scroll', onScroll, { passive: true });
+
+        if (window.__lenis) {
+            window.__lenis.on('scroll', onScroll);
+        }
     },
 
     // Re-evaluate Lenis when the viewport crosses the 1200px breakpoint so smooth
