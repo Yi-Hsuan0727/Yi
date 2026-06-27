@@ -22,12 +22,14 @@ const LayoutComponents = {
         const greetingHTML = pageData.heroGreeting && !projectMeta && pageType !== 'home'
             ? `<p class="hero-title-greeting">${pageData.heroGreeting}</p>`
             : '';
-        const homeActionsHTML = pageType === 'home' && !projectMeta
-            ? `<div class="home-hero-actions home-hero-actions--socials">
+        const heroInner = pageType === 'home' && !projectMeta
+            ? `<h1>${pageData.title}</h1>
+            <div class="hero-greeting-row">
+                <p class="hero-identity-label">Product Designer Michelle Chen</p>
                 ${this.buildSidebarSocials()}
-            </div>`
-            : '';
-        const heroContent = `<div class="hero-text">${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}${homeActionsHTML}</div>`;
+            </div>${introHTML}`
+            : `${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}`;
+        const heroContent = `<div class="hero-text">${heroInner}</div>`;
         html += heroContent;
         return html;
     },
@@ -400,22 +402,58 @@ const LayoutComponents = {
         }).join('');
         const imgSrc = project.image || '';
         const objectPosition = project.cardImagePosition || 'center center';
-        /* Stepped sticky offset: 28, 74, 120… (≈46px header height per card behind). */
-        const top = 28 + index * 46;
-        return `
-            <article class="stack-card" data-project-id="${project.id || ''}" style="--stack-top:${top}px; z-index:${index + 1};">
-                <a class="stack-card__link" href="${project.link}">
+        /* Stepped sticky offset: 28, 92, 156… (≈64px header height per card behind). */
+        const top = 28 + index * 64;
+        const isSoon = !!project.comingSoon;
+        const cta = isSoon
+            ? ''
+            : `<span class="stack-card__cta">View case study <span class="stack-card__cta-arrow" aria-hidden="true">&rarr;</span></span>`;
+        const inner = `
                     <div class="stack-card__split">
                         <div class="stack-card__media">
+                            ${isSoon ? `<span class="stack-card__soon-badge">Coming soon</span>` : ''}
                             <img src="${imgSrc}" alt="${project.title}" loading="lazy" decoding="async" style="object-position:${objectPosition};">
                         </div>
                         <div class="stack-card__content">
                             <h3 class="stack-card__headline">${headline}</h3>
                             <ul class="stack-card__tags">${tags}</ul>
-                            <span class="stack-card__cta">View case study <span class="stack-card__cta-arrow" aria-hidden="true">&rarr;</span></span>
+                            ${cta}
+                        </div>
+                    </div>`;
+        const body = isSoon
+            ? `<div class="stack-card__link stack-card__link--soon" aria-disabled="true">${inner}</div>`
+            : `<a class="stack-card__link" href="${project.link}">${inner}</a>`;
+        return `
+            <article class="stack-card" data-project-id="${project.id || ''}" style="--stack-top:${top}px; z-index:${index + 1};">
+                ${body}
+            </article>`;
+    },
+
+    /* A single stack card holding every "more work" project as a grid of linked tiles. */
+    buildMoreWorkCard: function(projects, index) {
+        if (!projects || !projects.length) return '';
+        const top = 28 + index * 64;
+        const tiles = projects.map(function(p) {
+            const img = p.image || p.heroImage || '';
+            const title = p.moreCardTitle || p.title;
+            return `
+                <a class="more-work-tile" href="${p.link}" aria-label="${title}">
+                    <span class="more-work-tile__img"><img src="${img}" alt="${title}" loading="lazy" decoding="async"></span>
+                </a>`;
+        }).join('');
+        return `
+            <article class="stack-card stack-card--more" style="--stack-top:${top}px; z-index:${index + 1};">
+                <div class="stack-card__link stack-card__link--static">
+                    <div class="more-work-card">
+                        <div class="more-work-card__head">
+                            <h3 class="stack-card__headline">More work</h3>
+                            <p class="more-work-card__intro">Client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
+                        </div>
+                        <div class="more-work-carousel" aria-label="More work projects carousel">
+                            <div class="more-work-carousel-track">${tiles}${tiles}</div>
                         </div>
                     </div>
-                </a>
+                </div>
             </article>`;
     },
 
@@ -888,7 +926,19 @@ const LayoutComponents = {
             <nav class="site-top-nav site-top-nav--auto-hide" aria-label="Primary">
                 <div class="site-top-nav__inner">
                     <a href="index.html" class="site-top-nav__brand cursor-hover">
-                        <img class="site-top-nav__avatar" src="assets/img/Michelle/IMG_2395.png" alt="" width="28" height="28" decoding="async">
+                        <span class="site-top-nav__avatar" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28" focusable="false">
+                                <rect width="64" height="64" fill="#2ecc71"/>
+                                <g class="site-top-nav__eye">
+                                    <ellipse fill="#fff" cx="18" cy="32" rx="10.5" ry="9.5"/>
+                                    <circle class="site-top-nav__pupil" fill="#111" cx="18" cy="32" r="4.2"/>
+                                </g>
+                                <g class="site-top-nav__eye">
+                                    <ellipse fill="#fff" cx="46" cy="32" rx="10.5" ry="9.5"/>
+                                    <circle class="site-top-nav__pupil" fill="#111" cx="46" cy="32" r="4.2"/>
+                                </g>
+                            </svg>
+                        </span>
                         <span class="site-top-nav__name">Michelle</span>
                     </a>
                     <ul class="site-top-nav__links">

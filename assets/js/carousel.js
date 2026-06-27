@@ -1,114 +1,128 @@
 /*
- * CarouselLogic: Horizontal image carousel for the About page.
+ * CarouselLogic: Horizontal image carousel for the About page and More work stack card.
  * Users can swipe left/right (touch or mouse drag) to scroll. No scrollbar shown.
- * Home page carousel auto-scrolls slowly when idle.
+ * Looping carousels auto-scroll slowly when idle.
  */
 const CarouselLogic = {
-    currentTranslate: 0,
-    targetTranslate: 0,
-    animationFrame: null,
-    isDragging: false,
-    startX: 0,
-    startTranslate: 0,
-    autoScrollSpeed: 0.22,
-    autoScrollPausedUntil: 0,
-    loopWidth: 0,
+    instances: [],
 
     init: function () {
-        const carousel = document.querySelector('.about-carousel');
-        if (!carousel) return;
+        document.querySelectorAll('.about-carousel, .more-work-carousel').forEach((carousel) => {
+            this.initCarousel(carousel);
+        });
+    },
 
-        const track = carousel.querySelector('.about-carousel-track');
+    initCarousel: function (carousel) {
+        const track = carousel.querySelector('.about-carousel-track, .more-work-carousel-track');
         if (!track) return;
 
-        const isHomeCarousel = !!carousel.closest('.home-about');
-        if (isHomeCarousel) {
-            track.innerHTML += track.innerHTML;
+        const isLooping = carousel.classList.contains('more-work-carousel')
+            || !!carousel.closest('.home-about');
+
+        const instance = {
+            carousel: carousel,
+            track: track,
+            currentTranslate: 0,
+            targetTranslate: 0,
+            isDragging: false,
+            startX: 0,
+            startTranslate: 0,
+            autoScrollSpeed: carousel.classList.contains('more-work-carousel') ? 0.35 : 0.22,
+            autoScrollPausedUntil: 0,
+            loopWidth: 0,
+            animationFrame: null
+        };
+
+        if (isLooping && track.children.length) {
+            instance.loopWidth = track.scrollWidth / 2;
         }
 
-        this.currentTranslate = 0;
-        this.targetTranslate = 0;
-        this.loopWidth = isHomeCarousel ? track.scrollWidth / 2 : 0;
+        this.instances.push(instance);
+        this.bindCarousel(instance);
 
-        const getBounds = () => {
-            const maxTranslate = 0;
-            const minTranslate = -(track.scrollWidth - carousel.offsetWidth);
-            return { maxTranslate, minTranslate };
-        };
+        if (!this.animationFrame) {
+            const tick = () => {
+                this.instances.forEach((item) => this.applyTransform(item));
+                this.animationFrame = requestAnimationFrame(tick);
+            };
+            tick();
+        }
+    },
 
-        const applyTransform = () => {
-            const now = performance.now();
-            const { maxTranslate, minTranslate } = getBounds();
+    getBounds: function (instance) {
+        const maxTranslate = 0;
+        const minTranslate = -(instance.track.scrollWidth - instance.carousel.offsetWidth);
+        return { maxTranslate, minTranslate };
+    },
 
-            if (isHomeCarousel && !this.isDragging && now >= this.autoScrollPausedUntil) {
-                this.targetTranslate -= this.autoScrollSpeed;
-                if (this.loopWidth > 0 && this.targetTranslate <= -this.loopWidth) {
-                    this.targetTranslate += this.loopWidth;
-                    this.currentTranslate += this.loopWidth;
-                }
+    applyTransform: function (instance) {
+        const now = performance.now();
+        const { maxTranslate, minTranslate } = this.getBounds(instance);
+
+        if (instance.loopWidth > 0 && !instance.isDragging && now >= instance.autoScrollPausedUntil) {
+            instance.targetTranslate -= instance.autoScrollSpeed;
+            if (instance.targetTranslate <= -instance.loopWidth) {
+                instance.targetTranslate += instance.loopWidth;
+                instance.currentTranslate += instance.loopWidth;
             }
+        }
 
-            this.currentTranslate += (this.targetTranslate - this.currentTranslate) * 0.06;
-            track.style.transform = `translateX(${this.currentTranslate}px)`;
-        };
+        instance.currentTranslate += (instance.targetTranslate - instance.currentTranslate) * 0.06;
+        instance.track.style.transform = `translateX(${instance.currentTranslate}px)`;
+    },
 
-        const tick = () => {
-            applyTransform();
-            this.animationFrame = requestAnimationFrame(tick);
-        };
-        tick();
+    bindCarousel: function (instance) {
+        const carousel = instance.carousel;
 
         const clamp = (val) => {
-            const { maxTranslate, minTranslate } = getBounds();
+            const { maxTranslate, minTranslate } = this.getBounds(instance);
             return Math.max(minTranslate, Math.min(maxTranslate, val));
         };
 
         const pauseAutoScroll = () => {
-            this.autoScrollPausedUntil = performance.now() + 2400;
+            instance.autoScrollPausedUntil = performance.now() + 2400;
         };
 
-        // Touch events (mobile swipe)
         carousel.addEventListener('touchstart', (e) => {
-            this.startX = e.touches[0].clientX;
-            this.startTranslate = this.targetTranslate;
+            instance.startX = e.touches[0].clientX;
+            instance.startTranslate = instance.targetTranslate;
             pauseAutoScroll();
         }, { passive: true });
 
         carousel.addEventListener('touchmove', (e) => {
-            const dx = e.touches[0].clientX - this.startX;
-            this.targetTranslate = clamp(this.startTranslate + dx);
+            const dx = e.touches[0].clientX - instance.startX;
+            instance.targetTranslate = clamp(instance.startTranslate + dx);
             e.preventDefault();
         }, { passive: false });
 
         carousel.addEventListener('touchend', () => {
-            this.startX = 0;
-            this.startTranslate = this.targetTranslate;
+            instance.startX = 0;
+            instance.startTranslate = instance.targetTranslate;
         }, { passive: true });
 
-        // Mouse events (desktop drag)
         carousel.addEventListener('mousedown', (e) => {
-            this.isDragging = true;
-            this.startX = e.clientX;
-            this.startTranslate = this.targetTranslate;
+            instance.isDragging = true;
+            instance.startX = e.clientX;
+            instance.startTranslate = instance.targetTranslate;
             pauseAutoScroll();
+            carousel.style.cursor = 'grabbing';
         });
 
         document.addEventListener('mousemove', (e) => {
-            if (!this.isDragging) return;
-            const dx = e.clientX - this.startX;
-            this.targetTranslate = clamp(this.startTranslate + dx);
+            if (!instance.isDragging) return;
+            const dx = e.clientX - instance.startX;
+            instance.targetTranslate = clamp(instance.startTranslate + dx);
         });
 
         document.addEventListener('mouseup', () => {
-            this.isDragging = false;
+            if (instance.isDragging) {
+                instance.isDragging = false;
+                carousel.style.cursor = 'grab';
+            }
         });
 
         carousel.addEventListener('mouseenter', pauseAutoScroll);
-
         carousel.style.cursor = 'grab';
-        carousel.style.userSelect = 'none';
-        carousel.addEventListener('mousedown', () => { carousel.style.cursor = 'grabbing'; });
-        document.addEventListener('mouseup', () => { carousel.style.cursor = 'grab'; });
     }
 };
 

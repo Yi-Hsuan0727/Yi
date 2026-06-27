@@ -15,7 +15,7 @@ const PortfolioApp = {
             demoIntro: 'Led UX research and product design to create a streamlined receipt-scanning experience for group expense sharing.',
             filterType: 'apps',
             audience: 'Consumer',
-            tags: ['Product Design', 'UX Research', 'Web App'],
+            tags: ['Web App', 'AI', 'B2C'],
             image: 'assets/img/main images/pic2split.png',
             heroImage: 'assets/img/Pic2Split/hero.png',
             link: 'pic2split.html',
@@ -31,7 +31,7 @@ const PortfolioApp = {
             liveLink: null,
             featured: true,
             spotlightEyebrow: 'Flagship · AI product',
-            spotlightTitle: 'Scan a receipt, split the bill in seconds.',
+            spotlightTitle: 'Scan a receipt with AI + OCR, split the bill in seconds.',
             spotlightDesc: 'An end-to-end AI web app using OCR + Google Gemini that turns a photo into a validated, shareable split, with multi-state logic that keeps cognitive load low at the table.',
             spotlightStats: [
                 { value: '2× faster', label: 'vs. 4-min baseline', accent: true },
@@ -48,7 +48,7 @@ const PortfolioApp = {
             demoIntro: 'Conducted research and redesigned the volunteer recruitment experience to improve information hierarchy and usability.',
             filterType: 'web',
             audience: 'Public',
-            tags: ['UX Research', 'UX/UI Design', 'Web Redesign'],
+            tags: ['Website', 'Nonprofit', 'B2C'],
             image: 'assets/img/main images/UNESCO.png',
             heroImage: 'assets/img/UNESCO/hero.png',
             link: 'unesco.html',
@@ -70,7 +70,7 @@ const PortfolioApp = {
             demoIntro: 'Designed and developed an accessibility-focused website system showcasing Taiwan\'s indigenous cultural institutions.',
             filterType: 'web',
             audience: 'Public',
-            tags: ['UI Design', 'Front-End Development', 'Accessibility'],
+            tags: ['Website', 'Public Sector', 'Accessibility'],
             image: 'assets/img/main images/indigenous Cultural Museums.png',
             cardImagePosition: 'right center',
             heroImage: 'assets/img/lcm/hero.png',
@@ -108,7 +108,7 @@ const PortfolioApp = {
             demoIntro: 'A UAV control system helps the agriculture industry improve operational efficiency and optimize workflows.',
             filterType: 'apps',
             audience: 'Enterprise',
-            tags: ['UI Design', 'Prototyping', 'Mobile App'],
+            tags: ['Tablet App', 'Agtech', 'B2B'],
             image: 'assets/img/main images/UAV.png',
             cardVideo: 'assets/img/UAV/technician video.mp4',
             heroImage: 'assets/img/UAV/hero.png',
@@ -133,6 +133,25 @@ const PortfolioApp = {
             ]
         },
         {
+            id: 'realwater',
+            title: 'Real Water LMS',
+            cardHeadline: 'A water-education learning platform helping Arizonans make informed decisions about water.',
+            subtitle: 'Water Education Learning Platform',
+            desc: 'Arizona Real Water LMS delivers comprehensive water-education resources for Arizona communities, real estate professionals, and the public.',
+            demoIntro: 'A learning platform delivering accessible water-education courses for Arizona communities and professionals.',
+            filterType: 'web',
+            audience: 'Public',
+            tags: ['EdTech', 'Web App', 'B2C'],
+            image: 'assets/img/main images/RealWater.png',
+            heroImage: 'assets/img/main images/RealWater.png',
+            link: '#',
+            comingSoon: true,
+            featured: true,
+            spotlightEyebrow: 'In development · EdTech',
+            spotlightTitle: 'A learning platform for water education that helps Arizonans make informed decisions.',
+            spotlightDesc: 'Arizona Real Water LMS is a platform for water management and conservation education, delivering accessible courses and resources for communities, real estate professionals, and the public.'
+        },
+        {
             id: 'lawfare',
             title: 'International Lawfare Website',
             subtitle: 'Drupal-Based Legal Scholarship Hub',
@@ -141,7 +160,7 @@ const PortfolioApp = {
             demoIntro: 'A centralized digital repository designed to organize complex legal scholarship within the ASU Design System.',
             filterType: 'web',
             audience: 'Public',
-            tags: ['UI Design', 'Front-End Development', 'Web Design'],
+            tags: ['Website', 'CMS', 'EdTech'],
             image: 'assets/img/main images/International Lawfare.png',
             heroImage: 'assets/img/law/hero.png',
             link: 'lawfare.html',
@@ -166,7 +185,7 @@ const PortfolioApp = {
             demoIntro: 'Applied UX research and prototyping to design a mobile experience encouraging walkability and urban sustainability.',
             filterType: 'apps',
             audience: 'Consumer',
-            tags: ['UX Research', 'Product Design', 'Mobile App'],
+            tags: ['Mobile App', 'Civic Tech', 'B2C'],
             image: 'assets/img/main images/Longtan Walker.png',
             heroImage: 'assets/img/lt/hero.png',
             link: 'lt.html',
@@ -191,7 +210,7 @@ const PortfolioApp = {
             demoIntro: 'A smart assistant using Claude AI & USDA data to plan meals and recipes based on user needs.',
             filterType: 'apps',
             audience: 'Consumer',
-            tags: ['AI', 'Web App', 'Product Design'],
+            tags: ['Web App', 'AI', 'B2C'],
             image: 'assets/img/main images/QuickBite.png',
             heroImage: 'assets/img/QuickBite/hero.png',
             link: 'quickbite.html',
@@ -213,7 +232,7 @@ const PortfolioApp = {
             demoIntro: 'Designed and built a scalable website and UI component system to establish a professional digital presence.',
             filterType: 'web',
             audience: 'Enterprise',
-            tags: ['Web Design', 'UI Design', 'Branding'],
+            tags: ['Website', 'Corporate', 'B2B'],
             image: 'assets/img/main images/Magnate.png',
             heroImage: 'assets/img/Magnate/hero.png',
             link: 'magnate.html',
@@ -321,9 +340,9 @@ const PortfolioApp = {
     data: {
         home: {
             heroGreeting: '',
-            title: `<span class="hero-title-line hero-title-line--meta"><span class="shape shape-circle hero-meta-dot" aria-hidden="true"></span><span class="hero-meta-name">Michelle Chen</span><span class="hero-meta-sep" aria-hidden="true">·</span><span class="hero-meta-role">Product Designer</span></span><span class="hero-title-line hero-title-line--focus">I design accessible<span class="shape shape-circle" aria-hidden="true"></span>,</span><span class="hero-title-line hero-title-line--focus">AI-driven products<span class="shape shape-square" aria-hidden="true"></span>.</span>`,
+            title: `<span class="hero-title-line hero-title-line--focus">I design accessible,</span><span class="hero-title-line hero-title-line--focus">AI-driven web products.</span>`,
             desc: '',
-            briefIntro: 'Currently working at <a href="https://vislab.asu.edu/" target="_blank" rel="noopener noreferrer">VisLab</a> · M.S. UX/HCI, ASU. From research and prototyping through front-end, shipping WCAG-compliant interfaces for data-heavy tools.',
+            briefIntro: 'Currently working as a UX/UI Designer at VisLab. From research and prototyping through front-end, shipping WCAG-compliant interfaces for data-heavy tools.',
             meta: ``
         },
         about: {
@@ -451,8 +470,12 @@ const PortfolioApp = {
         if (!html) return html;
 
         var featured = this.getFeaturedProjects();
-        var spotlightHTML = LayoutComponents.buildStackDeck(featured);
-        var moreHTML = LayoutComponents.buildMoreProjectsListItems(this.getSecondaryProjects());
+        var secondary = this.getSecondaryProjects();
+        var featuredCards = featured.map(function(p, i) {
+            return LayoutComponents.buildStackCard(p, i);
+        }).join('');
+        var moreCard = LayoutComponents.buildMoreWorkCard(secondary, featured.length);
+        var spotlightHTML = '<div class="stack-deck">' + featuredCards + moreCard + '</div>';
 
         var parser = new DOMParser();
         var doc = parser.parseFromString('<div id="home-content-root">' + html + '</div>', 'text/html');
@@ -461,9 +484,6 @@ const PortfolioApp = {
 
         var spotlightList = root.querySelector('#featured-work-list, .home-featured-spotlights');
         if (spotlightList) spotlightList.innerHTML = spotlightHTML;
-
-        var moreList = root.querySelector('#projects-more-list');
-        if (moreList) moreList.innerHTML = moreHTML;
 
         return root.innerHTML;
     },
@@ -476,20 +496,27 @@ const PortfolioApp = {
     },
 
     getNextProjects: function(currentId, count) {
-        var currentProject = this.getProject(currentId);
-        if (!currentProject) return [];
-
-        var filtered = this.projectList.filter(function(p) {
-            return !PortfolioApp.isPlaygroundProject(p.id);
+        /* Next Projects only surfaces featured case studies, in home-page order.
+           More-work (secondary) projects and coming-soon (no page) are excluded. */
+        var featured = this.getFeaturedProjects().filter(function(p) {
+            return !p.comingSoon && p.link && p.link !== '#';
         });
-        if (!filtered.length) return [];
+        if (!featured.length) return [];
 
-        var idx = filtered.findIndex(function(p) { return p.id === currentId; });
-        var startIdx = idx === -1 ? 0 : idx;
-
+        var idx = featured.findIndex(function(p) { return p.id === currentId; });
         var result = [];
-        for (var i = 1; i <= count; i++) {
-            result.push(filtered[(startIdx + i) % filtered.length]);
+
+        if (idx === -1) {
+            /* Current page isn't a featured project — list featured from the start. */
+            for (var i = 0; i < count && i < featured.length; i++) {
+                result.push(featured[i]);
+            }
+        } else {
+            /* Continue from the current featured project, cycling past the others. */
+            for (var j = 1; j <= featured.length && result.length < count; j++) {
+                var pick = featured[(idx + j) % featured.length];
+                if (pick.id !== currentId) result.push(pick);
+            }
         }
         return result;
     },
@@ -519,6 +546,7 @@ const PortfolioApp = {
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
             MonsterLogic.init();
         }
+        this.initTopNavAvatarEyes();
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
             ContactFormLogic.init();
         }
@@ -993,6 +1021,35 @@ const PortfolioApp = {
                 this.scrollToHomeSection('contact', -20);
             });
         });
+    },
+
+    initTopNavAvatarEyes: function() {
+        if (document.body.dataset.topNavAvatarEyesBound) return;
+        const eyes = document.querySelectorAll('.site-top-nav__eye');
+        if (!eyes.length) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        document.body.dataset.topNavAvatarEyesBound = '1';
+
+        const movePupils = (clientX, clientY) => {
+            eyes.forEach((eye) => {
+                const pupil = eye.querySelector('.site-top-nav__pupil');
+                if (!pupil) return;
+                const rect = eye.getBoundingClientRect();
+                const eyeX = rect.left + rect.width / 2;
+                const eyeY = rect.top + rect.height / 2;
+                const angle = Math.atan2(clientY - eyeY, clientX - eyeX);
+                const maxDist = rect.width / 4;
+                const dist = Math.min(maxDist, Math.hypot(clientX - eyeX, clientY - eyeY));
+                pupil.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px)`;
+            });
+        };
+
+        document.addEventListener('mousemove', (e) => movePupils(e.clientX, e.clientY));
+        document.addEventListener('touchmove', (e) => {
+            if (!e.touches.length) return;
+            movePupils(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
     },
 
     initHomeTopNav: function() {
@@ -1517,9 +1574,10 @@ const PortfolioApp = {
 
         const steps = [
             { selector: '.hero-title-line', extraClass: '' },
+            { selector: '.hero-identity-label', extraClass: '' },
+            { selector: '.hero-greeting-row .sidebar-social-link', extraClass: '' },
             { selector: '.sidebar-intro', extraClass: '' },
             { selector: '.home-hero-cta-wrap', extraClass: 'home-reveal--fade' },
-            { selector: '.home-hero-actions .sidebar-social-link', extraClass: '' },
             { selector: '.home-header-composition', extraClass: 'home-reveal--pop' },
             { selector: '.home-spotlight-card', extraClass: 'home-reveal--fade' },
             { selector: '.projects-more-title', extraClass: '' },
