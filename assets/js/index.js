@@ -7,6 +7,7 @@ const AppLogic = {
         
         // Wait briefly for DOM to be ready
         setTimeout(() => {
+            this.initSectionSnap();
             this.initLenis();
             this.initScrollLogic();
             this.initProjectCardTransitions();
@@ -116,6 +117,7 @@ const AppLogic = {
 
             const lenis = new Lenis({ wrapper, content, duration: 1.2, smooth: true });
             window.__lenis = lenis;
+            if (this._snapOnScroll) lenis.on('scroll', this._snapOnScroll);
 
             const raf = (time) => { lenis.raf(time); this._lenisRaf = requestAnimationFrame(raf); };
             this._lenisRaf = requestAnimationFrame(raf);
@@ -127,6 +129,106 @@ const AppLogic = {
         }
 
         this.initLenisBreakpointWatcher();
+    },
+
+    /* Gentle snap: when scrolling settles near a snap point, ease to it so users
+       pause on each block. Snap points are the hero, each Featured/More-work card
+       in the deck, and the What-can-I-bring / About sections. Mid-block scrolling
+       stays free. Works with Lenis (desktop) and native scroll (mobile). */
+    initSectionSnap: function() {
+        const sc = document.getElementById('scroll-container');
+        if (!sc) return;
+        // Home only, and respect reduced-motion preferences.
+        if (!document.querySelector('.home-featured-edge')) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        let settleTimer = null;
+        let lockUntil = 0;
+
+        // The scroller is #scroll-container on desktop, but the window on mobile
+        // (where #scroll-container becomes overflow:visible).
+        const getScroller = () => {
+            if (window.__lenis) return sc;
+            if (sc && getComputedStyle(sc).overflowY !== 'visible' && sc.scrollHeight > sc.clientHeight + 5) return sc;
+            return document.scrollingElement || document.documentElement;
+        };
+
+        // Absolute scroll positions to rest on. Each item is centered vertically in
+        // the viewport; items taller than the viewport just align to the top.
+        const getSnapPositions = (refTop, current, viewport) => {
+            const positions = [];
+            const centerOffset = (h) => Math.max(0, (viewport - h) / 2);
+            const alignCenter = (el) => {
+                if (el && el.getClientRects().length) {
+                    positions.push(current + (el.getBoundingClientRect().top - refTop) - centerOffset(el.offsetHeight));
+                }
+            };
+
+            alignCenter(document.querySelector('.single-page-wrapper > .home-page-header'));
+
+            // Featured deck: one snap per card, centered. Cards are sticky, so offsetTop
+            // is unreliable (pinned cards report their pinned offset). Derive each card's
+            // flow position from the deck's (non-sticky) top plus the cumulative
+            // offsetHeight of the cards above it.
+            const deck = document.querySelector('.home-featured-edge .stack-deck');
+            if (deck && deck.getClientRects().length) {
+                const deckAlign = current + (deck.getBoundingClientRect().top - refTop);
+                let flow = 0;
+                deck.querySelectorAll(':scope > .stack-card').forEach((card) => {
+                    const h = card.offsetHeight;
+                    positions.push(deckAlign + flow - centerOffset(h));
+                    flow += h + (parseFloat(getComputedStyle(card).marginBottom) || 0);
+                });
+            }
+
+            alignCenter(document.querySelector('#home-can-bring'));
+            alignCenter(document.querySelector('#about'));
+
+            return positions;
+        };
+
+        const snapToNearest = () => {
+            if (Date.now() < lockUntil) return;
+
+            const scroller = getScroller();
+            const isWindow = scroller === (document.scrollingElement || document.documentElement);
+            const refTop = isWindow ? 0 : scroller.getBoundingClientRect().top;
+            const viewport = isWindow ? window.innerHeight : scroller.clientHeight;
+            const current = window.__lenis ? window.__lenis.scroll : scroller.scrollTop;
+
+            const positions = getSnapPositions(refTop, current, viewport);
+            if (!positions.length) return;
+
+            let bestTarget = null, bestDist = Infinity;
+            positions.forEach((p) => {
+                const d = Math.abs(p - current);
+                if (d < bestDist) { bestDist = d; bestTarget = p; }
+            });
+            if (bestTarget === null) return;
+
+            // Only ease in when a snap point is reasonably close but not already aligned.
+            if (bestDist <= 3 || bestDist >= viewport * 0.6) return;
+
+            const target = Math.max(0, Math.round(bestTarget));
+            lockUntil = Date.now() + 1200;
+            if (window.__lenis) {
+                window.__lenis.scrollTo(target, { duration: 1.0 });
+            } else if (isWindow) {
+                window.scrollTo({ top: target, behavior: 'smooth' });
+            } else {
+                scroller.scrollTo({ top: target, behavior: 'smooth' });
+            }
+        };
+
+        const onScroll = () => {
+            if (settleTimer) clearTimeout(settleTimer);
+            settleTimer = setTimeout(snapToNearest, 110);
+        };
+
+        // Expose so initLenis can also hook Lenis' scroll event (covers desktop).
+        this._snapOnScroll = onScroll;
+        sc.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('scroll', onScroll, { passive: true });
     },
 
     // Re-evaluate Lenis when the viewport crosses the 1200px breakpoint so smooth

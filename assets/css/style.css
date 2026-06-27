@@ -1201,7 +1201,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     box-sizing: border-box;
 }
 .home-featured-edge {
-    padding: 8px 30px 40px;
+    padding: 8px 30px 88px;
     overflow: visible;
 }
 .home-featured-edge-header {
@@ -1471,7 +1471,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     top: var(--stack-top, 28px);
     transform-origin: top center;
     will-change: transform, filter;
-    margin-bottom: 80px;
+    margin-bottom: 120px;
 }
 .stack-card:last-child {
     margin-bottom: 0;
@@ -1722,7 +1722,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         top: auto;
         transform: none !important;
         filter: none !important;
-        margin-bottom: 22px;
+        margin-bottom: 40px;
     }
     .stack-card__split {
         flex-direction: column;
@@ -2351,7 +2351,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .home-can-bring {
     position: relative;
     overflow: visible;
-    margin: 128px auto 128px;
+    margin: 168px auto 168px;
 }
 .home-panel {
     width: min(100% - 60px, 800px);
@@ -2394,7 +2394,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .home-can-bring-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    gap: 24px;
 }
 .home-can-bring-card {
     position: relative;
@@ -2750,7 +2750,7 @@ body.projects-more-modal-open {
 /* Home — about section (bio, photo deck, career) */
 .home-about {
     width: 100%;
-    margin-top: 96px;
+    margin-top: 128px;
 }
 .home-about-intro {
     max-width: 1280px;
@@ -6489,7 +6489,7 @@ body.case-figure-zoom-open #scroll-container {
     grid-template-rows: 1fr auto;
     gap: 24px 32px;
     align-items: stretch;
-    padding: 0 30px 48px;
+    padding: 0 30px 80px;
     overflow: visible;
     min-height: 100vh;
     min-height: 100dvh;
@@ -7408,7 +7408,7 @@ body.case-figure-zoom-open #scroll-container {
         margin-bottom: 24px;
     }
     .home-featured-edge {
-        padding: 4px 20px 28px;
+        padding: 4px 20px 56px;
     }
     .home-spotlight-card__link {
         grid-template-columns: 1fr;
@@ -7562,12 +7562,12 @@ body.case-figure-zoom-open #scroll-container {
         padding: 28px 20px 36px;
     }
     .home-can-bring {
-        margin: 64px auto 0;
+        margin: 96px auto 0;
         padding-top: 88px;
     }
     .home-can-bring-grid {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 20px;
     }
     .home-can-bring-card {
         padding: 18px 18px 22px;
@@ -7591,7 +7591,7 @@ body.case-figure-zoom-open #scroll-container {
         transform: none;
     }
     .home-below-projects { padding: 8px 20px 40px; margin-top: 4px; }
-    .home-about { margin-top: 64px; }
+    .home-about { margin-top: 96px; }
     .home-about-intro { padding: 24px 20px 72px; }
     .home-about-lead {
         display: flex;
@@ -7928,13 +7928,14 @@ body.case-figure-zoom-open #scroll-container {
         max-width: 1280px;
         width: 100%;
         padding-bottom: 0;
+        margin-bottom: 12vh;
     }
 
     html.home-scroll-scenes .home-scroll-pin-block--can-bring {
         max-width: none;
         width: 100%;
         padding: 0 30px;
-        margin: 0 auto;
+        margin: 8vh auto 12vh;
     }
 
     html.home-scroll-scenes .home-scroll-pin {
@@ -8044,11 +8045,11 @@ body.case-figure-zoom-open #scroll-container {
     }
 
     html.home-scroll-scenes #home-can-bring.home-scroll-pin-block--can-bring {
-        margin: 0 auto;
+        margin: 8vh auto 12vh;
     }
 
     html.home-scroll-scenes #about.home-about {
-        margin-top: 0;
+        margin-top: 8vh;
     }
 
     html.home-scroll-scenes .home-featured-edge {

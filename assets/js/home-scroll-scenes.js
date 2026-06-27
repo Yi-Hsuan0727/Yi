@@ -16,6 +16,12 @@ const HomeScrollScenes = {
     init: function() {
         if (!document.body.classList.contains('app-root-home')) return;
 
+        const canBring = document.querySelector('#home-can-bring');
+        this.canBringCards = canBring
+            ? Array.prototype.slice.call(canBring.querySelectorAll('.home-can-bring-card'))
+            : [];
+        this.bindCanBringScrollFlip();
+
         this.mq = window.matchMedia('(min-width: 1201px) and (prefers-reduced-motion: no-preference)');
         const run = () => (this.mq.matches ? this.enable() : this.disable());
         run();
@@ -78,6 +84,8 @@ const HomeScrollScenes = {
         this.canBringCards = Array.prototype.slice.call(canBring.querySelectorAll('.home-can-bring-card'));
         if (this.stackCards.length < 2) return;
 
+        this.totalSteps = 1 + this.stackCards.length + 4 + 3;
+
         wrapper.dataset.scrollScenesReady = '1';
 
         header.classList.add('home-scroll-scene', 'home-scroll-scene--header');
@@ -119,6 +127,61 @@ const HomeScrollScenes = {
         document.documentElement.classList.remove('home-scroll-scenes');
         this.enabled = false;
         this.unbindScroll();
+        this.updateCanBringByScroll();
+    },
+
+    bindCanBringScrollFlip: function() {
+        if (this.canBringFlipBound || !this.canBringCards.length) return;
+        this.canBringFlipBound = true;
+        this.onCanBringScrollFlip = this.onCanBringScrollFlip.bind(this);
+        const scroller = document.getElementById('scroll-container');
+        if (scroller) scroller.addEventListener('scroll', this.onCanBringScrollFlip, { passive: true });
+        window.addEventListener('scroll', this.onCanBringScrollFlip, { passive: true });
+        window.addEventListener('resize', this.onCanBringScrollFlip, { passive: true });
+        if (window.__lenis) {
+            window.__lenis.on('scroll', this.onCanBringScrollFlip);
+        } else {
+            this.waitForLenisCanBringFlip();
+        }
+        this.updateCanBringByScroll();
+    },
+
+    waitForLenisCanBringFlip: function() {
+        let attempts = 0;
+        const tick = () => {
+            if (window.__lenis) {
+                window.__lenis.on('scroll', this.onCanBringScrollFlip);
+                this.updateCanBringByScroll();
+                return;
+            }
+            attempts += 1;
+            if (attempts < 40) setTimeout(tick, 50);
+        };
+        tick();
+    },
+
+    onCanBringScrollFlip: function() {
+        if (this.enabled) return;
+        this.updateCanBringByScroll();
+    },
+
+    updateCanBringByScroll: function() {
+        if (!this.canBringCards.length) return;
+        const section = document.getElementById('home-can-bring');
+        if (!section) return;
+
+        const vh = this.getViewportHeight();
+        const rect = section.getBoundingClientRect();
+        const start = vh * 0.82;
+        const end = vh * 0.18;
+        const total = Math.max(rect.height + start - end, 1);
+        const scrolled = start - rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / total));
+
+        this.canBringCards.forEach((card, index) => {
+            const threshold = (index + 1) / (this.canBringCards.length + 1);
+            card.classList.toggle('is-flipped', progress >= threshold);
+        });
     },
 
     bindScroll: function() {
@@ -207,12 +270,10 @@ const HomeScrollScenes = {
             card.style.filter = '';
         });
 
+        const canBringFirstStep = this.stackCards.length + 1;
         this.canBringCards.forEach((card, index) => {
-            card.classList.remove('is-flipped');
+            card.classList.toggle('is-flipped', step >= canBringFirstStep + 1 + index);
         });
-        if (step === 7) this.canBringCards[0] && this.canBringCards[0].classList.add('is-flipped');
-        if (step === 8) this.canBringCards[1] && this.canBringCards[1].classList.add('is-flipped');
-        if (step === 9) this.canBringCards[2] && this.canBringCards[2].classList.add('is-flipped');
     },
 
     refreshLenis: function() {
