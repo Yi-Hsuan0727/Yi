@@ -1466,11 +1466,24 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     margin: 0 auto;
     padding-bottom: 48px;
 }
+#featured-work:has(+ #home-can-bring) .stack-deck {
+    padding-bottom: 0;
+}
+#featured-work:has(+ #home-can-bring) {
+    padding-bottom: 0;
+}
+#featured-work + #home-can-bring {
+    margin-top: 0;
+}
 .stack-card {
     position: relative;
     margin-bottom: 56px;
 }
 .stack-card:last-child {
+    margin-bottom: 0;
+}
+.stack-card--more:has(+ #home-can-bring),
+.stack-card--more:has(+ .stack-card--can-bring) {
     margin-bottom: 0;
 }
 .stack-card__link {
@@ -2348,7 +2361,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .home-can-bring {
     position: relative;
     overflow: visible;
-    margin: 168px auto 168px;
+    margin: 0 auto 168px;
 }
 .home-panel {
     width: min(100% - 60px, 800px);
@@ -7556,8 +7569,8 @@ body.case-figure-zoom-open #scroll-container {
         padding: 28px 20px 36px;
     }
     .home-can-bring {
-        margin: 96px auto 0;
-        padding-top: 88px;
+        margin: 0 auto 0;
+        padding-top: 0;
     }
     .home-can-bring-grid {
         grid-template-columns: 1fr;
