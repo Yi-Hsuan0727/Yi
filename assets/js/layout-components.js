@@ -665,7 +665,7 @@ const LayoutComponents = {
     },
 
     buildFooter: function(pageType) {
-        const showMonsterFooter = (pageType === 'home' || pageType === 'playground' || pageType === 'about');
+        const showMonsterFooter = (pageType === 'home' || pageType === 'playground');
         const monsterHTML = showMonsterFooter
             ? `
                 <div class="site-footer-monster">
@@ -917,10 +917,11 @@ const LayoutComponents = {
     buildTopNav: function(pageType) {
         const isHome = pageType === 'home';
         const isPlayground = pageType === 'playground';
+        const isAbout = pageType === 'about';
         const workHref = isHome ? '#featured-work' : 'index.html#featured-work';
-        const aboutHref = isHome ? '#about' : 'index.html#about';
         const contactHref = isHome ? '#contact' : 'index.html#contact';
         const playgroundAttrs = isPlayground ? ' aria-current="page" class="site-top-nav__link site-top-nav__link--current cursor-hover"' : ' class="site-top-nav__link cursor-hover"';
+        const aboutAttrs = isAbout ? ' aria-current="page" class="site-top-nav__link site-top-nav__link--current cursor-hover"' : ' class="site-top-nav__link cursor-hover"';
 
         return `
             <nav class="site-top-nav site-top-nav--auto-hide" aria-label="Primary">
@@ -944,7 +945,7 @@ const LayoutComponents = {
                     <ul class="site-top-nav__links">
                         <li><a class="site-top-nav__link cursor-hover" href="${workHref}">Work</a></li>
                         <li><a${playgroundAttrs} href="playground.html">Playground</a></li>
-                        <li><a class="site-top-nav__link cursor-hover" href="${aboutHref}">About</a></li>
+                        <li><a${aboutAttrs} href="about.html">About</a></li>
                         <li><a class="site-top-nav__link cursor-hover" href="${contactHref}">Contact</a></li>
                     </ul>
                 </div>

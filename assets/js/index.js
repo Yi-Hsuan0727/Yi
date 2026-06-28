@@ -196,8 +196,6 @@ const AppLogic = {
                 alignCenter(canBring);
             }
 
-            alignCenter(document.querySelector('#about'));
-
             return positions;
         };
 

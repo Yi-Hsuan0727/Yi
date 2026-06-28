@@ -550,11 +550,10 @@ const PortfolioApp = {
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
             ContactFormLogic.init();
         }
-        if ((pageType === 'home' || pageType === 'about') && typeof CarouselLogic !== 'undefined') {
+        if ((pageType === 'home') && typeof CarouselLogic !== 'undefined') {
             CarouselLogic.init();
         }
         if (pageType === 'home') {
-            this.initHomeAboutNav();
             this.initHomeContactNav();
             this.initHomeFeaturedWorkNav();
             if (typeof HomeScrollScenes !== 'undefined') {
@@ -569,6 +568,12 @@ const PortfolioApp = {
         }
         if (pageType === 'playground') {
             this.initPlaygroundBoard();
+            this.initHomeTopNav();
+            this.initTopNavAutoHide();
+        }
+        if (pageType === 'about') {
+            this.initHomeToolbox();
+            this.initAboutAwardPreviews();
             this.initHomeTopNav();
             this.initTopNavAutoHide();
         }
@@ -710,17 +715,16 @@ const PortfolioApp = {
             : '';
 
         if (pageType === 'about') {
-            const aboutContent = `<div class="about-page">${uniqueContent}</div>`;
             const layoutHTML = `
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
+                ${LayoutComponents.buildTopNav('about')}
                 <div id="app-root" class="app-root-about">
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
                             <div class="scroll-area" id="scroll-container">
                                 <div class="single-page-wrapper">
-                                    ${aboutContent}
-                                    ${LayoutComponents.buildFooter(pageType)}
+                                    ${uniqueContent}
                                 </div>
                             </div>
                         </div>
@@ -1491,6 +1495,8 @@ const PortfolioApp = {
         }
 
         if (pageType === 'home') {
+            this.initHomeCascadeAnimations();
+        } else if (pageType === 'about') {
             this.initHomeCascadeAnimations();
         } else if (pageType === 'playground') {
             /* board handles its own layout */
