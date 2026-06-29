@@ -2430,10 +2430,16 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     transform-style: preserve-3d;
     transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.home-can-bring-card:hover .home-can-bring-card-inner,
-.home-can-bring-card:focus-within .home-can-bring-card-inner,
 .home-can-bring-card.is-flipped .home-can-bring-card-inner {
     transform: rotateY(180deg);
+}
+/* Hover/focus auto-flip only on desktop, hover-capable devices — in mobile mode
+   (and on touch) the cards flip only via an explicit tap (the .is-flipped toggle). */
+@media (min-width: 861px) and (hover: hover) and (pointer: fine) {
+    .home-can-bring-card:hover .home-can-bring-card-inner,
+    .home-can-bring-card:focus-within .home-can-bring-card-inner {
+        transform: rotateY(180deg);
+    }
 }
 .home-can-bring-card-face {
     position: absolute;
@@ -7586,16 +7592,17 @@ body.case-figure-zoom-open #scroll-container {
     .home-can-bring-inner {
         padding-top: 0;
     }
+    /* In-flow below the cards on mobile so it never overlaps the title/content. */
     .home-can-bring-ai-note {
-        position: absolute;
-        top: -24px;
-        right: 16px;
+        position: relative;
+        top: auto;
+        right: auto;
         left: auto;
         max-width: min(340px, calc(100% - 32px));
-        margin: 0;
+        margin: 28px auto 0;
         overflow: visible;
         transform: none;
-        --bubble-tail-x: 78%;
+        --bubble-tail-x: 50%;
     }
     .home-can-bring-ai-note.comic-speech-bubble {
         transform: none;
