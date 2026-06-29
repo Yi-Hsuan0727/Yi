@@ -1462,6 +1462,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 /* ===== Sticky stacking project cards ===== */
 .stack-deck {
     position: relative;
+    width: 100%;
     max-width: 800px;
     margin: 0 auto;
     padding-bottom: 48px;
@@ -7569,8 +7570,11 @@ body.case-figure-zoom-open #scroll-container {
         padding: 28px 20px 36px;
     }
     .home-can-bring {
-        margin: 0 auto 0;
+        margin: 72px auto 72px;
         padding-top: 0;
+    }
+    #featured-work + #home-can-bring {
+        margin-top: 72px;
     }
     .home-can-bring-grid {
         grid-template-columns: 1fr;
