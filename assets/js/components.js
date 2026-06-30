@@ -1603,7 +1603,6 @@ const PortfolioApp = {
             { selector: '.home-about-photo-stickers .photo-deco-sticker', extraClass: 'home-reveal--sticker', stepMs: 95 },
             { selector: '.home-about-career .about-exp-group', extraClass: '' },
             { selector: '.home-toolbox-stickers .tool-sticker', extraClass: 'home-reveal--fade' },
-            { selector: '.site-footer-monster', extraClass: '' },
             { selector: '.site-contact-col--intro', extraClass: '' },
             { selector: '.site-contact-col--intro .sidebar-social-link', extraClass: '' },
             { selector: '.site-contact-col--body', extraClass: '' },

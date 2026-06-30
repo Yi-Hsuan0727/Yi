@@ -183,6 +183,20 @@ h2.monster-chat-bubble {
     }
 }
 
+.site-footer-monster .monster-speech-cluster.is-visible .monster-chat-bubble {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1) rotate(var(--bubble-tilt, 0deg));
+    animation: none;
+}
+
+.site-footer-monster .monster-speech-cluster.is-visible .monster-chat-bubble--1,
+.site-footer-monster .monster-speech-cluster.is-visible .monster-chat-bubble--2,
+.site-footer-monster .monster-speech-cluster.is-visible .monster-chat-bubble--3,
+.site-footer-monster .monster-speech-cluster.is-visible .monster-chat-bubble--4 {
+    animation-delay: 0s;
+}
+
 /* Footer monster body shouldn't deform on hover/pointed */
 .site-footer-monster .monster-container:hover .monster-body,
 .site-footer-monster .monster-body.pointed {

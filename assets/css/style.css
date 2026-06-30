@@ -1569,7 +1569,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     position: relative;
     flex: 0 0 52%;
     max-width: 52%;
+    width: 52%;
     aspect-ratio: 1 / 1;
+    flex-shrink: 0;
     align-self: center;
     background: #f3f4f6;
     overflow: hidden;
@@ -1754,12 +1756,16 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         max-width: 100%;
     }
     .stack-card__media {
-        aspect-ratio: auto;
+        aspect-ratio: 1 / 1;
         align-self: stretch;
+        width: 100%;
     }
     .stack-card__media img {
-        min-height: 200px;
-        max-height: 280px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        min-height: 0;
+        max-height: none;
     }
     .stack-card__content {
         padding: 26px 24px;
@@ -3286,10 +3292,19 @@ body.projects-more-modal-open {
         opacity: 1;
         transform: rotate(var(--deco-tilt, 0deg));
     }
-    /* Footer monster: show body when section cascades in */
+    /* Footer monster: no scroll-enter reveal */
+    .site-footer-monster,
+    .site-footer-monster.home-reveal,
+    .site-footer-monster.home-reveal.is-revealed {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .site-footer-monster .monster-body,
     .site-footer-monster.home-reveal.is-revealed .monster-body {
         opacity: 1;
-        transform: translateY(0);
+        transform: none;
+        transition: transform 0.3s ease;
     }
 }
 @media (prefers-reduced-motion: reduce) {

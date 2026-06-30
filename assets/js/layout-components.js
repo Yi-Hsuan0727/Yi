@@ -944,7 +944,7 @@ const LayoutComponents = {
                     </a>
                     <ul class="site-top-nav__links">
                         <li><a class="site-top-nav__link cursor-hover" href="${workHref}">Work</a></li>
-                        <li><a${playgroundAttrs} href="playground.html">Playground</a></li>
+                        <li><a${playgroundAttrs} href="playground.html">Play</a></li>
                         <li><a${aboutAttrs} href="about.html">About</a></li>
                         <li><a class="site-top-nav__link cursor-hover" href="${contactHref}">Contact</a></li>
                     </ul>
