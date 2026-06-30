@@ -751,6 +751,35 @@
             .p2s-phase-block-copy .p2s-research-chart {
                 margin-top: 8px;
             }
+            .case-phase-block-copy.p2s-phase-block-copy--chart-split,
+            .p2s-phase-block-copy.p2s-phase-block-copy--chart-split {
+                display: grid;
+                grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+                gap: 24px 36px;
+                align-items: center;
+            }
+            .p2s-phase-block-copy--chart-split .p2s-phase-body {
+                margin: 0;
+            }
+            .p2s-phase-block-copy--chart-split .case-research-chart,
+            .p2s-phase-block-copy--chart-split .p2s-research-chart {
+                margin: 0;
+                align-self: center;
+                width: 100%;
+            }
+            .p2s-phase-block-copy--chart-split .case-chart-bars,
+            .p2s-phase-block-copy--chart-split .p2s-chart-bars {
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            @media (max-width: 767px) {
+                .case-phase-block-copy.p2s-phase-block-copy--chart-split,
+                .p2s-phase-block-copy.p2s-phase-block-copy--chart-split {
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                    align-items: start;
+                }
+            }
             .p2s-phase-block-copy .case-chart-bars,
             .p2s-phase-block-copy .p2s-chart-bars {
                 gap: 8px;
@@ -2029,11 +2058,10 @@
                             <h3 class="case-phase-block-title p2s-phase-block-title">Benchmarking &amp; Baseline</h3>
                         </header>
                         <div class="case-phase-block-inner p2s-phase-block-inner p2s-phase-block-inner--single">
-                            <div class="case-phase-block-copy p2s-phase-block-copy">
-                                <p class="p2s-phase-body">Before designing Pic2Split, we benchmarked Scan &amp; Split Bill (v2.1.3 Pro) with a heuristic evaluation and moderated usability test. Timed group-dinner splits showed where the competitor stalled and set our under-2-minute design target.</p>
+                            <div class="case-phase-block-copy p2s-phase-block-copy p2s-phase-block-copy--chart-split">
+                                <p class="p2s-phase-body">Before designing Pic2Split, we benchmarked Scan &amp; Split Bill (v2.1.3 Pro) with a heuristic evaluation and moderated usability test (6 participants; realistic group-dinner scenario with uneven orders and tax on one receipt). Timed splits showed where the competitor stalled and set our under-2-minute design target.</p>
                                 <div class="case-research-chart case-research-chart--compact p2s-research-chart" role="img" aria-label="Competitor benchmark on Scan and Split Bill v2.1.3 Pro: four minute average split time, under two minute Pic2Split target, six participants, satisfaction below three out of five, biggest stall tax and tip">
                                     <p class="case-chart-title">Split time: competitor vs Pic2Split target</p>
-                                    <p class="case-chart-desc">Heuristic evaluation + moderated usability test · 6 participants · realistic group-dinner scenario with uneven orders and tax on one receipt.</p>
                                     <div class="case-chart-bars">
                                         <div class="case-chart-row">
                                             <span class="case-chart-label">Competitor</span>
