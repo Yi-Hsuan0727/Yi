@@ -1023,6 +1023,12 @@
             }
             .p2s-solution-copy h3 { margin-top: 0; }
 
+            .p2s-solution-row--phone-stage .p2s-solution-copy {
+                grid-column: 1 / -1;
+                width: 100%;
+                max-width: none;
+            }
+
             .p2s-highlight-row {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1880,7 +1886,6 @@
                     <div class="p2s-overview-hero-head">
                         <div class="p2s-section-number">Overview</div>
                         <h2 class="p2s-section-title-main">A web-first AI bill splitter for group dining. When the check arrives at the table, scan the receipt, assign dishes, split tax and tip fairly, and share a link. Under two minutes, no app, no account.</h2>
-                        <p class="p2s-section-intro">Scan &amp; Split Bill averaged 4 min per split in usability tests, and Pic2Split is 2× faster, 50% less time, and ~2 min saved per check. Proportional tax and tip stopped light eaters from subsidizing big orders; the product is live on the web today.</p>
                     </div>
                     <div class="p2s-scenario-flow-wrap">
                         <img src="assets/img/Pic2Split/p2s-scenario-flow.png" alt="Five-step Pic2Split flow: open link, scan receipt, assign items, split tax and tip proportionally, share link with the group" loading="lazy" decoding="async">
@@ -1895,7 +1900,6 @@
                 <div class="p2s-section-header-stack">
                     <div class="p2s-section-number">01 · Problem Statement</div>
                     <h2 class="p2s-section-title-main">The check arrives, and tax and tip turn a fun dinner into a math fight</h2>
-                    <p class="p2s-section-intro">Everyone ate different things, but the receipt is one total. Split evenly and someone overpays; split by item and you&apos;re re-typing lines while the waiter waits, and nobody agrees on how tax and tip should be shared. Even splits feel unfair to light eaters; item-by-item splits still leave tax and tip unresolved, which is where most groups stall or fight.</p>
                 </div>
 
                 <div class="p2s-scenario-visual" aria-label="Tax and tip split comparison">

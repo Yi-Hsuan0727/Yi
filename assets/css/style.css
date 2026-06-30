@@ -3986,6 +3986,12 @@ body.projects-more-modal-open {
 .content-wrapper.sidebar-compact-scope--project {
     --case-page-pad-x: 48px;
     background: var(--bg-color);
+    --problem-color: var(--text-color);
+}
+
+.content-wrapper.sidebar-compact-scope--project .lcm-fail,
+.content-wrapper.sidebar-compact-scope--project .p2s-decision-card-label.removed {
+    color: var(--text-color);
 }
 
 .content-wrapper.sidebar-compact-scope--project .right-panel,
@@ -4015,15 +4021,13 @@ body.projects-more-modal-open {
     box-sizing: border-box;
     border: 2px solid #e8e6e1;
     border-radius: 20px;
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.65),
-        0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: none;
 }
 
 .content-wrapper.sidebar-compact-scope--project .sidebar-top {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     min-height: 0;
-    overflow-y: auto;
+    overflow-y: visible;
     background-color: #f7f7f5;
     background-image: radial-gradient(rgba(0, 0, 0, 0.09) 1.25px, transparent 1.25px);
     background-size: 16px 16px;
@@ -4033,7 +4037,7 @@ body.projects-more-modal-open {
 
 .content-wrapper.sidebar-compact-scope--project .sidebar-bottom-block {
     flex: 0 0 auto;
-    margin-top: auto;
+    margin-top: 0;
     background-color: #ffffff;
     background-image: none;
     padding: 0 16px;
@@ -6017,8 +6021,8 @@ body.case-figure-zoom-open #scroll-container {
     flex-shrink: 0;
 }
 .content-wrapper.sidebar-compact-scope--project .sidebar:has(.sidebar-scroll-spy) .sidebar-top {
-    flex: 1 1 auto;
-    flex-shrink: 1;
+    flex: 0 0 auto;
+    flex-shrink: 0;
 }
 .sidebar-scroll-spy {
     margin-top: auto;
@@ -6125,7 +6129,7 @@ body.case-figure-zoom-open #scroll-container {
     width: 100%;
     aspect-ratio: 1 / 1;
     background: #eee;
-    border-radius: 8px;
+    border-radius: 20px;
     overflow: hidden;
     margin-bottom: 12px;
     border: 2px solid transparent;
