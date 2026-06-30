@@ -4245,6 +4245,9 @@ body.projects-more-modal-open {
 
 .content-wrapper.sidebar-compact-scope--project .next-projects-section {
     border-top: none;
+    padding: 40px var(--case-page-pad-x);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .content-wrapper.sidebar-compact-scope--project .p2s-parallax-wrap {
