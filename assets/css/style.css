@@ -3850,6 +3850,9 @@ body.projects-more-modal-open {
     .app-root-home .home-page-header {
         padding-top: 58px;
     }
+    .content-wrapper.sidebar-compact-scope--project {
+        --project-top-clearance: 72px;
+    }
 }
 
 
@@ -3995,6 +3998,7 @@ body.projects-more-modal-open {
 /* Project pages — unified canvas (sidebar + sections, no dividers) */
 .content-wrapper.sidebar-compact-scope--project {
     --case-page-pad-x: 48px;
+    --project-top-clearance: 80px;
     background: var(--bg-color);
     --problem-color: var(--text-color);
 }
@@ -4016,11 +4020,11 @@ body.projects-more-modal-open {
     background-image: none;
     box-shadow: none;
     border-radius: 0;
-    margin: 32px 0 32px var(--case-page-pad-x);
+    margin: var(--project-top-clearance) 0 32px var(--case-page-pad-x);
     align-self: stretch;
-    min-height: calc(100vh - 64px);
-    height: calc(100vh - 64px);
-    max-height: calc(100vh - 64px);
+    min-height: calc(100vh - var(--project-top-clearance) - 32px);
+    height: calc(100vh - var(--project-top-clearance) - 32px);
+    max-height: calc(100vh - var(--project-top-clearance) - 32px);
     box-sizing: border-box;
     padding: 0;
     gap: 14px;
@@ -4152,7 +4156,7 @@ body.projects-more-modal-open {
 
 .content-wrapper.sidebar-compact-scope--project .case-hero {
     position: static;
-    padding: 32px var(--case-page-pad-x) 0;
+    padding: var(--project-top-clearance) var(--case-page-pad-x) 0;
 }
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-img {
@@ -7190,7 +7194,7 @@ body.case-figure-zoom-open #scroll-container {
     .sidebar { padding: 30px 20px 56px; }
     .content-wrapper.sidebar-compact-scope--project .sidebar {
         width: calc(100% - (var(--case-page-pad-x) * 2));
-        margin: 20px auto 0;
+        margin: var(--project-top-clearance) auto 0;
         min-height: auto;
         height: auto;
         max-height: none;
