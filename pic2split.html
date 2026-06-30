@@ -291,32 +291,7 @@
                 line-height: 1.5;
             }
 
-            /* === OVERVIEW HERO === */
-            .p2s-overview-hero {
-                padding: 0 !important;
-                overflow: hidden;
-            }
-            .p2s-overview-hero-inner {
-                display: grid;
-                grid-template-columns: 1fr;
-                width: 100%;
-            }
-            .p2s-overview-hero-text {
-                display: flex;
-                flex-direction: column;
-                gap: var(--p2s-block-gap);
-                justify-content: flex-start;
-                max-width: 900px;
-                margin: 0 auto;
-                width: 100%;
-                padding: 64px 0 64px;
-                box-sizing: border-box;
-            }
-            .p2s-overview-hero-head {
-                display: flex;
-                flex-direction: column;
-                gap: var(--p2s-header-gap);
-            }
+            /* === OVERVIEW HERO (page-specific media stages) === */
             .p2s-overview-hero-stage,
             .p2s-impact-demo-stage {
                 width: 100%;
@@ -1883,14 +1858,14 @@
         </style>
 
         <!-- ===================== OVERVIEW ===================== -->
-        <section class="case-section case-section-alt p2s-overview-hero" id="section-overview">
-            <div class="p2s-overview-hero-inner">
-                <div class="p2s-overview-hero-text">
-                    <div class="p2s-overview-hero-head">
-                        <div class="p2s-section-number">Overview</div>
-                        <h2 class="p2s-section-title-main">A web-first AI bill splitter for group dining. When the check arrives at the table, scan the receipt, assign dishes, split tax and tip fairly, and share a link. Under two minutes, no app, no account.</h2>
+        <section class="case-section case-section-alt case-overview-hero p2s-overview-hero" id="section-overview">
+            <div class="case-overview-hero-inner p2s-overview-hero-inner">
+                <div class="case-overview-hero-text p2s-overview-hero-text">
+                    <div class="case-overview-hero-head p2s-overview-hero-head">
+                        <div class="case-section-label">Overview</div>
+                        <h2 class="case-overview-title p2s-section-title-main">A web-first AI bill splitter for group dining. When the check arrives at the table, scan the receipt, assign dishes, split tax and tip fairly, and share a link. Under two minutes, no app, no account.</h2>
                     </div>
-                    <div class="p2s-scenario-flow-wrap">
+                    <div class="case-overview-hero-media p2s-scenario-flow-wrap">
                         <img src="assets/img/Pic2Split/p2s-scenario-flow.png" alt="Five-step Pic2Split flow: open link, scan receipt, assign items, split tax and tip proportionally, share link with the group" loading="lazy" decoding="async">
                     </div>
                 </div>

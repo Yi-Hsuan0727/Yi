@@ -4109,6 +4109,10 @@ body.projects-more-modal-open {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.content-wrapper.sidebar-compact-scope--project .hero-text .sidebar-meta-value {
+    margin-bottom: 20px;
+}
+
 .content-wrapper.sidebar-compact-scope--project .sidebar-tags {
     gap: 6px 8px;
     margin-bottom: 12px;
@@ -4116,7 +4120,7 @@ body.projects-more-modal-open {
 
 .content-wrapper.sidebar-compact-scope--project .sidebar-tag {
     font-size: 0.56rem;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     padding: 3px 9px 4px;
@@ -4140,17 +4144,14 @@ body.projects-more-modal-open {
     padding-right: var(--case-page-pad-x);
 }
 
-/* Project case content: reserve 800 for sidebar page h1 only (.hero-text h1); no 900 */
+/* Project case content: headings and labels use semibold (600) max — see typography cap at EOF */
+
+/* Project page h2 — match overview hero headline style */
 .content-wrapper.sidebar-compact-scope--project .right-panel :is(
-    h2, h3, h4, h5, h6,
+    h2,
     .case-section-title,
-    .case-phase-result-head,
-    .case-phase-block-title,
+    .case-overview-title,
     .p2s-section-title-main,
-    .p2s-phase-block-title,
-    .p2s-step-num,
-    .p2s-outcome-num,
-    .p2s-speed-stat-value,
     .law-title,
     .uav-title,
     .uav-hero-title,
@@ -4162,11 +4163,32 @@ body.projects-more-modal-open {
     .wn-title,
     .next-projects-title
 ) {
-    font-weight: 700;
+    max-width: none;
+    width: 100%;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    margin: 0;
+    font-size: 1.35rem;
+    color: var(--text-color);
+}
+
+.content-wrapper.sidebar-compact-scope--project .right-panel .next-projects-title {
+    margin-bottom: 24px;
+}
+
+/* Project page h3 */
+.content-wrapper.sidebar-compact-scope--project .right-panel :is(
+    h3,
+    .case-phase-block-title,
+    .p2s-phase-block-title
+) {
+    font-weight: 600;
+    line-height: 1.5;
 }
 
 .content-wrapper.sidebar-compact-scope--project .hero-text h1 {
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .content-wrapper.sidebar-compact-scope--project .case-hero {
@@ -4194,7 +4216,20 @@ body.projects-more-modal-open {
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner {
     gap: 0;
+    align-items: stretch;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-hero-meta-item {
+    padding: 0;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
     align-items: start;
+    justify-content: start;
+    align-self: stretch;
+    height: 100%;
+    min-height: 100%;
+    text-align: left;
 }
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-2:has(.case-hero-meta-item--timeline) {
@@ -4211,16 +4246,6 @@ body.projects-more-modal-open {
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-inner--cols-3 {
     grid-template-columns: minmax(0, 2.5fr) minmax(0, 5fr) minmax(0, 2.25fr);
-}
-
-.content-wrapper.sidebar-compact-scope--project .case-hero-meta-item {
-    padding: 0;
-    background: transparent;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-    text-align: left;
 }
 
 .content-wrapper.sidebar-compact-scope--project .case-hero-meta-list {
@@ -4240,6 +4265,7 @@ body.projects-more-modal-open {
     color: var(--secondary-text);
     text-shadow: none;
     font-size: 0.56rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.12em;
     margin-bottom: 4px;
@@ -4267,6 +4293,75 @@ body.projects-more-modal-open {
     padding: 40px var(--case-page-pad-x);
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Shared overview hero — Pic2Split pattern for all project pages */
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero,
+.content-wrapper.sidebar-compact-scope--project .p2s-overview-hero {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-inner,
+.content-wrapper.sidebar-compact-scope--project .p2s-overview-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-text,
+.content-wrapper.sidebar-compact-scope--project .p2s-overview-hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: flex-start;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 64px 0 64px;
+    box-sizing: border-box;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-head,
+.content-wrapper.sidebar-compact-scope--project .p2s-overview-hero-head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-media,
+.content-wrapper.sidebar-compact-scope--project .p2s-scenario-flow-wrap {
+    margin: 0;
+    width: 100%;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-media img,
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-media video,
+.content-wrapper.sidebar-compact-scope--project .p2s-scenario-flow-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-media.lcm-overview-media {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-media.lt-overview-hero-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-overview-hero-media.lt-overview-hero-video video {
+    width: 100%;
+    max-height: 620px;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 .content-wrapper.sidebar-compact-scope--project .p2s-parallax-wrap {
@@ -4958,7 +5053,7 @@ body.projects-more-modal-open {
 .case-section--problem .wn-2col-header > div:first-child > .wn-label,
 .case-section--problem .wn-header > .wn-label {
     color: var(--text-color);
-    border-left-color: var(--problem-color);
+    border-left-color: var(--accent-color);
 }
 .case-section--problem .case-section-title,
 .case-section--problem .qb-title,
@@ -7840,11 +7935,17 @@ body.case-figure-zoom-open #scroll-container {
 
     /* Overview hero blocks: side padding */
     .p2s-overview-hero-inner,
+    .case-overview-hero-inner,
     .lt-overview-hero-inner,
     .lcm-overview-inner {
         padding-left: 20px;
         padding-right: 20px;
         box-sizing: border-box;
+    }
+
+    .content-wrapper.sidebar-compact-scope--project .case-overview-hero-text,
+    .content-wrapper.sidebar-compact-scope--project .p2s-overview-hero-text {
+        padding: 48px 0 48px;
     }
 
     /* Project list: square thumbnails on mobile (video cards stay 12:9) */
@@ -8102,5 +8203,52 @@ body.case-figure-zoom-open #scroll-container {
     html.home-scroll-scenes #home-can-bring.home-scroll-pin-block--can-bring {
         margin: 8vh auto 12vh;
     }
+}
+
+/* Project pages — typography cap (nothing above semibold / 600) */
+.content-wrapper.sidebar-compact-scope--project .right-panel [class],
+.content-wrapper.sidebar-compact-scope--project .sidebar [class],
+.content-wrapper.sidebar-compact-scope--project .case-hero [class] {
+    font-weight: 600 !important;
+}
+
+.content-wrapper.sidebar-compact-scope--project :is(
+    h1, h2, h3, h4, h5, h6,
+    strong, b, th
+) {
+    font-weight: 600 !important;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-section ol li::marker,
+.content-wrapper.sidebar-compact-scope--project .case-section ul li::marker,
+.content-wrapper.sidebar-compact-scope--project .case-content ol li::marker {
+    font-weight: 600 !important;
+}
+
+.content-wrapper.sidebar-compact-scope--project .right-panel :is(
+    p, li, blockquote, figcaption, td, dd, dt,
+    .case-phase-body, .case-section p, .case-section li,
+    .case-section-intro, .sidebar-intro
+) {
+    font-weight: 400 !important;
+}
+
+.content-wrapper.sidebar-compact-scope--project .sidebar :is(
+    p, li, .sidebar-intro, .sidebar-meta-value
+) {
+    font-weight: 400 !important;
+}
+
+.content-wrapper.sidebar-compact-scope--project .case-hero :is(
+    .case-hero-meta-value,
+    .case-hero-meta-tools,
+    .case-hero-meta-list,
+    .case-hero-meta-list li
+) {
+    font-weight: 400 !important;
+}
+
+.content-wrapper.sidebar-compact-scope--project .sidebar-scroll-spy-link:not(.is-active) {
+    font-weight: 400 !important;
 }
 

@@ -14,6 +14,8 @@ const CaseScrollSpy = {
         '.uav-header',
         '.qb-header-block',
         '.p2s-overview-hero-text',
+        '.case-overview-hero-head',
+        '.case-overview-hero-text',
         '.p2s-2col-header > div:first-child',
         '.lcm-2col-header > div:first-child',
         '.lt-2col-header > div:first-child',
@@ -117,7 +119,7 @@ const CaseScrollSpy = {
     },
 
     findSectionLabel: function(section) {
-        const inner = section.querySelector(':scope > [class$="-inner"], :scope > .case-section-inner, :scope > .p2s-overview-hero-inner');
+        const inner = section.querySelector(':scope > [class$="-inner"], :scope > .case-section-inner, :scope > .p2s-overview-hero-inner, :scope > .case-overview-hero-inner');
         const root = inner || section;
         const headers = root.querySelectorAll(this.headerSelector);
 
