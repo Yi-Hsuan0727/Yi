@@ -942,12 +942,24 @@ const LayoutComponents = {
                         </span>
                         <span class="site-top-nav__name">Michelle</span>
                     </a>
-                    <ul class="site-top-nav__links">
+                    <ul class="site-top-nav__links" id="site-top-nav-menu">
                         <li><a class="site-top-nav__link cursor-hover" href="${workHref}">Work</a></li>
                         <li><a${playgroundAttrs} href="playground.html">Play</a></li>
                         <li><a${aboutAttrs} href="about.html">About</a></li>
                         <li><a class="site-top-nav__link cursor-hover" href="${contactHref}">Contact</a></li>
                     </ul>
+                    <button type="button" class="site-top-nav__menu-toggle cursor-hover" aria-label="Open menu" aria-expanded="false" aria-controls="site-top-nav-menu">
+                        <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--open" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.5 5h11M2.5 8h11M2.5 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--close" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </button>
                 </div>
             </nav>`;
     },

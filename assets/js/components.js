@@ -802,6 +802,7 @@ const PortfolioApp = {
             </div>
         `;
         document.body.innerHTML = layoutHTML;
+        document.body.classList.add('is-project-page');
     },
 
     scrollToHomeAbout: function() {
@@ -1093,6 +1094,158 @@ const PortfolioApp = {
     initProjectTopNav: function() {
         this.initHomeTopNav();
         this.initTopNavAutoHide();
+        this.initProjectNavMenu();
+        this.initProjectNavScroll();
+    },
+
+    initProjectNavScroll: function() {
+        const nav = document.querySelector('.site-top-nav');
+        if (!nav || nav.dataset.projectScrollBound) return;
+        nav.dataset.projectScrollBound = '1';
+
+        let lastScroll = 0;
+        const MIN_SCROLL = 64;
+        const DOWN_THRESHOLD = 6;
+
+        const syncCompact = () => {
+            if (window.innerWidth <= 1200) {
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+                return;
+            }
+            if (!nav.classList.contains('is-scroll-hidden') || nav.classList.contains('is-menu-open')) {
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+                return;
+            }
+            const sidebar = document.querySelector('.content-wrapper.sidebar-compact-scope--project .sidebar');
+            if (!sidebar) return;
+            const rect = sidebar.getBoundingClientRect();
+            nav.style.left = `${rect.left}px`;
+            nav.style.width = `${rect.width}px`;
+        };
+
+        const expandNav = () => {
+            nav.classList.remove('is-scroll-hidden');
+            nav.classList.remove('is-menu-open');
+            nav.style.removeProperty('left');
+            nav.style.removeProperty('width');
+            const toggle = nav.querySelector('.site-top-nav__menu-toggle');
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', 'Open menu');
+            }
+        };
+
+        const compactNav = () => {
+            nav.classList.add('is-scroll-hidden');
+            nav.classList.remove('is-menu-open');
+            syncCompact();
+        };
+
+        const getScroll = () => {
+            if (window.__lenis) return window.__lenis.scroll;
+            const root = document.getElementById('scroll-container');
+            return root ? root.scrollTop : window.scrollY;
+        };
+
+        const update = (e) => {
+            if (window.innerWidth <= 1200) return;
+
+            const currentScroll = (e && typeof e.scroll === 'number') ? e.scroll : getScroll();
+            const delta = currentScroll - lastScroll;
+
+            if (nav.classList.contains('is-menu-open')) {
+                nav.classList.add('is-scroll-hidden');
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+                lastScroll = currentScroll;
+                return;
+            }
+
+            if (currentScroll <= MIN_SCROLL) {
+                expandNav();
+            } else if (delta > DOWN_THRESHOLD) {
+                compactNav();
+            } else if (nav.classList.contains('is-scroll-hidden')) {
+                syncCompact();
+            } else {
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+            }
+
+            lastScroll = currentScroll;
+        };
+
+        const bind = () => {
+            if (window.__lenis) {
+                window.__lenis.on('scroll', update);
+            }
+            const scroller = document.getElementById('scroll-container');
+            if (scroller) {
+                scroller.addEventListener('scroll', () => update(), { passive: true });
+            }
+            update();
+        };
+
+        if (window.__lenis) {
+            bind();
+        } else {
+            let attempts = 0;
+            const wait = () => {
+                if (window.__lenis || ++attempts > 40) {
+                    bind();
+                    return;
+                }
+                setTimeout(wait, 50);
+            };
+            wait();
+        }
+
+        window.addEventListener('resize', syncCompact, { passive: true });
+    },
+
+    initProjectNavMenu: function() {
+        const nav = document.querySelector('.site-top-nav');
+        const toggle = nav ? nav.querySelector('.site-top-nav__menu-toggle') : null;
+        if (!nav || !toggle || toggle.dataset.bound) return;
+        toggle.dataset.bound = '1';
+
+        const setMenuOpen = (open) => {
+            nav.classList.toggle('is-menu-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+            if (open) {
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+            } else if (nav.classList.contains('is-scroll-hidden') && window.innerWidth > 1200) {
+                const sidebar = document.querySelector('.content-wrapper.sidebar-compact-scope--project .sidebar');
+                if (sidebar) {
+                    const rect = sidebar.getBoundingClientRect();
+                    nav.style.left = `${rect.left}px`;
+                    nav.style.width = `${rect.width}px`;
+                }
+            }
+        };
+
+        toggle.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (!nav.classList.contains('is-scroll-hidden') || window.innerWidth <= 1200) return;
+            setMenuOpen(!nav.classList.contains('is-menu-open'));
+        });
+
+        nav.querySelectorAll('.site-top-nav__link').forEach((link) => {
+            link.addEventListener('click', () => setMenuOpen(false));
+        });
+
+        const observer = new MutationObserver(() => {
+            const isProjectDesktop = document.body.classList.contains('is-project-page') && window.innerWidth > 1200;
+            if (!isProjectDesktop && !nav.classList.contains('is-scroll-hidden')) {
+                setMenuOpen(false);
+            }
+        });
+        observer.observe(nav, { attributes: true, attributeFilter: ['class'] });
     },
 
     initTopNavAutoHide: function() {
@@ -1101,7 +1254,44 @@ const PortfolioApp = {
         nav.dataset.autoHideBound = '1';
         nav.classList.add('site-top-nav--auto-hide');
 
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const isProjectPage = document.body.classList.contains('is-project-page');
+
+        const syncProjectNavWidth = () => {
+            if (!isProjectPage || window.innerWidth <= 1200) {
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+                return;
+            }
+            if (!nav.classList.contains('is-scroll-hidden')) {
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+                return;
+            }
+            if (nav.classList.contains('is-menu-open')) {
+                nav.style.removeProperty('left');
+                nav.style.removeProperty('width');
+                return;
+            }
+            const sidebar = document.querySelector('.content-wrapper.sidebar-compact-scope--project .sidebar');
+            if (!sidebar) return;
+            const rect = sidebar.getBoundingClientRect();
+            nav.style.left = `${rect.left}px`;
+            nav.style.width = `${rect.width}px`;
+        };
+
+        if (isProjectPage) {
+            syncProjectNavWidth();
+            window.addEventListener('resize', syncProjectNavWidth, { passive: true });
+        }
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return;
+        }
+
+        if (isProjectPage) {
+            /* Project pages: scroll visibility is handled in AppLogic.initScrollLogic */
+            return;
+        }
 
         let lastScroll = 0;
         let ticking = false;
@@ -1123,8 +1313,29 @@ const PortfolioApp = {
             ticking = false;
             const currentScroll = getScrollPosition();
             const delta = currentScroll - lastScroll;
+            const isProjectDesktop = isProjectPage && window.innerWidth > 1200;
+            const keepProjectMenuOpen = isProjectDesktop && nav.classList.contains('is-menu-open');
 
-            if (currentScroll <= minScroll) {
+            if (keepProjectMenuOpen) {
+                nav.classList.add('is-scroll-hidden');
+                syncProjectNavWidth();
+                lastScroll = Math.max(0, currentScroll);
+                return;
+            }
+
+            if (isProjectDesktop) {
+                /* Project desktop: scroll down → compact left; scroll up → full centered nav */
+                const scrollDownThreshold = threshold;
+                const scrollUpThreshold = 4;
+
+                if (currentScroll <= minScroll || delta < -scrollUpThreshold) {
+                    nav.classList.remove('is-scroll-hidden');
+                    nav.classList.remove('is-menu-open');
+                } else if (delta > scrollDownThreshold) {
+                    nav.classList.add('is-scroll-hidden');
+                    nav.classList.remove('is-menu-open');
+                }
+            } else if (currentScroll <= minScroll) {
                 nav.classList.remove('is-scroll-hidden');
             } else if (delta > threshold) {
                 nav.classList.add('is-scroll-hidden');
@@ -1132,6 +1343,7 @@ const PortfolioApp = {
                 nav.classList.remove('is-scroll-hidden');
             }
 
+            syncProjectNavWidth();
             lastScroll = Math.max(0, currentScroll);
         };
 
@@ -1160,19 +1372,24 @@ const PortfolioApp = {
 
         if (window.__lenis) {
             bindScroll();
-            return;
+        } else {
+            let attempts = 0;
+            const waitForLenis = () => {
+                if (window.__lenis || attempts >= 30) {
+                    bindScroll();
+                    return;
+                }
+                attempts += 1;
+                setTimeout(waitForLenis, 50);
+            };
+            waitForLenis();
         }
 
-        let attempts = 0;
-        const waitForLenis = () => {
-            if (window.__lenis || attempts >= 30) {
-                bindScroll();
-                return;
-            }
-            attempts += 1;
-            setTimeout(waitForLenis, 50);
-        };
-        waitForLenis();
+        if (isProjectPage) {
+            window.addEventListener('resize', () => {
+                requestAnimationFrame(syncProjectNavWidth);
+            }, { passive: true });
+        }
     },
 
     initMoreProjectsDeck: function() {

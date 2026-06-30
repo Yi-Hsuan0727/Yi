@@ -356,13 +356,17 @@ const AppLogic = {
 
             updateSidebarCompact(currentScroll);
 
-            // Nav auto-hide: drop it when scrolling down, bring it back on scroll up
+            // Nav auto-hide (project desktop handled in PortfolioApp.initProjectNavScroll)
             if (topNav) {
                 const delta = currentScroll - lastScroll;
-                if (currentScroll <= NAV_HIDE_AFTER || delta < -4) {
-                    topNav.classList.remove('is-scroll-hidden');
-                } else if (delta > 4) {
-                    topNav.classList.add('is-scroll-hidden');
+                const isProjectDesktop = document.body.classList.contains('is-project-page') && window.innerWidth > 1200;
+
+                if (!isProjectDesktop) {
+                    if (currentScroll <= NAV_HIDE_AFTER || delta < -4) {
+                        topNav.classList.remove('is-scroll-hidden');
+                    } else if (delta > 4) {
+                        topNav.classList.add('is-scroll-hidden');
+                    }
                 }
             }
 
