@@ -670,6 +670,9 @@
                 height: auto;
                 aspect-ratio: 9 / 19.5;
             }
+            .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device:has(> video):not(:has(> img))::after {
+                display: none;
+            }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device video {
                 position: relative;
                 z-index: 1;
@@ -678,7 +681,7 @@
                 object-fit: contain;
                 border: none;
                 border-radius: 8px;
-                box-shadow: var(--video-shadow) !important;
+                box-shadow: var(--video-shadow-sides) !important;
             }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device:has(> video):not(:has(> img)) {
                 overflow: visible;
