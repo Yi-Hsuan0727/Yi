@@ -1301,8 +1301,14 @@ const PortfolioApp = {
 
         const observer = new MutationObserver(() => {
             const isProjectDesktop = document.body.classList.contains('is-project-page') && window.innerWidth > 1200;
-            if (!isProjectDesktop && !nav.classList.contains('is-scroll-hidden')) {
+            if (!isProjectDesktop && !nav.classList.contains('is-scroll-hidden') && nav.classList.contains('is-menu-open')) {
+                // Guard on is-menu-open so the observer only reacts when there is
+                // actually a menu to close — and disconnect while we mutate the nav's
+                // class so setMenuOpen() can't re-trigger this observer (infinite loop).
+                observer.disconnect();
                 setMenuOpen(false);
+                observer.takeRecords();
+                observer.observe(nav, { attributes: true, attributeFilter: ['class'] });
             }
         });
         observer.observe(nav, { attributes: true, attributeFilter: ['class'] });
