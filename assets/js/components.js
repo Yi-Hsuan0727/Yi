@@ -1855,6 +1855,37 @@ const PortfolioApp = {
 
         createObserver();
 
+        // Fallback reveal: some mobile browsers don't fire the IntersectionObserver
+        // reliably (wrong scroll root, timing). Manually reveal targets as they
+        // enter the viewport so case-study sections can never stay stuck hidden.
+        // Runs an initial check, then on scroll (window + the desktop scroller),
+        // and detaches itself once everything has entered.
+        const revealInView = () => {
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            let remaining = 0;
+            targets.forEach((el) => {
+                if (el.classList.contains('is-entered')) return;
+                const r = el.getBoundingClientRect();
+                if (r.top < vh * 0.94 && r.bottom > 0) {
+                    el.classList.add('is-entered');
+                    if (this._caseEnterObserver) this._caseEnterObserver.unobserve(el);
+                } else {
+                    remaining++;
+                }
+            });
+            if (!remaining) {
+                window.removeEventListener('scroll', revealInView);
+                const sc = document.getElementById('scroll-container');
+                if (sc) sc.removeEventListener('scroll', revealInView);
+            }
+        };
+        window.addEventListener('scroll', revealInView, { passive: true });
+        const scrollerEl = document.getElementById('scroll-container');
+        if (scrollerEl) scrollerEl.addEventListener('scroll', revealInView, { passive: true });
+        // A couple of delayed initial checks catch anything already in view on load.
+        requestAnimationFrame(revealInView);
+        window.setTimeout(revealInView, 400);
+
         if (!this._caseEnterResizeBound) {
             this._caseEnterResizeBound = true;
             window.addEventListener('resize', () => {
