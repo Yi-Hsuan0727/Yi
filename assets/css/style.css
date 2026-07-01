@@ -4136,6 +4136,13 @@ body.projects-more-modal-open {
 @media (min-width: 1201px) {
     .app-root-home .home-page-header {
         padding-top: 146px;
+        /* Left-align the header with the nav bar's left edge instead of centering
+           it in the 1280px container, so the hero text lines up with the nav. */
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: var(--case-page-pad-x, 48px);
+        padding-right: var(--case-page-pad-x, 48px);
     }
 }
 @media (max-width: 520px) {
