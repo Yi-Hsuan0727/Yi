@@ -219,7 +219,7 @@ const LayoutComponents = {
                         </div>
                         <div
                             class="home-header-composition__art"
-                            data-src="assets/img/Michelle/portfolio-composition-animated.svg"
+                            data-src="assets/img/Michelle/portfolio-composition-animated.svg?v=20260630i"
                             role="img"
                             aria-hidden="true"
                         ></div>
@@ -481,11 +481,14 @@ const LayoutComponents = {
         const cta = isSoon
             ? ''
             : `<span class="stack-card__cta"><span class="visually-hidden">View case study</span>${this.buildCaseStudyArrowIcon('stack-card__cta-arrow')}</span>`;
+        const media = project.cardVideo
+            ? `<video src="${project.cardVideo}" autoplay muted playsinline loop preload="auto" poster="${imgSrc}" aria-label="${project.title}" style="object-position:${objectPosition};"></video>`
+            : `<img src="${imgSrc}" alt="${project.title}" loading="lazy" decoding="async" style="object-position:${objectPosition};">`;
         const inner = `
                     <div class="stack-card__split">
                         <div class="stack-card__media">
                             ${isSoon ? `<span class="stack-card__soon-badge">Coming soon</span>` : ''}
-                            <img src="${imgSrc}" alt="${project.title}" loading="lazy" decoding="async" style="object-position:${objectPosition};">
+                            ${media}
                         </div>
                         <div class="stack-card__content">
                             <h3 class="stack-card__headline">${headline}</h3>

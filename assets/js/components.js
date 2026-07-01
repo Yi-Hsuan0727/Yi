@@ -143,6 +143,7 @@ const PortfolioApp = {
             audience: 'Public',
             tags: ['EdTech', 'LMS', 'B2C'],
             image: 'assets/img/main images/RealWater.png',
+            cardVideo: 'assets/img/main images/RealWater.mp4',
             heroImage: 'assets/img/main images/RealWater.png',
             link: '#',
             comingSoon: true,
@@ -1697,11 +1698,42 @@ const PortfolioApp = {
                     }
                 }
                 bind();
+                this.bindCompositionEyes(svgRoot);
             })
             .catch(() => {
                 artHost.innerHTML = `<img class="home-header-composition__fallback" src="${svgSrc}" alt="" aria-hidden="true">`;
                 bindTiltOnly();
             });
+    },
+
+    // Googly eyes on select header shapes — pupils follow the cursor like the nav
+    // logo. Pupils are SVG <circle class="comp-pupil"> inside <g class="comp-eye">.
+    bindCompositionEyes: function(svgRoot) {
+        const eyes = svgRoot ? svgRoot.querySelectorAll('.comp-eye') : [];
+        if (!eyes.length) return;
+
+        const maxTravel = 7; // SVG user units — keeps the pupil inside the white
+
+        const moveEyes = (px, py) => {
+            eyes.forEach((eye) => {
+                const pupil = eye.querySelector('.comp-pupil');
+                if (!pupil) return;
+                const r = eye.getBoundingClientRect();
+                if (!r.width) return;
+                const ex = r.left + r.width / 2;
+                const ey = r.top + r.height / 2;
+                const angle = Math.atan2(py - ey, px - ex);
+                const ratio = Math.min(1, Math.hypot(px - ex, py - ey) / (r.width * 2));
+                const t = maxTravel * ratio;
+                pupil.style.transform =
+                    `translate(${(Math.cos(angle) * t).toFixed(2)}px, ${(Math.sin(angle) * t).toFixed(2)}px)`;
+            });
+        };
+
+        document.addEventListener('mousemove', (e) => moveEyes(e.clientX, e.clientY));
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length) moveEyes(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
     },
 
     initSidebarMotion: function(pageType) {

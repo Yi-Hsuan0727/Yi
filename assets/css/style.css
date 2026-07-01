@@ -1691,7 +1691,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     outline: 3px solid var(--accent-color);
     outline-offset: 4px;
 }
-.stack-card__media img {
+.stack-card__media img,
+.stack-card__media video {
     display: block;
     width: 100%;
     height: 100%;
@@ -1784,7 +1785,8 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
         align-self: stretch;
         width: 100%;
     }
-    .stack-card__media img {
+    .stack-card__media img,
+    .stack-card__media video {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -4173,6 +4175,41 @@ body.projects-more-modal-open {
             linear-gradient(to bottom, rgba(17, 17, 17, 0.07) 1px, transparent 1px);
         background-size: 34px 34px;
     }
+
+    /* Vertical nav rail — while the featured-work section is centered in view, JS
+       adds .is-nav-rail and the top nav morphs into a vertical icon rail pinned to
+       the left edge and vertically centered. Centered with top/bottom:0 + auto
+       margins (transform is reserved for the auto-hide animation). */
+    .site-top-nav.is-nav-rail {
+        width: auto;
+        height: max-content;
+        padding: 0;
+        left: var(--case-page-pad-x, 48px);
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        transform: none;
+        opacity: 1;
+    }
+    .site-top-nav.is-nav-rail .site-top-nav__inner {
+        flex-direction: column;
+        width: auto;
+        gap: 10px;
+        padding: 12px 9px;
+        justify-content: center;
+    }
+    .site-top-nav.is-nav-rail .site-top-nav__links {
+        flex-direction: column;
+        gap: 6px;
+        margin-left: 0;
+    }
+    /* Crossfade while the nav switches between horizontal and vertical layouts —
+       the layout swap happens in JS while the nav is faded out (opacity already
+       transitions on .site-top-nav). */
+    .site-top-nav.is-nav-switching {
+        opacity: 0;
+    }
 }
 
 /* Hero composition without the portrait photo: drop the photo and the Figma
@@ -4188,6 +4225,11 @@ body.projects-more-modal-open {
 .home-header-composition .home-header-composition__measure,
 .home-header-composition .home-header-composition__tick {
     display: none;
+}
+/* Googly eyes on select shapes — pupils follow the cursor (see initHomeHeader
+   Composition). Same easing as the nav logo pupils. */
+.home-header-composition__art .comp-pupil {
+    transition: transform 0.08s ease-out;
 }
 @media (max-width: 520px) {
     .site-top-nav {

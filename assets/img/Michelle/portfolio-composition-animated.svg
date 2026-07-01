@@ -42,6 +42,8 @@
 <g class="comp-parallax">
 <g class="comp-anim">
 <circle opacity="0.85" cx="160" cy="250" r="160" fill="#A259FF"/>
+<g class="comp-eye"><circle cx="122" cy="228" r="24" fill="#fff"/><circle class="comp-pupil" cx="122" cy="228" r="11" fill="#1E1E1E"/></g>
+<g class="comp-eye"><circle cx="198" cy="228" r="24" fill="#fff"/><circle class="comp-pupil" cx="198" cy="228" r="11" fill="#1E1E1E"/></g>
 </g>
 </g>
 </g>
@@ -49,6 +51,8 @@
 <g class="comp-parallax">
 <g class="comp-anim">
 <rect opacity="0.9" x="360" y="150" width="200" height="130" rx="8" transform="rotate(15 360 150)" fill="#F24E1E"/>
+<g class="comp-eye"><circle cx="417" cy="230" r="17" fill="#fff"/><circle class="comp-pupil" cx="417" cy="230" r="8" fill="#1E1E1E"/></g>
+<g class="comp-eye"><circle cx="465" cy="230" r="17" fill="#fff"/><circle class="comp-pupil" cx="465" cy="230" r="8" fill="#1E1E1E"/></g>
 </g>
 </g>
 </g>
@@ -56,6 +60,8 @@
 <g class="comp-parallax">
 <g class="comp-anim">
 <ellipse opacity="0.8" cx="150.728" cy="767.553" rx="110" ry="80" transform="rotate(-20 150.728 767.553)" fill="#0ACF83"/>
+<g class="comp-eye"><circle cx="122" cy="758" r="20" fill="#fff"/><circle class="comp-pupil" cx="122" cy="758" r="9" fill="#1E1E1E"/></g>
+<g class="comp-eye"><circle cx="182" cy="758" r="20" fill="#fff"/><circle class="comp-pupil" cx="182" cy="758" r="9" fill="#1E1E1E"/></g>
 </g>
 </g>
 </g>
@@ -70,6 +76,8 @@
 <g class="comp-parallax">
 <g class="comp-anim">
 <rect opacity="0.9" x="380" y="850" width="220" height="180" rx="12" transform="rotate(-8 380 850)" fill="#F2C4CE"/>
+<g class="comp-eye"><circle cx="462" cy="915" r="24" fill="#fff"/><circle class="comp-pupil" cx="462" cy="915" r="11" fill="#1E1E1E"/></g>
+<g class="comp-eye"><circle cx="540" cy="915" r="24" fill="#fff"/><circle class="comp-pupil" cx="540" cy="915" r="11" fill="#1E1E1E"/></g>
 </g>
 </g>
 </g>

@@ -330,6 +330,8 @@ const AppLogic = {
         const isPlayground = !!document.querySelector('.app-root-playground');
         
         let lastScroll = 0;
+        let lastRailActive = false;
+        let navSwitchTimer = null;
         const isMobile = window.innerWidth <= 1200;
         const useWindowScroll = isMobile || isPlayground;
         const scroller = useWindowScroll ? window : desktopContainer;
@@ -361,7 +363,31 @@ const AppLogic = {
                 const delta = currentScroll - lastScroll;
                 const isProjectDesktop = document.body.classList.contains('is-project-page') && window.innerWidth > 1200;
 
-                if (!isProjectDesktop) {
+                // Vertical nav rail: keep the nav as a left vertical rail from the
+                // featured-work section down through "what I bring" and the footer
+                // (home desktop) instead of auto-hiding it.
+                const featured = document.getElementById('featured-work');
+                const isHomeDesktop = !!document.querySelector('.app-root-home') && window.innerWidth > 1200;
+                let railActive = false;
+                if (isHomeDesktop && featured) {
+                    // Active once the featured list reaches the viewport center, and
+                    // stays active for everything below it (can-bring, footer).
+                    railActive = featured.getBoundingClientRect().top <= window.innerHeight / 2;
+                }
+                // Crossfade the horizontal <-> vertical switch: fade out, swap the
+                // layout while invisible, then fade back in.
+                if (railActive !== lastRailActive) {
+                    lastRailActive = railActive;
+                    topNav.classList.add('is-nav-switching');
+                    if (navSwitchTimer) clearTimeout(navSwitchTimer);
+                    navSwitchTimer = setTimeout(() => {
+                        topNav.classList.toggle('is-nav-rail', railActive);
+                        requestAnimationFrame(() => topNav.classList.remove('is-nav-switching'));
+                    }, 240);
+                }
+                if (railActive) topNav.classList.remove('is-scroll-hidden');
+
+                if (!isProjectDesktop && !railActive) {
                     if (currentScroll <= NAV_HIDE_AFTER || delta < -4) {
                         topNav.classList.remove('is-scroll-hidden');
                     } else if (delta > 4) {
