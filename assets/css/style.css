@@ -1698,6 +1698,15 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     height: 100%;
     object-fit: cover;
 }
+/* Desktop split layout: the mp4 sits on the left half against the card content,
+   so square its inner (right) corners while the left corners stay rounded.
+   (Overrides the global `video { border-radius: 8px }`.) */
+@media (min-width: 861px) {
+    .stack-card__media video {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
 .stack-card__content {
     flex: 1 1 auto;
     min-width: 0;
