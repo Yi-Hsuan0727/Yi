@@ -76,7 +76,7 @@ const MoreProjectsDeck = {
                         <h3 class="projects-more-modal__title" id="projects-more-modal-title"></h3>
                         <dl class="projects-more-modal__meta"></dl>
                         <p class="projects-more-modal__summary"></p>
-                        <a class="projects-more-modal__link" href="">View case study <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                        <a class="projects-more-modal__link" href=""><span class="visually-hidden">View case study</span></a>
                     </div>
                 </div>
             </div>`;
@@ -140,7 +140,10 @@ const MoreProjectsDeck = {
 
         const link = this.modal.querySelector('.projects-more-modal__link');
         link.href = project.link || '#';
-        link.innerHTML = 'View case study <i class="fas fa-arrow-right" aria-hidden="true"></i>';
+        link.innerHTML = '<span class="visually-hidden">View case study</span>' +
+            (typeof LayoutComponents !== 'undefined' && LayoutComponents.buildCaseStudyArrowIcon
+                ? LayoutComponents.buildCaseStudyArrowIcon('projects-more-modal__arrow')
+                : '');
 
         this.modal.hidden = false;
         document.body.classList.add('projects-more-modal-open');

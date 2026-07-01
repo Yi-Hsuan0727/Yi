@@ -141,7 +141,7 @@ const PortfolioApp = {
             demoIntro: 'A learning platform delivering accessible water-education courses for Arizona communities and professionals.',
             filterType: 'web',
             audience: 'Public',
-            tags: ['EdTech', 'Web App', 'B2C'],
+            tags: ['EdTech', 'LMS', 'B2C'],
             image: 'assets/img/main images/RealWater.png',
             heroImage: 'assets/img/main images/RealWater.png',
             link: '#',
@@ -547,6 +547,7 @@ const PortfolioApp = {
             MonsterLogic.init();
         }
         this.initTopNavAvatarEyes();
+        this.initTopNavDock();
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
             ContactFormLogic.init();
         }
@@ -695,9 +696,8 @@ const PortfolioApp = {
                 ? `<div class="case-hero-img case-hero-video"><video src="${heroVideo}" autoplay muted playsinline loop preload="auto" style="width:100%;height:100%;object-fit:cover;"></video></div>`
                 : `<div class="case-hero-img"><img src="${heroImage}" alt="${heroAlt}" style="width:100%;height:100%;object-fit:cover;"></div>`
             : '';
-        const heroMetaHTML = (!isGridPage && projectMeta) ? LayoutComponents.buildCaseHeroMeta(projectMeta) : '';
         const heroHTML = coverHTML
-            ? `<div class="case-hero">${coverHTML}${heroMetaHTML}</div>`
+            ? `<div class="case-hero">${coverHTML}</div>`
             : '';
         const footerHTML = LayoutComponents.buildFooter(pageType);
         let finalContent = `${worksHeaderHTML} ${heroHTML} ${uniqueContent} ${mobileProjectActionsHTML} ${nextProjectHTML} ${(isGridPage || isPlaygroundPage) ? footerHTML : ''}`;
@@ -1091,6 +1091,84 @@ const PortfolioApp = {
         });
     },
 
+    getTopNavDockMetrics: function() {
+        const wrapper = document.querySelector('#app-root .content-wrapper');
+        if (!wrapper) return null;
+
+        const sidebar = wrapper.querySelector(':scope > .sidebar');
+        if (sidebar) {
+            const sidebarStyle = getComputedStyle(sidebar);
+            if (sidebarStyle.display !== 'none' && sidebarStyle.visibility !== 'hidden') {
+                const rect = sidebar.getBoundingClientRect();
+                if (rect.width > 0) {
+                    return { left: rect.left, width: rect.width };
+                }
+            }
+        }
+
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const styles = getComputedStyle(wrapper);
+        const padX = parseFloat(styles.getPropertyValue('--case-page-pad-x')) || 48;
+        const percent = parseFloat(styles.getPropertyValue('--project-sidebar-width-percent')) || 16;
+        const extraPx = parseFloat(styles.getPropertyValue('--project-sidebar-width-extra')) || 34;
+
+        return {
+            left: wrapperRect.left + padX,
+            width: wrapperRect.width * (percent / 100) + extraPx
+        };
+    },
+
+    syncTopNavDock: function() {
+        const nav = document.querySelector('.site-top-nav');
+        if (!nav) return;
+
+        // The dock geometry (fixed 309px width + left) is fully CSS-controlled per
+        // breakpoint, so JS only toggles the --docked class for the inner-layout
+        // styling and reveals the nav. It never sets inline width/left, which is
+        // what previously caused the nav to resize (shrink) on load.
+        if (window.innerWidth <= 1200) {
+            nav.classList.remove('site-top-nav--docked');
+        } else {
+            nav.classList.add('site-top-nav--docked');
+        }
+
+        // Clear any legacy inline geometry so CSS wins.
+        nav.style.removeProperty('left');
+        nav.style.removeProperty('width');
+        nav.style.removeProperty('right');
+
+        // Reveal the nav (it starts hidden to avoid any pre-position flash).
+        nav.classList.add('is-nav-ready');
+    },
+
+    initTopNavDock: function() {
+        if (this._topNavDockBound) return;
+        this._topNavDockBound = true;
+
+        const sync = () => this.syncTopNavDock();
+        const bindScroller = () => {
+            if (window.__lenis) {
+                window.__lenis.on('scroll', sync);
+            }
+            const scroller = document.getElementById('scroll-container');
+            if (scroller) {
+                scroller.addEventListener('scroll', sync, { passive: true });
+            }
+        };
+
+        sync();
+        bindScroller();
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(sync);
+            setTimeout(sync, 420);
+        }, { passive: true });
+        window.addEventListener('pageshow', sync);
+        window.addEventListener('load', sync);
+        setTimeout(sync, 0);
+        setTimeout(sync, 150);
+        setTimeout(sync, 500);
+    },
+
     initProjectTopNav: function() {
         this.initHomeTopNav();
         this.initTopNavAutoHide();
@@ -1104,43 +1182,26 @@ const PortfolioApp = {
         nav.dataset.projectScrollBound = '1';
 
         let lastScroll = 0;
-        const MIN_SCROLL = 64;
-        const DOWN_THRESHOLD = 6;
 
         const syncCompact = () => {
-            if (window.innerWidth <= 1200) {
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
-                return;
-            }
-            if (!nav.classList.contains('is-scroll-hidden') || nav.classList.contains('is-menu-open')) {
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
-                return;
-            }
-            const sidebar = document.querySelector('.content-wrapper.sidebar-compact-scope--project .sidebar');
-            if (!sidebar) return;
-            const rect = sidebar.getBoundingClientRect();
-            nav.style.left = `${rect.left}px`;
-            nav.style.width = `${rect.width}px`;
+            this.syncTopNavDock();
         };
 
-        const expandNav = () => {
-            nav.classList.remove('is-scroll-hidden');
+        const syncCompactAnimated = () => {
+            syncCompact();
+            requestAnimationFrame(syncCompact);
+            setTimeout(syncCompact, 420);
+        };
+
+        const dockNavLeft = () => {
+            nav.classList.add('is-scroll-hidden');
             nav.classList.remove('is-menu-open');
-            nav.style.removeProperty('left');
-            nav.style.removeProperty('width');
             const toggle = nav.querySelector('.site-top-nav__menu-toggle');
             if (toggle) {
                 toggle.setAttribute('aria-expanded', 'false');
                 toggle.setAttribute('aria-label', 'Open menu');
             }
-        };
-
-        const compactNav = () => {
-            nav.classList.add('is-scroll-hidden');
-            nav.classList.remove('is-menu-open');
-            syncCompact();
+            syncCompactAnimated();
         };
 
         const getScroll = () => {
@@ -1153,27 +1214,19 @@ const PortfolioApp = {
             if (window.innerWidth <= 1200) return;
 
             const currentScroll = (e && typeof e.scroll === 'number') ? e.scroll : getScroll();
-            const delta = currentScroll - lastScroll;
 
             if (nav.classList.contains('is-menu-open')) {
-                nav.classList.add('is-scroll-hidden');
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
+                if (typeof nav._closeProjectMenu === 'function') {
+                    nav._closeProjectMenu();
+                } else {
+                    nav.classList.remove('is-menu-open');
+                    syncCompactAnimated();
+                }
                 lastScroll = currentScroll;
                 return;
             }
 
-            if (currentScroll <= MIN_SCROLL) {
-                expandNav();
-            } else if (delta > DOWN_THRESHOLD) {
-                compactNav();
-            } else if (nav.classList.contains('is-scroll-hidden')) {
-                syncCompact();
-            } else {
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
-            }
-
+            dockNavLeft();
             lastScroll = currentScroll;
         };
 
@@ -1201,8 +1254,6 @@ const PortfolioApp = {
             };
             wait();
         }
-
-        window.addEventListener('resize', syncCompact, { passive: true });
     },
 
     initProjectNavMenu: function() {
@@ -1211,22 +1262,18 @@ const PortfolioApp = {
         if (!nav || !toggle || toggle.dataset.bound) return;
         toggle.dataset.bound = '1';
 
+        const syncCompactNav = () => {
+            this.syncTopNavDock();
+        };
+
         const setMenuOpen = (open) => {
             nav.classList.toggle('is-menu-open', open);
             toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
             toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-            if (open) {
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
-            } else if (nav.classList.contains('is-scroll-hidden') && window.innerWidth > 1200) {
-                const sidebar = document.querySelector('.content-wrapper.sidebar-compact-scope--project .sidebar');
-                if (sidebar) {
-                    const rect = sidebar.getBoundingClientRect();
-                    nav.style.left = `${rect.left}px`;
-                    nav.style.width = `${rect.width}px`;
-                }
-            }
+            syncCompactNav();
         };
+
+        nav._closeProjectMenu = () => setMenuOpen(false);
 
         toggle.addEventListener('click', (event) => {
             event.preventDefault();
@@ -1237,6 +1284,18 @@ const PortfolioApp = {
 
         nav.querySelectorAll('.site-top-nav__link').forEach((link) => {
             link.addEventListener('click', () => setMenuOpen(false));
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!nav.classList.contains('is-menu-open')) return;
+            if (nav.contains(event.target)) return;
+            setMenuOpen(false);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && nav.classList.contains('is-menu-open')) {
+                setMenuOpen(false);
+            }
         });
 
         const observer = new MutationObserver(() => {
@@ -1256,32 +1315,8 @@ const PortfolioApp = {
 
         const isProjectPage = document.body.classList.contains('is-project-page');
 
-        const syncProjectNavWidth = () => {
-            if (!isProjectPage || window.innerWidth <= 1200) {
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
-                return;
-            }
-            if (!nav.classList.contains('is-scroll-hidden')) {
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
-                return;
-            }
-            if (nav.classList.contains('is-menu-open')) {
-                nav.style.removeProperty('left');
-                nav.style.removeProperty('width');
-                return;
-            }
-            const sidebar = document.querySelector('.content-wrapper.sidebar-compact-scope--project .sidebar');
-            if (!sidebar) return;
-            const rect = sidebar.getBoundingClientRect();
-            nav.style.left = `${rect.left}px`;
-            nav.style.width = `${rect.width}px`;
-        };
-
         if (isProjectPage) {
-            syncProjectNavWidth();
-            window.addEventListener('resize', syncProjectNavWidth, { passive: true });
+            this.syncTopNavDock();
         }
 
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1318,7 +1353,7 @@ const PortfolioApp = {
 
             if (keepProjectMenuOpen) {
                 nav.classList.add('is-scroll-hidden');
-                syncProjectNavWidth();
+                this.syncTopNavDock();
                 lastScroll = Math.max(0, currentScroll);
                 return;
             }
@@ -1343,7 +1378,7 @@ const PortfolioApp = {
                 nav.classList.remove('is-scroll-hidden');
             }
 
-            syncProjectNavWidth();
+            this.syncTopNavDock();
             lastScroll = Math.max(0, currentScroll);
         };
 
@@ -1383,12 +1418,6 @@ const PortfolioApp = {
                 setTimeout(waitForLenis, 50);
             };
             waitForLenis();
-        }
-
-        if (isProjectPage) {
-            window.addEventListener('resize', () => {
-                requestAnimationFrame(syncProjectNavWidth);
-            }, { passive: true });
         }
     },
 

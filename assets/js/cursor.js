@@ -8,12 +8,22 @@ const CursorLogic = {
         document.querySelectorAll('.cursor-pointer, .cursor-label').forEach((el) => el.remove());
 
         document.documentElement.classList.remove('custom-cursor-active');
-        document.body.classList.remove('cursor-view', 'hovering', 'custom-cursor-active');
+        document.body.classList.remove('cursor-view', 'hovering', 'custom-cursor-active', 'cursor-tool-label');
+        document.documentElement.style.removeProperty('cursor');
+        document.body.style.removeProperty('cursor');
 
         if (this._listeners) {
-            window.removeEventListener('mousemove', this._listeners.mousemove);
+            window.removeEventListener('pointermove', this._listeners.pointermove);
+            document.removeEventListener('pointerdown', this._listeners.pointerdown, true);
+            document.removeEventListener('pointerup', this._listeners.pointerup, true);
+            document.removeEventListener('click', this._listeners.click, true);
+            document.removeEventListener('lostpointercapture', this._listeners.lostpointercapture);
+            document.removeEventListener('focusin', this._listeners.focusin, true);
             document.removeEventListener('mouseleave', this._listeners.mouseleave);
             document.removeEventListener('mouseenter', this._listeners.mouseenter);
+            if (this._listeners.resize) {
+                window.removeEventListener('resize', this._listeners.resize);
+            }
             if (this._listeners.scroll) {
                 this._listeners.scroll.forEach(({ target, handler }) => {
                     target.removeEventListener('scroll', handler);
@@ -44,14 +54,48 @@ const CursorLogic = {
         document.body.appendChild(label);
         document.documentElement.classList.add('custom-cursor-active');
         document.body.classList.add('custom-cursor-active');
+        document.documentElement.style.setProperty('cursor', 'none', 'important');
+        document.body.style.setProperty('cursor', 'none', 'important');
 
-        let mx = window.innerWidth / 2;
-        let my = window.innerHeight / 2;
+        const enforceNativeCursorHidden = () => {
+            document.documentElement.style.setProperty('cursor', 'none', 'important');
+            document.body.style.setProperty('cursor', 'none', 'important');
+        };
+
+        let mx = 0;
+        let my = 0;
         let hasMoved = false;
+        const HOTSPOT_X = 2;
+        const HOTSPOT_Y = 2;
+        const POSITION_KEY = 'portfolio-cursor-position';
+
+        const persistPosition = () => {
+            try {
+                sessionStorage.setItem(POSITION_KEY, JSON.stringify({ x: mx, y: my }));
+            } catch (error) {
+                /* ignore storage errors */
+            }
+        };
+
+        const restorePosition = () => {
+            try {
+                const raw = sessionStorage.getItem(POSITION_KEY);
+                if (!raw) return false;
+                const saved = JSON.parse(raw);
+                if (typeof saved.x !== 'number' || typeof saved.y !== 'number') return false;
+                updatePointer(saved.x, saved.y);
+                hasMoved = true;
+                showCursor();
+                syncHoverState(mx, my);
+                return true;
+            } catch (error) {
+                return false;
+            }
+        };
 
         const positionPointer = (x, y) => {
-            pointer.style.left = x + 'px';
-            pointer.style.top = y + 'px';
+            pointer.style.left = (x - HOTSPOT_X) + 'px';
+            pointer.style.top = (y - HOTSPOT_Y) + 'px';
         };
 
         const positionLabel = (x, y) => {
@@ -91,7 +135,7 @@ const CursorLogic = {
             pointer.classList.remove('is-active');
             label.classList.remove('is-active');
             setCursorLabel({ visible: false });
-            document.body.classList.remove('hovering');
+            document.body.classList.remove('hovering', 'cursor-tool-label');
         };
 
         const syncHoverState = (x, y) => {
@@ -129,22 +173,82 @@ const CursorLogic = {
             }
         };
 
-        const onMouseMove = (e) => {
-            mx = e.clientX;
-            my = e.clientY;
+        const updatePointer = (x, y) => {
+            mx = x;
+            my = y;
             positionPointer(mx, my);
             positionLabel(mx, my);
+        };
+
+        const refreshCursor = () => {
+            enforceNativeCursorHidden();
+            if (!hasMoved) return;
+            showCursor();
+            syncHoverState(mx, my);
+        };
+
+        const onPointerMove = (e) => {
+            enforceNativeCursorHidden();
+            updatePointer(e.clientX, e.clientY);
             if (!hasMoved) hasMoved = true;
             showCursor();
             syncHoverState(mx, my);
+            persistPosition();
+        };
+
+        const onPointerDown = (e) => {
+            enforceNativeCursorHidden();
+            if (e.pointerType === 'mouse') {
+                updatePointer(e.clientX, e.clientY);
+                if (!hasMoved) hasMoved = true;
+                showCursor();
+                syncHoverState(mx, my);
+                persistPosition();
+            }
+        };
+
+        const onPointerUp = (e) => {
+            enforceNativeCursorHidden();
+            if (e.pointerType !== 'mouse') return;
+            requestAnimationFrame(() => {
+                const active = document.activeElement;
+                if (
+                    active
+                    && active !== document.body
+                    && !active.matches('input, textarea, select, [contenteditable="true"]')
+                    && active.matches('a, button, .cursor-hover, .project-card, .filter-btn, .visit-btn, .site-top-nav__link, .site-top-nav__menu-toggle, .theme-toggle, .nav-link, [role="button"]')
+                ) {
+                    active.blur();
+                }
+                refreshCursor();
+            });
+        };
+
+        const onClick = () => {
+            enforceNativeCursorHidden();
+            requestAnimationFrame(refreshCursor);
+        };
+
+        const onFocusIn = () => {
+            requestAnimationFrame(refreshCursor);
+        };
+
+        const onLostPointerCapture = (e) => {
+            if (e.pointerType !== 'mouse') return;
+            enforceNativeCursorHidden();
+            updatePointer(e.clientX, e.clientY);
+            refreshCursor();
         };
 
         const onMouseLeave = () => {
             hideCursor();
         };
 
-        const onMouseEnter = () => {
-            if (hasMoved) showCursor();
+        const onMouseEnter = (e) => {
+            if (!hasMoved) return;
+            updatePointer(e.clientX, e.clientY);
+            showCursor();
+            syncHoverState(mx, my);
         };
 
         const onScroll = () => {
@@ -161,15 +265,31 @@ const CursorLogic = {
             if (hasMoved) syncHoverState(mx, my);
         };
 
+        const onResize = () => {
+            if (window.innerWidth < 1200) {
+                this.destroy();
+                return;
+            }
+            if (!document.querySelector('.cursor-pointer')) {
+                this.init();
+            }
+        };
+
         const scrollTargets = [
             window,
             document.getElementById('scroll-container')
         ].filter(Boolean);
 
         this._listeners = {
-            mousemove: onMouseMove,
+            pointermove: onPointerMove,
+            pointerdown: onPointerDown,
+            pointerup: onPointerUp,
+            click: onClick,
+            lostpointercapture: onLostPointerCapture,
+            focusin: onFocusIn,
             mouseleave: onMouseLeave,
             mouseenter: onMouseEnter,
+            resize: onResize,
             pageshow: onPageShow,
             scroll: scrollTargets.map((target) => {
                 target.addEventListener('scroll', onScroll, { passive: true });
@@ -177,10 +297,16 @@ const CursorLogic = {
             })
         };
 
-        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('pointermove', onPointerMove, { passive: true });
+        document.addEventListener('pointerdown', onPointerDown, { capture: true, passive: true });
+        document.addEventListener('pointerup', onPointerUp, { capture: true, passive: true });
+        document.addEventListener('click', onClick, { capture: true, passive: true });
+        document.addEventListener('lostpointercapture', onLostPointerCapture, { passive: true });
+        document.addEventListener('focusin', onFocusIn, true);
         document.addEventListener('mouseleave', onMouseLeave);
         document.addEventListener('mouseenter', onMouseEnter);
         window.addEventListener('pageshow', onPageShow);
+        window.addEventListener('resize', onResize, { passive: true });
 
         const projectGrid = document.querySelector('.project-grid');
         if (projectGrid) {
@@ -197,8 +323,7 @@ const CursorLogic = {
             });
         }
 
-        showCursor();
-        syncHoverState(mx, my);
+        restorePosition();
     },
 
     ensure: function() {
@@ -206,7 +331,11 @@ const CursorLogic = {
             this.destroy();
             return;
         }
-        if (!document.querySelector('.cursor-pointer')) {
+        const pointers = document.querySelectorAll('.cursor-pointer');
+        const isHealthy = pointers.length === 1
+            && document.documentElement.classList.contains('custom-cursor-active')
+            && this._listeners;
+        if (!isHealthy) {
             this.init();
         }
     }

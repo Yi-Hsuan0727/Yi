@@ -30,7 +30,8 @@ const LayoutComponents = {
             </div>${introHTML}`
             : `${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}`;
         const heroContent = `<div class="hero-text">${heroInner}</div>`;
-        html += heroContent;
+        const metaHTML = projectMeta ? this.buildSidebarProjectMeta(projectMeta) : '';
+        html += heroContent + metaHTML;
         return html;
     },
 
@@ -52,52 +53,116 @@ const LayoutComponents = {
         }).filter(Boolean);
     },
 
-    buildCaseHeroMeta: function(projectMeta) {
+    getCaseHeroToolSlug: function(toolName) {
+        const map = {
+            'Figma': 'figma',
+            'React': 'react',
+            'Tailwind CSS': 'tailwindcss',
+            'Drupal': 'drupal',
+            'WordPress': 'wordpress',
+            'GitHub': 'github',
+            'Google Gemini': 'googlegemini',
+            'Adobe Illustrator': 'adobeillustrator',
+            'Adobe Photoshop': 'adobephotoshop',
+            'VS Code': 'visualstudiocode',
+            'Visual Studio Code': 'visualstudiocode',
+            'Unity': 'unity',
+            'Sketch': 'sketch',
+            'Notion': 'notion',
+            'Miro': 'miro'
+        };
+        return map[toolName] || null;
+    },
+
+    getTeamMemberCount: function(teamRoster) {
+        return teamRoster.reduce(function(sum, item) {
+            const match = item.match(/^(\d+)/);
+            return sum + (match ? parseInt(match[1], 10) : 1);
+        }, 0);
+    },
+
+    buildSidebarTeamText: function(teamRoster) {
+        const lines = teamRoster.map(function(item) {
+            return item.replace(/^\d+\s+/, '').trim();
+        });
+        return `<span class="sidebar-project-meta-team-text">${lines.join(', ')}</span>`;
+    },
+
+    buildSidebarToolIcons: function(toolItems) {
+        const self = this;
+        if (!toolItems.length) return '';
+
+        const icons = toolItems.map(function(tool) {
+            const safeTool = tool.replace(/"/g, '&quot;');
+            const tip = `<span class="sidebar-project-meta-tool-tip">${safeTool}</span>`;
+            const slug = self.getCaseHeroToolSlug(tool);
+            if (slug) {
+                return `<span class="sidebar-project-meta-tool-icon" role="listitem"><img src="${self.toolIconSrc(slug)}" alt=""><span class="visually-hidden">${safeTool}</span>${tip}</span>`;
+            }
+            return `<span class="sidebar-project-meta-tool-chip" role="listitem">${tool.split(/\s+/).map(function(word) {
+                return word.charAt(0);
+            }).join('').slice(0, 3).toUpperCase()}${tip}</span>`;
+        });
+
+        return `<div class="sidebar-project-meta-tools" role="list" aria-label="Project tools">${icons.join('')}</div>`;
+    },
+
+    formatSidebarTimeline: function(timeline) {
+        if (!timeline) return '';
+        const parts = timeline.split(/\s*[–—-]\s*/);
+        if (parts.length < 2) {
+            return timeline;
+        }
+        const start = parts[0].trim();
+        const end = parts.slice(1).join(' – ').trim();
+        return `<span class="sidebar-project-meta-timeline"><span class="sidebar-project-meta-timeline-start">${start}</span><span class="sidebar-project-meta-timeline-sep" aria-hidden="true">|</span><span class="sidebar-project-meta-timeline-end">${end}</span></span>`;
+    },
+
+    buildSidebarProjectMeta: function(projectMeta) {
         if (!projectMeta) return '';
 
         const self = this;
-        const sections = [];
+        const cells = [];
+        const teamRoster = self.getCaseHeroTeamRoster(projectMeta);
+        const teamCount = self.getTeamMemberCount(teamRoster);
+        const toolItems = self.getCaseHeroToolItems(projectMeta);
+
+        if (teamRoster.length) {
+            cells.push(`
+                <div class="sidebar-project-meta-cell sidebar-project-meta-cell--team">
+                    <span class="sidebar-project-meta-label">Team${teamCount ? ` (${teamCount})` : ''}</span>
+                    <div class="sidebar-project-meta-value">${self.buildSidebarTeamText(teamRoster)}</div>
+                </div>`);
+        }
 
         if (projectMeta.timeline) {
-            sections.push({
-                modifier: 'timeline',
-                label: 'Timeline',
-                body: `<span class="case-hero-meta-value">${projectMeta.timeline}</span>`
-            });
+            cells.push(`
+                <div class="sidebar-project-meta-cell sidebar-project-meta-cell--timeline">
+                    <span class="sidebar-project-meta-label">Timeline</span>
+                    <span class="sidebar-project-meta-value">${self.formatSidebarTimeline(projectMeta.timeline)}</span>
+                </div>`);
         }
 
-        const toolItems = self.getCaseHeroToolItems(projectMeta);
         if (toolItems.length) {
-            sections.push({
-                modifier: 'tools',
-                label: 'Tools',
-                body: `<span class="case-hero-meta-value case-hero-meta-tools">${toolItems.join(' / ')}</span>`
-            });
+            cells.push(`
+                <div class="sidebar-project-meta-cell sidebar-project-meta-cell--tools">
+                    <span class="sidebar-project-meta-label">${toolItems.length === 1 ? 'Tool' : 'Tools'}</span>
+                    <div class="sidebar-project-meta-value">${self.buildSidebarToolIcons(toolItems)}</div>
+                </div>`);
         }
 
-        const teamRoster = self.getCaseHeroTeamRoster(projectMeta);
-        if (teamRoster.length) {
-            sections.push({
-                modifier: 'team',
-                label: 'Team',
-                body: `<ul class="case-hero-meta-list">${teamRoster.map(function(item) {
-                    return `<li>${item}</li>`;
-                }).join('')}</ul>`
-            });
-        }
-
-        if (!sections.length) return '';
-
-        const itemsHTML = sections.map(function(section) {
-            return `<div class="case-hero-meta-item case-hero-meta-item--${section.modifier}"><span class="case-hero-meta-label">${section.label}</span>${section.body}</div>`;
-        }).join('');
+        if (!cells.length) return '';
 
         return `
-            <div class="case-hero-meta">
-                <div class="case-hero-meta-inner case-hero-meta-inner--cols-${sections.length}">
-                    ${itemsHTML}
+            <div class="sidebar-project-meta" aria-label="Project details">
+                <div class="sidebar-project-meta-grid sidebar-project-meta-grid--cols-${Math.min(cells.length, 4)}">
+                    ${cells.join('')}
                 </div>
             </div>`;
+    },
+
+    buildCaseHeroMeta: function(projectMeta) {
+        return this.buildSidebarProjectMeta(projectMeta);
     },
 
     getCaseHeroTeamRoster: function(projectMeta) {
@@ -357,6 +422,14 @@ const LayoutComponents = {
             </div>`;
     },
 
+    buildCaseStudyArrowIcon: function(extraClass) {
+        const classes = ['case-study-arrow-icon', extraClass].filter(Boolean).join(' ');
+        return `<svg class="${classes}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17L17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+    },
+
     buildWorksHeader: function() {
         return '';
     },
@@ -407,7 +480,7 @@ const LayoutComponents = {
         const isSoon = !!project.comingSoon;
         const cta = isSoon
             ? ''
-            : `<span class="stack-card__cta">View case study <span class="stack-card__cta-arrow" aria-hidden="true">&rarr;</span></span>`;
+            : `<span class="stack-card__cta"><span class="visually-hidden">View case study</span>${this.buildCaseStudyArrowIcon('stack-card__cta-arrow')}</span>`;
         const inner = `
                     <div class="stack-card__split">
                         <div class="stack-card__media">
@@ -914,19 +987,25 @@ const LayoutComponents = {
         return `<div id="progress-bar"></div>`;
     },
 
+    buildTopNavIconLink: function(href, label, iconClass, isCurrent) {
+        const currentClass = isCurrent
+            ? 'site-top-nav__link site-top-nav__link--current cursor-hover'
+            : 'site-top-nav__link cursor-hover';
+        const currentAttr = isCurrent ? ' aria-current="page"' : '';
+        return `<li><a class="${currentClass}" href="${href}" aria-label="${label}"${currentAttr}><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas ${iconClass}"></i></span></a></li>`;
+    },
+
     buildTopNav: function(pageType) {
         const isHome = pageType === 'home';
         const isPlayground = pageType === 'playground';
         const isAbout = pageType === 'about';
         const workHref = isHome ? '#featured-work' : 'index.html#featured-work';
         const contactHref = isHome ? '#contact' : 'index.html#contact';
-        const playgroundAttrs = isPlayground ? ' aria-current="page" class="site-top-nav__link site-top-nav__link--current cursor-hover"' : ' class="site-top-nav__link cursor-hover"';
-        const aboutAttrs = isAbout ? ' aria-current="page" class="site-top-nav__link site-top-nav__link--current cursor-hover"' : ' class="site-top-nav__link cursor-hover"';
 
         return `
             <nav class="site-top-nav site-top-nav--auto-hide" aria-label="Primary">
                 <div class="site-top-nav__inner">
-                    <a href="index.html" class="site-top-nav__brand cursor-hover">
+                    <a href="index.html" class="site-top-nav__brand cursor-hover" aria-label="Home">
                         <span class="site-top-nav__avatar" aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28" focusable="false">
                                 <rect width="64" height="64" fill="#2ecc71"/>
@@ -940,13 +1019,12 @@ const LayoutComponents = {
                                 </g>
                             </svg>
                         </span>
-                        <span class="site-top-nav__name">Michelle</span>
                     </a>
                     <ul class="site-top-nav__links" id="site-top-nav-menu">
-                        <li><a class="site-top-nav__link cursor-hover" href="${workHref}">Work</a></li>
-                        <li><a${playgroundAttrs} href="playground.html">Play</a></li>
-                        <li><a${aboutAttrs} href="about.html">About</a></li>
-                        <li><a class="site-top-nav__link cursor-hover" href="${contactHref}">Contact</a></li>
+                        ${this.buildTopNavIconLink(workHref, 'Work', 'fa-briefcase', false)}
+                        ${this.buildTopNavIconLink('playground.html', 'Play', 'fa-gamepad', isPlayground)}
+                        ${this.buildTopNavIconLink('about.html', 'About', 'fa-user', isAbout)}
+                        ${this.buildTopNavIconLink(contactHref, 'Contact', 'fa-envelope', false)}
                     </ul>
                     <button type="button" class="site-top-nav__menu-toggle cursor-hover" aria-label="Open menu" aria-expanded="false" aria-controls="site-top-nav-menu">
                         <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--open" aria-hidden="true">

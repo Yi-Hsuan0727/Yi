@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pic2Split - Michelle Chen</title>
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/cursor.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260630c">
+    <link rel="stylesheet" href="assets/css/cursor.css?v=20260630c">
     <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
     <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -47,6 +47,9 @@
             }
             .p2s-2col-header > :only-child {
                 grid-column: 1 / -1;
+            }
+            .content-wrapper.sidebar-compact-scope--project .p2s-2col-header .p2s-scenario-flow-wrap {
+                margin: var(--p2s-block-gap) 0;
             }
             @media (max-width: 767px) {
                 .p2s-2col-header {
@@ -656,10 +659,12 @@
                 object-fit: contain;
                 border: none;
                 border-radius: 8px;
-                box-shadow: var(--video-shadow-sides) !important;
+                box-shadow: none !important;
             }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device:has(> video):not(:has(> img)) {
-                overflow: visible;
+                overflow: hidden;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
             }
             .p2s-grid-2:not(.p2s-solution-row--phone-stage) .p2s-phone-frame--device img {
                 position: relative;
@@ -1274,43 +1279,77 @@
                 line-height: 1.85;
                 color: var(--secondary-text);
             }
-            .p2s-impact-visual {
+            .p2s-overview-shift-banner {
+                width: 100%;
+                display: block;
+                margin-top: var(--p2s-header-gap);
+                padding: 0;
+                background: transparent;
+                border-radius: 0;
+            }
+            .p2s-overview-shift-banner__stats {
+                border-top: none;
+                padding-top: 0;
+                min-width: 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .p2s-overview-shift-banner .p2s-speed-stat-row {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 20px 14px;
+                margin: 0;
+                width: 100%;
+                justify-items: center;
+            }
+            .p2s-overview-shift-banner .p2s-speed-stat {
+                padding: 0;
+                border: none;
+                border-radius: 0;
+                background: transparent;
+                text-align: center;
+            }
+            .p2s-overview-landing-wrap {
+                width: 100%;
+                margin-top: var(--p2s-block-gap);
+            }
+            .p2s-overview-landing-wrap img {
                 display: block;
                 width: 100%;
                 height: auto;
+                border-radius: 12px;
             }
-            .p2s-speed-compare {
-                margin: 0;
-                padding: 0;
-            }
-            .p2s-speed-stat-row {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-                margin-bottom: 0;
-            }
-            .p2s-speed-stat {
-                padding: 16px 14px;
-                border: 1px solid rgba(46, 204, 113, 0.28);
-                border-radius: 10px;
-                background: #fff;
-                text-align: center;
-            }
-            .p2s-speed-stat-value {
+            .p2s-speed-stat-kicker {
                 display: block;
-                font-size: clamp(1.5rem, 3vw, 1.85rem);
-                font-weight: 700;
-                line-height: 1.1;
-                letter-spacing: -0.03em;
-                color: var(--accent-color);
-                margin-bottom: 4px;
-            }
-            .p2s-speed-stat-label {
-                display: block;
-                font-size: 0.72rem;
-                font-weight: 700;
-                letter-spacing: 0.06em;
+                font-size: 0.62rem;
+                font-weight: 600;
+                letter-spacing: 0.1em;
                 text-transform: uppercase;
+                color: #b0b0b0;
+                margin-bottom: 8px;
+            }
+            .p2s-overview-shift-banner .p2s-speed-stat-value {
+                display: block;
+                font-size: clamp(2rem, 3.6vw, 2.55rem);
+                font-weight: 700;
+                line-height: 1;
+                letter-spacing: -0.03em;
+                color: var(--text-color);
+                margin-bottom: 6px;
+                white-space: nowrap;
+            }
+            .p2s-overview-shift-banner .p2s-speed-stat-value-suffix {
+                font-size: 0.85rem;
+                font-weight: 500;
+                letter-spacing: 0;
+            }
+            .p2s-overview-shift-banner .p2s-speed-stat-label {
+                display: block;
+                font-size: 0.85rem;
+                font-weight: 500;
+                letter-spacing: 0;
+                text-transform: none;
                 color: var(--secondary-text);
             }
 
@@ -1765,20 +1804,12 @@
                 .p2s-artifact-cell:last-child { border-bottom: none; }
                 .p2s-inline-artifact { grid-template-columns: 1fr; }
                 .p2s-impact-grid { grid-template-columns: 1fr; }
-                .p2s-speed-stat-row {
-                    gap: 8px;
+                .p2s-overview-shift-banner .p2s-speed-stat-row {
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 16px 12px;
                 }
-                .p2s-speed-stat {
-                    padding: 12px 8px;
-                    min-width: 0;
-                }
-                .p2s-speed-stat-value {
-                    font-size: clamp(1.15rem, 4.5vw, 1.5rem);
-                }
-                .p2s-speed-stat-label {
-                    font-size: 0.58rem;
-                    letter-spacing: 0.04em;
-                    line-height: 1.25;
+                .p2s-overview-shift-banner .p2s-speed-stat-value {
+                    font-size: clamp(1.65rem, 5vw, 2.1rem);
                 }
                 .p2s-step-grid { grid-template-columns: repeat(2, 1fr); }
                 .p2s-step-cell:nth-child(2) { border-right: none; }
@@ -1894,8 +1925,36 @@
                         <div class="case-section-label">Overview</div>
                         <h2 class="case-overview-title p2s-section-title-main">A web-first AI bill splitter for group dining. When the check arrives at the table, scan the receipt, assign dishes, split tax and tip fairly, and share a link. Under two minutes, no app, no account.</h2>
                     </div>
-                    <div class="case-overview-hero-media p2s-scenario-flow-wrap">
-                        <img src="assets/img/Pic2Split/p2s-scenario-flow.png" alt="Five-step Pic2Split flow: open link, scan receipt, assign items, split tax and tip proportionally, share link with the group" loading="lazy" decoding="async">
+
+                    <div class="p2s-overview-shift-banner" aria-label="Split time impact summary">
+                        <div class="p2s-overview-shift-banner__stats">
+                            <div class="p2s-speed-stat-row">
+                                <div class="p2s-speed-stat">
+                                    <span class="p2s-speed-stat-kicker">Speed</span>
+                                    <span class="p2s-speed-stat-value" data-p2s-count="2" data-p2s-count-suffix="×" aria-label="2 times faster">0×</span>
+                                    <span class="p2s-speed-stat-label">faster</span>
+                                </div>
+                                <div class="p2s-speed-stat">
+                                    <span class="p2s-speed-stat-kicker">Efficiency</span>
+                                    <span class="p2s-speed-stat-value" data-p2s-count="50" data-p2s-count-suffix="%" aria-label="50 percent less time">0%</span>
+                                    <span class="p2s-speed-stat-label">less time</span>
+                                </div>
+                                <div class="p2s-speed-stat">
+                                    <span class="p2s-speed-stat-kicker">Saved</span>
+                                    <span class="p2s-speed-stat-value" data-p2s-count="2" data-p2s-count-prefix="~" aria-label="About 2 minutes saved per split"><span class="p2s-count-output">0</span> <span class="p2s-speed-stat-value-suffix">min</span></span>
+                                    <span class="p2s-speed-stat-label">per split</span>
+                                </div>
+                                <div class="p2s-speed-stat">
+                                    <span class="p2s-speed-stat-kicker">Scan result</span>
+                                    <span class="p2s-speed-stat-value" data-p2s-count="94" data-p2s-count-suffix="%" aria-label="94 percent more accurate scan results">0%</span>
+                                    <span class="p2s-speed-stat-label">more accurate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p2s-overview-landing-wrap">
+                        <img src="assets/img/Pic2Split/landing image.png" alt="Pic2Split landing screen for scanning receipts and splitting group bills fairly" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>
@@ -1905,8 +1964,8 @@
         <section class="case-section case-section--problem">
             <div class="case-section-inner">
                 <div class="p2s-section-header-stack">
-                    <div class="p2s-section-number">01 · Problem Statement</div>
-                    <h2 class="p2s-section-title-main">The check arrives, and tax and tip turn a fun dinner into a math fight</h2>
+                    <div class="p2s-section-number">01 · Problem and Goals</div>
+                    <h2 class="p2s-section-title-main">The check arrives, and tax and tip turn a fun dinner into a math fight — this project set out to make every split fair, fast, and transparent</h2>
                 </div>
 
                 <div class="p2s-scenario-visual" aria-label="Tax and tip split comparison">
@@ -1921,8 +1980,11 @@
             <div class="case-section-inner">
                 <div class="p2s-2col-header">
                     <div>
-                        <div class="p2s-section-number">02 · Goals &amp; Solutions</div>
+                        <div class="p2s-section-number">02 · Solutions</div>
                         <h2 class="p2s-section-title-main">Five beats at the table, from check to fair totals in under two minutes</h2>
+                        <div class="p2s-scenario-flow-wrap">
+                            <img src="assets/img/Pic2Split/p2s-scenario-flow.png" alt="Five-step Pic2Split flow: open link, scan receipt, assign items, split tax and tip proportionally, share link with the group" loading="lazy" decoding="async">
+                        </div>
                     </div>
                 </div>
 
@@ -2315,37 +2377,18 @@
                 </div>
 
                 <div class="p2s-impact-story" aria-label="Split time and impact summary">
-                    <div class="p2s-speed-compare p2s-impact-visual">
-                        <div class="p2s-speed-stat-row">
-                            <div class="p2s-speed-stat">
-                                <span class="p2s-speed-stat-value">2×</span>
-                                <span class="p2s-speed-stat-label">Faster</span>
-                            </div>
-                            <div class="p2s-speed-stat">
-                                <span class="p2s-speed-stat-value">50%</span>
-                                <span class="p2s-speed-stat-label">Less time</span>
-                            </div>
-                            <div class="p2s-speed-stat">
-                                <span class="p2s-speed-stat-value">~2 min</span>
-                                <span class="p2s-speed-stat-label">Saved per split</span>
-                            </div>
-                        </div>
-                    </div>
                     <p class="p2s-impact-copy">Timed usability sessions on Scan &amp; Split Bill averaged 4 min per group split. Pic2Split&apos;s design target is under 2 min, which is 2× faster, 50% less time, and roughly 2 min saved every time friends settle the check. Proportional tax and tip on each person&apos;s food ended the fairness fights, and light eaters no longer subsidize big orders. Pic2Split is live on the web today: the awkward check moment becomes a quick link in the group chat, and everyone moves on.</p>
                 </div>
             </div>
         </section>
-        <div class="p2s-parallax-wrap" aria-hidden="true">
-            <img id="p2s-parallax-img" src="assets/img/Pic2Split/landing image.png" alt="">
-        </div>
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <script src="assets/js/cursor.js"></script>
-    <script src="assets/js/index.js"></script>
-    <script src="assets/js/layout-components.js"></script>
-    <script src="assets/js/components.js"></script>
+    <script src="assets/js/cursor.js?v=20260630c"></script>
+    <script src="assets/js/index.js?v=20260630c"></script>
+    <script src="assets/js/layout-components.js?v=20260630c"></script>
+    <script src="assets/js/components.js?v=20260630c"></script>
 
     <script>
         PortfolioApp.init('pic2split');
@@ -2354,39 +2397,80 @@
         /* Runs after PortfolioApp.init has built the live layout — query the
            rendered DOM, not #page-specific-content (which buildLayout discards). */
         (function () {
-            function setup() {
-                /* --- Parallax (rAF loop — works with Lenis) --- */
-                const wrap = document.querySelector('.p2s-parallax-wrap');
-                const img  = document.querySelector('#p2s-parallax-img');
-                if (wrap && img) {
-                    const scroller = document.querySelector('#scroll-container');
-                    const SPEED = 0.3;
-                    let parallaxRaf = null;
+            function initOverviewStatCounters() {
+                const banner = document.querySelector('.p2s-overview-shift-banner');
+                if (!banner || banner.dataset.countReady === 'true') return;
+                banner.dataset.countReady = 'true';
 
-                    function stopParallax() {
-                        if (parallaxRaf !== null) {
-                            cancelAnimationFrame(parallaxRaf);
-                            parallaxRaf = null;
-                        }
-                    }
+                const counters = Array.from(banner.querySelectorAll('[data-p2s-count]'));
+                if (!counters.length) return;
 
-                    function updateParallax() {
-                        if (!wrap.isConnected || !img.isConnected) {
-                            stopParallax();
-                            return;
-                        }
-                    function updateParallax() {
-                        const wrapRect  = wrap.getBoundingClientRect();
-                        const containerTop = scroller ? scroller.getBoundingClientRect().top : 0;
-                        const relativeTop  = wrapRect.top - containerTop;
-                        const offset = -relativeTop * SPEED;
-                        img.style.transform = `translateY(${offset}px)`;
-                        requestAnimationFrame(updateParallax);
-                    }
+                const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-                    parallaxRaf = requestAnimationFrame(updateParallax);
-                    window.addEventListener('pagehide', stopParallax, { once: true });
+                function formatCount(value, decimals) {
+                    return decimals > 0 ? value.toFixed(decimals) : String(Math.round(value));
                 }
+
+                function setCounterValue(el, value) {
+                    const prefix = el.dataset.p2sCountPrefix || '';
+                    const suffix = el.dataset.p2sCountSuffix || '';
+                    const decimals = parseInt(el.dataset.p2sCountDecimals || '0', 10);
+                    const output = el.querySelector('.p2s-count-output');
+                    const formatted = formatCount(value, decimals);
+
+                    if (output) {
+                        output.textContent = prefix + formatted;
+                        return;
+                    }
+
+                    el.textContent = prefix + formatted + suffix;
+                }
+
+                function animateCounter(el) {
+                    const end = parseFloat(el.dataset.p2sCount, 10);
+                    if (!Number.isFinite(end)) return;
+
+                    if (prefersReduced) {
+                        setCounterValue(el, end);
+                        return;
+                    }
+
+                    const duration = parseInt(el.dataset.p2sCountDuration || '1400', 10);
+                    const startTime = performance.now();
+
+                    function frame(now) {
+                        const progress = Math.min(1, (now - startTime) / duration);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        setCounterValue(el, end * eased);
+                        if (progress < 1) requestAnimationFrame(frame);
+                    }
+
+                    requestAnimationFrame(frame);
+                }
+
+                function runCounters() {
+                    if (banner.dataset.countAnimated === 'true') return;
+                    banner.dataset.countAnimated = 'true';
+                    counters.forEach(animateCounter);
+                }
+
+                if (typeof IntersectionObserver === 'undefined') {
+                    runCounters();
+                    return;
+                }
+
+                const counterObserver = new IntersectionObserver((entries) => {
+                    if (entries.some((entry) => entry.isIntersecting)) {
+                        runCounters();
+                        counterObserver.disconnect();
+                    }
+                }, { threshold: 0.35 });
+
+                counterObserver.observe(banner);
+            }
+
+            function setup() {
+                initOverviewStatCounters();
 
                 const videos = Array.from(document.querySelectorAll('video[data-autoplay-on-view]'));
                 if (!videos.length || typeof IntersectionObserver === 'undefined') return;
