@@ -63,7 +63,12 @@ const LayoutComponents = {
     },
 
     getCaseHeroToolSlug: function(toolName) {
-        const map = {
+        const slugs = this.getCaseHeroToolSlugs(toolName);
+        return slugs.length ? slugs[0] : null;
+    },
+
+    getCaseHeroToolSlugs: function(toolName) {
+        const aliases = {
             'Figma': 'figma',
             'React': 'react',
             'Tailwind CSS': 'tailwindcss',
@@ -71,16 +76,41 @@ const LayoutComponents = {
             'WordPress': 'wordpress',
             'GitHub': 'github',
             'Google Gemini': 'googlegemini',
+            'Google SSO': 'google',
+            'Google AI Studio': 'google',
             'Adobe Illustrator': 'adobeillustrator',
+            'Illustrator': 'adobeillustrator',
             'Adobe Photoshop': 'adobephotoshop',
+            'Photoshop': 'adobephotoshop',
             'VS Code': 'visualstudiocode',
             'Visual Studio Code': 'visualstudiocode',
             'Unity': 'unity',
             'Sketch': 'sketch',
             'Notion': 'notion',
-            'Miro': 'miro'
+            'Miro': 'miro',
+            'HTML5': 'html5',
+            'CSS': 'css3',
+            'CSS3': 'css3',
+            'JavaScript': 'javascript',
+            'jQuery': 'jquery',
+            'Bootstrap': 'bootstrap',
+            'Python': 'python',
+            'Streamlit': 'streamlit',
+            'Anthropic Claude': 'anthropic',
+            'Alpine.js': 'alpinejs',
+            'ASP.NET Core MVC': 'dotnet',
+            'SQLite': 'sqlite',
+            'Canvas API': 'javascript',
+            'PaddleOCR': 'python'
         };
-        return map[toolName] || null;
+        const normalized = (toolName || '').trim();
+        if (normalized === 'HTML/CSS') return ['html5', 'css3'];
+        if (aliases[normalized]) return [aliases[normalized]];
+        const lower = normalized.toLowerCase();
+        const match = Object.keys(aliases).find(function(key) {
+            return key.toLowerCase() === lower;
+        });
+        return match ? [aliases[match]] : [];
     },
 
     getTeamMemberCount: function(teamRoster) {
@@ -101,16 +131,20 @@ const LayoutComponents = {
         const self = this;
         if (!toolItems.length) return '';
 
-        const icons = toolItems.map(function(tool) {
+        const icons = [];
+        toolItems.forEach(function(tool) {
             const safeTool = tool.replace(/"/g, '&quot;');
             const tip = `<span class="sidebar-project-meta-tool-tip">${safeTool}</span>`;
-            const slug = self.getCaseHeroToolSlug(tool);
-            if (slug) {
-                return `<span class="sidebar-project-meta-tool-icon" role="listitem"><img src="${self.toolIconSrc(slug)}" alt=""><span class="visually-hidden">${safeTool}</span>${tip}</span>`;
+            const slugs = self.getCaseHeroToolSlugs(tool);
+            if (slugs.length) {
+                slugs.forEach(function(slug) {
+                    icons.push(`<span class="sidebar-project-meta-tool-icon" role="listitem"><img src="${self.toolIconSrc(slug)}" alt="" loading="lazy" decoding="async"><span class="visually-hidden">${safeTool}</span>${tip}</span>`);
+                });
+                return;
             }
-            return `<span class="sidebar-project-meta-tool-chip" role="listitem">${tool.split(/\s+/).map(function(word) {
+            icons.push(`<span class="sidebar-project-meta-tool-chip" role="listitem">${tool.split(/\s+/).map(function(word) {
                 return word.charAt(0);
-            }).join('').slice(0, 3).toUpperCase()}${tip}</span>`;
+            }).join('').slice(0, 3).toUpperCase()}${tip}</span>`);
         });
 
         return `<div class="sidebar-project-meta-tools" role="list" aria-label="Project tools">${icons.join('')}</div>`;
@@ -440,6 +474,33 @@ const LayoutComponents = {
                     </div>
                 </div>
             </div>`;
+    },
+
+    buildNavMenuOpenIcon: function() {
+        return `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 3.5L5.5 8 10 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>`;
+    },
+
+    buildNavMenuCloseIcon: function() {
+        return `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 3.5L10.5 8 6 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>`;
+    },
+
+    syncPrerenderedChrome: function(pageType, projectMeta) {
+        if (!document.body.hasAttribute('data-prerendered')) return;
+
+        const toolsCell = document.querySelector('.sidebar-project-meta-cell--tools .sidebar-project-meta-value');
+        if (projectMeta && toolsCell) {
+            const toolItems = this.getCaseHeroToolItems(projectMeta);
+            toolsCell.innerHTML = this.buildSidebarToolIcons(toolItems);
+        }
+
+        const openIcon = document.querySelector('.site-top-nav__menu-toggle-icon--open');
+        const closeIcon = document.querySelector('.site-top-nav__menu-toggle-icon--close');
+        if (openIcon) openIcon.innerHTML = this.buildNavMenuOpenIcon();
+        if (closeIcon) closeIcon.innerHTML = this.buildNavMenuCloseIcon();
     },
 
     buildCaseStudyArrowIcon: function(extraClass) {
@@ -1058,14 +1119,10 @@ const LayoutComponents = {
                     </ul>
                     <button type="button" class="site-top-nav__menu-toggle cursor-hover" aria-label="Open menu" aria-expanded="false" aria-controls="site-top-nav-menu">
                         <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--open" aria-hidden="true">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2.5 5h11M2.5 8h11M2.5 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg>
+                            ${this.buildNavMenuOpenIcon()}
                         </span>
                         <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--close" aria-hidden="true">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg>
+                            ${this.buildNavMenuCloseIcon()}
                         </span>
                     </button>
                 </div>

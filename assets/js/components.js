@@ -613,6 +613,10 @@ const PortfolioApp = {
     },
 
     startAppEffects: function(pageType) {
+        const projectMeta = this.getProject(pageType);
+        if (typeof LayoutComponents !== 'undefined') {
+            LayoutComponents.syncPrerenderedChrome(pageType, projectMeta);
+        }
         if (pageType === 'home') {
             this.initHomeToolbox();
         }
