@@ -1079,9 +1079,45 @@ const PortfolioApp = {
         }
     },
 
+    isPageReload: function() {
+        try {
+            const navEntries = performance.getEntriesByType && performance.getEntriesByType('navigation');
+            if (navEntries && navEntries.length && navEntries[0].type) {
+                return navEntries[0].type === 'reload';
+            }
+            if (performance.navigation) {
+                return performance.navigation.type === 1;
+            }
+        } catch (e) {}
+        return false;
+    },
+
+    clearLocationHash: function() {
+        history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    },
+
+    scrollHomeToTopImmediate: function() {
+        if (window.__lenis) {
+            window.__lenis.scrollTo(0, { immediate: true });
+            return;
+        }
+        const scrollRoot = document.getElementById('scroll-container');
+        if (scrollRoot) scrollRoot.scrollTop = 0;
+        window.scrollTo(0, 0);
+    },
+
     initHomeAboutNav: function() {
         if (window.location.hash === '#about') {
-            this.scrollToHomeAbout();
+            // A reload keeps the #about hash, causing the page to jump back to the
+            // section on every refresh. Strip the hash and stay at the top on reload;
+            // only honor it for genuine (cross-page) navigation.
+            if (this.isPageReload()) {
+                this.clearLocationHash();
+                this.scrollHomeToTopImmediate();
+                requestAnimationFrame(() => setTimeout(() => this.scrollHomeToTopImmediate(), 120));
+            } else {
+                this.scrollToHomeAbout();
+            }
         }
         document.querySelectorAll('a[href="#about"]').forEach((link) => {
             link.addEventListener('click', (e) => {
@@ -1094,7 +1130,13 @@ const PortfolioApp = {
 
     initHomeContactNav: function() {
         if (window.location.hash === '#contact') {
-            this.scrollToHomeSection('contact', -20);
+            if (this.isPageReload()) {
+                this.clearLocationHash();
+                this.scrollHomeToTopImmediate();
+                requestAnimationFrame(() => setTimeout(() => this.scrollHomeToTopImmediate(), 120));
+            } else {
+                this.scrollToHomeSection('contact', -20);
+            }
         }
         document.querySelectorAll('a[href="#contact"]').forEach((link) => {
             link.addEventListener('click', (e) => {

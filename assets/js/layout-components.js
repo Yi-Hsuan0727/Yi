@@ -27,8 +27,8 @@ const LayoutComponents = {
             <div class="hero-greeting-row">
                 <p class="hero-identity-label">Product Designer Michelle Chen</p>
                 <div class="hero-social-cluster">
-                    ${this.buildHomeAboutQuickLink()}
                     ${this.buildSidebarSocials()}
+                    ${this.buildHomeAboutQuickLink()}
                 </div>
             </div>${introHTML}`
             : `${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}`;

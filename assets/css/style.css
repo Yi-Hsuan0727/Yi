@@ -6667,7 +6667,6 @@ body.case-figure-zoom-open #scroll-container {
 }
 .sidebar-about-quick-link:hover,
 .sidebar-about-quick-link:focus-visible {
-    transform: translateY(-2px);
     background: var(--accent-color);
     border-color: var(--accent-color);
     box-shadow: 0 6px 16px rgba(46, 204, 113, 0.22);
@@ -7877,7 +7876,7 @@ body.case-figure-zoom-open #scroll-container {
     justify-content: flex-start;
 }
 .home-page-header .hero-social-cluster {
-    gap: 8px;
+    gap: 10px;
 }
 .home-header-tech {
     display: none;
@@ -7977,17 +7976,17 @@ body.case-figure-zoom-open #scroll-container {
 }
 .hero-identity-label {
     margin: 0;
-    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+    font-size: clamp(1.5rem, 3.5vw, 1.95rem);
     font-weight: 700;
-    line-height: 34px;
-    min-height: 34px;
+    line-height: 42px;
+    min-height: 42px;
     color: var(--accent-color);
 }
 .hero-greeting-row .sidebar-socials {
     flex: 0 0 auto;
     margin: 0;
     padding: 0;
-    gap: 8px;
+    gap: 10px;
 }
 .home-page-header .hero-meta-dot {
     width: 0.55em;
@@ -8224,27 +8223,30 @@ body.case-figure-zoom-open #scroll-container {
     }
 }
 .home-page-header .sidebar-social-link:not(.sidebar-resume-link) {
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 42px;
     border-width: 1px;
 }
 .home-page-header .sidebar-social-link i.fas,
 .home-page-header .sidebar-social-link i.fab {
-    font-size: 15px;
+    font-size: 18px;
 }
 .home-page-header .sidebar-resume-link {
-    padding: 6px 12px;
-    min-height: 34px;
-    font-size: 0.72rem;
-    border-radius: 18px;
+    padding: 8px 14px;
+    min-height: 42px;
+    font-size: 0.82rem;
+    border-radius: 22px;
     border-width: 1px;
 }
 .home-page-header .sidebar-about-quick-link {
-    width: 76px;
-    height: 34px;
-    min-height: 34px;
-    border-radius: 18px;
+    width: 94px;
+    height: 42px;
+    min-height: 42px;
+    border-radius: 22px;
     border-width: 1px;
+}
+.home-page-header .sidebar-about-quick-link__label {
+    font-size: 0.76rem;
 }
 
 /* About page: full-width layout (no sidebar) */
@@ -8520,28 +8522,28 @@ body.case-figure-zoom-open #scroll-container {
         font-size: 0.88rem;
     }
     .home-page-header .sidebar-social-link:not(.sidebar-resume-link) {
-        width: 30px;
-        height: 30px;
+        width: 36px;
+        height: 36px;
     }
     .home-page-header .sidebar-about-quick-link {
-        width: 67px;
-        height: 30px;
-        min-height: 30px;
-        border-radius: 16px;
+        width: 80px;
+        height: 36px;
+        min-height: 36px;
+        border-radius: 18px;
     }
     .home-page-header .sidebar-social-link i.fas,
     .home-page-header .sidebar-social-link i.fab {
-        font-size: 13px;
+        font-size: 15px;
     }
     .home-page-header .sidebar-resume-link {
-        padding: 5px 10px;
-        min-height: 30px;
-        font-size: 0.65rem;
+        padding: 6px 12px;
+        min-height: 36px;
+        font-size: 0.72rem;
     }
     .hero-identity-label {
-        line-height: 30px;
-        min-height: 30px;
-        font-size: clamp(1.05rem, 3.5vw, 1.2rem);
+        line-height: 36px;
+        min-height: 36px;
+        font-size: clamp(1.3rem, 4.8vw, 1.5rem);
     }
     .home-header-composition {
         display: none;
