@@ -417,12 +417,15 @@ const LayoutComponents = {
             { name: 'Anthropic', slug: 'anthropic' }
         ];
         const iconSrc = this.toolIconSrc.bind(this);
-        const toolItems = tools.map(function(t) {
-            return `<li class="sidebar-tool-item">
-                <img class="sidebar-tool-logo" src="${iconSrc(t.slug)}" alt="${t.name}" width="36" height="36" loading="lazy" decoding="async" />
+        const buildToolItems = function(isClone) {
+            return tools.map(function(t) {
+                return `<li class="sidebar-tool-item"${isClone ? ' aria-hidden="true"' : ''}>
+                <img class="sidebar-tool-logo" src="${iconSrc(t.slug)}" alt="${isClone ? '' : t.name}" width="36" height="36" loading="lazy" decoding="async" />
             </li>`;
-        }).join('');
-        const toolRow = toolItems + toolItems;
+            }).join('');
+        };
+        /* Second set is a visual loop clone — hidden from assistive tech */
+        const toolRow = buildToolItems(false) + buildToolItems(true);
 
         return `
             <div class="sidebar-tools-marquee" aria-label="Skills and tools used across projects">
@@ -526,14 +529,21 @@ const LayoutComponents = {
     buildMoreWorkCard: function(projects, index) {
         if (!projects || !projects.length) return '';
         const top = 28 + index * 64;
-        const tiles = projects.map(function(p) {
-            const img = p.image || p.heroImage || '';
-            const title = p.moreCardTitle || p.title;
-            return `
-                <a class="more-work-tile" href="${p.link}" aria-label="${title}">
-                    <span class="more-work-tile__img"><img src="${img}" alt="${title}" loading="lazy" decoding="async"></span>
+        /* The tile set is rendered twice for the infinite-loop effect. The
+           second (clone) set is decoration only: hidden from the accessibility
+           tree and removed from the tab order so keyboard/screen-reader users
+           don't hit every link twice. */
+        const buildTiles = function(isClone) {
+            const cloneAttrs = isClone ? ' aria-hidden="true" tabindex="-1"' : '';
+            return projects.map(function(p) {
+                const img = p.image || p.heroImage || '';
+                const title = p.moreCardTitle || p.title;
+                return `
+                <a class="more-work-tile" href="${p.link}" aria-label="${title}"${cloneAttrs}>
+                    <span class="more-work-tile__img"><img src="${img}" alt="${isClone ? '' : title}" loading="lazy" decoding="async"></span>
                 </a>`;
-        }).join('');
+            }).join('');
+        };
         return `
             <article class="stack-card stack-card--more" style="--stack-top:${top}px; z-index:${index + 1};">
                 <div class="stack-card__link stack-card__link--static">
@@ -543,7 +553,7 @@ const LayoutComponents = {
                             <p class="more-work-card__intro">Client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
                         </div>
                         <div class="more-work-carousel" aria-label="More work projects carousel">
-                            <div class="more-work-carousel-track">${tiles}${tiles}</div>
+                            <div class="more-work-carousel-track">${buildTiles(false)}${buildTiles(true)}</div>
                         </div>
                     </div>
                 </div>

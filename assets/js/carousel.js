@@ -55,11 +55,22 @@ const CarouselLogic = {
         return { maxTranslate, minTranslate };
     },
 
+    reducedMotionQuery: null,
+
+    prefersReducedMotion: function () {
+        if (!this.reducedMotionQuery) {
+            this.reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        }
+        return this.reducedMotionQuery.matches;
+    },
+
     applyTransform: function (instance) {
         const now = performance.now();
         const { maxTranslate, minTranslate } = this.getBounds(instance);
 
-        if (instance.loopWidth > 0 && !instance.isDragging && now >= instance.autoScrollPausedUntil) {
+        /* No idle auto-scroll for reduced-motion users — the marquee only
+           moves when they drag it themselves. */
+        if (instance.loopWidth > 0 && !instance.isDragging && !this.prefersReducedMotion() && now >= instance.autoScrollPausedUntil) {
             instance.targetTranslate -= instance.autoScrollSpeed;
             if (instance.targetTranslate <= -instance.loopWidth) {
                 instance.targetTranslate += instance.loopWidth;
