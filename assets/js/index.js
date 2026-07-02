@@ -368,11 +368,16 @@ const AppLogic = {
                 // (home desktop) instead of auto-hiding it.
                 const featured = document.getElementById('featured-work');
                 const isHomeDesktop = !!document.querySelector('.app-root-home') && window.innerWidth > 1200;
+                const isAboutDesktop = !!document.querySelector('.app-root-about') && window.innerWidth > 1200;
                 let railActive = false;
                 if (isHomeDesktop && featured) {
                     // Active once the featured list reaches the viewport center, and
                     // stays active for everything below it (can-bring, footer).
                     railActive = featured.getBoundingClientRect().top <= window.innerHeight / 2;
+                } else if (isAboutDesktop) {
+                    // About page mirrors home behavior: keep top nav as a left rail
+                    // once users move past the hero area.
+                    railActive = currentScroll > Math.max(120, window.innerHeight * 0.22);
                 }
                 // Crossfade the horizontal <-> vertical switch: fade out, swap the
                 // layout while invisible, then fade back in.

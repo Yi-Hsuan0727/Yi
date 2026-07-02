@@ -62,6 +62,9 @@ const HomeScrollScenes = {
         this.bindScroll();
         this.update();
         this.refreshLenis();
+        if (typeof PortfolioApp !== 'undefined' && PortfolioApp.refreshHomeScrollReveal) {
+            PortfolioApp.refreshHomeScrollReveal();
+        }
     },
 
     disable: function() {

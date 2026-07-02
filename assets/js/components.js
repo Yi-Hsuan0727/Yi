@@ -1,4 +1,74 @@
 /*
+ * EyeFollow: shared cursor-tracking for all googly eyes (footer monster,
+ * nav logo, header composition). Uses one rAF loop so pupils stay smooth
+ * while their parent elements animate (CSS drift on header shapes, etc.).
+ */
+const EyeFollow = {
+    targets: [],
+    cursorX: -9999,
+    cursorY: -9999,
+    running: false,
+    pointerBound: false,
+
+    register: function(eyeEl, pupilEl) {
+        if (!eyeEl || !pupilEl) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (this.targets.some((t) => t.pupilEl === pupilEl)) return;
+        this.targets.push({ eyeEl: eyeEl, pupilEl: pupilEl });
+        this.start();
+    },
+
+    registerNodeList: function(eyes, pupilSelector) {
+        const sel = pupilSelector || '.monster-pupil';
+        Array.prototype.forEach.call(eyes || [], (eye) => {
+            this.register(eye, eye.querySelector(sel));
+        });
+    },
+
+    start: function() {
+        if (this.running) return;
+        this.running = true;
+        this.bindPointer();
+        const tick = () => {
+            if (!this.running) return;
+            this.updateAll();
+            requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    },
+
+    bindPointer: function() {
+        if (this.pointerBound) return;
+        this.pointerBound = true;
+        document.addEventListener('mousemove', (e) => {
+            this.cursorX = e.clientX;
+            this.cursorY = e.clientY;
+        });
+        document.addEventListener('touchmove', (e) => {
+            if (!e.touches.length) return;
+            this.cursorX = e.touches[0].clientX;
+            this.cursorY = e.touches[0].clientY;
+        }, { passive: true });
+    },
+
+    updateAll: function() {
+        const cx = this.cursorX;
+        const cy = this.cursorY;
+        this.targets.forEach(({ eyeEl, pupilEl }) => {
+            const rect = eyeEl.getBoundingClientRect();
+            if (!rect.width) return;
+            const eyeX = rect.left + rect.width / 2;
+            const eyeY = rect.top + rect.height / 2;
+            const angle = Math.atan2(cy - eyeY, cx - eyeX);
+            const maxDist = rect.width / 4;
+            const dist = Math.min(maxDist, Math.hypot(cx - eyeX, cy - eyeY));
+            pupilEl.style.transform =
+                `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px)`;
+        });
+    }
+};
+
+/*
  * PortfolioApp: Structure & Content
  */
 const PortfolioApp = {
@@ -1039,29 +1109,10 @@ const PortfolioApp = {
         if (document.body.dataset.topNavAvatarEyesBound) return;
         const eyes = document.querySelectorAll('.site-top-nav__eye');
         if (!eyes.length) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (typeof EyeFollow === 'undefined') return;
 
         document.body.dataset.topNavAvatarEyesBound = '1';
-
-        const movePupils = (clientX, clientY) => {
-            eyes.forEach((eye) => {
-                const pupil = eye.querySelector('.site-top-nav__pupil');
-                if (!pupil) return;
-                const rect = eye.getBoundingClientRect();
-                const eyeX = rect.left + rect.width / 2;
-                const eyeY = rect.top + rect.height / 2;
-                const angle = Math.atan2(clientY - eyeY, clientX - eyeX);
-                const maxDist = rect.width / 4;
-                const dist = Math.min(maxDist, Math.hypot(clientX - eyeX, clientY - eyeY));
-                pupil.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px)`;
-            });
-        };
-
-        document.addEventListener('mousemove', (e) => movePupils(e.clientX, e.clientY));
-        document.addEventListener('touchmove', (e) => {
-            if (!e.touches.length) return;
-            movePupils(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: true });
+        EyeFollow.registerNodeList(eyes, '.site-top-nav__pupil');
     },
 
     initHomeTopNav: function() {
@@ -1590,6 +1641,21 @@ const PortfolioApp = {
             });
         };
 
+        const updateFigureTilt = (event) => {
+            const rect = figure.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+
+            const x = (event.clientX - rect.left) / rect.width - 0.5;
+            const y = (event.clientY - rect.top) / rect.height - 0.5;
+            figure.style.setProperty('--comp-tilt-x', `${(-y * 9).toFixed(2)}deg`);
+            figure.style.setProperty('--comp-tilt-y', `${(-3 + x * 5).toFixed(2)}deg`);
+        };
+
+        const resetFigureTilt = () => {
+            figure.style.removeProperty('--comp-tilt-x');
+            figure.style.removeProperty('--comp-tilt-y');
+        };
+
         const paintLayers = (event) => {
             const rect = figure.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
@@ -1598,6 +1664,7 @@ const PortfolioApp = {
             const y = amplifyAxis((event.clientY - rect.top) / rect.height - 0.5);
 
             figure.classList.add('is-interacting');
+            updateFigureTilt(event);
             layerNodes.forEach((layer) => applyLayerTransform(layer, x, y));
         };
 
@@ -1617,15 +1684,18 @@ const PortfolioApp = {
                 moveFrame = 0;
             }
             figure.classList.remove('is-interacting');
+            resetFigureTilt();
             resetLayers();
         };
 
-        const onMoveTiltOnly = () => {
+        const onMoveTiltOnly = (event) => {
             figure.classList.add('is-interacting');
+            updateFigureTilt(event);
         };
 
         const onLeaveTiltOnly = () => {
             figure.classList.remove('is-interacting');
+            resetFigureTilt();
         };
 
         const bindTiltOnly = () => {
@@ -1716,28 +1786,8 @@ const PortfolioApp = {
     // logo. Pupils are SVG <circle class="comp-pupil"> inside <g class="comp-eye">.
     bindCompositionEyes: function(svgRoot) {
         const eyes = svgRoot ? svgRoot.querySelectorAll('.comp-eye') : [];
-        if (!eyes.length) return;
-
-        const moveEyes = (px, py) => {
-            eyes.forEach((eye) => {
-                const pupil = eye.querySelector('.comp-pupil');
-                if (!pupil) return;
-                const r = eye.getBoundingClientRect();
-                if (!r.width) return;
-                const ex = r.left + r.width / 2;
-                const ey = r.top + r.height / 2;
-                const angle = Math.atan2(py - ey, px - ex);
-                const maxDist = r.width / 4;
-                const dist = Math.min(maxDist, Math.hypot(px - ex, py - ey));
-                pupil.style.transform =
-                    `translate(${(Math.cos(angle) * dist).toFixed(2)}px, ${(Math.sin(angle) * dist).toFixed(2)}px)`;
-            });
-        };
-
-        document.addEventListener('mousemove', (e) => moveEyes(e.clientX, e.clientY));
-        document.addEventListener('touchmove', (e) => {
-            if (e.touches.length) moveEyes(e.touches[0].clientX, e.touches[0].clientY);
-        }, { passive: true });
+        if (!eyes.length || typeof EyeFollow === 'undefined') return;
+        EyeFollow.registerNodeList(eyes, '.comp-pupil');
     },
 
     initSidebarMotion: function(pageType) {
@@ -1896,30 +1946,37 @@ const PortfolioApp = {
     initHomeCascadeAnimations: function() {
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const STEP_MS = 85;
+        const POP = 'home-reveal--bubble-pop';
 
         const steps = [
-            { selector: '.hero-title-line', extraClass: '' },
-            { selector: '.hero-identity-label', extraClass: '' },
-            { selector: '.hero-greeting-row .sidebar-social-link', extraClass: '' },
-            { selector: '.sidebar-intro', extraClass: '' },
-            { selector: '.home-hero-cta-wrap', extraClass: 'home-reveal--fade' },
-            { selector: '.home-header-composition', extraClass: 'home-reveal--pop' },
-            { selector: '.home-spotlight-card', extraClass: 'home-reveal--fade' },
-            { selector: '.stack-card', extraClass: 'home-reveal--fade', stepMs: 90 },
-            { selector: '.projects-more-title', extraClass: '' },
-            { selector: '.projects-more-intro', extraClass: '' },
-            { selector: '.projects-more-card', extraClass: 'home-reveal--deck', stepMs: 110 },
-            { selector: '.home-about-title', extraClass: '' },
-            { selector: '.home-about-copy', extraClass: '' },
-            { selector: '.home-about-note-stickers .note-deco-sticker', extraClass: 'home-reveal--sticker', stepMs: 90 },
-            { selector: '.home-about-photo-card', extraClass: 'home-reveal--photo', stepMs: 100 },
-            { selector: '.home-about-photo-stickers .photo-deco-sticker', extraClass: 'home-reveal--sticker', stepMs: 95 },
-            { selector: '.home-about-career .about-exp-group', extraClass: '' },
-            { selector: '.home-toolbox-stickers .tool-sticker', extraClass: 'home-reveal--fade' },
-            { selector: '.site-contact-col--intro', extraClass: '' },
-            { selector: '.site-contact-col--intro .sidebar-social-link', extraClass: '' },
-            { selector: '.site-contact-col--body', extraClass: '' },
-            { selector: '.site-contact-fields', extraClass: '' }
+            { selector: '.hero-title-line', extraClass: POP },
+            { selector: '.hero-identity-label', extraClass: POP },
+            { selector: '.hero-greeting-row .sidebar-social-link', extraClass: POP },
+            { selector: '.sidebar-intro', extraClass: POP },
+            { selector: '.home-hero-cta-wrap', extraClass: POP },
+            { selector: '.home-header-composition', extraClass: POP },
+            { selector: '.home-spotlight-card', extraClass: POP },
+            { selector: '.home-can-bring-title', extraClass: POP },
+            { selector: '.home-can-bring-scroll-hint', extraClass: POP },
+            { selector: '.home-can-bring-card', extraClass: POP, stepMs: 110 },
+            { selector: '.home-can-bring-ai-note', extraClass: POP },
+            { selector: '.stack-card', extraClass: POP, stepMs: 90 },
+            { selector: '.projects-more-title', extraClass: POP },
+            { selector: '.projects-more-intro', extraClass: POP },
+            { selector: '.projects-more-card', extraClass: POP, stepMs: 110 },
+            { selector: '.home-about-title', extraClass: POP },
+            { selector: '.home-about-copy', extraClass: POP },
+            { selector: '.home-about-note-stickers .note-deco-sticker', extraClass: POP, stepMs: 90 },
+            { selector: '.home-about-photo-card', extraClass: POP, stepMs: 100 },
+            { selector: '.home-about-photo-stickers .photo-deco-sticker', extraClass: POP, stepMs: 95 },
+            { selector: '.home-about-career .about-exp-group', extraClass: POP },
+            { selector: '.home-about-career .about-exp-item', extraClass: POP, stepMs: 95 },
+            { selector: '.home-toolbox-stickers .tool-sticker', extraClass: POP },
+            { selector: '.about-cta__intro, .about-cta__actions, .about-cta__socials', extraClass: POP, stepMs: 100 },
+            { selector: '.site-contact-col--intro', extraClass: POP },
+            { selector: '.site-contact-col--intro .sidebar-social-link', extraClass: POP },
+            { selector: '.site-contact-col--body', extraClass: POP },
+            { selector: '.site-contact-fields', extraClass: POP }
         ];
 
         const targets = [];
@@ -1939,6 +1996,8 @@ const PortfolioApp = {
 
         if (!targets.length) return;
 
+        this._homeRevealTargets = targets;
+
         const revealAll = () => {
             targets.forEach((el) => el.classList.add('is-revealed'));
         };
@@ -1949,7 +2008,29 @@ const PortfolioApp = {
         }
 
         this.bindHomeScrollReveal(targets);
+        this.revealAboveFoldHero(targets);
         this.bindAboutPhotoBubbleReveal();
+    },
+
+    revealAboveFoldHero: function(targets) {
+        const header = document.querySelector('.home-page-header');
+        if (!header) return;
+
+        const heroTargets = targets.filter((el) => header.contains(el) && !el.classList.contains('is-revealed'));
+        if (!heroTargets.length) return;
+
+        const revealStaggered = () => {
+            heroTargets.forEach((el, index) => {
+                window.setTimeout(() => {
+                    el.classList.add('is-revealed');
+                    if (this._homeRevealObserver) {
+                        this._homeRevealObserver.unobserve(el);
+                    }
+                }, index * 75);
+            });
+        };
+
+        requestAnimationFrame(() => requestAnimationFrame(revealStaggered));
     },
 
     bindAboutPhotoBubbleReveal: function() {
@@ -1957,7 +2038,7 @@ const PortfolioApp = {
         const bubble = document.querySelector('.home-about-photo-bubble');
         if (!frontPhoto || !bubble) return;
 
-        bubble.classList.add('home-reveal', 'home-reveal--pop', 'home-reveal--bubble');
+        bubble.classList.add('home-reveal', 'home-reveal--bubble-pop');
 
         const revealBubble = () => {
             bubble.classList.add('is-revealed');
@@ -1977,6 +2058,11 @@ const PortfolioApp = {
                 window.setTimeout(revealBubble, 80);
             };
 
+            frontPhoto.addEventListener('animationend', (event) => {
+                if (event.animationName === 'homeBubblePop') {
+                    finish();
+                }
+            }, { once: true });
             frontPhoto.addEventListener('transitionend', (event) => {
                 if (event.propertyName === 'transform' || event.propertyName === 'opacity') {
                     finish();
@@ -1996,6 +2082,11 @@ const PortfolioApp = {
             scheduleAfterPhoto();
         });
         observer.observe(frontPhoto, { attributes: true, attributeFilter: ['class'] });
+    },
+
+    refreshHomeScrollReveal: function() {
+        if (!this._homeRevealTargets || !this._homeRevealTargets.length) return;
+        this.bindHomeScrollReveal(this._homeRevealTargets);
     },
 
     getHomeScrollRoot: function() {

@@ -13,48 +13,15 @@ const MonsterLogic = {
         const monsterBody = document.querySelector('.monster-body');
         this.isInitialized = true;
 
-        // --- 1. EYES FOLLOW CURSOR ---
-        document.addEventListener('mousemove', (e) => {
-            eyes.forEach(eye => {
-                const pupil = eye.querySelector('.monster-pupil');
-                const rect = eye.getBoundingClientRect();
-                const eyeX = rect.left + rect.width / 2;
-                const eyeY = rect.top + rect.height / 2;
+        // --- 1. EYES FOLLOW CURSOR (shared rAF loop with nav + header) ---
+        if (typeof EyeFollow !== 'undefined') {
+            EyeFollow.registerNodeList(eyes, '.monster-pupil');
+        }
 
-                const angle = Math.atan2(e.clientY - eyeY, e.clientX - eyeX);
-                const maxDist = rect.width / 4;
-                const dist = Math.min(maxDist, Math.hypot(e.clientX - eyeX, e.clientY - eyeY));
-
-                const pupilX = Math.cos(angle) * dist;
-                const pupilY = Math.sin(angle) * dist;
-                pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
-            });
-        });
-
-        // --- 2. TOUCH SUPPORT (Mobile) ---
-        document.addEventListener('touchmove', (e) => {
-            if (!e.touches.length) return;
-            const touch = e.touches[0];
-            eyes.forEach(eye => {
-                const pupil = eye.querySelector('.monster-pupil');
-                const rect = eye.getBoundingClientRect();
-                const eyeX = rect.left + rect.width / 2;
-                const eyeY = rect.top + rect.height / 2;
-
-                const angle = Math.atan2(touch.clientY - eyeY, touch.clientX - eyeX);
-                const maxDist = rect.width / 4;
-                const dist = Math.min(maxDist, Math.hypot(touch.clientX - eyeX, touch.clientY - eyeY));
-
-                const pupilX = Math.cos(angle) * dist;
-                const pupilY = Math.sin(angle) * dist;
-                pupil.style.transform = `translate(${pupilX}px, ${pupilY}px)`;
-            });
-        }, { passive: true });
-
-        // --- 3. OCCASIONAL BLINKING ---
+        // --- 2. OCCASIONAL BLINKING ---
         this.startBlinking(eyes);
 
-        // --- 4. CLICK/TAP: Brief pulse + sparkles ---
+        // --- 3. CLICK/TAP: Brief pulse + sparkles ---
         if (monsterBody) {
             monsterBody.addEventListener('click', (e) => {
                 this.triggerClickEffect(monsterBody, {

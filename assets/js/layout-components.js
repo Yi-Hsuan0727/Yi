@@ -26,7 +26,10 @@ const LayoutComponents = {
             ? `<h1>${pageData.title}</h1>
             <div class="hero-greeting-row">
                 <p class="hero-identity-label">Product Designer Michelle Chen</p>
-                ${this.buildSidebarSocials()}
+                <div class="hero-social-cluster">
+                    ${this.buildHomeAboutQuickLink()}
+                    ${this.buildSidebarSocials()}
+                </div>
             </div>${introHTML}`
             : `${greetingHTML}<h1>${pageData.title}</h1>${projectMeta && projectMeta.subtitle ? `<span class="sidebar-meta-value">${projectMeta.subtitle}</span>` : ''}${tagsHTML ? `<div class="sidebar-tags">${tagsHTML}</div>` : ''}${introHTML}`;
         const heroContent = `<div class="hero-text">${heroInner}</div>`;
@@ -303,6 +306,14 @@ const LayoutComponents = {
             <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline footer-tech-inline">Claude ${this.buildHomeTechLogoClaude()}</a>.
             Hosted on
             <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer" class="home-header-tech-inline footer-tech-inline">GitHub ${this.buildHomeTechLogoGithub()}</a>.`;
+    },
+
+    buildHomeAboutQuickLink: function() {
+        return `
+            <a href="about.html" class="sidebar-about-quick-link cursor-hover" aria-label="About me page">
+                <img src="assets/img/Michelle/about%20me%20link.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <span class="sidebar-about-quick-link__label">About me</span>
+            </a>`;
     },
 
     buildSidebarSocials: function() {
