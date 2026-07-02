@@ -8,7 +8,7 @@ const AppLogic = {
         // Wait briefly for DOM to be ready
         setTimeout(() => {
             this.initSectionSnap();
-            this.initLenis();
+            this.initKeyboardScroll();
             this.initScrollLogic();
             this.initProjectCardTransitions();
             this.initCaseStudyVideos();
@@ -74,73 +74,89 @@ const AppLogic = {
         });
     },
 
-    _refreshLenis: function() {
-        if (window.__lenis) window.__lenis.resize();
-    },
+    // --- 2. SCROLLING ---
+    /* The page scrolls natively: #scroll-container on desktop, the window on
+       mobile (where #scroll-container becomes overflow:visible). Smooth scroll
+       physics come from CSS `scroll-behavior: smooth`, which is gated behind
+       prefers-reduced-motion: no-preference in style.css. */
 
-    _clearLenisRefreshTimers: function() {
-        if (this._lenisRefreshT100 != null) clearTimeout(this._lenisRefreshT100);
-        if (this._lenisRefreshT400 != null) clearTimeout(this._lenisRefreshT400);
-        this._lenisRefreshT100 = null;
-        this._lenisRefreshT400 = null;
-    },
-
-    _bindLenisLoadRefresh: function() {
-        if (this._lenisLoadHandler) return;
-        this._lenisLoadHandler = () => this._refreshLenis();
-        window.addEventListener('load', this._lenisLoadHandler);
-    },
-
-    _unbindLenisLoadRefresh: function() {
-        if (!this._lenisLoadHandler) return;
-        window.removeEventListener('load', this._lenisLoadHandler);
-        this._lenisLoadHandler = null;
-    },
-
-    // --- 2. SMOOTH SCROLL (LENIS) ---
-    initLenis: function() {
-        // Tear down any existing instance + its rAF loop. This is essential when
-        // the viewport crosses to mobile width: a leftover Lenis instance stays
-        // bound to #scroll-container (which becomes overflow:visible on mobile) and
-        // swallows wheel/touch gestures, leaving the page stuck at the top.
-        if (window.__lenis) {
-            if (this._lenisRaf) cancelAnimationFrame(this._lenisRaf);
-            this._lenisRaf = null;
-            window.__lenis.destroy();
-            window.__lenis = null;
+    /* The element keyboard/programmatic scrolling should move. */
+    getActiveScroller: function() {
+        const sc = document.getElementById('scroll-container');
+        if (sc && getComputedStyle(sc).overflowY !== 'visible' && sc.scrollHeight > sc.clientHeight + 5) {
+            return sc;
         }
+        return document.scrollingElement || document.documentElement;
+    },
 
-        if (window.innerWidth > 1200 && typeof Lenis !== 'undefined' && !document.querySelector('.app-root-playground')) {
-            const wrapper = document.getElementById('scroll-container');
-            const content = document.querySelector('.single-page-wrapper');
-            if (!wrapper || !content) return;
+    /* Native keyboard scrolling (WCAG 2.1.1). The desktop scroller is a div
+       that never holds focus, so browsers route Space/arrows/PageDown to the
+       document — which does not overflow. Translate those keys onto the real
+       scroller. Smoothness follows CSS scroll-behavior (behavior omitted =
+       'auto'), so reduced-motion users get instant jumps. */
+    initKeyboardScroll: function() {
+        if (AppLogic._keyboardScrollBound) return;
+        AppLogic._keyboardScrollBound = true;
 
-            const lenis = new Lenis({
-                wrapper,
-                content,
-                duration: 0.85,
-                smooth: true,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-            });
-            window.__lenis = lenis;
-            if (this._snapOnScroll) lenis.on('scroll', this._snapOnScroll);
+        const SCROLL_KEYS = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ', 'Spacebar'];
 
-            const raf = (time) => { lenis.raf(time); this._lenisRaf = requestAnimationFrame(raf); };
-            this._lenisRaf = requestAnimationFrame(raf);
+        document.addEventListener('keydown', (e) => {
+            if (e.defaultPrevented) return;
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
+            const key = e.key === 'Spacebar' ? ' ' : e.key;
+            if (SCROLL_KEYS.indexOf(key) === -1) return;
+            /* Shift only combines with Space (scroll up); Shift+arrows/Home/End
+               are selection/caret commands elsewhere. */
+            if (e.shiftKey && key !== ' ') return;
 
-            const refreshLenis = () => lenis.resize();
-            setTimeout(refreshLenis, 100);
-            setTimeout(refreshLenis, 400);
-            window.addEventListener('load', refreshLenis);
-        }
+            const target = e.target;
+            if (target && target.closest) {
+                /* Let form fields, buttons, media and dialogs keep their native
+                   key behavior (Space activates buttons, arrows move carets…). */
+                if (target.closest('input, textarea, select, button, [contenteditable="true"], [contenteditable=""], video, audio, [role="dialog"], dialog')) return;
+                /* Focus inside a nested scrollable region (not the page scroller):
+                   let the browser scroll that region natively. */
+                const scroller = this.getActiveScroller();
+                let node = target;
+                while (node && node !== document.body && node !== scroller) {
+                    if (node.scrollHeight > node.clientHeight + 5) {
+                        const oy = getComputedStyle(node).overflowY;
+                        if (oy === 'auto' || oy === 'scroll') return;
+                    }
+                    node = node.parentElement;
+                }
+            }
 
-        this.initLenisBreakpointWatcher();
+            const scroller = this.getActiveScroller();
+            const viewport = scroller === document.scrollingElement || scroller === document.documentElement
+                ? window.innerHeight
+                : scroller.clientHeight;
+            const page = Math.max(40, viewport * 0.85);
+            const maxTop = scroller.scrollHeight - viewport;
+
+            let top = null;
+            let delta = null;
+            if (key === 'ArrowUp') delta = -64;
+            else if (key === 'ArrowDown') delta = 64;
+            else if (key === 'PageUp') delta = -page;
+            else if (key === 'PageDown') delta = page;
+            else if (key === ' ') delta = e.shiftKey ? -page : page;
+            else if (key === 'Home') top = 0;
+            else if (key === 'End') top = maxTop;
+
+            e.preventDefault();
+            if (top !== null) {
+                scroller.scrollTo({ top });
+            } else if (delta !== null) {
+                scroller.scrollBy({ top: delta });
+            }
+        });
     },
 
     /* Gentle snap: when scrolling settles near a snap point, ease to it so users
        pause on each block. Snap points are the hero, each Featured/More-work card
        in the deck, and the What-can-I-bring / About sections. Mid-block scrolling
-       stays free. Works with Lenis (desktop) and native scroll (mobile). */
+       stays free. Works on the desktop container and native window scroll (mobile). */
     initSectionSnap: function() {
         const sc = document.getElementById('scroll-container');
         if (!sc) return;
@@ -154,7 +170,6 @@ const AppLogic = {
         // The scroller is #scroll-container on desktop, but the window on mobile
         // (where #scroll-container becomes overflow:visible).
         const getScroller = () => {
-            if (window.__lenis) return sc;
             if (sc && getComputedStyle(sc).overflowY !== 'visible' && sc.scrollHeight > sc.clientHeight + 5) return sc;
             return document.scrollingElement || document.documentElement;
         };
@@ -221,7 +236,7 @@ const AppLogic = {
             const isWindow = scroller === (document.scrollingElement || document.documentElement);
             const refTop = isWindow ? 0 : scroller.getBoundingClientRect().top;
             const viewport = isWindow ? window.innerHeight : scroller.clientHeight;
-            const current = window.__lenis ? window.__lenis.scroll : scroller.scrollTop;
+            const current = scroller.scrollTop;
 
             const positions = getSnapPositions(refTop, current, viewport);
             const canBringLanding = getCanBringPinLanding(refTop, current, viewport);
@@ -247,12 +262,7 @@ const AppLogic = {
                 ? Math.min(1.05, 0.65 + (bestDist / viewport) * 0.55)
                 : 0.55;
             lockUntil = Date.now() + Math.round(snapDuration * 1000) + 120;
-            if (window.__lenis) {
-                window.__lenis.scrollTo(target, {
-                    duration: snapDuration,
-                    easing: (t) => 1 - Math.pow(1 - t, 3)
-                });
-            } else if (isWindow) {
+            if (isWindow) {
                 window.scrollTo({ top: target, behavior: 'smooth' });
             } else {
                 scroller.scrollTo({ top: target, behavior: 'smooth' });
@@ -264,31 +274,8 @@ const AppLogic = {
             settleTimer = setTimeout(snapToNearest, 130);
         };
 
-        // Expose so initLenis can also hook Lenis' scroll event (covers desktop).
-        this._snapOnScroll = onScroll;
         sc.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('scroll', onScroll, { passive: true });
-
-        if (window.__lenis) {
-            window.__lenis.on('scroll', onScroll);
-        }
-    },
-
-    // Re-evaluate Lenis when the viewport crosses the 1200px breakpoint so smooth
-    // scroll is created on desktop and fully destroyed on mobile (bound once).
-    initLenisBreakpointWatcher: function() {
-        if (this._lenisBreakpointBound) return;
-        this._lenisBreakpointBound = true;
-        window.addEventListener('resize', () => {
-            const isMobile = window.innerWidth <= 1200;
-            if (isMobile) {
-                if (window.__lenis) this.initLenis();
-            } else if (!window.__lenis) {
-                this.initLenis();
-            } else {
-                window.__lenis.resize();
-            }
-        }, { passive: true });
     },
 
     // --- 3. SCROLL INTERACTIONS ---
@@ -315,11 +302,9 @@ const AppLogic = {
             if (!isCompact && currentScroll > COMPACT_ON) {
                 wrapper.classList.add('sidebar-compact');
                 isCompact = true;
-                if (window.__lenis) window.__lenis.resize();
             } else if (isCompact && currentScroll < COMPACT_OFF) {
                 wrapper.classList.remove('sidebar-compact');
                 isCompact = false;
-                if (window.__lenis) window.__lenis.resize();
             }
         };
     },
@@ -343,10 +328,7 @@ const AppLogic = {
 
         const onScroll = () => {
             let currentScroll, maxScroll;
-            if (!useWindowScroll && window.__lenis) {
-                currentScroll = window.__lenis.scroll;
-                maxScroll = window.__lenis.limit;
-            } else if (useWindowScroll) {
+            if (useWindowScroll) {
                 currentScroll = window.scrollY;
                 maxScroll = document.documentElement.scrollHeight - window.innerHeight;
             } else {
@@ -414,34 +396,26 @@ const AppLogic = {
             lastScroll = currentScroll <= 0 ? 0 : currentScroll;
         };
 
-        if (!useWindowScroll && window.__lenis) {
-            window.__lenis.on('scroll', onScroll);
-        } else {
-            scroller.addEventListener('scroll', onScroll, { passive: true });
-        }
+        scroller.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
 
         window.addEventListener('resize', () => {
             if (window.innerWidth <= 1200) {
                 updateSidebarCompact(0);
             } else {
-                const currentScroll = window.__lenis
-                    ? window.__lenis.scroll
-                    : (desktopContainer ? desktopContainer.scrollTop : 0);
-                updateSidebarCompact(currentScroll);
+                updateSidebarCompact(desktopContainer ? desktopContainer.scrollTop : 0);
             }
         }, { passive: true });
 
-        // Back to Top Button
+        // Back to Top Button (behavior omitted: CSS scroll-behavior decides,
+        // so reduced-motion users jump instantly)
         const backToTopBtn = document.querySelector('.back-to-top');
         if (backToTopBtn) {
             backToTopBtn.addEventListener('click', () => {
                 if (useWindowScroll) {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else if (window.__lenis) {
-                    window.__lenis.scrollTo(0);
+                    window.scrollTo({ top: 0 });
                 } else if (desktopContainer) {
-                    desktopContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                    desktopContainer.scrollTo({ top: 0 });
                 }
             });
         }

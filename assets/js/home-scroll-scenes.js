@@ -61,7 +61,6 @@ const HomeScrollScenes = {
         this.enabled = true;
         this.bindScroll();
         this.update();
-        this.refreshLenis();
         if (typeof PortfolioApp !== 'undefined' && PortfolioApp.refreshHomeScrollReveal) {
             PortfolioApp.refreshHomeScrollReveal();
         }
@@ -107,27 +106,6 @@ const HomeScrollScenes = {
         if (scroller) scroller.addEventListener('scroll', this.onScroll, { passive: true });
         window.addEventListener('scroll', this.onScroll, { passive: true });
         window.addEventListener('resize', this.onScroll, { passive: true });
-
-        if (window.__lenis) {
-            window.__lenis.on('scroll', this.onScroll);
-        } else {
-            this.waitForLenis();
-        }
-    },
-
-    waitForLenis: function() {
-        let attempts = 0;
-        const tick = () => {
-            if (!this.enabled) return;
-            if (window.__lenis) {
-                window.__lenis.on('scroll', this.onScroll);
-                this.update();
-                this.refreshLenis();
-                return;
-            }
-            if (++attempts < 40) setTimeout(tick, 50);
-        };
-        tick();
     },
 
     unbindScroll: function() {
@@ -137,12 +115,5 @@ const HomeScrollScenes = {
         if (scroller) scroller.removeEventListener('scroll', this.onScroll);
         window.removeEventListener('scroll', this.onScroll);
         window.removeEventListener('resize', this.onScroll);
-    },
-
-    refreshLenis: function() {
-        if (window.__lenis) {
-            window.__lenis.resize();
-            setTimeout(() => window.__lenis && window.__lenis.resize(), 150);
-        }
     }
 };

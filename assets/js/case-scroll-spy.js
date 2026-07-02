@@ -154,7 +154,6 @@ const CaseScrollSpy = {
 
     getScrollTop: function() {
         if (this.isMobile()) return window.scrollY || 0;
-        if (window.__lenis) return window.__lenis.scroll || 0;
         const root = this.getScrollRoot();
         return root ? root.scrollTop : 0;
     },
@@ -174,12 +173,15 @@ const CaseScrollSpy = {
 
     onNavClick: function(event, section) {
         event.preventDefault();
-        const isMobile = this.isMobile();
+        const root = this.getScrollRoot();
 
-        if (!isMobile && window.__lenis) {
-            window.__lenis.scrollTo(section, { offset: -20 });
+        /* behavior omitted: CSS scroll-behavior decides (smooth only under
+           prefers-reduced-motion: no-preference) */
+        if (!this.isMobile() && root) {
+            const top = this.getSectionScrollPos(section) - 20;
+            root.scrollTo({ top: Math.max(0, top) });
         } else {
-            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            section.scrollIntoView({ block: 'start' });
         }
 
         if (section.id) {
@@ -215,9 +217,7 @@ const CaseScrollSpy = {
 
         updateActive();
 
-        if (!this.isMobile() && window.__lenis) {
-            window.__lenis.on('scroll', onScroll);
-        } else if (this.isMobile()) {
+        if (this.isMobile()) {
             window.addEventListener('scroll', onScroll, { passive: true });
         } else {
             const root = this.getScrollRoot();

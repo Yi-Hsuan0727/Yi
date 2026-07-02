@@ -736,7 +736,7 @@ const PortfolioApp = {
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
             ${homeFonts}
             ${caseInfographicCss}
-            <style id="app-styles">html.lenis { height: auto; } .lenis.lenis-smooth { scroll-behavior: auto; } .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; } .lenis.lenis-stopped { overflow: hidden; } </style>
+            <style id="app-styles">/* marker: head assets injected */</style>
         `;
         document.head.insertAdjacentHTML('beforeend', headHTML);
     },
@@ -886,44 +886,23 @@ const PortfolioApp = {
 
         const offsetVal = offset ?? -16;
         const scrollRoot = document.getElementById('scroll-container');
-        const prefersLenis = window.innerWidth > 1200 && !!scrollRoot;
+        const useContainer = window.innerWidth > 1200 && !!scrollRoot;
 
         const runScroll = () => {
-            if (window.__lenis) {
-                window.__lenis.scrollTo(el, { offset: offsetVal });
-                return;
-            }
-
-            if (scrollRoot && prefersLenis) {
+            if (scrollRoot && useContainer) {
                 const rootRect = scrollRoot.getBoundingClientRect();
                 const elRect = el.getBoundingClientRect();
                 const top = scrollRoot.scrollTop + (elRect.top - rootRect.top) + offsetVal;
-                scrollRoot.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                /* behavior omitted: CSS scroll-behavior decides (smooth only
+                   under prefers-reduced-motion: no-preference) */
+                scrollRoot.scrollTo({ top: Math.max(0, top) });
                 return;
             }
 
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            el.scrollIntoView({ block: 'start' });
         };
 
-        const scheduleScroll = () => {
-            requestAnimationFrame(() => setTimeout(runScroll, 120));
-        };
-
-        if (window.__lenis || !prefersLenis) {
-            scheduleScroll();
-            return;
-        }
-
-        let attempts = 0;
-        const waitForLenis = () => {
-            if (window.__lenis || attempts >= 20) {
-                scheduleScroll();
-                return;
-            }
-            attempts += 1;
-            setTimeout(waitForLenis, 50);
-        };
-        waitForLenis();
+        requestAnimationFrame(() => setTimeout(runScroll, 120));
     },
 
     initHomeFeaturedWorkNav: function() {
@@ -931,13 +910,9 @@ const PortfolioApp = {
         this._homeFeaturedNavBound = true;
 
         const scrollHomeToTop = () => {
-            if (window.__lenis) {
-                window.__lenis.scrollTo(0, { immediate: true });
-            } else {
-                const scrollRoot = document.getElementById('scroll-container');
-                if (scrollRoot) scrollRoot.scrollTop = 0;
-                window.scrollTo(0, 0);
-            }
+            const scrollRoot = document.getElementById('scroll-container');
+            if (scrollRoot) scrollRoot.scrollTo({ top: 0, behavior: 'instant' });
+            window.scrollTo({ top: 0, behavior: 'instant' });
         };
 
         if (window.location.hash === '#featured-work') {
@@ -957,10 +932,6 @@ const PortfolioApp = {
     initHomeFeaturedStack: function() {
         const stack = document.querySelector('.home-featured-spotlights--stack');
         if (!stack) return;
-
-        const refreshLenis = () => {
-            if (window.__lenis) window.__lenis.resize();
-        };
 
         const syncStackSpacers = () => {
             const cards = stack.querySelectorAll('.home-spotlight-card');
@@ -988,7 +959,6 @@ const PortfolioApp = {
             stack.style.setProperty('--spotlight-stack-overlap', `${cardHeight}px`);
             stack.style.setProperty('--spotlight-stack-spacer', `${spacer}px`);
             stack.style.setProperty('--spotlight-stack-release', `${release}px`);
-            refreshLenis();
         };
 
         stack.querySelectorAll('.home-spotlight-card img').forEach((img) => {
@@ -1056,8 +1026,7 @@ const PortfolioApp = {
             requestAnimationFrame(update);
         };
 
-        /* Bind the native scroller (#scroll-container fires even while Lenis drives it,
-           and survives Lenis being torn down/recreated at the 1200px breakpoint) plus
+        /* Bind the native scroller (#scroll-container on desktop) plus
            window for the mobile/native-scroll case. */
         const scroller = document.getElementById('scroll-container');
         if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
@@ -1097,13 +1066,9 @@ const PortfolioApp = {
     },
 
     scrollHomeToTopImmediate: function() {
-        if (window.__lenis) {
-            window.__lenis.scrollTo(0, { immediate: true });
-            return;
-        }
         const scrollRoot = document.getElementById('scroll-container');
-        if (scrollRoot) scrollRoot.scrollTop = 0;
-        window.scrollTo(0, 0);
+        if (scrollRoot) scrollRoot.scrollTo({ top: 0, behavior: 'instant' });
+        window.scrollTo({ top: 0, behavior: 'instant' });
     },
 
     initHomeAboutNav: function() {
@@ -1174,13 +1139,10 @@ const PortfolioApp = {
             }
 
             e.preventDefault();
-            if (window.__lenis) {
-                window.__lenis.scrollTo(0, { immediate: false });
-            } else {
-                const scrollRoot = document.getElementById('scroll-container');
-                if (scrollRoot) scrollRoot.scrollTo({ top: 0, behavior: 'smooth' });
-                else window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+            /* behavior omitted: CSS scroll-behavior decides */
+            const scrollRoot = document.getElementById('scroll-container');
+            if (scrollRoot) scrollRoot.scrollTo({ top: 0 });
+            else window.scrollTo({ top: 0 });
             history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
         });
     },
@@ -1241,9 +1203,6 @@ const PortfolioApp = {
 
         const sync = () => this.syncTopNavDock();
         const bindScroller = () => {
-            if (window.__lenis) {
-                window.__lenis.on('scroll', sync);
-            }
             const scroller = document.getElementById('scroll-container');
             if (scroller) {
                 scroller.addEventListener('scroll', sync, { passive: true });
@@ -1299,7 +1258,6 @@ const PortfolioApp = {
         };
 
         const getScroll = () => {
-            if (window.__lenis) return window.__lenis.scroll;
             const root = document.getElementById('scroll-container');
             return root ? root.scrollTop : window.scrollY;
         };
@@ -1324,30 +1282,11 @@ const PortfolioApp = {
             lastScroll = currentScroll;
         };
 
-        const bind = () => {
-            if (window.__lenis) {
-                window.__lenis.on('scroll', update);
-            }
-            const scroller = document.getElementById('scroll-container');
-            if (scroller) {
-                scroller.addEventListener('scroll', () => update(), { passive: true });
-            }
-            update();
-        };
-
-        if (window.__lenis) {
-            bind();
-        } else {
-            let attempts = 0;
-            const wait = () => {
-                if (window.__lenis || ++attempts > 40) {
-                    bind();
-                    return;
-                }
-                setTimeout(wait, 50);
-            };
-            wait();
+        const scroller = document.getElementById('scroll-container');
+        if (scroller) {
+            scroller.addEventListener('scroll', () => update(), { passive: true });
         }
+        update();
     },
 
     initProjectNavMenu: function() {
@@ -1438,7 +1377,6 @@ const PortfolioApp = {
             if (isPlayground) return 0;
 
             const isMobile = window.innerWidth <= 1200;
-            if (!isMobile && window.__lenis) return window.__lenis.scroll;
             if (isMobile) return window.scrollY;
             const scrollRoot = document.getElementById('scroll-container');
             return scrollRoot ? scrollRoot.scrollTop : window.scrollY;
@@ -1496,29 +1434,12 @@ const PortfolioApp = {
             }
 
             const isMobile = window.innerWidth <= 1200;
-            if (!isMobile && window.__lenis) {
-                window.__lenis.on('scroll', onScroll);
-            } else {
-                const scroller = isMobile ? window : document.getElementById('scroll-container');
-                if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
-            }
+            const scroller = isMobile ? window : document.getElementById('scroll-container');
+            if (scroller) scroller.addEventListener('scroll', onScroll, { passive: true });
             updateNavVisibility();
         };
 
-        if (window.__lenis) {
-            bindScroll();
-        } else {
-            let attempts = 0;
-            const waitForLenis = () => {
-                if (window.__lenis || attempts >= 30) {
-                    bindScroll();
-                    return;
-                }
-                attempts += 1;
-                setTimeout(waitForLenis, 50);
-            };
-            waitForLenis();
-        }
+        bindScroll();
     },
 
     initMoreProjectsDeck: function() {
