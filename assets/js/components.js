@@ -1718,8 +1718,6 @@ const PortfolioApp = {
         const eyes = svgRoot ? svgRoot.querySelectorAll('.comp-eye') : [];
         if (!eyes.length) return;
 
-        const maxTravel = 7; // SVG user units — keeps the pupil inside the white
-
         const moveEyes = (px, py) => {
             eyes.forEach((eye) => {
                 const pupil = eye.querySelector('.comp-pupil');
@@ -1729,10 +1727,10 @@ const PortfolioApp = {
                 const ex = r.left + r.width / 2;
                 const ey = r.top + r.height / 2;
                 const angle = Math.atan2(py - ey, px - ex);
-                const ratio = Math.min(1, Math.hypot(px - ex, py - ey) / (r.width * 2));
-                const t = maxTravel * ratio;
+                const maxDist = r.width / 4;
+                const dist = Math.min(maxDist, Math.hypot(px - ex, py - ey));
                 pupil.style.transform =
-                    `translate(${(Math.cos(angle) * t).toFixed(2)}px, ${(Math.sin(angle) * t).toFixed(2)}px)`;
+                    `translate(${(Math.cos(angle) * dist).toFixed(2)}px, ${(Math.sin(angle) * dist).toFixed(2)}px)`;
             });
         };
 

@@ -219,7 +219,7 @@ const LayoutComponents = {
                         </div>
                         <div
                             class="home-header-composition__art"
-                            data-src="assets/img/Michelle/portfolio-composition-animated.svg?v=20260630i"
+                            data-src="assets/img/Michelle/portfolio-composition-animated.svg?v=20260701b"
                             role="img"
                             aria-hidden="true"
                         ></div>

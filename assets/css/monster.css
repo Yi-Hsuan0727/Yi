@@ -520,6 +520,9 @@ h2.monster-chat-bubble {
     .site-footer-monster .monster-body {
         position: relative;
         z-index: 1;
+        /* Add forehead so the eyes sit lower on the head (they're bottom-aligned
+           in a content-sized body, so top padding grows the green dome above them). */
+        padding-top: 26px;
     }
 
     .monster-speech-cluster {

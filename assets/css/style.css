@@ -1502,7 +1502,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     padding-bottom: 0;
 }
 #featured-work + #home-can-bring {
-    margin-top: 0;
+    margin-top: clamp(96px, 14vh, 168px);
 }
 .stack-card {
     position: relative;
@@ -2421,7 +2421,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .home-panel {
     width: 100%;
-    max-width: 800px;
+    max-width: none;
     margin-left: auto;
     margin-right: auto;
     padding: 40px 44px;
@@ -2448,13 +2448,21 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     font-weight: 400;
 }
 .home-can-bring-inner {
-    max-width: 800px;
+    max-width: none;
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
 }
 .home-can-bring-header {
     margin-bottom: 28px;
+}
+.home-can-bring-scroll-hint {
+    margin: 10px 0 0;
+    max-width: 420px;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--secondary-text);
 }
 .home-can-bring-title {
     margin-bottom: 0;
@@ -2498,6 +2506,17 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 @media (min-width: 861px) and (hover: hover) and (pointer: fine) {
     .home-can-bring-card:hover .home-can-bring-card-inner,
     .home-can-bring-card:focus-within .home-can-bring-card-inner {
+        transform: rotateY(180deg);
+    }
+}
+/* Scroll-pinned desktop scene flips cards via scroll — not hover. */
+@media (min-width: 1201px) and (prefers-reduced-motion: no-preference) {
+    html.home-scroll-scenes .home-can-bring-card:hover .home-can-bring-card-inner,
+    html.home-scroll-scenes .home-can-bring-card:focus-within .home-can-bring-card-inner {
+        transform: rotateY(0deg);
+    }
+    html.home-scroll-scenes .home-can-bring-card.is-flipped:hover .home-can-bring-card-inner,
+    html.home-scroll-scenes .home-can-bring-card.is-flipped:focus-within .home-can-bring-card-inner {
         transform: rotateY(180deg);
     }
 }
@@ -3823,10 +3842,15 @@ body.projects-more-modal-open {
 @keyframes siteTopNavSafetyReveal {
     to { visibility: visible; }
 }
-/* .site-top-nav--auto-hide.is-scroll-hidden {
-    transform: translateY(calc(-100% - 48px));
-    opacity: 0;
-} */
+/* Desktop keeps the nav visible (it becomes the vertical rail on scroll), so the
+   scroll-hide is scoped to mobile only — nav slides up on scroll-down and back
+   down on scroll-up (JS toggles .is-scroll-hidden in initScrollLogic). */
+@media (max-width: 1200px) {
+    .site-top-nav--auto-hide.is-scroll-hidden {
+        transform: translateY(calc(-100% - 48px));
+        opacity: 0;
+    }
+}
 .site-top-nav--auto-hide.is-scroll-hidden .site-top-nav__inner {
     pointer-events: none;
 }
@@ -4029,7 +4053,7 @@ body.projects-more-modal-open {
     height: 100%;
 }
 .site-top-nav__pupil {
-    transition: transform 0.08s ease-out;
+    transition: transform 0.1s ease-out;
 }
 .site-top-nav__name {
     font-size: 0.82rem;
@@ -4238,7 +4262,7 @@ body.projects-more-modal-open {
 /* Googly eyes on select shapes — pupils follow the cursor (see initHomeHeader
    Composition). Same easing as the nav logo pupils. */
 .home-header-composition__art .comp-pupil {
-    transition: transform 0.08s ease-out;
+    transition: transform 0.1s ease-out;
 }
 @media (max-width: 520px) {
     .site-top-nav {
@@ -8329,15 +8353,27 @@ body.case-figure-zoom-open #scroll-container {
     }
     .home-panel {
         width: 100%;
-        max-width: 800px;
+        max-width: none;
         padding: 26px 24px;
     }
-    .home-can-bring {
-        margin: 72px auto 72px;
-        padding: 0 20px;
+    #home-can-bring.home-can-bring.home-panel {
+        margin: 72px 20px;
+        padding: 24px 22px 28px;
+        width: auto;
+        max-width: none;
+        box-sizing: border-box;
     }
     #featured-work + #home-can-bring {
         margin-top: 72px;
+    }
+    #home-can-bring .projects-more-title {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+    .home-can-bring-scroll-hint {
+        display: none;
     }
     .home-can-bring-grid {
         grid-template-columns: 1fr;
@@ -8706,10 +8742,10 @@ body.case-figure-zoom-open #scroll-container {
     }
 
     html.home-scroll-scenes .home-scroll-pin-block--can-bring {
-        max-width: none;
+        max-width: 1280px;
         width: 100%;
         padding: 0 30px;
-        margin: 8vh auto 12vh;
+        margin: clamp(96px, 14vh, 168px) auto 12vh;
     }
 
     html.home-scroll-scenes .home-scroll-pin {
@@ -8732,14 +8768,14 @@ body.case-figure-zoom-open #scroll-container {
 
     html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-inner {
         width: 100%;
-        max-width: 800px;
+        max-width: none;
         margin: 0 auto;
     }
 
     html.home-scroll-scenes .home-scroll-pin--can-bring .home-panel,
     html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-inner {
         width: 100%;
-        max-width: 800px;
+        max-width: none;
     }
 
     html.home-scroll-scenes .home-scroll-pin--can-bring .home-panel {
@@ -8826,7 +8862,7 @@ body.case-figure-zoom-open #scroll-container {
     }
 
     html.home-scroll-scenes #home-can-bring.home-scroll-pin-block--can-bring {
-        margin: 8vh auto 12vh;
+        margin: clamp(96px, 14vh, 168px) auto 12vh;
     }
 }
 
