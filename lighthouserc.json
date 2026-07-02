@@ -1,0 +1,39 @@
+{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 1,
+      "settings": {
+        "chromeFlags": "--no-sandbox"
+      },
+      "url": [
+        "http://localhost:3000/index.html",
+        "http://localhost:3000/about.html",
+        "http://localhost:3000/playground.html",
+        "http://localhost:3000/pic2split.html",
+        "http://localhost:3000/unesco.html",
+        "http://localhost:3000/lcm.html",
+        "http://localhost:3000/uav.html",
+        "http://localhost:3000/lawfare.html",
+        "http://localhost:3000/agsec.html",
+        "http://localhost:3000/lt.html",
+        "http://localhost:3000/quickbite.html",
+        "http://localhost:3000/magnate.html",
+        "http://localhost:3000/spring.html",
+        "http://localhost:3000/dailymoo.html",
+        "http://localhost:3000/enchanter.html",
+        "http://localhost:3000/stiffy.html",
+        "http://localhost:3000/tnaf.html",
+        "http://localhost:3000/whatnow.html"
+      ]
+    },
+    "assert": {
+      "assertions": {
+        "categories:accessibility": ["error", { "minScore": 1 }],
+        "categories:performance": ["warn", { "minScore": 0.6 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

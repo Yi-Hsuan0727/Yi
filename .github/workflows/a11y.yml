@@ -1,0 +1,60 @@
+# Accessibility CI — runs on every push and pull request.
+#
+# What it does:
+#   1. Serves the static site locally (same files GitHub Pages deploys).
+#   2. Runs axe-core against every page, scoped to the WCAG 2.0/2.1 A + AA
+#      rulesets. Any violation fails the build.
+#   3. Runs Lighthouse CI on every page: the accessibility category must
+#      score 100 (build error below that); performance only warns.
+#
+# The axe step waits 2.5s after load so the entrance animations
+# (opacity fade-ins on case-study sections) reach their settled state —
+# otherwise axe snapshots text mid-fade and reports false contrast failures.
+
+name: Accessibility checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Serve the site
+        run: |
+          npx --yes serve -l 3000 . &
+          npx --yes wait-on http://localhost:3000 --timeout 30000
+
+      - name: axe-core — WCAG 2.1 A/AA scan of every page
+        # $CHROMEWEBDRIVER is preinstalled on GitHub runners and matches the
+        # runner's Chrome version.
+        run: |
+          PAGES="index.html about.html playground.html pic2split.html \
+                 unesco.html lcm.html uav.html lawfare.html agsec.html \
+                 lt.html quickbite.html magnate.html spring.html \
+                 dailymoo.html enchanter.html stiffy.html tnaf.html \
+                 whatnow.html"
+          FAILED=0
+          for page in $PAGES; do
+            echo "::group::axe $page"
+            npx --yes @axe-core/cli "http://localhost:3000/$page" \
+              --tags wcag2a,wcag2aa,wcag21a,wcag21aa \
+              --load-delay 2500 \
+              --chromedriver-path "$CHROMEWEBDRIVER/chromedriver" \
+              --exit || FAILED=1
+            echo "::endgroup::"
+          done
+          exit $FAILED
+
+      - name: Lighthouse CI — accessibility must score 100
+        run: npx --yes @lhci/cli@0.14.x autorun
