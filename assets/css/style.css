@@ -9311,3 +9311,67 @@ body.case-figure-zoom-open #scroll-container {
     font-weight: 400 !important;
 }
 
+
+/* =========================================================
+   ACCESSIBILITY: SKIP LINK + GLOBAL FOCUS INDICATORS
+   ========================================================= */
+
+/* Skip to main content — first focusable element on every page (WCAG 2.4.1).
+   Visually hidden until keyboard focus slides it in. */
+.skip-link {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 100001;
+    padding: 10px 18px;
+    background: var(--accent-color);
+    color: #111111;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    transform: translateY(calc(-100% - 20px));
+}
+.skip-link:focus {
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: no-preference) {
+    .skip-link { transition: transform 0.15s ease; }
+}
+
+/* The skip-link target should not show a ring of its own when it receives
+   programmatic focus. */
+#main-content:focus {
+    outline: none;
+}
+
+/* Global keyboard focus indicator (WCAG 2.4.7): one consistent 3px green
+   ring for every interactive element. Declared last with !important so the
+   scattered `outline: none` resets (kept for mouse users — :focus-visible
+   does not match mouse focus) can never remove the keyboard indicator. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+audio:focus-visible,
+video:focus-visible,
+iframe:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+    outline: 3px solid var(--accent-color) !important;
+    outline-offset: 3px;
+}
+
+/* On green surfaces the green ring would disappear — switch it to the
+   near-black those sections already use for text (≥3:1 against #2ecc71). */
+.site-footer-green a:focus-visible,
+.site-footer-green button:focus-visible,
+.site-contact-band a:focus-visible,
+.site-contact-band button:focus-visible,
+.site-contact-band input:focus-visible,
+.site-contact-band textarea:focus-visible,
+.skip-link:focus-visible {
+    outline-color: #111111 !important;
+}

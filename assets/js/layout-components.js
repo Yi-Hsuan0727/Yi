@@ -3,6 +3,12 @@
  */
 const LayoutComponents = {
 
+    /* First focusable element on every page (WCAG 2.4.1). Visually hidden
+       until keyboard focus lands on it — see .skip-link in style.css. */
+    buildSkipLink: function() {
+        return `<a class="skip-link" href="#main-content">Skip to main content</a>`;
+    },
+
     logoSVG: function() {
         return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><text x="32" y="54" font-size="72" font-weight="900" font-family="Arial" fill="#2ecc71" text-anchor="middle">M</text></svg>`;
     },

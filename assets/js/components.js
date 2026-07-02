@@ -787,6 +787,7 @@ const PortfolioApp = {
 
         if (pageType === 'about') {
             const layoutHTML = `
+                ${LayoutComponents.buildSkipLink()}
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
                 ${LayoutComponents.buildTopNav('about')}
@@ -794,9 +795,9 @@ const PortfolioApp = {
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
                             <div class="scroll-area" id="scroll-container">
-                                <div class="single-page-wrapper">
+                                <main class="single-page-wrapper" id="main-content" tabindex="-1">
                                     ${uniqueContent}
-                                </div>
+                                </main>
                             </div>
                         </div>
                     </div>
@@ -808,6 +809,7 @@ const PortfolioApp = {
 
         if (pageType === 'home') {
             const layoutHTML = `
+                ${LayoutComponents.buildSkipLink()}
                 ${LayoutComponents.buildMoreWorkPaintFilters()}
                 ${LayoutComponents.buildProgressBar()}
                 ${LayoutComponents.buildBackToTop()}
@@ -816,7 +818,7 @@ const PortfolioApp = {
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
                             <div class="scroll-area" id="scroll-container">
-                                <div class="single-page-wrapper">${finalContent}</div>
+                                <main class="single-page-wrapper" id="main-content" tabindex="-1">${finalContent}</main>
                             </div>
                         </div>
                     </div>
@@ -828,14 +830,15 @@ const PortfolioApp = {
 
         if (pageType === 'playground') {
             const layoutHTML = `
+                ${LayoutComponents.buildSkipLink()}
                 ${LayoutComponents.buildTopNav('playground')}
                 <div id="app-root" class="app-root-playground app-root-about">
                     <div class="content-wrapper content-wrapper-fullwidth">
                         <div class="right-panel right-panel-fullwidth">
                             <div class="scroll-area" id="scroll-container">
-                                <div class="single-page-wrapper">
+                                <main class="single-page-wrapper" id="main-content" tabindex="-1">
                                     ${finalContent}
-                                </div>
+                                </main>
                             </div>
                         </div>
                     </div>
@@ -851,6 +854,7 @@ const PortfolioApp = {
             : '';
 
         const layoutHTML = `
+            ${LayoutComponents.buildSkipLink()}
             ${LayoutComponents.buildProgressBar()}
             ${LayoutComponents.buildBackToTop()}
             ${LayoutComponents.buildTopNav(pageType)}
@@ -866,7 +870,7 @@ const PortfolioApp = {
                     </aside>
                         <div class="right-panel">
                         <div class="scroll-area" id="scroll-container">
-                            <div class="single-page-wrapper">${finalContent}</div>
+                            <main class="single-page-wrapper" id="main-content" tabindex="-1">${finalContent}</main>
                         </div>
                     </div>
                 </div>
