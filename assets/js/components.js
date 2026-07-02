@@ -593,8 +593,13 @@ const PortfolioApp = {
     },
 
     init: function(pageType) {
-        this.injectHead(pageType);
-        this.buildLayout(pageType);
+        /* Pages processed by scripts/prerender.mjs already contain the full
+           layout as static HTML (SEO + progressive enhancement); skip the
+           rebuild and only bind behaviors. */
+        if (!document.body.hasAttribute('data-prerendered')) {
+            this.injectHead(pageType);
+            this.buildLayout(pageType);
+        }
 
         const finishBoot = () => this.startAppEffects(pageType);
 

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playground - Michelle Chen</title>
@@ -9,24 +8,143 @@
     <link rel="stylesheet" href="assets/css/playground.css?v=20260630n">
     <link rel="stylesheet" href="assets/css/monster.css?v=20260630n">
     <link rel="stylesheet" href="assets/css/cursor.css?v=20260630n">
-    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
-    <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
-</head>
-<body>
-    <div id="page-specific-content" style="display: none;"></div>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async=""></script>
+    <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer=""></script>
 
-
-    <script src="assets/js/bubble-confetti.js?v=20260630n"></script>
-    <script src="assets/js/monster.js?v=20260630n"></script>
-    <script src="assets/js/contact-form.js?v=20260630n"></script>
-    <script src="assets/js/playground-board.js?v=20260630n"></script>
-    <script src="assets/js/cursor.js?v=20260630n"></script>
-    <script src="assets/js/index.js?v=20260702a"></script>
-    <script src="assets/js/layout-components.js?v=20260630n"></script>
-    <script src="assets/js/components.js?v=20260702a"></script>
-
-    <script>
+            
+            
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            
+            
+            <style id="app-styles">/* marker: head assets injected */</style>
+        </head>
+<body class="is-playground-page" data-prerendered="1">
+                <a class="skip-link" href="#main-content">Skip to main content</a>
+                
+            <nav class="site-top-nav site-top-nav--auto-hide" aria-label="Primary">
+                <div class="site-top-nav__inner">
+                    <a href="index.html" class="site-top-nav__brand cursor-hover" aria-label="Home">
+                        <span class="site-top-nav__avatar" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28" focusable="false">
+                                <rect width="64" height="64" fill="#2ecc71"></rect>
+                                <g class="site-top-nav__eye">
+                                    <ellipse fill="#fff" cx="18" cy="32" rx="10.5" ry="9.5"></ellipse>
+                                    <circle class="site-top-nav__pupil" fill="#111" cx="18" cy="32" r="4.2"></circle>
+                                </g>
+                                <g class="site-top-nav__eye">
+                                    <ellipse fill="#fff" cx="46" cy="32" rx="10.5" ry="9.5"></ellipse>
+                                    <circle class="site-top-nav__pupil" fill="#111" cx="46" cy="32" r="4.2"></circle>
+                                </g>
+                            </svg>
+                        </span>
+                    </a>
+                    <ul class="site-top-nav__links" id="site-top-nav-menu">
+                        <li><a class="site-top-nav__link cursor-hover" href="index.html#featured-work" aria-label="Work"><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></span></a></li>
+                        <li><a class="site-top-nav__link site-top-nav__link--current cursor-hover" href="playground.html" aria-label="Play" aria-current="page"><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></span></a></li>
+                        <li><a class="site-top-nav__link cursor-hover" href="about.html" aria-label="About"><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas fa-user"></i></span></a></li>
+                        <li><a class="site-top-nav__link cursor-hover" href="index.html#contact" aria-label="Contact"><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas fa-envelope"></i></span></a></li>
+                    </ul>
+                    <button type="button" class="site-top-nav__menu-toggle cursor-hover" aria-label="Open menu" aria-expanded="false" aria-controls="site-top-nav-menu">
+                        <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--open" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2.5 5h11M2.5 8h11M2.5 11h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                        </span>
+                        <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--close" aria-hidden="true">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 4l8 8M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </nav>
+                <div id="app-root" class="app-root-playground app-root-about">
+                    <div class="content-wrapper content-wrapper-fullwidth">
+                        <div class="right-panel right-panel-fullwidth">
+                            <div class="scroll-area" id="scroll-container">
+                                <main class="single-page-wrapper" id="main-content" tabindex="-1">
+                                    
+            <section class="playground-page" aria-labelledby="playground-board-title">
+                <div class="playground-board-shell">
+                    <header class="playground-board-header">
+                        <div class="playground-board-header__icon" aria-hidden="true">
+                            <i class="far fa-image"></i>
+                            <i class="far fa-image"></i>
+                        </div>
+                        <h1 class="playground-board-header__title" id="playground-board-title">Playground</h1>
+                        <p class="playground-board-header__subtitle">Old work, side projects, or random explorations</p>
+                        <p class="playground-board-header__hint">Drag the pieces around the board</p>
+                    </header>
+                    <div class="playground-board" id="playground-board">
+                        <div class="playground-item playground-item--project playground-item--linked" data-playground-id="enchanter" data-href="https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game" data-href-external="true" aria-label="Enchanter game. Opens in a new tab" style="--pg-x:20%;--pg-y:24%;--pg-rotate:3deg;--pg-z:3;--pg-width:128px">
+                    <div class="playground-item__media" role="img" aria-label="Enchanter game">
+                        <img src="assets/img/playground/Enchanter.png" alt="Enchanter game" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    <p class="playground-item__caption">Enchanter — 3D adventure game on Endstar</p>
+                </div><div class="playground-item playground-item--note playground-item--award-note playground-item--award-note--enchanter" data-playground-id="note-enchanter-award" style="--pg-x:17%;--pg-y:19%;--pg-rotate:5deg;--pg-z:16;--pg-width:98px">
+                    <svg class="playground-award-arrow playground-award-arrow--enchanter" viewBox="0 0 72 40" aria-hidden="true" focusable="false">
+            <path d="M2 6 C22 4 48 18 68 34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4"></path>
+            <path d="M62 30 L68 34 L62 38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+                    <p>People's Choice<br>Endstar Spark '25</p>
+                </div><div class="playground-item playground-item--project playground-item--no-caption" data-playground-id="tnaf-mockup" style="--pg-x:38%;--pg-y:20%;--pg-rotate:2deg;--pg-z:9;--pg-width:168px">
+                    <div class="playground-item__media" role="img" aria-label="TNAF mobile mockups">
+                        <img src="assets/img/playground/tnaf-mockup.png" alt="TNAF mobile mockups" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    
+                </div><div class="playground-item playground-item--project playground-item--linked" data-playground-id="spring" data-href="spring/phome.html" aria-label="Echoes of the Four Seasons typography prototype. Opens project site" style="--pg-x:56%;--pg-y:22%;--pg-rotate:-3deg;--pg-z:11;--pg-width:108px">
+                    <div class="playground-item__media" role="img" aria-label="Echoes of the Four Seasons typography prototype">
+                        <img src="assets/img/playground/spring-before.png" alt="Echoes of the Four Seasons typography prototype" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    <p class="playground-item__caption">Echoes of the Four Seasons — interactive typography</p>
+                </div><div class="playground-item playground-item--project playground-item--no-caption" data-playground-id="tnaf-gif" style="--pg-x:72%;--pg-y:17%;--pg-rotate:8deg;--pg-z:13;--pg-width:168px">
+                    <div class="playground-item__media" role="img" aria-label="TNAF interaction GIF">
+                        <img src="assets/img/playground/tnaf.gif" alt="TNAF interaction GIF" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    
+                </div><div class="playground-item playground-item--project playground-item--linked" data-playground-id="dailymoo" data-href="https://devpost.com/software/daily-moo-mood" data-href-external="true" aria-label="Daily Moo Mood interface. Opens in a new tab" style="--pg-x:20%;--pg-y:60%;--pg-rotate:6deg;--pg-z:4;--pg-width:158px">
+                    <div class="playground-item__media" role="img" aria-label="Daily Moo Mood interface">
+                        <img src="assets/img/playground/DailyMooMood.png" alt="Daily Moo Mood interface" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    <p class="playground-item__caption">Daily Moo Mood — cow-themed emotional wellness tracker</p>
+                </div><div class="playground-item playground-item--note playground-item--award-note playground-item--award-note--dailymoo" data-playground-id="note-dailymoo-award" style="--pg-x:17%;--pg-y:54%;--pg-rotate:-8deg;--pg-z:15;--pg-width:98px">
+                    <svg class="playground-award-arrow playground-award-arrow--dailymoo" viewBox="0 0 72 40" aria-hidden="true" focusable="false">
+            <path d="M2 6 C22 4 48 18 68 34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="3 4"></path>
+            <path d="M62 30 L68 34 L62 38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+                    <p>2nd Place<br>RoseHack 2025</p>
+                </div><div class="playground-item playground-item--project" data-playground-id="me-teammate" style="--pg-x:38%;--pg-y:66%;--pg-rotate:-4deg;--pg-z:8;--pg-width:192px">
+                    <div class="playground-item__media" role="img" aria-label="Me and teammates at a design sprint">
+                        <img src="assets/img/playground/me and teammate.png" alt="Me and teammates at a design sprint" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    <p class="playground-item__caption">My team mid affinity-mapping, sticky notes everywhere</p>
+                </div><div class="playground-item playground-item--project playground-item--linked" data-playground-id="stiffy" data-href="https://devpost.com/software/stiffy-wanderers" data-href-external="true" aria-label="Stiffy Wanderers. Opens in a new tab" style="--pg-x:68%;--pg-y:62%;--pg-rotate:-5deg;--pg-z:7;--pg-width:142px">
+                    <div class="playground-item__media" role="img" aria-label="Stiffy Wanderers">
+                        <img src="assets/img/main images/Stiffy.png" alt="Stiffy Wanderers" loading="lazy" decoding="async" draggable="false">
+                    </div>
+                    <p class="playground-item__caption">Stiffy Wanderers — location-based mobile game</p>
+                </div><div class="playground-item playground-item--note" data-playground-id="note-yellow" style="--pg-x:62%;--pg-y:70%;--pg-rotate:-5deg;--pg-z:6;--pg-width:128px">
+                    
+                    <p>Keep the weird ideas.<br>Some of them become projects.</p>
+                </div>
+                    </div>
+                </div>
+            </section>
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+<script src="assets/js/bubble-confetti.js?v=20260630n"></script>
+<script src="assets/js/monster.js?v=20260630n"></script>
+<script src="assets/js/contact-form.js?v=20260630n"></script>
+<script src="assets/js/playground-board.js?v=20260630n"></script>
+<script src="assets/js/cursor.js?v=20260630n"></script>
+<script src="assets/js/index.js?v=20260702a"></script>
+<script src="assets/js/layout-components.js?v=20260702a"></script>
+<script src="assets/js/components.js?v=20260702a"></script>
+<script>
         PortfolioApp.init('playground');
     </script>
-</body>
-</html>
+</body></html>
