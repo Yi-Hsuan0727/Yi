@@ -2,7 +2,7 @@
  * ContactFormLogic: Footer contact form submission and success states.
  */
 const ContactFormLogic = {
-    recipientEmail: 'hello@themichellechen.com', /* TODO: confirm final contact address */
+    recipientEmail: 'yche1356@asu.edu',
     /* TODO: once the final contact address is confirmed, create/verify a new
        formsubmit.co endpoint for it and update this URL. Left on the ASU
        address for now so form delivery keeps working — a placeholder here

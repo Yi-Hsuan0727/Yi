@@ -357,11 +357,10 @@ const LayoutComponents = {
     },
 
     buildSidebarSocials: function() {
-        /* TODO: confirm final contact address — hello@themichellechen.com is a placeholder */
         return `
             <div class="sidebar-socials" aria-label="Social links">
                 <a href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" class="sidebar-social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:hello@themichellechen.com" class="sidebar-social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="mailto:yche1356@asu.edu" class="sidebar-social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 <a href="assets/docs/Michelle-Chen-Resume.pdf" target="_blank" rel="noopener noreferrer" class="sidebar-social-link sidebar-resume-link">Resume</a>
             </div>`;
     },
@@ -856,7 +855,7 @@ const LayoutComponents = {
             ? `<div class="socials">
                         <span class="connect-label" style="font-weight:700;">Connect with me:</span>
                         <a href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="mailto:hello@themichellechen.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        <a href="mailto:yche1356@asu.edu" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
                         <a href="assets/docs/Michelle-Chen-Resume.pdf" target="_blank" rel="noopener noreferrer" class="social-link resume-link">Resume</a>
                     </div>`
             : '';
