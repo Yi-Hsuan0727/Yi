@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grass Planet · Bloom · three.js</title>
+<meta name="description" content="An interactive 3D grass planet — rotate it, or click the grass to make a realistic flower bloom, with soft ambient music." />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0a1226;
+    -webkit-tap-highlight-color: transparent; }
+  canvas { display: block; }
+  .ui { position: fixed; left: 16px; top: 14px; display: flex; gap: 8px; flex-wrap: wrap; z-index: 5;
+        font: 13px/1 ui-sans-serif, system-ui, sans-serif; }
+  .ui button { border: 0; padding: 10px 14px; border-radius: 12px; cursor: pointer;
+        background: rgba(255,255,255,.12); color: #eafff0; backdrop-filter: blur(8px);
+        transition: background .15s, transform .1s; }
+  .ui button:hover { background: rgba(255,255,255,.24); }
+  .ui button:active { transform: scale(.96); }
+  .ui button.on { background: rgba(150,255,190,.28); color: #f2fff7; }
+  .title { position: fixed; right: 18px; top: 16px; z-index: 5; text-align: right;
+        font: 600 15px/1.3 ui-sans-serif, system-ui, sans-serif; color: #d6ffe6;
+        text-shadow: 0 1px 12px rgba(0,0,0,.5); user-select: none; }
+  .title span { display:block; font-weight: 400; font-size: 12px; color: #9fd8b8; margin-top:3px; }
+  .hint { position: fixed; left: 16px; bottom: 14px; z-index: 5;
+        font: 13px/1.6 ui-monospace, Menlo, monospace; color: #a9d9bf; user-select: none;
+        text-shadow: 0 1px 8px rgba(0,0,0,.6); }
+  .hint b { color: #ecfff4; }
+  .loader { position: fixed; inset: 0; display: grid; place-items: center; z-index: 20;
+        background: #0a1226; color: #bfeecd; font: 14px ui-sans-serif, system-ui, sans-serif;
+        transition: opacity .6s; }
+</style>
+    <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
+</head>
+<body>
+<div class="loader" id="loader">planting grass…</div>
+<div class="ui">
+  <button id="bloom">🌼 Bloom one</button>
+  <button id="music" class="on">♪ Music</button>
+  <button id="reset">Reset</button>
+</div>
+<div class="title">Grass Planet<span>click the grass to make it bloom</span></div>
+<div class="hint"><b>Drag</b> to spin · <b>Scroll</b> to rotate · <b>Click</b> the grass to bloom a flower · it turns on its own too</div>
+<script>
+let scene, camera, renderer, clock, world, ground, grassMesh, grassMat;
+const R = 10;                       // planet radius
+const BLADES = 7000;
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const flowers = [];
+const FLOWER_CAP = 160;
+
+// rotation / interaction state
+let rotX = 0.25, rotY = 0, velX = 0, velY = 0;
+let dragging = false, lastX = 0, lastY = 0, downX = 0, downY = 0, downT = 0, moved = 0;
+const AUTO_SPIN = 0.00035;
+
+const PETAL_COLORS = [
+  0xff6b9d, 0xff8fab, 0xffd1e0, 0xffe066, 0xffb14e,
+  0xc490f0, 0x9d7be8, 0x8ad4ff, 0xff5e5e, 0xffffff, 0xffc0cb, 0xf4a0ff
+];
+
+function init() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0a1226);
+  scene.fog = new THREE.FogExp2(0x0a1226, 0.012);
+
+  camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.1, 400);
+  camera.position.set(0, 6, 30);
+  camera.lookAt(0, 0, 0);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  document.body.appendChild(renderer.domElement);
+  clock = new THREE.Clock();
+
+  // ---- lights ----
+  scene.add(new THREE.HemisphereLight(0xbfe0ff, 0x24402c, 0.85));
+  const sun = new THREE.DirectionalLight(0xfff2d6, 1.35);
+  sun.position.set(24, 18, 20); scene.add(sun);
+  const rim = new THREE.DirectionalLight(0x88aaff, 0.4);
+  rim.position.set(-20, -6, -18); scene.add(rim);
+  scene.add(new THREE.AmbientLight(0x334455, 0.5));
+
+  world = new THREE.Group();
+  scene.add(world);
+
+  makeStars();
+  makePlanet();
+  makeGrass();
+  makeAtmosphere();
+
+  document.getElementById('loader').style.opacity = 0;
+  setTimeout(() => { const l = document.getElementById('loader'); if (l) l.remove(); }, 650);
+
+  // ---- input ----
+  addEventListener('resize', onResize);
+  const el = renderer.domElement;
+  el.addEventListener('pointerdown', onDown);
+  addEventListener('pointerup', onUp);
+  addEventListener('pointermove', onMove);
+  el.addEventListener('wheel', e => { velY += e.deltaY * 0.00035; velX += e.deltaX * 0.0002; e.preventDefault(); }, { passive: false });
+
+  document.getElementById('bloom').onclick = () => { startAudio(); bloomFlower(randUnit().multiplyScalar(R * 0.99)); };
+  document.getElementById('reset').onclick = () => location.reload();
+  document.getElementById('music').onclick = () => { startAudio(); toggleMusic(); };
+}
+
+// ---------- stars ----------
+function makeStars() {
+  const g = new THREE.BufferGeometry();
+  const n = 1400, arr = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) {
+    const v = randUnit().multiplyScalar(120 + Math.random() * 140);
+    arr[i*3] = v.x; arr[i*3+1] = v.y; arr[i*3+2] = v.z;
+  }
+  g.setAttribute('position', new THREE.BufferAttribute(arr, 3));
+  const m = new THREE.PointsMaterial({ color: 0xbcd6ff, size: 0.7, sizeAttenuation: true, transparent: true, opacity: 0.85 });
+  scene.add(new THREE.Points(g, m));
+}
+
+// ---------- planet body ----------
+function makePlanet() {
+  const geo = new THREE.SphereGeometry(R, 96, 96);
+  const pos = geo.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  const c = new THREE.Color();
+  const v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    v.set(pos.getX(i), pos.getY(i), pos.getZ(i)).normalize();
+    // layered value noise -> continents
+    const n = fbm(v.x * 1.6 + 3.1, v.y * 1.6 - 2.0, v.z * 1.6 + 5.5);
+    let h, s, l;
+    if (n < 0.36) { h = 0.55; s = 0.55; l = 0.34; }             // water-ish lowland
+    else if (n < 0.5) { h = 0.42; s = 0.5; l = 0.30; }           // damp soil
+    else if (n < 0.74) { h = 0.33; s = 0.58; l = 0.30 + (n-0.5)*0.25; } // grassland
+    else { h = 0.28; s = 0.35; l = 0.42; }                        // rock / peaks
+    c.setHSL(h, s, l);
+    colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
+    // gentle relief
+    const disp = 1 + (n - 0.5) * 0.05;
+    pos.setXYZ(i, v.x * R * disp, v.y * R * disp, v.z * R * disp);
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.computeVertexNormals();
+  const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0.0, flatShading: false });
+  ground = new THREE.Mesh(geo, mat);
+  world.add(ground);
+}
+
+function makeAtmosphere() {
+  const geo = new THREE.SphereGeometry(R * 1.14, 48, 48);
+  const mat = new THREE.MeshBasicMaterial({ color: 0x7fd8a8, transparent: true, opacity: 0.10, side: THREE.BackSide, blending: THREE.AdditiveBlending });
+  world.add(new THREE.Mesh(geo, mat));
+}
+
+// ---------- grass ----------
+function bladeGeometry() {
+  const h = 1, w = 0.09, segs = 4;
+  const geo = new THREE.PlaneGeometry(w, h, 1, segs);
+  geo.translate(0, h / 2, 0);            // base at y=0, tip at y=1
+  const pos = geo.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  const base = new THREE.Color(0x2f6b30), tip = new THREE.Color(0x8fe06a);
+  const c = new THREE.Color();
+  for (let i = 0; i < pos.count; i++) {
+    const y = pos.getY(i);
+    // taper toward the tip
+    pos.setX(i, pos.getX(i) * (1 - y * 0.85));
+    c.copy(base).lerp(tip, y * y);
+    colors[i*3] = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.computeVertexNormals();
+  return geo;
+}
+
+function makeGrass() {
+  grassMat = new THREE.MeshStandardMaterial({ vertexColors: true, side: THREE.DoubleSide, roughness: 0.85, metalness: 0.0 });
+  grassMat.onBeforeCompile = (shader) => {
+    shader.uniforms.uTime = { value: 0 };
+    grassMat.userData.shader = shader;
+    shader.vertexShader = 'uniform float uTime;\n' + shader.vertexShader;
+    shader.vertexShader = shader.vertexShader.replace(
+      '#include <begin_vertex>',
+      `#include <begin_vertex>
+       float bladeH = position.y;
+       vec4 wp = modelMatrix * instanceMatrix * vec4(0.0, 0.0, 0.0, 1.0);
+       float ph = wp.x * 0.6 + wp.z * 0.6 + wp.y * 0.4;
+       float sway = sin(uTime * 1.6 + ph) * 0.14 + sin(uTime * 3.3 + ph * 1.7) * 0.05;
+       float k = pow(bladeH, 1.6);
+       transformed.x += sway * k;
+       transformed.z += sway * 0.45 * k;
+      `
+    );
+  };
+
+  grassMesh = new THREE.InstancedMesh(bladeGeometry(), grassMat, BLADES);
+  const dummy = new THREE.Object3D();
+  const up = new THREE.Vector3(0, 1, 0);
+  const gold = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < BLADES; i++) {
+    // fibonacci sphere + jitter
+    const t = (i + 0.5) / BLADES;
+    const y = 1 - t * 2;
+    const r = Math.sqrt(1 - y * y);
+    const th = gold * i;
+    const dir = new THREE.Vector3(Math.cos(th) * r, y, Math.sin(th) * r);
+    dir.x += (Math.random() - 0.5) * 0.05;
+    dir.z += (Math.random() - 0.5) * 0.05;
+    dir.normalize();
+
+    dummy.position.copy(dir).multiplyScalar(R * 0.985);
+    dummy.quaternion.setFromUnitVectors(up, dir);
+    dummy.rotateY(Math.random() * Math.PI * 2);
+    dummy.rotateX((Math.random() - 0.5) * 0.35);
+    const hs = 0.5 + Math.random() * 0.7;
+    const ws = 0.8 + Math.random() * 0.5;
+    dummy.scale.set(ws, hs, 1);
+    dummy.updateMatrix();
+    grassMesh.setMatrixAt(i, dummy.matrix);
+  }
+  grassMesh.instanceMatrix.needsUpdate = true;
+  world.add(grassMesh);
+}
+
+// ---------- flowers ----------
+function petalGeometry(len, wid) {
+  const s = new THREE.Shape();
+  s.moveTo(0, 0);
+  s.bezierCurveTo(wid, len * 0.18, wid, len * 0.78, 0, len);
+  s.bezierCurveTo(-wid, len * 0.78, -wid, len * 0.18, 0, 0);
+  const g = new THREE.ShapeGeometry(s, 14);
+  const p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i), y = p.getY(i);
+    // cup the petal + slight lengthwise curl
+    p.setZ(i, -0.9 * (x * x) - 0.06 * Math.sin((y / len) * Math.PI));
+  }
+  g.computeVertexNormals();
+  return g;
+}
+
+function bloomFlower(localPoint) {
+  const up = localPoint.clone().normalize();
+  const flower = new THREE.Group();
+  flower.position.copy(localPoint);
+  flower.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), up);
+  flower.scale.setScalar(0.001);
+
+  const stemH = 0.7 + Math.random() * 0.7;
+  const stemMat = new THREE.MeshStandardMaterial({ color: 0x3f8a3a, roughness: 0.8 });
+  const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.05, stemH, 6), stemMat);
+  stem.position.y = stemH / 2;
+  flower.add(stem);
+
+  // a small leaf on the stem
+  const leaf = new THREE.Mesh(petalGeometry(0.34, 0.16), new THREE.MeshStandardMaterial({ color: 0x4ea34a, roughness: 0.8, side: THREE.DoubleSide }));
+  leaf.position.y = stemH * 0.45;
+  leaf.rotation.set(-1.1, Math.random() * 6.28, 0);
+  leaf.scale.setScalar(0.9);
+  flower.add(leaf);
+
+  const head = new THREE.Group();
+  head.position.y = stemH;
+  flower.add(head);
+
+  const col = PETAL_COLORS[(Math.random() * PETAL_COLORS.length) | 0];
+  const petalMat = new THREE.MeshStandardMaterial({ color: col, roughness: 0.55, metalness: 0.0,
+    side: THREE.DoubleSide, emissive: new THREE.Color(col).multiplyScalar(0.12) });
+
+  const N = 5 + ((Math.random() * 4) | 0);
+  const len = 0.36 + Math.random() * 0.16, wid = 0.14 + Math.random() * 0.06;
+  const pg = petalGeometry(len, wid);
+  const petals = [];
+  // two rings for a fuller flower
+  const rings = Math.random() < 0.5 ? 2 : 1;
+  for (let ring = 0; ring < rings; ring++) {
+    const rn = N + ring;
+    for (let i = 0; i < rn; i++) {
+      const pivot = new THREE.Group();
+      pivot.rotation.y = (i / rn) * Math.PI * 2 + ring * 0.4;
+      const m = new THREE.Mesh(pg, petalMat);
+      m.rotation.x = 0;               // closed (pointing up)
+      m.scale.setScalar(ring === 0 ? 1 : 0.72);
+      pivot.add(m);
+      head.add(pivot);
+      petals.push({ mesh: m, open: (ring === 0 ? 1.28 : 0.95) });
+    }
+  }
+
+  // center + stamens
+  const center = new THREE.Mesh(new THREE.SphereGeometry(0.13, 14, 12),
+    new THREE.MeshStandardMaterial({ color: 0xffcf3f, roughness: 0.6, emissive: 0x3a2a00 }));
+  center.scale.y = 0.6;
+  head.add(center);
+  for (let i = 0; i < 9; i++) {
+    const a = (i / 9) * Math.PI * 2;
+    const st = new THREE.Mesh(new THREE.SphereGeometry(0.028, 6, 6),
+      new THREE.MeshStandardMaterial({ color: 0xfff2a8, emissive: 0x554400 }));
+    st.position.set(Math.cos(a) * 0.09, 0.09, Math.sin(a) * 0.09);
+    head.add(st);
+  }
+
+  world.add(flower);
+  flowers.push({ flower, head, petals, birth: clock.elapsedTime, dur: 1.1 + Math.random() * 0.6,
+    phase: Math.random() * 6.28, swayAmp: 0.03 + Math.random() * 0.04 });
+
+  // sparkle burst
+  sparkle(localPoint, up);
+
+  // cap
+  if (flowers.length > FLOWER_CAP) {
+    const old = flowers.shift();
+    world.remove(old.flower);
+    old.flower.traverse(o => { if (o.geometry && o.geometry !== pg) o.geometry.dispose && o.geometry.dispose(); });
+  }
+}
+
+const sparkles = [];
+function sparkle(localPoint, up) {
+  const n = 10;
+  const g = new THREE.BufferGeometry();
+  const arr = new Float32Array(n * 3);
+  const vel = [];
+  const basis = new THREE.Vector3(1, 0, 0).cross(up).normalize();
+  if (basis.lengthSq() < 0.01) basis.set(0, 0, 1);
+  const basis2 = up.clone().cross(basis).normalize();
+  for (let i = 0; i < n; i++) {
+    arr[i*3] = localPoint.x; arr[i*3+1] = localPoint.y; arr[i*3+2] = localPoint.z;
+    const a = Math.random() * 6.28, sp = 0.6 + Math.random() * 1.2;
+    const dir = up.clone().multiplyScalar(0.8 + Math.random())
+      .addScaledVector(basis, Math.cos(a)).addScaledVector(basis2, Math.sin(a)).normalize();
+    vel.push(dir.multiplyScalar(sp));
+  }
+  g.setAttribute('position', new THREE.BufferAttribute(arr, 3));
+  const m = new THREE.PointsMaterial({ color: 0xfff2b0, size: 0.28, transparent: true, opacity: 1, blending: THREE.AdditiveBlending, depthWrite: false });
+  const pts = new THREE.Points(g, m);
+  world.add(pts);
+  sparkles.push({ pts, vel, birth: clock.elapsedTime });
+}
+
+// ---------- interaction ----------
+function onDown(e) {
+  dragging = true; moved = 0;
+  lastX = downX = e.clientX; lastY = downY = e.clientY; downT = performance.now();
+  startAudio();
+}
+function onUp(e) {
+  if (dragging && moved < 6 && performance.now() - downT < 450) tryBloom(e);
+  dragging = false;
+}
+function onMove(e) {
+  mouse.x = (e.clientX / innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / innerHeight) * 2 + 1;
+  if (!dragging) return;
+  const dx = e.clientX - lastX, dy = e.clientY - lastY;
+  moved += Math.abs(dx) + Math.abs(dy);
+  velY += dx * 0.0016;
+  velX += dy * 0.0016;
+  lastX = e.clientX; lastY = e.clientY;
+}
+function tryBloom(e) {
+  mouse.x = (e.clientX / innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const hit = raycaster.intersectObject(ground, false)[0];
+  if (!hit) return;
+  const local = world.worldToLocal(hit.point.clone());
+  local.normalize().multiplyScalar(R * 0.99);
+  bloomFlower(local);
+}
+
+// ---------- soft music (Web Audio) ----------
+let audioCtx, master, musicStarted = false, musicOn = true, melodyTimer;
+function startAudio() {
+  if (musicStarted) return;
+  musicStarted = true;
+  try {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    master = audioCtx.createGain();
+    master.gain.value = 0.0001;
+    master.connect(audioCtx.destination);
+
+    // soft space via feedback delay
+    const delay = audioCtx.createDelay(); delay.delayTime.value = 0.36;
+    const fb = audioCtx.createGain(); fb.gain.value = 0.34;
+    const wet = audioCtx.createGain(); wet.gain.value = 0.28;
+    delay.connect(fb); fb.connect(delay); delay.connect(wet); wet.connect(master);
+    const lp = audioCtx.createBiquadFilter(); lp.type = 'lowpass';
+    lp.frequency.value = 1200; lp.Q.value = 0.5;
+    lp.connect(master); lp.connect(delay);
+
+    // 4 pad voices
+    const voices = [];
+    for (let i = 0; i < 4; i++) {
+      const o = audioCtx.createOscillator();
+      o.type = i === 0 ? 'sine' : 'triangle';
+      const g = audioCtx.createGain();
+      g.gain.value = i === 0 ? 0.16 : 0.09;
+      o.connect(g); g.connect(lp);
+      o.start();
+      voices.push(o);
+    }
+
+    // gentle tremolo on master
+    const lfo = audioCtx.createOscillator(); lfo.frequency.value = 0.08;
+    const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 0.06;
+    lfo.connect(lfoGain); lfoGain.connect(master.gain); lfo.start();
+
+    // soft wind noise bed
+    const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * 0.5;
+    const noise = audioCtx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+    const nbp = audioCtx.createBiquadFilter(); nbp.type = 'bandpass'; nbp.frequency.value = 500; nbp.Q.value = 0.7;
+    const ng = audioCtx.createGain(); ng.gain.value = 0.05;
+    noise.connect(nbp); nbp.connect(ng); ng.connect(master); noise.start();
+
+    // chord progression (Hz) — gentle, floaty
+    const chords = [
+      [110.0, 164.8, 220.0, 329.6],   // A minor-ish
+      [98.0, 146.8, 196.0, 293.7],    // G
+      [87.3, 130.8, 174.6, 261.6],    // C / F feel
+      [82.4, 123.5, 164.8, 246.9],    // E-ish
+    ];
+    let ci = 0;
+    const setChord = () => {
+      const ch = chords[ci % chords.length];
+      const now = audioCtx.currentTime;
+      voices.forEach((o, k) => o.frequency.setTargetAtTime(ch[k], now, 1.4));
+      ci++;
+    };
+    setChord();
+    setInterval(() => { if (musicOn) setChord(); }, 6500);
+
+    // occasional soft bell melody (pentatonic)
+    const scale = [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5];
+    const playNote = () => {
+      if (!musicOn || !audioCtx) return;
+      const f = scale[(Math.random() * scale.length) | 0];
+      const o = audioCtx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
+      const g = audioCtx.createGain(); g.gain.value = 0.0001;
+      o.connect(g); g.connect(lp); g.connect(delay);
+      const t = audioCtx.currentTime;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.11, t + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 1.6);
+      o.start(t); o.stop(t + 1.8);
+    };
+    melodyTimer = setInterval(() => { if (Math.random() < 0.7) playNote(); }, 3200);
+
+    // fade in
+    master.gain.setTargetAtTime(musicOn ? 0.5 : 0.0001, audioCtx.currentTime, 2.5);
+    updateMusicBtn();
+  } catch (err) { /* audio not available */ }
+}
+function toggleMusic() {
+  if (!audioCtx) return;
+  musicOn = !musicOn;
+  master.gain.setTargetAtTime(musicOn ? 0.5 : 0.0001, audioCtx.currentTime, 0.6);
+  updateMusicBtn();
+}
+function updateMusicBtn() {
+  const b = document.getElementById('music');
+  b.classList.toggle('on', musicOn);
+  b.textContent = musicOn ? '♪ Music' : '♪ Muted';
+}
+
+// ---------- loop ----------
+function animate() {
+  requestAnimationFrame(animate);
+  const dt = Math.min(clock.getDelta(), 0.05);
+  const time = clock.elapsedTime;
+
+  // rotation with inertia + idle auto-spin
+  if (!dragging) velY += AUTO_SPIN;
+  rotY += velY; rotX += velX;
+  rotX = THREE.MathUtils.clamp(rotX, -0.75, 0.75);
+  velY *= 0.94; velX *= 0.9;
+  world.rotation.set(rotX, rotY, 0);
+
+  if (grassMat.userData.shader) grassMat.userData.shader.uniforms.uTime.value = time;
+
+  // flowers bloom + sway
+  for (const f of flowers) {
+    const t = THREE.MathUtils.clamp((time - f.birth) / f.dur, 0, 1);
+    const grow = easeOutCubic(Math.min(1, t * 1.35));
+    f.flower.scale.setScalar(grow);
+    const op = easeOutBack(t);
+    for (const p of f.petals) p.mesh.rotation.x = op * p.open;
+    f.head.rotation.z = Math.sin(time * 1.2 + f.phase) * f.swayAmp;
+    f.head.rotation.x = Math.cos(time * 0.9 + f.phase) * f.swayAmp * 0.6;
+  }
+
+  // sparkles
+  for (let i = sparkles.length - 1; i >= 0; i--) {
+    const s = sparkles[i];
+    const age = time - s.birth;
+    const pos = s.pts.geometry.attributes.position;
+    for (let k = 0; k < s.vel.length; k++) {
+      pos.setXYZ(k,
+        pos.getX(k) + s.vel[k].x * dt,
+        pos.getY(k) + s.vel[k].y * dt,
+        pos.getZ(k) + s.vel[k].z * dt);
+      s.vel[k].multiplyScalar(0.96);
+    }
+    pos.needsUpdate = true;
+    s.pts.material.opacity = Math.max(0, 1 - age / 1.1);
+    if (age > 1.1) { world.remove(s.pts); s.pts.geometry.dispose(); s.pts.material.dispose(); sparkles.splice(i, 1); }
+  }
+
+  renderer.render(scene, camera);
+}
+
+function onResize() {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+}
+
+// ---------- helpers ----------
+function easeOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+function easeOutBack(x) { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); }
+function randUnit() {
+  const u = Math.random(), v = Math.random();
+  const th = 2 * Math.PI * u, ph = Math.acos(2 * v - 1);
+  return new THREE.Vector3(Math.sin(ph) * Math.cos(th), Math.sin(ph) * Math.sin(th), Math.cos(ph));
+}
+function hash(x, y, z) {
+  const s = Math.sin(x * 12.9898 + y * 78.233 + z * 37.719) * 43758.5453;
+  return s - Math.floor(s);
+}
+function noise3(x, y, z) {
+  const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
+  const xf = x - xi, yf = y - yi, zf = z - zi;
+  const u = xf*xf*(3-2*xf), v = yf*yf*(3-2*yf), w = zf*zf*(3-2*zf);
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  const c000 = hash(xi, yi, zi),     c100 = hash(xi+1, yi, zi);
+  const c010 = hash(xi, yi+1, zi),   c110 = hash(xi+1, yi+1, zi);
+  const c001 = hash(xi, yi, zi+1),   c101 = hash(xi+1, yi, zi+1);
+  const c011 = hash(xi, yi+1, zi+1), c111 = hash(xi+1, yi+1, zi+1);
+  return lerp(
+    lerp(lerp(c000, c100, u), lerp(c010, c110, u), v),
+    lerp(lerp(c001, c101, u), lerp(c011, c111, u), v), w);
+}
+function fbm(x, y, z) {
+  let f = 0, amp = 0.5, freq = 1;
+  for (let i = 0; i < 4; i++) { f += amp * noise3(x*freq, y*freq, z*freq); freq *= 2.1; amp *= 0.5; }
+  return f;
+}
+
+init();
+animate();
+</script>
+</body>
+</html>
