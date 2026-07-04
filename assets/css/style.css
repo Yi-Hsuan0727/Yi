@@ -2550,8 +2550,38 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
 }
+/* Front-face teaser: keeps the card from looking empty before the flip. */
+.home-can-bring-card-teaser {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    font-weight: 500;
+    color: var(--secondary-text);
+}
+/* Flip affordance pinned to the bottom of the front face. Uses text-color
+   (not the brand green) so the small label keeps ≥4.5:1 contrast on white. */
 .home-can-bring-card-flip {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text-color);
+}
+.home-can-bring-card-flip i {
+    font-size: 0.72rem;
+    color: var(--accent-color);
+}
+@media (prefers-reduced-motion: no-preference) {
+    .home-can-bring-card-flip i {
+        transition: transform 0.25s ease;
+    }
+    .home-can-bring-card:hover .home-can-bring-card-flip i,
+    .home-can-bring-card:focus-visible .home-can-bring-card-flip i {
+        transform: translateX(3px);
+    }
 }
 .home-can-bring-card-back {
     transform: rotateY(180deg);
