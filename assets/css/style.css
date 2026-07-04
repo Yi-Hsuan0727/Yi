@@ -1518,7 +1518,9 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     padding-bottom: 0;
 }
 #featured-work + #home-can-bring {
-    margin-top: clamp(96px, 14vh, 168px);
+    /* Tightened so "What can I bring" reads as part of the featured group
+       (was clamp(96px, 14vh, 168px)) — roughly the inter-card rhythm. */
+    margin-top: clamp(28px, 4vh, 56px);
 }
 .stack-card {
     position: relative;
@@ -8797,7 +8799,8 @@ body.case-figure-zoom-open #scroll-container {
         box-sizing: border-box;
     }
     #featured-work + #home-can-bring {
-        margin-top: 72px;
+        /* Tighter grouping with the featured cards (was 72px) */
+        margin-top: 40px;
     }
     #home-can-bring .projects-more-title {
         font-size: clamp(1.5rem, 3vw, 2rem);
@@ -9208,7 +9211,9 @@ body.case-figure-zoom-open #scroll-container {
         max-width: 1280px;
         width: 100%;
         padding: 0 30px;
-        margin: clamp(96px, 14vh, 168px) auto 12vh;
+        /* Tighter lead-in so the pinned can-bring scene feels connected to the
+           featured cards above (was clamp(96px, 14vh, 168px) top). */
+        margin: clamp(28px, 4vh, 56px) auto 12vh;
     }
 
     html.home-scroll-scenes .home-scroll-pin {
