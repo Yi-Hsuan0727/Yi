@@ -1681,8 +1681,17 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 }
 .more-work-tile {
     display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
     text-decoration: none;
     color: inherit;
+    cursor: pointer;
+    text-align: inherit;
+    appearance: none;
+    -webkit-appearance: none;
 }
 .more-work-tile__img {
     display: block;
@@ -2486,10 +2495,18 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 #home-can-bring .projects-more-title {
     font-weight: 600;
 }
+.home-can-bring-panel,
+#home-can-bring.home-panel {
+    width: min(100%, 800px);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .home-can-bring-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
+    width: 100%;
 }
 .home-can-bring-card {
     position: relative;
@@ -2517,25 +2534,6 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
 .home-can-bring-card.is-flipped .home-can-bring-card-inner {
     transform: rotateY(180deg);
 }
-/* Hover/focus auto-flip only on desktop, hover-capable devices — in mobile mode
-   (and on touch) the cards flip only via an explicit tap (the .is-flipped toggle). */
-@media (min-width: 861px) and (hover: hover) and (pointer: fine) {
-    .home-can-bring-card:hover .home-can-bring-card-inner,
-    .home-can-bring-card:focus-within .home-can-bring-card-inner {
-        transform: rotateY(180deg);
-    }
-}
-/* Scroll-pinned desktop scene flips cards via scroll — not hover. */
-@media (min-width: 1201px) and (prefers-reduced-motion: no-preference) {
-    html.home-scroll-scenes .home-can-bring-card:hover .home-can-bring-card-inner,
-    html.home-scroll-scenes .home-can-bring-card:focus-within .home-can-bring-card-inner {
-        transform: rotateY(0deg);
-    }
-    html.home-scroll-scenes .home-can-bring-card.is-flipped:hover .home-can-bring-card-inner,
-    html.home-scroll-scenes .home-can-bring-card.is-flipped:focus-within .home-can-bring-card-inner {
-        transform: rotateY(180deg);
-    }
-}
 .home-can-bring-card-face {
     position: absolute;
     inset: 0;
@@ -2553,13 +2551,7 @@ body { background-color: var(--bg-color); color: var(--text-color); height: 100v
     -webkit-backface-visibility: hidden;
 }
 .home-can-bring-card-flip {
-    margin-top: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--accent-color);
+    display: none;
 }
 .home-can-bring-card-back {
     transform: rotateY(180deg);
@@ -2733,6 +2725,8 @@ body.projects-more-modal-open {
 }
 .projects-more-modal__body {
     padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
 }
 .projects-more-modal__title {
     margin: 0 0 14px;
@@ -2768,38 +2762,35 @@ body.projects-more-modal-open {
     font-weight: 600;
 }
 .projects-more-modal__summary {
-    margin: 0 0 18px;
+    margin: 0;
     font-size: 0.92rem;
     line-height: 1.6;
     color: rgba(0, 0, 0, 0.78);
 }
-.projects-more-modal__link {
+.projects-more-modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.projects-more-modal__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    align-self: flex-start;
-    margin-top: 4px;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    color: var(--accent-color);
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--accent-color);
+    background: var(--accent-color);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
     text-decoration: none;
-    line-height: 0;
+    letter-spacing: 0.02em;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
-.projects-more-modal__arrow {
-    width: 3.25rem;
-    height: 3.25rem;
-    display: block;
-    transition: transform 0.2s ease;
-}
-.projects-more-modal__link:hover .projects-more-modal__arrow,
-.projects-more-modal__link:focus-visible .projects-more-modal__arrow {
-    transform: translate(3px, -3px);
-    outline: none;
-}
-.projects-more-modal__link:hover,
-.projects-more-modal__link:focus-visible {
-    background: transparent;
+.projects-more-modal__cta:hover,
+.projects-more-modal__cta:focus-visible {
+    transform: translateY(-1px);
+    background-color: #27ae60;
     outline: none;
 }
 @media (max-width: 900px) {
@@ -4216,6 +4207,7 @@ body.projects-more-modal-open {
     list-style: none;
 }
 .site-top-nav__link {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -4229,6 +4221,31 @@ body.projects-more-modal-open {
     text-decoration: none;
     color: rgba(17, 17, 17, 0.72);
     transition: color 0.18s ease, background-color 0.18s ease;
+}
+.site-top-nav__link-label {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%) translateY(4px);
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(17, 17, 17, 0.1);
+    background: #ffffff;
+    color: var(--text-color);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.site-top-nav__link:hover .site-top-nav__link-label,
+.site-top-nav__link:focus-visible .site-top-nav__link-label {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 .site-top-nav__link-icon {
     display: inline-flex;
@@ -4375,6 +4392,16 @@ body.projects-more-modal-open {
         gap: 10px;
         padding: 12px 9px;
         justify-content: center;
+    }
+    .site-top-nav.is-nav-rail .site-top-nav__link-label {
+        left: calc(100% + 10px);
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%) translateX(-4px);
+    }
+    .site-top-nav.is-nav-rail .site-top-nav__link:hover .site-top-nav__link-label,
+    .site-top-nav.is-nav-rail .site-top-nav__link:focus-visible .site-top-nav__link-label {
+        transform: translateY(-50%) translateX(0);
     }
     .site-top-nav.is-nav-rail .site-top-nav__links {
         flex-direction: column;
@@ -9179,9 +9206,11 @@ body.case-figure-zoom-open #scroll-container {
     }
 
     html.home-scroll-scenes .home-scroll-pin--can-bring .home-panel,
-    html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-inner {
-        width: 100%;
-        max-width: none;
+    html.home-scroll-scenes .home-scroll-pin--can-bring .home-can-bring-panel {
+        width: min(100%, 800px);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     html.home-scroll-scenes .home-scroll-pin--can-bring .home-panel {

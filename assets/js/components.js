@@ -640,6 +640,7 @@ const PortfolioApp = {
             if (typeof HomeScrollScenes !== 'undefined') {
                 HomeScrollScenes.init();
             }
+            this.initHomeCanBringCards();
             this.initProjectStack();
             this.initHomeTopNav();
             this.initTopNavAutoHide();
@@ -1555,6 +1556,29 @@ const PortfolioApp = {
 
         window.addEventListener('scroll', hidePreview, { passive: true });
         window.addEventListener('blur', hidePreview);
+    },
+
+    initHomeCanBringCards: function() {
+        const cards = document.querySelectorAll('.home-can-bring-card');
+        if (!cards.length || document.body.dataset.canBringCardsBound) return;
+        document.body.dataset.canBringCardsBound = '1';
+
+        cards.forEach(function(card) {
+            card.addEventListener('click', function() {
+                const flipped = card.classList.toggle('is-flipped');
+                if (flipped) {
+                    card.dataset.clickFlipped = '1';
+                } else {
+                    delete card.dataset.clickFlipped;
+                }
+            });
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
     },
 
     initHomeHeaderComposition: function() {

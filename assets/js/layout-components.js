@@ -501,6 +501,16 @@ const LayoutComponents = {
         const closeIcon = document.querySelector('.site-top-nav__menu-toggle-icon--close');
         if (openIcon) openIcon.innerHTML = this.buildNavMenuOpenIcon();
         if (closeIcon) closeIcon.innerHTML = this.buildNavMenuCloseIcon();
+
+        document.querySelectorAll('.site-top-nav__link').forEach(function(link) {
+            if (link.querySelector('.site-top-nav__link-label')) return;
+            const label = link.getAttribute('aria-label');
+            if (!label) return;
+            const span = document.createElement('span');
+            span.className = 'site-top-nav__link-label';
+            span.textContent = label;
+            link.appendChild(span);
+        });
     },
 
     buildCaseStudyArrowIcon: function(extraClass) {
@@ -600,9 +610,9 @@ const LayoutComponents = {
                 const img = p.image || p.heroImage || '';
                 const title = p.moreCardTitle || p.title;
                 return `
-                <a class="more-work-tile" href="${p.link}" aria-label="${title}"${cloneAttrs}>
+                <button type="button" class="more-work-tile" data-project-id="${p.id || ''}" aria-label="${title}" aria-haspopup="dialog"${cloneAttrs}>
                     <span class="more-work-tile__img"><img src="${img}" alt="${isClone ? '' : title}" loading="lazy" decoding="async"></span>
-                </a>`;
+                </button>`;
             }).join('');
         };
         return `
@@ -1083,7 +1093,7 @@ const LayoutComponents = {
             ? 'site-top-nav__link site-top-nav__link--current cursor-hover'
             : 'site-top-nav__link cursor-hover';
         const currentAttr = isCurrent ? ' aria-current="page"' : '';
-        return `<li><a class="${currentClass}" href="${href}" aria-label="${label}"${currentAttr}><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas ${iconClass}"></i></span></a></li>`;
+        return `<li><a class="${currentClass}" href="${href}" aria-label="${label}"${currentAttr}><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas ${iconClass}"></i></span><span class="site-top-nav__link-label">${label}</span></a></li>`;
     },
 
     buildTopNav: function(pageType) {

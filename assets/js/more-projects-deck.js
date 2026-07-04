@@ -11,12 +11,21 @@ const MoreProjectsDeck = {
         if (this.isInitialized) return;
 
         const deck = document.getElementById('projects-more-list');
-        if (!deck || !deck.classList.contains('projects-more-row')) return;
+        const carousel = document.querySelector('.more-work-carousel');
+        const hasDeck = deck && deck.classList.contains('projects-more-row');
+        const hasCarousel = !!carousel;
+
+        if (!hasDeck && !hasCarousel) return;
 
         this.isInitialized = true;
         this.ensureModal();
-        this.bindDeck(deck);
-        this.bindDeckHover(deck);
+        if (hasDeck) {
+            this.bindDeck(deck);
+            this.bindDeckHover(deck);
+        }
+        if (hasCarousel) {
+            this.bindMoreWorkCarousel(carousel);
+        }
     },
 
     centerDeckScroll: function() {
@@ -76,7 +85,9 @@ const MoreProjectsDeck = {
                         <h3 class="projects-more-modal__title" id="projects-more-modal-title"></h3>
                         <dl class="projects-more-modal__meta"></dl>
                         <p class="projects-more-modal__summary"></p>
-                        <a class="projects-more-modal__link" href=""><span class="visually-hidden">View case study</span></a>
+                        <div class="projects-more-modal__footer">
+                            <a class="projects-more-modal__cta" href="">View more</a>
+                        </div>
                     </div>
                 </div>
             </div>`;
@@ -101,12 +112,51 @@ const MoreProjectsDeck = {
         deck.addEventListener('click', (e) => {
             const card = e.target.closest('.projects-more-card');
             if (!card) return;
-            const projectId = card.dataset.projectId;
-            if (!projectId || typeof PortfolioApp === 'undefined') return;
-            const project = PortfolioApp.getProject(projectId);
-            if (!project) return;
-            this.open(project);
+            e.preventDefault();
+            this.openFromElement(card);
         });
+    },
+
+    bindMoreWorkCarousel: function(carousel) {
+        let pointerStart = null;
+
+        carousel.addEventListener('mousedown', (e) => {
+            const tile = e.target.closest('.more-work-tile');
+            if (!tile || tile.getAttribute('aria-hidden') === 'true') return;
+            pointerStart = { x: e.clientX, y: e.clientY };
+        });
+
+        carousel.addEventListener('touchstart', (e) => {
+            const tile = e.target.closest('.more-work-tile');
+            if (!tile || tile.getAttribute('aria-hidden') === 'true') return;
+            pointerStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }, { passive: true });
+
+        carousel.addEventListener('click', (e) => {
+            const tile = e.target.closest('.more-work-tile');
+            if (!tile || tile.getAttribute('aria-hidden') === 'true') return;
+
+            if (pointerStart) {
+                const point = e.changedTouches && e.changedTouches[0]
+                    ? e.changedTouches[0]
+                    : e;
+                const dx = Math.abs(point.clientX - pointerStart.x);
+                const dy = Math.abs(point.clientY - pointerStart.y);
+                pointerStart = null;
+                if (dx > 8 || dy > 8) return;
+            }
+
+            e.preventDefault();
+            this.openFromElement(tile);
+        });
+    },
+
+    openFromElement: function(el) {
+        const projectId = el.dataset.projectId;
+        if (!projectId || typeof PortfolioApp === 'undefined') return;
+        const project = PortfolioApp.getProject(projectId);
+        if (!project) return;
+        this.open(project);
     },
 
     open: function(project) {
@@ -138,12 +188,9 @@ const MoreProjectsDeck = {
         const summary = project.demoIntro || project.listSubline || project.subtitle || project.desc || '';
         this.modal.querySelector('.projects-more-modal__summary').textContent = summary;
 
-        const link = this.modal.querySelector('.projects-more-modal__link');
+        const link = this.modal.querySelector('.projects-more-modal__cta');
         link.href = project.link || '#';
-        link.innerHTML = '<span class="visually-hidden">View case study</span>' +
-            (typeof LayoutComponents !== 'undefined' && LayoutComponents.buildCaseStudyArrowIcon
-                ? LayoutComponents.buildCaseStudyArrowIcon('projects-more-modal__arrow')
-                : '');
+        link.textContent = 'View more';
 
         this.modal.hidden = false;
         document.body.classList.add('projects-more-modal-open');

@@ -94,7 +94,11 @@ const HomeScrollScenes = {
             active = Math.min(n - 1, Math.floor((progress - enter) / span));
         }
 
-        this.cards.forEach((card, i) => card.classList.toggle('is-flipped', i === active));
+        this.cards.forEach((card, i) => {
+            const scrollFlipped = i === active;
+            const clickFlipped = card.dataset.clickFlipped === '1';
+            card.classList.toggle('is-flipped', scrollFlipped || clickFlipped);
+        });
     },
 
     bindScroll: function() {
