@@ -132,7 +132,8 @@
     });
   }, { rootMargin: '-25% 0px -60% 0px' });
   document.querySelectorAll('[data-spy-target]').forEach((s) => spyObserver.observe(s));
-  setActive('section-01');
+  const firstSpy = document.querySelector('[data-spy-target]');
+  if (firstSpy) setActive(firstSpy.getAttribute('data-spy-target'));
 
   /* ---- Muted inline video autoplay ---- */
   document.querySelectorAll('video').forEach((v) => {

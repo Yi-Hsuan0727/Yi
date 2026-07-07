@@ -1171,3 +1171,298 @@ body.mc-case * {
     aspect-ratio: 16 / 10;
   }
 }
+
+/* ============================================
+ * SHARED CASE-STUDY COMPONENTS
+ * Reused across case pages (lcm, uav, …) beyond
+ * the Pic2Split-specific blocks above.
+ * ============================================ */
+
+/* -- Two-column section header (label+title | intro) -- */
+.mc-2col-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+
+.mc-2col-header .mc-section-h2 {
+  margin-top: 8px;
+}
+
+.mc-lede {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(17, 21, 17, 0.7);
+}
+
+/* -- Overview video stage (gradient framed clip) -- */
+.mc-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.mc-video-stage {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(165deg, rgba(46, 204, 113, 0.16) 0%, rgba(210, 168, 120, 0.14) 48%, rgba(139, 90, 43, 0.1) 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 4vw, 44px);
+  overflow: hidden;
+}
+
+.mc-video-stage video {
+  height: 100%;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 20px 48px rgba(10, 40, 20, 0.2);
+}
+
+/* -- Problem cards (risk-flavoured) -- */
+.mc-problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.mc-problem-card {
+  padding: 28px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(231, 76, 60, 0.28);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mc-problem-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e74c3c;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.mc-problem-card strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111511;
+}
+
+.mc-problem-card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(17, 21, 17, 0.7);
+}
+
+/* -- Goal cards (accent-flavoured) -- */
+.mc-goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.mc-goal-card {
+  border: 1px solid rgba(17, 21, 17, 0.12);
+  border-radius: 12px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: background 0.15s ease;
+}
+
+.mc-goal-card:hover {
+  background: rgba(46, 204, 113, 0.05);
+}
+
+.mc-goal-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(46, 204, 113, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0e7c3f;
+  font-size: 16px;
+}
+
+.mc-goal-num {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(17, 21, 17, 0.55);
+}
+
+.mc-goal-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111511;
+  line-height: 1.3;
+}
+
+.mc-goal-desc {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(17, 21, 17, 0.7);
+  line-height: 1.7;
+}
+
+/* -- Phase card: copy + media split -- */
+.mc-phase-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 3.5vw, 44px);
+  align-items: start;
+}
+
+.mc-phase-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mc-phase-result {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #111511;
+  border-left: 3px solid #8b5a2b;
+  padding-left: 12px;
+}
+
+.mc-phase-copy .mc-phase-body {
+  margin: 0;
+  max-width: none;
+}
+
+.mc-phase-media {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mc-figure-caption-label {
+  margin: 4px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(17, 21, 17, 0.55);
+  text-transform: uppercase;
+}
+
+.mc-figure-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.mc-figure-row--3 {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.mc-figure-row .mc-figure img {
+  max-height: 280px;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* -- Impact cells -- */
+.mc-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  border: 1px solid rgba(17, 21, 17, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.mc-impact-cell {
+  padding: 36px 28px;
+  border-right: 1px solid rgba(17, 21, 17, 0.12);
+  transition: background 0.15s ease;
+}
+
+.mc-impact-cell:last-child {
+  border-right: none;
+}
+
+.mc-impact-cell:hover {
+  background: rgba(46, 204, 113, 0.05);
+}
+
+.mc-impact-icon {
+  font-size: 22px;
+  color: #0e7c3f;
+  margin-bottom: 14px;
+}
+
+.mc-impact-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111511;
+  line-height: 1.3;
+}
+
+.mc-impact-desc {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(17, 21, 17, 0.7);
+  line-height: 1.7;
+}
+
+/* -- Reflection prose -- */
+.mc-prose {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.85;
+  color: rgba(17, 21, 17, 0.72);
+  max-width: 720px;
+}
+
+@media (max-width: 900px) {
+  .mc-2col-header {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .mc-phase-split {
+    grid-template-columns: 1fr;
+  }
+
+  .mc-impact-cell {
+    border-right: none;
+    border-bottom: 1px solid rgba(17, 21, 17, 0.12);
+  }
+
+  .mc-impact-cell:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .mc-figure-row--3 {
+    grid-template-columns: 1fr;
+  }
+}
