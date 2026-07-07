@@ -14,6 +14,11 @@ body.mc-case {
   font-family: 'Montserrat', sans-serif;
   color: #111511;
   -webkit-font-smoothing: antialiased;
+  /* style.css locks body scroll for app-shell pages with #scroll-container */
+  height: auto;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body.mc-case * {

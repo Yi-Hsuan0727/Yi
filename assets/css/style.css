@@ -4664,6 +4664,20 @@ body.projects-more-modal-open {
     background: var(--bg-color);
 }
 
+@media (min-width: 1201px) {
+    .content-wrapper.sidebar-compact-scope--project .right-panel {
+        min-height: 0;
+    }
+
+    .content-wrapper.sidebar-compact-scope--project .scroll-area {
+        flex: 1 1 0;
+        min-height: 0;
+        height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
 .content-wrapper.sidebar-compact-scope--project .sidebar {
     border: none;
     background: transparent;
