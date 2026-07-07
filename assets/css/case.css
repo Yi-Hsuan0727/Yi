@@ -311,9 +311,9 @@ body.mc-case * {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  font-size: 11px;
+  font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   padding-bottom: 48px;
 }
@@ -321,8 +321,8 @@ body.mc-case * {
 .mc-toc-link {
   text-decoration: none;
   color: rgba(17, 21, 17, 0.5);
-  padding: 7px 0 7px 14px;
-  border-left: 2px solid rgba(17, 21, 17, 0.12);
+  padding: 6px 0 6px 14px;
+  border-left: 2px solid transparent;
   transition: color 0.2s ease, border-left-color 0.2s ease, font-weight 0.2s ease;
 }
 
@@ -799,6 +799,7 @@ body.mc-case * {
   display: block;
   border-radius: 10px;
   border: 1px solid rgba(17, 21, 17, 0.1);
+  background: #ffffff;
 }
 
 .mc-figure--white img {
@@ -1042,7 +1043,7 @@ body.mc-case * {
   color: #2ecc71;
 }
 
-.mc-cta-btn {
+.mc-case .mc-cta-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1058,7 +1059,7 @@ body.mc-case * {
   transition: background 0.15s ease;
 }
 
-.mc-cta-btn:hover {
+.mc-case .mc-cta-btn:hover {
   background: #000000;
   color: #2ecc71;
 }
@@ -1206,7 +1207,6 @@ body.mc-case * {
 
 .mc-video-stage {
   width: 100%;
-  aspect-ratio: 4 / 3;
   background: linear-gradient(165deg, rgba(46, 204, 113, 0.16) 0%, rgba(210, 168, 120, 0.14) 48%, rgba(139, 90, 43, 0.1) 100%);
   border-radius: 16px;
   display: flex;
@@ -1217,12 +1217,11 @@ body.mc-case * {
 }
 
 .mc-video-stage video {
-  height: 100%;
+  width: 100%;
+  height: auto;
   max-width: 100%;
-  width: auto;
-  object-fit: contain;
-  border-radius: 10px;
   display: block;
+  border-radius: 10px;
   box-shadow: 0 20px 48px rgba(10, 40, 20, 0.2);
 }
 
