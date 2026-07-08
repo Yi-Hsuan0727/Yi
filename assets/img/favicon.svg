@@ -22,8 +22,12 @@
         <rect class="cls-2" width="64" height="64"/>
         <ellipse class="cls-3" cx="15.5" cy="40.4" rx="12.8" ry="11.6"/>
         <ellipse class="cls-3" cx="48.6" cy="40.4" rx="12.8" ry="11.6"/>
-        <circle class="cls-1" cx="15.9" cy="40.4" r="5.1"/>
-        <circle class="cls-1" cx="48.6" cy="40.4" r="5.1"/>
+        <circle class="cls-1" cx="15.9" cy="40.4" r="5.1">
+          <animate attributeName="cx" values="13.2;18.6;13.2" dur="1.6s" repeatCount="indefinite" />
+        </circle>
+        <circle class="cls-1" cx="48.6" cy="40.4" r="5.1">
+          <animate attributeName="cx" values="46.0;51.8;46.0" dur="1.6s" repeatCount="indefinite" />
+        </circle>
       </g>
     </g>
   </g>
