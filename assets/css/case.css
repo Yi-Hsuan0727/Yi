@@ -359,6 +359,32 @@ body.mc-case * {
   padding-bottom: clamp(110px, 13vw, 190px);
 }
 
+/* Legacy case-study content migrated from sidebar layout */
+.mc-sections--legacy {
+  gap: clamp(72px, 9vw, 120px);
+}
+
+.mc-sections--legacy .mc-legacy-section {
+  gap: 0;
+}
+
+.mc-sections--legacy .case-section,
+.mc-sections--legacy [class$="-section"] {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.mc-sections--legacy .case-section-inner,
+.mc-sections--legacy [class$="-inner"] {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.mc-case-meta--solo .mc-case-intro {
+  max-width: 52em;
+}
+
 .mc-section {
   display: flex;
   flex-direction: column;
@@ -573,6 +599,60 @@ body.mc-case * {
   line-height: 1.9;
   color: rgba(17, 21, 17, 0.75);
   max-width: 720px;
+}
+
+/* Legacy research-chart layout inside native process phases */
+.mc-section--process .mc-phase-inner--with-chart {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-rows: auto;
+  grid-template-areas: 'copy media';
+  gap: 18px 28px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.mc-section--process .mc-phase-inner--with-chart.case-phase-block-inner--media-col-4 {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+.mc-section--process .mc-phase-inner--with-chart .mc-phase-copy {
+  grid-area: copy;
+  justify-content: center;
+}
+
+.mc-section--process .mc-phase-inner--with-chart .mc-phase-media {
+  grid-area: media;
+  align-self: center;
+}
+
+.mc-section--process .mc-phase-inner--with-chart .case-research-chart--full,
+.mc-section--process .mc-phase-inner--with-chart .p2s-research-chart--full {
+  grid-column: 1 / -1;
+}
+
+.mc-section--process .mc-phase-inner--with-chart .case-research-chart,
+.mc-section--process .mc-phase-inner--with-chart .p2s-research-chart {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mc-section--process .mc-phase-inner--with-chart .mc-phase-media .mc-figure img {
+  border: 1px solid rgba(17, 21, 17, 0.12);
+  border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .mc-section--process .mc-phase-inner--with-chart {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'copy'
+      'media';
+  }
 }
 
 /* benchmark mini-chart */

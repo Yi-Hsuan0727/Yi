@@ -29,22 +29,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const PAGES = {
     'index.html': 'home',
     'about.html': 'about',
-    'playground.html': 'playground',
-    'pic2split.html': 'pic2split',
-    'unesco.html': 'unesco',
-    'lcm.html': 'lcm',
-    'uav.html': 'uav',
-    'lawfare.html': 'lawfare',
-    'agsec.html': 'agsec',
-    'lt.html': 'lt',
-    'quickbite.html': 'quickbite',
-    'magnate.html': 'magnate',
-    'spring.html': 'spring',
-    'dailymoo.html': 'dailymoo',
-    'enchanter.html': 'enchanter',
-    'stiffy.html': 'stiffy',
-    'tnaf.html': 'tnaf',
-    'whatnow.html': 'whatnow'
+    'playground.html': 'playground'
 };
 
 const layoutSrc = readFileSync(resolve(root, 'assets/js/layout-components.js'), 'utf8');
