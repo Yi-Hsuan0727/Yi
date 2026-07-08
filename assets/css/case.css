@@ -530,6 +530,38 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   padding-top: clamp(32px, 4vw, 48px);
 }
 
+.mc-solution-row--media-below {
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+.mc-solution-row--media-below .mc-solution-media {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.mc-solution-row--media-below .mc-solution-media--gradient {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2.5vw, 32px);
+  aspect-ratio: 948 / 559;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: clamp(20px, 3vw, 40px);
+}
+
+.mc-solution-row--media-below .mc-solution-media--gradient .mc-solution-video,
+.mc-solution-row--media-below .mc-solution-media--gradient .mc-solution-shot {
+  width: min(28%, 220px);
+  height: auto;
+  max-height: none;
+  object-fit: initial;
+  border: none;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.26);
+}
+
 .mc-solution-copy {
   display: flex;
   flex-direction: column;
