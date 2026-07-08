@@ -1088,55 +1088,38 @@ const LayoutComponents = {
         return `<div id="progress-bar"></div>`;
     },
 
-    buildTopNavIconLink: function(href, label, iconClass, isCurrent) {
-        const currentClass = isCurrent
-            ? 'site-top-nav__link site-top-nav__link--current cursor-hover'
-            : 'site-top-nav__link cursor-hover';
+    buildMcNavLink: function(href, label, iconClass, isCurrent) {
         const currentAttr = isCurrent ? ' aria-current="page"' : '';
-        return `<li><a class="${currentClass}" href="${href}" aria-label="${label}"${currentAttr}><span class="site-top-nav__link-icon" aria-hidden="true"><i class="fas ${iconClass}"></i></span><span class="site-top-nav__link-label">${label}</span></a></li>`;
+        const currentClass = isCurrent ? ' mc-nav-link--active' : '';
+        return `<a href="${href}" class="mc-nav-link${currentClass}" aria-label="${label}" data-tip="${label}"${currentAttr}><i class="fas ${iconClass}" aria-hidden="true"></i></a>`;
     },
 
-    buildTopNav: function(pageType) {
+    buildMcNav: function(pageType) {
         const isHome = pageType === 'home';
         const isPlayground = pageType === 'playground';
         const isAbout = pageType === 'about';
+        const homeHref = isHome ? '#top' : 'index.html';
         const workHref = isHome ? '#featured-work' : 'index.html#featured-work';
+        const aboutHref = isHome ? '#about' : 'index.html#about';
         const contactHref = isHome ? '#contact' : 'index.html#contact';
 
         return `
-            <nav class="site-top-nav site-top-nav--auto-hide" aria-label="Primary">
-                <div class="site-top-nav__inner">
-                    <a href="index.html" class="site-top-nav__brand cursor-hover" aria-label="Home">
-                        <span class="site-top-nav__avatar" aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="28" height="28" focusable="false">
-                                <rect width="64" height="64" fill="#2ecc71"/>
-                                <g class="site-top-nav__eye">
-                                    <ellipse fill="#fff" cx="18" cy="32" rx="10.5" ry="9.5"/>
-                                    <circle class="site-top-nav__pupil" fill="#111" cx="18" cy="32" r="4.2"/>
-                                </g>
-                                <g class="site-top-nav__eye">
-                                    <ellipse fill="#fff" cx="46" cy="32" rx="10.5" ry="9.5"/>
-                                    <circle class="site-top-nav__pupil" fill="#111" cx="46" cy="32" r="4.2"/>
-                                </g>
-                            </svg>
-                        </span>
-                    </a>
-                    <ul class="site-top-nav__links" id="site-top-nav-menu">
-                        ${this.buildTopNavIconLink(workHref, 'Work', 'fa-briefcase', false)}
-                        ${this.buildTopNavIconLink('playground.html', 'Play', 'fa-gamepad', isPlayground)}
-                        ${this.buildTopNavIconLink('about.html', 'About', 'fa-user', isAbout)}
-                        ${this.buildTopNavIconLink(contactHref, 'Contact', 'fa-envelope', false)}
-                    </ul>
-                    <button type="button" class="site-top-nav__menu-toggle cursor-hover" aria-label="Open menu" aria-expanded="false" aria-controls="site-top-nav-menu">
-                        <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--open" aria-hidden="true">
-                            ${this.buildNavMenuOpenIcon()}
-                        </span>
-                        <span class="site-top-nav__menu-toggle-icon site-top-nav__menu-toggle-icon--close" aria-hidden="true">
-                            ${this.buildNavMenuCloseIcon()}
-                        </span>
-                    </button>
+            <nav class="mc-nav" aria-label="Primary">
+                <a href="${homeHref}" class="mc-nav-home" aria-label="Home" data-tip="Home">
+                    <span data-eye="true" class="mc-eye-nav"><span data-pupil="true"></span></span>
+                    <span data-eye="true" class="mc-eye-nav"><span data-pupil="true"></span></span>
+                </a>
+                <div class="mc-nav-links">
+                    ${this.buildMcNavLink(workHref, 'Work', 'fa-briefcase', false)}
+                    ${this.buildMcNavLink('playground.html', 'Play', 'fa-gamepad', isPlayground)}
+                    ${this.buildMcNavLink(aboutHref, 'About', 'fa-user', isAbout)}
+                    ${this.buildMcNavLink(contactHref, 'Contact', 'fa-envelope', false)}
                 </div>
             </nav>`;
+    },
+
+    buildTopNav: function(pageType) {
+        return this.buildMcNav(pageType);
     },
 
     buildBackToTop: function() {

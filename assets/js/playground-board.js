@@ -12,6 +12,17 @@ const PlaygroundBoard = {
 
         this.board = board;
 
+        const mobileMq = window.matchMedia('(max-width: 900px)');
+        if (mobileMq.matches) {
+            board.classList.add('playground-board--mobile');
+            board.querySelectorAll('.playground-item').forEach((item) => {
+                item.style.left = '';
+                item.style.top = '';
+                item.style.zIndex = '';
+            });
+            return;
+        }
+
         const boot = () => {
             this.restorePositions();
             board.querySelectorAll('.playground-item').forEach((item) => {

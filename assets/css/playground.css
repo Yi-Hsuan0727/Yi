@@ -265,6 +265,99 @@ body.is-playground-page {
     }
 }
 
+@media (max-width: 900px) {
+    html:has(body.is-playground-page),
+    body.is-playground-page {
+        height: auto;
+        min-height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    #app-root.app-root-playground,
+    .app-root-playground .content-wrapper-fullwidth,
+    .app-root-playground .right-panel-fullwidth,
+    .app-root-playground .right-panel-fullwidth .scroll-area,
+    .app-root-playground .single-page-wrapper {
+        height: auto;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .playground-page {
+        height: auto;
+        min-height: 100dvh;
+        max-height: none;
+        overflow: visible;
+        padding: 88px 0 56px;
+        box-sizing: border-box;
+    }
+
+    .playground-board-shell {
+        height: auto;
+        overflow: visible;
+    }
+
+    .playground-board-header {
+        position: relative;
+        inset: auto;
+        z-index: 1;
+        max-width: none;
+        margin: 0;
+        padding: 0 20px 28px;
+        pointer-events: auto;
+    }
+
+    .playground-board,
+    .playground-board.playground-board--mobile {
+        position: relative;
+        inset: auto;
+        height: auto;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 16px;
+        padding: 0 20px 12px;
+        touch-action: auto;
+        overflow: visible;
+    }
+
+    .playground-item {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        width: 100% !important;
+        max-width: none;
+        transform: none !important;
+        cursor: default;
+        z-index: auto !important;
+    }
+
+    .playground-item.is-dragging {
+        filter: none;
+        box-shadow: none;
+    }
+
+    .playground-item--award-note,
+    .playground-item--note[data-playground-id="note-yellow"] {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: min(100%, 280px) !important;
+    }
+
+    .playground-item--project[data-playground-id="me-teammate"] {
+        grid-column: 1 / -1;
+    }
+
+    .playground-award-arrow {
+        display: none;
+    }
+
+    .playground-board-header__hint {
+        display: none;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .playground-item {
         transition: none;

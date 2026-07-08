@@ -197,9 +197,9 @@ const PortfolioApp = {
             spotlightTitle: 'Technician UI for an AI-assisted farm drone.',
             spotlightDesc: 'I owned the technician tablet interface, unifying mapping, spray, and thermal workflows into one screen, with a design target that cuts payload diagnosis from 18 minutes to 5.',
             spotlightStats: [
-                { value: '18m → 5m', label: 'diagnosis target', accent: true },
-                { value: 'One platform', label: 'map · spray · thermal' },
-                { value: '12-hr shifts', label: 'field-ready UI' }
+                { value: '18m → 5m', label: 'diagnosis target', headline: 'Diagnosis', accent: true },
+                { value: 'One platform', label: 'map · spray · thermal', headline: 'Platform' },
+                { value: '12-hr shifts', label: 'field-ready UI', headline: 'Field use' }
             ]
         },
         {
@@ -626,8 +626,10 @@ const PortfolioApp = {
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof MonsterLogic !== 'undefined') {
             MonsterLogic.init();
         }
-        this.initTopNavAvatarEyes();
-        this.initTopNavDock();
+        if (!document.querySelector('.mc-nav')) {
+            this.initTopNavAvatarEyes();
+            this.initTopNavDock();
+        }
         if ((pageType === 'home' || pageType === 'playground' || pageType === 'about') && typeof ContactFormLogic !== 'undefined') {
             ContactFormLogic.init();
         }
@@ -650,14 +652,18 @@ const PortfolioApp = {
         }
         if (pageType === 'playground') {
             this.initPlaygroundBoard();
-            this.initHomeTopNav();
-            this.initTopNavAutoHide();
+            if (!document.querySelector('.mc-nav')) {
+                this.initHomeTopNav();
+                this.initTopNavAutoHide();
+            }
         }
         if (pageType === 'about') {
             this.initHomeToolbox();
             this.initAboutAwardPreviews();
-            this.initHomeTopNav();
-            this.initTopNavAutoHide();
+            if (!document.querySelector('.mc-nav')) {
+                this.initHomeTopNav();
+                this.initTopNavAutoHide();
+            }
         }
         if (typeof CursorLogic !== 'undefined') CursorLogic.ensure();
         const isCasePage = pageType !== 'home' && pageType !== 'playground' && pageType !== 'about';

@@ -10,6 +10,8 @@
   };
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobileMq = window.matchMedia('(max-width: 900px)');
+  const isMobile = () => mobileMq.matches;
 
   /* ---- Scroll / enter reveals ---- */
   function initRevealAnimations() {
@@ -68,9 +70,23 @@
         reveal(entry.target);
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.14, rootMargin: '0px 0px -5% 0px' });
+    }, isMobile()
+      ? { threshold: 0.05, rootMargin: '0px 0px 8% 0px' }
+      : { threshold: 0.14, rootMargin: '0px 0px -5% 0px' });
 
     elements.filter((el) => !el.dataset.revealImmediate).forEach((el) => observer.observe(el));
+
+    const featured = document.querySelector('.mc-panel--featured');
+    if (featured && isMobile()) {
+      const featuredObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          featured.querySelectorAll('.mc-reveal').forEach(reveal);
+          featuredObserver.disconnect();
+        });
+      }, { threshold: 0.08 });
+      featuredObserver.observe(featured);
+    }
   }
 
   initRevealAnimations();
@@ -162,25 +178,24 @@
     }
   });
 
-  /* ---- Parallax scrolling ---- */
-  if (!reduced) {
-    const coverSelector = '.mc-more-work, .mc-bring, .mc-contact';
-    const parallaxSelector = '.mc-more-work, .mc-bring, .mc-about, .mc-contact';
+  /* ---- Parallax scrolling (desktop only) ---- */
+  const parallaxSelector = '.mc-more-work, .mc-bring, .mc-about, .mc-contact';
 
-    const ensureCoverInner = (section) => {
-      let inner = section.querySelector(':scope > .mc-cover-inner');
-      if (inner) return inner;
-      inner = document.createElement('div');
-      inner.className = 'mc-cover-inner';
-      while (section.firstChild) {
-        inner.appendChild(section.firstChild);
-      }
-      section.appendChild(inner);
-      return inner;
-    };
+  const ensureCoverInner = (section) => {
+    let inner = section.querySelector(':scope > .mc-cover-inner');
+    if (inner) return inner;
+    inner = document.createElement('div');
+    inner.className = 'mc-cover-inner';
+    while (section.firstChild) {
+      inner.appendChild(section.firstChild);
+    }
+    section.appendChild(inner);
+    return inner;
+  };
 
-    document.querySelectorAll(parallaxSelector).forEach(ensureCoverInner);
+  document.querySelectorAll(parallaxSelector).forEach(ensureCoverInner);
 
+  if (!reduced && !isMobile()) {
     let plxPending = false;
     const parallax = () => {
       const vh = window.innerHeight || document.documentElement.clientHeight || 800;
@@ -214,6 +229,16 @@
     document.addEventListener('scroll', onScrollPlx, { passive: true, capture: true });
     window.addEventListener('resize', onScrollPlx, { passive: true });
     parallax();
+
+    mobileMq.addEventListener('change', () => {
+      if (isMobile()) {
+        document.querySelectorAll('.mc-cover-inner').forEach((el) => {
+          el.style.transform = '';
+        });
+      } else {
+        parallax();
+      }
+    });
   }
 
   /* ---- Muted inline video autoplay ---- */

@@ -122,6 +122,7 @@ function extractTocEntries(content) {
   let match;
   while ((match = sectionRegex.exec(content)) !== null) {
     const id = match[1];
+    if (id === 'section-overview') continue;
     const inner = match[2];
     const labelMatch =
       inner.match(/class="[^"]*case-section-label[^"]*"[^>]*>\s*([^<]+)/i) ||
@@ -131,6 +132,84 @@ function extractTocEntries(content) {
     entries.push({ id, label });
   }
   return entries;
+}
+
+function flattenStrong(html) {
+  return html.replace(/<\/?strong>/gi, '');
+}
+
+function extractBalancedDiv(html, className) {
+  const openRe = new RegExp(`<div[^>]*class="[^"]*${className}[^"]*"[^>]*>`, 'i');
+  const openMatch = openRe.exec(html);
+  if (!openMatch) return '';
+  const start = openMatch.index;
+  let depth = 0;
+  for (let i = start; i < html.length; i += 1) {
+    if (html.startsWith('<div', i)) depth += 1;
+    if (html.startsWith('</div>', i)) {
+      depth -= 1;
+      if (depth === 0) return html.slice(start, i + 6);
+    }
+  }
+  return '';
+}
+
+function extractAndRemoveOverviewSection(content) {
+  const sectionRegex = /<section\b[^>]*\bid="section-overview"[^>]*>[\s\S]*?<\/section>/i;
+  const sectionMatch = content.match(sectionRegex);
+  if (!sectionMatch) return { content, text: '', note: '', media: '' };
+
+  const section = sectionMatch[0];
+  let text = '';
+  let note = '';
+  let media = '';
+
+  const titleMatch = section.match(
+    /<h2[^>]*class="[^"]*case-overview-title[^"]*"[^>]*>([\s\S]*?)<\/h2>/i
+  );
+  if (titleMatch) text = flattenStrong(titleMatch[1].trim());
+
+  const noteMatch = section.match(
+    /<p[^>]*class="[^"]*(?:un-intro|case-overview-note)[^"]*"[^>]*>[\s\S]*?<\/p>/i
+  );
+  if (noteMatch) {
+    note = noteMatch[0]
+      .replace(/\bclass="[^"]*un-intro[^"]*"/, 'class="mc-case-overview-note"')
+      .replace(/\bstyle="[^"]*"/, '');
+  }
+
+  if (!text) {
+    const simpleMatch = section.match(/<h2[^>]*>\s*Overview\s*<\/h2>\s*<p[^>]*>([\s\S]*?)<\/p>/i);
+    if (simpleMatch) text = simpleMatch[1].trim();
+  }
+
+  const heroMedia = extractBalancedDiv(section, 'case-overview-hero-media');
+  const videoStage = extractBalancedDiv(section, 'mc-video-stage');
+  const introStage = extractBalancedDiv(section, 'un-intro-video-stage');
+  if (heroMedia) {
+    media = heroMedia.replace(/^<div[^>]*>/, '').replace(/<\/div>$/, '').trim();
+  } else if (introStage) {
+    media = introStage;
+  } else if (videoStage) {
+    media = videoStage;
+  }
+
+  return {
+    content: content.replace(sectionRegex, '').trim(),
+    text,
+    note,
+    media
+  };
+}
+
+function buildOverviewHeaderHtml(text, note, media, fallbackIntro) {
+  const copy = text || fallbackIntro || '';
+  if (!copy && !note && !media) return '';
+  const parts = [];
+  if (copy) parts.push(`    <p class="mc-case-overview">${copy}</p>`);
+  if (note) parts.push(`    ${note}`);
+  if (media) parts.push(`    <div class="mc-case-overview-media">\n      ${media}\n    </div>`);
+  return `\n${parts.join('\n')}\n`;
 }
 
 function buildToolsHtml(tools) {
@@ -154,13 +233,15 @@ function buildStatsHtml(project) {
           .slice(0, 4)
           .map((stat) => {
             const numeric = String(stat.value).match(/^(\d+)/);
+            const isCopy = !numeric && !/^\d/.test(String(stat.value));
+            const valueClass = isCopy ? 'mc-stat-value mc-stat-value--copy' : 'mc-stat-value';
             const inner = numeric
               ? `<span data-count="${numeric[1]}">0</span>${String(stat.value).slice(numeric[1].length)}`
               : escapeHtml(stat.value);
-            const heading = String(stat.value).split(/\s+/)[0] || 'Impact';
+            const heading = stat.headline || stat.metric || 'Impact';
             return `<div>
           <p class="mc-stat-label">${escapeHtml(heading)}</p>
-          <p class="mc-stat-value">${inner}</p>
+          <p class="${valueClass}">${inner}</p>
           <p class="mc-stat-caption">${escapeHtml(stat.label)}</p>
         </div>`;
           })
@@ -208,12 +289,14 @@ function buildPage(pageId, fileName) {
   }
 
   content = content.replace(/<div class="case-hero">[\s\S]*?<\/div>\s*(?=<)/i, '');
+  const overviewExtract = extractAndRemoveOverviewSection(content);
+  content = overviewExtract.content;
   content = enhanceContent(content);
 
   let toc = extractTocEntries(content);
   if (!toc.length && content.trim()) {
-    content = `<section id="section-overview" data-spy-target="section-overview" data-screen-label="Overview" class="mc-section mc-legacy-section">\n${content}\n</section>`;
-    toc = [{ id: 'section-overview', label: 'Overview' }];
+    content = `<section id="section-01" data-spy-target="section-01" data-screen-label="Content" class="mc-section mc-legacy-section">\n${content}\n</section>`;
+    toc = extractTocEntries(content);
   }
 
   const project = getProjectMeta(pageId);
@@ -231,6 +314,12 @@ function buildPage(pageId, fileName) {
   const teamLabel = teamCount ? `Team (${teamCount})` : 'Team';
   const teamValue = teamRoster.length ? teamRoster.join(', ') : project.team || '—';
   const intro = project.demoIntro || project.desc || '';
+  const overviewHtml = buildOverviewHeaderHtml(
+    overviewExtract.text,
+    overviewExtract.note,
+    overviewExtract.media,
+    intro
+  );
   const heroSrc = project.heroImage || project.image || '';
   const heroAlt = project.heroAlt || `${project.title} main hero image`;
   const statsHtml = buildStatsHtml(project);
@@ -307,12 +396,10 @@ function buildPage(pageId, fileName) {
             </div>
           </div>` : ''}
         </div>
-        ${intro ? `<p class="mc-case-intro">${escapeHtml(intro)}</p>` : ''}
       </div>
       ${statsHtml}
     </div>
-
-    ${heroSrc ? `<div class="mc-case-hero-img">
+${overviewHtml}    ${heroSrc ? `<div class="mc-case-hero-img">
       <img src="${heroSrc}" alt="${escapeHtml(heroAlt)}">
     </div>` : ''}
   </header>

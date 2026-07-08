@@ -2819,6 +2819,11 @@ body.projects-more-modal-open {
     letter-spacing: 0.02em;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
+
+a.projects-more-modal__cta,
+a.projects-more-modal__cta:visited {
+    color: #ffffff;
+}
 .projects-more-modal__cta:hover,
 .projects-more-modal__cta:focus-visible {
     transform: translateY(-1px);
