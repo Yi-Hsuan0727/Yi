@@ -1253,6 +1253,7 @@ a.mc-card:hover {
 }
 
 .mc-modal {
+  position: relative;
   background: #ffffff;
   border-radius: 24px;
   overflow: hidden;
@@ -1266,6 +1267,13 @@ a.mc-card:hover {
 @media (max-width: 640px) {
   .mc-modal {
     grid-template-columns: 1fr;
+  }
+
+  .mc-modal-close {
+    top: 12px;
+    right: 12px;
+    z-index: 3;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
   }
 }
 
@@ -1288,7 +1296,6 @@ a.mc-card:hover {
   justify-content: center;
   gap: 16px;
   padding: clamp(24px, 3vw, 40px);
-  position: relative;
 }
 
 .mc-modal-close {
@@ -1407,11 +1414,12 @@ a.mc-card:hover {
   .mc-bring {
     margin-top: 0;
     padding-top: clamp(56px, 10vw, 80px);
-    padding-bottom: clamp(56px, 10vw, 80px);
+    padding-bottom: calc(clamp(56px, 10vw, 80px) + 40px);
   }
 
   .mc-about {
-    margin-top: 0;
+    margin-top: -36px;
+    padding-top: clamp(64px, 11vw, 88px);
   }
 
   .mc-contact {
@@ -1458,5 +1466,9 @@ a.mc-card:hover {
   .mc-marquee-track {
     gap: 18px;
     padding: 12px 0;
+  }
+
+  .mc-more-work .mc-tooltip {
+    display: none !important;
   }
 }

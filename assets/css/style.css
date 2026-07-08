@@ -5195,7 +5195,7 @@ a.projects-more-modal__cta:visited {
 .case-section .case-phase-block-header h3,
 .case-section .case-phase-block-title {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 28px;
 }
 .case-section p { line-height: 1.8; margin-bottom: 16px; }
 .case-section ul, .case-section ol { margin-left: 16px; margin-bottom: 16px; line-height: 1.65; }

@@ -39,7 +39,7 @@ jobs:
         # $CHROMEWEBDRIVER is preinstalled on GitHub runners and matches the
         # runner's Chrome version.
         run: |
-          PAGES="index.html about.html playground.html pic2split.html \
+          PAGES="index.html about.html pic2split.html \
                  unesco.html lcm.html uav.html lawfare.html agsec.html \
                  lt.html quickbite.html magnate.html spring.html \
                  dailymoo.html enchanter.html stiffy.html tnaf.html \

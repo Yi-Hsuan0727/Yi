@@ -165,6 +165,7 @@
   document.addEventListener('mouseover', (e) => {
     const el = e.target.closest && e.target.closest('[data-tip]');
     if (!el) return;
+    if (isMobile() && el.closest('.mc-marquee-tile')) return;
     const r = el.getBoundingClientRect();
     tip.textContent = el.getAttribute('data-tip');
     tip.style.left = (r.left + r.width / 2) + 'px';

@@ -290,6 +290,10 @@ body.mc-case * {
   margin-top: clamp(28px, 3vw, 40px);
 }
 
+.mc-case-hero-img + .mc-case-overview-media {
+  margin-top: clamp(28px, 3vw, 40px);
+}
+
 .mc-case-overview-media strong {
   font-weight: 600;
 }
@@ -648,7 +652,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 }
 
 .mc-phase-title {
-  margin: 0 0 24px;
+  margin: 0 0 36px;
   font-family: 'Archivo', sans-serif;
   font-stretch: 82%;
   font-weight: 800;
@@ -657,7 +661,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 }
 
 .mc-phase-title--tight {
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 
 .mc-phase-grid {

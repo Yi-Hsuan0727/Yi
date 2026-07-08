@@ -204,12 +204,14 @@ function extractAndRemoveOverviewSection(content) {
 
 function buildOverviewHeaderHtml(text, note, media, fallbackIntro) {
   const copy = text || fallbackIntro || '';
-  if (!copy && !note && !media) return '';
-  const parts = [];
-  if (copy) parts.push(`    <p class="mc-case-overview">${copy}</p>`);
-  if (note) parts.push(`    ${note}`);
-  if (media) parts.push(`    <div class="mc-case-overview-media">\n      ${media}\n    </div>`);
-  return `\n${parts.join('\n')}\n`;
+  const copyParts = [];
+  if (copy) copyParts.push(`    <p class="mc-case-overview">${copy}</p>`);
+  if (note) copyParts.push(`    ${note}`);
+  const copyHtml = copyParts.length ? `\n${copyParts.join('\n')}\n` : '';
+  const mediaHtml = media
+    ? `\n    <div class="mc-case-overview-media">\n      ${media}\n    </div>\n`
+    : '';
+  return { copyHtml, mediaHtml };
 }
 
 function buildToolsHtml(tools) {
@@ -314,12 +316,14 @@ function buildPage(pageId, fileName) {
   const teamLabel = teamCount ? `Team (${teamCount})` : 'Team';
   const teamValue = teamRoster.length ? teamRoster.join(', ') : project.team || '—';
   const intro = project.demoIntro || project.desc || '';
-  const overviewHtml = buildOverviewHeaderHtml(
+  const overviewParts = buildOverviewHeaderHtml(
     overviewExtract.text,
     overviewExtract.note,
     overviewExtract.media,
     intro
   );
+  const overviewCopyHtml = overviewParts.copyHtml;
+  const overviewMediaHtml = overviewParts.mediaHtml;
   const heroSrc = project.heroImage || project.image || '';
   const heroAlt = project.heroAlt || `${project.title} main hero image`;
   const statsHtml = buildStatsHtml(project);
@@ -367,7 +371,6 @@ function buildPage(pageId, fileName) {
     </a>
     <div class="mc-nav-links">
       <a href="index.html#featured-work" class="mc-nav-link" aria-label="Work" data-tip="Work"><i class="fas fa-briefcase" aria-hidden="true"></i></a>
-      <a href="playground.html" class="mc-nav-link" aria-label="Play" data-tip="Play"><i class="fas fa-gamepad" aria-hidden="true"></i></a>
       <a href="index.html#about" class="mc-nav-link" aria-label="About" data-tip="About"><i class="fas fa-user" aria-hidden="true"></i></a>
       <a href="index.html#contact" class="mc-nav-link" aria-label="Contact" data-tip="Contact"><i class="fas fa-envelope" aria-hidden="true"></i></a>
     </div>
@@ -399,9 +402,9 @@ function buildPage(pageId, fileName) {
       </div>
       ${statsHtml}
     </div>
-${overviewHtml}    ${heroSrc ? `<div class="mc-case-hero-img">
+${overviewCopyHtml}    ${heroSrc ? `<div class="mc-case-hero-img">
       <img src="${heroSrc}" alt="${escapeHtml(heroAlt)}">
-    </div>` : ''}
+    </div>${overviewMediaHtml}` : `${overviewMediaHtml}`}
   </header>
 
   <div class="mc-case-body">

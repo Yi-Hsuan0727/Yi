@@ -85,8 +85,53 @@ function buildOverviewBlock(text, note, media) {
   const parts = [];
   if (text) parts.push(`    <p class="mc-case-overview">${text}</p>`);
   if (note) parts.push(`    ${note}`);
-  if (media) parts.push(`    <div class="mc-case-overview-media">\n      ${media}\n    </div>`);
-  return parts.length ? `${parts.join('\n')}\n` : '';
+  return { copy: parts.length ? `${parts.join('\n')}\n` : '', media: buildOverviewMediaBlock(media) };
+}
+
+function buildOverviewMediaBlock(media) {
+  if (!media) return '';
+  return `    <div class="mc-case-overview-media">\n      ${media}\n    </div>\n`;
+}
+
+function moveMediaBelowHero(html) {
+  const mediaBlock = extractBalancedDiv(html, 'mc-case-overview-media');
+  if (!mediaBlock) return { html, changed: false };
+
+  const heroMatch = html.match(/<div class="mc-case-hero-img">[\s\S]*?<\/div>/);
+  if (!heroMatch) return { html, changed: false };
+
+  const heroEnd = heroMatch.index + heroMatch[0].length;
+  const afterHero = html.slice(heroEnd);
+  if (afterHero.trimStart().startsWith(mediaBlock.trim())) {
+    return { html, changed: false };
+  }
+
+  let next = html.replace(mediaBlock, '').replace(/\n{3,}/g, '\n\n');
+  const heroMatch2 = next.match(/<div class="mc-case-hero-img">[\s\S]*?<\/div>/);
+  if (!heroMatch2) return { html, changed: false };
+
+  next = next.replace(heroMatch2[0], `${heroMatch2[0]}\n${mediaBlock}`);
+  return { html: next, changed: true };
+}
+
+function insertOverviewInHeader(html, copyBlock, mediaBlock) {
+  if (!copyBlock && !mediaBlock) return html;
+
+  if (html.includes('class="mc-case-hero-img"')) {
+    if (copyBlock && !html.includes('class="mc-case-overview"')) {
+      html = html.replace(/(\s*<div class="mc-case-hero-img">)/, `\n${copyBlock}$1`);
+    }
+    if (mediaBlock && !html.includes('class="mc-case-overview-media"')) {
+      html = html.replace(
+        /(<div class="mc-case-hero-img">[\s\S]*?<\/div>)/,
+        `$1\n${mediaBlock}`
+      );
+    }
+    return html;
+  }
+
+  const block = `${copyBlock}${mediaBlock}`;
+  return html.replace(/(\s*<\/header>)/, `\n${block}$1`);
 }
 
 function processFile(filePath) {
@@ -125,21 +170,34 @@ function processFile(filePath) {
 
   const finalText = chooseOverview(introText, overviewText);
   const hasOverviewBlock = html.includes('class="mc-case-overview"');
-  const overviewBlock = buildOverviewBlock(finalText, overviewNote, overviewMedia);
+  const { copy, media } = buildOverviewBlock(finalText, overviewNote, overviewMedia);
 
-  if (overviewBlock && !hasOverviewBlock) {
-    if (html.includes('class="mc-case-hero-img"')) {
-      html = html.replace(/(\s*<div class="mc-case-hero-img">)/, `\n${overviewBlock}$1`);
-    } else {
-      html = html.replace(/(\s*<\/header>)/, `\n${overviewBlock}$1`);
+  if ((copy || media) && !hasOverviewBlock) {
+    html = insertOverviewInHeader(html, copy, media);
+    changed = true;
+  } else if (hasOverviewBlock && (overviewNote || overviewMedia)) {
+    if (overviewNote && !html.includes('mc-case-overview-note')) {
+      html = html.replace(
+        /(<p class="mc-case-overview">[\s\S]*?<\/p>)/,
+        `$1\n    ${overviewNote}\n`
+      );
+      changed = true;
     }
-    changed = true;
-  } else if (overviewBlock && hasOverviewBlock && (overviewNote || overviewMedia)) {
-    html = html.replace(
-      /(<p class="mc-case-overview">[\s\S]*?<\/p>)/,
-      `$1\n${overviewNote ? `    ${overviewNote}\n` : ''}${overviewMedia ? `    <div class="mc-case-overview-media">\n      ${overviewMedia}\n    </div>\n` : ''}`
-    );
-    changed = true;
+    if (overviewMedia && !html.includes('class="mc-case-overview-media"')) {
+      html = html.replace(
+        /(<div class="mc-case-hero-img">[\s\S]*?<\/div>)/,
+        `$1\n${buildOverviewMediaBlock(overviewMedia)}`
+      );
+      changed = true;
+    }
+  }
+
+  if (html.includes('class="mc-case-overview-media"')) {
+    const moved = moveMediaBelowHero(html);
+    if (moved.changed) {
+      html = moved.html;
+      changed = true;
+    }
   }
 
   if (changed) writeFileSync(filePath, html);

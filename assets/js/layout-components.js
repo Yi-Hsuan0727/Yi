@@ -1096,7 +1096,6 @@ const LayoutComponents = {
 
     buildMcNav: function(pageType) {
         const isHome = pageType === 'home';
-        const isPlayground = pageType === 'playground';
         const isAbout = pageType === 'about';
         const homeHref = isHome ? '#top' : 'index.html';
         const workHref = isHome ? '#featured-work' : 'index.html#featured-work';
@@ -1111,7 +1110,6 @@ const LayoutComponents = {
                 </a>
                 <div class="mc-nav-links">
                     ${this.buildMcNavLink(workHref, 'Work', 'fa-briefcase', false)}
-                    ${this.buildMcNavLink('playground.html', 'Play', 'fa-gamepad', isPlayground)}
                     ${this.buildMcNavLink(aboutHref, 'About', 'fa-user', isAbout)}
                     ${this.buildMcNavLink(contactHref, 'Contact', 'fa-envelope', false)}
                 </div>
