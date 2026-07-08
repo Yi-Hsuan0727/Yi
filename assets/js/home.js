@@ -11,6 +11,70 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- Scroll / enter reveals ---- */
+  function initRevealAnimations() {
+    const configs = [
+      { selector: '.mc-hero-title', delay: 0, immediate: true },
+      { selector: '.mc-hero-eyes', delay: 140, immediate: true },
+      { selector: '.mc-intro-heading', delay: 220, immediate: true },
+      { selector: '.mc-intro-actions', delay: 300, immediate: true },
+      { selector: '.mc-intro-copy', delay: 380, immediate: true },
+      { selector: '.mc-featured .mc-eyebrow', delay: 0 },
+      { selector: '.mc-featured .mc-section-title', delay: 90 },
+      { selector: '.mc-featured-grid .mc-card', stagger: 110 },
+      { selector: '.mc-more-work-head h2', delay: 0 },
+      { selector: '.mc-more-work-head p', delay: 100 },
+      { selector: '.mc-bring-title', delay: 0 },
+      { selector: '.mc-bring-item', stagger: 120 },
+      { selector: '.mc-about-title', delay: 0 },
+      { selector: '.mc-about-copy p', stagger: 90 },
+      { selector: '.mc-timeline h3', stagger: 70 },
+      { selector: '.mc-timeline-row', stagger: 80 },
+      { selector: '.mc-about-photo', delay: 140 },
+      { selector: '.mc-contact-info .mc-eyebrow', delay: 0 },
+      { selector: '.mc-contact-title', delay: 90 },
+      { selector: '.mc-contact-actions', delay: 180 },
+      { selector: '.mc-form-intro', delay: 0 },
+      { selector: '.mc-form-fields > *', stagger: 70 }
+    ];
+
+    const elements = [];
+    configs.forEach(({ selector, delay = 0, stagger = 0, immediate = false }) => {
+      document.querySelectorAll(selector).forEach((el, i) => {
+        el.classList.add('mc-reveal');
+        el.style.setProperty('--reveal-delay', (delay + i * stagger) + 'ms');
+        if (immediate) el.dataset.revealImmediate = 'true';
+        elements.push(el);
+      });
+    });
+
+    if (!elements.length) return;
+
+    const reveal = (el) => {
+      if (el.classList.contains('is-visible')) return;
+      el.classList.add('is-visible');
+    };
+
+    if (reduced) {
+      elements.forEach(reveal);
+      return;
+    }
+
+    elements.filter((el) => el.dataset.revealImmediate).forEach(reveal);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        reveal(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -5% 0px' });
+
+    elements.filter((el) => !el.dataset.revealImmediate).forEach((el) => observer.observe(el));
+  }
+
+  initRevealAnimations();
+
   /* ---- Eyes follow cursor ---- */
   const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 3 };
   let rafPending = false;

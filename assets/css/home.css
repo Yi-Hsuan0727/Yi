@@ -56,6 +56,35 @@ body.mc-home {
 
 @media (prefers-reduced-motion: reduce) {
   .mc-marquee-track { animation: none !important; }
+  .mc-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============ SCROLL / ENTER REVEALS ============ */
+
+.mc-reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.mc-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.mc-reveal[data-plx] {
+  transform: none;
+}
+
+.mc-reveal[data-plx].is-visible {
+  transform: none;
 }
 
 .mc-root {
