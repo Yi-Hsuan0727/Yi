@@ -3,6 +3,44 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---- Case-page entry wipe (green cover, no logo) ---- */
+  if (!reduced && document.body.classList.contains('mc-case')) {
+    const overlay = document.createElement('div');
+    overlay.className = 'mc-case-splash';
+    document.body.appendChild(overlay);
+    document.body.classList.add('mc-case-splash-active');
+
+    const COVER_MS = 750;
+    const HOLD_MS = 180;
+    const REVEAL_MS = 1050;
+    const coverStart = 60;
+    const readyAt = coverStart + COVER_MS;
+    const revealStart = readyAt + HOLD_MS;
+    const doneAt = revealStart + REVEAL_MS;
+
+    window.setTimeout(() => {
+      document.body.classList.add('mc-case-splash-cover');
+    }, coverStart);
+
+    window.setTimeout(() => {
+      document.body.classList.add('mc-case-splash-ready');
+    }, readyAt);
+
+    window.setTimeout(() => {
+      document.body.classList.add('mc-case-splash-reveal');
+    }, revealStart);
+
+    window.setTimeout(() => {
+      overlay.remove();
+      document.body.classList.remove(
+        'mc-case-splash-active',
+        'mc-case-splash-cover',
+        'mc-case-splash-ready',
+        'mc-case-splash-reveal'
+      );
+    }, doneAt);
+  }
+
   /* ---- Eyes follow cursor ---- */
   const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 3 };
   let rafPending = false;

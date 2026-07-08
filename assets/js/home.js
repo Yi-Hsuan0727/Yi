@@ -179,6 +179,89 @@
     }
   });
 
+  /* ---- About award preview near cursor ---- */
+  function initAboutAwardPreviews() {
+    if (isMobile() || reduced) return;
+    const section = document.querySelector('.mc-about-copy');
+    if (!section || section.dataset.awardPreviewInit) return;
+    section.dataset.awardPreviewInit = '1';
+
+    let preview = document.getElementById('home-award-preview');
+    if (!preview) {
+      preview = document.createElement('div');
+      preview.id = 'home-award-preview';
+      preview.className = 'home-award-preview';
+      preview.setAttribute('aria-hidden', 'true');
+      preview.innerHTML = '<img src="" alt="">';
+      document.body.appendChild(preview);
+    }
+
+    const img = preview.querySelector('img');
+    const width = 240;
+    const height = 160;
+    const gap = 28;
+    let activeLink = null;
+
+    const positionPreview = (x, y) => {
+      let left = x + gap;
+      let top = y - height / 2;
+      const pad = 12;
+      if (left + width > window.innerWidth - pad) left = x - width - gap;
+      if (top < pad) top = pad;
+      if (top + height > window.innerHeight - pad) top = window.innerHeight - height - pad;
+      preview.style.left = left + 'px';
+      preview.style.top = top + 'px';
+    };
+
+    const hidePreview = () => {
+      activeLink = null;
+      preview.classList.remove('is-visible');
+    };
+
+    const showPreview = (link, x, y) => {
+      const src = link.getAttribute('data-award-preview');
+      if (!src) return;
+      activeLink = link;
+      if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+      img.setAttribute('alt', link.textContent.trim());
+      positionPreview(x, y);
+      preview.classList.add('is-visible');
+    };
+
+    section.addEventListener('mouseover', (e) => {
+      const link = e.target.closest('.mc-about-award-link');
+      if (!link || !link.getAttribute('data-award-preview')) return;
+      showPreview(link, e.clientX, e.clientY);
+    });
+
+    section.addEventListener('mouseout', (e) => {
+      const link = e.target.closest('.mc-about-award-link');
+      if (!link || link !== activeLink) return;
+      const next = e.relatedTarget;
+      if (next && link.contains(next)) return;
+      hidePreview();
+    });
+
+    section.addEventListener('mousemove', (e) => {
+      if (!activeLink) return;
+      if (!activeLink.contains(e.target)) {
+        hidePreview();
+        return;
+      }
+      positionPreview(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!activeLink) return;
+      if (!e.target.closest('.mc-about-award-link')) hidePreview();
+    }, { passive: true });
+
+    window.addEventListener('scroll', hidePreview, { passive: true });
+    window.addEventListener('blur', hidePreview);
+  }
+
+  initAboutAwardPreviews();
+
   /* ---- Parallax scrolling (desktop only) ---- */
   const parallaxSelector = '.mc-more-work, .mc-bring, .mc-about, .mc-contact';
 

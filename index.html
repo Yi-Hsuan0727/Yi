@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/home.css?v=20260708aa">
+<link rel="stylesheet" href="assets/css/home.css?v=20260708ag">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -239,7 +239,7 @@
       <div class="mc-about-col">
         <div class="mc-about-copy">
           <p>Originally from Taiwan, I moved to Arizona in August 2024 for my M.S. in UX/HCI at Arizona State University (May 2026). I speak fluent Mandarin and am learning Japanese and German.</p>
-          <p>I design across web + mobile, ship front-end work, and collaborate closely with engineers. Hackathon award winner (<a href="https://devpost.com/software/daily-moo-mood" target="_blank" rel="noopener noreferrer">2nd Place, RoseHack 2025</a> for Daily Moo Mood) and <a href="https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game" target="_blank" rel="noopener noreferrer">People's Choice · Endstar Game Maker Spark Challenge</a> recipient. I care about community as a Student Adobe Ambassador at ASU and through Toastmasters.</p>
+          <p>I design across web + mobile, ship front-end work, and collaborate closely with engineers. Hackathon award winner (<a class="mc-about-award-link" href="https://devpost.com/software/daily-moo-mood" target="_blank" rel="noopener noreferrer" data-award-preview="assets/img/DailyMooMood/landing page.png">2nd Place, RoseHack 2025</a> for Daily Moo Mood) and <a class="mc-about-award-link" href="https://studio.endlessstudios.com/endstar/e25c3c59-a822-4576-acd1-3ebfd5b52d09/?assetType=game" target="_blank" rel="noopener noreferrer" data-award-preview="assets/img/Enchanter/group presentation.jpeg">People's Choice · Endstar Game Maker Spark Challenge</a> recipient. I care about community as a Student Adobe Ambassador at ASU and through Toastmasters.</p>
         </div>
         <div class="mc-timeline">
           <div class="mc-timeline-block">
@@ -271,9 +271,11 @@
         </div>
       </div>
       <figure class="mc-about-photo">
-        <div class="mc-about-photo-frame">
-          <img src="assets/img/Michelle/IMG_2395.png" alt="Michelle Chen">
-        </div>
+        <button class="mc-about-photo-frame mc-about-photo-stack" type="button" aria-label="Next photo" data-about-stack>
+          <img class="mc-about-photo-slide is-active" src="assets/img/Michelle/IMG_2395.png" alt="Michelle Chen portrait 1">
+          <img class="mc-about-photo-slide is-next" src="assets/img/Michelle/IMG_1139.JPG" alt="Michelle Chen portrait 2">
+          <img class="mc-about-photo-slide is-back" src="assets/img/Michelle/IMG_3647.JPG" alt="Michelle Chen portrait 3">
+        </button>
       </figure>
     </div>
   </section>
@@ -346,7 +348,7 @@
 </div>
 <script src="assets/js/contact-form.js?v=20260702b"></script>
 <script src="assets/js/splash.js?v=20260708d"></script>
-<script src="assets/js/home.js?v=20260708i"></script>
+<script src="assets/js/home.js?v=20260708l"></script>
 <script>
 (() => {
   if (typeof SplashScreen === 'undefined') return;

@@ -107,7 +107,7 @@ body.mc-case * {
   border: 1px solid rgba(17, 21, 17, 0.1);
   border-radius: 999px;
   padding: 7px 14px 7px 8px;
-  box-shadow: 0 3px 10px rgba(10, 40, 20, 0.07);
+  box-shadow: none;
 }
 
 .mc-nav-home {
