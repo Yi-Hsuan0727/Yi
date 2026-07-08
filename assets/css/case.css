@@ -327,12 +327,6 @@ body.mc-case * {
   font-weight: inherit;
 }
 
-.mc-stat-value--copy {
-  font-family: inherit;
-  font-size: clamp(22px, 2.2vw, 32px);
-  line-height: 1.15;
-}
-
 .mc-stat-value .mc-stat-unit {
   font-size: 0.45em;
 }
@@ -390,8 +384,8 @@ body.mc-case * {
 .mc-toc-link {
   text-decoration: none;
   color: rgba(17, 21, 17, 0.5);
-  padding: 6px 0 6px 14px;
-  border-left: 2px solid transparent;
+  padding: 6px 0 6px 12px;
+  border-left: 3px solid transparent;
   transition: color 0.2s ease, border-left-color 0.2s ease, font-weight 0.2s ease;
 }
 
@@ -693,34 +687,54 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 }
 
 /* Legacy research-chart layout inside native process phases */
-.mc-section--process .mc-phase-inner--with-chart {
+.mc-phase:has(> .mc-phase-split),
+.mc-phase:has(> .mc-phase-inner--with-chart) {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  grid-template-rows: auto;
-  grid-template-areas: 'copy media';
-  gap: 18px 28px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  column-gap: clamp(24px, 3.5vw, 44px);
+  row-gap: 10px;
+  align-items: start;
+}
+
+.mc-phase:has(> .case-phase-block-inner--media-col-4) {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+.mc-phase:has(> .mc-phase-split) > .mc-phase-label,
+.mc-phase:has(> .mc-phase-inner--with-chart) > .mc-phase-label {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.mc-phase:has(> .mc-phase-split) > .mc-phase-title,
+.mc-phase:has(> .mc-phase-inner--with-chart) > .mc-phase-title {
+  grid-column: 1;
+  grid-row: 2;
+  margin-bottom: 12px;
+}
+
+.mc-section--process .mc-phase-inner--with-chart {
+  display: contents;
   margin: 0;
   padding: 0;
 }
 
-.mc-section--process .mc-phase-inner--with-chart.case-phase-block-inner--media-col-4 {
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-}
-
 .mc-section--process .mc-phase-inner--with-chart .mc-phase-copy {
-  grid-area: copy;
+  grid-column: 1;
+  grid-row: 3;
   justify-content: center;
 }
 
 .mc-section--process .mc-phase-inner--with-chart .mc-phase-media {
-  grid-area: media;
-  align-self: center;
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: start;
 }
 
 .mc-section--process .mc-phase-inner--with-chart .case-research-chart--full,
 .mc-section--process .mc-phase-inner--with-chart .p2s-research-chart--full {
   grid-column: 1 / -1;
+  grid-row: 4;
 }
 
 .mc-section--process .mc-phase-inner--with-chart .case-research-chart,
@@ -738,11 +752,29 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 }
 
 @media (max-width: 900px) {
+  .mc-phase:has(> .mc-phase-split),
+  .mc-phase:has(> .mc-phase-inner--with-chart) {
+    display: block;
+  }
+
   .mc-section--process .mc-phase-inner--with-chart {
+    display: grid;
     grid-template-columns: 1fr;
     grid-template-areas:
       'copy'
       'media';
+    gap: 24px;
+  }
+
+  .mc-phase:has(> .mc-phase-split) > .mc-phase-title,
+  .mc-phase:has(> .mc-phase-inner--with-chart) > .mc-phase-title {
+    margin-bottom: 36px;
+  }
+
+  .mc-section--process .mc-phase-inner--with-chart .mc-phase-copy,
+  .mc-section--process .mc-phase-inner--with-chart .mc-phase-media {
+    grid-column: auto;
+    grid-row: auto;
   }
 }
 
@@ -1519,10 +1551,33 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 
 /* -- Phase card: copy + media split -- */
 .mc-phase-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: clamp(24px, 3.5vw, 44px);
-  align-items: start;
+  display: contents;
+}
+
+.mc-phase:has(> .mc-phase-split) .mc-phase-copy {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.mc-phase:has(> .mc-phase-split) .mc-phase-media {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: start;
+}
+
+@media (max-width: 900px) {
+  .mc-phase-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 3.5vw, 44px);
+    align-items: start;
+  }
+
+  .mc-phase:has(> .mc-phase-split) .mc-phase-copy,
+  .mc-phase:has(> .mc-phase-split) .mc-phase-media {
+    grid-column: auto;
+    grid-row: auto;
+  }
 }
 
 .mc-phase-copy {
