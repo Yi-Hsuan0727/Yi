@@ -29,6 +29,48 @@ body.mc-case {
   overflow: visible;
 }
 
+body.mc-case.mc-case-splash-active {
+  overflow: hidden;
+}
+
+body.mc-case.mc-case-splash-active .mc-root {
+  opacity: 0;
+  visibility: visible;
+  pointer-events: none;
+}
+
+body.mc-case.mc-case-splash-ready .mc-root {
+  opacity: 1;
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+body.mc-case:not(.mc-case-splash-active) .mc-root {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mc-case-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #2ecc71;
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+body.mc-case.mc-case-splash-cover .mc-case-splash {
+  transform: scaleY(1);
+  transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+body.mc-case.mc-case-splash-reveal .mc-case-splash {
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 body.mc-case * {
   box-sizing: border-box;
 }
