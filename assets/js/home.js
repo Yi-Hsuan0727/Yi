@@ -242,8 +242,37 @@
     });
   }
 
+  /* ---- Play-once videos when scrolled into view ---- */
+  const onceVideos = document.querySelectorAll('video[data-play-once-on-view]');
+  if (onceVideos.length) {
+    const playOnceObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (!entry.isIntersecting || video.dataset.playedOnce === 'true') return;
+        video.dataset.playedOnce = 'true';
+        video.muted = true;
+        video.setAttribute('muted', '');
+        video.loop = false;
+        video.removeAttribute('loop');
+        video.currentTime = 0;
+        const playPromise = video.play();
+        if (playPromise && playPromise.catch) playPromise.catch(() => {});
+        playOnceObserver.unobserve(video);
+      });
+    }, { threshold: 0.55 });
+
+    onceVideos.forEach((video) => {
+      video.muted = true;
+      video.setAttribute('muted', '');
+      video.loop = false;
+      video.removeAttribute('loop');
+      video.pause();
+      playOnceObserver.observe(video);
+    });
+  }
+
   /* ---- Muted inline video autoplay ---- */
-  document.querySelectorAll('video').forEach((v) => {
+  document.querySelectorAll('video:not([data-play-once-on-view])').forEach((v) => {
     v.muted = true;
     v.setAttribute('muted', '');
     if (v.paused) {
