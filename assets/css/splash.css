@@ -9,8 +9,24 @@ body.splash-active.custom-cursor-active * {
     cursor: none !important;
 }
 
-body.splash-active #app-root {
-    visibility: hidden;
+body.splash-active #app-root,
+body.splash-active .mc-root {
+    opacity: 0;
+    visibility: visible;
+    pointer-events: none;
+}
+
+body.splash-ready #app-root,
+body.splash-ready .mc-root {
+    opacity: 1;
+    transition: opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+}
+
+body:not(.splash-active) #app-root,
+body:not(.splash-active) .mc-root {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .splash-screen {
@@ -21,19 +37,47 @@ body.splash-active #app-root {
     align-items: center;
     justify-content: center;
     background: #ffffff;
-    transition: opacity 0.45s ease, visibility 0.45s ease;
     cursor: none;
+    overflow: hidden;
+    transition: background-color 0.35s ease;
 }
 
-.splash-screen--exit {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+.splash-screen--cover {
+    background: transparent;
+}
+
+.splash-wipe {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #2ecc71;
+    transform: scaleY(0);
+    transform-origin: bottom center;
+    will-change: transform;
+}
+
+.splash-screen--cover .splash-wipe {
+    transform: scaleY(1);
+    transition: transform 0.85s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.splash-screen--reveal .splash-wipe {
+    transform-origin: top center;
+    transform: scaleY(0);
+    transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .splash-logo {
-    width: 96px;
-    height: 96px;
+    position: relative;
+    z-index: 2;
+    width: 132px;
+    height: 132px;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.splash-screen--cover .splash-logo {
+    opacity: 0;
+    transform: scale(0.92);
 }
 
 .splash-logo svg {
@@ -41,6 +85,24 @@ body.splash-active #app-root {
     height: 100%;
     display: block;
     overflow: visible;
+}
+
+.splash-ring-track {
+    fill: none;
+    stroke: rgba(46, 204, 113, 0.2);
+    stroke-width: 3.5;
+}
+
+.splash-ring-progress {
+    fill: none;
+    stroke: #2ecc71;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    stroke-dasharray: 226.195;
+    stroke-dashoffset: 226.195;
+    transform: rotate(-90deg);
+    transform-origin: 40px 40px;
+    animation: splashRingProgress 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
 }
 
 .splash-logo-base {
@@ -58,7 +120,13 @@ body.splash-active #app-root {
     transform: scaleY(0);
     transform-box: fill-box;
     transform-origin: center bottom;
-    animation: splashLogoFill 1.4s ease-in-out 0.35s forwards;
+    animation: splashLogoFill 1.5s ease-in-out 0.2s forwards;
+}
+
+@keyframes splashRingProgress {
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 
 @keyframes splashLogoFill {
@@ -68,12 +136,27 @@ body.splash-active #app-root {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .splash-fill-mask {
+    .splash-fill-mask,
+    .splash-ring-progress {
         animation: none;
+    }
+
+    .splash-fill-mask {
         transform: scaleY(1);
     }
 
-    .splash-screen {
+    .splash-ring-progress {
+        stroke-dashoffset: 0;
+    }
+
+    body.splash-ready #app-root,
+    body.splash-ready .mc-root {
+        transition: none;
+    }
+
+    .splash-screen,
+    .splash-screen--cover .splash-wipe,
+    .splash-screen--reveal .splash-wipe {
         transition: none;
     }
 }

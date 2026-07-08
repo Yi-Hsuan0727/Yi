@@ -45,7 +45,7 @@
 <link rel="stylesheet" href="assets/css/style.css?v=20260707h">
 <link rel="stylesheet" href="assets/css/monster.css?v=20260701c">
 <link rel="stylesheet" href="assets/css/cursor.css?v=20260630n">
-<link rel="stylesheet" href="assets/css/splash.css?v=20260630n">
+<link rel="stylesheet" href="assets/css/splash.css?v=20260708d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -345,6 +345,14 @@
 
 </div>
 <script src="assets/js/contact-form.js?v=20260702b"></script>
-<script src="assets/js/home.js?v=20260708h"></script>
+<script src="assets/js/splash.js?v=20260708d"></script>
+<script src="assets/js/home.js?v=20260708i"></script>
+<script>
+(() => {
+  if (typeof SplashScreen === 'undefined') return;
+  if (!SplashScreen.shouldShow()) return;
+  SplashScreen.show();
+})();
+</script>
 </body>
 </html>
