@@ -135,6 +135,33 @@
   const firstSpy = document.querySelector('[data-spy-target]');
   if (firstSpy) setActive(firstSpy.getAttribute('data-spy-target'));
 
+  /* ---- Before / after compare slider ---- */
+  document.querySelectorAll('[data-compare]').forEach((compare) => {
+    const stage = compare.querySelector('.mc-compare-stage');
+    if (!stage) return;
+    const viewport = stage.querySelector('.mc-compare-viewport') || stage;
+
+    const setSplitFromClientX = (clientX) => {
+      const rect = viewport.getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+      const percent = (x / rect.width) * 100;
+      viewport.style.setProperty('--split-pos', percent.toFixed(2) + '%');
+    };
+
+    let dragging = false;
+    stage.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      stage.setPointerCapture(e.pointerId);
+      setSplitFromClientX(e.clientX);
+    });
+    stage.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      setSplitFromClientX(e.clientX);
+    });
+    stage.addEventListener('pointerup', () => { dragging = false; });
+    stage.addEventListener('pointercancel', () => { dragging = false; });
+  });
+
   /* ---- Muted inline video autoplay ---- */
   document.querySelectorAll('video').forEach((v) => {
     v.muted = true;
