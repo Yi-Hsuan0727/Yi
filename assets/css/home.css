@@ -583,6 +583,8 @@ body.mc-home {
 }
 
 .mc-featured-grid .mc-card-title {
+  display: block;
+  margin-top: 8px;
   font-size: clamp(20px, 1.9vw, 30px);
   line-height: 1.28;
 }
@@ -647,7 +649,7 @@ a.mc-card:hover {
 
 .mc-card-title {
   font-size: clamp(18px, 1.6vw, 24px);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.01em;
 }
