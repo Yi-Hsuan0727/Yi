@@ -10,15 +10,23 @@ html, body {
   background: #ffffff;
 }
 
+html:has(body.mc-case) {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 body.mc-case {
+  --mc-nav-top: 18px;
+  --mc-nav-height: 49px;
+  --mc-sticky-below-nav: calc(var(--mc-nav-top) + var(--mc-nav-height) + 14px);
   font-family: 'Montserrat', sans-serif;
   color: #111511;
   -webkit-font-smoothing: antialiased;
   /* style.css locks body scroll for app-shell pages with #scroll-container */
   height: auto;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+  min-height: 100%;
+  overflow: visible;
 }
 
 body.mc-case * {
@@ -40,6 +48,7 @@ body.mc-case * {
 
 .mc-root {
   min-height: 100vh;
+  overflow: visible;
 }
 
 /* ============ FLOATING PILL NAV ============ */
@@ -308,11 +317,17 @@ body.mc-case * {
   grid-template-columns: 220px minmax(0, 1fr);
   gap: clamp(36px, 5vw, 80px);
   align-items: start;
+  overflow: visible;
 }
 
 .mc-toc {
+  position: -webkit-sticky;
   position: sticky;
-  top: 90px;
+  top: var(--mc-sticky-below-nav);
+  z-index: 50;
+  align-self: start;
+  max-height: calc(100vh - var(--mc-sticky-below-nav) - 24px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 2px;

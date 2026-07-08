@@ -4731,6 +4731,36 @@ body.projects-more-modal-open {
     border-top: none;
 }
 
+@media (min-width: 1201px) {
+    .content-wrapper.sidebar-compact-scope--project .sidebar {
+        overflow-y: hidden;
+        overflow-x: visible;
+    }
+
+    .content-wrapper.sidebar-compact-scope--project .sidebar-top {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .content-wrapper.sidebar-compact-scope--project .sidebar-bottom-block {
+        flex: 0 0 auto;
+        position: relative;
+        z-index: 25;
+        align-self: stretch;
+        width: 100%;
+    }
+
+    .content-wrapper.sidebar-compact-scope--project .sidebar-scroll-spy {
+        position: relative;
+        z-index: 25;
+        width: 100%;
+        background: #ffffff;
+    }
+}
+
 .content-wrapper.sidebar-compact-scope--project .sidebar-visit-wrap {
     margin-top: 0;
     padding: 0 0 16px;

@@ -42,7 +42,7 @@
     </script>
 
     <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/css/style.css?v=20260707d">
+<link rel="stylesheet" href="assets/css/style.css?v=20260707h">
 <link rel="stylesheet" href="assets/css/monster.css?v=20260701c">
 <link rel="stylesheet" href="assets/css/cursor.css?v=20260630n">
 <link rel="stylesheet" href="assets/css/splash.css?v=20260630n">
@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/home.css?v=20260707b">
+<link rel="stylesheet" href="assets/css/home.css?v=20260707v">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -71,7 +71,8 @@
     </div>
   </nav>
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO + INTRO (first viewport) ============ -->
+  <div class="mc-home-fold">
   <header id="top" data-screen-label="Hero" class="mc-hero">
     <h1 data-plx="0.32" class="mc-hero-title">A designer<br>attention<br>to&nbsp;&nbsp;details</h1>
     <div aria-hidden="true" data-plx="0.18" class="mc-hero-eyes">
@@ -80,9 +81,7 @@
     </div>
   </header>
 
-  <!-- ============ INTRO + FEATURED (white rounded panel) ============ -->
-  <section data-screen-label="Intro + Featured work" class="mc-panel">
-
+  <section data-screen-label="Intro" class="mc-panel mc-panel--intro">
     <div class="mc-intro-row">
       <h2 class="mc-intro-heading">Hi! I am Michelle Chen</h2>
       <div class="mc-intro-actions">
@@ -92,7 +91,11 @@
       </div>
       <p class="mc-intro-copy">Currently working as a UX/UI Designer at VisLab. From research and prototyping through front-end, shipping WCAG-compliant interfaces for data-heavy tools.</p>
     </div>
+  </section>
+  </div>
 
+  <!-- ============ FEATURED WORK ============ -->
+  <section data-screen-label="Featured work" class="mc-panel mc-panel--featured">
     <div id="featured-work" class="mc-featured">
       <p class="mc-eyebrow"><span class="mc-eyebrow-dot"></span>Featured work</p>
       <h2 class="mc-section-title">I design accessible,<br>AI-driven web products.</h2>
@@ -104,47 +107,53 @@
             <img src="assets/img/main images/pic2split.png" alt="Pic2Split">
           </span>
           <span class="mc-card-body">
-            <span class="mc-card-title">Scan a receipt with AI + OCR, split the bill in seconds.</span>
-            <span class="mc-card-footer">
+            <span class="mc-card-copy">
+              <span class="mc-card-title">Scan a receipt with AI + OCR, split the bill in seconds.</span>
               <span class="mc-tags">
                 <span class="mc-tag">Web App</span>
                 <span class="mc-tag">AI</span>
                 <span class="mc-tag">B2C</span>
               </span>
+            </span>
+            <span class="mc-card-footer">
               <span aria-hidden="true" class="mc-card-arrow"><i class="fas fa-arrow-up"></i></span>
             </span>
           </span>
         </a>
 
-        <a href="lcm.html" target="_blank" rel="noopener noreferrer" class="mc-card">
+        <a href="lcm.html" class="mc-card">
           <span class="mc-card-media" style="background: #efe8db;">
             <img src="assets/img/main images/indigenous Cultural Museums.png" alt="Indigenous Cultural Museums" style="object-position: right center;">
           </span>
           <span class="mc-card-body">
-            <span class="mc-card-title">One WCAG 2.1 AA home for 30 indigenous museums.</span>
-            <span class="mc-card-footer">
+            <span class="mc-card-copy">
+              <span class="mc-card-title">One WCAG 2.1 AA home for 30 indigenous museums.</span>
               <span class="mc-tags">
                 <span class="mc-tag">Website</span>
                 <span class="mc-tag">Public Sector</span>
                 <span class="mc-tag">Accessibility</span>
               </span>
+            </span>
+            <span class="mc-card-footer">
               <span aria-hidden="true" class="mc-card-arrow"><i class="fas fa-arrow-up"></i></span>
             </span>
           </span>
         </a>
 
-        <a href="uav.html" target="_blank" rel="noopener noreferrer" class="mc-card">
+        <a href="uav.html" class="mc-card">
           <span class="mc-card-media" style="background: #101418;">
             <video src="assets/img/UAV/technician video.mp4" autoplay muted playsinline loop preload="metadata" poster="assets/img/main images/UAV.png" aria-label="UAV Control System"></video>
           </span>
           <span class="mc-card-body">
-            <span class="mc-card-title">Technician UI for an AI-assisted farm drone.</span>
-            <span class="mc-card-footer">
+            <span class="mc-card-copy">
+              <span class="mc-card-title">Technician UI for an AI-assisted farm drone.</span>
               <span class="mc-tags">
                 <span class="mc-tag">Tablet App</span>
                 <span class="mc-tag">Agtech</span>
                 <span class="mc-tag">B2B</span>
               </span>
+            </span>
+            <span class="mc-card-footer">
               <span aria-hidden="true" class="mc-card-arrow"><i class="fas fa-arrow-up"></i></span>
             </span>
           </span>
@@ -156,11 +165,13 @@
             <video src="assets/img/main images/RealWater.mp4" autoplay muted playsinline loop preload="metadata" poster="assets/img/main images/RealWater.png" aria-label="Real Water LMS"></video>
           </span>
           <span class="mc-card-body">
-            <span class="mc-card-title">A learning platform for water education that helps Arizonans make informed decisions.</span>
-            <span class="mc-tags" style="margin-top: auto;">
-              <span class="mc-tag">EdTech</span>
-              <span class="mc-tag">LMS</span>
-              <span class="mc-tag">B2C</span>
+            <span class="mc-card-copy">
+              <span class="mc-card-title">A learning platform for water education that helps Arizonans make informed decisions.</span>
+              <span class="mc-tags">
+                <span class="mc-tag">EdTech</span>
+                <span class="mc-tag">LMS</span>
+                <span class="mc-tag">B2C</span>
+              </span>
             </span>
           </span>
         </div>
@@ -170,12 +181,12 @@
   </section>
 
   <!-- ============ MORE WORK (green band + marquee) ============ -->
-  <section data-screen-label="More work" class="mc-more-work">
-    <div data-plx="-0.06" class="mc-more-work-head">
+  <section data-screen-label="More work" class="mc-more-work" data-plx-section="0.07" data-plx-roll="0.8">
+    <div class="mc-more-work-head">
       <h2>More work</h2>
       <p>Client work, class explorations, and side builds that shaped how I approach accessible web products.</p>
     </div>
-    <div data-plx="0.05" class="mc-marquee-viewport" aria-label="More work projects">
+    <div class="mc-marquee-viewport" aria-label="More work projects">
       <div id="more-work-marquee" class="mc-marquee-track">
         <a href="unesco.html" target="_blank" rel="noopener noreferrer" data-project="unesco" data-tip="UNESCO Volunteer Recruitment" data-tip-pos="top" class="mc-marquee-tile mc-marquee-tile--1"><img src="assets/img/main images/UNESCO.png" alt="UNESCO Volunteer Recruitment"></a>
         <a href="lawfare.html" target="_blank" rel="noopener noreferrer" data-project="lawfare" data-tip="International Lawfare Website" data-tip-pos="top" class="mc-marquee-tile mc-marquee-tile--2"><img src="assets/img/main images/International Lawfare.png" alt="International Lawfare Website"></a>
@@ -192,8 +203,8 @@
   </section>
 
   <!-- ============ WHAT CAN I BRING (sage panel) ============ -->
-  <section data-screen-label="What can I bring" class="mc-bring">
-    <h2 data-plx="-0.07" class="mc-bring-title">What can I bring</h2>
+  <section data-screen-label="What can I bring" class="mc-bring" data-plx-section="0.06" data-plx-roll="0.6">
+    <h2 class="mc-bring-title">What can I bring</h2>
     <div class="mc-bring-grid">
       <article class="mc-bring-item">
         <span aria-hidden="true" class="mc-bring-icon"><i class="fas fa-code"></i></span>
@@ -214,7 +225,7 @@
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section id="about" data-screen-label="About" class="mc-about">
+  <section id="about" data-screen-label="About" class="mc-about" data-plx-section="0.05" data-plx-roll="0.4">
     <h2 class="mc-about-title">About</h2>
     <div class="mc-about-grid">
       <div class="mc-about-col">
@@ -236,14 +247,9 @@
               <span class="mc-timeline-date">Jun 2025 – May 2026</span>
               <div><p>UX/UI Designer at VisLab</p><p>Designed scalable, accessible UI for multi-tenant Drupal apps and an EdTech water-resource platform through research, prototyping, and close engineer collaboration.</p></div>
             </div>
-<div class="mc-timeline-row">
-  <span class="mc-timeline-date">Jun 2025 – May 2026</span>
-  <div><p>UX/UI Designer at VisLab</p><p>Designed scalable, accessible UI for multi-tenant Drupal apps and an EdTech water-resource platform through research, prototyping, and close engineer collaboration.</p></div>
-</div>
-<div class="mc-timeline-row">
-  <span class="mc-timeline-date">Jun 2025 – May 2026</span>
-  <div><p>Student Adobe Ambassador at Adobe</p><p>Engaged in community-building initiatives to promote Adobe Express, developed communication skills through hands-on Adobe tools, and provided product feedback to improve user experience.</p></div>
-</div>
+            <div class="mc-timeline-row">
+              <span class="mc-timeline-date">Jun 2025 – May 2026</span>
+              <div><p>Student Adobe Ambassador at Adobe</p><p>Engaged in community-building initiatives to promote Adobe Express, developed communication skills through hands-on Adobe tools, and provided product feedback to improve user experience.</p></div>
             </div>
             <div class="mc-timeline-row">
               <span class="mc-timeline-date">Oct 2023 – Sep 2024</span>
@@ -253,7 +259,10 @@
               <span class="mc-timeline-date">Mar 2023 – Sep 2023</span>
               <div><p>Interface Specialist (Volunteer) at Toastmasters International</p><p>Redesigned the organization website in Figma and HTML/CSS, improved mobile layout and visual hierarchy, and streamlined navigation to increase member engagement.</p></div>
             </div>
-<div class="mc-about-photo">
+          </div>
+        </div>
+      </div>
+      <figure class="mc-about-photo">
         <div class="mc-about-photo-frame">
           <img src="assets/img/Michelle/IMG_2395.png" alt="Michelle Chen">
         </div>
@@ -262,11 +271,11 @@
   </section>
 
   <!-- ============ CONTACT FOOTER (green) ============ -->
-  <section id="contact" data-screen-label="Contact" class="mc-contact">
+  <section id="contact" data-screen-label="Contact" class="mc-contact" data-plx-section="0.05" data-plx-roll="0.5">
     <div class="mc-contact-grid">
       <div class="mc-contact-info">
         <p class="mc-eyebrow" style="color: rgba(17,21,17,0.7);"><span class="mc-eyebrow-dot" style="background: #111511;"></span>Get in touch</p>
-        <h2 data-plx="-0.08" class="mc-contact-title">Let's build<br>something<br>that ships.</h2>
+        <h2 class="mc-contact-title">Let's build<br>something<br>that ships.</h2>
         <div class="mc-contact-actions">
           <a href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" class="mc-icon-btn mc-icon-btn--lg" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
           <a href="mailto:yche1356@asu.edu" class="mc-icon-btn mc-icon-btn--lg" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
@@ -324,6 +333,6 @@
 
 </div>
 <script src="assets/js/contact-form.js?v=20260702b"></script>
-<script src="assets/js/home.js?v=20260707a"></script>
+<script src="assets/js/home.js?v=20260707n"></script>
 </body>
 </html>

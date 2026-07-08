@@ -51,16 +51,17 @@
 
   window.addEventListener('scroll', requestPupilUpdate, { passive: true, capture: true });
 
-  /* ---- Blinking ---- */
+  /* ---- Blinking (lid covers, eye does not shrink) ---- */
   if (!reduced) {
+    const blinkEye = (eye, className, duration) => {
+      eye.classList.add(className);
+      setTimeout(() => eye.classList.remove(className), duration);
+    };
+
     const scheduleBlink = () => {
       const delay = 2000 + Math.random() * 4000;
       setTimeout(() => {
-        document.querySelectorAll('[data-eye]').forEach((eye) => {
-          eye.style.transition = 'transform 0.12s ease';
-          eye.style.transform = 'scaleY(0.08)';
-          setTimeout(() => { eye.style.transform = 'scaleY(1)'; }, 150);
-        });
+        document.querySelectorAll('[data-eye]').forEach((eye) => blinkEye(eye, 'is-blinking', 160));
         scheduleBlink();
       }, delay);
     };
@@ -71,9 +72,9 @@
   document.addEventListener('click', (e) => {
     const eye = e.target.closest && e.target.closest('[data-eye]');
     if (!eye) return;
-    eye.style.transition = 'transform 0.14s ease';
-    eye.style.transform = 'scaleY(0.06)';
-    setTimeout(() => { eye.style.transform = 'scaleY(1)'; }, 320);
+    eye.classList.remove('is-blinking');
+    eye.classList.add('is-winking');
+    setTimeout(() => eye.classList.remove('is-winking'), 320);
   });
 
   /* ---- Hover tooltips ---- */
@@ -99,15 +100,45 @@
 
   /* ---- Parallax scrolling ---- */
   if (!reduced) {
+    const coverSelector = '.mc-more-work, .mc-bring, .mc-contact';
+    const parallaxSelector = '.mc-more-work, .mc-bring, .mc-about, .mc-contact';
+
+    const ensureCoverInner = (section) => {
+      let inner = section.querySelector(':scope > .mc-cover-inner');
+      if (inner) return inner;
+      inner = document.createElement('div');
+      inner.className = 'mc-cover-inner';
+      while (section.firstChild) {
+        inner.appendChild(section.firstChild);
+      }
+      section.appendChild(inner);
+      return inner;
+    };
+
+    document.querySelectorAll(parallaxSelector).forEach(ensureCoverInner);
+
     let plxPending = false;
     const parallax = () => {
-      const vh = window.innerHeight;
+      const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+
       document.querySelectorAll('[data-plx]').forEach((el) => {
         const factor = parseFloat(el.getAttribute('data-plx')) || 0;
         const sec = el.closest('[data-screen-label]') || el.parentElement;
         const r = sec.getBoundingClientRect();
         const d = (r.top + r.height / 2) - vh / 2;
         el.style.transform = 'translateY(' + (-d * factor).toFixed(1) + 'px)';
+      });
+
+      document.querySelectorAll(parallaxSelector).forEach((section) => {
+        const inner = section.querySelector(':scope > .mc-cover-inner');
+        if (!inner) return;
+        const factor = parseFloat(section.getAttribute('data-plx-section')) || 0.06;
+        const roll = parseFloat(section.getAttribute('data-plx-roll')) || 0;
+        const r = section.getBoundingClientRect();
+        const d = (r.top + r.height / 2) - vh / 2;
+        const ty = (-d * factor).toFixed(1);
+        const rot = roll ? ((d / vh) * roll).toFixed(2) : '0';
+        inner.style.transform = 'translateY(' + ty + 'px) rotate(' + rot + 'deg)';
       });
     };
     const onScrollPlx = () => {
@@ -116,7 +147,7 @@
         requestAnimationFrame(() => { plxPending = false; parallax(); });
       }
     };
-    window.addEventListener('scroll', onScrollPlx, { passive: true });
+    document.addEventListener('scroll', onScrollPlx, { passive: true, capture: true });
     window.addEventListener('resize', onScrollPlx, { passive: true });
     parallax();
   }
