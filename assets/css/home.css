@@ -1041,20 +1041,22 @@ a.mc-card:hover {
 .mc-contact-eyes {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  height: 38px;
   margin-left: 2px;
 }
 
 .mc-eye-contact {
-  width: 9px;
-  height: 11px;
+  width: 32px;
+  height: 38px;
+  flex-shrink: 0;
   cursor: pointer;
 }
 
 .mc-eye-contact [data-pupil] {
-  width: 4px;
-  height: 4px;
-  margin: -2px 0 0 -2px;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
 }
 
 .mc-icon-btn--lg {
