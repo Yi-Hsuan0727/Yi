@@ -259,17 +259,35 @@
     };
 
     let dragging = false;
-    stage.addEventListener('pointerdown', (e) => {
+    let activePointerId = null;
+
+    const startDrag = (e) => {
       dragging = true;
+      activePointerId = e.pointerId;
       stage.setPointerCapture(e.pointerId);
       setSplitFromClientX(e.clientX);
-    });
-    stage.addEventListener('pointermove', (e) => {
+      e.preventDefault();
+    };
+
+    const moveDrag = (e) => {
       if (!dragging) return;
       setSplitFromClientX(e.clientX);
-    });
-    stage.addEventListener('pointerup', () => { dragging = false; });
-    stage.addEventListener('pointercancel', () => { dragging = false; });
+      e.preventDefault();
+    };
+
+    const endDrag = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      if (activePointerId !== null && stage.hasPointerCapture(activePointerId)) {
+        stage.releasePointerCapture(activePointerId);
+      }
+      activePointerId = null;
+    };
+
+    stage.addEventListener('pointerdown', startDrag, true);
+    stage.addEventListener('pointermove', moveDrag);
+    stage.addEventListener('pointerup', endDrag);
+    stage.addEventListener('pointercancel', endDrag);
     window.addEventListener('resize', () => {
       const viewportRect = viewport.getBoundingClientRect();
       const current = parseFloat(viewport.style.getPropertyValue('--split-pos')) / 100 || 0.5;

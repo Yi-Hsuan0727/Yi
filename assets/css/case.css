@@ -1270,16 +1270,22 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 40px 56px 0;
+  padding: 40px clamp(72px, 10vw, 140px) 0;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
 }
 
 .mc-compare-viewport {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  width: 100%;
-  aspect-ratio: 16 / 10;
+  width: min(100%, 420px);
+  aspect-ratio: 3 / 4;
   --split-pos: 50%;
+  cursor: ew-resize;
+  touch-action: none;
+  margin: 0 auto;
 }
 
 .mc-compare-img {
@@ -1316,7 +1322,8 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   box-shadow: 0 0 0 1px rgba(17, 21, 17, 0.18);
   cursor: ew-resize;
   z-index: 4;
-  pointer-events: none;
+  pointer-events: auto;
+  touch-action: none;
 }
 
 .mc-compare-divider::after {
