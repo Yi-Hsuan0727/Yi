@@ -126,7 +126,8 @@
   });
 
   /* ---- Count-up stats ---- */
-  const counters = document.querySelectorAll('[data-count]');
+  const SPLASH_DONE_MS = 2040;
+
   const animateCount = (el) => {
     const target = parseFloat(el.getAttribute('data-count'));
     const t0 = performance.now();
@@ -139,26 +140,62 @@
     };
     requestAnimationFrame(step);
   };
-  const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !entry.target._counted) {
-        entry.target._counted = true;
-        if (reduced) {
-          entry.target.textContent = entry.target.getAttribute('data-count');
-        } else {
-          animateCount(entry.target);
-        }
+
+  const runCounter = (el) => {
+    if (el._counted) return;
+    el._counted = true;
+    if (reduced) {
+      el.textContent = el.getAttribute('data-count');
+    } else {
+      animateCount(el);
+    }
+  };
+
+  const headerCounters = document.querySelectorAll('.mc-case-header [data-count]');
+  const scrollCounters = Array.from(document.querySelectorAll('[data-count]')).filter(
+    (el) => !el.closest('.mc-case-header')
+  );
+
+  const startHeaderCounters = () => {
+    headerCounters.forEach(runCounter);
+  };
+
+  if (headerCounters.length) {
+    if (!reduced && document.body.classList.contains('mc-case')) {
+      window.setTimeout(startHeaderCounters, SPLASH_DONE_MS);
+    } else {
+      startHeaderCounters();
+    }
+  }
+
+  if (scrollCounters.length) {
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        runCounter(entry.target);
         countObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  counters.forEach((el) => countObserver.observe(el));
+      });
+    }, { threshold: 0.35 });
+    scrollCounters.forEach((el) => countObserver.observe(el));
+  }
 
   /* ---- Scroll spy (table of contents) ---- */
   const links = {};
   document.querySelectorAll('[data-spy]').forEach((a) => {
     links[a.getAttribute('data-spy')] = a;
   });
+
+  document.querySelectorAll('.mc-toc [data-spy]').forEach((link) => {
+    const section = document.getElementById(link.getAttribute('data-spy'));
+    if (!section) return;
+    const isProcess = section.classList.contains('mc-section--process') || section.querySelector('.mc-process-intro');
+    if (!isProcess) return;
+    const eyebrow = section.querySelector(
+      '.mc-process-intro .mc-eyebrow-bar, .mc-2col-header .mc-eyebrow-bar, .mc-eyebrow-bar'
+    );
+    if (eyebrow?.textContent.trim()) link.textContent = eyebrow.textContent.trim();
+  });
+
   const setActive = (id) => {
     Object.entries(links).forEach(([key, a]) => {
       a.classList.toggle('is-active', key === id);
@@ -173,17 +210,52 @@
   const firstSpy = document.querySelector('[data-spy-target]');
   if (firstSpy) setActive(firstSpy.getAttribute('data-spy-target'));
 
+  /* ---- TOC visibility: main content only ---- */
+  const toc = document.querySelector('.mc-toc');
+  const caseBody = document.querySelector('.mc-case-body');
+  const nextSection = document.querySelector('.mc-next');
+
+  if (toc && caseBody) {
+    const getNavOffset = () => {
+      const styles = getComputedStyle(document.body);
+      const belowNav = parseFloat(styles.getPropertyValue('--mc-sticky-below-nav'));
+      return Number.isFinite(belowNav) ? belowNav : 81;
+    };
+
+    const updateTocVisibility = () => {
+      const offset = getNavOffset();
+      const bodyRect = caseBody.getBoundingClientRect();
+      const nextRect = nextSection ? nextSection.getBoundingClientRect() : null;
+      const inMainContent = bodyRect.top <= offset && bodyRect.bottom > offset + 120;
+      const beforeNext = !nextRect || nextRect.top > offset + 48;
+      toc.classList.toggle('is-visible', inMainContent && beforeNext);
+    };
+
+    document.addEventListener('scroll', updateTocVisibility, { passive: true, capture: true });
+    window.addEventListener('resize', updateTocVisibility, { passive: true });
+    updateTocVisibility();
+  }
+
   /* ---- Before / after compare slider ---- */
   document.querySelectorAll('[data-compare]').forEach((compare) => {
     const stage = compare.querySelector('.mc-compare-stage');
     if (!stage) return;
     const viewport = stage.querySelector('.mc-compare-viewport') || stage;
 
+    const syncSplit = (ratio) => {
+      const viewportRect = viewport.getBoundingClientRect();
+      const stageRect = stage.getBoundingClientRect();
+      const x = ratio * viewportRect.width;
+      stage.style.setProperty('--split-pos', (viewportRect.left - stageRect.left + x) + 'px');
+      viewport.style.setProperty('--split-pos', (ratio * 100).toFixed(2) + '%');
+    };
+
+    syncSplit(0.5);
+
     const setSplitFromClientX = (clientX) => {
-      const rect = viewport.getBoundingClientRect();
-      const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
-      const percent = (x / rect.width) * 100;
-      viewport.style.setProperty('--split-pos', percent.toFixed(2) + '%');
+      const viewportRect = viewport.getBoundingClientRect();
+      const x = Math.min(Math.max(clientX - viewportRect.left, 0), viewportRect.width);
+      syncSplit(x / viewportRect.width);
     };
 
     let dragging = false;
@@ -198,6 +270,11 @@
     });
     stage.addEventListener('pointerup', () => { dragging = false; });
     stage.addEventListener('pointercancel', () => { dragging = false; });
+    window.addEventListener('resize', () => {
+      const viewportRect = viewport.getBoundingClientRect();
+      const current = parseFloat(viewport.style.getPropertyValue('--split-pos')) / 100 || 0.5;
+      syncSplit(current);
+    }, { passive: true });
   });
 
   /* ---- Muted inline video autoplay ---- */
@@ -209,39 +286,4 @@
       if (pr && pr.catch) pr.catch(() => {});
     }
   });
-
-  /* ---- Case-page entry wipe (green cover, no logo) ---- */
-  if (!reduced && document.body.classList.contains('mc-case')) {
-    const overlay = document.createElement('div');
-    overlay.className = 'mc-case-splash';
-    document.body.appendChild(overlay);
-
-    document.body.classList.add('mc-case-splash-active');
-
-    const COVER_MS = 750;
-    const HOLD_MS = 180;
-    const REVEAL_MS = 1050;
-
-    const coverStart = 60;
-    const readyAt = coverStart + COVER_MS;
-    const revealStart = readyAt + HOLD_MS;
-    const doneAt = revealStart + REVEAL_MS;
-
-    window.setTimeout(() => {
-      document.body.classList.add('mc-case-splash-cover');
-    }, coverStart);
-
-    window.setTimeout(() => {
-      document.body.classList.add('mc-case-splash-ready');
-    }, readyAt);
-
-    window.setTimeout(() => {
-      document.body.classList.add('mc-case-splash-reveal');
-    }, revealStart);
-
-    window.setTimeout(() => {
-      overlay.remove();
-      document.body.classList.remove('mc-case-splash-active', 'mc-case-splash-cover', 'mc-case-splash-ready', 'mc-case-splash-reveal');
-    }, doneAt);
-  }
 })();

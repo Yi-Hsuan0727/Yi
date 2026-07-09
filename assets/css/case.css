@@ -406,11 +406,11 @@ body.mc-case * {
 }
 
 .mc-toc {
-  position: -webkit-sticky;
-  position: sticky;
+  position: fixed;
+  left: 6vw;
   top: var(--mc-sticky-below-nav);
+  width: 220px;
   z-index: 50;
-  align-self: start;
   max-height: calc(100vh - var(--mc-sticky-below-nav) - 24px);
   overflow-y: auto;
   display: flex;
@@ -421,6 +421,16 @@ body.mc-case * {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding-bottom: 48px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.mc-toc.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .mc-toc-link {
@@ -438,10 +448,12 @@ body.mc-case * {
 }
 
 .mc-sections {
+  grid-column: 2;
   display: flex;
   flex-direction: column;
   gap: clamp(110px, 13vw, 190px);
   padding-bottom: clamp(110px, 13vw, 190px);
+  min-width: 0;
 }
 
 /* Legacy case-study content migrated from sidebar layout */
@@ -1295,7 +1307,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 
 .mc-compare-divider {
   position: absolute;
-  top: -40px;
+  top: 0;
   bottom: 0;
   left: var(--split-pos, 50%);
   width: 2px;
@@ -1303,6 +1315,8 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   transform: translateX(-50%);
   box-shadow: 0 0 0 1px rgba(17, 21, 17, 0.18);
   cursor: ew-resize;
+  z-index: 4;
+  pointer-events: none;
 }
 
 .mc-compare-divider::after {
@@ -1549,6 +1563,10 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   .mc-case-body {
     grid-template-columns: 1fr;
     gap: 0;
+  }
+
+  .mc-sections {
+    grid-column: 1;
   }
 
   .mc-toc {
