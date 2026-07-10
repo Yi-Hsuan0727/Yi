@@ -4,7 +4,7 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---- Case-page entry wipe (green cover, no logo) ---- */
-  if (!reduced && document.body.classList.contains('mc-case')) {
+  if (!reduced && document.body.classList.contains('mc-case') && !document.body.classList.contains('mc-case-locked')) {
     const overlay = document.createElement('div');
     overlay.className = 'mc-case-splash';
     document.body.appendChild(overlay);

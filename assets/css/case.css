@@ -33,6 +33,124 @@ body.mc-case.mc-case-splash-active {
   overflow: hidden;
 }
 
+body.mc-case.mc-case-locked .mc-root {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mc-case-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #ffffff;
+}
+
+.mc-case-gate-card {
+  width: min(100%, 420px);
+  padding: clamp(32px, 5vw, 48px);
+  border: 1px solid rgba(17, 21, 17, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(10, 40, 20, 0.08);
+}
+
+.mc-case-gate-eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(17, 21, 17, 0.55);
+}
+
+.mc-case-gate-title {
+  margin: 0 0 12px;
+  font-family: 'Archivo', sans-serif;
+  font-stretch: 76%;
+  font-weight: 800;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.mc-case-gate-copy {
+  margin: 0 0 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(17, 21, 17, 0.7);
+}
+
+.mc-case-gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mc-case-gate-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(17, 21, 17, 0.55);
+}
+
+.mc-case-gate-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(17, 21, 17, 0.18);
+  border-radius: 12px;
+  font: inherit;
+  font-size: 16px;
+  color: #111511;
+  background: #ffffff;
+}
+
+.mc-case-gate-input:focus {
+  outline: 2px solid rgba(46, 204, 113, 0.45);
+  outline-offset: 2px;
+  border-color: #2ecc71;
+}
+
+.mc-case-gate-error {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #c0392b;
+}
+
+.mc-case-gate-btn {
+  margin-top: 4px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: #2ecc71;
+  color: #111511;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mc-case-gate-btn:hover {
+  background: #27ae60;
+}
+
+.mc-case-gate-back {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(17, 21, 17, 0.65);
+  text-decoration: none;
+}
+
+.mc-case-gate-back:hover {
+  color: #111511;
+}
+
 body.mc-case.mc-case-splash-active .mc-root {
   opacity: 0;
   visibility: visible;
