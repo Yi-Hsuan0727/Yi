@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260711k">
+<link rel="stylesheet" href="assets/css/case.css?v=20260711l">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -348,11 +348,20 @@
         <h2 class="mc-section-h2">From five screens to one page</h2>
         <div class="mc-interaction-row">
           <div class="mc-interaction-copy">
-            <p>After wireframes, I prototyped <strong>one screen per step</strong>. Engineering wanted fewer page loads — I argued step-by-step would be clearer at the table.</p>
-            <p>We met in the middle. The diagram shows what changed: group shortcuts cut, review folded into assign, and the core split on <strong>one scrollable page</strong> — faster to build, faster to finish.</p>
+            <p><strong>Version 1</strong> walked people through four separate screens — Scan Result, Add Members, Assign Items, and Split Result. Engineering wanted fewer page loads; testing showed the step-by-step flow only added taps without making the split any clearer.</p>
+            <p>So we met in the middle and consolidated the flow. The diagram below maps every change from the four-screen Version 1 to the <strong>one-page final build</strong>, where scanning, members, and item assignment all live on a single scrollable page.</p>
           </div>
           <div class="mc-interaction-media">
-            <img src="assets/img/Pic2Split/iteraction.png" alt="Pic2Split prototype comparison: Version 1 uses separate scan, add members, assign items, and split result screens; Version 2 combines scan results, members, and item assignment into one page" loading="lazy">
+            <img src="assets/img/Pic2Split/iteraction.png" alt="Pic2Split prototype comparison: Version 1 uses four separate screens — Scan Result, Add Members, Assign Items, and Split Result; Version 2 collapses scan result, add members, and assign items into three steps on one scrollable page" loading="lazy">
+          </div>
+          <div class="mc-interaction-notes">
+            <p class="mc-interaction-notes-title">What changed from Version 1 to the final page</p>
+            <ul class="mc-interaction-notes-list">
+              <li><strong>Four screens became one page.</strong> Scan Result, Add Members, and Assign Items now stack as three steps on a single scrollable page instead of separate screens.</li>
+              <li><strong>Prices moved to where you split.</strong> Detected items and their prices surface right inside the Assign Items section, removing the separate review step.</li>
+              <li><strong>Less setup at the table.</strong> The Search Group and Quick Add from Group features were cut — members are now added as quick chips by typing a name and pressing Enter.</li>
+              <li><strong>The total leads.</strong> A purple block emphasizes the scanned bill total, and pinch-to-zoom lets the group double-check the receipt image.</li>
+            </ul>
           </div>
         </div>
       </section>

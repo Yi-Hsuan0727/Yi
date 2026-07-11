@@ -1432,6 +1432,50 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   background: transparent;
 }
 
+.mc-interaction-notes {
+  max-width: 720px;
+}
+
+.mc-interaction-notes-title {
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111511;
+}
+
+.mc-interaction-notes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mc-interaction-notes-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(17, 21, 17, 0.75);
+}
+
+.mc-interaction-notes-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #2ecc71;
+}
+
+.mc-interaction-notes-list strong {
+  color: #111511;
+  font-weight: 700;
+}
+
 .mc-section--reflection {
   gap: clamp(32px, 4vw, 48px);
 }
