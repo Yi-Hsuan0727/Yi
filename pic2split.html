@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260711a">
+<link rel="stylesheet" href="assets/css/case.css?v=20260711h">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -117,10 +117,11 @@
       <a data-spy="section-01" href="#section-01" class="mc-toc-link">01 · Problem</a>
       <a data-spy="section-02" href="#section-02" class="mc-toc-link">02 · Goals</a>
       <a data-spy="section-03" href="#section-03" class="mc-toc-link">03 · Solutions</a>
-      <a data-spy="section-04" href="#section-04" class="mc-toc-link">04 · Design Process</a>
-      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Reflection</a>
-      <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Future Scope</a>
-      <a data-spy="section-07" href="#section-07" class="mc-toc-link">07 · Summary &amp; Impact</a>
+      <a data-spy="section-04" href="#section-04" class="mc-toc-link">04 · Research and Design</a>
+      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Interaction</a>
+      <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Reflection</a>
+      <a data-spy="section-07" href="#section-07" class="mc-toc-link">07 · Impact &amp; Summary</a>
+      <a data-spy="section-08" href="#section-08" class="mc-toc-link">08 · Future Scope</a>
     </nav>
 
     <div class="mc-sections">
@@ -230,10 +231,10 @@
         </div>
       </section>
 
-      <!-- 04 DESIGN PROCESS -->
-      <section id="section-04" data-spy-target="section-04" data-screen-label="04 Design Process" class="mc-section mc-section--process">
+      <!-- 04 RESEARCH AND DESIGN -->
+      <section id="section-04" data-spy-target="section-04" data-screen-label="04 Research and Design" class="mc-section mc-section--process">
         <div class="mc-process-intro">
-          <p class="mc-eyebrow-bar">04 · Design Process</p>
+          <p class="mc-eyebrow-bar">04 · Research and Design</p>
           <h2 class="mc-section-h2">We timed real splits, then designed for the two-minute window at the table</h2>
           <p class="mc-process-lede">We timed real group splits with uneven orders and tax on one receipt, then designed Pic2Split to beat the two-minute window at the table.</p>
         </div>
@@ -243,28 +244,32 @@
           <p class="mc-phase-label">Phase 01 · Research &amp; Testing</p>
           <h3 class="mc-phase-title">Benchmarking &amp; Baseline</h3>
           <p class="mc-phase-body">Before designing Pic2Split, we benchmarked Scan &amp; Split Bill (v2.1.3 Pro) with a heuristic evaluation and moderated usability test (6 participants; realistic group-dinner scenario with uneven orders and tax on one receipt). Timed splits showed where the competitor stalled and set our under-2-minute design target.</p>
-          <div role="img" aria-label="Competitor benchmark: four minute average split time, under two minute Pic2Split target, six participants, satisfaction below three out of five, biggest stall tax and tip">
-            <p class="mc-bench-title">Split time: competitor vs Pic2Split target</p>
+          <div role="img" aria-label="Competitor benchmark: Scan and Split Bill averaged four minutes per split; Pic2Split design target under two minutes; six participant usability test with OCR satisfaction 2.2, layout satisfaction 2.0, AI trust 2.6, biggest stall tax and tip">
+            <p class="mc-bench-title">Split time</p>
             <div class="mc-bench-bars">
               <div class="mc-bench-row">
-                <span class="mc-bench-name">Competitor</span>
+                <span class="mc-bench-name">Scan &amp; Split Bill</span>
                 <div class="mc-bench-track"><div class="mc-bench-fill mc-bench-fill--dark"></div></div>
                 <span class="mc-bench-num">4 min avg</span>
               </div>
               <div class="mc-bench-row">
-                <span class="mc-bench-name">Pic2Split goal</span>
+                <span class="mc-bench-name">Pic2Split target</span>
                 <div class="mc-bench-track"><div class="mc-bench-fill mc-bench-fill--green"></div></div>
                 <span class="mc-bench-num mc-bench-num--green">&lt;2 min</span>
               </div>
             </div>
-            <div class="mc-bench-stats">
-              <div><p class="mc-bench-stat-num">6</p><p class="mc-bench-stat-label">Participants</p></div>
-              <div><p class="mc-bench-stat-num">2.2</p><p class="mc-bench-stat-label">OCR satisfaction</p></div>
-              <div><p class="mc-bench-stat-num">2.0</p><p class="mc-bench-stat-label">Layout satisfaction</p></div>
+            <div class="mc-bench-block mc-bench-block--competitor">
+              <p class="mc-bench-subtitle">Scan &amp; Split Bill · usability test (6 participants)</p>
+              <div class="mc-bench-stats">
+                <div><p class="mc-bench-stat-num">2.2</p><p class="mc-bench-stat-label">OCR satisfaction</p></div>
+                <div><p class="mc-bench-stat-num">2.0</p><p class="mc-bench-stat-label">Layout satisfaction</p></div>
+                <div><p class="mc-bench-stat-num">2.6</p><p class="mc-bench-stat-label">AI trust</p></div>
+              </div>
+              <p class="mc-bench-note">All scores below 3/5 · biggest stall: tax &amp; tip split</p>
             </div>
-            <p class="mc-bench-note">All satisfaction scores below 3/5 · AI trust 2.6 · biggest stall: tax &amp; tip split</p>
           </div>
         </article>
+        <img src="assets/img/Pic2Split/Heuristic%20evaluation%20for%20scan%20and%20split%20bill%20(Version_%202.1.3%20pro).png" alt="Heuristic evaluation of Scan and Split Bill v2.1.3 Pro across Nielsen usability principles, with low scores on visibility of system status, user control, consistency, error prevention, and efficiency" loading="lazy" class="mc-phase-figure-img">
 
         <!-- Phase 02 -->
         <article class="mc-phase">
@@ -320,11 +325,26 @@
         </article>
       </section>
 
-      <!-- 05 REFLECTION -->
-      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Reflection" class="mc-section mc-section--reflection">
+      <!-- 05 INTERACTION -->
+      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Interaction" class="mc-section mc-section--interaction">
+        <p class="mc-eyebrow-bar">05 · Interaction</p>
+        <h2 class="mc-section-h2">From five screens to one page</h2>
+        <div class="mc-interaction-row">
+          <div class="mc-interaction-copy">
+            <p>After wireframes, I prototyped <strong>one screen per step</strong>. Engineering wanted fewer page loads — I argued step-by-step would be clearer at the table.</p>
+            <p>We met in the middle. The diagram shows what changed: group shortcuts cut, review folded into assign, and the core split on <strong>one scrollable page</strong> — faster to build, faster to finish.</p>
+          </div>
+          <div class="mc-interaction-media">
+            <img src="assets/img/Pic2Split/iteraction.png" alt="Pic2Split prototype comparison: Version 1 uses separate scan, add members, assign items, and split result screens; Version 2 combines scan results, members, and item assignment into one page" loading="lazy">
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 REFLECTION -->
+      <section id="section-06" data-spy-target="section-06" data-screen-label="06 Reflection" class="mc-section mc-section--reflection">
         <div class="mc-reflection-top">
           <div class="mc-reflection-head">
-            <p class="mc-eyebrow-bar">05 · Reflection</p>
+            <p class="mc-eyebrow-bar">06 · Reflection</p>
             <h2 class="mc-section-h2">Fair splits need AI you can see, not just AI that's accurate</h2>
           </div>
           <p class="mc-reflection-text">Accuracy matters, but trust comes from transparency: Gemini-assisted OCR shows the receipt beside every extracted line so the group can follow the process, review charges, and fix mistakes before anyone pays, instead of blindly accepting a black-box total.</p>
@@ -336,11 +356,18 @@
         </div>
       </section>
 
-      <!-- 06 FUTURE SCOPE -->
-      <section id="section-06" data-spy-target="section-06" data-screen-label="06 Future Scope" class="mc-section mc-section--problem">
+      <!-- 07 SUMMARY -->
+      <section id="section-07" data-spy-target="section-07" data-screen-label="07 Impact and Summary" class="mc-section mc-section--summary">
+        <p class="mc-eyebrow-bar">07 · Impact &amp; Summary</p>
+        <h2 class="mc-section-h2">From four minutes to under two: fair splits, live on the web</h2>
+        <p class="mc-summary-text">Timed usability sessions on Scan &amp; Split Bill averaged 4 min per group split. Pic2Split's design target is under 2 min, which is 2× faster, 50% less time, and roughly 2 min saved every time friends settle the check. Proportional tax and tip on each person's food ended the fairness fights, and light eaters no longer subsidize big orders. Pic2Split is live on the web today: the awkward check moment becomes a quick link in the group chat, and everyone moves on.</p>
+      </section>
+
+      <!-- 08 FUTURE SCOPE -->
+      <section id="section-08" data-spy-target="section-08" data-screen-label="08 Future Scope" class="mc-section mc-section--problem">
         <div class="mc-2col-header">
           <div>
-            <p class="mc-eyebrow-bar">06 · Future Scope</p>
+            <p class="mc-eyebrow-bar">08 · Future Scope</p>
             <h2 class="mc-section-h2">The shipped build is an MVP — the roadmap turns fair splits into a full pay-and-order loop</h2>
           </div>
           <p class="mc-lede">Built under a tight hackathon window, Pic2Split today covers scan, assign, and share. Next, we want to open the bill to the whole group, close the loop with direct payments, and meet diners where they already order.</p>
@@ -365,13 +392,6 @@
             <p class="mc-goal-desc">Partner with restaurants and plug into the meal-ordering systems they already run, so ordering, receipt capture, and fair splits live in one flow from menu to payment.</p>
           </div>
         </div>
-      </section>
-
-      <!-- 07 SUMMARY -->
-      <section id="section-07" data-spy-target="section-07" data-screen-label="07 Summary and Impact" class="mc-section mc-section--summary">
-        <p class="mc-eyebrow-bar">07 · Summary &amp; Impact</p>
-        <h2 class="mc-section-h2">From four minutes to under two: fair splits, live on the web</h2>
-        <p class="mc-summary-text">Timed usability sessions on Scan &amp; Split Bill averaged 4 min per group split. Pic2Split's design target is under 2 min, which is 2× faster, 50% less time, and roughly 2 min saved every time friends settle the check. Proportional tax and tip on each person's food ended the fairness fights, and light eaters no longer subsidize big orders. Pic2Split is live on the web today: the awkward check moment becomes a quick link in the group chat, and everyone moves on.</p>
       </section>
     </div>
   </div>

@@ -1045,7 +1045,23 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   }
 }
 
-/* benchmark mini-chart */
+.mc-phase-figure {
+  margin: 0 0 28px;
+}
+
+.mc-phase-figure img,
+.mc-phase-figure-img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 21, 17, 0.1);
+  background: #ffffff;
+}
+
+.mc-phase-figure-img {
+  margin-top: 20px;
+}
+
 .mc-bench-title {
   margin: 0 0 14px;
   font-size: 13px;
@@ -1056,6 +1072,41 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 20px;
+}
+
+.mc-bench-block {
+  margin-top: 4px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(17, 21, 17, 0.1);
+  background: rgba(17, 21, 17, 0.03);
+}
+
+.mc-bench-block--competitor {
+  border-color: rgba(231, 76, 60, 0.22);
+  background: rgba(231, 76, 60, 0.04);
+}
+
+.mc-bench-subtitle {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(17, 21, 17, 0.55);
+}
+
+.mc-bench-block--competitor .mc-bench-subtitle {
+  color: #c0392b;
+}
+
+.mc-bench-block .mc-bench-stats {
+  margin-top: 0;
+}
+
+.mc-bench-block .mc-bench-note {
+  margin-top: 12px;
 }
 
 .mc-bench-row {
@@ -1315,7 +1366,41 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   margin-top: 4px;
 }
 
-/* -- Section 04 Reflection -- */
+/* -- Section: Interaction (prototype iteration) -- */
+.mc-section--interaction {
+  gap: clamp(28px, 4vw, 40px);
+}
+
+.mc-interaction-row {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 4vw, 40px);
+  align-items: stretch;
+}
+
+.mc-interaction-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 640px;
+}
+
+.mc-interaction-copy p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(17, 21, 17, 0.75);
+}
+
+.mc-interaction-media img {
+  width: 100%;
+  display: block;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
 .mc-section--reflection {
   gap: clamp(32px, 4vw, 48px);
 }
@@ -1363,7 +1448,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 }
 
 .mc-section--summary .mc-section-h2 {
-  max-width: 24em;
+  max-width: none;
 }
 
 .mc-summary-text {
@@ -1371,7 +1456,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   font-size: 15px;
   line-height: 2;
   color: rgba(17, 21, 17, 0.78);
-  max-width: 720px;
+  max-width: none;
 }
 
 .mc-compare {
@@ -1705,6 +1790,10 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 
   .mc-solution-row {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .mc-interaction-row {
     gap: 28px;
   }
 
