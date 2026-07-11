@@ -1067,7 +1067,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 .mc-bench {
   border: none;
   border-radius: 20px;
-  background: linear-gradient(180deg, #f7f8f7 0%, #eef1ee 100%);
+  background: #ffffff;
   padding: 26px 26px 22px;
   max-width: 560px;
   margin-top: 24px;
