@@ -277,12 +277,41 @@ body.mc-home {
   will-change: transform;
 }
 
+.mc-home-fold .mc-hero {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-home-fold .mc-panel--intro {
+  z-index: 3;
+}
+
+.mc-home-fold.is-eyes-lifted {
+  overflow: visible;
+}
+
+.mc-home-fold.is-eyes-lifted .mc-hero {
+  overflow: visible;
+}
+
 .mc-hero-eyes {
   display: flex;
   justify-content: center;
   gap: clamp(24px, 4vw, 56px);
   padding: clamp(4px, 1.5vh, 16px) 0 clamp(28px, 6vh, 64px);
   will-change: transform;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mc-hero.is-eyes-lifted .mc-hero-title {
+  position: relative;
+  z-index: 1;
+}
+
+.mc-hero.is-eyes-lifted .mc-hero-eyes {
+  z-index: 2;
 }
 
 /* ============ INTRO + FEATURED WORK ============ */
@@ -348,7 +377,7 @@ body.mc-home {
 .mc-panel--intro .mc-intro-copy {
   grid-column: 1 / -1;
   grid-row: 2;
-  max-width: 620px;
+  max-width: 900px;
 }
 
 @media (max-width: 640px) {
@@ -440,7 +469,7 @@ body.mc-home {
 
 .mc-intro-copy {
   margin: 0;
-  max-width: 620px;
+  max-width: 900px;
   font-size: 15px;
   line-height: 1.8;
   color: rgba(17, 21, 17, 0.78);

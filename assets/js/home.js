@@ -91,6 +91,80 @@
 
   initRevealAnimations();
 
+  /* ---- Hero eyes lift on short viewports ---- */
+  function initHeroEyesLift() {
+    const fold = document.querySelector('.mc-home-fold');
+    const hero = document.querySelector('.mc-hero');
+    const eyes = document.querySelector('.mc-hero-eyes');
+    const intro = document.querySelector('.mc-panel--intro');
+    if (!fold || !hero || !eyes || !intro) return;
+
+    let pending = false;
+
+    const getParallaxOffset = () => {
+      if (reduced || isMobile()) return 0;
+      const factor = parseFloat(eyes.getAttribute('data-plx')) || 0;
+      const sec = eyes.closest('[data-screen-label]') || eyes.parentElement;
+      if (!sec) return 0;
+      const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+      const r = sec.getBoundingClientRect();
+      const d = (r.top + r.height / 2) - vh / 2;
+      return -d * factor;
+    };
+
+    const applyEyesTransform = (lift) => {
+      const plx = getParallaxOffset();
+      eyes.style.transform = 'translateY(' + (-lift + plx).toFixed(1) + 'px)';
+    };
+
+    const update = () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => {
+        pending = false;
+
+        fold.classList.remove('is-eyes-lifted');
+        hero.classList.remove('is-eyes-lifted');
+        eyes.dataset.lift = '0';
+        eyes.style.transform = '';
+
+        const eyesRect = eyes.getBoundingClientRect();
+        const introRect = intro.getBoundingClientRect();
+        const eyesHeight = eyesRect.height;
+        if (eyesHeight < 1) return;
+
+        const overlap = Math.max(0, eyesRect.bottom - introRect.top);
+        const overlapRatio = overlap / eyesHeight;
+
+        if (overlapRatio <= 0.4) {
+          applyEyesTransform(0);
+          return;
+        }
+
+        const lift = overlap - eyesHeight * 0.4;
+        eyes.dataset.lift = String(lift);
+        fold.classList.add('is-eyes-lifted');
+        hero.classList.add('is-eyes-lifted');
+        applyEyesTransform(lift);
+      });
+    };
+
+    window.addEventListener('resize', update, { passive: true });
+    window.addEventListener('scroll', update, { passive: true, capture: true });
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const observer = new ResizeObserver(update);
+      observer.observe(fold);
+      observer.observe(intro);
+      observer.observe(eyes);
+    }
+
+    update();
+    window.__updateHeroEyesLift = update;
+  }
+
+  initHeroEyesLift();
+
   /* ---- Eyes follow cursor ---- */
   const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 3 };
   let rafPending = false;
@@ -289,7 +363,13 @@
         const sec = el.closest('[data-screen-label]') || el.parentElement;
         const r = sec.getBoundingClientRect();
         const d = (r.top + r.height / 2) - vh / 2;
-        el.style.transform = 'translateY(' + (-d * factor).toFixed(1) + 'px)';
+        const plx = -d * factor;
+        if (el.classList.contains('mc-hero-eyes')) {
+          const lift = parseFloat(el.dataset.lift || 0);
+          el.style.transform = 'translateY(' + (plx - lift).toFixed(1) + 'px)';
+          return;
+        }
+        el.style.transform = 'translateY(' + plx.toFixed(1) + 'px)';
       });
 
       document.querySelectorAll(parallaxSelector).forEach((section) => {
