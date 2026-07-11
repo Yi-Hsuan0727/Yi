@@ -1601,69 +1601,34 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   background: transparent;
 }
 
-.mc-interaction-notes {
-  max-width: 720px;
-}
-
-.mc-interaction-notes-title {
-  margin: 0 0 14px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #111511;
-}
-
-.mc-interaction-notes-list {
+.mc-iter-changes {
   margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.mc-interaction-notes-list li {
-  position: relative;
-  padding-left: 20px;
   font-size: 14px;
-  line-height: 1.8;
-  color: rgba(17, 21, 17, 0.75);
+  line-height: 1.9;
+  color: rgba(17, 21, 17, 0.7);
+  max-width: 860px;
 }
 
-.mc-interaction-notes-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 11px;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: #2ecc71;
-}
-
-.mc-interaction-notes-list strong {
+.mc-iter-changes strong {
   color: #111511;
   font-weight: 700;
 }
 
 /* iteration V1 vs V2 timing cards */
 .mc-iter-impact {
-  max-width: 720px;
+  margin: 4px 0 clamp(28px, 4vw, 40px);
 }
 
 .mc-iter-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
 }
 
 .mc-iter-card {
-  border-radius: 16px;
-  background: #f4f6f4;
-  padding: 20px 22px;
-}
-
-.mc-iter-card--good {
-  background: rgba(46, 204, 113, 0.13);
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 24px 26px;
 }
 
 .mc-iter-card-tag {
@@ -1675,7 +1640,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   color: rgba(17, 21, 17, 0.55);
 }
 
-.mc-iter-card--good .mc-iter-card-tag {
+.mc-iter-card-tag--good {
   color: #0e7c3f;
 }
 

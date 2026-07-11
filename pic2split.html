@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260711r">
+<link rel="stylesheet" href="assets/css/case.css?v=20260711s">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -371,6 +371,23 @@
         <article class="mc-phase" id="phase-04">
           <p class="mc-phase-label">Phase 04 · Prototype Iteration</p>
           <h3 class="mc-phase-title mc-phase-title--tight">From Three Screens to One Page</h3>
+          <div role="img" class="mc-iter-impact" aria-label="Timed prototype splits: Version 1 with three step-by-step screens averaged 3 minutes 10 seconds per split; Version 2, the one-page build, averaged 1 minute 45 seconds — about 45 percent faster and under the 2 minute target from the competitor benchmark.">
+            <div class="mc-iter-cards">
+              <div class="mc-iter-card">
+                <p class="mc-iter-card-tag">Version 1 · step-by-step screens</p>
+                <p class="mc-iter-card-num">3:10</p>
+                <p class="mc-iter-card-cap">avg time to a fair split</p>
+                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--dark"></span></div>
+              </div>
+              <div class="mc-iter-card">
+                <p class="mc-iter-card-tag mc-iter-card-tag--good">Version 2 · one page (shipped)</p>
+                <p class="mc-iter-card-num">1:45 <span class="mc-iter-delta">−45% time</span></p>
+                <p class="mc-iter-card-cap">avg time to a fair split</p>
+                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--green"></span></div>
+              </div>
+            </div>
+            <p class="mc-iter-note">Timed with the same 6-participant dinner scenario as the benchmark — Version 2 comes in under the 2-minute target, against the competitor's 4-minute average.</p>
+          </div>
           <div class="mc-interaction-row">
           <div class="mc-interaction-copy">
             <p>Our first prototype, <strong>Version 1</strong>, walked people through the split step by step: Scan Result, Add Members, and Assign Items each lived on its own screen before the shared Split Result. Engineering wanted fewer page loads, and testing agreed — hopping between screens only added taps and made people lose track of the bill.</p>
@@ -379,33 +396,7 @@
           <div class="mc-interaction-media">
             <img src="assets/img/Pic2Split/iteraction.png" alt="Pic2Split prototype comparison: Version 1 uses four separate screens — Scan Result, Add Members, Assign Items, and Split Result; Version 2 collapses scan result, add members, and assign items into three steps on one scrollable page" loading="lazy">
           </div>
-          <div class="mc-interaction-notes">
-            <p class="mc-interaction-notes-title">What changed from Version 1 to Version 2</p>
-            <ul class="mc-interaction-notes-list">
-              <li><strong>Three screens became one page.</strong> Scan Result, Add Members, and Assign Items now stack as three steps on a single scrollable page — only the shared Split Result keeps its own screen.</li>
-              <li><strong>Prices moved to where you split.</strong> Detected items and their prices surface right inside the Assign Items section, removing the separate review step.</li>
-              <li><strong>Less setup at the table.</strong> The Search Group and Quick Add from Group features were cut — members are now added as quick chips by typing a name and pressing Enter.</li>
-              <li><strong>The total leads.</strong> A purple block emphasizes the scanned bill total, and pinch-to-zoom lets the group double-check the receipt image.</li>
-            </ul>
-          </div>
-          <div role="img" class="mc-iter-impact" aria-label="Timed prototype splits: Version 1 with three step-by-step screens averaged 3 minutes 10 seconds per split; Version 2, the one-page build, averaged 1 minute 45 seconds — about 45 percent faster and under the 2 minute target from the competitor benchmark.">
-            <p class="mc-interaction-notes-title">Why it mattered — timed splits with the same dinner scenario</p>
-            <div class="mc-iter-cards">
-              <div class="mc-iter-card">
-                <p class="mc-iter-card-tag">Version 1 · step-by-step screens</p>
-                <p class="mc-iter-card-num">3:10</p>
-                <p class="mc-iter-card-cap">avg time to a fair split</p>
-                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--dark"></span></div>
-              </div>
-              <div class="mc-iter-card mc-iter-card--good">
-                <p class="mc-iter-card-tag">Version 2 · one page (shipped)</p>
-                <p class="mc-iter-card-num">1:45 <span class="mc-iter-delta">−45% time</span></p>
-                <p class="mc-iter-card-cap">avg time to a fair split</p>
-                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--green"></span></div>
-              </div>
-            </div>
-            <p class="mc-iter-note">Same 6-participant dinner scenario as the benchmark — Version 2 comes in under the 2-minute target, against the competitor's 4-minute average.</p>
-          </div>
+          <p class="mc-iter-changes"><strong>What changed from Version 1 to Version 2:</strong> the three split steps collapsed onto one scrollable page, prices now surface right where items are assigned, group shortcuts gave way to quick name chips, and a purple total block with pinch-to-zoom keeps the scanned bill front and center — each change is annotated in the diagram above.</p>
           </div>
         </article>
       </section>
