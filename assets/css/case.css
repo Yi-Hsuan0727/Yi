@@ -833,71 +833,15 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   max-width: 620px;
 }
 
-/* process map: the four phases at a glance */
-.mc-process-map {
-  list-style: none;
-  margin: 6px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.mc-process-map li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.mc-process-map li:not(:first-child)::before {
-  content: "→";
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(17, 21, 17, 0.35);
-}
-
-.mc-pm-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #f4f6f4;
-  border-radius: 999px;
-  padding: 7px 14px 7px 7px;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(17, 21, 17, 0.8);
-  white-space: nowrap;
-}
-
-.mc-pm-num {
-  flex: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  background: #111511;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.mc-pm-out {
-  font-size: 11px;
-  font-weight: 700;
-  color: rgba(17, 21, 17, 0.5);
-}
-
-.mc-pm-out::before {
-  content: "·";
-  margin-right: 6px;
-  color: rgba(17, 21, 17, 0.35);
-}
-
-.mc-pm-out--ship {
-  color: #0e7c3f;
+/* process map image: the four phases at a glance */
+.mc-process-map-img {
+  display: block;
+  width: 100%;
+  max-width: 1040px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
 }
 
 /* Phase 01: stacked text + why-this-competitor card */
