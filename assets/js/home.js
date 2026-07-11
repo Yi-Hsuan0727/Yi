@@ -95,26 +95,16 @@
   function initHeroEyesLift() {
     const fold = document.querySelector('.mc-home-fold');
     const hero = document.querySelector('.mc-hero');
-    const eyes = document.querySelector('.mc-hero-eyes');
+    const eyes = document.querySelector('.mc-hero-eyes-parallax');
+    const eyesFrame = document.querySelector('.mc-hero-eyes');
     const intro = document.querySelector('.mc-panel--intro');
-    if (!fold || !hero || !eyes || !intro) return;
+    if (!fold || !hero || !eyes || !eyesFrame || !intro) return;
 
     let pending = false;
 
-    const getParallaxOffset = () => {
-      if (reduced || isMobile()) return 0;
-      const factor = parseFloat(eyes.getAttribute('data-plx')) || 0;
-      const sec = eyes.closest('[data-screen-label]') || eyes.parentElement;
-      if (!sec) return 0;
-      const vh = window.innerHeight || document.documentElement.clientHeight || 800;
-      const r = sec.getBoundingClientRect();
-      const d = (r.top + r.height / 2) - vh / 2;
-      return -d * factor;
-    };
-
     const applyEyesTransform = (lift) => {
-      const plx = getParallaxOffset();
-      eyes.style.transform = 'translateY(' + (-lift + plx).toFixed(1) + 'px)';
+      eyes.dataset.lift = String(lift);
+      eyes.style.transform = lift > 0 ? 'translateY(' + (-lift).toFixed(1) + 'px)' : '';
     };
 
     const update = () => {
@@ -137,26 +127,24 @@
         const overlapRatio = overlap / eyesHeight;
 
         if (overlapRatio <= 0.4) {
-          applyEyesTransform(0);
+          if (typeof window.__applyHeroEyesParallax === 'function') window.__applyHeroEyesParallax();
           return;
         }
 
         const lift = overlap - eyesHeight * 0.4;
-        eyes.dataset.lift = String(lift);
         fold.classList.add('is-eyes-lifted');
         hero.classList.add('is-eyes-lifted');
         applyEyesTransform(lift);
+        if (typeof window.__applyHeroEyesParallax === 'function') window.__applyHeroEyesParallax();
       });
     };
 
     window.addEventListener('resize', update, { passive: true });
-    window.addEventListener('scroll', update, { passive: true, capture: true });
 
     if (typeof ResizeObserver !== 'undefined') {
       const observer = new ResizeObserver(update);
       observer.observe(fold);
       observer.observe(intro);
-      observer.observe(eyes);
     }
 
     update();
@@ -355,6 +343,35 @@
 
   if (!reduced && !isMobile()) {
     let plxPending = false;
+    const introPanel = document.querySelector('.mc-panel--intro');
+
+    const applyHeroEyesParallax = (el, plx, vh) => {
+      const lift = parseFloat(el.dataset.lift || 0);
+      let ty = plx - lift;
+      el.style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
+
+      if (!introPanel) return;
+      const minGap = 16;
+      const eyesBottom = el.getBoundingClientRect().bottom;
+      const introTop = introPanel.getBoundingClientRect().top;
+      const overflow = eyesBottom - (introTop - minGap);
+      if (overflow > 0) {
+        ty -= overflow;
+        el.style.transform = 'translateY(' + ty.toFixed(1) + 'px)';
+      }
+    };
+
+    window.__applyHeroEyesParallax = () => {
+      const eyes = document.querySelector('.mc-hero-eyes-parallax');
+      if (!eyes) return;
+      const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+      const factor = parseFloat(eyes.getAttribute('data-plx')) || 0;
+      const sec = eyes.closest('[data-screen-label]') || eyes.parentElement;
+      const r = sec.getBoundingClientRect();
+      const d = (r.top + r.height / 2) - vh / 2;
+      applyHeroEyesParallax(eyes, -d * factor, vh);
+    };
+
     const parallax = () => {
       const vh = window.innerHeight || document.documentElement.clientHeight || 800;
 
@@ -364,11 +381,12 @@
         const r = sec.getBoundingClientRect();
         const d = (r.top + r.height / 2) - vh / 2;
         const plx = -d * factor;
-        if (el.classList.contains('mc-hero-eyes')) {
-          const lift = parseFloat(el.dataset.lift || 0);
-          el.style.transform = 'translateY(' + (plx - lift).toFixed(1) + 'px)';
+
+        if (el.classList.contains('mc-hero-eyes-parallax')) {
+          applyHeroEyesParallax(el, plx, vh);
           return;
         }
+
         el.style.transform = 'translateY(' + plx.toFixed(1) + 'px)';
       });
 

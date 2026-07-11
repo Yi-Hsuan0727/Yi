@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/home.css?v=20260710d">
+<link rel="stylesheet" href="assets/css/home.css?v=20260710f">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -74,9 +74,11 @@
   <div class="mc-home-fold">
   <header id="top" data-screen-label="Hero" class="mc-hero">
     <h1 data-plx="0.32" class="mc-hero-title">A designer<br>with an eye<br>for detail</h1>
-    <div aria-hidden="true" data-plx="0.18" class="mc-hero-eyes">
-      <span data-eye="true" class="mc-eye-hero"><span data-pupil="true"></span></span>
-      <span data-eye="true" class="mc-eye-hero"><span data-pupil="true"></span></span>
+    <div aria-hidden="true" class="mc-hero-eyes">
+      <div class="mc-hero-eyes-parallax" data-plx="0.18">
+        <span data-eye="true" class="mc-eye-hero"><span data-pupil="true"></span></span>
+        <span data-eye="true" class="mc-eye-hero"><span data-pupil="true"></span></span>
+      </div>
     </div>
   </header>
 
@@ -348,7 +350,7 @@
 </div>
 <script src="assets/js/contact-form.js?v=20260702b"></script>
 <script src="assets/js/splash.js?v=20260708d"></script>
-<script src="assets/js/home.js?v=20260710c"></script>
+<script src="assets/js/home.js?v=20260710f"></script>
 <script>
 (() => {
   if (typeof SplashScreen === 'undefined') return;

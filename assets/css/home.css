@@ -297,11 +297,17 @@ body.mc-home {
 .mc-hero-eyes {
   display: flex;
   justify-content: center;
-  gap: clamp(24px, 4vw, 56px);
   padding: clamp(4px, 1.5vh, 16px) 0 clamp(28px, 6vh, 64px);
-  will-change: transform;
   position: relative;
   z-index: 1;
+  flex-shrink: 0;
+}
+
+.mc-hero-eyes-parallax {
+  display: flex;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 56px);
+  will-change: transform;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -327,6 +333,7 @@ body.mc-home {
 
 .mc-panel--intro {
   flex: 0 0 auto;
+  flex-shrink: 0;
   margin-top: auto;
   padding: clamp(28px, 4vw, 44px) 6vw clamp(36px, 5vw, 52px);
   border-radius: 44px 44px 0 0;
