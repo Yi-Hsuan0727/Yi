@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260711h">
+<link rel="stylesheet" href="assets/css/case.css?v=20260711i">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -244,9 +244,14 @@
           <p class="mc-phase-label">Phase 01 · Research &amp; Testing</p>
           <h3 class="mc-phase-title">Benchmarking &amp; Baseline</h3>
           <p class="mc-phase-body">Before designing Pic2Split, we benchmarked Scan &amp; Split Bill (v2.1.3 Pro) with a heuristic evaluation and moderated usability test (6 participants; realistic group-dinner scenario with uneven orders and tax on one receipt). Timed splits showed where the competitor stalled and set our under-2-minute design target.</p>
-          <div role="img" aria-label="Competitor benchmark: Scan and Split Bill averaged four minutes per split; Pic2Split design target under two minutes; six participant usability test with OCR satisfaction 2.2, layout satisfaction 2.0, AI trust 2.6, biggest stall tax and tip">
-            <p class="mc-bench-title">Split time</p>
-            <div class="mc-bench-bars">
+          <div role="img" class="mc-bench" aria-label="Competitor benchmark: Scan and Split Bill averaged four minutes per split while Pic2Split's design target is under two minutes. A six participant usability test scored OCR satisfaction 2.2 out of 5, layout satisfaction 2.0 out of 5, and AI trust 2.6 out of 5, with splitting tax and tip as the biggest stall.">
+            <div class="mc-bench-head">
+              <p class="mc-bench-eyebrow">Competitor benchmark</p>
+              <span class="mc-bench-tag">Scan &amp; Split Bill · v2.1.3 Pro</span>
+            </div>
+            <p class="mc-bench-meta">Heuristic evaluation + 6-participant moderated usability test</p>
+
+            <div class="mc-bench-time">
               <div class="mc-bench-row">
                 <span class="mc-bench-name">Scan &amp; Split Bill</span>
                 <div class="mc-bench-track"><div class="mc-bench-fill mc-bench-fill--dark"></div></div>
@@ -258,14 +263,28 @@
                 <span class="mc-bench-num mc-bench-num--green">&lt;2 min</span>
               </div>
             </div>
-            <div class="mc-bench-block mc-bench-block--competitor">
-              <p class="mc-bench-subtitle">Scan &amp; Split Bill · usability test (6 participants)</p>
-              <div class="mc-bench-stats">
-                <div><p class="mc-bench-stat-num">2.2</p><p class="mc-bench-stat-label">OCR satisfaction</p></div>
-                <div><p class="mc-bench-stat-num">2.0</p><p class="mc-bench-stat-label">Layout satisfaction</p></div>
-                <div><p class="mc-bench-stat-num">2.6</p><p class="mc-bench-stat-label">AI trust</p></div>
+
+            <div class="mc-bench-scores">
+              <div class="mc-bench-score">
+                <div class="mc-bench-score-top"><span class="mc-bench-score-num">2.2</span><span class="mc-bench-score-max">/5</span></div>
+                <div class="mc-bench-meter"><span style="width:44%"></span></div>
+                <p class="mc-bench-score-label">OCR satisfaction</p>
               </div>
-              <p class="mc-bench-note">All scores below 3/5 · biggest stall: tax &amp; tip split</p>
+              <div class="mc-bench-score">
+                <div class="mc-bench-score-top"><span class="mc-bench-score-num">2.0</span><span class="mc-bench-score-max">/5</span></div>
+                <div class="mc-bench-meter"><span style="width:40%"></span></div>
+                <p class="mc-bench-score-label">Layout satisfaction</p>
+              </div>
+              <div class="mc-bench-score">
+                <div class="mc-bench-score-top"><span class="mc-bench-score-num">2.6</span><span class="mc-bench-score-max">/5</span></div>
+                <div class="mc-bench-meter"><span style="width:52%"></span></div>
+                <p class="mc-bench-score-label">AI trust</p>
+              </div>
+            </div>
+
+            <div class="mc-bench-foot">
+              <span class="mc-bench-foot-tag">Biggest stall</span>
+              <span class="mc-bench-foot-text">Splitting tax &amp; tip across uneven orders</span>
             </div>
           </div>
         </article>
