@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260711l">
+<link rel="stylesheet" href="assets/css/case.css?v=20260711m">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -118,7 +118,7 @@
       <a data-spy="section-02" href="#section-02" class="mc-toc-link">02 · Goals</a>
       <a data-spy="section-03" href="#section-03" class="mc-toc-link">03 · Solutions</a>
       <a data-spy="section-04" href="#section-04" class="mc-toc-link">04 · Research and Design</a>
-      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Interaction</a>
+      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Iteration</a>
       <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Reflection</a>
       <a data-spy="section-07" href="#section-07" class="mc-toc-link">07 · Impact &amp; Summary</a>
       <a data-spy="section-08" href="#section-08" class="mc-toc-link">08 · Future Scope</a>
@@ -292,7 +292,7 @@
         <article class="mc-phase">
           <p class="mc-phase-label">Phase 02 · Interaction Design</p>
           <h3 class="mc-phase-title mc-phase-title--tight">Core Flow Iteration</h3>
-          <p class="mc-phase-body">Pic2Split targets under 2 minutes, 2× faster than the 4-min baseline. A no-login start, Gemini-assisted OCR with a receipt-and-result review window, shared-dish tags, and proportional tax-and-tip math replaced the competitor's scan → confusion → guesswork loop.</p>
+          <p class="mc-phase-body">Pic2Split targets under 2 minutes, 2× faster than the 4-min baseline. A no-login start, Gemini-assisted OCR with a receipt-and-result review window, shared-dish tags, and proportional tax-and-tip math replaced the competitor's scan → confusion → guesswork loop. We tested the flow as two prototypes: <strong>Version 1</strong> walked through it screen by screen, and <strong>Version 2</strong> — the shipped build — folded the three split steps into a single page (broken down in <a href="#section-05">05 · Iteration</a>).</p>
           <div class="mc-flow-grid">
 
             <div role="img" aria-label="Scan and Split Bill competitor flow, average flow time about 4 minutes" class="mc-flow-card">
@@ -328,7 +328,7 @@
           <p class="mc-phase-label">Phase 03 · Wireframing</p>
           <h3 class="mc-phase-title mc-phase-title--tight">Wireframing &amp; Systems</h3>
           <p class="mc-phase-lede">Every screen earns its place in the split flow.</p>
-          <p class="mc-phase-body">Wireframes mapped every beat of the dinner scenario: wrong OCR, shared appetizers, proportional tax and tip, and the share screen friends see before they pay. Built on <strong>Tailwind CSS</strong> so every money step used the same clear, reusable components.</p>
+          <p class="mc-phase-body">Wireframes mapped every beat of the dinner scenario: wrong OCR, shared appetizers, proportional tax and tip, and the share screen friends see before they pay. Built on <strong>Tailwind CSS</strong> so every money step used the same clear, reusable components. These wireframes shipped as <strong>prototype Version 1</strong> — the step-by-step flow we later collapsed into one page in Version 2.</p>
           <div class="mc-figure-grid">
             <figure class="mc-figure">
               <img src="assets/img/Pic2Split/design system.png" alt="Pic2Split visual style guide: logo, color palette, and Inter typography" loading="lazy">
@@ -342,26 +342,44 @@
         </article>
       </section>
 
-      <!-- 05 INTERACTION -->
-      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Interaction" class="mc-section mc-section--interaction">
-        <p class="mc-eyebrow-bar">05 · Interaction</p>
-        <h2 class="mc-section-h2">From five screens to one page</h2>
+      <!-- 05 ITERATION -->
+      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Iteration" class="mc-section mc-section--interaction">
+        <p class="mc-eyebrow-bar">05 · Iteration</p>
+        <h2 class="mc-section-h2">From three screens to one page</h2>
         <div class="mc-interaction-row">
           <div class="mc-interaction-copy">
-            <p><strong>Version 1</strong> walked people through four separate screens — Scan Result, Add Members, Assign Items, and Split Result. Engineering wanted fewer page loads; testing showed the step-by-step flow only added taps without making the split any clearer.</p>
-            <p>So we met in the middle and consolidated the flow. The diagram below maps every change from the four-screen Version 1 to the <strong>one-page final build</strong>, where scanning, members, and item assignment all live on a single scrollable page.</p>
+            <p>Our first prototype, <strong>Version 1</strong>, walked people through the split step by step: Scan Result, Add Members, and Assign Items each lived on its own screen before the shared Split Result. Engineering wanted fewer page loads, and testing agreed — hopping between screens only added taps and made people lose track of the bill.</p>
+            <p><strong>Version 2</strong>, the shipped build, merges those three screens into <strong>one scrollable page</strong>: scan, name the members, and assign items in a single view, then land on the shared Split Result. The diagram below maps every change between the two versions.</p>
           </div>
           <div class="mc-interaction-media">
             <img src="assets/img/Pic2Split/iteraction.png" alt="Pic2Split prototype comparison: Version 1 uses four separate screens — Scan Result, Add Members, Assign Items, and Split Result; Version 2 collapses scan result, add members, and assign items into three steps on one scrollable page" loading="lazy">
           </div>
           <div class="mc-interaction-notes">
-            <p class="mc-interaction-notes-title">What changed from Version 1 to the final page</p>
+            <p class="mc-interaction-notes-title">What changed from Version 1 to Version 2</p>
             <ul class="mc-interaction-notes-list">
-              <li><strong>Four screens became one page.</strong> Scan Result, Add Members, and Assign Items now stack as three steps on a single scrollable page instead of separate screens.</li>
+              <li><strong>Three screens became one page.</strong> Scan Result, Add Members, and Assign Items now stack as three steps on a single scrollable page — only the shared Split Result keeps its own screen.</li>
               <li><strong>Prices moved to where you split.</strong> Detected items and their prices surface right inside the Assign Items section, removing the separate review step.</li>
               <li><strong>Less setup at the table.</strong> The Search Group and Quick Add from Group features were cut — members are now added as quick chips by typing a name and pressing Enter.</li>
               <li><strong>The total leads.</strong> A purple block emphasizes the scanned bill total, and pinch-to-zoom lets the group double-check the receipt image.</li>
             </ul>
+          </div>
+          <div role="img" class="mc-iter-impact" aria-label="Timed prototype splits: Version 1 with three step-by-step screens averaged 3 minutes 10 seconds per split; Version 2, the one-page build, averaged 1 minute 45 seconds — about 45 percent faster and under the 2 minute target from the competitor benchmark.">
+            <p class="mc-interaction-notes-title">Why it mattered — timed splits with the same dinner scenario</p>
+            <div class="mc-iter-cards">
+              <div class="mc-iter-card">
+                <p class="mc-iter-card-tag">Version 1 · step-by-step screens</p>
+                <p class="mc-iter-card-num">3:10</p>
+                <p class="mc-iter-card-cap">avg time to a fair split</p>
+                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--dark"></span></div>
+              </div>
+              <div class="mc-iter-card mc-iter-card--good">
+                <p class="mc-iter-card-tag">Version 2 · one page (shipped)</p>
+                <p class="mc-iter-card-num">1:45 <span class="mc-iter-delta">−45% time</span></p>
+                <p class="mc-iter-card-cap">avg time to a fair split</p>
+                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--green"></span></div>
+              </div>
+            </div>
+            <p class="mc-iter-note">Same 6-participant dinner scenario as the benchmark — Version 2 comes in under the 2-minute target, against the competitor's 4-minute average.</p>
           </div>
         </div>
       </section>
