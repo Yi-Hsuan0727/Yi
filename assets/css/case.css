@@ -524,9 +524,9 @@ body.mc-case * {
 }
 
 .mc-toc {
-  position: fixed;
-  left: 6vw;
+  position: sticky;
   top: var(--mc-sticky-below-nav);
+  align-self: start;
   width: 220px;
   z-index: 50;
   max-height: calc(100vh - var(--mc-sticky-below-nav) - 24px);
@@ -539,16 +539,16 @@ body.mc-case * {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding-bottom: 48px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.28s ease, visibility 0.28s ease;
-}
-
-.mc-toc.is-visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.mc-toc.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .mc-toc-link {

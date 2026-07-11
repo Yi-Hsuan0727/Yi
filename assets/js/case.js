@@ -210,7 +210,7 @@
   const firstSpy = document.querySelector('[data-spy-target]');
   if (firstSpy) setActive(firstSpy.getAttribute('data-spy-target'));
 
-  /* ---- TOC visibility: main content only ---- */
+  /* ---- TOC visibility: hide outside main content (before body / after next) ---- */
   const toc = document.querySelector('.mc-toc');
   const caseBody = document.querySelector('.mc-case-body');
   const nextSection = document.querySelector('.mc-next');
@@ -226,9 +226,9 @@
       const offset = getNavOffset();
       const bodyRect = caseBody.getBoundingClientRect();
       const nextRect = nextSection ? nextSection.getBoundingClientRect() : null;
-      const inMainContent = bodyRect.top <= offset && bodyRect.bottom > offset + 120;
+      const inMainContent = bodyRect.top < window.innerHeight && bodyRect.bottom > offset + 120;
       const beforeNext = !nextRect || nextRect.top > offset + 48;
-      toc.classList.toggle('is-visible', inMainContent && beforeNext);
+      toc.classList.toggle('is-hidden', !(inMainContent && beforeNext));
     };
 
     document.addEventListener('scroll', updateTocVisibility, { passive: true, capture: true });
