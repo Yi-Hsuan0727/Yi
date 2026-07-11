@@ -890,6 +890,48 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   max-width: 720px;
 }
 
+/* version decision strip under a phase title */
+.mc-phase-versions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: -4px 0 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(17, 21, 17, 0.7);
+}
+
+.mc-phase-version-chip {
+  flex: none;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: rgba(17, 21, 17, 0.75);
+  background: rgba(17, 21, 17, 0.08);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.mc-phase-version-chip--good {
+  color: #0e7c3f;
+  background: rgba(46, 204, 113, 0.18);
+}
+
+.mc-phase-version-arrow {
+  color: rgba(17, 21, 17, 0.4);
+  font-weight: 700;
+}
+
+.mc-phase-version-link {
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0e7c3f;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Legacy research-chart layout inside native process phases */
 .mc-phase:has(> .mc-phase-split),
 .mc-phase:has(> .mc-phase-inner--with-chart),
