@@ -475,9 +475,8 @@ body.mc-case * {
 
 .mc-stat-value {
   margin: 0;
-  font-family: 'Archivo', sans-serif;
-  font-stretch: 80%;
-  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
   font-size: clamp(36px, 3.4vw, 54px);
   line-height: 1;
 }
@@ -868,8 +867,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 
 .mc-why-num {
   margin: 0;
-  font-family: 'Archivo', sans-serif;
-  font-stretch: 82%;
+  font-family: 'Montserrat', sans-serif;
   font-size: clamp(26px, 3vw, 34px);
   font-weight: 800;
   line-height: 1;
@@ -1343,8 +1341,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
 .mc-bench-score-num {
   font-size: 24px;
   font-weight: 800;
-  font-family: 'Archivo', sans-serif;
-  font-stretch: 82%;
+  font-family: 'Montserrat', sans-serif;
   color: #111511;
   line-height: 1;
 }
@@ -1668,8 +1665,7 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Archivo', sans-serif;
-  font-stretch: 82%;
+  font-family: 'Montserrat', sans-serif;
   font-size: 34px;
   font-weight: 800;
   line-height: 1;
