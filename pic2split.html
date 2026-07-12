@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260711k">
+<link rel="stylesheet" href="assets/css/case.css?v=20260711s">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -118,10 +118,9 @@
       <a data-spy="section-02" href="#section-02" class="mc-toc-link">02 · Goals</a>
       <a data-spy="section-03" href="#section-03" class="mc-toc-link">03 · Solutions</a>
       <a data-spy="section-04" href="#section-04" class="mc-toc-link">04 · Research and Design</a>
-      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Interaction</a>
-      <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Reflection</a>
-      <a data-spy="section-07" href="#section-07" class="mc-toc-link">07 · Impact &amp; Summary</a>
-      <a data-spy="section-08" href="#section-08" class="mc-toc-link">08 · Future Scope</a>
+      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Reflection</a>
+      <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Impact &amp; Summary</a>
+      <a data-spy="section-07" href="#section-07" class="mc-toc-link">07 · Future Scope</a>
     </nav>
 
     <div class="mc-sections">
@@ -235,17 +234,17 @@
       <section id="section-04" data-spy-target="section-04" data-screen-label="04 Research and Design" class="mc-section mc-section--process">
         <div class="mc-process-intro">
           <p class="mc-eyebrow-bar">04 · Research and Design</p>
-          <h2 class="mc-section-h2">We timed real splits, then designed for the two-minute window at the table</h2>
-          <p class="mc-process-lede">We timed real group splits with uneven orders and tax on one receipt, then designed Pic2Split to beat the two-minute window at the table.</p>
+          <h2 class="mc-section-h2">How we got to under two minutes</h2>
+          <p class="mc-process-lede">We timed real group splits with uneven orders and tax on one receipt, then iterated until the flow beat the two-minute window at the table.</p>
+          <img src="assets/img/Pic2Split/p2s-process-map.png" alt="Design process at a glance: 1 benchmark the competitor for a 4-minute baseline, 2 redesign the core flow for an under-2-minute target, 3 wireframe and system as prototype Version 1, 4 iterate the prototype into one page and ship" loading="lazy" class="mc-process-map-img">
         </div>
 
         <!-- Phase 01 -->
         <article class="mc-phase">
           <p class="mc-phase-label">Phase 01 · Research &amp; Testing</p>
           <h3 class="mc-phase-title">Benchmarking &amp; Baseline</h3>
-          <div class="mc-phase-grid">
-            <p class="mc-phase-text">Before designing Pic2Split, we benchmarked Scan &amp; Split Bill (v2.1.3 Pro) with a heuristic evaluation and moderated usability test (6 participants; realistic group-dinner scenario with uneven orders and tax on one receipt). Timed splits showed where the competitor stalled and set our under-2-minute design target.</p>
-          <div role="img" class="mc-bench" aria-label="Competitor benchmark: Scan and Split Bill averaged four minutes per split while Pic2Split's design target is under two minutes. A six participant usability test scored OCR satisfaction 2.2 out of 5, layout satisfaction 2.0 out of 5, and AI trust 2.6 out of 5.">
+          <p class="mc-phase-body">Before designing Pic2Split, we picked one competitor to learn from and beat: <strong>Scan &amp; Split Bill — OCR Check</strong> (v2.1.3 Pro). We ran a heuristic evaluation plus a moderated usability test (6 participants; a realistic group-dinner scenario with uneven orders and tax on one receipt). Timed splits showed where it stalled and set our under-2-minute design target.</p>
+          <div role="img" class="mc-bench mc-bench--full" aria-label="Competitor benchmark: Scan and Split Bill averaged four minutes per split while Pic2Split's design target is under two minutes. A six participant usability test scored OCR satisfaction 2.2 out of 5, layout satisfaction 2.0 out of 5, and AI trust 2.6 out of 5.">
             <div class="mc-bench-head">
               <p class="mc-bench-eyebrow">Competitor benchmark</p>
               <span class="mc-bench-tag">Scan &amp; Split Bill · v2.1.3 Pro</span>
@@ -284,6 +283,27 @@
             </div>
 
           </div>
+          <div class="mc-why">
+            <p class="mc-why-title">Why this competitor?</p>
+            <div class="mc-why-grid" role="list" aria-label="Reasons Scan and Split Bill was chosen as the benchmark competitor">
+              <div class="mc-why-fact" role="listitem">
+                <p class="mc-why-num">OCR</p>
+                <p class="mc-why-label">receipt scanning — the same core tech as Pic2Split</p>
+              </div>
+              <div class="mc-why-fact" role="listitem">
+                <p class="mc-why-num">100k+</p>
+                <p class="mc-why-label">downloads on Google Play</p>
+              </div>
+              <div class="mc-why-fact" role="listitem">
+                <p class="mc-why-num">76</p>
+                <p class="mc-why-label">languages, working fully offline</p>
+              </div>
+              <div class="mc-why-fact" role="listitem">
+                <p class="mc-why-num">3</p>
+                <p class="mc-why-label">split modes plus a built-in tip calculator</p>
+              </div>
+            </div>
+            <p class="mc-why-note">An established Android bill-splitter whose Google Play reviews are full of candid user feedback — a strong product to learn from. <a href="https://play.google.com/store/apps/details?id=com.astepanov.mobile.splitcheck&amp;hl=en_US" target="_blank" rel="noopener noreferrer">See it on Google Play <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></p>
           </div>
         </article>
         <img src="assets/img/Pic2Split/Heuristic%20evaluation%20for%20scan%20and%20split%20bill%20(Version_%202.1.3%20pro).png" alt="Heuristic evaluation of Scan and Split Bill v2.1.3 Pro across Nielsen usability principles, with low scores on visibility of system status, user control, consistency, error prevention, and efficiency" loading="lazy" class="mc-phase-figure-img">
@@ -339,29 +359,49 @@
               <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Wireframes before polish.</figcaption>
             </figure>
           </div>
+          <div class="mc-twist">
+            <p class="mc-twist-kicker">Plot twist</p>
+            <p class="mc-twist-title">These wireframes shipped as <span class="mc-twist-v">Version&nbsp;1</span> — then we replaced them.</p>
+            <p class="mc-twist-text">Version 1 walked the table through the split screen by screen, exactly as wireframed. A second round of testing showed the walk itself was the problem: hopping between screens added taps and made people lose track of the bill. So <strong>Version 2</strong> rebuilt the whole split as one page.</p>
+            <a href="#phase-04" class="mc-twist-link">Here's why <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+          </div>
+        </article>
+
+        <!-- Phase 04 -->
+        <article class="mc-phase" id="phase-04">
+          <p class="mc-phase-label">Phase 04 · Prototype Iteration</p>
+          <h3 class="mc-phase-title mc-phase-title--tight">From Three Screens to One Page</h3>
+          <div class="mc-interaction-row">
+            <div class="mc-interaction-media">
+              <img src="assets/img/Pic2Split/iteraction.png" alt="Pic2Split prototype comparison: Version 1 uses four separate screens — Scan Result, Add Members, Assign Items, and Split Result; Version 2 collapses scan result, add members, and assign items into three steps on one scrollable page" loading="lazy">
+            </div>
+            <p class="mc-iter-changes"><strong>What changed from Version 1 to Version 2?</strong> <br>We timed with the same 6-participant dinner scenario as the benchmark — Version 2 comes in under the 2-minute target, against the competitor's 4-minute average. Shows that the one-page build is faster and under the 2 minute target.</p>
+          </div>
+          <div role="img" class="mc-iter-impact" aria-label="Timed prototype splits: Version 1 with three step-by-step screens averaged 3 minutes 10 seconds per split; Version 2, the one-page build, averaged 1 minute 45 seconds — about 45 percent faster and under the 2 minute target from the competitor benchmark.">
+            <div class="mc-iter-cards">
+              <div class="mc-iter-card">
+                <p class="mc-iter-card-tag">Version 1 · step-by-step screens</p>
+                <p class="mc-iter-card-num">3:10</p>
+                <p class="mc-iter-card-cap">avg time to a fair split</p>
+                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--dark"></span></div>
+              </div>
+              <div class="mc-iter-card">
+                <p class="mc-iter-card-tag mc-iter-card-tag--good">Version 2 · one page (shipped)</p>
+                <p class="mc-iter-card-num">1:45 <span class="mc-iter-delta">−45% time</span></p>
+                <p class="mc-iter-card-cap">avg time to a fair split</p>
+                <div class="mc-iter-track"><span class="mc-iter-fill mc-iter-fill--green"></span></div>
+              </div>
+            </div>
+          </div>
+          <p class="mc-iter-changes"><strong>The Outcome</strong> <br>The redesigned workflow preserved the guided experience while making the interaction faster and more efficient. This iteration reinforced an important lesson for me: good product design isn't about defending an initial solution—it's about <strong>balancing user needs, technical feasibility, and product goals through thoughtful collaboration.</strong></p>
         </article>
       </section>
 
-      <!-- 05 INTERACTION -->
-      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Interaction" class="mc-section mc-section--interaction">
-        <p class="mc-eyebrow-bar">05 · Interaction</p>
-        <h2 class="mc-section-h2">From five screens to one page</h2>
-        <div class="mc-interaction-row">
-          <div class="mc-interaction-copy">
-            <p>After wireframes, I prototyped <strong>one screen per step</strong>. Engineering wanted fewer page loads — I argued step-by-step would be clearer at the table.</p>
-            <p>We met in the middle. The diagram shows what changed: group shortcuts cut, review folded into assign, and the core split on <strong>one scrollable page</strong> — faster to build, faster to finish.</p>
-          </div>
-          <div class="mc-interaction-media">
-            <img src="assets/img/Pic2Split/iteraction.png" alt="Pic2Split prototype comparison: Version 1 uses separate scan, add members, assign items, and split result screens; Version 2 combines scan results, members, and item assignment into one page" loading="lazy">
-          </div>
-        </div>
-      </section>
-
-      <!-- 06 REFLECTION -->
-      <section id="section-06" data-spy-target="section-06" data-screen-label="06 Reflection" class="mc-section mc-section--reflection">
+      <!-- 05 REFLECTION -->
+      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Reflection" class="mc-section mc-section--reflection">
         <div class="mc-reflection-top">
           <div class="mc-reflection-head">
-            <p class="mc-eyebrow-bar">06 · Reflection</p>
+            <p class="mc-eyebrow-bar">05 · Reflection</p>
             <h2 class="mc-section-h2">Fair splits need AI you can see, not just AI that's accurate</h2>
           </div>
           <p class="mc-reflection-text">Accuracy matters, but trust comes from transparency: Gemini-assisted OCR shows the receipt beside every extracted line so the group can follow the process, review charges, and fix mistakes before anyone pays, instead of blindly accepting a black-box total.</p>
@@ -373,18 +413,19 @@
         </div>
       </section>
 
-      <!-- 07 SUMMARY -->
-      <section id="section-07" data-spy-target="section-07" data-screen-label="07 Impact and Summary" class="mc-section mc-section--summary">
-        <p class="mc-eyebrow-bar">07 · Impact &amp; Summary</p>
+      <!-- 06 SUMMARY -->
+      <section id="section-06" data-spy-target="section-06" data-screen-label="06 Impact and Summary" class="mc-section mc-section--summary">
+        <p class="mc-eyebrow-bar">06 · Impact &amp; Summary</p>
         <h2 class="mc-section-h2">From four minutes to under two: fair splits, live on the web</h2>
-        <p class="mc-summary-text">Timed usability sessions on Scan &amp; Split Bill averaged 4 min per group split. Pic2Split's design target is under 2 min, which is 2× faster, 50% less time, and roughly 2 min saved every time friends settle the check. Proportional tax and tip on each person's food ended the fairness fights, and light eaters no longer subsidize big orders. Pic2Split is live on the web today: the awkward check moment becomes a quick link in the group chat, and everyone moves on.</p>
+        <img src="assets/img/Pic2Split/p2s-impact-speed.png" alt="Impact summary: 2 times faster, 50 percent less time, about 2 minutes saved per split — Scan and Split Bill competitor at 4 minutes versus Pic2Split design target under 2 minutes" loading="lazy" class="mc-section-img mc-impact-img">
+        <p class="mc-summary-text">Proportional tax and tip on each person's food ended the fairness fights — light eaters no longer subsidize big orders. Pic2Split is live on the web today: the awkward check moment becomes a quick link in the group chat, and everyone moves on.</p>
       </section>
 
-      <!-- 08 FUTURE SCOPE -->
-      <section id="section-08" data-spy-target="section-08" data-screen-label="08 Future Scope" class="mc-section mc-section--problem">
+      <!-- 07 FUTURE SCOPE -->
+      <section id="section-07" data-spy-target="section-07" data-screen-label="07 Future Scope" class="mc-section mc-section--problem">
         <div class="mc-2col-header">
           <div>
-            <p class="mc-eyebrow-bar">08 · Future Scope</p>
+            <p class="mc-eyebrow-bar">07 · Future Scope</p>
             <h2 class="mc-section-h2">From MVP to a full pay-and-order loop</h2>
           </div>
           <p class="mc-lede">Built under a tight hackathon window, Pic2Split today covers scan, assign, and share. Next, we want to open the bill to the whole group, close the loop with direct payments, and meet diners where they already order.</p>
