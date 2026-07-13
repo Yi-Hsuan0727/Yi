@@ -426,6 +426,8 @@ body.mc-case * {
 
 .mc-case-overview {
   margin: clamp(32px, 4vw, 56px) 0 0;
+  font-family: 'Archivo', sans-serif;
+  font-stretch: 82%;
   font-size: clamp(1.15rem, 2vw, 1.35rem);
   font-weight: 600;
   line-height: 1.5;
@@ -436,6 +438,12 @@ body.mc-case * {
 
 .mc-case-overview strong {
   font-weight: 600;
+}
+
+/* overview lives in the left meta column, under the tool tags —
+   the column's flex gap provides the spacing */
+.mc-meta-left .mc-case-overview {
+  margin-top: 0;
 }
 
 .mc-case-overview-note {
@@ -993,6 +1001,106 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   }
 }
 
+/* inline brand logo beside a mention (e.g. Gemini) */
+.mc-inline-logo {
+  display: inline-block;
+  height: 0.95em;
+  width: auto;
+  vertical-align: -0.1em;
+}
+
+.mc-inline-logo--text {
+  height: 0.85em;
+}
+
+/* competitive comparison table */
+.mc-compare-scroll {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid rgba(17, 21, 17, 0.12);
+  border-radius: 20px;
+}
+
+.mc-compare-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.mc-compare-table th,
+.mc-compare-table td {
+  padding: 14px 18px;
+  text-align: center;
+  border-top: 1px solid rgba(17, 21, 17, 0.08);
+}
+
+.mc-compare-table thead th {
+  border-top: none;
+  padding-top: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #111511;
+}
+
+.mc-compare-table tbody th {
+  text-align: left;
+  font-weight: 600;
+  color: rgba(17, 21, 17, 0.75);
+}
+
+.mc-compare-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 8px;
+  border-radius: 12px;
+  background: rgba(17, 21, 17, 0.06);
+  font-family: 'Archivo', sans-serif;
+  font-stretch: 82%;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(17, 21, 17, 0.65);
+}
+
+.mc-compare-tile--p2s {
+  background: rgba(46, 204, 113, 0.16);
+}
+
+.mc-compare-tile--p2s img {
+  width: 22px;
+  height: 22px;
+}
+
+.mc-compare-brand--p2s,
+.mc-compare-table td:nth-child(2) {
+  background: rgba(46, 204, 113, 0.06);
+}
+
+.mc-compare-table .is-yes i {
+  color: #2ecc71;
+  font-size: 15px;
+}
+
+.mc-compare-table td:nth-child(2).is-yes i {
+  color: #0e7c3f;
+}
+
+.mc-compare-table .is-no {
+  color: rgba(17, 21, 17, 0.3);
+}
+
+.mc-compare-table .is-note {
+  color: rgba(17, 21, 17, 0.5);
+  font-weight: 600;
+}
+
+.mc-compare .mc-why-note {
+  margin-top: 18px;
+}
+
 /* impact graphic */
 .mc-impact-img {
   max-width: 960px;
@@ -1062,6 +1170,16 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   margin-top: clamp(36px, 5vw, 56px);
   border-top: 1px solid rgba(17, 21, 17, 0.12);
   padding-top: clamp(28px, 4vw, 40px);
+}
+
+/* standalone variant: sits between phase cards with no card background,
+   like the heuristic-evaluation figure */
+.mc-twist--bare {
+  margin-top: 0;
+  border-top: none;
+  padding-top: 0;
+  padding-left: clamp(24px, 3vw, 44px);
+  padding-right: clamp(24px, 3vw, 44px);
 }
 
 .mc-twist-kicker {
