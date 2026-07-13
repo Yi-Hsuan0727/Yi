@@ -52,6 +52,10 @@
 
 /* --- RESET & BASE --- */
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; transition: background-color 0.3s, color 0.3s; }
+/* Site-wide type system: titles (h1–h3) in Archivo, labels/body stay Montserrat.
+   Element selectors beat the `*` reset; classed headings that set their own
+   font-family (e.g. .mc-case-h1) still win on specificity. */
+h1, h2, h3 { font-family: 'Archivo', sans-serif; font-stretch: 82%; }
 html, body { overflow-x: hidden; max-width: 100vw; }
 body { background-color: var(--bg-color); color: var(--text-color); height: 100vh; overflow: hidden; }
 
