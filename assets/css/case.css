@@ -338,10 +338,10 @@ body.mc-case * {
   margin: 0 0 18px;
   font-size: clamp(15px, 1.6vw, 20px);
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 1.55;
   color: rgba(17, 21, 17, 0.8);
-  max-width: 32em;
+  max-width: 34em;
 }
 
 .mc-case-tags {
@@ -361,16 +361,21 @@ body.mc-case * {
   border-radius: 999px;
 }
 
-/* Case meta: a single readable stack —
-   1. facts row (Team | Timeline | Tools side by side)
-   2. overview lede
-   3. horizontal stat strip with green accent bars */
+/* Case meta: facts (Team | Timeline | Tools) on the left,
+   stat figures with green accent bars on the right */
 .mc-case-meta {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(28px, 3.5vw, 44px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: start;
   border-top: 1px solid rgba(17, 21, 17, 0.14);
   padding-top: clamp(28px, 3vw, 44px);
+}
+
+/* pages without a stat grid keep a single full-width column */
+.mc-case-meta--solo,
+.mc-case-meta:not(:has(> .mc-stat-grid)) {
+  grid-template-columns: 1fr;
 }
 
 .mc-meta-left {
@@ -381,22 +386,13 @@ body.mc-case * {
 
 .mc-meta-facts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px clamp(24px, 3vw, 48px);
 }
 
+/* Tools sits full-width under Team and Timeline */
 .mc-meta-facts .mc-meta-full {
-  grid-column: auto;
-}
-
-@media (max-width: 860px) {
-  .mc-meta-facts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .mc-meta-facts .mc-meta-full {
-    grid-column: 1 / -1;
-  }
+  grid-column: 1 / -1;
 }
 
 .mc-meta-label {
@@ -482,10 +478,8 @@ body.mc-case * {
 
 .mc-stat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px clamp(20px, 2.5vw, 40px);
-  border-top: 1px solid rgba(17, 21, 17, 0.1);
-  padding-top: clamp(24px, 2.5vw, 32px);
 }
 
 .mc-stat-grid > div {
@@ -793,6 +787,63 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   font-size: 14px;
   line-height: 1.9;
   color: rgba(17, 21, 17, 0.75);
+}
+
+.mc-solution-note {
+  margin: 16px 0 0;
+  padding: 10px 14px;
+  border-left: 3px solid #2ecc71;
+  border-radius: 0 12px 12px 0;
+  background: rgba(46, 204, 113, 0.08);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: rgba(17, 21, 17, 0.7);
+}
+
+.mc-solution-note i {
+  color: #0e7c3f;
+  margin-right: 4px;
+}
+
+/* goals-achieved strip in the reflection section */
+.mc-goal-achieved {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px clamp(24px, 3vw, 48px);
+}
+
+.mc-goal-achieved > div {
+  border-left: 3px solid #2ecc71;
+  padding-left: 16px;
+}
+
+.mc-goal-achieved-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Archivo', sans-serif;
+  font-stretch: 82%;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 800;
+  line-height: 1;
+  color: #111511;
+}
+
+.mc-goal-achieved-title i {
+  font-size: 0.5em;
+  color: #0e7c3f;
+  background: rgba(46, 204, 113, 0.16);
+  border-radius: 999px;
+  padding: 6px;
+}
+
+.mc-goal-achieved-cap {
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: rgba(17, 21, 17, 0.6);
 }
 
 .mc-solution-sub {
@@ -1959,6 +2010,12 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.mc-reflection-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .mc-reflection-text {

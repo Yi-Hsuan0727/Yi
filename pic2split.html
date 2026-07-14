@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260713e">
+<link rel="stylesheet" href="assets/css/case.css?v=20260714f">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -47,7 +47,7 @@
   <!-- ============ CASE HEADER ============ -->
   <header data-screen-label="Case header" class="mc-case-header">
     <h1 class="mc-case-h1">Pic2Split</h1>
-    <p class="mc-case-sub">End-to-End Design of a Social Bill-Splitting Web App</p>
+    <p class="mc-case-sub">A social bill-splitting web app designed to make group checks fair and transparent — cutting the split from four minutes to under two, live on the web today.</p>
     <div class="mc-case-tags">
       <span class="mc-case-tag">Web App</span>
       <span class="mc-case-tag">AI</span>
@@ -59,7 +59,7 @@
         <div class="mc-meta-facts">
           <div>
             <p class="mc-meta-label">Team (4)</p>
-            <p class="mc-meta-value">Product Designer (me), Product Manager, Software Engineers</p>
+            <p class="mc-meta-value">Product Designer (me)<br>Product Manager<br>Software Engineers</p>
           </div>
           <div>
             <p class="mc-meta-label">Timeline</p>
@@ -77,7 +77,6 @@
             </div>
           </div>
         </div>
-          <p class="mc-case-overview">A web-first AI bill splitter for group dining. When the check arrives at the table, scan the receipt, assign dishes, split tax and tip fairly, and share a link. Under two minutes, no app to install — just a one-tap Google sign-in.</p>
         </div>
 
       <div class="mc-stat-grid" aria-label="Split time impact summary">
@@ -118,7 +117,7 @@
       <a data-spy="section-02" href="#section-02" class="mc-toc-link">02 · Goals</a>
       <a data-spy="section-03" href="#section-03" class="mc-toc-link">03 · Solutions</a>
       <a data-spy="section-04" href="#section-04" class="mc-toc-link">04 · Research and Design</a>
-      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Reflection</a>
+      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Reflection &amp; Outcome</a>
       <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Impact &amp; Summary</a>
       <a data-spy="section-07" href="#section-07" class="mc-toc-link">07 · Future Scope</a>
     </nav>
@@ -204,6 +203,7 @@
             <span class="mc-solution-tag">Solution 03</span>
             <h3 class="mc-solution-h3">Tap dishes to names, and shared plates split themselves</h3>
             <p class="mc-solution-text">Tap a line item, pick who shared it, and each person's total updates live, all in a <strong>side-by-side window</strong> with the receipt photo beside the assignment list, so everyone can overview charges and confirm spend as they split. No calculator math at the table.</p>
+            <p class="mc-solution-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Also catches OCR edge cases — users verify the AI reading against the receipt themselves.</p>
           </div>
           <div class="mc-solution-media">
             <video src="assets/img/Pic2Split/assign%20item.mp4" autoplay muted playsinline loop preload="metadata" aria-label="Screen recording of tap-to-split item assignment" class="mc-solution-video"></video>
@@ -402,22 +402,33 @@
             </div>
           </div>
         </article>
-
-        <div class="mc-twist mc-twist--bare">
-          <p class="mc-twist-kicker">The Outcome</p>
-          <p class="mc-twist-title">Faster and more efficient — <span class="mc-twist-v">without losing</span> the guided experience.</p>
-          <p class="mc-twist-text">The redesigned workflow preserved the guided experience while making the interaction faster and more efficient. This iteration reinforced an important lesson for me: good product design isn't about defending an initial solution—it's about <strong>balancing user needs, technical feasibility, and product goals through thoughtful collaboration.</strong></p>
-        </div>
       </section>
 
-      <!-- 05 REFLECTION -->
-      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Reflection" class="mc-section mc-section--reflection">
+      <!-- 05 REFLECTION & OUTCOME -->
+      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Reflection and Outcome" class="mc-section mc-section--reflection">
         <div class="mc-reflection-top">
           <div class="mc-reflection-head">
-            <p class="mc-eyebrow-bar">05 · Reflection</p>
+            <p class="mc-eyebrow-bar">05 · Reflection &amp; Outcome</p>
             <h2 class="mc-section-h2">Fair splits need AI you can see, not just AI that's accurate</h2>
           </div>
-          <p class="mc-reflection-text">Accuracy matters, but trust comes from transparency: Gemini-assisted OCR shows the receipt beside every extracted line so the group can follow the process, review charges, and fix mistakes before anyone pays, instead of blindly accepting a black-box total.</p>
+          <div class="mc-reflection-body">
+            <p class="mc-reflection-text">Accuracy matters, but trust comes from transparency: the receipt sits beside every AI-parsed line, so the group checks the math and fixes mistakes before anyone pays.</p>
+            <p class="mc-reflection-text">Version 2 shipped faster without losing the guided flow — every goal achieved. The lesson: <strong>don't defend the first solution; balance user needs, technical feasibility, and product goals.</strong></p>
+          </div>
+        </div>
+        <div class="mc-goal-achieved" role="list" aria-label="All three project goals achieved">
+          <div role="listitem">
+            <p class="mc-goal-achieved-title">Fair <i class="fas fa-check" aria-hidden="true"></i></p>
+            <p class="mc-goal-achieved-cap">Proportional tax &amp; tip per person</p>
+          </div>
+          <div role="listitem">
+            <p class="mc-goal-achieved-title">Fast <i class="fas fa-check" aria-hidden="true"></i></p>
+            <p class="mc-goal-achieved-cap">1:45 avg split — under the 2-min target</p>
+          </div>
+          <div role="listitem">
+            <p class="mc-goal-achieved-title">Transparent <i class="fas fa-check" aria-hidden="true"></i></p>
+            <p class="mc-goal-achieved-cap">Receipt beside every parsed line</p>
+          </div>
         </div>
         <div class="mc-reflection-gallery">
           <video src="assets/img/Pic2Split/Scan%20a%20receipt.mp4" autoplay muted playsinline loop preload="metadata" aria-label="Screen recording of scanning a receipt with OCR side-by-side review" class="mc-reflection-video"></video>
