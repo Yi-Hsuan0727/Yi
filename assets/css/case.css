@@ -361,29 +361,42 @@ body.mc-case * {
   border-radius: 999px;
 }
 
+/* Case meta: a single readable stack —
+   1. facts row (Team | Timeline | Tools side by side)
+   2. overview lede
+   3. horizontal stat strip with green accent bars */
 .mc-case-meta {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: clamp(32px, 5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3.5vw, 44px);
   border-top: 1px solid rgba(17, 21, 17, 0.14);
   padding-top: clamp(28px, 3vw, 44px);
-  align-items: start;
 }
 
 .mc-meta-left {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: clamp(28px, 3.5vw, 40px);
 }
 
 .mc-meta-facts {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px 32px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px clamp(24px, 3vw, 48px);
 }
 
 .mc-meta-facts .mc-meta-full {
-  grid-column: 1 / -1;
+  grid-column: auto;
+}
+
+@media (max-width: 860px) {
+  .mc-meta-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mc-meta-facts .mc-meta-full {
+    grid-column: 1 / -1;
+  }
 }
 
 .mc-meta-label {
@@ -440,10 +453,11 @@ body.mc-case * {
   font-weight: 600;
 }
 
-/* overview lives in the left meta column, under the tool tags —
+/* overview lives in the left meta column, under the facts row —
    the column's flex gap provides the spacing */
 .mc-meta-left .mc-case-overview {
   margin-top: 0;
+  max-width: 900px;
 }
 
 .mc-case-overview-note {
@@ -468,8 +482,15 @@ body.mc-case * {
 
 .mc-stat-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 28px clamp(20px, 2.5vw, 40px);
+  border-top: 1px solid rgba(17, 21, 17, 0.1);
+  padding-top: clamp(24px, 2.5vw, 32px);
+}
+
+.mc-stat-grid > div {
+  border-left: 3px solid #2ecc71;
+  padding-left: 16px;
 }
 
 .mc-stat-label {
@@ -1201,6 +1222,14 @@ body.mc-case .mc-sections--legacy .case-overview-hero-text {
   letter-spacing: -0.01em;
   color: #111511;
   max-width: 20em;
+}
+
+/* the global `*` reset (Montserrat) matches inner spans directly and would
+   override the inherited Archivo — force the highlight spans to follow the title */
+.mc-twist-title span,
+.mc-stat-value span {
+  font-family: inherit;
+  font-stretch: inherit;
 }
 
 .mc-twist-v {
