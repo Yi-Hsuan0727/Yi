@@ -95,8 +95,11 @@ body.mc-home {
   transform: none;
 }
 
+/* cap the page at the same 1440px content width as the case pages */
 .mc-root {
   min-height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 
 .mc-home-fold {
@@ -117,7 +120,8 @@ body.mc-home {
 .mc-nav {
   position: fixed;
   top: 18px;
-  left: 6vw;
+  /* track the capped 1440px content column, not the viewport edge */
+  left: calc(max(0px, (100vw - 1440px) / 2) + 6vw);
   z-index: 60;
   display: flex;
   align-items: center;
@@ -235,9 +239,11 @@ body.mc-home {
   margin: -2.5px 0 0 -2.5px;
 }
 
+/* the eye pair (2 × 18vw + 4vw gap) tracks the viewport at ~40vw,
+   locking only when the page itself hits its 1440px cap */
 .mc-eye-hero {
-  width: clamp(120px, 15vw, 220px);
-  height: clamp(140px, 17.5vw, 258px);
+  width: clamp(96px, 18vw, 260px);
+  height: clamp(112px, 21vw, 303px);
   box-shadow: 0 24px 60px rgba(9, 60, 30, 0.22);
   cursor: pointer;
 }
@@ -865,6 +871,17 @@ a.mc-card:hover {
   width: max-content;
   padding: 18px 0;
   animation: mc-marquee 36s linear infinite;
+}
+
+/* when every tile already fits, the carousel parks itself (set by home.js) */
+.mc-marquee-track.is-static {
+  animation: none;
+  width: 100%;
+  justify-content: center;
+}
+
+.mc-marquee-track.is-static .mc-marquee-tile[aria-hidden='true'] {
+  display: none;
 }
 
 .mc-marquee-tile {
