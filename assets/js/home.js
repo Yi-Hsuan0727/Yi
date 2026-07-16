@@ -501,6 +501,26 @@
     if (e.key === 'Escape') closeModal();
   });
 
+  /* ---- More-work marquee: park it when every tile already fits ---- */
+  const marqueeTrack = document.getElementById('more-work-marquee');
+  if (marqueeTrack) {
+    const marqueeOriginals = Array.from(marqueeTrack.children).filter(
+      (el) => el.getAttribute('aria-hidden') !== 'true'
+    );
+    const updateMarquee = () => {
+      const gap = parseFloat(getComputedStyle(marqueeTrack).gap) || 0;
+      const listWidth =
+        marqueeOriginals.reduce((sum, el) => sum + el.offsetWidth, 0) +
+        gap * (marqueeOriginals.length - 1);
+      marqueeTrack.classList.toggle(
+        'is-static',
+        listWidth <= marqueeTrack.parentElement.clientWidth
+      );
+    };
+    updateMarquee();
+    window.addEventListener('resize', updateMarquee);
+  }
+
   /* ---- Contact form (shared with the rest of the site, see contact-form.js) ---- */
   if (typeof ContactFormLogic !== 'undefined') {
     ContactFormLogic.init();

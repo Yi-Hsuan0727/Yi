@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/case.css?v=20260714f">
+<link rel="stylesheet" href="assets/css/case.css?v=20260715b">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -198,27 +198,34 @@
         </div>
 
         <div class="mc-solution-row">
-          <div class="mc-solution-copy">
-            <span class="mc-solution-tag">Solution 03</span>
-            <h3 class="mc-solution-h3">Tap dishes to names, and shared plates split themselves</h3>
-            <p class="mc-solution-text">Tap a line item, pick who shared it, and each person's total updates live, all in a <strong>side-by-side window</strong> with the receipt photo beside the assignment list, so everyone can overview charges and confirm spend as they split. No calculator math at the table.</p>
-            <p class="mc-solution-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> Also catches OCR edge cases — users verify the AI reading against the receipt themselves.</p>
+          <div class="mc-solution-copy mc-solution-copy--stack">
+            <div class="mc-solution-sub">
+              <span class="mc-solution-tag">Solution 03</span>
+              <h3 class="mc-solution-h3">Tap dishes to names, and shared plates split themselves</h3>
+              <p class="mc-solution-text">Tap a line item, pick who shared it, and each person's total updates live, all in a <strong>side-by-side window</strong> with the receipt photo beside the assignment list, so everyone can overview charges and confirm spend as they split. No calculator math at the table.</p>
+            </div>
+            <div class="mc-divider"></div>
+            <div class="mc-solution-sub">
+              <span class="mc-solution-tag">Solution 04</span>
+              <h3 class="mc-solution-h3">Close the Trust Gap: check the AI against the receipt</h3>
+              <p class="mc-solution-text">To solve the <strong>"Trust Gap"</strong> our research surfaced, the final design lets users compare the OCR-extracted item list directly with the original receipt image. The side-by-side window makes edge cases — misread names, merged line items, a wrong price — visible at a glance, so the group verifies the AI's reading for themselves before anyone pays.</p>
+            </div>
           </div>
           <div class="mc-solution-media">
-            <video src="assets/img/Pic2Split/assign%20item.mp4" autoplay muted playsinline loop preload="metadata" aria-label="Screen recording of tap-to-split item assignment" class="mc-solution-video"></video>
+            <video src="assets/img/Pic2Split/assign%20item.mp4" autoplay muted playsinline loop preload="metadata" aria-label="Screen recording of tap-to-split item assignment in the side-by-side review window" class="mc-solution-video"></video>
           </div>
         </div>
 
         <div class="mc-solution-row">
           <div class="mc-solution-copy mc-solution-copy--stack">
             <div class="mc-solution-sub">
-              <span class="mc-solution-tag">Solution 04</span>
+              <span class="mc-solution-tag">Solution 05</span>
               <h3 class="mc-solution-h3">Tax and tip follow the food, not an even four-way split</h3>
               <p class="mc-solution-text">Tax and tip distribute proportionally to each person's food, not an even four-way split, so everyone sees how their total was built.</p>
             </div>
             <div class="mc-divider"></div>
             <div class="mc-solution-sub">
-              <span class="mc-solution-tag">Solution 05</span>
+              <span class="mc-solution-tag">Solution 06</span>
               <h3 class="mc-solution-h3">Drop the link in the chat, and everyone pays and leaves</h3>
               <p class="mc-solution-text">One link shows each friend their final number. They open it in the browser, pay their share, and the table moves on, with no app install.</p>
             </div>
@@ -233,8 +240,8 @@
       <section id="section-04" data-spy-target="section-04" data-screen-label="04 Research and Design" class="mc-section mc-section--process">
         <div class="mc-process-intro">
           <p class="mc-eyebrow-bar">04 · Research and Design</p>
-          <h2 class="mc-section-h2">How we got to under two minutes</h2>
-          <p class="mc-process-lede">We timed real group splits with uneven orders and tax on one receipt, then iterated until the flow beat the two-minute window at the table.</p>
+          <h2 class="mc-section-h2">How we got to under two minutes —<br>and how to keep AI trust and transparency</h2>
+          <p class="mc-process-lede">We timed real group splits with uneven orders and tax on one receipt, then iterated until the flow beat the two-minute window at the table — while our research kept one requirement front and center: people must be able to check the AI's reading for themselves.</p>
           <img src="assets/img/Pic2Split/p2s-process-map.png" alt="Design process at a glance: 1 benchmark the competitor for a 4-minute baseline, 2 redesign the core flow for an under-2-minute target, 3 wireframe and system as prototype Version 1, 4 iterate the prototype into one page and ship" loading="lazy" class="mc-process-map-img">
         </div>
 
@@ -310,6 +317,24 @@
                 </tbody>
               </table>
             </div>
+          </div>
+          <div class="mc-why">
+            <p class="mc-why-title">The Trust Gap — what people told us about AI</p>
+            <div class="mc-why-grid" role="list" aria-label="AI trust and transparency research findings">
+              <div class="mc-why-fact" role="listitem">
+                <p class="mc-why-num">2.6/5</p>
+                <p class="mc-why-label">AI trust score in the 6-participant benchmark test</p>
+              </div>
+              <div class="mc-why-fact" role="listitem">
+                <p class="mc-why-num">2.2/5</p>
+                <p class="mc-why-label">OCR satisfaction — misreads were hard to spot and fix</p>
+              </div>
+              <div class="mc-why-fact" role="listitem">
+                <p class="mc-why-num">Survey</p>
+                <p class="mc-why-label">people accept an AI-read bill only when they can verify it themselves</p>
+              </div>
+            </div>
+            <p class="mc-why-note">We also surveyed people on AI trust and transparency. The pattern was consistent: users don't distrust AI reading receipts — they distrust <strong>not being able to check it</strong>. That "Trust Gap" became a hard design requirement, carried through to the side-by-side review window.</p>
           </div>
         </article>
         <img src="assets/img/Pic2Split/Heuristic%20evaluation%20for%20scan%20and%20split%20bill%20(Version_%202.1.3%20pro).png" alt="Heuristic evaluation of Scan and Split Bill v2.1.3 Pro across Nielsen usability principles, with low scores on visibility of system status, user control, consistency, error prevention, and efficiency" loading="lazy" class="mc-phase-figure-img">
