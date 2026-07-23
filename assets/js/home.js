@@ -521,6 +521,22 @@
     window.addEventListener('resize', updateMarquee);
   }
 
+  /* ---- Pic2Split intro: scale the fixed 1816x1000 stage to cover its card media ---- */
+  const p2sStages = document.querySelectorAll('.p2s-stage');
+  if (p2sStages.length) {
+    const fitP2s = () => {
+      p2sStages.forEach((stage) => {
+        const media = stage.parentElement;
+        if (!media) return;
+        const scale = Math.max(media.clientWidth / 1816, media.clientHeight / 1000);
+        stage.style.setProperty('--p2s-scale', scale);
+      });
+    };
+    fitP2s();
+    window.addEventListener('resize', fitP2s);
+    window.addEventListener('load', fitP2s);
+  }
+
   /* ---- Contact form (shared with the rest of the site, see contact-form.js) ---- */
   if (typeof ContactFormLogic !== 'undefined') {
     ContactFormLogic.init();
