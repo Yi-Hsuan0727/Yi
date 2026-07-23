@@ -677,6 +677,89 @@ a.mc-card:hover {
   display: block;
 }
 
+/* ============ Pic2Split live intro animation (JSON keyframes from Figma) ============ */
+/* A fixed 1816x1000 stage scaled to cover the card media, so every layer uses the
+   exact Figma frame coordinates. Three receipt images fly in over the static
+   phone-in-hand foreground, matching the Figma motion timeline (3.809s, loop). */
+.p2s-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1816px;
+  height: 1000px;
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(var(--p2s-scale, 0.5));
+}
+
+.p2s-stage img {
+  position: absolute;
+  width: auto;
+  height: auto;
+  object-fit: fill;
+  display: block;
+}
+
+.p2s-fg {
+  left: 560px;
+  top: 261px;
+  width: 1256px;
+  height: 739px;
+}
+
+.p2s-receipt {
+  border-radius: 4px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.p2s-r1 {
+  left: 1178.1px;
+  top: 262.4px;
+  width: 199.227px;
+  height: 553.851px;
+  rotate: 38.46deg;
+  animation: p2s-r1 3.80945s linear infinite;
+}
+
+.p2s-r2 {
+  left: 1095.8px;
+  top: 312.5px;
+  width: 199.515px;
+  height: 331.55px;
+  rotate: 33.45deg;
+  animation: p2s-r2 3.80945s linear infinite;
+}
+
+.p2s-r3 {
+  left: 1223.9px;
+  top: 522.6px;
+  width: 185.282px;
+  height: 307.899px;
+  rotate: 48.28deg;
+  animation: p2s-r3 3.80945s linear infinite;
+}
+
+@keyframes p2s-r1 {
+  0%, 4.587% { translate: 742.538px -734.554px; }
+  16.047%, 100% { translate: 0 0; }
+}
+
+@keyframes p2s-r2 {
+  0%, 2.935% { translate: 475px -671px; }
+  13.316%, 100% { translate: 0 0; }
+}
+
+@keyframes p2s-r3 {
+  0% { translate: 676px -602px; }
+  10.964%, 100% { translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p2s-receipt {
+    animation: none !important;
+    translate: 0 0 !important;
+  }
+}
+
 .mc-card-body {
   display: flex;
   flex-direction: column;

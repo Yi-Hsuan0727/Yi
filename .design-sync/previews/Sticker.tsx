@@ -11,7 +11,7 @@ export const ContactStickers = () => (
     }}
   >
     <Sticker tilt={-3} icon={<span aria-hidden>✉</span>} href="#">
-      yche1356@asu.edu
+      themichellechen@gmail.com
     </Sticker>
     <Sticker tilt={2.5} icon={<span aria-hidden>in</span>} href="#">
       LinkedIn

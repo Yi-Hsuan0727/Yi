@@ -2,8 +2,8 @@
  * ContactFormLogic: Footer contact form submission and success states.
  */
 const ContactFormLogic = {
-    recipientEmail: 'yche1356@asu.edu',
-    endpoint: 'https://formsubmit.co/ajax/yche1356@asu.edu',
+    recipientEmail: 'themichellechen@gmail.com',
+    endpoint: 'https://formsubmit.co/ajax/themichellechen@gmail.com',
     maxWords: 250,
     isInitialized: false,
 

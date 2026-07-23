@@ -298,7 +298,7 @@ const PHOTOS = ['assets/img/Michelle/CI8A8358.jpg','assets/img/Michelle/IMG_3647
 
 const ATTACHMENTS = [
   {icon:'🔗',bg:'#e8f0fe',title:'LinkedIn',url:'linkedin.com/in/mchen0727',href:'https://www.linkedin.com/in/mchen0727/'},
-  {icon:'✉️',bg:'#fce8e6',title:'Email',url:'yche1356@asu.edu',href:'mailto:yche1356@asu.edu'},
+  {icon:'✉️',bg:'#fce8e6',title:'Email',url:'themichellechen@gmail.com',href:'mailto:themichellechen@gmail.com'},
   {icon:'📄',bg:'#e6f4ea',title:'Resume',url:'themichellechen.com/resume',href:'assets/docs/Michelle-Chen-Resume.pdf'},
   {icon:'🌐',bg:'#f3e8fd',title:'Portfolio',url:'themichellechen.com',href:'https://themichellechen.com'},
 ];
@@ -858,7 +858,7 @@ async function send(){
   if(fstep===0){startFeedback();return;}
   if(fstep===1){fdata.name=val;addUserBub(`Hi! I'm ${val} 👋`);setFS(2);await addMBub(`Nice to meet you, ${esc(val)}! 😊 What's your email?`,900);sbtn.disabled=false;inp.focus();}
   else if(fstep===2){fdata.email=val;addUserBub(val);setFS(3);await addMBub("Got it! What's on your mind?",800);sbtn.disabled=false;inp.focus();}
-  else if(fstep===3){const msg=val;addUserBub(val);setFS(0);sbtn.disabled=true;await addMBub(`Thanks so much, ${esc(fdata.name)}! 💙 I'll reach out at ${esc(fdata.email)} soon.`,1100);const sub=encodeURIComponent(`Portfolio feedback from ${fdata.name}`);const body=encodeURIComponent(`Name: ${fdata.name}\nEmail: ${fdata.email}\n\nMessage:\n${msg}`);setTimeout(()=>{window.location.href=`mailto:yche1356@asu.edu?subject=${sub}&body=${body}`;},500);}
+  else if(fstep===3){const msg=val;addUserBub(val);setFS(0);sbtn.disabled=true;await addMBub(`Thanks so much, ${esc(fdata.name)}! 💙 I'll reach out at ${esc(fdata.email)} soon.`,1100);const sub=encodeURIComponent(`Portfolio feedback from ${fdata.name}`);const body=encodeURIComponent(`Name: ${fdata.name}\nEmail: ${fdata.email}\n\nMessage:\n${msg}`);setTimeout(()=>{window.location.href=`mailto:themichellechen@gmail.com?subject=${sub}&body=${body}`;},500);}
 }
 
 /* ════ MOBILE ══════════════════════════════════════════ */
