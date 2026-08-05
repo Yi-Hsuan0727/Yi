@@ -950,7 +950,7 @@ a.mc-card:hover {
 
 .mc-marquee-track {
   display: flex;
-  gap: 34px;
+  gap: 24px;
   width: max-content;
   padding: 18px 0;
   animation: mc-marquee 36s linear infinite;
