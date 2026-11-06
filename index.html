@@ -50,7 +50,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/home.css?v=20260804b">
+<link rel="stylesheet" href="assets/css/home.css?v=20261029a">
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 <script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
 </head>
@@ -102,6 +102,41 @@
       <h2 class="mc-section-title">I design accessible,<br>AI-driven web products.</h2>
 
       <div class="mc-featured-grid">
+
+        <div class="mc-card mc-card--feature-secondary">
+          <span class="mc-card-media" style="background: #ffffff;">
+            <span class="mc-badge">Pre-launch</span>
+            <canvas id="aa-thumb-rive" width="1280" height="720" role="img" aria-label="Animated Ascenzi &amp; Associates double-A logo"></canvas>
+          </span>
+          <span class="mc-card-body">
+            <span class="mc-card-copy">
+              <span class="mc-card-title">A brand, design system, and bilingual WordPress theme for a semiconductor-construction consultancy.</span>
+              <span class="mc-card-sub">A double-A logo that holds up at favicon size, and a theme the team edits without code, in English and Traditional Chinese.</span>
+              <span class="mc-tags">
+                <span class="mc-tag">Branding</span>
+                <span class="mc-tag">WordPress</span>
+                <span class="mc-tag">AI-assisted</span>
+              </span>
+            </span>
+          </span>
+        </div>
+
+        <div class="mc-card mc-card--feature-secondary">
+          <span class="mc-card-media" style="background: #f2c94c;">
+            <video src="assets/img/main images/RealWater.mp4" autoplay muted playsinline loop preload="metadata" poster="assets/img/main images/RealWater.png" aria-label="Real Water LMS"></video>
+          </span>
+          <span class="mc-card-body">
+            <span class="mc-card-copy">
+              <span class="mc-card-title">A water education platform helping Arizonans make informed decisions.</span>
+              <span class="mc-card-sub">Live at realwateraz.org: accessible water-education courses for communities, real estate professionals, and the public.</span>
+              <span class="mc-tags">
+                <span class="mc-tag">EdTech</span>
+                <span class="mc-tag">LMS</span>
+                <span class="mc-tag">B2C</span>
+              </span>
+            </span>
+          </span>
+        </div>
 
         <a href="pic2split.html" class="mc-card mc-card--feature-primary">
           <span class="mc-card-media" style="background: #5b21b6;">
@@ -171,25 +206,6 @@
             </span>
           </span>
         </a>
-
-        <div class="mc-card mc-card--feature-secondary">
-          <span class="mc-card-media" style="background: #f2c94c;">
-            <span class="mc-badge">Coming soon</span>
-            <video src="assets/img/main images/RealWater.mp4" autoplay muted playsinline loop preload="metadata" poster="assets/img/main images/RealWater.png" aria-label="Real Water LMS"></video>
-          </span>
-          <span class="mc-card-body">
-            <span class="mc-card-copy">
-              <span class="mc-card-title">A water education platform helping Arizonans make informed decisions.</span>
-              <span class="mc-card-sub">In development — accessible water-education courses for communities, real estate professionals, and the public.</span>
-              <span class="mc-tags">
-                <span class="mc-tag">EdTech</span>
-                <span class="mc-tag">LMS</span>
-                <span class="mc-tag">B2C</span>
-              </span>
-            </span>
-          </span>
-        </div>
-
       </div>
     </div>
   </section>
@@ -359,6 +375,23 @@
 <script src="assets/js/contact-form.js?v=20260722"></script>
 <script src="assets/js/splash.js?v=20260708d"></script>
 <script src="assets/js/home.js?v=20260722b"></script>
+<script src="https://unpkg.com/@rive-app/canvas@2.44.0/rive.js"></script>
+<script>
+  (function () {
+    var canvas = document.getElementById('aa-thumb-rive');
+    if (!canvas || typeof rive === 'undefined') { return; }
+    try {
+      var r = new rive.Rive({
+        src: 'assets/img/A&A/web/aa-logo.riv',
+        canvas: canvas,
+        autoplay: true,
+        layout: new rive.Layout({ fit: rive.Fit.Contain, alignment: rive.Alignment.Center }),
+        onLoad: function () { r.resizeDrawingSurfaceToCanvas(); }
+      });
+      window.addEventListener('resize', function () { r.resizeDrawingSurfaceToCanvas(); }, { passive: true });
+    } catch (e) { /* decorative thumbnail */ }
+  })();
+</script>
 <script>
 (() => {
   if (typeof SplashScreen === 'undefined') return;
