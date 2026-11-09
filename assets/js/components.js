@@ -110,6 +110,41 @@ const PortfolioApp = {
             ]
         },
         {
+            id: 'aa',
+            title: 'Ascenzi & Associates',
+            cardHeadline: 'Built a brand, design system, and bilingual WordPress theme for a semiconductor-construction consultancy.',
+            subtitle: 'Brand, Design System & Bilingual WordPress Theme',
+            desc: 'A branded, editable WordPress site for a consultancy serving semiconductor and advanced-manufacturing construction, designed and built with Claude Code. (In pre-launch testing)',
+            demoIntro: 'Designed the brand and design system, then directed Claude Code to build an English and Traditional Chinese WordPress theme the team can edit without code.',
+            filterType: 'web',
+            audience: 'B2B',
+            tags: ['Branding', 'WordPress', 'AI-assisted'],
+            image: 'assets/img/A&A/web/home-new.jpg',
+            heroImage: 'assets/img/A&A/web/home-new.jpg',
+            link: 'aa.html',
+            timeline: 'Jul 2026 – present',
+            team: 'Designer (me), WordPress developer, PM, marketing, BD team, founder',
+            teamRoster: [
+                '1 UI/UX Designer & Front-End Developer (me)',
+                '1 WordPress Developer',
+                '1 Project Manager',
+                '1 Operations/PM',
+                '1 Marketing/SEO'
+            ],
+            role: 'UI/UX Designer & Front-End Developer, including branding',
+            tools: ['Claude Code', 'Figma', 'HTML/CSS/JS', 'WordPress', 'Rive'],
+            liveLink: null,
+            featured: true,
+            spotlightEyebrow: 'Brand · WordPress',
+            spotlightTitle: 'A brand, design system, and bilingual WordPress theme for a semiconductor-construction consultancy.',
+            spotlightDesc: 'I designed the double-A logo and design system, then directed Claude Code to turn the design into an editable English and Traditional Chinese WordPress theme.',
+            spotlightStats: [
+                { value: '81 fields', label: 'editable in WordPress', accent: true },
+                { value: 'EN + 中文', label: 'bilingual theme' },
+                { value: '4 packages', label: 'one shared template' }
+            ]
+        },
+        {
             id: 'unesco',
             title: 'UNESCO Volunteer Recruitment',
             cardHeadline: 'Researched and rebuilt UNESCO\'s volunteer flow to turn interest into sign-ups.',
@@ -130,6 +165,26 @@ const PortfolioApp = {
             liveLink: '#',
             featured: false,
             secondary: true
+        },
+        {
+            id: 'realwater',
+            title: 'Real Water LMS',
+            cardHeadline: 'A water-education learning platform helping Arizonans make informed decisions about water.',
+            subtitle: 'Water Education Learning Platform',
+            desc: 'Arizona Real Water LMS delivers comprehensive water-education resources for Arizona communities, real estate professionals, and the public.',
+            demoIntro: 'A learning platform delivering accessible water-education courses for Arizona communities and professionals.',
+            filterType: 'web',
+            audience: 'Public',
+            tags: ['EdTech', 'LMS', 'B2C'],
+            image: 'assets/img/main images/RealWater.png',
+            cardVideo: 'assets/img/main images/RealWater.mp4',
+            heroImage: 'assets/img/main images/RealWater.png',
+            link: 'azrw.html',
+            liveLink: 'https://realwateraz.org/',
+            featured: true,
+            spotlightEyebrow: 'Live · EdTech',
+            spotlightTitle: 'A learning platform for water education that helps Arizonans make informed decisions.',
+            spotlightDesc: 'Arizona Real Water LMS is a platform for water management and conservation education, delivering accessible courses and resources for communities, real estate professionals, and the public.'
         },
         {
             id: 'lcm',
@@ -201,26 +256,6 @@ const PortfolioApp = {
                 { value: 'One platform', label: 'map · spray · thermal', headline: 'Platform' },
                 { value: '12-hr shifts', label: 'field-ready UI', headline: 'Field use' }
             ]
-        },
-        {
-            id: 'realwater',
-            title: 'Real Water LMS',
-            cardHeadline: 'A water-education learning platform helping Arizonans make informed decisions about water.',
-            subtitle: 'Water Education Learning Platform',
-            desc: 'Arizona Real Water LMS delivers comprehensive water-education resources for Arizona communities, real estate professionals, and the public.',
-            demoIntro: 'A learning platform delivering accessible water-education courses for Arizona communities and professionals.',
-            filterType: 'web',
-            audience: 'Public',
-            tags: ['EdTech', 'LMS', 'B2C'],
-            image: 'assets/img/main images/RealWater.png',
-            cardVideo: 'assets/img/main images/RealWater.mp4',
-            heroImage: 'assets/img/main images/RealWater.png',
-            link: '#',
-            comingSoon: true,
-            featured: true,
-            spotlightEyebrow: 'In development · EdTech',
-            spotlightTitle: 'A learning platform for water education that helps Arizonans make informed decisions.',
-            spotlightDesc: 'Arizona Real Water LMS is a platform for water management and conservation education, delivering accessible courses and resources for communities, real estate professionals, and the public.'
         },
         {
             id: 'lawfare',

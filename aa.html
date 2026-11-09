@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascenzi &amp; Associates - Michelle Chen</title>
+    <meta name="description" content="Brand, design system, and a bilingual WordPress theme for Ascenzi &amp; Associates, a consultancy for semiconductor and advanced-manufacturing construction. Designed, then built with Claude Code.">
+    <link rel="canonical" href="https://themichellechen.com/aa.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Michelle Chen">
+    <meta property="og:title" content="Ascenzi &amp; Associates - Michelle Chen">
+    <meta property="og:description" content="Brand, design system, and a bilingual WordPress theme for a semiconductor-construction consultancy. Designed, then built with Claude Code.">
+    <meta property="og:url" content="https://themichellechen.com/aa.html">
+    <meta property="og:image" content="https://themichellechen.com/assets/img/thumbnail.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ascenzi &amp; Associates - Michelle Chen">
+    <meta name="twitter:description" content="Brand, design system, and a bilingual WordPress theme for a semiconductor-construction consultancy. Designed, then built with Claude Code.">
+    <meta name="twitter:image" content="https://themichellechen.com/assets/img/thumbnail.png">
+
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css?v=20260712a">
+<link rel="stylesheet" href="assets/css/cursor.css?v=20260630n">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/case.css?v=20260915e">
+<style>
+  /* A&A page-specific additions (brand blue #0028FF) */
+  .aa-hero-img { max-height: 520px; overflow: hidden; border-radius: 16px; position: relative; }
+  .aa-hero-img img { width: 100%; display: block; object-fit: cover; object-position: top; }
+  .aa-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .aa-pair .mc-figure img { max-height: 380px; object-fit: cover; object-position: top; }
+  .aa-pair-tag { display: inline-block; margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17,21,17,0.55); }
+  .aa-pair-tag--new { color: #111511; }
+  .aa-audit { display: grid; grid-template-columns: 1fr; gap: 24px; padding: 40px 0; border-top: 1px solid rgba(17,21,17,0.12); }
+  .aa-audit-head { display: grid; grid-template-columns: 0.9fr 1.6fr; gap: 32px; align-items: start; }
+  .aa-audit:first-of-type { border-top: 0; padding-top: 8px; }
+  .aa-audit h3 { margin: 4px 0 12px; font-size: 24px; }
+  .aa-audit p { margin: 0 0 10px; line-height: 1.7; font-size: 14px; }
+  .aa-audit .mc-phase-result { margin-top: 14px; }
+  .aa-tall img { max-height: 520px; object-fit: cover; object-position: top; }
+  .aa-logo-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .aa-logo-tile { display: flex; align-items: center; justify-content: center; border-radius: 16px; padding: 40px 24px; min-height: 180px; border: 1px solid rgba(17,21,17,0.1); background: #fff; }
+  .aa-logo-tile--blue { background: #0028FF; border-color: #0028FF; }
+  .aa-logo-tile--black { background: #000; border-color: #000; }
+  .aa-logo-tile img { max-width: 100%; height: auto; max-height: 70px; }
+  .aa-rive-wrap { width: 100%; align-self: stretch; border-radius: 16px; background: #fff; border: 1px solid rgba(17,21,17,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; aspect-ratio: 16 / 7; }
+  .aa-rive-wrap canvas { width: 100%; height: 100%; display: block; }
+  .aa-swatches { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .aa-swatch { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; }
+  .aa-swatch i { width: 28px; height: 28px; border-radius: 8px; border: 1px solid rgba(17,21,17,0.15); display: block; }
+  .aa-table td, .aa-table th { text-align: left; }
+  .aa-table td:nth-child(2) { background: none; }
+  .aa-ic-pass { color: #2ecc71; margin-right: 6px; }
+  .aa-ic-fail { color: #c0392b; margin-right: 6px; }
+  .aa-steps { counter-reset: aa; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; list-style: none; margin: 0; padding: 0; }
+  .aa-steps li { counter-increment: aa; border: 1px solid rgba(17,21,17,0.12); border-radius: 16px; padding: 20px; background: #fff; font-size: 14px; line-height: 1.65; }
+  .aa-steps li::before { content: counter(aa, decimal-leading-zero); display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: rgba(17,21,17,0.55); margin-bottom: 8px; }
+  .aa-steps strong { display: block; margin-bottom: 6px; font-size: 15px; }
+  .aa-list { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 14px; line-height: 1.7; }
+  .aa-note { margin-top: 20px; padding: 16px 20px; border-radius: 12px; background: rgba(17,21,17,0.04); font-size: 13px; line-height: 1.65; }
+  .aa-survey { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .aa-survey img { width: 100%; display: block; border-radius: 10px; border: 1px solid rgba(17,21,17,0.1); }
+  .aa-mobile-pair { display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: start; }
+  .aa-mobile-pair .aa-mobile-img { max-height: 520px; overflow: hidden; border-radius: 10px; border: 1px solid rgba(17,21,17,0.1); }
+  .aa-mobile-pair .aa-mobile-img img { width: 100%; display: block; }
+  .aa-audit .mc-compare-stage { padding: clamp(24px, 4vw, 56px) clamp(16px, 4vw, 56px) 0; }
+  .aa-compare-hint { display: flex; justify-content: space-between; margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17,21,17,0.55); }
+  .aa-new-lbl { color: #111511; }
+  .aa-audit .mc-compare-viewport { width: min(100%, 800px); aspect-ratio: var(--aa-ar, 4 / 5); }
+  .aa-pair--tall .mc-figure img { max-height: 640px; }
+  .aa-audit .mc-compare-stage, .mc-video-stage { background: #0028FF; border-color: #0028FF; }
+  .mc-case-overview-media .mc-video-stage { padding: clamp(24px, 4vw, 56px); }
+  @media (max-width: 760px) {
+    .aa-audit-head, .aa-pair, .aa-logo-stage, .aa-survey, .aa-mobile-pair { grid-template-columns: 1fr; }
+    .aa-steps { grid-template-columns: 1fr; }
+    .aa-mobile-pair .aa-mobile-img { max-width: 220px; }
+  }
+</style>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
+</head>
+<body class="mc-case">
+<div class="mc-root">
+
+  <nav class="mc-nav" aria-label="Primary">
+    <a href="index.html" class="mc-nav-home" aria-label="Home" data-tip="Home">
+      <span data-eye="true" class="mc-eye-nav"><span data-pupil="true"></span></span>
+      <span data-eye="true" class="mc-eye-nav"><span data-pupil="true"></span></span>
+    </a>
+    <div class="mc-nav-links">
+      <a href="index.html#featured-work" class="mc-nav-link" aria-label="Work" data-tip="Work"><i class="fas fa-briefcase" aria-hidden="true"></i></a>
+      <a href="index.html#about" class="mc-nav-link" aria-label="About" data-tip="About"><i class="fas fa-user" aria-hidden="true"></i></a>
+      <a href="index.html#contact" class="mc-nav-link" aria-label="Contact" data-tip="Contact"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+    </div>
+  </nav>
+
+  <header data-screen-label="Case header" class="mc-case-header">
+    <h1 class="mc-case-h1">Ascenzi &amp; Associates</h1>
+    <p class="mc-case-sub">From a founder-built first site to a branded, editable WordPress build</p>
+    <div class="mc-case-tags">
+      <span class="mc-case-tag">Branding</span>
+      <span class="mc-case-tag">Design System</span>
+      <span class="mc-case-tag">WordPress</span>
+      <span class="mc-case-tag">AI-assisted</span>
+    </div>
+
+    <div class="mc-case-meta">
+      <div class="mc-meta-left">
+        <div class="mc-meta-facts">
+          <div>
+            <p class="mc-meta-label">Role</p>
+            <p class="mc-meta-value">UI/UX Designer &amp; Front-End Developer, including branding</p>
+          </div>
+          <div>
+            <p class="mc-meta-label">Timeline</p>
+            <p class="mc-meta-value">July 2026 – present</p>
+          </div>
+          <div>
+            <p class="mc-meta-label">Team</p>
+            <p class="mc-meta-value">PM, WordPress developer, marketing, BD team, founder (client)</p>
+          </div>
+          <div>
+            <p class="mc-meta-label">Status</p>
+            <p class="mc-meta-value">In pre-launch testing</p>
+          </div>
+          <div class="mc-meta-full">
+            <p class="mc-meta-label">Tools</p>
+            <div class="mc-tool-list" role="list" aria-label="Project tools">
+              <span role="listitem" class="mc-tool">Claude Code</span>
+              <span role="listitem" class="mc-tool">Figma</span>
+              <span role="listitem" class="mc-tool">HTML/CSS/JS</span>
+              <span role="listitem" class="mc-tool">WordPress (custom PHP theme)</span>
+              <span role="listitem" class="mc-tool">GitHub Pages</span>
+              <span role="listitem" class="mc-tool">Rive</span>
+            </div>
+          </div>
+        </div>
+        <div class="mc-tldr" aria-label="Summary">
+          <div class="mc-tldr-block">
+            <p class="mc-tldr-label">TL;DR</p>
+            <p>Ascenzi &amp; Associates (A&amp;A) is a semiconductor-construction consultancy. Its founder-built first site had stopped opening and couldn't capture inquiries.</p>
+          </div>
+          <div class="mc-tldr-block">
+            <p class="mc-tldr-label">My role</p>
+            <p>I designed the brand and design system, then directed Claude Code to build a bilingual (English and Traditional Chinese) WordPress theme the team can edit without code.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mc-stat-grid" aria-label="Project summary">
+        <div>
+          <p class="mc-stat-label">Editable fields</p>
+          <p class="mc-stat-value" aria-label="81 editable fields"><span data-count="81">0</span></p>
+          <p class="mc-stat-caption">in WordPress meta boxes</p>
+        </div>
+        <div>
+          <p class="mc-stat-label">Interactions</p>
+          <p class="mc-stat-value" aria-label="13 interactions"><span data-count="13">0</span></p>
+          <p class="mc-stat-caption">audited in the theme</p>
+        </div>
+        <div>
+          <p class="mc-stat-label">Languages</p>
+          <p class="mc-stat-value">EN + 中文</p>
+          <p class="mc-stat-caption">bilingual theme</p>
+        </div>
+        <div>
+          <p class="mc-stat-label">Service packages</p>
+          <p class="mc-stat-value" aria-label="4 service packages"><span data-count="4">0</span></p>
+          <p class="mc-stat-caption">one shared template</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-case-overview-media">
+      <div class="mc-video-stage">
+        <video src="assets/img/A&amp;A/web/demo.mp4" poster="assets/img/A&amp;A/web/home-new.jpg" autoplay muted playsinline loop preload="metadata" aria-label="A&amp;A website demo walkthrough"></video>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ BODY: TOC + SECTIONS ============ -->
+  <div class="mc-case-body">
+
+    <nav class="mc-toc" aria-label="On this page">
+      <a data-spy="section-01" href="#section-01" class="mc-toc-link">01 · Challenge &amp; Audit</a>
+      <a data-spy="section-02" href="#section-02" class="mc-toc-link">02 · Branding</a>
+      <a data-spy="section-03" href="#section-03" class="mc-toc-link">03 · Design System</a>
+      <a data-spy="section-04" href="#section-04" class="mc-toc-link">04 · Decisions &amp; Priorities</a>
+      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Final Design</a>
+      <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Build with Claude Code</a>
+      <a data-spy="section-07" href="#section-07" class="mc-toc-link">07 · Status &amp; Reflection</a>
+    </nav>
+
+    <div class="mc-sections">
+
+      <!-- 01 CHALLENGE & AUDIT -->
+      <section id="section-01" data-spy-target="section-01" data-screen-label="01 Challenge and Audit" class="mc-section mc-section--problem">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">01 · Challenge &amp; Audit</p>
+            <h2 class="mc-section-h2">A first site that did its early job, then needed more</h2>
+          </div>
+          <p class="mc-lede">The founder's first site, built on Base44, had stopped opening by mid-July. The new one had to read as an authority, capture every inquiry in a CRM, and let him publish without a developer.</p>
+        </div>
+        <p class="mc-prose" style="margin-top:8px">This is critique of the old site, not the person: he built it without a design team.</p>
+
+        <div class="aa-audit">
+          <div class="aa-audit-head">
+            <div>
+            <p class="mc-phase-label">Home</p>
+            <h3>No clear path</h3></div>
+            <div>
+            <p>Eight navigation items, many competing actions.</p>
+            <p class="mc-phase-result">The new homepage uses a client-journey roadmap and two actions.</p>
+            </div>
+          </div>
+          <div class="mc-compare aa-compare" data-compare>
+            <div class="mc-compare-stage" style="--split-pos: 50%;">
+              <div class="mc-compare-viewport" style="--aa-ar: 3 / 4;">
+                <img class="mc-compare-img mc-compare-img--after" src="assets/img/A&amp;A/web/home-new.jpg" alt="New A&amp;A homepage (drag to compare with the original)" loading="lazy">
+                <div class="mc-compare-before" aria-hidden="true">
+                  <img class="mc-compare-img mc-compare-img--before" src="assets/img/A&amp;A/web/home-old.jpg" alt="">
+                </div>
+              </div>
+              <div class="mc-compare-divider" aria-hidden="true"></div>
+            </div>
+            <p class="aa-compare-hint"><span>Before</span> Drag the white bar <span class="aa-new-lbl">After</span></p>
+          </div>
+        </div>
+        <div class="aa-audit">
+          <div class="aa-audit-head">
+            <div>
+            <p class="mc-phase-label">Contact</p>
+            <h3>Nothing was captured</h3></div>
+            <div>
+            <p>The form only opened the visitor's email client, so nothing was stored.</p>
+            <p class="mc-phase-result">A step-by-step survey now feeds the CRM. Teammates built the connection.</p>
+            </div>
+          </div>
+          <div class="mc-compare aa-compare" data-compare>
+            <div class="mc-compare-stage" style="--split-pos: 50%;">
+              <div class="mc-compare-viewport">
+                <img class="mc-compare-img mc-compare-img--after" src="assets/img/A&amp;A/web/survey-1.png" alt="New enquiry survey (drag to compare with the original)" loading="lazy">
+                <div class="mc-compare-before" aria-hidden="true">
+                  <img class="mc-compare-img mc-compare-img--before" src="assets/img/A&amp;A/web/contact-old.jpg" alt="">
+                </div>
+              </div>
+              <div class="mc-compare-divider" aria-hidden="true"></div>
+            </div>
+            <p class="aa-compare-hint"><span>Before</span> Drag the white bar <span class="aa-new-lbl">After</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 BRANDING -->
+      <section id="section-02" data-spy-target="section-02" data-screen-label="02 Branding" class="mc-section mc-section--process">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">02 · Branding</p>
+            <h2 class="mc-section-h2">Choosing a logo that works small</h2>
+          </div>
+          <p class="mc-lede">The mark had to survive a favicon, not just a presentation slide.</p>
+        </div>
+
+        <div class="aa-rive-wrap" aria-label="Animated A&amp;A double-A logo mark">
+          <canvas id="aa-rive" width="1280" height="560" role="img" aria-label="The A&amp;A double-A mark animating into place"></canvas>
+        </div>
+
+        <article class="mc-phase" style="margin-top:32px">
+          <div class="mc-phase-split">
+            <div class="mc-phase-copy">
+              <p class="mc-phase-result">Two directions, designed from scratch.</p>
+              <ul class="aa-list">
+                <li>The old serif wordmark was tiny in the navigation, and the AI logo references on my mood board were too detailed to survive that size.</li>
+                <li>On July 23 I presented two designs: a double-A with angular construction lines, and a circular badge following the founder's direction that looked like a car brand.</li>
+                <li>The double-A won: cleaner small, better in print, easier to extend.</li>
+              </ul>
+            </div>
+            <div class="mc-phase-media">
+              <figure class="mc-figure">
+                <img src="assets/img/A&amp;A/web/logo-sketches.jpg" alt="Pen sketches of A-shaped logo marks built from construction and building forms" loading="lazy">
+                <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Early sketches of A-shaped marks.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+        <div class="aa-logo-stage" style="margin-top:20px">
+          <div class="aa-logo-tile"><img src="assets/img/A&amp;A/web/logo-web.png" alt="A&amp;A logo: blue double-A mark with Ascenzi &amp; Associates wordmark"></div>
+          <div class="aa-logo-tile aa-logo-tile--blue"><img src="assets/img/A&amp;A/web/logo-white.png" alt="A&amp;A white logo on Primary Blue"></div>
+        </div>
+      </section>
+
+      <!-- 03 DESIGN SYSTEM -->
+      <section id="section-03" data-spy-target="section-03" data-screen-label="03 Design System" class="mc-section mc-section--solutions">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">03 · Design System</p>
+            <h2 class="mc-section-h2">Two one-page guides, both v1.0.0</h2>
+          </div>
+          <p class="mc-lede">Two one-page guides that feed the whole site.</p>
+        </div>
+
+        <article class="mc-phase">
+          <p class="mc-phase-label">Color &amp; typography</p>
+          <p class="mc-phase-result">Two brand colors and one single-weight typeface.</p>
+          <ul class="aa-list" style="margin-top:12px">
+            <li><strong>Color:</strong> Primary Blue (#0028FF) and Pure Black (#000000), each with a nine-step scale plus semantic and surface colors.</li>
+            <li><strong>Type:</strong> Questrial has one weight, so hierarchy comes from size, tracking, and muted secondary text.</li>
+          </ul>
+          <ul class="aa-swatches" style="margin-top:16px" aria-label="Core brand colors">
+            <li class="aa-swatch"><i style="background:#0028FF"></i>#0028FF</li>
+            <li class="aa-swatch"><i style="background:#000000"></i>#000000</li>
+          </ul>
+          <div class="aa-pair aa-pair--tall" style="margin-top:20px">
+            <figure class="mc-figure mc-figure--white">
+              <img src="assets/img/A&amp;A/web/color-system.png" alt="Color system: brand colors, blue and neutral scales, semantic and surface colors" loading="lazy">
+              <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Color system v1.0.0.</figcaption>
+            </figure>
+            <figure class="mc-figure mc-figure--white">
+              <img src="assets/img/A&amp;A/web/typography-system.png" alt="Questrial type scale from display to overline" loading="lazy">
+              <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Typography spec v1.0.0.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <p class="aa-note"><strong>Contrast, calculated from the tokens.</strong> Contrast is calculated from the tokens. Failures became rules, such as gray 400 for decoration only and warning yellow only behind black text.</p>
+      </section>
+
+      <!-- 04 DECISIONS & PRIORITIES -->
+      <section id="section-04" data-spy-target="section-04" data-screen-label="04 Decisions and Priorities" class="mc-section mc-section--summary">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">04 · Decisions &amp; Priorities</p>
+            <h2 class="mc-section-h2">What we chose, and what we cut</h2>
+          </div>
+          <p class="mc-lede">Five decisions, then a MoSCoW pass.</p>
+        </div>
+
+        <ul class="aa-list">
+          <li><strong>A survey, not a plain email box.</strong> The business team wanted email only. I argued that means re-asking everything on a call. The founder approved the survey in the first demo.</li>
+          <li><strong>A globe, not a map.</strong> No data to filter, and a map needs upkeep.</li>
+          <li><strong>WordPress, not Framer.</strong> Framer charged monthly for a custom domain. WordPress fits CRM and two languages better.</li>
+          <li><strong>One action per page.</strong> A Contact button in the navigation, floating on mobile, and no direct email address.</li>
+          <li><strong>Privacy and CRM.</strong> I flagged a privacy policy for every form. HubSpot's free plan handles contacts and auto-replies.</li>
+        </ul>
+
+        <p class="mc-prose" style="margin-top:32px">Several "must haves" were cut: the map became a globe, partner logos became a call to action, and the AI assistant and client login stayed out of scope.</p>
+        <figure class="mc-figure mc-figure--white">
+          <img src="assets/img/A&amp;A/web/moscow.jpg" alt="MoSCoW board: must, should, could, won't" loading="lazy">
+          <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>MoSCoW board: must, should, could, won't.</figcaption>
+        </figure>
+      </section>
+
+      <!-- 05 FINAL DESIGN -->
+      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Final Design" class="mc-section mc-section--process">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">05 · Final Design</p>
+            <h2 class="mc-section-h2">One system across pages and screen sizes</h2>
+          </div>
+          <p class="mc-lede">The homepage, blog, and enquiry survey, on desktop and mobile.</p>
+        </div>
+
+        <div class="aa-mobile-pair">
+          <figure class="mc-figure aa-tall">
+            <img src="assets/img/A&amp;A/web/home-new.jpg" alt="New A&amp;A homepage on desktop" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Homepage, desktop.</figcaption>
+          </figure>
+          <figure class="mc-figure">
+            <div class="aa-mobile-img"><img src="assets/img/A&amp;A/web/home-mobile.jpg" alt="New A&amp;A homepage on mobile" loading="lazy"></div>
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Homepage, mobile.</figcaption>
+          </figure>
+        </div>
+
+        <p class="mc-figure-caption-label" style="margin-top:40px">Blog: filters, keyword search, and article template</p>
+        <div class="aa-pair" style="margin-top:12px">
+          <figure class="mc-figure">
+            <img src="assets/img/A&amp;A/web/insight-new.jpg" alt="Insight page with category filters, keyword search, and article cards" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Insight listing.</figcaption>
+          </figure>
+          <figure class="mc-figure">
+            <img src="assets/img/A&amp;A/web/insight-article-new.jpg" alt="Insight article page template" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Article template.</figcaption>
+          </figure>
+        </div>
+
+        <p class="mc-figure-caption-label" style="margin-top:40px">Enquiry survey</p>
+        <div class="aa-survey" style="margin-top:12px">
+          <figure class="mc-figure"><img src="assets/img/A&amp;A/web/survey-1.png" alt="Survey step 1: which best describes your organization" loading="lazy"><figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Role first.</figcaption></figure>
+          <figure class="mc-figure"><img src="assets/img/A&amp;A/web/survey-2.png" alt="Survey step 2" loading="lazy"><figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Then need.</figcaption></figure>
+          <figure class="mc-figure"><img src="assets/img/A&amp;A/web/survey-3.png" alt="Survey step 3" loading="lazy"><figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Answers go into the CRM.</figcaption></figure>
+        </div>
+      </section>
+
+      <!-- 06 BUILD -->
+      <section id="section-06" data-spy-target="section-06" data-screen-label="06 Build with Claude Code" class="mc-section mc-section--solutions">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">06 · Build with Claude Code</p>
+            <h2 class="mc-section-h2">From prototype to a bilingual WordPress theme</h2>
+          </div>
+          <p class="mc-lede">Claude Code wrote most of the code. I wrote the requirements, made the design calls, and tested in the browser and in WordPress.</p>
+        </div>
+
+        <ol class="aa-steps">
+          <li><strong>Interactive prototype</strong>Published on GitHub Pages to click through.</li>
+          <li><strong>Figma import</strong>Imported into Figma so teammates could comment.</li>
+          <li><strong>WordPress theme</strong>81 editable fields, in English and Traditional Chinese.</li>
+        </ol>
+
+        <p class="mc-prose" style="margin-top:32px">One of my calls: the nav and footer had drifted into three versions each, so I chose one for all eight pages.</p>
+
+        <article class="mc-phase" style="margin-top:40px">
+          <p class="mc-phase-label">September 21</p>
+          <h3 class="mc-phase-title mc-phase-title--tight">The blank-site problem</h3>
+          <p class="mc-phase-body">The installed theme showed only a header and footer. An audit showed the code was complete: no page template was assigned and the meta boxes were empty. Claude Code wrote two scripts to fill them from the prototype's copy. I kept it off my WordPress account and worked only with files I uploaded.</p>
+        </article>
+
+        <p class="mc-prose" style="margin-top:32px">Testing the live site against the prototype caught the rest, such as a carousel that never advanced and a language switcher wired up only once.</p>
+      </section>
+
+      <!-- 07 STATUS & REFLECTION -->
+      <section id="section-07" data-spy-target="section-07" data-screen-label="07 Status and Reflection" class="mc-section mc-section--summary">
+        <p class="mc-eyebrow-bar">07 · Status &amp; Reflection</p>
+        <h2 class="mc-section-h2">What I owned, and what's still moving</h2>
+        <div class="mc-impact-grid">
+          <div class="mc-impact-cell">
+            <div class="mc-impact-icon"><i class="fas fa-pen-ruler" aria-hidden="true"></i></div>
+            <p class="mc-impact-title">What I owned</p>
+            <p class="mc-impact-desc">The brand, design system, prototype, and WordPress theme, plus a back-end walkthrough so the team can publish articles.</p>
+          </div>
+          <div class="mc-impact-cell">
+            <div class="mc-impact-icon"><i class="fas fa-people-group" aria-hidden="true"></i></div>
+            <p class="mc-impact-title">What teammates owned</p>
+            <p class="mc-impact-desc">Requirements, the CRM connection, domain, test cases, and Chinese translation. The founder wrote most of the copy.</p>
+          </div>
+          <div class="mc-impact-cell">
+            <div class="mc-impact-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div>
+            <p class="mc-impact-title">In progress</p>
+            <p class="mc-impact-desc">Pre-launch testing, site animations, and a domain decision. I'll add SEO results after a one-month test.</p>
+          </div>
+        </div>
+
+        <h3 class="mc-solution-h3" style="margin-top:48px">Reflection</h3>
+        <p class="mc-prose">Content was the bottleneck for over a month, so I built the homepage from the company summary and fixed the structure while the words changed. The hard part was the last stretch: knowing why WordPress showed an empty page, and testing the live site instead of trusting the prototype.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ NEXT PROJECTS ============ -->
+  <section data-screen-label="Next projects" class="mc-next">
+    <div class="mc-next-inner">
+      <h2 class="mc-next-title">Next projects</h2>
+      <div class="mc-next-grid">
+        <a href="azrw.html" class="mc-next-card">
+          <span class="mc-next-media"><img src="assets/img/main images/RealWater.png" alt="Arizona Real Water"></span>
+          <span class="mc-next-body">
+            <span class="mc-next-name">Arizona Real Water</span>
+            <span class="mc-next-desc">Water-Education Learning Platform</span>
+            <span class="mc-next-tags">
+              <span class="mc-next-tag">EdTech</span>
+              <span class="mc-next-tag">LMS</span>
+            </span>
+          </span>
+        </a>
+        <a href="lcm.html" class="mc-next-card">
+          <span class="mc-next-media"><img src="assets/img/main images/indigenous Cultural Museums.png" alt="Indigenous Cultural Museums" style="object-position: right center;"></span>
+          <span class="mc-next-body">
+            <span class="mc-next-name">Indigenous Cultural Museums</span>
+            <span class="mc-next-desc">WCAG AA Compliant Website for 30 Museums</span>
+            <span class="mc-next-tags">
+              <span class="mc-next-tag">Public</span>
+              <span class="mc-next-tag">Website</span>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER CTA ============ -->
+  <section data-screen-label="Footer" class="mc-cta">
+    <div class="mc-cta-inner">
+      <div class="mc-cta-eyes" aria-hidden="true">
+        <span data-eye="true" class="mc-eye-big"><span data-pupil="true"></span></span>
+        <span data-eye="true" class="mc-eye-big"><span data-pupil="true"></span></span>
+      </div>
+      <h2 class="mc-cta-title">Let's build something<br>that ships.</h2>
+      <div class="mc-cta-actions">
+        <a href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" class="mc-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        <a href="mailto:themichellechen@gmail.com" class="mc-icon-btn" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        <a href="index.html#contact" class="mc-cta-btn">Get in touch <i class="fas fa-arrow-up" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <footer class="mc-footer">
+      This Portfolio is built with pure HTML / CSS / JS. Co-built with <a href="https://cursor.com" target="_blank" rel="noopener noreferrer">Cursor</a> &amp; <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a>. Hosted on <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer">GitHub <i class="fab fa-github" aria-hidden="true"></i></a>.
+    </footer>
+  </section>
+</div>
+
+<script src="assets/js/case.js?v=20260710a"></script>
+<script src="assets/vendor/rive/rive.js"></script>
+<script>
+  (function () {
+    var canvas = document.getElementById('aa-rive');
+    if (!canvas || typeof rive === 'undefined') { return; }
+    try {
+      rive.RuntimeLoader.setWasmUrl('assets/vendor/rive/rive.wasm');
+      var r = new rive.Rive({
+        src: 'assets/img/A&A/web/aa-logo.riv',
+        canvas: canvas,
+        autoplay: true,
+        layout: new rive.Layout({ fit: rive.Fit.Contain, alignment: rive.Alignment.Center }),
+        onLoad: function () { r.resizeDrawingSurfaceToCanvas(); },
+        onStop: function () { setTimeout(function () { r.play(); }, 1800); }
+      });
+      window.addEventListener('resize', function () { r.resizeDrawingSurfaceToCanvas(); }, { passive: true });
+    } catch (e) { /* decorative; page works without it */ }
+  })();
+</script>
+</body>
+</html>

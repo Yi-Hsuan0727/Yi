@@ -105,7 +105,8 @@
 
         <a href="https://ascenzigroup.com/" target="_blank" rel="noopener noreferrer" class="mc-card mc-card--feature-secondary" aria-label="Ascenzi &amp; Associates (opens the live site)">
           <span class="mc-card-media" style="background: #ffffff;">
-            <canvas id="aa-thumb-rive" width="1280" height="720" role="img" aria-label="Animated Ascenzi &amp; Associates double-A logo"></canvas>
+            <img src="assets/img/A&amp;A/web/logo-web.png" alt="" aria-hidden="true" style="position:absolute;inset:0;margin:auto;width:60%;height:auto;object-fit:contain;">
+            <canvas id="aa-thumb-rive" style="position:relative;" width="1280" height="720" role="img" aria-label="Animated Ascenzi &amp; Associates double-A logo"></canvas>
           </span>
           <span class="mc-card-body">
             <span class="mc-card-copy">
@@ -380,12 +381,13 @@
 <script src="assets/js/contact-form.js?v=20260722"></script>
 <script src="assets/js/splash.js?v=20260708d"></script>
 <script src="assets/js/home.js?v=20260722b"></script>
-<script src="https://unpkg.com/@rive-app/canvas@2.44.0/rive.js"></script>
+<script src="assets/vendor/rive/rive.js"></script>
 <script>
   (function () {
     var canvas = document.getElementById('aa-thumb-rive');
     if (!canvas || typeof rive === 'undefined') { return; }
     try {
+      rive.RuntimeLoader.setWasmUrl('assets/vendor/rive/rive.wasm');
       var r = new rive.Rive({
         src: 'assets/img/A&A/web/aa-logo.riv',
         canvas: canvas,

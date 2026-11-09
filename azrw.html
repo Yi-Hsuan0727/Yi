@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arizona Real Water - Michelle Chen</title>
+    <meta name="description" content="Design, Drupal front-end build, and a privacy data inventory for Arizona Real Water, a water-education learning platform from ASU VisLab.">
+    <link rel="canonical" href="https://themichellechen.com/azrw.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Michelle Chen">
+    <meta property="og:title" content="Arizona Real Water - Michelle Chen">
+    <meta property="og:description" content="Design, Drupal front-end build, and a privacy data inventory for a water-education learning platform.">
+    <meta property="og:url" content="https://themichellechen.com/azrw.html">
+    <meta property="og:image" content="https://themichellechen.com/assets/img/main images/RealWater.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Arizona Real Water - Michelle Chen">
+    <meta name="twitter:description" content="Design, Drupal front-end build, and a privacy data inventory for a water-education learning platform.">
+    <meta name="twitter:image" content="https://themichellechen.com/assets/img/main images/RealWater.png">
+
+    <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css?v=20260712a">
+<link rel="stylesheet" href="assets/css/cursor.css?v=20260630n">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/case.css?v=20260915e">
+<style>
+  /* Real Water page-specific additions */
+  .rw-hero-img { max-height: 520px; overflow: hidden; border-radius: 16px; position: relative; }
+  .rw-hero-img img { width: 100%; display: block; object-fit: cover; object-position: top; }
+  .rw-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .rw-pair .mc-figure img { max-height: 380px; object-fit: cover; object-position: top; }
+  .rw-pair-tag { display: inline-block; margin: 0 0 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17,21,17,0.55); }
+  .rw-pair-tag--new { color: #111511; }
+  .rw-audit { display: grid; grid-template-columns: 1fr; gap: 24px; padding: 40px 0; border-top: 1px solid rgba(17,21,17,0.12); }
+  .rw-audit-head { display: grid; grid-template-columns: 0.9fr 1.6fr; gap: 32px; align-items: start; }
+  .rw-audit:first-of-type { border-top: 0; padding-top: 8px; }
+  .rw-audit h3 { margin: 4px 0 12px; font-size: 24px; }
+  .rw-audit p { margin: 0 0 10px; line-height: 1.7; font-size: 14px; }
+  .rw-audit .mc-phase-result { margin-top: 14px; }
+  .rw-tall img { max-height: 520px; object-fit: cover; object-position: top; }
+  .rw-logo-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .rw-logo-tile { display: flex; align-items: center; justify-content: center; border-radius: 16px; padding: 40px 24px; min-height: 180px; border: 1px solid rgba(17,21,17,0.1); background: #fff; }
+  .rw-logo-tile--blue { background: #f2c94c; border-color: #f2c94c; }
+  .rw-logo-tile--black { background: #000; border-color: #000; }
+  .rw-logo-tile img { max-width: 100%; height: auto; max-height: 70px; }
+  .rw-rive-wrap { border-radius: 16px; background: #fff; border: 1px solid rgba(17,21,17,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; aspect-ratio: 16 / 7; }
+  .rw-rive-wrap canvas { width: 100%; height: 100%; display: block; }
+  .rw-swatches { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .rw-swatch { display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; }
+  .rw-swatch i { width: 28px; height: 28px; border-radius: 8px; border: 1px solid rgba(17,21,17,0.15); display: block; }
+  .rw-table td, .rw-table th { text-align: left; }
+  .rw-table td:nth-child(2) { background: none; }
+  .rw-ic-pass { color: #2ecc71; margin-right: 6px; }
+  .rw-ic-fail { color: #c0392b; margin-right: 6px; }
+  .rw-steps { counter-reset: aa; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; list-style: none; margin: 0; padding: 0; }
+  .rw-steps li { counter-increment: aa; border: 1px solid rgba(17,21,17,0.12); border-radius: 16px; padding: 20px; background: #fff; font-size: 14px; line-height: 1.65; }
+  .rw-steps li::before { content: counter(aa, decimal-leading-zero); display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: rgba(17,21,17,0.55); margin-bottom: 8px; }
+  .rw-steps strong { display: block; margin-bottom: 6px; font-size: 15px; }
+  .rw-list { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 14px; line-height: 1.7; }
+  .rw-note { margin-top: 20px; padding: 16px 20px; border-radius: 12px; background: rgba(17,21,17,0.04); font-size: 13px; line-height: 1.65; }
+  .rw-survey { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .rw-survey img { width: 100%; display: block; border-radius: 10px; border: 1px solid rgba(17,21,17,0.1); }
+  .rw-mobile-pair { display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: start; }
+  .rw-mobile-pair .rw-mobile-img { max-height: 520px; overflow: hidden; border-radius: 10px; border: 1px solid rgba(17,21,17,0.1); }
+  .rw-mobile-pair .rw-mobile-img img { width: 100%; display: block; }
+  .rw-audit .mc-compare-stage { padding: clamp(24px, 4vw, 56px) clamp(16px, 4vw, 56px) 0; }
+  .rw-compare-hint { display: flex; justify-content: space-between; margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(17,21,17,0.55); }
+  .rw-new-lbl { color: #111511; }
+  .rw-audit .mc-compare-viewport { width: min(100%, 960px); aspect-ratio: 16 / 9; }
+  .rw-audit .mc-compare-stage, .mc-video-stage { background: #f2c94c; border-color: #f2c94c; }
+  .mc-case-overview-media .mc-video-stage { padding: clamp(24px, 4vw, 56px); }
+  @media (max-width: 760px) {
+    .rw-audit-head, .rw-pair, .rw-logo-stage, .rw-survey, .rw-mobile-pair { grid-template-columns: 1fr; }
+    .rw-steps { grid-template-columns: 1fr; }
+    .rw-mobile-pair .rw-mobile-img { max-width: 220px; }
+  }
+</style>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<script src="https://t.contentsquare.net/uxa/71f187ae3daf5.js" defer></script>
+</head>
+<body class="mc-case">
+<div class="mc-root">
+
+  <nav class="mc-nav" aria-label="Primary">
+    <a href="index.html" class="mc-nav-home" aria-label="Home" data-tip="Home">
+      <span data-eye="true" class="mc-eye-nav"><span data-pupil="true"></span></span>
+      <span data-eye="true" class="mc-eye-nav"><span data-pupil="true"></span></span>
+    </a>
+    <div class="mc-nav-links">
+      <a href="index.html#featured-work" class="mc-nav-link" aria-label="Work" data-tip="Work"><i class="fas fa-briefcase" aria-hidden="true"></i></a>
+      <a href="index.html#about" class="mc-nav-link" aria-label="About" data-tip="About"><i class="fas fa-user" aria-hidden="true"></i></a>
+      <a href="index.html#contact" class="mc-nav-link" aria-label="Contact" data-tip="Contact"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+    </div>
+  </nav>
+
+  <header data-screen-label="Case header" class="mc-case-header">
+    <h1 class="mc-case-h1">Arizona Real Water</h1>
+    <p class="mc-case-sub">A water-education learning platform, designed and built in Drupal</p>
+    <div class="mc-case-tags">
+      <span class="mc-case-tag">EdTech</span>
+      <span class="mc-case-tag">LMS</span>
+      <span class="mc-case-tag">Drupal</span>
+      <span class="mc-case-tag">Accessibility</span>
+    </div>
+
+    <div class="mc-case-meta">
+      <div class="mc-meta-left">
+        <div class="mc-meta-facts">
+          <div>
+            <p class="mc-meta-label">Role</p>
+            <p class="mc-meta-value">Designer &amp; Front-End Developer at ASU VisLab</p>
+          </div>
+          <div>
+            <p class="mc-meta-label">Timeline</p>
+            <p class="mc-meta-value">2026 – present</p>
+          </div>
+          <div>
+            <p class="mc-meta-label">Team</p>
+            <p class="mc-meta-value">VisLab designers and developers, the Real Water water-education team</p>
+          </div>
+          <div>
+            <p class="mc-meta-label">Status</p>
+            <p class="mc-meta-value">Live at <a href="https://realwateraz.org/" target="_blank" rel="noopener noreferrer">realwateraz.org</a></p>
+          </div>
+          <div class="mc-meta-full">
+            <p class="mc-meta-label">Tools</p>
+            <div class="mc-tool-list" role="list" aria-label="Project tools">
+              <span role="listitem" class="mc-tool">Figma</span>
+              <span role="listitem" class="mc-tool">FigJam</span>
+              <span role="listitem" class="mc-tool">ASU Design System</span>
+              <span role="listitem" class="mc-tool">Drupal 10</span>
+              <span role="listitem" class="mc-tool">Twig</span>
+              <span role="listitem" class="mc-tool">SCSS</span>
+              <span role="listitem" class="mc-tool">Storybook</span>
+              <span role="listitem" class="mc-tool">Claude</span>
+            </div>
+          </div>
+        </div>
+        <div class="mc-tldr" aria-label="Summary">
+          <div class="mc-tldr-block">
+            <p class="mc-tldr-label">TL;DR</p>
+            <p>Arizona Real Water is a learning platform for water education in Arizona. It serves real estate agents and brokers, educators, and the public, and comes from ASU's Arizona Water Innovation Initiative with the Arizona Department of Real Estate. The platform is live at <a href="https://realwateraz.org/" target="_blank" rel="noopener noreferrer">realwateraz.org</a>.</p>
+          </div>
+          <div class="mc-tldr-block">
+            <p class="mc-tldr-label">My role</p>
+            <p>I am the designer and developer on the platform. I design in Figma on top of the ASU Design System, write the Twig templates and SCSS, fix accessibility issues in the code, and helped document what personal data the platform collects and how we explain it.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mc-stat-grid" aria-label="Project summary">
+        <div>
+          <p class="mc-stat-label">Learner paths</p>
+          <p class="mc-stat-value" aria-label="2 learner paths"><span data-count="2">0</span></p>
+          <p class="mc-stat-caption">agent/broker and educator</p>
+        </div>
+        <div>
+          <p class="mc-stat-label">Platform</p>
+          <p class="mc-stat-value">Drupal 10</p>
+          <p class="mc-stat-caption">Twig and SCSS</p>
+        </div>
+        <div>
+          <p class="mc-stat-label">Data areas inventoried</p>
+          <p class="mc-stat-value" aria-label="4 data areas"><span data-count="4">0</span></p>
+          <p class="mc-stat-caption">analytics, forms, video, AI assistant</p>
+        </div>
+        <div>
+          <p class="mc-stat-label">Default retention</p>
+          <p class="mc-stat-value" aria-label="4 years"><span data-count="4">0</span> yrs</p>
+          <p class="mc-stat-caption">in the data inventory</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mc-case-overview-media">
+      <figure class="mc-figure mc-figure--white">
+        <img src="assets/img/AZRW/web/dashboard-hero.jpg" alt="Arizona Real Water learner dashboard design with tabs for all, in progress, saved, and completed courses, filters, and course cards" loading="eager">
+        <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>The learner dashboard, in Figma.</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <!-- ============ BODY: TOC + SECTIONS ============ -->
+  <div class="mc-case-body">
+
+    <nav class="mc-toc" aria-label="On this page">
+      <a data-spy="section-01" href="#section-01" class="mc-toc-link">01 · Context &amp; Users</a>
+      <a data-spy="section-02" href="#section-02" class="mc-toc-link">02 · Scope &amp; Priorities</a>
+      <a data-spy="section-03" href="#section-03" class="mc-toc-link">03 · Design</a>
+      <a data-spy="section-04" href="#section-04" class="mc-toc-link">04 · Build</a>
+      <a data-spy="section-05" href="#section-05" class="mc-toc-link">05 · Privacy &amp; Data</a>
+      <a data-spy="section-06" href="#section-06" class="mc-toc-link">06 · Reflection</a>
+    </nav>
+
+    <div class="mc-sections">
+
+      <!-- 01 CONTEXT & USERS -->
+      <section id="section-01" data-spy-target="section-01" data-screen-label="01 Context and Users" class="mc-section mc-section--problem">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">01 · Context &amp; Users</p>
+            <h2 class="mc-section-h2">Water education for people who make real decisions about water</h2>
+          </div>
+          <p class="mc-lede">The platform delivers accessible water-education courses for Arizona communities, real estate professionals, and the public.</p>
+        </div>
+        <div class="mc-problem-grid">
+          <div class="mc-problem-card">
+            <div class="mc-problem-icon"><i class="fas fa-house" aria-hidden="true"></i></div>
+            <strong>Agents and brokers</strong>
+            <p>Real estate professionals who need to explain water and disclosure rules to their clients.</p>
+          </div>
+          <div class="mc-problem-card">
+            <div class="mc-problem-icon"><i class="fas fa-chalkboard-user" aria-hidden="true"></i></div>
+            <strong>Educators</strong>
+            <p>People who teach water topics and want course material and tools they can reuse. Educator courses are tagged separately from agent and broker courses.</p>
+          </div>
+          <div class="mc-problem-card">
+            <div class="mc-problem-icon"><i class="fas fa-people-group" aria-hidden="true"></i></div>
+            <strong>The public</strong>
+            <p>Anyone curious about water in Arizona can read the public content without an account.</p>
+          </div>
+        </div>
+
+        <p class="mc-figure-caption-label" style="margin-top:48px">How a learner moves through the platform</p>
+        <p class="mc-prose">The flow was mapped in FigJam. A visitor first chooses a role, either educator or agent/broker. Onboarding then asks role-specific questions and leads to a short tutorial and a dashboard. From the dashboard a learner resumes in-progress courses, browses new ones, or opens saved courses. Finishing a course ends on a completion page and a badge for each module. The profile collects badges and certificates, and a chatbot stays available on the page.</p>
+        <figure class="mc-figure mc-figure--white">
+          <img src="assets/img/AZRW/web/course-userflow.jpg" alt="FigJam user flow with notes: choose user group, onboarding, tutorial, dashboard, course page, completion page, badge, profile, and chatbot" loading="lazy">
+          <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Course user flow, with open questions on the sticky notes.</figcaption>
+        </figure>
+      </section>
+
+      <!-- 02 SCOPE & PRIORITIES -->
+      <section id="section-02" data-spy-target="section-02" data-screen-label="02 Scope and Priorities" class="mc-section mc-section--process">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">02 · Scope &amp; Priorities</p>
+            <h2 class="mc-section-h2">What the platform must do first</h2>
+          </div>
+          <p class="mc-lede">A MoSCoW board sorted features into must have, should have, could have, and won't have, so the build could start with the essentials.</p>
+        </div>
+        <div class="mc-goal-grid">
+          <div class="mc-goal-card">
+            <div class="mc-goal-icon"><i class="fas fa-bullseye" aria-hidden="true"></i></div>
+            <p class="mc-goal-title">Must have</p>
+            <p class="mc-goal-desc">Onboarding that identifies the type of user and builds a learning plan, video progress and transcripts, learning objectives, badges, and varied quiz formats.</p>
+          </div>
+          <div class="mc-goal-card">
+            <div class="mc-goal-icon"><i class="fas fa-circle-plus" aria-hidden="true"></i></div>
+            <p class="mc-goal-title">Should have</p>
+            <p class="mc-goal-desc">Optional profiles that save progress, an FAQ section, and an AI assistant for water questions.</p>
+          </div>
+          <div class="mc-goal-card">
+            <div class="mc-goal-icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
+            <p class="mc-goal-title">Could have, won't have</p>
+            <p class="mc-goal-desc">Adaptive learning and regional tagging could follow. Full gamification and moderated discussion forums are out of scope.</p>
+          </div>
+        </div>
+        <figure class="mc-figure mc-figure--white" style="margin-top:32px">
+          <img src="assets/img/AZRW/web/moscow.jpg" alt="MoSCoW board for Arizona Real Water: must have, should have, could have, won't have" loading="lazy">
+          <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>MoSCoW board: must, should, could, won't.</figcaption>
+        </figure>
+      </section>
+
+      <!-- 03 DESIGN -->
+      <section id="section-03" data-spy-target="section-03" data-screen-label="03 Design" class="mc-section mc-section--solutions">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">03 · Design</p>
+            <h2 class="mc-section-h2">Inside the ASU Design System, extended where needed</h2>
+          </div>
+          <p class="mc-lede">This is an ASU project, so the design starts from the ASU Design System and adds new patterns only when the project needs them.</p>
+        </div>
+        <div class="mc-problem-grid">
+          <div class="mc-problem-card">
+            <div class="mc-problem-icon"><i class="fas fa-sliders" aria-hidden="true"></i></div>
+            <strong>Figma variables</strong>
+            <p>I build the design tokens in Figma as variables, on top of the ASU Design System. The component list documents each component's states.</p>
+          </div>
+          <div class="mc-problem-card">
+            <div class="mc-problem-icon"><i class="fas fa-puzzle-piece" aria-hidden="true"></i></div>
+            <strong>New patterns, when needed</strong>
+            <p>When the project needs a pattern the design system doesn't have, I extend the system instead of starting a separate style.</p>
+          </div>
+          <div class="mc-problem-card">
+            <div class="mc-problem-icon"><i class="fas fa-universal-access" aria-hidden="true"></i></div>
+            <strong>Accessible by default</strong>
+            <p>Transcripts and adjustable video speed were must-have features, and I fixed ARIA issues directly in the templates.</p>
+          </div>
+        </div>
+
+        <p class="mc-figure-caption-label" style="margin-top:48px">Key screens</p>
+        <p class="mc-prose">The designs cover the learner's whole path. These are the Figma designs, and some still use placeholder text and images.</p>
+        <div class="rw-pair">
+          <figure class="mc-figure">
+            <img src="assets/img/AZRW/web/dashboard.jpg" alt="Dashboard design with All, In progress, Saved, and Completed tabs, topic, group, and location filters, and course cards with progress bars" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Dashboard: four tabs and three filters over course cards with progress.</figcaption>
+          </figure>
+          <figure class="mc-figure">
+            <img src="assets/img/AZRW/web/course-page.jpg" alt="Course page design with learning goals, a What You'll Get badge, and related courses" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Course page: learning goals, the badge you earn, related courses.</figcaption>
+          </figure>
+        </div>
+
+        <p class="mc-figure-caption-label" style="margin-top:40px">Lessons and quizzes</p>
+        <p class="mc-prose">A lesson page pairs the video with a View Transcript button and an overview. Quizzes support five question types: scale, single choice, short answer, long answer, and checkbox. Each answer can show a correct or an error message.</p>
+        <div class="rw-pair">
+          <figure class="mc-figure">
+            <img src="assets/img/AZRW/web/lesson.jpg" alt="Lesson page design with a video, a View Transcript button, and an overview" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Lesson page with a transcript button.</figcaption>
+          </figure>
+          <figure class="mc-figure">
+            <img src="assets/img/AZRW/web/quiz-result.jpg" alt="Quiz design showing an error message in red and correct messages in green under the questions" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Quiz with error and correct states.</figcaption>
+          </figure>
+        </div>
+
+        <p class="mc-figure-caption-label" style="margin-top:40px">Resources and profile</p>
+        <div class="rw-pair">
+          <figure class="mc-figure">
+            <img src="assets/img/AZRW/web/resources.jpg" alt="Resources library design with featured resources and an all-resources filter" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Resources library: featured items, then a filterable list.</figcaption>
+          </figure>
+          <figure class="mc-figure">
+            <img src="assets/img/AZRW/web/profile.jpg" alt="Profile design with an Achievement tab showing a grid of badges" loading="lazy">
+            <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Profile: achievements, with personal information on a second tab.</figcaption>
+          </figure>
+        </div>
+
+        <p class="mc-figure-caption-label" style="margin-top:40px">Component library</p>
+        <p class="mc-prose">I organized the components in one Figma list: buttons in four colors and three sizes, each with default, hover, disabled, focus, and icon states, plus cards, certificate, badge, download, flip card, and carousel components. Notes beside each one record rules such as the 8 px radius.</p>
+        <figure class="mc-figure mc-figure--white rw-tall">
+          <img src="assets/img/AZRW/web/components.jpg" alt="Figma component list showing button variants and states, course cards, a certificate card, badges, a download resource card, and a flip card" loading="lazy">
+          <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>Component list, top section (buttons and cards).</figcaption>
+        </figure>
+
+        <p class="mc-figure-caption-label" style="margin-top:40px">Edge cases</p>
+        <p class="mc-prose">Error pages get their own designs, so a wrong link or a blocked page still explains what happened and offers a way back.</p>
+        <figure class="mc-figure">
+          <img src="assets/img/AZRW/web/404.jpg" alt="404 page design with a water drop character and a Back to Home Page button" loading="lazy">
+          <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>404 page with a way back.</figcaption>
+        </figure>
+      </section>
+
+      <!-- 04 BUILD -->
+      <section id="section-04" data-spy-target="section-04" data-screen-label="04 Build" class="mc-section mc-section--process">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">04 · Build</p>
+            <h2 class="mc-section-h2">Twig templates and SCSS in Drupal</h2>
+          </div>
+          <p class="mc-lede">I write the front end of the Drupal theme: Twig templates for each content type and SCSS for the styles.</p>
+        </div>
+        <article class="mc-phase">
+          <p class="mc-phase-label">Example</p>
+          <h3 class="mc-phase-title mc-phase-title--tight">A template for lesson resources</h3>
+          <div class="mc-phase-split">
+            <div class="mc-phase-copy">
+              <p class="mc-phase-result">One paragraph type, four fields.</p>
+              <p class="mc-phase-body">The Resources paragraph shows a title, the source, an external link, and a PDF download, and each part only renders when the editor fills it in. Some templates like this were drafted with Claude's help, then edited in the theme and tested after rebuilding the Drupal cache.</p>
+            </div>
+            <div class="mc-phase-media">
+              <figure class="mc-figure mc-figure--white">
+                <img src="assets/img/AZRW/web/twig-template.jpg" alt="Code editor showing a Twig template for the Resources paragraph next to a Claude conversation" loading="lazy">
+                <figcaption class="mc-figcaption"><span class="mc-figcaption-dot"></span>The Resources paragraph template in the theme.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+        <article class="mc-phase">
+          <p class="mc-phase-label">Handoff</p>
+          <h3 class="mc-phase-title mc-phase-title--tight">Storybook for the components</h3>
+          <p class="mc-phase-body">Components are documented in Storybook for handoff.</p>
+          <!-- TODO image: Storybook screenshot (a component with its states) -->
+        </article>
+      </section>
+
+      <!-- 05 PRIVACY & DATA -->
+      <section id="section-05" data-spy-target="section-05" data-screen-label="05 Privacy and Data" class="mc-section mc-section--solutions">
+        <div class="mc-2col-header">
+          <div>
+            <p class="mc-eyebrow-bar">05 · Privacy &amp; Data</p>
+            <h2 class="mc-section-h2">Writing down what we collect before saying it out loud</h2>
+          </div>
+          <p class="mc-lede">A learning platform with accounts, forms, video, and an AI assistant collects personal data. I helped document it in an inventory that the privacy page draws on.</p>
+        </div>
+        <div class="mc-goal-grid">
+          <div class="mc-goal-card">
+            <div class="mc-goal-icon"><i class="fas fa-table-list" aria-hidden="true"></i></div>
+            <p class="mc-goal-num">Inventory</p>
+            <p class="mc-goal-title">Every data point, one row each</p>
+            <p class="mc-goal-desc">The inventory covers analytics, forms, video embeds, and the AI assistant. Gaps are marked "fill in" rather than guessed, since a reviewer would rather see a gap than a retention period nobody set.</p>
+          </div>
+          <div class="mc-goal-card">
+            <div class="mc-goal-icon"><i class="fas fa-link" aria-hidden="true"></i></div>
+            <p class="mc-goal-num">Decision</p>
+            <p class="mc-goal-title">Link to ASU's statement</p>
+            <p class="mc-goal-desc">The privacy page links to the ASU Privacy Statement as the governing document and acts as a site-specific supplement, instead of copying it.</p>
+          </div>
+          <div class="mc-goal-card">
+            <div class="mc-goal-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
+            <p class="mc-goal-num">Decision</p>
+            <p class="mc-goal-title">A default retention period</p>
+            <p class="mc-goal-desc">Four years by default: two license renewal cycles of two years each, plus a window for research analysis. Rows that differ explain why.</p>
+          </div>
+          <div class="mc-goal-card">
+            <div class="mc-goal-icon"><i class="fas fa-envelope-open-text" aria-hidden="true"></i></div>
+            <p class="mc-goal-num">Decision</p>
+            <p class="mc-goal-title">Contact form, two paths</p>
+            <p class="mc-goal-desc">The form stores submissions in the Drupal database and also sends a notification email. Both paths are disclosed, and the database copy needs a purge schedule.</p>
+          </div>
+        </div>
+        <p class="mc-figure-caption-label" style="margin-top:48px">The AI assistant</p>
+        <p class="mc-prose">The Real Waterbot answers questions about Arizona water. My part was the interface and the privacy documentation, not the model. I helped prepare a question list for the people who built the bot, grouped into vendor and contract, data flow, logging, and what the interface tells users. The answers decide how much of the privacy page's AI section is needed.</p>
+        <p class="rw-note"><strong>Not legal advice.</strong> Entity, student-record scope, and consent mechanics are calls for university counsel and governance. The inventory prepares those conversations.</p>
+      </section>
+
+      <!-- 06 REFLECTION -->
+      <section id="section-06" data-spy-target="section-06" data-screen-label="06 Reflection" class="mc-section mc-section--summary">
+        <p class="mc-eyebrow-bar">06 · Reflection</p>
+        <h2 class="mc-section-h2">What I owned, and what's still moving</h2>
+        <div class="mc-impact-grid">
+          <div class="mc-impact-cell">
+            <div class="mc-impact-icon"><i class="fas fa-pen-ruler" aria-hidden="true"></i></div>
+            <p class="mc-impact-title">What I own</p>
+            <p class="mc-impact-desc">Design in Figma, the Twig and SCSS front end, accessibility fixes in the templates, and the interface side of the AI assistant.</p>
+          </div>
+          <div class="mc-impact-cell">
+            <div class="mc-impact-icon"><i class="fas fa-people-group" aria-hidden="true"></i></div>
+            <p class="mc-impact-title">What others own</p>
+            <p class="mc-impact-desc">Course content and curriculum come from the water-education team, and the bot's model and hosting from the people who built it.</p>
+          </div>
+          <div class="mc-impact-cell">
+            <div class="mc-impact-icon"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div>
+            <p class="mc-impact-title">In progress</p>
+            <p class="mc-impact-desc">The platform is live, and courses keep being added and tested.</p>
+          </div>
+        </div>
+
+        <h3 class="mc-solution-h3" style="margin-top:48px">Reflection</h3>
+        <p class="mc-prose">Design on a real product includes what data we collect and how we explain it. The platform is live and still growing, so I'll update this page as courses and screens change.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ NEXT PROJECTS ============ -->
+  <section data-screen-label="Next projects" class="mc-next">
+    <div class="mc-next-inner">
+      <h2 class="mc-next-title">Next projects</h2>
+      <div class="mc-next-grid">
+        <a href="lcm.html" class="mc-next-card">
+          <span class="mc-next-media"><img src="assets/img/main images/indigenous Cultural Museums.png" alt="Indigenous Cultural Museums" style="object-position: right center;"></span>
+          <span class="mc-next-body">
+            <span class="mc-next-name">Indigenous Cultural Museums</span>
+            <span class="mc-next-desc">WCAG AA Compliant Website for 30 Museums</span>
+            <span class="mc-next-tags">
+              <span class="mc-next-tag">Public</span>
+              <span class="mc-next-tag">Website</span>
+            </span>
+          </span>
+        </a>
+        <a href="uav.html" class="mc-next-card">
+          <span class="mc-next-media"><img src="assets/img/main images/UAV.png" alt="UAV Control System"></span>
+          <span class="mc-next-body">
+            <span class="mc-next-name">UAV Control System</span>
+            <span class="mc-next-desc">Agricultural UAV Interface Design</span>
+            <span class="mc-next-tags">
+              <span class="mc-next-tag">Enterprise</span>
+              <span class="mc-next-tag">Tablet App</span>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER CTA ============ -->
+  <section data-screen-label="Footer" class="mc-cta">
+    <div class="mc-cta-inner">
+      <div class="mc-cta-eyes" aria-hidden="true">
+        <span data-eye="true" class="mc-eye-big"><span data-pupil="true"></span></span>
+        <span data-eye="true" class="mc-eye-big"><span data-pupil="true"></span></span>
+      </div>
+      <h2 class="mc-cta-title">Let's build something<br>that ships.</h2>
+      <div class="mc-cta-actions">
+        <a href="https://www.linkedin.com/in/mchen0727/" target="_blank" rel="noopener noreferrer" class="mc-icon-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+        <a href="mailto:themichellechen@gmail.com" class="mc-icon-btn" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+        <a href="index.html#contact" class="mc-cta-btn">Get in touch <i class="fas fa-arrow-up" aria-hidden="true"></i></a>
+      </div>
+    </div>
+    <footer class="mc-footer">
+      This Portfolio is built with pure HTML / CSS / JS. Co-built with <a href="https://cursor.com" target="_blank" rel="noopener noreferrer">Cursor</a> &amp; <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">Claude</a>. Hosted on <a href="https://github.com/Yi-Hsuan0727/Yi" target="_blank" rel="noopener noreferrer">GitHub <i class="fab fa-github" aria-hidden="true"></i></a>.
+    </footer>
+  </section>
+</div>
+
+<script src="assets/js/case.js?v=20260710a"></script>
+</body>
+</html>
